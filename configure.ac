@@ -12,7 +12,7 @@ case $target_os in
      *openbsd*)
      ;;
      *)
-     CFLAGS=$CFLAGS -D__bounded__(x,y,z)
+     CFLAGS="$CFLAGS -D__bounded__(x,y,z)"
      ;;
 esac
 

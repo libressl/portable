@@ -9,6 +9,14 @@ AC_SUBST([USER_CFLAGS], "-O2 $CFLAGS")
 CFLAGS="$CFLAGS -Wall -Werror -std=c99 -g -Wno-pointer-sign -DHAVE_CRYPTODEV -DLIBRESSL_INTERNAL"
 
 case $target_os in
+     *openbsd*)
+     ;;
+     *)
+     CFLAGS=$CFLAGS -D__bounded__(x,y,z)
+     ;;
+esac
+
+case $target_os in
 	*darwin*)
 		TARGET_OS=darwin;
 		LDFLAGS="$LDFLAGS -Qunused-arguments"

@@ -169,4 +169,5 @@ crypto/ui/
 crypto/whrlpool/
 crypto/x509/
 crypto/x509v3/
-
+openbsd/
+.gitmodules

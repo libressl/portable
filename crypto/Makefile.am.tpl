@@ -65,5 +65,7 @@ libcompat_la_SOURCES += compat/strtonum.c
 endif
 
 noinst_HEADERS = des/ncbc_enc.c
+noinst_HEADERS += compat/thread_private.h
+noinst_HEADERS += compat/chacha_private.h
 libcrypto_la_SOURCES =
 EXTRA_libcrypto_la_SOURCES =

@@ -2,16 +2,20 @@
 set -e
 
 # resync this library with the upstream project, remove old submodule dirs
+if [ -d openbsd ]; then
 git submodule init
 git submodule update
-rm -fr *-openbsd
+else
+git submodule add /cvs.b/libressl/openbsd
+git submodule update
+fi
 
-libssl_src=openbsd/libssl
-libssl_regress=openbsd/libssl-regress
-libc_src=openbsd/libc
-libc_regress=openbsd/libc-regress
-libcrypto_src=openbsd/libcrypto
-libcrypto_regress=openbsd/libcrypto-regress
+libssl_src=openbsd/src/lib/libssl
+libssl_regress=openbsd/src/regress/lib/libssl
+libc_src=openbsd/src/lib/libc
+libc_regress=openbsd/src/regress/lib/libc
+libcrypto_src=openbsd/src/lib/libcrypto
+libcrypto_regress=openbsd/src/regress/lib/libcrypto
 
 source $libssl_src/ssl/shlib_version
 libssl_version=$major:$minor:0
@@ -320,17 +324,18 @@ echo "EXTRA_DIST += testssl ca.pem server.pem" >> tests/Makefile.am
 	done
 )
 
+#XXX fix this in a header and remove it. 
 # remove unsupported __bounded__ attributes
-bounded_excludes=(
-	include/openssl/bio.h
-	include/openssl/buffer.h
-	include/openssl/md5.h
-	include/openssl/sha.h
-	crypto/chacha/chacha-merged.c
-	)
-for i in "${bounded_excludes[@]}"; do
-	sed -ie 's/__attribute__.*((__bounded__.*/;/' $i
-done
+#bounded_excludes=(
+#	include/openssl/bio.h
+#	include/openssl/buffer.h
+#	include/openssl/md5.h
+#	include/openssl/sha.h
+#	crypto/chacha/chacha-merged.c
+#	)
+#for i in "${bounded_excludes[@]}"; do
+#	sed -ie 's/__attribute__.*((__bounded__.*/;/' $i
+#done
 
 (cd ssl
 	sed -e "s/libssl-version/${libssl_version}/" Makefile.am.tpl > Makefile.am

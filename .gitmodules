@@ -1,0 +1,3 @@
+[submodule "openbsd"]
+	path = openbsd
+	url = /cvs.b/libressl/openbsd

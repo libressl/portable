@@ -6,8 +6,12 @@ if [ -d openbsd ]; then
 git submodule init
 git submodule update
 else
-git submodule add /cvs.b/libressl/openbsd
+if [ -z "$LIBRESSL_GIT" ]; then
+git submodule add https://github.com/libressl-portable/openbsd.git
+else
+git submodule add $LIBRESSL_GIT/openbsd
 git submodule update
+fi
 fi
 
 libssl_src=openbsd/src/lib/libssl

@@ -9,14 +9,6 @@ AC_SUBST([USER_CFLAGS], "-O2 $CFLAGS")
 CFLAGS="$CFLAGS -Wall -Werror -std=c99 -g -Wno-pointer-sign -DHAVE_CRYPTODEV -DLIBRESSL_INTERNAL"
 
 case $target_os in
-     *openbsd*)
-     ;;
-     *)
-     CFLAGS="$CFLAGS -D__bounded__(x,y,z)"
-     ;;
-esac
-
-case $target_os in
 	*darwin*)
 		TARGET_OS=darwin;
 		LDFLAGS="$LDFLAGS -Qunused-arguments"
@@ -29,6 +21,9 @@ case $target_os in
 		TARGET_OS=solaris;
 		CFLAGS="$CFLAGS -D__EXTENSIONS__ -D_XOPEN_SOURCE=600 -DBSD_COMP"
 		AC_SUBST([PLATFORM_LDADD], ['-lnsl -lsocket'])
+		;;
+	*openbsd*)
+		AC_DEFINE([HAVE_ATTRIBUTE__BOUNDED__], [1], [OpenBSD gcc has bounded])
 		;;
 	*) ;;
 esac

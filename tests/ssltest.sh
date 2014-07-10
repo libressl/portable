@@ -1,4 +1,4 @@
 #!/bin/sh
 set -e
-export PATH=$srcdir/../apps:$PATH
+export PATH=../apps:$PATH
 $srcdir/testssl $srcdir/server.pem $srcdir/server.pem $srcdir/ca.pem

@@ -1,4 +1,4 @@
-AC_INIT([libressl], [1.0.0])
+AC_INIT([libressl], [2.0.0])
 AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE([subdir-objects])
 AC_CONFIG_MACRO_DIR([m4])

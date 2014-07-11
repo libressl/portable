@@ -19,6 +19,7 @@ libssl_regress=openbsd/src/regress/lib/libssl
 libc_src=openbsd/src/lib/libc
 libc_regress=openbsd/src/regress/lib/libc
 libcrypto_src=openbsd/src/lib/libcrypto
+openssl_cmd_src=openbsd/src/usr.sbin/openssl
 libcrypto_regress=openbsd/src/regress/lib/libcrypto
 
 source $libssl_src/ssl/shlib_version
@@ -384,11 +385,22 @@ crypto_excludes=(
 
 (cd man
 	cp Makefile.am.tpl Makefile.am
-        for i in `ls -1 ../$libssl_src/src/doc/crypto/*.pod | sort`; do
-	    BASE=`echo $i|sed -e "s/\.pod//"`
-	    echo $BASE
-	    NAME=`basename "$BASE"`
-	    pod2man --official --release=LibreSSL --center=LibreSSL --section=3 --name=$NAME < $BASE.pod > $NAME.3
-	    echo "dist_man_MANS += $NAME.3" >> Makefile.am
-        done
+	for i in `ls -1 ../$libssl_src/src/doc/crypto/*.pod | sort`; do
+		BASE=`echo $i|sed -e "s/\.pod//"`
+		NAME=`basename "$BASE"`
+		echo processing $NAME
+		#pod2man --official --release=LibreSSL --center=LibreSSL --section=3 --name=$NAME < $BASE.pod > $NAME.3
+		echo "dist_man_MANS += $NAME.3" >> Makefile.am
+	done
+	echo "dist_man_MANS += openssl.1" >> Makefile.am
+	echo "post-install-exec-hook:" >> Makefile.am
+	cp ../$openssl_cmd_src/openssl.1 .
+	echo "	\$(LN_S) \$(DESTDIR)\$(mandir)/man1/$1 \$(DESTDIR)\$(mandir)/man1/$2" >> Makefile.am
+	source links
+	IFS=","
+	for i in $MANLINKS; do
+		set $i
+		echo "	\$(LN_S) \$(DESTDIR)\$(mandir)/man3/$1 \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
+	done
+	unset IFS
 )

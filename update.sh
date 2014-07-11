@@ -389,6 +389,6 @@ crypto_excludes=(
 	    echo $BASE
 	    NAME=`basename "$BASE"`
 	    pod2man --official --release=LibreSSL --center=LibreSSL --section=3 --name=$NAME < $BASE.pod > $NAME.3
-	    echo "man_MAN += $NAME.3" >> Makefile.am
+	    echo "dist_man_MANS += $NAME.3" >> Makefile.am
         done
 )

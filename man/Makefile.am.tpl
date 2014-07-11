@@ -1,2 +1,3 @@
 include $(top_srcdir)/Makefile.am.common
-man_MAN=
+dist_man_MANS=
+

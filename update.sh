@@ -3,15 +3,15 @@ set -e
 
 # resync this library with the upstream project, remove old submodule dirs
 if [ -d openbsd ]; then
-git submodule init
-git submodule update
+	(cd openbsd
+	 git co master
+	 git pull)
 else
-if [ -z "$LIBRESSL_GIT" ]; then
-git submodule add https://github.com/libressl-portable/openbsd.git
-else
-git submodule add $LIBRESSL_GIT/openbsd
-git submodule update
-fi
+	if [ -z "$LIBRESSL_GIT" ]; then
+		git clone https://github.com/libressl-portable/openbsd.git
+	else
+		git clone $LIBRESSL_GIT/openbsd
+	fi
 fi
 
 libssl_src=openbsd/src/lib/libssl
@@ -292,7 +292,7 @@ for i in ssl/ssltest.c ssl/testssl certs/ca.pem certs/server.pem; do
 done
 
 # do not directly run all test programs
-test_excludes=(aeadtest evptest pq_test ssltest arc4randomforktest)
+test_excludes=(biotest aeadtest evptest pq_test ssltest arc4randomforktest)
 (cd tests
 	cp Makefile.am.tpl Makefile.am
 
@@ -313,8 +313,10 @@ cp $libcrypto_regress/aead/aeadtests.txt tests
 cp $libcrypto_regress/pqueue/expected.txt tests/pq_expected.txt
 chmod 755 tests/testssl
 for i in "${test_excludes[@]}"; do
-	echo "TESTS += ${i}.sh" >> tests/Makefile.am
-	echo "EXTRA_DIST += ${i}.sh" >> tests/Makefile.am
+	if [ -e tests/${i}.sh ]; then
+		echo "TESTS += ${i}.sh" >> tests/Makefile.am
+		echo "EXTRA_DIST += ${i}.sh" >> tests/Makefile.am
+	fi
 done
 echo "EXTRA_DIST += aeadtests.txt" >> tests/Makefile.am
 echo "EXTRA_DIST += evptests.txt" >> tests/Makefile.am
@@ -327,19 +329,6 @@ echo "EXTRA_DIST += testssl ca.pem server.pem" >> tests/Makefile.am
 		echo "opensslinclude_HEADERS += $i" >> Makefile.am
 	done
 )
-
-#XXX fix this in a header and remove it. 
-# remove unsupported __bounded__ attributes
-#bounded_excludes=(
-#	include/openssl/bio.h
-#	include/openssl/buffer.h
-#	include/openssl/md5.h
-#	include/openssl/sha.h
-#	crypto/chacha/chacha-merged.c
-#	)
-#for i in "${bounded_excludes[@]}"; do
-#	sed -ie 's/__attribute__.*((__bounded__.*/;/' $i
-#done
 
 (cd ssl
 	sed -e "s/libssl-version/${libssl_version}/" Makefile.am.tpl > Makefile.am

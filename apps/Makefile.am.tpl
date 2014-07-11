@@ -9,3 +9,7 @@ openssl_LDADD += $(top_builddir)/ssl/libssl.la
 
 openssl_SOURCES =
 noinst_HEADERS =
+
+if NO_STRTONUM
+openssl_SOURCES += strtonum.c
+endif

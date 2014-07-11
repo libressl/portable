@@ -63,7 +63,6 @@ for i in explicit_bzero.c strlcpy.c strlcat.c timingsafe_bcmp.c timingsafe_memcm
 	cp $libc_src/string/$i crypto/compat
 done
 cp $libc_src/stdlib/reallocarray.c crypto/compat
-cp $libc_src/stdlib/strtonum.c crypto/compat
 cp $libc_src/crypt/arc4random.c crypto/compat
 cp $libc_src/crypt/chacha_private.h crypto/compat
 cp $libcrypto_src/crypto/getentropy_*.c crypto/compat
@@ -374,10 +373,17 @@ crypto_excludes=(
 	done
 )
 
+# conditional compiles
+cp $libc_src/stdlib/strtonum.c apps/
+apps_excludes=(
+	strtonum.c
+	)
 (cd apps
 	cp Makefile.am.tpl Makefile.am
 	for i in `ls -1 *.c|sort`; do
-		echo "openssl_SOURCES += $i" >> Makefile.am
+		if ! [[ ${apps_excludes[*]} =~ $i ]]; then
+			echo "openssl_SOURCES += $i" >> Makefile.am
+		fi
 	done
 	for i in `ls -1 *.h|sort`; do
 		echo "noinst_HEADERS += $i" >> Makefile.am

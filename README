@@ -5,12 +5,11 @@ LibreSSL is a fork of OpenSSL developed by the OpenBSD project
 package then adds portability shims for other operating systems. 
 
 Official release tarballs are available at your friendly neighborhood
-OpenBSD mirror in directory libressl:
-
-e.g. http://ftp.openbsd.org/pub/OpenBSD/LibreSSL/
+OpenBSD mirror in directory LibreSSL, e.g.:
+http://ftp.openbsd.org/pub/OpenBSD/LibreSSL/
 although it is suggested you use a mirror. 
 
-A github clone of the official repositories is kept at
+A github clone of the official repositories is kept at:
 https://github.com/libressl-portable
 We update this repository semi-frequently, but it should be used for
 informational purposes only.

@@ -909,12 +909,14 @@ MLINKS="ASN1_OBJECT_new.3,ASN1_OBJECT_free.3 \
 	SSL_CTX_set_client_CA_list.3,SSL_CTX_add_client_CA.3 \
 	SSL_CTX_set_client_CA_list.3,SSL_add_client_CA.3 \
 	SSL_CTX_set_client_CA_list.3,SSL_set_client_CA_list.3 \
-	SSL_CTX_set_default_passwd_cb.3, SSL_CTX_set_default_passwd_cb_userdata.3 \
+	SSL_CTX_set_default_passwd_cb.3,SSL_CTX_set_default_passwd_cb_userdata.3 \
 	SSL_CTX_set_max_cert_list.3,SSL_CTX_get_max_cert_list.3 \
 	SSL_CTX_set_max_cert_list.3,SSL_get_max_cert_list.3 \
 	SSL_CTX_set_max_cert_list.3,SSL_set_max_cert_list.3 \
-	SSL_CTX_set_mode.3,SSL_CTX_get_mode.3 SSL_CTX_set_mode.3 SSL_get_mode.3 \
-	SSL_CTX_set_mode.3,SSL_set_mode.3 SSL_CTX_set_msg_callback.3 SSL_CTX_set_msg_callback_arg.3 \
+	SSL_CTX_set_mode.3,SSL_CTX_get_mode.3 \
+	SSL_CTX_set_mode.3,SSL_get_mode.3 \
+	SSL_CTX_set_mode.3,SSL_set_mode.3 \
+	SSL_CTX_set_msg_callback.3,SSL_CTX_set_msg_callback_arg.3 \
 	SSL_CTX_set_msg_callback.3,SSL_set_msg_callback.3 \
 	SSL_CTX_set_msg_callback.3,SSL_set_msg_callback_arg.3 \
 	SSL_CTX_set_options.3,SSL_CTX_get_options.3 \

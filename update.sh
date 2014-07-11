@@ -4,7 +4,7 @@ set -e
 # resync this library with the upstream project, remove old submodule dirs
 if [ -d openbsd ]; then
 	(cd openbsd
-	 git co master
+	 git checkout master
 	 git pull)
 else
 	if [ -z "$LIBRESSL_GIT" ]; then
@@ -51,7 +51,7 @@ copy_crypto() {
 }
 
 cp $libssl_src/src/LICENSE COPYING
-cp $libssl_src/src/CHANGES ChangeLog
+echo "Please see OpenBSD CVS logs" > ChangeLog
 
 cp $libcrypto_src/crypto/arch/amd64/opensslconf.h include/openssl
 cp $libssl_src/src/e_os2.h include/openssl
@@ -380,4 +380,15 @@ crypto_excludes=(
 	for i in `ls -1 *.h|sort`; do
 		echo "noinst_HEADERS += $i" >> Makefile.am
 	done
+)
+
+(cd man
+	cp Makefile.am.tpl Makefile.am
+        for i in `ls -1 ../$libssl_src/src/doc/crypto/*.pod | sort`; do
+	    BASE=`echo $i|sed -e "s/\.pod//"`
+	    echo $BASE
+	    NAME=`basename "$BASE"`
+	    pod2man --official --release=LibreSSL --center=LibreSSL --section=3 --name=$NAME < $BASE.pod > $NAME.3
+	    echo "man_MAN += $NAME.3" >> Makefile.am
+        done
 )

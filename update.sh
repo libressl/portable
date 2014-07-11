@@ -55,6 +55,7 @@ cp $libssl_src/src/LICENSE COPYING
 echo "Please see OpenBSD CVS logs" > ChangeLog
 
 cp $libcrypto_src/crypto/arch/amd64/opensslconf.h include/openssl
+cp $libssl_src/src/crypto/opensslfeatures.h include/openssl
 cp $libssl_src/src/e_os2.h include/openssl
 cp $libssl_src/src/ssl/pqueue.h include
 
@@ -254,7 +255,7 @@ copy_crypto whrlpool "wp_block.c wp_dgst.c wp_locl.h"
 copy_crypto x509 "x509_def.c x509_d2.c x509_r2x.c x509_cmp.c x509_obj.c
 	x509_req.c x509spki.c x509_vfy.c x509_set.c x509cset.c x509rset.c
 	x509_err.c x509name.c x509_v3.c x509_ext.c x509_att.c x509type.c x509_lu.c
-	x_all.c x509_txt.c x509_trs.c by_file.c by_dir.c x509_vpm.c"
+	x_all.c x509_txt.c x509_trs.c by_file.c by_dir.c x509_vpm.c x509_lcl.h"
 
 copy_crypto x509v3 "v3_bcons.c v3_bitst.c v3_conf.c v3_extku.c v3_ia5.c v3_lib.c
 	v3_prn.c v3_utl.c v3err.c v3_genn.c v3_alt.c v3_skey.c v3_akey.c v3_pku.c
@@ -391,6 +392,20 @@ crypto_excludes=(
 		echo processing $NAME
 		pod2man --official --release=LibreSSL --center=LibreSSL --section=3 --name=$NAME < $BASE.pod > $NAME.3
 		echo "dist_man_MANS += $NAME.3" >> Makefile.am
+	done
+	for i in `ls -1 ../$libssl_src/src/doc/ssl/*.pod | sort`; do
+		BASE=`echo $i|sed -e "s/\.pod//"`
+		NAME=`basename "$BASE"`
+		echo processing $NAME
+		pod2man --official --release=LibreSSL --center=LibreSSL --section=3 --name=$NAME < $BASE.pod > $NAME.3
+		echo "dist_man_MANS += $NAME.3" >> Makefile.am
+	done
+	for i in `ls -1 ../$libssl_src/src/doc/apps/*.pod | sort`; do
+		BASE=`echo $i|sed -e "s/\.pod//"`
+		NAME=`basename "$BASE"`
+		echo processing $NAME
+		pod2man --official --release=LibreSSL --center=LibreSSL --section=1 --name=$NAME < $BASE.pod > $NAME.1
+		echo "dist_man_MANS += $NAME.1" >> Makefile.am
 	done
 	echo "dist_man_MANS += openssl.1" >> Makefile.am
 	echo "install-data-hook:" >> Makefile.am

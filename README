@@ -1,4 +1,5 @@
-This package is the portable version of LibreSSL (http://www.libressl.org). 
+This package is the official portable version of LibreSSL
+(http://www.libressl.org).
 
 LibreSSL is a fork of OpenSSL developed by the OpenBSD project
 (http://www.openbsd.org). LibreSSL is developed on OpenBSD. This
@@ -9,10 +10,13 @@ OpenBSD mirror in directory LibreSSL, e.g.:
 http://ftp.openbsd.org/pub/OpenBSD/LibreSSL/
 although it is suggested you use a mirror. 
 
-A github clone of the official repositories is kept at:
+Development is done in the upstream OpenBSD codebase.  A github clone
+of the official repositories is kept at:
 https://github.com/libressl-portable
-We update this repository semi-frequently, but it should be used for
-informational purposes only.
+We update this repository from the OpenBSD respositories
+semi-frequently, so changes may not show up in GitHub immediately. 
+The GitHub repository should be used for informational purposes
+only.
 
 ./configure && make check && make install
 

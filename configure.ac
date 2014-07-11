@@ -6,7 +6,7 @@ AC_CONFIG_MACRO_DIR([m4])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
 AC_SUBST([USER_CFLAGS], "-O2 $CFLAGS")
-CFLAGS="$CFLAGS -Wall -Werror -std=c99 -g -Wno-pointer-sign -DHAVE_CRYPTODEV -DLIBRESSL_INTERNAL"
+CFLAGS="$CFLAGS -Wall -Werror -std=c99 -g -Wno-pointer-sign"
 
 case $target_os in
 	*darwin*)
@@ -36,7 +36,6 @@ AC_PROG_CC
 AC_PROG_LIBTOOL
 AC_PROG_CC_STDC
 AM_PROG_CC_C_O
-AC_PROG_LN_S
 
 AC_CHECK_FUNC(strlcpy,[AC_SEARCH_LIBS(strlcpy,, [NO_STRLCPY=],
 			  [NO_STRLCPY=yes])], [NO_STRLCPY=yes])

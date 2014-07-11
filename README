@@ -1,10 +1,21 @@
-This package is the portable version of LibReSSL (http://www.libressl.org). 
+This package is the portable version of LibreSSL (http://www.libressl.org). 
 
-LibReSSL is a fork of OpenSSL developed by the OpenBSD project
-(http://www.openbsd.org). LibReSSL is developed on OpenBSD. This
+LibreSSL is a fork of OpenSSL developed by the OpenBSD project
+(http://www.openbsd.org). LibreSSL is developed on OpenBSD. This
 package then adds portability shims for other operating systems. 
 
-./configure make make check make install 
+Official release tarballs are available at your friendly neighborhood
+OpenBSD mirror in directory libressl:
+
+e.g. http://ftp.openbsd.org/pub/OpenBSD/LibreSSL/
+although it is suggested you use a mirror. 
+
+A github clone of the official repositories is kept at
+https://github.com/libressl-portable
+We update this repository semi-frequently, but it should be used for
+informational purposes only.
+
+./configure && make check && make install
 
 See crypto/compat for the bulk of the local compatibility code. 
 

@@ -93,6 +93,8 @@ AC_CHECK_FUNC(getauxval, AC_DEFINE(HAVE_GETAUXVAL))
 
 AC_CHECK_FUNC(funopen, AC_DEFINE(HAVE_FUNOPEN))
 
+AC_CHECK_HEADER(sys/sysctl.h, AC_DEFINE(HAVE_SYS_SYSCTL_H))
+
 LT_INIT
 
 AC_OUTPUT(Makefile include/Makefile include/openssl/Makefile ssl/Makefile

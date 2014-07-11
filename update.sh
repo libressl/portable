@@ -396,8 +396,8 @@ crypto_excludes=(
 	echo "install-data-hook:" >> Makefile.am
 	cp ../$openssl_cmd_src/openssl.1 .
 	source links
-	for i in $MANLINKS; do
+	for i in $MLINKS; do
 		IFS=","; set $i; unset IFS
-		echo "	\$(LN_S) \$(DESTDIR)\$(mandir)/man3/$1 \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
+		echo "	\$(LN_S) -f \$(DESTDIR)\$(mandir)/man3/$1 \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
 	done
 )

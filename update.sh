@@ -413,6 +413,6 @@ crypto_excludes=(
 	source links
 	for i in $MLINKS; do
 		IFS=","; set $i; unset IFS
-		echo "	\$(LN_S) -f \$(DESTDIR)\$(mandir)/man3/$1 \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
+		echo "	ln -f \$(DESTDIR)\$(mandir)/man3/$1 \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
 	done
 )

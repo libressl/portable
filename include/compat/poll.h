@@ -14,7 +14,7 @@
 #ifndef LIBCRYPTOCOMPAT_POLL_H
 #define LIBCRYPTOCOMPAT_POLL_H
 
-#ifdef HAVE_POLL
+#ifndef _WIN32
 #include_next <poll.h>
 #else
 

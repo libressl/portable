@@ -7,6 +7,7 @@ AM_CFLAGS += -I$(top_srcdir)/crypto/modes
 lib_LTLIBRARIES = libcrypto.la
 
 EXTRA_DIST = VERSION
+EXTRA_DIST += CMakeLists.txt
 
 libcrypto_la_LDFLAGS = -version-info @LIBCRYPTO_VERSION@ -no-undefined
 libcrypto_la_LIBADD = libcompat.la libcompatnoopt.la
@@ -236,7 +237,9 @@ libcrypto_la_SOURCES += bio/bss_conn.c
 libcrypto_la_SOURCES += bio/bss_dgram.c
 libcrypto_la_SOURCES += bio/bss_fd.c
 libcrypto_la_SOURCES += bio/bss_file.c
+if !HOST_WIN
 libcrypto_la_SOURCES += bio/bss_log.c
+endif
 libcrypto_la_SOURCES += bio/bss_mem.c
 libcrypto_la_SOURCES += bio/bss_null.c
 libcrypto_la_SOURCES += bio/bss_sock.c

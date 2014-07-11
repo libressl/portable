@@ -3,10 +3,14 @@
  * string.h compatibility shim
  */
 
-#include_next <string.h>
-
 #ifndef LIBCRYPTOCOMPAT_STRING_H
 #define LIBCRYPTOCOMPAT_STRING_H
+
+#ifdef _MSC_VER
+#include <../include/string.h>
+#else
+#include_next <string.h>
+#endif
 
 #include <sys/types.h>
 
@@ -15,6 +19,11 @@
  * SUS. Use the same hack as OS X and FreeBSD use to work around on Solaris and HPUX.
  */
 #include <strings.h>
+#endif
+
+#ifndef HAVE_STRCASECMP
+int strcasecmp(const char *s1, const char *s2);
+int strncasecmp(const char *s1, const char *s2, size_t len);
 #endif
 
 #ifndef HAVE_STRLCPY

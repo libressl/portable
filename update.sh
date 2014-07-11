@@ -70,6 +70,7 @@ for i in crypto/compat libtls-standalone/compat; do
 		$libc_src/crypt/chacha_private.h \
 		$libc_src/string/explicit_bzero.c \
 		$libc_src/stdlib/reallocarray.c \
+		$libc_src/string/strcasecmp.c \
 		$libc_src/string/strlcpy.c \
 		$libc_src/string/strlcat.c \
 		$libc_src/string/strndup.c \
@@ -81,9 +82,9 @@ for i in crypto/compat libtls-standalone/compat; do
 		$i
 done
 
-$CP include/stdlib.h \
-	include/string.h \
-	include/unistd.h \
+$CP include/compat/stdlib.h \
+	include/compat/string.h \
+	include/compat/unistd.h \
 	libtls-standalone/include
 
 $CP crypto/compat/arc4random*.h \
@@ -210,10 +211,6 @@ for i in `awk '/SOURCES|HEADERS/ { print $3 }' apps/Makefile.am` ; do
 		$CP $openssl_app_src/$i apps
 	fi
 done
-patch -p0 < patches/openssl.c.patch
-patch -p0 < patches/ossl_typ.h.patch
-patch -p0 < patches/pkcs7.h.patch
-patch -p0 < patches/x509.h.patch
 
 # copy libssl source
 echo "copying libssl source"
@@ -275,6 +272,11 @@ add_man_links() {
 		fi
 	done
 }
+
+# apply local patches (Windows support)
+for i in patches/*.patch; do
+    patch -p0 < $i
+done
 
 # copy manpages
 echo "copying manpages"

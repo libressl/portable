@@ -3,10 +3,14 @@
  * stdio.h compatibility shim
  */
 
-#include_next <stdio.h>
-
 #ifndef LIBCRYPTOCOMPAT_STDIO_H
 #define LIBCRYPTOCOMPAT_STDIO_H
+
+#ifdef _MSC_VER
+#include <../include/stdio.h>
+#else
+#include_next <stdio.h>
+#endif
 
 #ifndef HAVE_ASPRINTF
 #include <stdarg.h>
@@ -24,6 +28,10 @@ int posix_rename(const char *oldpath, const char *newpath);
 #define perror(errnum) posix_perror(errnum)
 #define fopen(path, mode) posix_fopen(path, mode)
 #define rename(oldpath, newpath) posix_rename(oldpath, newpath)
+#endif
+
+#ifdef _MSC_VER
+#define snprintf _snprintf
 #endif
 
 #endif

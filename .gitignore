@@ -124,6 +124,7 @@ include/openssl/*.he
 !/crypto/compat/bsd_asprintf.c
 !/crypto/compat/inet_pton.c
 !/crypto/compat/ui_openssl_win.c
+!/crypto/CMakeLists.txt
 
 /libtls-standalone/include/*.h
 /libtls-standalone/src/*.c

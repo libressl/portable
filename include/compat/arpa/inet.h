@@ -15,5 +15,5 @@
 #endif
 
 #ifndef HAVE_INET_PTON
-int inet_pton(int af, const char * restrict src, void * restrict dst);
+int inet_pton(int af, const char * src, void * dst);
 #endif

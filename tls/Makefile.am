@@ -3,6 +3,7 @@ include $(top_srcdir)/Makefile.am.common
 lib_LTLIBRARIES = libtls.la
 
 EXTRA_DIST = VERSION
+EXTRA_DIST += CMakeLists.txt
 
 libtls_la_LDFLAGS = -version-info @LIBTLS_VERSION@ -no-undefined
 libtls_la_LIBADD = ../crypto/libcrypto.la ../ssl/libssl.la $(PLATFORM_LDADD)

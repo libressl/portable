@@ -21,7 +21,7 @@
 
 int issetugid(void)
 {
-#ifdef HAVE_GETAUXVAL
+#if defined(HAVE_GETAUXVAL) && !defined(__BIONIC__)
 	/*
 	 * The API for glibc < 2.19 does not indicate if there is an error with
 	 * getauxval. While it should not be the case that any 2.6 or greater

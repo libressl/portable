@@ -389,18 +389,15 @@ crypto_excludes=(
 		BASE=`echo $i|sed -e "s/\.pod//"`
 		NAME=`basename "$BASE"`
 		echo processing $NAME
-		#pod2man --official --release=LibreSSL --center=LibreSSL --section=3 --name=$NAME < $BASE.pod > $NAME.3
+		pod2man --official --release=LibreSSL --center=LibreSSL --section=3 --name=$NAME < $BASE.pod > $NAME.3
 		echo "dist_man_MANS += $NAME.3" >> Makefile.am
 	done
 	echo "dist_man_MANS += openssl.1" >> Makefile.am
-	echo "post-install-exec-hook:" >> Makefile.am
+	echo "install-data-hook:" >> Makefile.am
 	cp ../$openssl_cmd_src/openssl.1 .
-	echo "	\$(LN_S) \$(DESTDIR)\$(mandir)/man1/$1 \$(DESTDIR)\$(mandir)/man1/$2" >> Makefile.am
 	source links
-	IFS=","
 	for i in $MANLINKS; do
-		set $i
+		IFS=","; set $i; unset IFS
 		echo "	\$(LN_S) \$(DESTDIR)\$(mandir)/man3/$1 \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
 	done
-	unset IFS
 )

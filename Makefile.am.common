@@ -1,4 +1,2 @@
 AM_CPPFLAGS = -I$(top_srcdir)/include
-AM_CPPFLAGS += -I$(top_srcdir)/libottery/src
 AM_CPPFLAGS += -DOPENSSL_NO_ASM
-AM_CPPFLAGS += -DLIBBSD_OVERLAY

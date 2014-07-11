@@ -416,7 +416,7 @@ apps_excludes=(
 	echo "dist_man_MANS += openssl.1" >> Makefile.am
 	echo "install-data-hook:" >> Makefile.am
 	cp ../$openssl_cmd_src/openssl.1 .
-	source links
+	source ./links
 	for i in $MLINKS; do
 		IFS=","; set $i; unset IFS
 		echo "	ln -f \$(DESTDIR)\$(mandir)/man3/$1 \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am

@@ -97,5 +97,20 @@ AC_CHECK_HEADER(sys/sysctl.h, AC_DEFINE(HAVE_SYS_SYSCTL_H))
 
 LT_INIT
 
-AC_OUTPUT(Makefile include/Makefile include/openssl/Makefile ssl/Makefile
-          crypto/Makefile tests/Makefile apps/Makefile man/Makefile)
+AC_CONFIG_FILES([
+	Makefile
+	include/Makefile
+	include/openssl/Makefile
+	ssl/Makefile
+	crypto/Makefile
+	tests/Makefile
+	apps/Makefile
+	man/Makefile
+	libcrypto.pc
+	libssl.pc
+	openssl.pc
+])
+
+AC_OUTPUT
+
+DISTCLEANFILES += *.pc

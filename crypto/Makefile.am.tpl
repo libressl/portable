@@ -19,6 +19,7 @@ libcompatnoopt_la_SOURCES = compat/explicit_bzero.c
 # other compatibility functions
 libcompat_la_CFLAGS = $(CFLAGS) $(USER_CFLAGS)
 libcompat_la_SOURCES =
+libcompat_la_LIBADD = $(PLATFORM_LDADD)
 
 if NO_STRLCAT
 libcompat_la_SOURCES += compat/strlcat.c

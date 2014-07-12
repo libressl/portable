@@ -34,6 +34,8 @@ Makefile.in
 *.lo
 *.la
 
+*.pc
+
 # tests
 test-driver
 *.log

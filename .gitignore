@@ -71,6 +71,7 @@ INSTALL
 /config.status
 /config.sub
 /configure
+/configure.ac
 /depcomp
 /config.h
 /config.h.in

@@ -22,6 +22,8 @@ libcrypto_src=openbsd/src/lib/libcrypto
 openssl_cmd_src=openbsd/src/usr.sbin/openssl
 libcrypto_regress=openbsd/src/regress/lib/libcrypto
 
+libressl_version=`cat VERSION`
+
 source $libssl_src/ssl/shlib_version
 libssl_version=$major:$minor:0
 echo libssl version $libssl_version
@@ -30,7 +32,7 @@ source $libcrypto_src/crypto/shlib_version
 libcrypto_version=$major:$minor:0
 echo libcrypto version $libcrypto_version
 
-crypto_subdirs=
+sed -e "s/VERSION/${libressl_version}/" configure.ac.tpl > configure.ac
 
 copy_src() {
 	mkdir -p $1
@@ -392,30 +394,25 @@ apps_excludes=(
 
 (cd man
 	cp Makefile.am.tpl Makefile.am
-	for i in `ls -1 ../$libssl_src/src/doc/crypto/*.pod | sort`; do
-		BASE=`echo $i|sed -e "s/\.pod//"`
-		NAME=`basename "$BASE"`
-		echo processing $NAME
-		pod2man --official --release=LibreSSL --center=LibreSSL --section=3 --name=$NAME < $BASE.pod > $NAME.3
-		echo "dist_man_MANS += $NAME.3" >> Makefile.am
+	for i in crypto,3 ssl,3 apps,1; do
+		IFS=","; set $i; unset IFS
+		for i in `ls -1 ../$libssl_src/src/doc/$1/*.pod | sort`; do
+			BASE=`echo $i|sed -e "s/\.pod//"`
+			NAME=`basename "$BASE"`
+			# reformat file if new
+			if [ ! -f $NAME.3 -o $BASE.pod -nt $NAME.3 -o ../VERSION -nt $NAME.3 ]; then
+				echo processing $NAME
+				pod2man --official --release="LibreSSL $VERSION" --center=LibreSSL \
+					--section=3 $POD2MAN --name=$NAME < $BASE.pod > $NAME.3
+			fi
+			echo "dist_man_MANS += $NAME.$2" >> Makefile.am
+		done
 	done
-	for i in `ls -1 ../$libssl_src/src/doc/ssl/*.pod | sort`; do
-		BASE=`echo $i|sed -e "s/\.pod//"`
-		NAME=`basename "$BASE"`
-		echo processing $NAME
-		pod2man --official --release=LibreSSL --center=LibreSSL --section=3 --name=$NAME < $BASE.pod > $NAME.3
-		echo "dist_man_MANS += $NAME.3" >> Makefile.am
-	done
-	for i in `ls -1 ../$libssl_src/src/doc/apps/*.pod | sort`; do
-		BASE=`echo $i|sed -e "s/\.pod//"`
-		NAME=`basename "$BASE"`
-		echo processing $NAME
-		pod2man --official --release=LibreSSL --center=LibreSSL --section=1 --name=$NAME < $BASE.pod > $NAME.1
-		echo "dist_man_MANS += $NAME.1" >> Makefile.am
-	done
-	echo "dist_man_MANS += openssl.1" >> Makefile.am
-	echo "install-data-hook:" >> Makefile.am
+
 	cp ../$openssl_cmd_src/openssl.1 .
+	echo "dist_man_MANS += openssl.1" >> Makefile.am
+
+	echo "install-data-hook:" >> Makefile.am
 	source ./links
 	for i in $MLINKS; do
 		IFS=","; set $i; unset IFS

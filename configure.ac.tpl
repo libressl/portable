@@ -15,7 +15,7 @@ case $target_os in
 		;;
 	*linux*)
 		TARGET_OS=linux;
-		CFLAGS="$CFLAGS -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
+		CFLAGS="$CFLAGS -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
 		AC_SUBST([PLATFORM_LDADD], ['-lrt'])
 		;;
 	*solaris*)

@@ -16,7 +16,6 @@ case $target_os in
 	*linux*)
 		TARGET_OS=linux;
 		CFLAGS="$CFLAGS -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
-		AC_SUBST([PLATFORM_LDADD], ['-lrt'])
 		;;
 	*solaris*)
 		TARGET_OS=solaris;
@@ -32,6 +31,9 @@ esac
 AM_CONDITIONAL(TARGET_DARWIN, test x$TARGET_OS = xdarwin)
 AM_CONDITIONAL(TARGET_LINUX, test x$TARGET_OS = xlinux)
 AM_CONDITIONAL(TARGET_SOLARIS, test x$TARGET_OS = xsolaris)
+
+AC_CHECK_FUNC([clock_gettime],,
+	[AC_SEARCH_LIBS([clock_gettime],[rt posix4])])
 
 AC_PROG_CC
 AC_PROG_LIBTOOL

@@ -230,7 +230,7 @@ copy_crypto rand "randfile.c rand_err.c rand_lib.c"
 
 copy_crypto rc2 "rc2_ecb.c rc2_skey.c rc2_cbc.c rc2cfb64.c rc2ofb64.c rc2_locl.h"
 
-copy_crypto rc4 "rc4_enc.c rc4_skey.c rc4_utl.c rc4_locl.h"
+copy_crypto rc4 "rc4_enc.c rc4_skey.c rc4_locl.h"
 
 copy_crypto ripemd "rmd_dgst.c rmd_one.c rmd_locl.h rmdconst.h"
 

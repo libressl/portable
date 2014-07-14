@@ -399,10 +399,10 @@ apps_excludes=(
 			BASE=`echo $i|sed -e "s/\.pod//"`
 			NAME=`basename "$BASE"`
 			# reformat file if new
-			if [ ! -f $NAME.3 -o $BASE.pod -nt $NAME.3 -o ../VERSION -nt $NAME.3 ]; then
+			if [ ! -f $NAME.$2 -o $BASE.pod -nt $NAME.$2 -o ../VERSION -nt $NAME.$2 ]; then
 				echo processing $NAME
 				pod2man --official --release="LibreSSL $VERSION" --center=LibreSSL \
-					--section=3 $POD2MAN --name=$NAME < $BASE.pod > $NAME.3
+					--section=$2 $POD2MAN --name=$NAME < $BASE.pod > $NAME.$2
 			fi
 			echo "dist_man_MANS += $NAME.$2" >> Makefile.am
 		done

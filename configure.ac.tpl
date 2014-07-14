@@ -100,12 +100,12 @@ AC_CHECK_HEADER(sys/sysctl.h, AC_DEFINE(HAVE_SYS_SYSCTL_H))
 AC_ARG_WITH([openssldir],
 	AS_HELP_STRING([--with-openssldir], [Set the default openssl directory]),
 	AC_DEFINE_UNQUOTED(OPENSSLDIR, "$withval")
-])
+)
 
 AC_ARG_WITH([enginesdir],
 	AS_HELP_STRING([--with-enginesdir], [Set the default engines directory (use with openssldir)]),
 	AC_DEFINE_UNQUOTED(ENGINESDIR, "$withval")
-])
+)
 
 LT_INIT
 

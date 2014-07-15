@@ -290,7 +290,7 @@ cp $libc_regress/arc4random-fork/arc4random-fork.c tests/arc4randomforktest.c
 cp $libc_regress/explicit_bzero/explicit_bzero.c tests
 cp $libc_regress/timingsafe/timingsafe.c tests
 
-for i in ssl/ssltest.c ssl/testssl certs/ca.pem certs/server.pem; do
+for i in asn1/asn1test.c ssl/ssltest.c ssl/testssl certs/ca.pem certs/server.pem; do
 	cp $libssl_regress/$i tests
 done
 

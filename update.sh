@@ -273,7 +273,7 @@ copy_src apps "apps.c apps.h asn1pars.c ca.c ciphers.c cms.c crl.c crl2p7.c
 	s_server.c s_socket.c s_time.c sess_id.c smime.c speed.c spkac.c
 	testdsa.h testrsa.h timeouts.h ts.c verify.c version.c x509.c"
 
-rm -f tests/*.c
+rm -f tests/*test.c
 for i in aead/aeadtest.c aeswrap/aes_wrap.c base64/base64test.c bf/bftest.c \
 	bio/biotest.c bn/general/bntest.c bn/mont/mont.c \
 	cast/casttest.c chacha/chachatest.c cts128/cts128test.c \
@@ -295,7 +295,7 @@ for i in asn1/asn1test.c ssl/ssltest.c ssl/testssl certs/ca.pem certs/server.pem
 done
 
 # do not directly run all test programs
-test_excludes=(biotest aeadtest evptest pq_test ssltest arc4randomforktest)
+test_excludes=(biotest aeadtest evptest pq_test ssltest arc4randomforktest fork_rand)
 (cd tests
 	cp Makefile.am.tpl Makefile.am
 

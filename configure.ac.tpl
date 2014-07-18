@@ -1,5 +1,5 @@
 AC_INIT([libressl], [VERSION])
-AC_CANONICAL_TARGET
+AC_CANONICAL_HOST
 AM_INIT_AUTOMAKE([subdir-objects])
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -8,29 +8,33 @@ m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 AC_SUBST([USER_CFLAGS], "-O2 $CFLAGS")
 CFLAGS="$CFLAGS -Wall -std=c99 -g"
 
-case $target_os in
+case $host_os in
 	*darwin*)
-		TARGET_OS=darwin;
+		HOST_OS=darwin;
 		LDFLAGS="$LDFLAGS -Qunused-arguments"
 		;;
 	*linux*)
-		TARGET_OS=linux;
+		HOST_OS=linux;
 		CFLAGS="$CFLAGS -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
 		;;
 	*solaris*)
-		TARGET_OS=solaris;
+		HOST_OS=solaris;
 		CFLAGS="$CFLAGS -D__EXTENSIONS__ -D_XOPEN_SOURCE=600 -DBSD_COMP"
 		AC_SUBST([PLATFORM_LDADD], ['-lnsl -lsocket'])
 		;;
 	*openbsd*)
 		AC_DEFINE([HAVE_ATTRIBUTE__BOUNDED__], [1], [OpenBSD gcc has bounded])
 		;;
+	*mingw*)
+		HOST_OS=win32
+		;;
 	*) ;;
 esac
 
-AM_CONDITIONAL(TARGET_DARWIN, test x$TARGET_OS = xdarwin)
-AM_CONDITIONAL(TARGET_LINUX, test x$TARGET_OS = xlinux)
-AM_CONDITIONAL(TARGET_SOLARIS, test x$TARGET_OS = xsolaris)
+AM_CONDITIONAL(HOST_DARWIN, test x$HOST_OS = xdarwin)
+AM_CONDITIONAL(HOST_LINUX, test x$HOST_OS = xlinux)
+AM_CONDITIONAL(HOST_SOLARIS, test x$HOST_OS = xsolaris)
+AM_CONDITIONAL(HOST_WIN, test x$HOST_OS = xwin)
 
 AC_CHECK_FUNC([clock_gettime],,
 	[AC_SEARCH_LIBS([clock_gettime],[rt posix4])])
@@ -72,8 +76,8 @@ AM_CONDITIONAL(NO_ARC4RANDOM_BUF, test "x$NO_ARC4RANDOM_BUF" = "xyes")
 
 # overrides for arc4random_buf implementations with known issues
 AM_CONDITIONAL(NO_ARC4RANDOM_BUF,
-   test x$TARGET_OS = xdarwin \
-     -o x$TARGET_OS = xsolaris \
+   test x$HOST_OS = xdarwin \
+     -o x$HOST_OS = xsolaris \
 	 -o x$NO_ARC4RANDOM_BUF = xyes)
 
 AC_CHECK_FUNC(getentropy,[AC_SEARCH_LIBS(write,, [NO_GETENTROPY=],

@@ -45,21 +45,26 @@ if NO_ARC4RANDOM_BUF
 libcompat_la_SOURCES += compat/arc4random.c
 
 if NO_GETENTROPY
-if TARGET_LINUX
+if HOST_LINUX
 libcompat_la_SOURCES += compat/getentropy_linux.c
 endif
-if TARGET_DARWIN
+if HOST_DARWIN
 libcompat_la_SOURCES += compat/getentropy_osx.c
 endif
-if TARGET_SOLARIS
+if HOST_SOLARIS
 libcompat_la_SOURCES += compat/getentropy_solaris.c
+endif
+if HOST_WIN
+libcompat_la_SOURCES += compat/getentropy_win.c
 endif
 endif
 
 endif
 
 if NO_ISSETUGID
+if HOST_LINUX
 libcompat_la_SOURCES += compat/issetugid_linux.c
+endif
 endif
 
 noinst_HEADERS = des/ncbc_enc.c

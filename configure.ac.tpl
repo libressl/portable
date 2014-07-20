@@ -44,6 +44,16 @@ AC_PROG_LIBTOOL
 AC_PROG_CC_STDC
 AM_PROG_CC_C_O
 
+save_cflags="$CFLAGS"
+CFLAGS=-Wno-pointer-sign
+AC_MSG_CHECKING([whether CC supports -Wno-pointer-sign])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
+	[AC_MSG_RESULT([yes])]
+	[AM_CFLAGS=-Wno-pointer-sign],
+	[AC_MSG_RESULT([no])]
+)
+CFLAGS="$save_cflags $AM_CFLAGS"
+
 AC_CHECK_FUNC(strlcpy,[AC_SEARCH_LIBS(strlcpy,, [NO_STRLCPY=],
 			  [NO_STRLCPY=yes])], [NO_STRLCPY=yes])
 AC_SUBST(NO_STRLCPY)

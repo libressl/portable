@@ -34,17 +34,19 @@ echo libcrypto version $libcrypto_version
 
 sed -e "s/VERSION/${libressl_version}/" configure.ac.tpl > configure.ac
 
+CP='cp -p'
+
 copy_src() {
 	mkdir -p $1
 	rm -f $1/*.c
 	for file in $2; do
-		cp $libssl_src/src/$1/$file $1
+		$CP $libssl_src/src/$1/$file $1
 	done
 }
 
 copy_hdrs() {
 	for file in $2; do
-		cp $libssl_src/src/$1/$file include/openssl
+		$CP $libssl_src/src/$1/$file include/openssl
 	done
 }
 
@@ -53,22 +55,22 @@ copy_crypto() {
 	crypto_subdirs="$crypto_subdirs $1"
 }
 
-cp $libssl_src/src/LICENSE COPYING
+$CP $libssl_src/src/LICENSE COPYING
 echo "Please see OpenBSD CVS logs" > ChangeLog
 
-cp $libcrypto_src/crypto/arch/amd64/opensslconf.h include/openssl
-cp $libssl_src/src/crypto/opensslfeatures.h include/openssl
-cp $libssl_src/src/e_os2.h include/openssl
-cp $libssl_src/src/ssl/pqueue.h include
+$CP $libcrypto_src/crypto/arch/amd64/opensslconf.h include/openssl
+$CP $libssl_src/src/crypto/opensslfeatures.h include/openssl
+$CP $libssl_src/src/e_os2.h include/openssl
+$CP $libssl_src/src/ssl/pqueue.h include
 
 for i in explicit_bzero.c strlcpy.c strlcat.c timingsafe_bcmp.c timingsafe_memcmp.c; do
-	cp $libc_src/string/$i crypto/compat
+	$CP $libc_src/string/$i crypto/compat
 done
-cp $libc_src/stdlib/reallocarray.c crypto/compat
-cp $libc_src/crypt/arc4random.c crypto/compat
-cp $libc_src/crypt/chacha_private.h crypto/compat
-cp $libcrypto_src/crypto/getentropy_*.c crypto/compat
-cp $libcrypto_src/crypto/arc4random_*.h crypto/compat
+$CP $libc_src/stdlib/reallocarray.c crypto/compat
+$CP $libc_src/crypt/arc4random.c crypto/compat
+$CP $libc_src/crypt/chacha_private.h crypto/compat
+$CP $libcrypto_src/crypto/getentropy_*.c crypto/compat
+$CP $libcrypto_src/crypto/arc4random_*.h crypto/compat
 
 (cd ./$libssl_src/src/crypto/objects/;
 	perl objects.pl objects.txt obj_mac.num obj_mac.h;
@@ -94,7 +96,7 @@ copy_hdrs ssl "srtp.h ssl.h ssl2.h ssl3.h ssl23.h tls1.h dtls1.h"
 
 for i in ssl/srtp.h \
 	ssl/ssl_locl.h; do
-	cp $libssl_src/src/$i ssl
+	$CP $libssl_src/src/$i ssl
 done
 
 copy_src ssl "s3_meth.c s3_srvr.c s3_clnt.c s3_lib.c s3_enc.c s3_pkt.c
@@ -285,20 +287,20 @@ for i in aead/aeadtest.c aeswrap/aes_wrap.c base64/base64test.c bf/bftest.c \
 	pkcs7/pkcs7test.c pqueue/pq_test.c rand/randtest.c rc2/rc2test.c \
 	rc4/rc4test.c rmd/rmdtest.c sha/shatest.c sha1/sha1test.c \
 	sha256/sha256test.c sha512/sha512test.c utf8/utf8test.c; do
-	 cp $libcrypto_regress/$i tests
+	 $CP $libcrypto_regress/$i tests
 done
-cp $libc_regress/arc4random-fork/arc4random-fork.c tests/arc4randomforktest.c
-cp $libc_regress/explicit_bzero/explicit_bzero.c tests
-cp $libc_regress/timingsafe/timingsafe.c tests
+$CP $libc_regress/arc4random-fork/arc4random-fork.c tests/arc4randomforktest.c
+$CP $libc_regress/explicit_bzero/explicit_bzero.c tests
+$CP $libc_regress/timingsafe/timingsafe.c tests
 
 for i in asn1/asn1test.c ssl/ssltest.c ssl/testssl certs/ca.pem certs/server.pem; do
-	cp $libssl_regress/$i tests
+	$CP $libssl_regress/$i tests
 done
 
 # do not directly run all test programs
 test_excludes=(biotest aeadtest evptest pq_test ssltest arc4randomforktest fork_rand)
 (cd tests
-	cp Makefile.am.tpl Makefile.am
+	$CP Makefile.am.tpl Makefile.am
 
 	for i in `ls -1 *.c|sort`; do
 		TEST=`echo $i|sed -e "s/\.c//"`
@@ -311,9 +313,9 @@ test_excludes=(biotest aeadtest evptest pq_test ssltest arc4randomforktest fork_
 		echo "${TEST}_LDADD += \$(top_builddir)/ssl/libssl.la" >> Makefile.am
 	done
 )
-cp $libcrypto_regress/evp/evptests.txt tests
-cp $libcrypto_regress/aead/aeadtests.txt tests
-cp $libcrypto_regress/pqueue/expected.txt tests/pq_expected.txt
+$CP $libcrypto_regress/evp/evptests.txt tests
+$CP $libcrypto_regress/aead/aeadtests.txt tests
+$CP $libcrypto_regress/pqueue/expected.txt tests/pq_expected.txt
 chmod 755 tests/testssl
 for i in "${test_excludes[@]}"; do
 	if [ -e tests/${i}.sh ]; then
@@ -327,7 +329,7 @@ echo "EXTRA_DIST += pq_expected.txt" >> tests/Makefile.am
 echo "EXTRA_DIST += testssl ca.pem server.pem" >> tests/Makefile.am
 
 (cd include/openssl
-	cp Makefile.am.tpl Makefile.am
+	$CP Makefile.am.tpl Makefile.am
 	for i in `ls -1 *.h|sort`; do
 		echo "opensslinclude_HEADERS += $i" >> Makefile.am
 	done
@@ -376,12 +378,12 @@ crypto_excludes=(
 )
 
 # conditional compiles
-cp $libc_src/stdlib/strtonum.c apps/
+$CP $libc_src/stdlib/strtonum.c apps/
 apps_excludes=(
 	strtonum.c
 	)
 (cd apps
-	cp Makefile.am.tpl Makefile.am
+	$CP Makefile.am.tpl Makefile.am
 	for i in `ls -1 *.c|sort`; do
 		if ! [[ ${apps_excludes[*]} =~ $i ]]; then
 			echo "openssl_SOURCES += $i" >> Makefile.am
@@ -393,7 +395,7 @@ apps_excludes=(
 )
 
 (cd man
-	cp Makefile.am.tpl Makefile.am
+	$CP Makefile.am.tpl Makefile.am
 	for i in crypto,3 ssl,3 apps,1; do
 		IFS=","; set $i; unset IFS
 		for i in `ls -1 ../$libssl_src/src/doc/$1/*.pod | sort`; do
@@ -409,7 +411,7 @@ apps_excludes=(
 		done
 	done
 
-	cp ../$openssl_cmd_src/openssl.1 .
+	$CP ../$openssl_cmd_src/openssl.1 .
 	echo "dist_man_MANS += openssl.1" >> Makefile.am
 
 	echo "install-data-hook:" >> Makefile.am

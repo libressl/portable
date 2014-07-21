@@ -309,8 +309,8 @@ test_excludes=(biotest aeadtest evptest pq_test ssltest arc4randomforktest fork_
 		fi
 		echo "check_PROGRAMS += $TEST" >> Makefile.am
 		echo "${TEST}_SOURCES = $i" >> Makefile.am
-		echo "${TEST}_LDADD = \$(top_builddir)/crypto/libcrypto.la" >> Makefile.am
-		echo "${TEST}_LDADD += \$(top_builddir)/ssl/libssl.la" >> Makefile.am
+		echo "${TEST}_LDADD = \$(top_builddir)/ssl/libssl.la" >> Makefile.am
+		echo "${TEST}_LDADD += \$(top_builddir)/crypto/libcrypto.la" >> Makefile.am
 	done
 )
 $CP $libcrypto_regress/evp/evptests.txt tests

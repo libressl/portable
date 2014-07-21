@@ -312,10 +312,11 @@ tests_disabled=(
 	biotest
 	pidwraptest
 )
+$CP $libc_src/string/memmem.c tests/
 (cd tests
 	$CP Makefile.am.tpl Makefile.am
 
-	for i in `ls -1 *.c|sort`; do
+	for i in `ls -1 *.c|sort|grep -v memmem.c`; do
 		TEST=`echo $i|sed -e "s/\.c//"`
 		if ! [[ ${test_drivers[*]} =~ "$TEST" ]]; then
 			echo "TESTS += $TEST" >> Makefile.am
@@ -325,6 +326,7 @@ tests_disabled=(
 		echo "${TEST}_LDADD = \$(top_builddir)/ssl/libssl.la" >> Makefile.am
 		echo "${TEST}_LDADD += \$(top_builddir)/crypto/libcrypto.la" >> Makefile.am
 	done
+	echo "explicit_bzero_SOURCES += memmem.c" >> Makefile.am
 )
 $CP $libcrypto_regress/evp/evptests.txt tests
 $CP $libcrypto_regress/aead/aeadtests.txt tests

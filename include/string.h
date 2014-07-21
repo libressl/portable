@@ -22,4 +22,7 @@ int timingsafe_bcmp(const void *b1, const void *b2, size_t n);
 
 int timingsafe_memcmp(const void *b1, const void *b2, size_t len);
 
+void * memmem(const void *big, size_t big_len, const void *little,
+	size_t little_len);
+
 #endif

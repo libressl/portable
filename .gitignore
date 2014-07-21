@@ -47,6 +47,7 @@ tests/mont*
 tests/timingsafe*
 tests/*test
 tests/*test.c
+tests/memmem.c
 tests/*.pem
 tests/testssl
 tests/*.txt

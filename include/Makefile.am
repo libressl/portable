@@ -1,6 +1,7 @@
 SUBDIRS = openssl
 
-noinst_HEADERS = pqueue.h
+noinst_HEADERS = err.h
+noinst_HEADERS += pqueue.h
 noinst_HEADERS += stdlib.h
 noinst_HEADERS += string.h
 noinst_HEADERS += unistd.h

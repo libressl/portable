@@ -14,13 +14,14 @@ else
 	fi
 fi
 
-libssl_src=openbsd/src/lib/libssl
-libssl_regress=openbsd/src/regress/lib/libssl
-libc_src=openbsd/src/lib/libc
-libc_regress=openbsd/src/regress/lib/libc
-libcrypto_src=openbsd/src/lib/libcrypto
-openssl_cmd_src=openbsd/src/usr.sbin/openssl
-libcrypto_regress=openbsd/src/regress/lib/libcrypto
+dir=`pwd`
+libssl_src=$dir/openbsd/src/lib/libssl
+libssl_regress=$dir/openbsd/src/regress/lib/libssl
+libc_src=$dir/openbsd/src/lib/libc
+libc_regress=$dir/openbsd/src/regress/lib/libc
+libcrypto_src=$dir/openbsd/src/lib/libcrypto
+openssl_cmd_src=$dir/openbsd/src/usr.sbin/openssl
+libcrypto_regress=$dir/openbsd/src/regress/lib/libcrypto
 
 libressl_version=`cat VERSION`
 
@@ -72,7 +73,7 @@ $CP $libc_src/crypt/chacha_private.h crypto/compat
 $CP $libcrypto_src/crypto/getentropy_*.c crypto/compat
 $CP $libcrypto_src/crypto/arc4random_*.h crypto/compat
 
-(cd ./$libssl_src/src/crypto/objects/;
+(cd $libssl_src/src/crypto/objects/;
 	perl objects.pl objects.txt obj_mac.num obj_mac.h;
 	perl obj_dat.pl obj_mac.h obj_dat.h )
 mkdir -p include/openssl crypto/objects
@@ -412,7 +413,7 @@ apps_excludes=(
 	$CP Makefile.am.tpl Makefile.am
 	for i in crypto,3 ssl,3 apps,1; do
 		IFS=","; set $i; unset IFS
-		for i in `ls -1 ../$libssl_src/src/doc/$1/*.pod | sort`; do
+		for i in `ls -1 $libssl_src/src/doc/$1/*.pod | sort`; do
 			BASE=`echo $i|sed -e "s/\.pod//"`
 			NAME=`basename "$BASE"`
 			# reformat file if new
@@ -425,7 +426,7 @@ apps_excludes=(
 		done
 	done
 
-	$CP ../$openssl_cmd_src/openssl.1 .
+	$CP $openssl_cmd_src/openssl.1 .
 	echo "dist_man_MANS += openssl.1" >> Makefile.am
 
 	echo "install-data-hook:" >> Makefile.am

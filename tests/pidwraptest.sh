@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-./fork_rand > fork_rand.txt
+./pidwraptest > pidwraptest.txt
 while read -r a b;
 do
 	if [ "$a" = "$b" ]; then
@@ -8,4 +8,4 @@ do
 	else
 		echo "PASS: $a != $b"
 	fi
-done < fork_rand.txt
+done < pidwraptest.txt

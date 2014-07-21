@@ -276,7 +276,6 @@ copy_src apps "apps.c apps.h asn1pars.c ca.c ciphers.c cms.c crl.c crl2p7.c
 	s_server.c s_socket.c s_time.c sess_id.c smime.c speed.c spkac.c
 	testdsa.h testrsa.h timeouts.h ts.c verify.c version.c x509.c"
 
-rm -f tests/*test.c
 for i in aead/aeadtest.c aeswrap/aes_wrap.c base64/base64test.c bf/bftest.c \
 	bio/biotest.c bn/general/bntest.c bn/mont/mont.c \
 	cast/casttest.c chacha/chachatest.c cts128/cts128test.c \
@@ -298,13 +297,26 @@ for i in asn1/asn1test.c ssl/ssltest.c ssl/testssl certs/ca.pem certs/server.pem
 done
 
 # do not directly run all test programs
-test_excludes=(biotest aeadtest evptest pq_test ssltest arc4randomforktest fork_rand)
+test_drivers=(
+	biotest
+	aeadtest
+	evptest
+	pq_test
+	ssltest
+	arc4randomforktest
+	pidwraptest
+)
+# disabled by-default tests
+tests_disabled=(
+	biotest
+	pidwraptest
+)
 (cd tests
 	$CP Makefile.am.tpl Makefile.am
 
 	for i in `ls -1 *.c|sort`; do
 		TEST=`echo $i|sed -e "s/\.c//"`
-		if ! [[ ${test_excludes[*]} =~ "$TEST" ]]; then
+		if ! [[ ${test_drivers[*]} =~ "$TEST" ]]; then
 			echo "TESTS += $TEST" >> Makefile.am
 		fi
 		echo "check_PROGRAMS += $TEST" >> Makefile.am
@@ -317,9 +329,11 @@ $CP $libcrypto_regress/evp/evptests.txt tests
 $CP $libcrypto_regress/aead/aeadtests.txt tests
 $CP $libcrypto_regress/pqueue/expected.txt tests/pq_expected.txt
 chmod 755 tests/testssl
-for i in "${test_excludes[@]}"; do
+for i in "${test_drivers[@]}"; do
 	if [ -e tests/${i}.sh ]; then
-		echo "TESTS += ${i}.sh" >> tests/Makefile.am
+		if ! [[ ${tests_disabled[*]} =~ "$i" ]]; then
+			echo "TESTS += ${i}.sh" >> tests/Makefile.am
+		fi
 		echo "EXTRA_DIST += ${i}.sh" >> tests/Makefile.am
 	fi
 done

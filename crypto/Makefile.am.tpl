@@ -14,7 +14,11 @@ noinst_LTLIBRARIES = libcompat.la libcompatnoopt.la
 
 # compatibility functions that need to be built without optimizations
 libcompatnoopt_la_CFLAGS = -O0
-libcompatnoopt_la_SOURCES = compat/explicit_bzero.c
+libcompatnoopt_la_SOURCES =
+
+if NO_EXPLICIT_BZERO
+libcompatnoopt_la_SOURCES += compat/explicit_bzero.c
+endif
 
 # other compatibility functions
 libcompat_la_CFLAGS = $(CFLAGS) $(USER_CFLAGS)

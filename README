@@ -27,7 +27,7 @@ or OSX with a sane compiler and C library.
 
 Note: Our policy is generally to use your system provided intrinsics.
 If your system provides security sensitive functions (such as
-arc4random(), issetugid(), getentropy(), and others) we will
+arc4random(), issetugid(), calloc(), getentropy(), and others) we will
 assume they are implemented correctly and securely. If they are
 not please contact your OS provider. 
 

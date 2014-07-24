@@ -1,6 +1,9 @@
 /*
- * Checks if LibreSSL's PRNG is fork-safe on Linux.
+ * Checks if LibreSSL's PRNG is fork-safe.
  * From https://www.agwa.name/blog/post/libressls_prng_is_unsafe_on_linux
+ * This code is in the public domain.
+ *
+ * Original source: https://gist.github.com/AGWA/eb84e55ca25a7da1deb0
  */
 
 #include <openssl/rand.h>

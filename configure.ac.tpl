@@ -84,12 +84,6 @@ AC_CHECK_FUNC(arc4random_buf,[AC_SEARCH_LIBS(write,, [NO_ARC4RANDOM_BUF=],
 AC_SUBST(NO_ARC4RANDOM_BUF)
 AM_CONDITIONAL(NO_ARC4RANDOM_BUF, test "x$NO_ARC4RANDOM_BUF" = "xyes")
 
-# overrides for arc4random_buf implementations with known issues
-AM_CONDITIONAL(NO_ARC4RANDOM_BUF,
-   test x$HOST_OS = xdarwin \
-     -o x$HOST_OS = xsolaris \
-	 -o x$NO_ARC4RANDOM_BUF = xyes)
-
 AC_CHECK_FUNC(getentropy,[AC_SEARCH_LIBS(write,, [NO_GETENTROPY=],
 			  [NO_GETENTROPY=yes])], [NO_GETENTROPY=yes])
 AC_SUBST(NO_GETENTROPY)

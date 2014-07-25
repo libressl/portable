@@ -22,6 +22,10 @@
 #elif defined(__sun)
 #include <arpa/nameser_compat.h>
 
+#elif defined(_AIX)
+#include <sys/types.h>
+#include <arpa/nameser_compat.h>
+
 #else
 #include_next <machine/endian.h>
 

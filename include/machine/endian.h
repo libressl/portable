@@ -26,6 +26,10 @@
 #include <sys/types.h>
 #include <arpa/nameser_compat.h>
 
+#elif defined(__sgi)
+#include <standards.h>
+#include <sys/endian.h>
+
 #else
 #include_next <machine/endian.h>
 

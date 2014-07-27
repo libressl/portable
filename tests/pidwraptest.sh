@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/sh
 ./pidwraptest > pidwraptest.txt
-while read -r a b;
+while read a b;
 do
 	if [ "$a" = "$b" ]; then
 		echo "FAIL: $a = $b"

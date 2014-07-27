@@ -7,6 +7,10 @@
 #ifndef LIBCRYPTOCOMPAT_ERR_H
 #define LIBCRYPTOCOMPAT_ERR_H
 
+#include <errno.h>
+#include <stdio.h>
+#include <string.h>
+
 #define err(exitcode, format, args...) \
   errx(exitcode, format ": %s", ## args, strerror(errno))
 

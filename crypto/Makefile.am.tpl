@@ -72,7 +72,6 @@ endif
 endif
 
 noinst_HEADERS = des/ncbc_enc.c
-noinst_HEADERS += compat/thread_private.h
 noinst_HEADERS += compat/arc4random.h
 noinst_HEADERS += compat/arc4random_linux.h
 noinst_HEADERS += compat/arc4random_osx.h

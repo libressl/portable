@@ -39,6 +39,9 @@ AM_CONDITIONAL(HOST_WIN, test x$HOST_OS = xwin)
 AC_CHECK_FUNC([clock_gettime],,
 	[AC_SEARCH_LIBS([clock_gettime],[rt posix4])])
 
+AC_CHECK_FUNC([dl_iterate_phdr],,
+	[AC_SEARCH_LIBS([dl_iterate_phdr],[dl])])
+
 AC_PROG_CC
 AC_PROG_LIBTOOL
 AC_PROG_CC_STDC

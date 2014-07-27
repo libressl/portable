@@ -64,7 +64,7 @@ $CP $libssl_src/src/crypto/opensslfeatures.h include/openssl
 $CP $libssl_src/src/e_os2.h include/openssl
 $CP $libssl_src/src/ssl/pqueue.h include
 
-for i in explicit_bzero.c strlcpy.c strlcat.c timingsafe_bcmp.c timingsafe_memcmp.c; do
+for i in explicit_bzero.c strlcpy.c strlcat.c strndup.c strnlen.c timingsafe_bcmp.c timingsafe_memcmp.c; do
 	$CP $libc_src/string/$i crypto/compat
 done
 $CP $libc_src/stdlib/reallocarray.c crypto/compat

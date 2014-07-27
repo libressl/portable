@@ -16,6 +16,10 @@ size_t strlcpy(char *dst, const char *src, size_t siz);
 
 size_t strlcat(char *dst, const char *src, size_t siz);
 
+char * strndup(const char *str, size_t maxlen);
+
+size_t strnlen(const char *str, size_t maxlen);
+
 void explicit_bzero(void *, size_t);
 
 int timingsafe_bcmp(const void *b1, const void *b2, size_t n);

@@ -1,16 +1,17 @@
-#ifdef __linux__
+#if defined(__linux__)
 #include "arc4random_linux.h"
-#endif
 
-#ifdef __APPLE__
+#elif defined(__APPLE__)
 #include "arc4random_osx.h"
-#endif
 
-#ifdef __sun
+#elif defined(__sun)
 #include "arc4random_solaris.h"
-#endif
 
-#ifdef __WIN32
+#elif defined(__WIN32)
 #include "arc4random_win.h"
+
+#else
+#error "No arc4random hooks defined for this platform."
+
 #endif
 

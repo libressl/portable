@@ -78,6 +78,9 @@ if NO_ISSETUGID
 if HOST_LINUX
 libcompat_la_SOURCES += compat/issetugid_linux.c
 endif
+if HOST_WIN
+libcompat_la_SOURCES += compat/issetugid_win.c
+endif
 endif
 
 noinst_HEADERS = des/ncbc_enc.c

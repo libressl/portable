@@ -38,6 +38,10 @@ libcompat_la_SOURCES += compat/strndup.c
 libcompat_la_SOURCES += compat/strnlen.c
 endif
 
+if NO_ASPRINTF
+libcompat_la_SOURCES += compat/asprintf.c
+endif
+
 if NO_REALLOCARRAY
 libcompat_la_SOURCES += compat/reallocarray.c
 endif

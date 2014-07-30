@@ -19,19 +19,13 @@
 #elif defined(__linux__)
 #include <endian.h>
 
-#elif defined(__sun)
-#include <arpa/nameser_compat.h>
-
-#elif defined(_AIX)
+#elif defined(__sun) || defined(_AIX) || defined(__hpux)
 #include <sys/types.h>
 #include <arpa/nameser_compat.h>
 
 #elif defined(__sgi)
 #include <standards.h>
 #include <sys/endian.h>
-
-#elif defined(__hpux)
-#include <arpa/nameser_compat.h>
 
 #else
 #include_next <machine/endian.h>

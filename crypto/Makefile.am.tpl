@@ -39,7 +39,7 @@ libcompat_la_SOURCES += compat/strnlen.c
 endif
 
 if NO_ASPRINTF
-libcompat_la_SOURCES += compat/asprintf.c
+libcompat_la_SOURCES += compat/bsd-asprintf.c
 endif
 
 if NO_REALLOCARRAY

@@ -17,12 +17,12 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#include "includes.h"
-
 #ifndef HAVE_VASPRINTF
 
 #include <errno.h>
+#include <limits.h> /* for INT_MAX */
 #include <stdarg.h>
+#include <stdio.h> /* for vsnprintf */
 #include <stdlib.h>
 
 #ifndef VA_COPY
@@ -42,16 +42,17 @@
 int
 vasprintf(char **str, const char *fmt, va_list ap)
 {
-	int ret = -1;
+	int ret;
 	va_list ap2;
 	char *string, *newstr;
 	size_t len;
 
-	VA_COPY(ap2, ap);
 	if ((string = malloc(INIT_SZ)) == NULL)
 		goto fail;
 
+	VA_COPY(ap2, ap);
 	ret = vsnprintf(string, INIT_SZ, fmt, ap2);
+	va_end(ap2);
 	if (ret >= 0 && ret < INIT_SZ) { /* succeeded with initial alloc */
 		*str = string;
 	} else if (ret == INT_MAX || ret < 0) { /* Bad length */
@@ -62,25 +63,21 @@ vasprintf(char **str, const char *fmt, va_list ap)
 		if ((newstr = realloc(string, len)) == NULL) {
 			free(string);
 			goto fail;
-		} else {
-			va_end(ap2);
-			VA_COPY(ap2, ap);
-			ret = vsnprintf(newstr, len, fmt, ap2);
-			if (ret >= 0 && (size_t)ret < len) {
-				*str = newstr;
-			} else { /* failed with realloc'ed string, give up */
-				free(newstr);
-				goto fail;
-			}
 		}
+		VA_COPY(ap2, ap);
+		ret = vsnprintf(newstr, len, fmt, ap2);
+		va_end(ap2);
+		if (ret < 0 || (size_t)ret >= len) { /* failed with realloc'ed string */
+			free(newstr);
+			goto fail;
+		}
+		*str = newstr;
 	}
-	va_end(ap2);
 	return (ret);
 
 fail:
 	*str = NULL;
 	errno = ENOMEM;
-	va_end(ap2);
 	return (-1);
 }
 #endif

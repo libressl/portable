@@ -30,6 +30,9 @@
 #include <standards.h>
 #include <sys/endian.h>
 
+#elif defined(__hpux)
+#include <arpa/nameser_compat.h>
+
 #else
 #include_next <machine/endian.h>
 

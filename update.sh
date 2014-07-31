@@ -1,18 +1,19 @@
 #!/usr/bin/env bash
 set -e
 
-# resync this library with the upstream project, remove old submodule dirs
-if [ -d openbsd ]; then
-	(cd openbsd
-	 git checkout master
-	 git pull)
-else
+openbsd_branch=`cat OPENBSD_BRANCH`
+libressl_version=`cat VERSION`
+
+if [ ! -d openbsd ]; then
 	if [ -z "$LIBRESSL_GIT" ]; then
 		git clone https://github.com/libressl-portable/openbsd.git
 	else
 		git clone $LIBRESSL_GIT/openbsd
 	fi
 fi
+(cd openbsd
+ git checkout $openbsd_branch
+ git pull)
 
 dir=`pwd`
 libssl_src=$dir/openbsd/src/lib/libssl
@@ -22,8 +23,6 @@ libc_regress=$dir/openbsd/src/regress/lib/libc
 libcrypto_src=$dir/openbsd/src/lib/libcrypto
 openssl_cmd_src=$dir/openbsd/src/usr.sbin/openssl
 libcrypto_regress=$dir/openbsd/src/regress/lib/libcrypto
-
-libressl_version=`cat VERSION`
 
 source $libssl_src/ssl/shlib_version
 libssl_version=$major:$minor:0

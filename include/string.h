@@ -22,7 +22,9 @@ size_t strlcat(char *dst, const char *src, size_t siz);
 
 #ifdef NO_STRNDUP
 char * strndup(const char *str, size_t maxlen);
+#ifdef NO_STRNLEN
 size_t strnlen(const char *str, size_t maxlen);
+#endif
 #endif
 
 #ifdef NO_EXPLICIT_BZERO

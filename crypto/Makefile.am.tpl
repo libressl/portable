@@ -35,7 +35,9 @@ endif
 
 if NO_STRNDUP
 libcompat_la_SOURCES += compat/strndup.c
+if NO_STRNLEN
 libcompat_la_SOURCES += compat/strnlen.c
+endif
 endif
 
 if NO_ASPRINTF

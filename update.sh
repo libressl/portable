@@ -13,7 +13,7 @@ if [ ! -d openbsd ]; then
 fi
 (cd openbsd
  git checkout $openbsd_branch
- git pull)
+ git pull --rebase)
 
 dir=`pwd`
 libssl_src=$dir/openbsd/src/lib/libssl

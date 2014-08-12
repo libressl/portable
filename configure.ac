@@ -1,4 +1,4 @@
-AC_INIT([libressl], [VERSION])
++AC_INIT([libressl], m4_esyscmd([tr -d '\n' < VERSION]))
 AC_CANONICAL_HOST
 AM_INIT_AUTOMAKE([subdir-objects])
 AC_CONFIG_MACRO_DIR([m4])

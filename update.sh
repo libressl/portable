@@ -32,8 +32,6 @@ source $libcrypto_src/crypto/shlib_version
 libcrypto_version=$major:$minor:0
 echo libcrypto version $libcrypto_version
 
-sed -e "s/VERSION/${libressl_version}/" configure.ac.tpl > configure.ac
-
 CP='cp -p'
 
 copy_src() {

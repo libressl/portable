@@ -15,7 +15,7 @@ case $host_os in
 		;;
 	*linux*)
 		HOST_OS=linux;
-		CFLAGS="$CFLAGS -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
+		CFLAGS="$CFLAGS -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
 		;;
 	*solaris*)
 		HOST_OS=solaris;

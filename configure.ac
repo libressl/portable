@@ -6,7 +6,7 @@ AC_CONFIG_MACRO_DIR([m4])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
 AC_SUBST([USER_CFLAGS], "-O2 $CFLAGS")
-CFLAGS="$CFLAGS -Wall -std=c99 -g"
+CFLAGS="$CFLAGS -Wall -std=gnu99 -g"
 
 case $host_os in
 	*darwin*)

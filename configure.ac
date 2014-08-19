@@ -167,7 +167,7 @@ AC_ARG_WITH([enginesdir],
 
 AC_ARG_ENABLE([asm],
 	AS_HELP_STRING([--disable-asm], [Disable assembly]))
-AS_IF([test "x$enable_asm" == "xno"], [CFLAGS="$CFLAGS -DOPENSSL_NO_ASM"])
+AS_IF([test "x$enable_asm" = "xno"], [CFLAGS="$CFLAGS -DOPENSSL_NO_ASM"])
 
 LT_INIT
 

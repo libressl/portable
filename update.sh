@@ -21,7 +21,7 @@ libssl_regress=$dir/openbsd/src/regress/lib/libssl
 libc_src=$dir/openbsd/src/lib/libc
 libc_regress=$dir/openbsd/src/regress/lib/libc
 libcrypto_src=$dir/openbsd/src/lib/libcrypto
-openssl_cmd_src=$dir/openbsd/src/usr.sbin/openssl
+openssl_cmd_src=$dir/openbsd/src/usr.bin/openssl
 libcrypto_regress=$dir/openbsd/src/regress/lib/libcrypto
 
 source $libssl_src/ssl/shlib_version
@@ -37,8 +37,8 @@ CP='cp -p'
 copy_src() {
 	mkdir -p $1
 	rm -f $1/*.c
-	for file in $2; do
-		$CP $libssl_src/src/$1/$file $1
+	for file in $3; do
+		$CP $2/src/$1/$file $1
 	done
 }
 
@@ -49,7 +49,7 @@ copy_hdrs() {
 }
 
 copy_crypto() {
-	copy_src crypto/$1 "$2"
+	copy_src crypto/$1 $libssl_src "$2"
 	crypto_subdirs="$crypto_subdirs $1"
 }
 
@@ -88,24 +88,25 @@ copy_hdrs crypto "stack/stack.h lhash/lhash.h stack/safestack.h opensslv.h
 	bio/bio.h cast/cast.h cmac/cmac.h conf/conf_api.h des/des.h dh/dh.h
 	dsa/dsa.h cms/cms.h engine/engine.h ui/ui.h pkcs12/pkcs12.h ts/ts.h
 	md4/md4.h ripemd/ripemd.h whrlpool/whrlpool.h idea/idea.h mdc2/mdc2.h
-	rc2/rc2.h rc4/rc4.h rc5/rc5.h ui/ui_compat.h txt_db/txt_db.h chacha/chacha.h evp/evp.h
-	poly1305/poly1305.h"
+	rc2/rc2.h rc4/rc4.h rc5/rc5.h ui/ui_compat.h txt_db/txt_db.h
+	chacha/chacha.h evp/evp.h poly1305/poly1305.h"
 
 copy_hdrs ssl "srtp.h ssl.h ssl2.h ssl3.h ssl23.h tls1.h dtls1.h"
 
-for i in ssl/srtp.h \
-	ssl/ssl_locl.h; do
+for i in ssl/srtp.h ssl/ssl_locl.h; do
 	$CP $libssl_src/src/$i ssl
 done
 
-copy_src ssl "s3_meth.c s3_srvr.c s3_clnt.c s3_lib.c s3_enc.c s3_pkt.c
+copy_src ssl $libssl_src \
+	"s3_meth.c s3_srvr.c s3_clnt.c s3_lib.c s3_enc.c s3_pkt.c
 	s3_both.c s23_meth.c s23_srvr.c s23_clnt.c s23_lib.c s23_pkt.c t1_meth.c
 	t1_srvr.c t1_clnt.c t1_lib.c t1_enc.c d1_meth.c d1_srvr.c d1_clnt.c
 	d1_lib.c d1_pkt.c d1_both.c d1_enc.c d1_srtp.c ssl_lib.c ssl_err2.c
 	ssl_cert.c ssl_sess.c ssl_ciph.c ssl_stat.c ssl_rsa.c ssl_asn1.c ssl_txt.c
 	ssl_algs.c bio_ssl.c ssl_err.c t1_reneg.c s3_cbc.c pqueue.c"
 
-copy_src crypto "cryptlib.h cryptlib.c malloc-wrapper.c mem_clr.c mem_dbg.c cversion.c
+copy_src crypto $libssl_src \
+	"cryptlib.h cryptlib.c malloc-wrapper.c mem_clr.c mem_dbg.c cversion.c
 	ex_data.c cpt_err.c o_time.c o_time.h o_str.c o_init.c md32_common.h"
 
 copy_crypto aes "aes_cbc.c aes_core.c aes_misc.c aes_ecb.c aes_cfb.c aes_ofb.c aes_ctr.c
@@ -267,13 +268,10 @@ copy_crypto x509v3 "v3_bcons.c v3_bitst.c v3_conf.c v3_extku.c v3_ia5.c v3_lib.c
 	pcy_cache.c pcy_node.c pcy_data.c pcy_map.c pcy_tree.c pcy_lib.c
 	pcy_int.h ext_dat.h"
 
-copy_src apps "apps.c apps.h asn1pars.c ca.c ciphers.c cms.c crl.c crl2p7.c
-	dgst.c dh.c dhparam.c dsa.c dsaparam.c ec.c ecparam.c enc.c engine.c
-	errstr.c gendh.c gendsa.c genpkey.c genrsa.c nseq.c ocsp.c openssl.c
-	openssl.cnf passwd.c pkcs12.c pkcs7.c pkcs8.c pkey.c pkeyparam.c pkeyutl.c
-	prime.c progs.h rand.c req.c rsa.c rsautl.c s_apps.h s_cb.c s_client.c
-	s_server.c s_socket.c s_time.c sess_id.c smime.c speed.c spkac.c
-	testdsa.h testrsa.h timeouts.h ts.c verify.c version.c x509.c"
+rm -f apps/*.c apps/*.h
+for i in $openssl_cmd_src/*; do
+	cp $i apps
+done
 
 for i in aead/aeadtest.c aeswrap/aes_wrap.c base64/base64test.c bf/bftest.c \
 	bio/biotest.c bn/general/bntest.c bn/mont/mont.c \

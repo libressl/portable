@@ -409,7 +409,16 @@ apps_excludes=(
 
 (cd man
 	$CP Makefile.am.tpl Makefile.am
-	for i in crypto,3 ssl,3 apps,1; do
+
+	# update new-style manpages
+	for i in `ls -1 $libssl_src/src/doc/ssl/*.3 | sort`; do
+		NAME=`basename "$i"`
+		cp $i .
+		echo "dist_man_MANS += $NAME" >> Makefile.am
+	done
+
+	# convert remaining POD manpages
+	for i in crypto,3 apps,1; do
 		IFS=","; set $i; unset IFS
 		for i in `ls -1 $libssl_src/src/doc/$1/*.pod | sort`; do
 			BASE=`echo $i|sed -e "s/\.pod//"`

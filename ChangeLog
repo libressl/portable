@@ -1,0 +1,61 @@
+Because this project is maintained both in the OpenBSD tree using CVS and in
+Git, it can be confusing following all of the changes.
+
+Most of the libssl and libcrypto source code is is here in OpenBSD CVS:
+
+	http://cvsweb.openbsd.org/cgi-bin/cvsweb/src/lib/libssl/
+
+Some of the libcrypto and OS-compatibility files for entropy and random number
+generation are here:
+
+	http://cvsweb.openbsd.org/cgi-bin/cvsweb/src/lib/libcrypto/
+
+A new simplified SSL wrapper library is here:
+
+	http://cvsweb.openbsd.org/cgi-bin/cvsweb/src/lib/libressl/
+
+The LibreSSL Portable project copies these portions of the OpenBSD tree, along
+with relevant portions of the C library, to a Git repository. This makes it
+easier to follow all of the relevant changes to the upstream project in a
+single place:
+
+	https://github.com/libressl-portable/openbsd/commits/master
+
+The portable bits of the project are largely maintained out-of-tree, and their
+history is also available from Git.
+
+	https://github.com/libressl-portable/portable/commits/master
+
+LibreSSL Portable Release Notes:
+
+2.1.0 - First release from the OpenBSD 5.7 tree
+	* Added support for automatic ephemeral EC keys
+	* Fixes for many memory leaks and overflows in error handlers
+	* The TLS padding extension (that works around bugs in F5 terminators) is
+	  off by default
+	* support for getrandom(2) on Linux 3.17
+	* the NO_ASM macro is no longer being set, providing the first bits toward
+	  enabling other assembly offloads.
+
+2.0.5 - Fixes for CVEs from OpenSSL 1.0.1i
+	* CVE-2014-3506
+	* CVE-2014-3507
+	* CVE-2014-3508 (partially vulnerable)he
+	* CVE-2014-3509
+	* CVE-2014-3510
+	* CVE-2014-3511
+	* Synced LibreSSL Portable with the release version of OpenBSD 5.6
+
+2.0.4 - Portability fixes, deleted unused SRP code
+
+2.0.3 - Portability fixes, improvements to fork detection
+
+2.0.2 - Address arc4random fork PID wraparound issues with pthread_atfork
+
+2.0.1 - Portability fixes:
+	* Removed -Werror and and other non-portable compiler flags
+	* Allow setting OPENSSLDIR and ENGINSDIR
+
+2.0.0 - First release from the OpenBSD 5.6 tree
+	* Removal of many obsolete features and coding conventions from the OpenSSL
+	  1.0.1h source

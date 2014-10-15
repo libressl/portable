@@ -54,7 +54,6 @@ copy_crypto() {
 }
 
 $CP $libssl_src/src/LICENSE COPYING
-echo "Please see OpenBSD CVS logs" > ChangeLog
 
 $CP $libcrypto_src/crypto/arch/amd64/opensslconf.h include/openssl
 $CP $libssl_src/src/crypto/opensslfeatures.h include/openssl

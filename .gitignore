@@ -177,9 +177,10 @@ crypto/whrlpool/
 crypto/x509/
 crypto/x509v3/
 openbsd/
+*.tar.gz
+apps/*.1*
 man/*.3
 man/*.1
 man/Makefile.am
 .gitmodules
-ChangeLog
 COPYING

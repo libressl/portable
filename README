@@ -1,34 +1,50 @@
 This package is the official portable version of LibreSSL
-(http://www.libressl.org).
+	(http://www.libressl.org).
 
 LibreSSL is a fork of OpenSSL developed by the OpenBSD project
 (http://www.openbsd.org). LibreSSL is developed on OpenBSD. This
-package then adds portability shims for other operating systems. 
+package then adds portability shims for other operating systems.
 
 Official release tarballs are available at your friendly neighborhood
 OpenBSD mirror in directory LibreSSL, e.g.:
-http://ftp.openbsd.org/pub/OpenBSD/LibreSSL/
-although it is suggested you use a mirror. 
 
-Development is done in the upstream OpenBSD codebase.  A github clone
-of the official repositories is kept at:
-https://github.com/libressl-portable
-We update this repository from the OpenBSD respositories
-semi-frequently, so changes may not show up in GitHub immediately. 
-The GitHub repository should be used for informational purposes
-only.
+	http://ftp.openbsd.org/pub/OpenBSD/LibreSSL/
 
-./configure && make check && make install
+although we suggest that you use a mirror:
 
-See crypto/compat for the bulk of the local compatibility code. 
+	http://www.openbsd.org/ftp.html
 
-It will likely build on any reasonably modern version of Linux, Solaris,
-or OSX with a sane compiler and C library.
+The LibreSSL portable build framework is also mirrored in Github:
+
+	https://github.com/libressl-portable/portable
+
+If you have checked this source using Git, follow these initial steps to
+prepare the source tree for building:
+
+ 1. ensure you have the following packages installed:
+	automake, autoconf, bash, git, libtool, perl, pod2man
+ 2. run './autogen.sh' to prepare the source tree for building
+    or run './dist.sh' to prepare a tarball.
+
+Once you have a source tree from Git or FTP, run these commands to build and
+install the package:
+
+  ./configure   # see ./configure --help for configuration options
+  make check    # runs builtin unit tests
+  make install  # set DESTDIR= to install to an alternate location
+
+The resulting library and 'openssl' utility is largely API-compatible with
+OpenSSL 1.0.1. However, it is not ABI compatible - you will need to relink your
+programs to LibreSSL in order to use it, just as in moving from OpenSSL 0.9.8
+to 1.0.1.
+
+LibreSSL portable will likely build on any reasonably modern version of Linux,
+Solaris, or OSX with a standards-compliant compiler and C library. If you are
+working a new port, most of the OS-specific compatibility code is found in
+'crypto/compat'
 
 Note: Our policy is generally to use your system provided intrinsics.
 If your system provides security sensitive functions (such as
 arc4random(), issetugid(), calloc(), getentropy(), and others) we will
 assume they are implemented correctly and securely. If they are
-not please contact your OS provider. 
-
-
+not please contact your OS provider.

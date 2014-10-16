@@ -28,6 +28,11 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.1.1
+	* Address POODLE attack by disabling SSLv3 by default
+	* Fix Eliptical Curve cipher selection bug
+	  (https://github.com/libressl-portable/portable/issues/35)
+
 2.1.0 - First release from the OpenBSD 5.7 tree
 	* Added support for automatic ephemeral EC keys
 	* Fixes for many memory leaks and overflows in error handlers

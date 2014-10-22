@@ -6,6 +6,7 @@
  * Original source: https://gist.github.com/AGWA/eb84e55ca25a7da1deb0
  */
 
+#undef LIBRESSL_INTERNAL
 #include <openssl/rand.h>
 #include <stdio.h>
 #include <stdlib.h>

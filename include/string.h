@@ -5,9 +5,9 @@
 
 #include <sys/types.h>
 
-#ifdef __sun
+#if defined(__sun) || defined(__hpux)
 /* Some functions historically defined in string.h were placed in strings.h by
- * SUS. Use the same hack as OS X and FreeBSD use to work around on Solaris.
+ * SUS. Use the same hack as OS X and FreeBSD use to work around on Solaris and HPUX.
  */
 #include <strings.h>
 #endif

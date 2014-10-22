@@ -321,7 +321,9 @@ $CP $libc_src/string/memmem.c tests/
 		echo "${TEST}_LDADD = \$(top_builddir)/ssl/libssl.la" >> Makefile.am
 		echo "${TEST}_LDADD += \$(top_builddir)/crypto/libcrypto.la" >> Makefile.am
 	done
+	echo "if NO_MEMMEM" >> Makefile.am
 	echo "explicit_bzero_SOURCES += memmem.c" >> Makefile.am
+	echo "endif" >> Makefile.am
 )
 $CP $libcrypto_regress/evp/evptests.txt tests
 $CP $libcrypto_regress/aead/aeadtests.txt tests

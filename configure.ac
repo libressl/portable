@@ -27,6 +27,7 @@ case $host_os in
 		;;
 	*mingw*)
 		HOST_OS=win32
+		CFLAGS="$CFLAGS -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
 		;;
 	*) ;;
 esac
@@ -57,7 +58,7 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
 )
 CFLAGS="$save_cflags $AM_CFLAGS"
 
-AC_CHECK_FUNC(strlcpy, 
+AC_CHECK_FUNC(strlcpy,
 	AM_CONDITIONAL(NO_STRLCPY, false),
 	AC_DEFINE(NO_STRLCPY)
 	AM_CONDITIONAL(NO_STRLCPY, true))

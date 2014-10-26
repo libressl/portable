@@ -417,25 +417,21 @@ apps_excludes=(
 		cp $i .
 		echo "dist_man_MANS += $NAME" >> Makefile.am
 	done
-
-	# convert remaining POD manpages
-	for i in crypto,3 apps,1; do
-		IFS=","; set $i; unset IFS
-		for i in `ls -1 $libssl_src/src/doc/$1/*.pod | sort`; do
-			BASE=`echo $i|sed -e "s/\.pod//"`
-			NAME=`basename "$BASE"`
-			# reformat file if new
-			if [ ! -f $NAME.$2 -o $BASE.pod -nt $NAME.$2 -o ../VERSION -nt $NAME.$2 ]; then
-				echo processing $NAME
-				pod2man --official --release="LibreSSL $VERSION" --center=LibreSSL \
-					--section=$2 $POD2MAN --name=$NAME < $BASE.pod > $NAME.$2
-			fi
-			echo "dist_man_MANS += $NAME.$2" >> Makefile.am
-		done
-	done
-
 	$CP $openssl_cmd_src/openssl.1 .
 	echo "dist_man_MANS += openssl.1" >> Makefile.am
+
+	# convert remaining POD manpages
+	for i in `ls -1 $libssl_src/src/doc/crypto/*.pod | sort`; do
+		BASE=`echo $i|sed -e "s/\.pod//"`
+		NAME=`basename "$BASE"`
+		# reformat file if new
+		if [ ! -f $NAME.3 -o $BASE.pod -nt $NAME.3 -o ../VERSION -nt $NAME.3 ]; then
+			echo processing $NAME
+			pod2man --official --release="LibreSSL $VERSION" --center=LibreSSL \
+				--section=3 $POD2MAN --name=$NAME < $BASE.pod > $NAME.3
+		fi
+		echo "dist_man_MANS += $NAME.3" >> Makefile.am
+	done
 
 	echo "install-data-hook:" >> Makefile.am
 	source ./links

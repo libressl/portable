@@ -1,7 +1,12 @@
 #ifndef LIBCRYPTOCOMPAT_ARC4RANDOM_H
 #define LIBCRYPTOCOMPAT_ARC4RANDOM_H
 
-#if defined(__linux__)
+#include <sys/param.h>
+
+#if defined(__FreeBSD__)
+#include "arc4random_freebsd.h"
+
+#elif defined(__linux__)
 #include "arc4random_linux.h"
 
 #elif defined(__APPLE__)

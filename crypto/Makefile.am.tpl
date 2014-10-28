@@ -61,6 +61,9 @@ if !HAVE_ARC4RANDOM_BUF
 libcompat_la_SOURCES += compat/arc4random.c
 
 if !HAVE_GETENTROPY
+if HOST_FREEBSD
+libcompat_la_SOURCES += compat/getentropy_freebsd.c
+endif
 if HOST_LINUX
 libcompat_la_SOURCES += compat/getentropy_linux.c
 endif
@@ -88,6 +91,7 @@ endif
 
 noinst_HEADERS = des/ncbc_enc.c
 noinst_HEADERS += compat/arc4random.h
+noinst_HEADERS += compat/arc4random_freebsd.h
 noinst_HEADERS += compat/arc4random_linux.h
 noinst_HEADERS += compat/arc4random_osx.h
 noinst_HEADERS += compat/arc4random_solaris.h

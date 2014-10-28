@@ -79,6 +79,10 @@ AM_CONDITIONAL([HAVE_STRTONUM], [test "x$ac_cv_func_strtonum" = xyes])
 AM_CONDITIONAL([HAVE_TIMINGSAFE_BCMP], [test "x$ac_cv_func_timingsafe_bcmp" = xyes])
 AM_CONDITIONAL([HAVE_TIMINGSAFE_MEMCMP], [test "x$ac_cv_func_timingsafe_memcmp" = xyes])
 
+# overrides for arc4random_buf implementations with known issues
+AM_CONDITIONAL([HAVE_ARC4RANDOM_BUF],
+	[test "x$HOST_OS" != xdarwin -a "x$NO_ARC4RANDOM_BUF" = xtrue])
+
 AC_CACHE_CHECK([whether va_copy exists], ac_cv_have_va_copy, [
 	AC_LINK_IFELSE([AC_LANG_PROGRAM([[
 #include <stdarg.h>

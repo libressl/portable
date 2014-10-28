@@ -38,13 +38,9 @@ OpenSSL 1.0.1. However, it is not ABI compatible - you will need to relink your
 programs to LibreSSL in order to use it, just as in moving from OpenSSL 0.9.8
 to 1.0.1.
 
-LibreSSL portable will likely build on any reasonably modern version of Linux,
-Solaris, or OSX with a standards-compliant compiler and C library. If you are
-working a new port, most of the OS-specific compatibility code is found in
-'crypto/compat'
+The project attempts to provide working alternatives for operating systems with
+limited or broken security primitives (e.g. arc4random(3), issetugid(2)) and
+assists with improving OS-native implementations where possible.
 
-Note: Our policy is generally to use your system provided intrinsics.
-If your system provides security sensitive functions (such as
-arc4random(), issetugid(), calloc(), getentropy(), and others) we will
-assume they are implemented correctly and securely. If they are
-not please contact your OS provider.
+LibreSSL portable will build on any reasonably modern version of Linux,
+Solaris, or OSX with a standards-compliant compiler and C library.

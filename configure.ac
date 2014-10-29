@@ -26,7 +26,7 @@ case $host_os in
 		AC_DEFINE([HAVE_ATTRIBUTE__BOUNDED__], [1], [OpenBSD gcc has bounded])
 		;;
 	*mingw*)
-		HOST_OS=win32
+		HOST_OS=win
 		CFLAGS="$CFLAGS -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
 		;;
 	*) ;;

@@ -17,7 +17,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#ifndef HAVE_VASPRINTF
+#ifndef HAVE_ASPRINTF
 
 #include <errno.h>
 #include <limits.h> /* for INT_MAX */
@@ -80,9 +80,7 @@ fail:
 	errno = ENOMEM;
 	return (-1);
 }
-#endif
 
-#ifndef HAVE_ASPRINTF
 int asprintf(char **str, const char *fmt, ...)
 {
 	va_list ap;

@@ -305,7 +305,6 @@ test_drivers=(
 # disabled by-default tests
 tests_disabled=(
 	biotest
-	pidwraptest
 )
 $CP $libc_src/string/memmem.c tests/
 (cd tests
@@ -319,7 +318,7 @@ $CP $libc_src/string/memmem.c tests/
 		echo "check_PROGRAMS += $TEST" >> Makefile.am
 		echo "${TEST}_SOURCES = $i" >> Makefile.am
 	done
-	echo "if NO_MEMMEM" >> Makefile.am
+	echo "if !HAVE_MEMMEM" >> Makefile.am
 	echo "explicit_bzero_SOURCES += memmem.c" >> Makefile.am
 	echo "endif" >> Makefile.am
 )

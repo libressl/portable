@@ -10,6 +10,6 @@ openssl_LDADD += $(top_builddir)/crypto/libcrypto.la
 openssl_SOURCES =
 noinst_HEADERS =
 
-if NO_STRTONUM
+if !HAVE_STRTONUM
 openssl_SOURCES += strtonum.c
 endif

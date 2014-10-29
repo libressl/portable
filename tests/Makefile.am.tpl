@@ -9,7 +9,3 @@ LDADD += $(top_builddir)/crypto/libcrypto.la
 TESTS =
 check_PROGRAMS =
 EXTRA_DIST =
-
-if !NO_ARC4RANDOM_BUF
-TESTS += pidwraptest.sh
-endif

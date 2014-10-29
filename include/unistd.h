@@ -3,11 +3,11 @@
 #ifndef LIBCRYPTOCOMPAT_UNISTD_H
 #define LIBCRYPTOCOMPAT_UNISTD_H
 
-#ifdef NO_GETENTROPY
+#ifndef HAVE_GETENTROPY
 int getentropy(void *buf, size_t buflen);
 #endif
 
-#ifdef NO_ISSETUGID
+#ifndef HAVE_ISSETUGID
 int issetugid(void);
 #endif
 

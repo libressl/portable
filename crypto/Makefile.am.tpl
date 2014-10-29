@@ -16,7 +16,7 @@ noinst_LTLIBRARIES = libcompat.la libcompatnoopt.la
 libcompatnoopt_la_CFLAGS = -O0
 libcompatnoopt_la_SOURCES =
 
-if NO_EXPLICIT_BZERO
+if !HAVE_EXPLICIT_BZERO
 libcompatnoopt_la_SOURCES += compat/explicit_bzero.c
 endif
 
@@ -25,41 +25,42 @@ libcompat_la_CFLAGS = $(CFLAGS) $(USER_CFLAGS)
 libcompat_la_SOURCES =
 libcompat_la_LIBADD = $(PLATFORM_LDADD)
 
-if NO_STRLCAT
+if !HAVE_STRLCAT
 libcompat_la_SOURCES += compat/strlcat.c
 endif
 
-if NO_STRLCPY
+if !HAVE_STRLCPY
 libcompat_la_SOURCES += compat/strlcpy.c
 endif
 
-if NO_STRNDUP
+if !HAVE_STRNDUP
 libcompat_la_SOURCES += compat/strndup.c
-if NO_STRNLEN
+# the only user of strnlen is strndup, so only build it if needed
+if !HAVE_STRNLEN
 libcompat_la_SOURCES += compat/strnlen.c
 endif
 endif
 
-if NO_ASPRINTF
+if !HAVE_ASPRINTF
 libcompat_la_SOURCES += compat/bsd-asprintf.c
 endif
 
-if NO_REALLOCARRAY
+if !HAVE_REALLOCARRAY
 libcompat_la_SOURCES += compat/reallocarray.c
 endif
 
-if NO_TIMINGSAFE_MEMCMP
+if !HAVE_TIMINGSAFE_MEMCMP
 libcompat_la_SOURCES += compat/timingsafe_memcmp.c
 endif
 
-if NO_TIMINGSAFE_BCMP
+if !HAVE_TIMINGSAFE_BCMP
 libcompat_la_SOURCES += compat/timingsafe_bcmp.c
 endif
 
-if NO_ARC4RANDOM_BUF
+if !HAVE_ARC4RANDOM_BUF
 libcompat_la_SOURCES += compat/arc4random.c
 
-if NO_GETENTROPY
+if !HAVE_GETENTROPY
 if HOST_LINUX
 libcompat_la_SOURCES += compat/getentropy_linux.c
 endif
@@ -76,7 +77,7 @@ endif
 
 endif
 
-if NO_ISSETUGID
+if !HAVE_ISSETUGID
 if HOST_LINUX
 libcompat_la_SOURCES += compat/issetugid_linux.c
 endif

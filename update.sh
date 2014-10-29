@@ -318,8 +318,6 @@ $CP $libc_src/string/memmem.c tests/
 		fi
 		echo "check_PROGRAMS += $TEST" >> Makefile.am
 		echo "${TEST}_SOURCES = $i" >> Makefile.am
-		echo "${TEST}_LDADD = \$(top_builddir)/ssl/libssl.la" >> Makefile.am
-		echo "${TEST}_LDADD += \$(top_builddir)/crypto/libcrypto.la" >> Makefile.am
 	done
 	echo "if NO_MEMMEM" >> Makefile.am
 	echo "explicit_bzero_SOURCES += memmem.c" >> Makefile.am

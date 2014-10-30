@@ -1,3 +1,6 @@
+#ifndef LIBCRYPTOCOMPAT_ARC4RANDOM_H
+#define LIBCRYPTOCOMPAT_ARC4RANDOM_H
+
 #if defined(__linux__)
 #include "arc4random_linux.h"
 
@@ -15,3 +18,4 @@
 
 #endif
 
+#endif

@@ -1,0 +1,11 @@
+#!/bin/sh
+ARGS=""
+for var in "$@"; do
+    case $var in
+        no-shared ) ARGS="$ARGS --disable-shared";;
+        no-asm    ) ARGS="$ARGS --disable-asm";;
+        --prefix* ) ARGS="$ARGS $var";;
+    esac
+done
+
+./configure $ARGS

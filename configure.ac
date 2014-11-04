@@ -11,7 +11,6 @@ CFLAGS="$CFLAGS -Wall -std=gnu99 -g"
 case $host_os in
 	*darwin*)
 		HOST_OS=darwin;
-		LDFLAGS="$LDFLAGS -Qunused-arguments"
 		;;
 	*freebsd*)
 		HOST_OS=freebsd;
@@ -62,6 +61,19 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
 	[AC_MSG_RESULT([no])]
 )
 CFLAGS="$save_cflags $AM_CFLAGS"
+
+AC_MSG_CHECKING([if compiling with clang])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([], [[
+#ifndef __clang__
+	not clang
+#endif
+	]])],
+	[AC_MSG_RESULT([yes])]
+	[CLANG_FLAGS=-Qunused-arguments],
+	[AC_MSG_RESULT([no])]
+)
+CFLAGS="$CFLAGS $CLANG_CFLAGS"
+LDFLAGS="$LDFLAGS $CLANG_FLAGS"
 
 AC_CHECK_FUNCS([arc4random_buf asprintf explicit_bzero funopen getauxval])
 AC_CHECK_FUNCS([getentropy issetugid memmem reallocarray])

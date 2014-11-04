@@ -3,3 +3,5 @@ ACLOCAL_AMFLAGS = -I m4
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libcrypto.pc libssl.pc openssl.pc
+
+EXTRA_DIST = VERSION

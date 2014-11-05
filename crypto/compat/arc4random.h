@@ -15,7 +15,7 @@
 #elif defined(__sun)
 #include "arc4random_solaris.h"
 
-#elif defined(__WIN32)
+#elif defined(_WIN32)
 #include "arc4random_win.h"
 
 #else

@@ -1,7 +1,7 @@
 #ifndef LIBCRYPTOCOMPAT_BYTE_ORDER_H_
 #define LIBCRYPTOCOMPAT_BYTE_ORDER_H_
 
-#if defined(__WIN32)
+#if defined(_WIN32)
 
 #define LITTLE_ENDIAN  1234
 #define BIG_ENDIAN 4321

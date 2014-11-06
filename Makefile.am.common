@@ -1,3 +1,7 @@
 AM_CPPFLAGS = -I$(top_srcdir)/include
 AM_CPPFLAGS += -DHAVE_CRYPTODEV
 AM_CPPFLAGS += -DLIBRESSL_INTERNAL
+
+if HOST_WIN
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/compat
+endif

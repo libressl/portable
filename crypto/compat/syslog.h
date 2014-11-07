@@ -20,9 +20,17 @@
 #define LOG_PID     0x01
 #define LOG_CONS    0x02
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern void openlog(const char *ident, int option, int facility);
-extern void syslog(int priority, const char *fmt, ...)
+extern void syslog(int priority, const char *format, ...)
         __attribute__ ((__format__ (__printf__, 2, 3)));
 extern void closelog (void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* LIBCRYPTOCOMPAT_SYSLOG_H */

@@ -42,7 +42,7 @@ endif
 endif
 
 if !HAVE_ASPRINTF
-if HOST_WINHOST_WIN
+if HOST_WIN
 libcompat_la_SOURCES += compat/asprintf.c
 else
 libcompat_la_SOURCES += compat/bsd-asprintf.c

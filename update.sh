@@ -137,6 +137,9 @@ copy_crypto bn "bn_add.c bn_asm.c bn_div.c bn_exp.c bn_lib.c bn_ctx.c bn_mul.c
 
 copy_crypto buffer "buffer.c buf_err.c buf_str.c"
 
+copy_crypto camellia "cmll_cfb.c cmll_ctr.c cmll_ecb.c cmll_ofb.c camellia.c camellia.h
+	cmll_cbc.c cmll_misc.c cmll_locl.h"
+
 copy_crypto cast "c_skey.c c_ecb.c c_enc.c c_cfb64.c c_ofb64.c cast_lcl.h
 	cast_s.h"
 
@@ -192,7 +195,8 @@ copy_crypto evp "encode.c digest.c evp_enc.c evp_key.c e_des.c e_bf.c
 	p_dec.c bio_md.c bio_b64.c bio_enc.c evp_err.c e_null.c c_all.c c_allc.c
 	c_alld.c evp_lib.c evp_pkey.c evp_pbe.c p5_crpt.c p5_crpt2.c
 	e_old.c pmeth_lib.c pmeth_fn.c pmeth_gn.c m_sigver.c e_aes_cbc_hmac_sha1.c
-	e_rc4_hmac_md5.c evp_locl.h e_chacha.c evp_aead.c e_chacha20poly1305.c"
+	e_rc4_hmac_md5.c evp_locl.h e_chacha.c evp_aead.c e_chacha20poly1305.c
+	e_camellia.c"
 
 copy_crypto hmac "hmac.c hm_ameth.c hm_pmeth.c"
 

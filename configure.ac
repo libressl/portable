@@ -5,7 +5,7 @@ AC_CONFIG_MACRO_DIR([m4])
 
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
-AC_SUBST([USER_CFLAGS], "-O2 $CFLAGS")
+AC_SUBST([USER_CFLAGS], "$CFLAGS")
 CFLAGS="$CFLAGS -Wall -std=gnu99 -g"
 
 case $host_os in
@@ -30,7 +30,8 @@ case $host_os in
 		;;
 	*mingw*)
 		HOST_OS=win
-		CFLAGS="$CFLAGS -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
+		CFLAGS="$CFLAGS -D_GNU_SOURCE -D_POSIX_SOURCE -D_REENTRANT -D_POSIX_THREAD_SAFE_FUNCTIONS -DWIN32_LEAN_AND_MEAN -D_WIN32_WINNT=0x0600 -DOPENSSL_NO_SPEED"
+		AC_SUBST([PLATFORM_LDADD], ['-lws2_32'])
 		;;
 	*) ;;
 esac
@@ -75,7 +76,11 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([], [[
 CFLAGS="$CFLAGS $CLANG_CFLAGS"
 LDFLAGS="$LDFLAGS $CLANG_FLAGS"
 
-AC_CHECK_FUNCS([arc4random_buf asprintf explicit_bzero funopen getauxval])
+AC_MSG_CHECKING(for asprintf)
+AC_TRY_LINK([#include <stdio.h>], [static char *str; asprintf(&str, "%s", "str");],
+	[AC_MSG_RESULT(yes); AC_DEFINE(HAVE_ASPRINTF)], [AC_MSG_RESULT(no)])
+
+AC_CHECK_FUNCS([arc4random_buf explicit_bzero funopen getauxval])
 AC_CHECK_FUNCS([getentropy issetugid memmem reallocarray])
 AC_CHECK_FUNCS([strlcat strlcpy strndup strnlen strtonum])
 AC_CHECK_FUNCS([timingsafe_bcmp timingsafe_memcmp])

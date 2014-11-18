@@ -42,7 +42,11 @@ endif
 endif
 
 if !HAVE_ASPRINTF
+if HOST_WIN
+libcompat_la_SOURCES += compat/asprintf.c
+else
 libcompat_la_SOURCES += compat/bsd-asprintf.c
+endif
 endif
 
 if !HAVE_REALLOCARRAY

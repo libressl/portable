@@ -120,6 +120,7 @@ crypto/bf/
 crypto/bio/
 crypto/bn/
 crypto/buffer/
+crypto/camellia/
 crypto/cast/
 crypto/chacha/
 crypto/cmac/
@@ -140,6 +141,7 @@ crypto/engine/
 crypto/err/
 crypto/evp/
 crypto/ex_data.c
+crypto/gost/
 crypto/hmac/
 crypto/idea/
 crypto/krb5/

@@ -88,7 +88,8 @@ copy_hdrs crypto "stack/stack.h lhash/lhash.h stack/safestack.h opensslv.h
 	dsa/dsa.h cms/cms.h engine/engine.h ui/ui.h pkcs12/pkcs12.h ts/ts.h
 	md4/md4.h ripemd/ripemd.h whrlpool/whrlpool.h idea/idea.h mdc2/mdc2.h
 	rc2/rc2.h rc4/rc4.h rc5/rc5.h ui/ui_compat.h txt_db/txt_db.h
-	chacha/chacha.h evp/evp.h poly1305/poly1305.h"
+	chacha/chacha.h evp/evp.h poly1305/poly1305.h camellia/camellia.h
+	gost/gost.h"
 
 copy_hdrs ssl "srtp.h ssl.h ssl2.h ssl3.h ssl23.h tls1.h dtls1.h"
 
@@ -137,7 +138,7 @@ copy_crypto bn "bn_add.c bn_asm.c bn_div.c bn_exp.c bn_lib.c bn_ctx.c bn_mul.c
 
 copy_crypto buffer "buffer.c buf_err.c buf_str.c"
 
-copy_crypto camellia "cmll_cfb.c cmll_ctr.c cmll_ecb.c cmll_ofb.c camellia.c camellia.h
+copy_crypto camellia "cmll_cfb.c cmll_ctr.c cmll_ecb.c cmll_ofb.c camellia.c
 	cmll_cbc.c cmll_misc.c cmll_locl.h"
 
 copy_crypto cast "c_skey.c c_ecb.c c_enc.c c_cfb64.c c_ofb64.c cast_lcl.h
@@ -196,7 +197,13 @@ copy_crypto evp "encode.c digest.c evp_enc.c evp_key.c e_des.c e_bf.c
 	c_alld.c evp_lib.c evp_pkey.c evp_pbe.c p5_crpt.c p5_crpt2.c
 	e_old.c pmeth_lib.c pmeth_fn.c pmeth_gn.c m_sigver.c e_aes_cbc_hmac_sha1.c
 	e_rc4_hmac_md5.c evp_locl.h e_chacha.c evp_aead.c e_chacha20poly1305.c
-	e_camellia.c"
+	e_camellia.c e_gost2814789.c m_gost2814789.c m_gostr341194.c m_streebog.c"
+
+copy_crypto gost "gost2814789.c gost89_keywrap.c gost89_params.c
+	gost89imit_ameth.c gost89imit_pmeth.c gost_asn1.c gost_err.c gostr341001.c
+	gostr341001_ameth.c gostr341001_key.c gostr341001_params.c
+	gostr341001_pmeth.c gostr341194.c streebog.c gost.h gost_asn1.h
+	gost_locl.h"
 
 copy_crypto hmac "hmac.c hm_ameth.c hm_pmeth.c"
 

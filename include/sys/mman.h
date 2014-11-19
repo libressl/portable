@@ -1,3 +1,8 @@
+/*
+ * Public domain
+ * sys/mman.h compatibility shim
+ */
+
 #include_next <sys/mman.h>
 
 #ifndef LIBCRYPTOCOMPAT_MMAN_H

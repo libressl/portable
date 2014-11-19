@@ -1,3 +1,8 @@
+/*
+ * Public domain
+ * err.h compatibility shim
+ */
+
 #ifdef HAVE_ERR_H
 
 #include_next <err.h>

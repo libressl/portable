@@ -1,3 +1,8 @@
+/*
+ * Public domain
+ * string.h compatibility shim
+ */
+
 #include_next <string.h>
 
 #ifndef LIBCRYPTOCOMPAT_STRING_H

@@ -1,3 +1,8 @@
+/*
+ * Public domain
+ * sys/types.h compatibility shim
+ */
+
 #include_next <sys/types.h>
 
 #ifndef LIBCRYPTOCOMPAT_SYS_TYPES_H

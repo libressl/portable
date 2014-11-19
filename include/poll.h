@@ -1,7 +1,14 @@
 /*
- * poll(2) emulation for Windows
  * Public domain
- * from Dongsheng Song <dongsheng.song@gmail.com>
+ *
+ * poll(2) emulation for Windows
+ *
+ * This emulates just-enough poll functionality on Windows to work in the
+ * context of the openssl(1) program. This is not a replacement for
+ * POSIX.1-2001 poll(2).
+ *
+ * Dongsheng Song <dongsheng.song@gmail.com>
+ * Brent Cook <bcook@openbsd.org>
  */
 
 #ifndef LIBCRYPTOCOMPAT_POLL_H

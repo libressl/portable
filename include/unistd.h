@@ -1,3 +1,8 @@
+/*
+ * Public domain
+ * unistd.h compatibility shim
+ */
+
 #include_next <unistd.h>
 
 #ifndef LIBCRYPTOCOMPAT_UNISTD_H

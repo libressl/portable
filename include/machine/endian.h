@@ -1,3 +1,8 @@
+/*
+ * Public domain
+ * machine/endian.h compatibility shim
+ */
+
 #ifndef LIBCRYPTOCOMPAT_BYTE_ORDER_H_
 #define LIBCRYPTOCOMPAT_BYTE_ORDER_H_
 

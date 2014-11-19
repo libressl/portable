@@ -1,3 +1,8 @@
+/*
+ * stdlib.h compatibility shim
+ * Public domain
+ */
+
 #include_next <stdlib.h>
 
 #ifndef LIBCRYPTOCOMPAT_STDLIB_H

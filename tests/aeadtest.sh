@@ -1,3 +1,7 @@
 #!/bin/sh
 set -e
-./aeadtest $srcdir/aeadtests.txt
+TEST=./aeadtest
+if [ -e ./aeadtest.exe ]; then
+	TEST=./aeadtest.exe
+fi
+$TEST $srcdir/aeadtests.txt

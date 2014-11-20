@@ -1,3 +1,7 @@
 #!/bin/sh
 set -e
-./evptest $srcdir/evptests.txt
+TEST=./evptest
+if [ -e ./evptest.exe ]; then
+	TEST=./evptest.exe
+fi
+$TEST $srcdir/evptests.txt

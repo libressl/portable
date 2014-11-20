@@ -289,7 +289,7 @@ for i in $openssl_cmd_src/*; do
 done
 
 for i in aead/aeadtest.c aeswrap/aes_wrap.c base64/base64test.c bf/bftest.c \
-	bio/biotest.c bn/general/bntest.c bn/mont/mont.c \
+	bn/general/bntest.c bn/mont/mont.c \
 	cast/casttest.c chacha/chachatest.c cts128/cts128test.c \
 	des/destest.c dh/dhtest.c dsa/dsatest.c ec/ectest.c ecdh/ecdhtest.c \
 	ecdsa/ecdsatest.c engine/enginetest.c evp/evptest.c exp/exptest.c \
@@ -310,7 +310,6 @@ done
 
 # do not directly run all test programs
 test_drivers=(
-	biotest
 	aeadtest
 	evptest
 	pq_test
@@ -322,21 +321,34 @@ test_drivers=(
 tests_disabled=(
 	biotest
 )
+tests_posix_only=(
+	arc4randomforktest
+	explicit_bzero
+	pidwraptest
+)
 $CP $libc_src/string/memmem.c tests/
 (cd tests
 	$CP Makefile.am.tpl Makefile.am
 
 	for i in `ls -1 *.c|sort|grep -v memmem.c`; do
 		TEST=`echo $i|sed -e "s/\.c//"`
+		if [[ ${tests_posix_only[*]} =~ "$TEST" ]]; then
+			echo "if !HOST_WIN" >> Makefile.am
+		fi
 		if ! [[ ${test_drivers[*]} =~ "$TEST" ]]; then
 			echo "TESTS += $TEST" >> Makefile.am
 		fi
 		echo "check_PROGRAMS += $TEST" >> Makefile.am
 		echo "${TEST}_SOURCES = $i" >> Makefile.am
+		if [[ ${TEST} = "explicit_bzero" ]]; then
+			echo "if !HAVE_MEMMEM" >> Makefile.am
+			echo "explicit_bzero_SOURCES += memmem.c" >> Makefile.am
+			echo "endif" >> Makefile.am
+		fi
+		if [[ ${tests_posix_only[*]} =~ "$TEST" ]]; then
+			echo "endif" >> Makefile.am
+		fi
 	done
-	echo "if !HAVE_MEMMEM" >> Makefile.am
-	echo "explicit_bzero_SOURCES += memmem.c" >> Makefile.am
-	echo "endif" >> Makefile.am
 )
 $CP $libcrypto_regress/evp/evptests.txt tests
 $CP $libcrypto_regress/aead/aeadtests.txt tests
@@ -344,8 +356,16 @@ $CP $libcrypto_regress/pqueue/expected.txt tests/pq_expected.txt
 chmod 755 tests/testssl
 for i in "${test_drivers[@]}"; do
 	if [ -e tests/${i}.sh ]; then
+		if [[ ${tests_posix_only[*]} =~ "$i" ]]; then
+			echo "if !HOST_WIN" >> tests/Makefile.am
+		fi
 		if ! [[ ${tests_disabled[*]} =~ "$i" ]]; then
 			echo "TESTS += ${i}.sh" >> tests/Makefile.am
+		else
+			rm -f tests/$i*
+		fi
+		if [[ ${tests_posix_only[*]} =~ "$i" ]]; then
+			echo "endif" >> tests/Makefile.am
 		fi
 		echo "EXTRA_DIST += ${i}.sh" >> tests/Makefile.am
 	fi

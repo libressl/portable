@@ -38,7 +38,11 @@ copy_src() {
 	mkdir -p $1
 	rm -f $1/*.c
 	for file in $3; do
-		$CP $2/src/$1/$file $1
+		if [ -e $2/src/$1/$file ]; then
+			$CP $2/src/$1/$file $1
+		else
+			$CP crypto/compat/$file $1
+		fi
 	done
 }
 
@@ -128,7 +132,8 @@ copy_crypto bf "bf_skey.c bf_ecb.c bf_enc.c bf_cfb64.c bf_ofb64.c bf_locl.h bf_p
 
 copy_crypto bio "bio_lib.c bio_cb.c bio_err.c bss_mem.c bss_null.c bss_fd.c
 	bss_file.c bss_sock.c bss_conn.c bf_null.c bf_buff.c b_dump.c
-	b_sock.c bss_acpt.c bf_nbio.c bss_log.c bss_bio.c bss_dgram.c b_print.c"
+	b_sock.c bss_acpt.c bf_nbio.c bss_log.c bss_bio.c bss_dgram.c b_print.c
+	b_posix.c b_win.c"
 
 copy_crypto bn "bn_add.c bn_asm.c bn_div.c bn_exp.c bn_lib.c bn_ctx.c bn_mul.c
 	bn_mod.c bn_print.c bn_rand.c bn_shift.c bn_word.c bn_blind.c bn_kron.c
@@ -262,7 +267,7 @@ copy_crypto ts "ts_err.c ts_req_utils.c ts_req_print.c ts_rsp_utils.c
 
 copy_crypto txt_db "txt_db.c"
 
-copy_crypto ui "ui_err.c ui_lib.c ui_openssl.c ui_util.c ui_locl.h"
+copy_crypto ui "ui_err.c ui_lib.c ui_openssl.c ui_openssl_win.c ui_util.c ui_locl.h"
 
 copy_crypto whrlpool "wp_block.c wp_dgst.c wp_locl.h"
 
@@ -373,6 +378,14 @@ crypto_excludes=(
 	chacha/chacha-merged.c
 	poly1305/poly1305-donna.c
 	)
+crypto_posix_only=(
+	bio/b_posix.c
+	ui/ui_openssl.c
+	)
+crypto_win32_only=(
+	bio/b_win.c
+	ui/ui_openssl_win.c
+	)
 (cd crypto
 	sed -e "s/libcrypto-version/${libcrypto_version}/" Makefile.am.tpl > Makefile.am
 	for i in `ls -1 *.c|sort`; do
@@ -385,10 +398,18 @@ crypto_excludes=(
 		echo >> Makefile.am
 		echo "# ${subdir}" >> Makefile.am
 		for i in `ls -1 $subdir/*.c|sort`; do
-			if ! [[ ${crypto_excludes[*]} =~ $i ]]; then
-				echo "libcrypto_la_SOURCES += $i" >> Makefile.am
-			else
+			if [[ ${crypto_excludes[*]} =~ $i ]]; then
 				echo "EXTRA_libcrypto_la_SOURCES += $i" >> Makefile.am
+			elif [[ ${crypto_posix_only[*]} =~ $i ]]; then
+				echo "if !HOST_WIN" >> Makefile.am
+				echo "libcrypto_la_SOURCES += ${i}" >> Makefile.am
+				echo "endif" >> Makefile.am
+			elif [[ ${crypto_win32_only[*]} =~ $i ]]; then
+				echo "if HOST_WIN" >> Makefile.am
+				echo "libcrypto_la_SOURCES += ${i}" >> Makefile.am
+				echo "endif" >> Makefile.am
+			else
+				echo "libcrypto_la_SOURCES += $i" >> Makefile.am
 			fi
 		done
 		headers=`ls -1 $subdir/*.h 2>/dev/null |sort`
@@ -405,10 +426,24 @@ $CP $libc_src/stdlib/strtonum.c apps/
 apps_excludes=(
 	strtonum.c
 	)
+apps_posix_only=(
+	apps_posix.c
+	)
+apps_win32_only=(
+	apps_win.c
+	)
 (cd apps
 	$CP Makefile.am.tpl Makefile.am
 	for i in `ls -1 *.c|sort`; do
-		if ! [[ ${apps_excludes[*]} =~ $i ]]; then
+		if [[ ${apps_posix_only[*]} =~ $i ]]; then
+			echo "if !HOST_WIN" >> Makefile.am
+			echo "openssl_SOURCES += ${i}" >> Makefile.am
+			echo "endif" >> Makefile.am
+		elif [[ ${apps_win32_only[*]} =~ $i ]]; then
+			echo "if HOST_WIN" >> Makefile.am
+			echo "openssl_SOURCES += ${i}" >> Makefile.am
+			echo "endif" >> Makefile.am
+		elif ! [[ ${apps_excludes[*]} =~ $i ]]; then
 			echo "openssl_SOURCES += $i" >> Makefile.am
 		fi
 	done

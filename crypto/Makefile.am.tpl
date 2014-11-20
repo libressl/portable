@@ -89,7 +89,7 @@ libcompat_la_SOURCES += compat/issetugid_win.c
 endif
 endif
 
-noinst_HEADERS = des/ncbc_enc.c
+noinst_HEADERS =
 noinst_HEADERS += compat/arc4random.h
 noinst_HEADERS += compat/arc4random_freebsd.h
 noinst_HEADERS += compat/arc4random_linux.h
@@ -97,5 +97,7 @@ noinst_HEADERS += compat/arc4random_osx.h
 noinst_HEADERS += compat/arc4random_solaris.h
 noinst_HEADERS += compat/arc4random_win.h
 noinst_HEADERS += compat/chacha_private.h
+
 libcrypto_la_SOURCES =
 EXTRA_libcrypto_la_SOURCES =
+

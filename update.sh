@@ -382,9 +382,13 @@ crypto_excludes=(
 		echo "noinst_HEADERS += $i" >> Makefile.am
 	done
 	for subdir in $crypto_subdirs; do
+		echo >> Makefile.am
+		echo "# ${subdir}" >> Makefile.am
 		for i in `ls -1 $subdir/*.c|sort`; do
 			if ! [[ ${crypto_excludes[*]} =~ $i ]]; then
 				echo "libcrypto_la_SOURCES += $i" >> Makefile.am
+			else
+				echo "EXTRA_libcrypto_la_SOURCES += $i" >> Makefile.am
 			fi
 		done
 		headers=`ls -1 $subdir/*.h 2>/dev/null |sort`
@@ -393,9 +397,6 @@ crypto_excludes=(
 				echo "noinst_HEADERS += $i" >> Makefile.am
 			done
 		fi
-	done
-	for i in "${crypto_excludes[@]}"; do
-		echo "EXTRA_libcrypto_la_SOURCES += ${i}" >> Makefile.am
 	done
 )
 

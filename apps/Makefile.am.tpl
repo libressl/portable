@@ -14,3 +14,8 @@ if !HAVE_STRTONUM
 openssl_SOURCES += strtonum.c
 endif
 
+if !HAVE_POLL
+if HOST_WIN
+openssl_SOURCES += poll.c
+endif
+endif

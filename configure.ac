@@ -77,7 +77,7 @@ CFLAGS="$CFLAGS $CLANG_CFLAGS"
 LDFLAGS="$LDFLAGS $CLANG_FLAGS"
 
 AC_CHECK_FUNCS([arc4random_buf asprintf explicit_bzero funopen getauxval])
-AC_CHECK_FUNCS([getentropy issetugid memmem reallocarray])
+AC_CHECK_FUNCS([getentropy issetugid memmem poll reallocarray])
 AC_CHECK_FUNCS([strlcat strlcpy strndup strnlen strtonum])
 AC_CHECK_FUNCS([timingsafe_bcmp timingsafe_memcmp])
 
@@ -88,6 +88,7 @@ AM_CONDITIONAL([HAVE_EXPLICIT_BZERO], [test "x$ac_cv_func_explicit_bzero" = xyes
 AM_CONDITIONAL([HAVE_GETENTROPY], [test "x$ac_cv_func_getentropy" = xyes])
 AM_CONDITIONAL([HAVE_ISSETUGID], [test "x$ac_cv_func_issetugid" = xyes])
 AM_CONDITIONAL([HAVE_MEMMEM], [test "x$ac_cv_func_memmem" = xyes])
+AM_CONDITIONAL([HAVE_POLL], [test "x$ac_cv_func_poll" = xyes])
 AM_CONDITIONAL([HAVE_REALLOCARRAY], [test "x$ac_cv_func_reallocarray" = xyes])
 AM_CONDITIONAL([HAVE_STRLCAT], [test "x$ac_cv_func_strlcat" = xyes])
 AM_CONDITIONAL([HAVE_STRLCPY], [test "x$ac_cv_func_strlcpy" = xyes])

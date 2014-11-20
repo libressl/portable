@@ -283,7 +283,6 @@ copy_crypto x509v3 "v3_bcons.c v3_bitst.c v3_conf.c v3_extku.c v3_ia5.c v3_lib.c
 	pcy_cache.c pcy_node.c pcy_data.c pcy_map.c pcy_tree.c pcy_lib.c
 	pcy_int.h ext_dat.h"
 
-rm -f apps/*.c apps/*.h
 for i in $openssl_cmd_src/*; do
 	cp $i apps
 done
@@ -444,6 +443,7 @@ crypto_win32_only=(
 # conditional compiles
 $CP $libc_src/stdlib/strtonum.c apps/
 apps_excludes=(
+	poll.c
 	strtonum.c
 	)
 apps_posix_only=(

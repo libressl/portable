@@ -50,4 +50,20 @@ void * memmem(const void *big, size_t big_len, const void *little,
 	size_t little_len);
 #endif
 
+#ifdef _WIN32
+#include <errno.h>
+
+static inline char  *
+posix_strerror(int errnum)
+{
+	if (errnum == ECONNREFUSED) {
+		return "Connection refused";
+	}
+	return strerror(errnum);
+}
+
+#define strerror(errnum) posix_strerror(errnum)
+
+#endif
+
 #endif

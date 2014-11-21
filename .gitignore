@@ -109,7 +109,6 @@ crypto/compat/strlcat.c
 crypto/compat/strlcpy.c
 crypto/compat/strndup.c
 crypto/compat/strnlen.c
-crypto/compat/strtonum.c
 crypto/compat/timingsafe_bcmp.c
 crypto/compat/timingsafe_memcmp.c
 crypto/compat/arc4random_*.h

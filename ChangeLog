@@ -28,6 +28,18 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.1.2
+	* Added reworked GOST cipher suite support
+	   thanks to Dmitry Eremin-Solenikov
+	* Enabled Camellia ciphers due to improved patent situation
+	* Use builtin arc4random implementation on OS X and FreeBSD
+	   addresses some deficiencies in the native implementations, see
+	   commit logs for more information.
+	* Added initial Windows mingw-w64 support
+	   thanks to Song Dongsheng for code and comments
+	* Added no_ssl3/no_tls1_1/no_tls1_2 options to openssl(1)
+	* Many cleanups
+
 2.1.1
 	* Address POODLE attack by disabling SSLv3 by default
 	* Fix Eliptical Curve cipher selection bug

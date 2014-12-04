@@ -287,6 +287,7 @@ for i in $openssl_cmd_src/*; do
 	cp $i apps
 done
 
+rm -f tests/biotest.c
 for i in aead/aeadtest.c aeswrap/aes_wrap.c base64/base64test.c bf/bftest.c \
 	bn/general/bntest.c bn/mont/mont.c \
 	cast/casttest.c chacha/chachatest.c cts128/cts128test.c \
@@ -315,10 +316,6 @@ test_drivers=(
 	ssltest
 	arc4randomforktest
 	pidwraptest
-)
-# disabled by-default tests
-tests_disabled=(
-	biotest
 )
 tests_posix_only=(
 	arc4randomforktest
@@ -360,8 +357,6 @@ for i in "${test_drivers[@]}"; do
 		fi
 		if ! [[ ${tests_disabled[*]} =~ "$i" ]]; then
 			echo "TESTS += ${i}.sh" >> tests/Makefile.am
-		else
-			rm -f tests/$i*
 		fi
 		if [[ ${tests_posix_only[*]} =~ "$i" ]]; then
 			echo "endif" >> tests/Makefile.am

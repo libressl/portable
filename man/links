@@ -1,4 +1,32 @@
-MLINKS="ASN1_OBJECT_new.3,ASN1_OBJECT_free.3 \
+TLS_MLINKS="tls_init.3,tls_config_new.3
+	tls_init.3,tls_config_free.3
+	tls_init.3,tls_config_set_ca_file.3
+	tls_init.3,tls_config_set_ca_path.3
+	tls_init.3,tls_config_set_cert_file.3
+	tls_init.3,tls_config_set_cert_mem.3
+	tls_init.3,tls_config_set_ciphers.3
+	tls_init.3,tls_config_set_ecdhcurve.3
+	tls_init.3,tls_config_set_key_file.3
+	tls_init.3,tls_config_set_key_mem.3
+	tls_init.3,tls_config_set_protocols.3
+	tls_init.3,tls_config_set_verify_depth.3
+	tls_init.3,tls_config_clear_keys.3
+	tls_init.3,tls_config_insecure_noverifyhost.3
+	tls_init.3,tls_config_insecure_noverifycert.3
+	tls_init.3,tls_config_verify.3
+	tls_init.3,tls_client.3
+	tls_init.3,tls_server.3
+	tls_init.3,tls_configure.3
+	tls_init.3,tls_error.3
+	tls_init.3,tls_reset.3
+	tls_init.3,tls_free.3
+	tls_init.3,tls_close.3
+	tls_init.3,tls_connect.3
+	tls_init.3,tls_connect_socket.3
+	tls_init.3,tls_read.3
+	tls_init.3,tls_write.3"
+
+SSL_MLINKS="ASN1_OBJECT_new.3,ASN1_OBJECT_free.3 \
 	ASN1_STRING_length.3,ASN1_STRING_cmp.3 \
 	ASN1_STRING_length.3,ASN1_STRING_data.3 \
 	ASN1_STRING_length.3,ASN1_STRING_dup.3 \

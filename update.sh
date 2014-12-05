@@ -16,21 +16,26 @@ fi
  git pull --rebase)
 
 dir=`pwd`
-libssl_src=$dir/openbsd/src/lib/libssl
-libssl_regress=$dir/openbsd/src/regress/lib/libssl
 libc_src=$dir/openbsd/src/lib/libc
 libc_regress=$dir/openbsd/src/regress/lib/libc
 libcrypto_src=$dir/openbsd/src/lib/libcrypto
-openssl_cmd_src=$dir/openbsd/src/usr.bin/openssl
 libcrypto_regress=$dir/openbsd/src/regress/lib/libcrypto
-
-source $libssl_src/ssl/shlib_version
-libssl_version=$major:$minor:0
-echo libssl version $libssl_version
+libssl_src=$dir/openbsd/src/lib/libssl
+libssl_regress=$dir/openbsd/src/regress/lib/libssl
+libtls_src=$dir/openbsd/src/lib/libtls
+openssl_cmd_src=$dir/openbsd/src/usr.bin/openssl
 
 source $libcrypto_src/crypto/shlib_version
 libcrypto_version=$major:$minor:0
-echo libcrypto version $libcrypto_version
+echo "libcrypto version $libcrypto_version"
+
+source $libssl_src/ssl/shlib_version
+libssl_version=$major:$minor:0
+echo "libssl version $libssl_version"
+
+source $libtls_src/shlib_version
+libtls_version=$major:$minor:0
+echo "libtls version $libtls_version"
 
 CP='cp -p'
 
@@ -63,6 +68,7 @@ $CP $libcrypto_src/crypto/arch/amd64/opensslconf.h include/openssl
 $CP $libssl_src/src/crypto/opensslfeatures.h include/openssl
 $CP $libssl_src/src/e_os2.h include/openssl
 $CP $libssl_src/src/ssl/pqueue.h include
+$CP $libtls_src/tls.h include
 
 for i in explicit_bzero.c strlcpy.c strlcat.c strndup.c strnlen.c \
 		timingsafe_bcmp.c timingsafe_memcmp.c; do
@@ -386,6 +392,23 @@ echo "EXTRA_DIST += testssl ca.pem server.pem" >> tests/Makefile.am
 	done
 )
 
+rm -f tls/*.c tls/*.h
+for i in tls_internal.h tls.c tls_server.c tls_client.c tls_util.c \
+    tls_config.c tls_verify.c; do
+	cp $libtls_src/$i tls
+done
+(cd tls
+	sed -e "s/libtls-version/${libtls_version}/" Makefile.am.tpl > Makefile.am
+	echo "if ENABLE_LIBTLS" >> Makefile.am
+	for i in `ls -1 *.c|sort`; do
+		echo "libtls_la_SOURCES += $i" >> Makefile.am
+	done
+	for i in `ls -1 *.h|sort`; do
+		echo "noinst_HEADERS += $i" >> Makefile.am
+	done
+	echo "endif" >> Makefile.am
+)
+
 # do not directly compile C files that are included in other C files
 crypto_excludes=(
 	des/ncbc_enc.c
@@ -478,6 +501,10 @@ apps_win32_only=(
 	done
 	$CP $openssl_cmd_src/openssl.1 .
 	echo "dist_man_MANS += openssl.1" >> Makefile.am
+	$CP $libtls_src/tls_init.3 .
+	echo "if ENABLE_LIBTLS" >> Makefile.am
+	echo "dist_man_MANS += tls_init.3" >> Makefile.am
+	echo "endif" >> Makefile.am
 
 	# convert remaining POD manpages
 	for i in `ls -1 $libssl_src/src/doc/crypto/*.pod | sort`; do
@@ -494,8 +521,14 @@ apps_win32_only=(
 
 	echo "install-data-hook:" >> Makefile.am
 	source ./links
-	for i in $MLINKS; do
+	for i in $SSL_MLINKS; do
 		IFS=","; set $i; unset IFS
 		echo "	ln -f \$(DESTDIR)\$(mandir)/man3/$1 \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
 	done
+	echo "if ENABLE_LIBTLS" >> Makefile.am
+	for i in $TLS_MLINKS; do
+		IFS=","; set $i; unset IFS
+		echo "	ln -f \$(DESTDIR)\$(mandir)/man3/$1 \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
+	done
+	echo "endif" >> Makefile.am
 )

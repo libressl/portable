@@ -143,14 +143,20 @@ AC_ARG_ENABLE([asm],
 	AS_HELP_STRING([--disable-asm], [Disable assembly]))
 AS_IF([test "x$enable_asm" = "xno"], [CFLAGS="$CFLAGS -DOPENSSL_NO_ASM"])
 
+AC_ARG_ENABLE([libtls],
+	AS_HELP_STRING([--enable-libtls], [Enable building the libtls library]))
+AM_CONDITIONAL([ENABLE_LIBTLS], [test "x$enable_libtls" = xyes])
+AM_COND_IF([ENABLE_LIBTLS], [AC_CONFIG_FILES([libtls.pc])])
+
 LT_INIT
 
 AC_CONFIG_FILES([
 	Makefile
 	include/Makefile
 	include/openssl/Makefile
-	ssl/Makefile
 	crypto/Makefile
+	ssl/Makefile
+	tls/Makefile
 	tests/Makefile
 	apps/Makefile
 	man/Makefile

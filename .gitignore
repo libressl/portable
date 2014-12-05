@@ -87,12 +87,16 @@ INSTALL
 crypto/Makefile.am
 include/openssl/Makefile.am
 ssl/Makefile.am
+tls/Makefile.am
 apps/Makefile.am
 tests/Makefile.am
 
 ssl/*.c
 ssl/*.h
+tls/*.c
+tls/*.h
 include/pqueue.h
+include/tls.h
 include/openssl/*.h
 include/openssl/*.he
 apps/*.c

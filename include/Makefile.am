@@ -1,3 +1,5 @@
+include $(top_srcdir)/Makefile.am.common
+
 SUBDIRS = openssl
 
 noinst_HEADERS = err.h
@@ -24,3 +26,7 @@ noinst_HEADERS += sys/select.h
 noinst_HEADERS += sys/socket.h
 noinst_HEADERS += sys/times.h
 noinst_HEADERS += sys/types.h
+
+if ENABLE_LIBTLS
+include_HEADERS = tls.h
+endif

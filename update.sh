@@ -258,12 +258,14 @@ echo "EXTRA_DIST += testssl ca.pem server.pem" >> tests/Makefile.am
 	source ./links
 	for i in $SSL_MLINKS; do
 		IFS=","; set $i; unset IFS
-		echo "	ln -f \$(DESTDIR)\$(mandir)/man3/$1 \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
+		echo "	ln -f \$(DESTDIR)\$(mandir)/man3/$1 \\" >> Makefile.am
+		echo "    \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
 	done
 	echo "if ENABLE_LIBTLS" >> Makefile.am
 	for i in $TLS_MLINKS; do
 		IFS=","; set $i; unset IFS
-		echo "	ln -f \$(DESTDIR)\$(mandir)/man3/$1 \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
+		echo "	ln -f \$(DESTDIR)\$(mandir)/man3/$1 \\" >> Makefile.am
+		echo "    \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
 	done
 	echo "endif" >> Makefile.am
 )

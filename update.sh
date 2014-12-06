@@ -393,21 +393,10 @@ echo "EXTRA_DIST += testssl ca.pem server.pem" >> tests/Makefile.am
 )
 
 rm -f tls/*.c tls/*.h
-for i in tls_internal.h tls.c tls_server.c tls_client.c tls_util.c \
-    tls_config.c tls_verify.c; do
+for i in `awk '/SOURCES|HEADERS/ { print $3 }' tls/Makefile.am.tpl` ; do
 	cp $libtls_src/$i tls
 done
-(cd tls
-	sed -e "s/libtls-version/${libtls_version}/" Makefile.am.tpl > Makefile.am
-	echo "if ENABLE_LIBTLS" >> Makefile.am
-	for i in `ls -1 *.c|sort`; do
-		echo "libtls_la_SOURCES += $i" >> Makefile.am
-	done
-	for i in `ls -1 *.h|sort`; do
-		echo "noinst_HEADERS += $i" >> Makefile.am
-	done
-	echo "endif" >> Makefile.am
-)
+sed -e "s/libtls-version/${libtls_version}/" tls/Makefile.am.tpl > tls/Makefile.am
 
 # do not directly compile C files that are included in other C files
 crypto_excludes=(

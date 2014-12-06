@@ -38,6 +38,9 @@ LibreSSL Portable Release Notes:
 	* Added initial Windows mingw-w64 support
 	   thanks to Song Dongsheng for code and comments
 	* Added no_ssl3/no_tls1_1/no_tls1_2 options to openssl(1)
+	* Allow conditional building of the libtls library.
+	   Expect the API and ABI of the library to change.
+	   Early-adopters only.  Feedback is welcome.
 	* Many cleanups
 
 2.1.1

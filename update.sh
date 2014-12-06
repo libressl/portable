@@ -289,6 +289,7 @@ copy_crypto x509v3 "v3_bcons.c v3_bitst.c v3_conf.c v3_extku.c v3_ia5.c v3_lib.c
 	pcy_cache.c pcy_node.c pcy_data.c pcy_map.c pcy_tree.c pcy_lib.c
 	pcy_int.h ext_dat.h"
 
+
 for i in $openssl_cmd_src/*; do
 	cp $i apps
 done
@@ -393,10 +394,18 @@ echo "EXTRA_DIST += testssl ca.pem server.pem" >> tests/Makefile.am
 )
 
 rm -f tls/*.c tls/*.h
-for i in `awk '/SOURCES|HEADERS/ { print $3 }' tls/Makefile.am.tpl` ; do
+sed -e "s/libtls-version/${libtls_version}/" tls/Makefile.am.tpl > tls/Makefile.am
+for i in `awk '/SOURCES|HEADERS/ { print $3 }' tls/Makefile.am` ; do
 	cp $libtls_src/$i tls
 done
-sed -e "s/libtls-version/${libtls_version}/" tls/Makefile.am.tpl > tls/Makefile.am
+
+# conditional compiles
+$CP $libc_src/stdlib/strtonum.c apps
+for i in `awk '/SOURCES|HEADERS/ { print $3 }' apps/Makefile.am` ; do
+	if [ -e $openssl_app_src/$i ]; then
+		cp $openssl_app_src/$i apps
+	fi
+done
 
 # do not directly compile C files that are included in other C files
 crypto_excludes=(
@@ -444,38 +453,6 @@ crypto_win32_only=(
 				echo "noinst_HEADERS += $i" >> Makefile.am
 			done
 		fi
-	done
-)
-
-# conditional compiles
-$CP $libc_src/stdlib/strtonum.c apps/
-apps_excludes=(
-	poll.c
-	strtonum.c
-	)
-apps_posix_only=(
-	apps_posix.c
-	)
-apps_win32_only=(
-	apps_win.c
-	)
-(cd apps
-	$CP Makefile.am.tpl Makefile.am
-	for i in `ls -1 *.c|sort`; do
-		if [[ ${apps_posix_only[*]} =~ $i ]]; then
-			echo "if !HOST_WIN" >> Makefile.am
-			echo "openssl_SOURCES += ${i}" >> Makefile.am
-			echo "endif" >> Makefile.am
-		elif [[ ${apps_win32_only[*]} =~ $i ]]; then
-			echo "if HOST_WIN" >> Makefile.am
-			echo "openssl_SOURCES += ${i}" >> Makefile.am
-			echo "endif" >> Makefile.am
-		elif ! [[ ${apps_excludes[*]} =~ $i ]]; then
-			echo "openssl_SOURCES += $i" >> Makefile.am
-		fi
-	done
-	for i in `ls -1 *.h|sort`; do
-		echo "noinst_HEADERS += $i" >> Makefile.am
 	done
 )
 

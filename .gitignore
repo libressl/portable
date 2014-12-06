@@ -88,7 +88,6 @@ crypto/Makefile.am
 include/openssl/Makefile.am
 ssl/Makefile.am
 tls/Makefile.am
-apps/Makefile.am
 tests/Makefile.am
 
 ssl/*.c
@@ -99,10 +98,12 @@ include/pqueue.h
 include/tls.h
 include/openssl/*.h
 include/openssl/*.he
-apps/*.c
 apps/*.h
-apps/*.cnf
+apps/*.c
 apps/openssl
+apps/openssl.cnf
+!apps/apps_win.c
+!apps/poll_win.c
 
 crypto/compat/arc4random.c
 crypto/compat/chacha_private.h

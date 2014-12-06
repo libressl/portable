@@ -4,6 +4,7 @@ set -e
 openbsd_branch=`cat OPENBSD_BRANCH`
 libressl_version=`cat VERSION`
 
+# pull in latest upstream code
 if [ ! -d openbsd ]; then
 	if [ -z "$LIBRESSL_GIT" ]; then
 		git clone https://github.com/libressl-portable/openbsd.git
@@ -15,6 +16,7 @@ fi
  git checkout $openbsd_branch
  git pull --rebase)
 
+# setup source paths 
 dir=`pwd`
 libc_src=$dir/openbsd/src/lib/libc
 libc_regress=$dir/openbsd/src/regress/lib/libc
@@ -25,6 +27,7 @@ libssl_regress=$dir/openbsd/src/regress/lib/libssl
 libtls_src=$dir/openbsd/src/lib/libtls
 openssl_cmd_src=$dir/openbsd/src/usr.bin/openssl
 
+# load library versions
 source $libcrypto_src/crypto/shlib_version
 libcrypto_version=$major:$minor:0
 echo "libcrypto version $libcrypto_version"
@@ -103,18 +106,6 @@ copy_hdrs crypto "stack/stack.h lhash/lhash.h stack/safestack.h opensslv.h
 
 copy_hdrs ssl "srtp.h ssl.h ssl2.h ssl3.h ssl23.h tls1.h dtls1.h"
 
-for i in ssl/srtp.h ssl/ssl_locl.h; do
-	$CP $libssl_src/src/$i ssl
-done
-
-copy_src ssl $libssl_src \
-	"s3_meth.c s3_srvr.c s3_clnt.c s3_lib.c s3_enc.c s3_pkt.c
-	s3_both.c s23_meth.c s23_srvr.c s23_clnt.c s23_lib.c s23_pkt.c t1_meth.c
-	t1_srvr.c t1_clnt.c t1_lib.c t1_enc.c d1_meth.c d1_srvr.c d1_clnt.c
-	d1_lib.c d1_pkt.c d1_both.c d1_enc.c d1_srtp.c ssl_lib.c ssl_err2.c
-	ssl_cert.c ssl_sess.c ssl_ciph.c ssl_stat.c ssl_rsa.c ssl_asn1.c ssl_txt.c
-	ssl_algs.c bio_ssl.c ssl_err.c t1_reneg.c s3_cbc.c pqueue.c"
-
 copy_src crypto $libssl_src \
 	"cryptlib.h cryptlib.c malloc-wrapper.c mem_clr.c mem_dbg.c cversion.c
 	ex_data.c cpt_err.c o_time.c o_time.h o_str.c o_init.c md32_common.h"
@@ -159,9 +150,6 @@ copy_crypto chacha "chacha.c chacha-merged.c"
 
 copy_crypto cmac "cmac.c cm_ameth.c cm_pmeth.c"
 
-#copy_crypto cms "cms_lib.c cms_asn1.c cms_att.c cms_io.c cms_smime.c cms_err.c
-#	cms_sd.c cms_dd.c cms_cd.c cms_env.c cms_enc.c cms_ess.c cms_pwri.c cms.h cms_lcl.h"
-
 copy_crypto comp "comp_lib.c comp_err.c c_rle.c c_zlib.c"
 
 copy_crypto conf "conf_err.c conf_lib.c conf_api.c conf_def.c conf_mod.c
@@ -192,7 +180,6 @@ copy_crypto ecdh "ech_lib.c ech_ossl.c ech_key.c ech_err.c ech_locl.h"
 copy_crypto ecdsa "ecs_lib.c ecs_asn1.c ecs_ossl.c ecs_sign.c ecs_vrf.c
 	ecs_err.c ecs_locl.h"
 
-# Engine interface is disabled
 copy_crypto engine "eng_err.c eng_lib.c eng_list.c eng_init.c eng_ctrl.c
 	eng_table.c eng_pkey.c eng_fat.c eng_all.c tb_rsa.c tb_dsa.c tb_ecdsa.c
 	tb_dh.c tb_ecdh.c tb_rand.c tb_store.c tb_cipher.c tb_digest.c tb_pkmeth.c
@@ -289,11 +276,29 @@ copy_crypto x509v3 "v3_bcons.c v3_bitst.c v3_conf.c v3_extku.c v3_ia5.c v3_lib.c
 	pcy_cache.c pcy_node.c pcy_data.c pcy_map.c pcy_tree.c pcy_lib.c
 	pcy_int.h ext_dat.h"
 
-
-for i in $openssl_cmd_src/*; do
-	cp $i apps
+# copy libtls source
+rm -f tls/*.c tls/*.h
+sed -e "s/libtls-version/${libtls_version}/" tls/Makefile.am.tpl > tls/Makefile.am
+for i in `awk '/SOURCES|HEADERS/ { print $3 }' tls/Makefile.am` ; do
+	cp $libtls_src/$i tls
 done
 
+# copy openssl(1) source
+$CP $libc_src/stdlib/strtonum.c apps
+for i in `awk '/SOURCES|HEADERS/ { print $3 }' apps/Makefile.am` ; do
+	if [ -e $openssl_app_src/$i ]; then
+		cp $openssl_app_src/$i apps
+	fi
+done
+
+# copy libssl source
+rm -f ssl/*.c ssl/*.h
+sed -e "s/libssl-version/${libssl_version}/" ssl/Makefile.am.tpl > ssl/Makefile.am
+for i in `awk '/SOURCES|HEADERS/ { print $3 }' ssl/Makefile.am` ; do
+	cp $libssl_src/src/ssl/$i ssl
+done
+
+# copy libcrypto tests
 rm -f tests/biotest.c
 for i in aead/aeadtest.c aeswrap/aes_wrap.c base64/base64test.c bf/bftest.c \
 	bn/general/bntest.c bn/mont/mont.c \
@@ -307,13 +312,17 @@ for i in aead/aeadtest.c aeswrap/aes_wrap.c base64/base64test.c bf/bftest.c \
 	sha256/sha256test.c sha512/sha512test.c utf8/utf8test.c; do
 	 $CP $libcrypto_regress/$i tests
 done
+
+# copy libc tests
 $CP $libc_regress/arc4random-fork/arc4random-fork.c tests/arc4randomforktest.c
 $CP $libc_regress/explicit_bzero/explicit_bzero.c tests
 $CP $libc_regress/timingsafe/timingsafe.c tests
 
-for i in asn1/asn1test.c ssl/ssltest.c ssl/testssl certs/ca.pem certs/server.pem; do
-	$CP $libssl_regress/$i tests
-done
+# copy libssl tests
+$CP $libssl_regress/asn1/asn1test.c tests
+$CP $libssl_regress/ssl/testssl tests
+$CP $libssl_regress/certs/ca.pem tests
+$CP $libssl_regress/certs/server.pem tests
 
 # do not directly run all test programs
 test_drivers=(
@@ -383,29 +392,7 @@ echo "EXTRA_DIST += testssl ca.pem server.pem" >> tests/Makefile.am
 	done
 )
 
-(cd ssl
-	sed -e "s/libssl-version/${libssl_version}/" Makefile.am.tpl > Makefile.am
-	for i in `ls -1 *.c|sort`; do
-		echo "libssl_la_SOURCES += $i" >> Makefile.am
-	done
-	for i in `ls -1 *.h|sort`; do
-		echo "noinst_HEADERS += $i" >> Makefile.am
-	done
-)
-
-rm -f tls/*.c tls/*.h
-sed -e "s/libtls-version/${libtls_version}/" tls/Makefile.am.tpl > tls/Makefile.am
-for i in `awk '/SOURCES|HEADERS/ { print $3 }' tls/Makefile.am` ; do
-	cp $libtls_src/$i tls
-done
-
-# conditional compiles
-$CP $libc_src/stdlib/strtonum.c apps
-for i in `awk '/SOURCES|HEADERS/ { print $3 }' apps/Makefile.am` ; do
-	if [ -e $openssl_app_src/$i ]; then
-		cp $openssl_app_src/$i apps
-	fi
-done
+# copy libcrypto
 
 # do not directly compile C files that are included in other C files
 crypto_excludes=(

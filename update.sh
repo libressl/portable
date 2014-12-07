@@ -43,7 +43,16 @@ libtls_version=$major:$minor:0
 echo "libtls version $libtls_version"
 echo $libtls_version > tls/VERSION
 
+do_mv() {
+	if ! cmp -s "$1" "$2"
+	then
+		mv "$1" "$2"
+	else
+		rm -f "$1"
+	fi
+}
 CP='cp -p'
+MV='do_mv'
 
 $CP $libssl_src/src/LICENSE COPYING
 
@@ -67,8 +76,8 @@ $CP $libcrypto_src/crypto/arc4random_*.h crypto/compat
 	perl objects.pl objects.txt obj_mac.num obj_mac.h;
 	perl obj_dat.pl obj_mac.h obj_dat.h )
 mkdir -p include/openssl crypto/objects
-mv $libssl_src/src/crypto/objects/obj_mac.h ./include/openssl/obj_mac.h
-mv $libssl_src/src/crypto/objects/obj_dat.h ./crypto/objects/obj_dat.h
+$MV $libssl_src/src/crypto/objects/obj_mac.h ./include/openssl/obj_mac.h
+$MV $libssl_src/src/crypto/objects/obj_dat.h ./crypto/objects/obj_dat.h
 
 copy_hdrs() {
 	for file in $2; do

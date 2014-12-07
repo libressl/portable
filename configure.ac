@@ -14,22 +14,21 @@ CFLAGS="$CFLAGS -Wall -std=gnu99 -g"
 
 case $host_os in
 	*darwin*)
-		HOST_OS=darwin;
+		HOST_OS=darwin
+		HOST_ABI=macosx
 		;;
 	*freebsd*)
-		HOST_OS=freebsd;
+		HOST_OS=freebsd
+		HOST_ABI=elf
 		AC_SUBST([PROG_LDADD], ['-lthr'])
 		;;
 	*linux*)
-		HOST_OS=linux;
+		HOST_OS=linux
+		HOST_ABI=elf
 		CFLAGS="$CFLAGS -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
 		;;
-	*solaris*)
-		HOST_OS=solaris;
-		CFLAGS="$CFLAGS -D__EXTENSIONS__ -D_XOPEN_SOURCE=600 -DBSD_COMP"
-		AC_SUBST([PLATFORM_LDADD], ['-lnsl -lsocket'])
-		;;
 	*openbsd*)
+		HOST_ABI=elf
 		AC_DEFINE([HAVE_ATTRIBUTE__BOUNDED__], [1], [OpenBSD gcc has bounded])
 		;;
 	*mingw*)
@@ -37,14 +36,20 @@ case $host_os in
 		CFLAGS="$CFLAGS -D_GNU_SOURCE -D_POSIX -D_POSIX_SOURCE -D_REENTRANT -D_POSIX_THREAD_SAFE_FUNCTIONS -DWIN32_LEAN_AND_MEAN -D_WIN32_WINNT=0x0600 -DOPENSSL_NO_SPEED -D__USE_MINGW_ANSI_STDIO"
 		AC_SUBST([PLATFORM_LDADD], ['-lws2_32'])
 		;;
+	*solaris*)
+		HOST_OS=solaris
+		HOST_ABI=elf
+		CFLAGS="$CFLAGS -D__EXTENSIONS__ -D_XOPEN_SOURCE=600 -DBSD_COMP"
+		AC_SUBST([PLATFORM_LDADD], ['-lnsl -lsocket'])
+		;;
 	*) ;;
 esac
 
-AM_CONDITIONAL(HOST_DARWIN, test x$HOST_OS = xdarwin)
-AM_CONDITIONAL(HOST_FREEBSD, test x$HOST_OS = xfreebsd)
-AM_CONDITIONAL(HOST_LINUX, test x$HOST_OS = xlinux)
-AM_CONDITIONAL(HOST_SOLARIS, test x$HOST_OS = xsolaris)
-AM_CONDITIONAL(HOST_WIN, test x$HOST_OS = xwin)
+AM_CONDITIONAL([HOST_DARWIN],  [test x$HOST_OS = xdarwin])
+AM_CONDITIONAL([HOST_FREEBSD], [test x$HOST_OS = xfreebsd])
+AM_CONDITIONAL([HOST_LINUX],   [test x$HOST_OS = xlinux])
+AM_CONDITIONAL([HOST_SOLARIS], [test x$HOST_OS = xsolaris])
+AM_CONDITIONAL([HOST_WIN],     [test x$HOST_OS = xwin])
 
 AC_CHECK_FUNC([clock_gettime],,
 	[AC_SEARCH_LIBS([clock_gettime],[rt posix4])])
@@ -52,6 +57,7 @@ AC_CHECK_FUNC([clock_gettime],,
 AC_CHECK_FUNC([dl_iterate_phdr],,
 	[AC_SEARCH_LIBS([dl_iterate_phdr],[dl])])
 
+AM_PROG_AS
 AC_PROG_CC
 AC_PROG_LIBTOOL
 AC_PROG_CC_STDC
@@ -134,18 +140,25 @@ fi
 AC_CHECK_HEADERS([sys/sysctl.h err.h])
 
 AC_ARG_WITH([openssldir],
-	AS_HELP_STRING([--with-openssldir], [Set the default openssl directory]),
+	AS_HELP_STRING([--with-openssldir],
+		       [Set the default openssl directory]),
 	AC_DEFINE_UNQUOTED(OPENSSLDIR, "$withval")
 )
 
 AC_ARG_WITH([enginesdir],
-	AS_HELP_STRING([--with-enginesdir], [Set the default engines directory (use with openssldir)]),
+	AS_HELP_STRING([--with-enginesdir],
+		       [Set the default engines directory (use with openssldir)]),
 	AC_DEFINE_UNQUOTED(ENGINESDIR, "$withval")
 )
 
 AC_ARG_ENABLE([asm],
 	AS_HELP_STRING([--disable-asm], [Disable assembly]))
-AS_IF([test "x$enable_asm" = "xno"], [CFLAGS="$CFLAGS -DOPENSSL_NO_ASM"])
+AM_CONDITIONAL([OPENSSL_NO_ASM], [test "x$enable_asm" = "xno"])
+
+AM_CONDITIONAL([HOST_ASM_ELF_X86_64],
+    [test "x$HOST_ABI" = "xelf" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
+AM_CONDITIONAL([HOST_ASM_MACOSX_X86_64],
+    [test "x$HOST_ABI" = "xmacosx" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
 
 AC_ARG_ENABLE([libtls],
 	AS_HELP_STRING([--enable-libtls], [Enable building the libtls library]))

@@ -9,6 +9,10 @@
 # C stuff
 *.o
 
+# Assembly stuff
+*.S
+*.s
+
 # Windows stuff
 *.obj
 *.exe

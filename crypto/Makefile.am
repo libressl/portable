@@ -10,7 +10,11 @@ EXTRA_DIST = VERSION
 
 libcrypto_la_LDFLAGS = -version-info @LIBCRYPTO_VERSION@
 libcrypto_la_LIBADD = libcompat.la libcompatnoopt.la
-libcrypto_la_CFLAGS = $(CFLAGS) $(USER_CFLAGS) -DOPENSSL_NO_HW_PADLOCK
+libcrypto_la_CFLAGS = $(CFLAGS) $(USER_CFLAGS)
+libcrypto_la_CFLAGS += -DOPENSSL_NO_HW_PADLOCK
+if OPENSSL_NO_ASM
+libcrypto_la_CFLAGS += -DOPENSSL_NO_ASM
+endif
 
 noinst_LTLIBRARIES = libcompat.la libcompatnoopt.la
 
@@ -103,6 +107,21 @@ noinst_HEADERS += compat/chacha_private.h
 libcrypto_la_SOURCES =
 EXTRA_libcrypto_la_SOURCES =
 
+include Makefile.am.elf-x86_64
+include Makefile.am.macosx-x86_64
+
+if !HOST_ASM_ELF_X86_64
+if !HOST_ASM_MACOSX_X86_64
+libcrypto_la_SOURCES += aes/aes_cbc.c
+libcrypto_la_SOURCES += aes/aes_core.c
+libcrypto_la_SOURCES += camellia/camellia.c
+libcrypto_la_SOURCES += camellia/cmll_cbc.c
+libcrypto_la_SOURCES += rc4/rc4_enc.c
+libcrypto_la_SOURCES += rc4/rc4_skey.c
+libcrypto_la_SOURCES += whrlpool/wp_block.c
+endif
+endif
+
 libcrypto_la_SOURCES += cpt_err.c
 libcrypto_la_SOURCES += cryptlib.c
 libcrypto_la_SOURCES += cversion.c
@@ -118,9 +137,7 @@ noinst_HEADERS += md32_common.h
 noinst_HEADERS += o_time.h
 
 # aes
-libcrypto_la_SOURCES += aes/aes_cbc.c
 libcrypto_la_SOURCES += aes/aes_cfb.c
-libcrypto_la_SOURCES += aes/aes_core.c
 libcrypto_la_SOURCES += aes/aes_ctr.c
 libcrypto_la_SOURCES += aes/aes_ecb.c
 libcrypto_la_SOURCES += aes/aes_ige.c
@@ -284,8 +301,6 @@ libcrypto_la_SOURCES += buffer/buf_str.c
 libcrypto_la_SOURCES += buffer/buffer.c
 
 # camellia
-libcrypto_la_SOURCES += camellia/camellia.c
-libcrypto_la_SOURCES += camellia/cmll_cbc.c
 libcrypto_la_SOURCES += camellia/cmll_cfb.c
 libcrypto_la_SOURCES += camellia/cmll_ctr.c
 libcrypto_la_SOURCES += camellia/cmll_ecb.c
@@ -666,8 +681,6 @@ libcrypto_la_SOURCES += rc2/rc2ofb64.c
 noinst_HEADERS += rc2/rc2_locl.h
 
 # rc4
-libcrypto_la_SOURCES += rc4/rc4_enc.c
-libcrypto_la_SOURCES += rc4/rc4_skey.c
 noinst_HEADERS += rc4/rc4_locl.h
 
 # ripemd
@@ -739,7 +752,6 @@ libcrypto_la_SOURCES += ui/ui_util.c
 noinst_HEADERS += ui/ui_locl.h
 
 # whrlpool
-libcrypto_la_SOURCES += whrlpool/wp_block.c
 libcrypto_la_SOURCES += whrlpool/wp_dgst.c
 noinst_HEADERS += whrlpool/wp_locl.h
 

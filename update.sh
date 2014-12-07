@@ -99,7 +99,7 @@ for i in `awk '/SOURCES|HEADERS/ { print $3 }' crypto/Makefile.am` ; do
 	mkdir -p crypto/$dir
 	if [ $dir != "compat" ]; then
 		if [ -e $libssl_src/src/crypto/$i ]; then
-			cp $libssl_src/src/crypto/$i crypto/$i
+			$CP $libssl_src/src/crypto/$i crypto/$i
 		fi
 	fi
 done
@@ -109,7 +109,7 @@ $CP crypto/compat/ui_openssl_win.c crypto/ui
 # copy libtls source
 rm -f tls/*.c tls/*.h
 for i in `awk '/SOURCES|HEADERS/ { print $3 }' tls/Makefile.am` ; do
-	cp $libtls_src/$i tls
+	$CP $libtls_src/$i tls
 done
 
 # copy openssl(1) source
@@ -117,14 +117,14 @@ $CP $libc_src/stdlib/strtonum.c apps
 $CP $libcrypto_src/openssl.cnf apps
 for i in `awk '/SOURCES|HEADERS/ { print $3 }' apps/Makefile.am` ; do
 	if [ -e $openssl_app_src/$i ]; then
-		cp $openssl_app_src/$i apps
+		$CP $openssl_app_src/$i apps
 	fi
 done
 
 # copy libssl source
 rm -f ssl/*.c ssl/*.h
 for i in `awk '/SOURCES|HEADERS/ { print $3 }' ssl/Makefile.am` ; do
-	cp $libssl_src/src/ssl/$i ssl
+	$CP $libssl_src/src/ssl/$i ssl
 done
 
 # copy libcrypto tests
@@ -231,7 +231,7 @@ echo "EXTRA_DIST += testssl ca.pem server.pem" >> tests/Makefile.am
 	# update new-style manpages
 	for i in `ls -1 $libssl_src/src/doc/ssl/*.3 | sort`; do
 		NAME=`basename "$i"`
-		cp $i .
+		$CP $i .
 		echo "dist_man_MANS += $NAME" >> Makefile.am
 	done
 	$CP $openssl_app_src/openssl.1 .

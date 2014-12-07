@@ -806,10 +806,6 @@ SSL_MLINKS="ASN1_OBJECT_new.3,ASN1_OBJECT_free.3 \
 	d2i_X509_REQ.3,i2d_X509_REQ.3 \
 	d2i_X509_REQ.3,i2d_X509_REQ_bio.3 \
 	d2i_X509_REQ.3,i2d_X509_REQ_fp.3 \
-	dsa.3,DSA_SIG_free.3 \
-	dsa.3,DSA_do_verify.3 \
-	dsa.3,DSA_get_ex_data.3 \
-	dsa.3,DSA_set_ex_data.3 \
 	ecdsa.3,ECDSA_OpenSSL.3 \
 	ecdsa.3,ECDSA_SIG_free.3 \
 	ecdsa.3,ECDSA_SIG_new.3 \

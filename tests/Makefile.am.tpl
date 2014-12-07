@@ -10,4 +10,5 @@ LDADD += $(top_builddir)/crypto/libcrypto.la
 TESTS =
 check_PROGRAMS =
 EXTRA_DIST =
+DISTCLEANFILES = pidwraptest.txt
 

@@ -47,6 +47,7 @@ test-driver
 tests/aes_wrap*
 tests/arc4random_fork*
 tests/explicit_bzero*
+tests/gost2814789t*
 tests/mont*
 tests/timingsafe*
 tests/*test
@@ -131,6 +132,7 @@ crypto/bn/
 crypto/buffer/
 crypto/camellia/
 crypto/cast/
+crypto/camellia/
 crypto/chacha/
 crypto/cmac/
 crypto/comp/

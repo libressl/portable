@@ -309,4 +309,16 @@ echo "copying manpages"
 		echo "    \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
 	done
 	echo "endif" >> Makefile.am
+	echo "" >> Makefile.am
+	echo "uninstall-local:" >> Makefile.am
+	for i in $SSL_MLINKS; do
+		IFS=","; set $i; unset IFS
+		echo "	-rm -f \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
+	done
+	echo "if ENABLE_LIBTLS" >> Makefile.am
+	for i in $TLS_MLINKS; do
+		IFS=","; set $i; unset IFS
+		echo "	rm -f \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
+	done
+	echo "endif" >> Makefile.am
 )

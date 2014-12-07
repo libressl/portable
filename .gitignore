@@ -84,11 +84,12 @@ INSTALL
 /stamp-h1
 /stamp-h2
 
-crypto/Makefile.am
 include/openssl/Makefile.am
-ssl/Makefile.am
-tls/Makefile.am
 tests/Makefile.am
+
+crypto/VERSION
+ssl/VERSION
+tls/VERSION
 
 ssl/*.c
 ssl/*.h

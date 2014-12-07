@@ -31,14 +31,17 @@ openssl_app_src=$dir/openbsd/src/usr.bin/openssl
 source $libcrypto_src/crypto/shlib_version
 libcrypto_version=$major:$minor:0
 echo "libcrypto version $libcrypto_version"
+echo $libcrypto_version > crypto/VERSION
 
 source $libssl_src/ssl/shlib_version
 libssl_version=$major:$minor:0
 echo "libssl version $libssl_version"
+echo $libssl_version > ssl/VERSION
 
 source $libtls_src/shlib_version
 libtls_version=$major:$minor:0
 echo "libtls version $libtls_version"
+echo $libtls_version > tls/VERSION
 
 CP='cp -p'
 
@@ -91,8 +94,6 @@ copy_hdrs ssl "srtp.h ssl.h ssl2.h ssl3.h ssl23.h tls1.h dtls1.h"
 
 # copy libcrypto source
 rm -f crypto/*.c crypto/*.h
-sed -e "s/libcrypto-version/${libcrypto_version}/" \
-	crypto/Makefile.am.tpl > crypto/Makefile.am
 for i in `awk '/SOURCES|HEADERS/ { print $3 }' crypto/Makefile.am` ; do
 	dir=`dirname $i`
 	mkdir -p crypto/$dir
@@ -107,7 +108,6 @@ $CP crypto/compat/ui_openssl_win.c crypto/ui
 
 # copy libtls source
 rm -f tls/*.c tls/*.h
-sed -e "s/libtls-version/${libtls_version}/" tls/Makefile.am.tpl > tls/Makefile.am
 for i in `awk '/SOURCES|HEADERS/ { print $3 }' tls/Makefile.am` ; do
 	cp $libtls_src/$i tls
 done
@@ -123,7 +123,6 @@ done
 
 # copy libssl source
 rm -f ssl/*.c ssl/*.h
-sed -e "s/libssl-version/${libssl_version}/" ssl/Makefile.am.tpl > ssl/Makefile.am
 for i in `awk '/SOURCES|HEADERS/ { print $3 }' ssl/Makefile.am` ; do
 	cp $libssl_src/src/ssl/$i ssl
 done

@@ -14,6 +14,10 @@ libcrypto_la_CFLAGS = $(CFLAGS) $(USER_CFLAGS)
 libcrypto_la_CFLAGS += -DOPENSSL_NO_HW_PADLOCK
 if OPENSSL_NO_ASM
 libcrypto_la_CFLAGS += -DOPENSSL_NO_ASM
+else
+if HOST_WIN
+libcrypto_la_CFLAGS += -DOPENSSL_NO_ASM
+endif
 endif
 
 noinst_LTLIBRARIES = libcompat.la libcompatnoopt.la

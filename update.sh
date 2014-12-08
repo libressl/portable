@@ -119,27 +119,35 @@ $CP crypto/compat/ui_openssl_win.c crypto/ui
 
 # generate assembly crypto algorithms
 asm_src=$libssl_src/src/crypto
+gen_asm_stdout() {
+	perl $asm_src/$2 $1 > $3.tmp
+	$MV $3.tmp $3
+}
+gen_asm() {
+	perl $asm_src/$2 $1 $3.tmp
+	$MV $3.tmp $3
+}
 for abi in elf macosx; do
 	echo generating ASM source for $abi
-	perl $asm_src/aes/asm/aes-x86_64.pl $abi        > crypto/aes/aes-${abi}-x86_64.s
-	perl $asm_src/aes/asm/vpaes-x86_64.pl $abi      > crypto/aes/vpaes-${abi}-x86_64.s
-	perl $asm_src/aes/asm/bsaes-x86_64.pl $abi      > crypto/aes/bsaes-${abi}-x86_64.s
-	perl $asm_src/aes/asm/aesni-x86_64.pl $abi      > crypto/aes/aesni-${abi}-x86_64.s
-	perl $asm_src/aes/asm/aesni-sha1-x86_64.pl $abi > crypto/aes/aesni-sha1-${abi}-x86_64.s
-	perl $asm_src/bn/asm/modexp512-x86_64.pl $abi   > crypto/bn/modexp512-${abi}-x86_64.s
-	perl $asm_src/bn/asm/x86_64-mont.pl $abi        > crypto/bn/mont-${abi}-x86_64.s
-	perl $asm_src/bn/asm/x86_64-mont5.pl $abi       > crypto/bn/mont5-${abi}-x86_64.s
-	perl $asm_src/bn/asm/x86_64-gf2m.pl $abi        > crypto/bn/gf2m-${abi}-x86_64.s
-	perl $asm_src/camellia/asm/cmll-x86_64.pl $abi  > crypto/camellia/cmll-${abi}-x86_64.s
-	perl $asm_src/md5/asm/md5-x86_64.pl $abi        > crypto/md5/md5-${abi}-x86_64.s
-	perl $asm_src/modes/asm/ghash-x86_64.pl $abi    > crypto/modes/ghash-${abi}-x86_64.s
-	perl $asm_src/rc4/asm/rc4-x86_64.pl $abi        > crypto/rc4/rc4-${abi}-x86_64.s
-	perl $asm_src/rc4/asm/rc4-md5-x86_64.pl $abi    > crypto/rc4/rc4-md5-${abi}-x86_64.s
-	perl $asm_src/sha/asm/sha1-x86_64.pl $abi       > crypto/sha/sha1-${abi}-x86_64.s
-	perl $asm_src/sha/asm/sha512-x86_64.pl $abi     crypto/sha/sha256-${abi}-x86_64.S
-	perl $asm_src/sha/asm/sha512-x86_64.pl $abi     crypto/sha/sha512-${abi}-x86_64.S
-	perl $asm_src/whrlpool/asm/wp-x86_64.pl $abi    > crypto/whrlpool/wp-${abi}-x86_64.s
-	perl $asm_src/x86_64cpuid.pl $abi               crypto/cpuid-${abi}-x86_64.S
+	gen_asm_stdout $abi aes/asm/aes-x86_64.pl        crypto/aes/aes-$abi-x86_64.s
+	gen_asm_stdout $abi aes/asm/vpaes-x86_64.pl      crypto/aes/vpaes-$abi-x86_64.s
+	gen_asm_stdout $abi aes/asm/bsaes-x86_64.pl      crypto/aes/bsaes-$abi-x86_64.s
+	gen_asm_stdout $abi aes/asm/aesni-x86_64.pl      crypto/aes/aesni-$abi-x86_64.s
+	gen_asm_stdout $abi aes/asm/aesni-sha1-x86_64.pl crypto/aes/aesni-sha1-$abi-x86_64.s
+	gen_asm_stdout $abi bn/asm/modexp512-x86_64.pl   crypto/bn/modexp512-$abi-x86_64.s
+	gen_asm_stdout $abi bn/asm/x86_64-mont.pl        crypto/bn/mont-$abi-x86_64.s
+	gen_asm_stdout $abi bn/asm/x86_64-mont5.pl       crypto/bn/mont5-$abi-x86_64.s
+	gen_asm_stdout $abi bn/asm/x86_64-gf2m.pl        crypto/bn/gf2m-$abi-x86_64.s
+	gen_asm_stdout $abi camellia/asm/cmll-x86_64.pl  crypto/camellia/cmll-$abi-x86_64.s
+	gen_asm_stdout $abi md5/asm/md5-x86_64.pl        crypto/md5/md5-$abi-x86_64.s
+	gen_asm_stdout $abi modes/asm/ghash-x86_64.pl    crypto/modes/ghash-$abi-x86_64.s
+	gen_asm_stdout $abi rc4/asm/rc4-x86_64.pl        crypto/rc4/rc4-$abi-x86_64.s
+	gen_asm_stdout $abi rc4/asm/rc4-md5-x86_64.pl    crypto/rc4/rc4-md5-$abi-x86_64.s
+	gen_asm_stdout $abi sha/asm/sha1-x86_64.pl       crypto/sha/sha1-$abi-x86_64.s
+	gen_asm        $abi sha/asm/sha512-x86_64.pl     crypto/sha/sha256-$abi-x86_64.S
+	gen_asm        $abi sha/asm/sha512-x86_64.pl     crypto/sha/sha512-$abi-x86_64.S
+	gen_asm_stdout $abi whrlpool/asm/wp-x86_64.pl    crypto/whrlpool/wp-$abi-x86_64.s
+	gen_asm        $abi x86_64cpuid.pl               crypto/cpuid-$abi-x86_64.S
 done
 
 # copy libtls source

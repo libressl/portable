@@ -22,6 +22,11 @@ case $host_os in
 		HOST_ABI=elf
 		AC_SUBST([PROG_LDADD], ['-lthr'])
 		;;
+	*hpux*)
+		HOST_OS=hpux;
+		CFLAGS="$CFLAGS -mlp64 -D_XOPEN_SOURCE=600 -D__STRICT_ALIGNMENT"
+		AC_SUBST([PLATFORM_LDADD], ['-lpthread'])
+		;;
 	*linux*)
 		HOST_OS=linux
 		HOST_ABI=elf
@@ -53,6 +58,7 @@ esac
 
 AM_CONDITIONAL([HOST_DARWIN],  [test x$HOST_OS = xdarwin])
 AM_CONDITIONAL([HOST_FREEBSD], [test x$HOST_OS = xfreebsd])
+AM_CONDITIONAL([HOST_HPUX],    [test x$HOST_OS = xhpux])
 AM_CONDITIONAL([HOST_LINUX],   [test x$HOST_OS = xlinux])
 AM_CONDITIONAL([HOST_SOLARIS], [test x$HOST_OS = xsolaris])
 AM_CONDITIONAL([HOST_WIN],     [test x$HOST_OS = xwin])

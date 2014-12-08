@@ -28,32 +28,51 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
-2.1.2
+2.1.2 - Many new features and improvements
 	* Added reworked GOST cipher suite support
 	   thanks to Dmitry Eremin-Solenikov
-	* Enabled Camellia ciphers due to improved patent situation
-	* Use builtin arc4random implementation on OS X and FreeBSD
-	   addresses some deficiencies in the native implementations, see
-	   commit logs for more information.
-	* Added initial Windows mingw-w64 support
-	   thanks to Song Dongsheng for code and comments
-	* Added no_ssl3/no_tls1_1/no_tls1_2 options to openssl(1)
-	* Allow conditional building of the libtls library.
-	   Expect the API and ABI of the library to change.
-	   Early-adopters only.  Feedback is welcome.
-	* Many cleanups
 
-2.1.1
+	* Enabled Camellia ciphers due to improved patent situation
+
+	* Use builtin arc4random implementation on OS X and FreeBSD
+	   this addresses some deficiencies in the native implementations of
+	   these operating systems, see commit logs for more information
+
+	* Added initial Windows mingw-w64 support (32 and 64-bit)
+	   thanks to Song Dongsheng and others for code and feedback
+
+	* Enabled assembly optimizations on x86_64 CPUs
+	   supports Linux, *BSD, Solaris and OS X operating systems
+	   thanks to Wouter Clarie for the initial implementation
+
+	* Added no_ssl3/no_tls1_1/no_tls1_2 options to openssl(1)
+
+	* Improved build infrastructure, 'make distcheck' now passes
+	   this simplifies and speeds developer efficiency
+	   thanks to Dmitry Eremin-Solenikov and Wouter Clarie
+
+	* Allow conditional building of the libtls library
+	   expect the API and ABI of the library to change
+	   feedback is welcome
+
+	* Fixes for more memory leaks, cleanups, etc.
+
+2.1.1 - Security update
 	* Address POODLE attack by disabling SSLv3 by default
+
 	* Fix Eliptical Curve cipher selection bug
 	  (https://github.com/libressl-portable/portable/issues/35)
 
 2.1.0 - First release from the OpenBSD 5.7 tree
 	* Added support for automatic ephemeral EC keys
+
 	* Fixes for many memory leaks and overflows in error handlers
+
 	* The TLS padding extension (that works around bugs in F5 terminators) is
 	  off by default
+
 	* support for getrandom(2) on Linux 3.17
+
 	* the NO_ASM macro is no longer being set, providing the first bits toward
 	  enabling other assembly offloads.
 
@@ -74,6 +93,7 @@ LibreSSL Portable Release Notes:
 
 2.0.1 - Portability fixes:
 	* Removed -Werror and and other non-portable compiler flags
+
 	* Allow setting OPENSSLDIR and ENGINSDIR
 
 2.0.0 - First release from the OpenBSD 5.6 tree

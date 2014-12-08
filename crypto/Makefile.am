@@ -86,6 +86,9 @@ endif
 if HOST_WIN
 libcompat_la_SOURCES += compat/getentropy_win.c
 endif
+if HOST_HPUX
+libcompat_la_SOURCES += compat/getentropy_hpux.c
+endif
 endif
 
 endif
@@ -97,6 +100,9 @@ endif
 if HOST_WIN
 libcompat_la_SOURCES += compat/issetugid_win.c
 endif
+if HOST_HPUX
+libcompat_la_SOURCES += compat/issetugid_hpux.c
+endif
 endif
 
 noinst_HEADERS =
@@ -106,6 +112,7 @@ noinst_HEADERS += compat/arc4random_linux.h
 noinst_HEADERS += compat/arc4random_osx.h
 noinst_HEADERS += compat/arc4random_solaris.h
 noinst_HEADERS += compat/arc4random_win.h
+noinst_HEADERS += compat/arc4random_hpux.h
 noinst_HEADERS += compat/chacha_private.h
 
 libcrypto_la_SOURCES =

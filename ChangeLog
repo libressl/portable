@@ -12,7 +12,7 @@ generation are here:
 
 A new simplified SSL wrapper library is here:
 
-	http://cvsweb.openbsd.org/cgi-bin/cvsweb/src/lib/libressl/
+	http://cvsweb.openbsd.org/cgi-bin/cvsweb/src/lib/libtls/
 
 The LibreSSL Portable project copies these portions of the OpenBSD tree, along
 with relevant portions of the C library, to a Git repository. This makes it

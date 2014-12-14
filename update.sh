@@ -86,7 +86,7 @@ copy_hdrs() {
 	done
 }
 
-copy_hdrs crypto "stack/stack.h lhash/lhash.h stack/safestack.h opensslv.h
+copy_hdrs crypto "stack/stack.h lhash/lhash.h stack/safestack.h
 	ossl_typ.h err/err.h crypto.h comp/comp.h x509/x509.h buffer/buffer.h
 	objects/objects.h asn1/asn1.h bn/bn.h ec/ec.h ecdsa/ecdsa.h
 	ecdh/ecdh.h rsa/rsa.h sha/sha.h x509/x509_vfy.h pkcs7/pkcs7.h pem/pem.h
@@ -101,6 +101,10 @@ copy_hdrs crypto "stack/stack.h lhash/lhash.h stack/safestack.h opensslv.h
 	gost/gost.h"
 
 copy_hdrs ssl "srtp.h ssl.h ssl2.h ssl3.h ssl23.h tls1.h dtls1.h"
+
+sed -e "s/\"LibreSSL .*\"/\"LibreSSL ${libressl_version}\"/" \
+	$libssl_src/src/crypto/opensslv.h > include/openssl/opensslv.h.lcl
+$MV include/openssl/opensslv.h.lcl include/openssl/opensslv.h
 
 # copy libcrypto source
 echo copying libcrypto source

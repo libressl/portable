@@ -7,6 +7,7 @@ EXTRA_DIST = VERSION
 
 libtls_la_LDFLAGS = -version-info @LIBTLS_VERSION@
 libtls_la_CFLAGS = $(CFLAGS) $(USER_CFLAGS)
+libtls_la_LIBADD = ../ssl/libssl.la
 
 libtls_la_SOURCES = tls.c
 libtls_la_SOURCES += tls_client.c

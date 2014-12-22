@@ -57,7 +57,6 @@ AC_CHECK_FUNC([clock_gettime],,
 AC_CHECK_FUNC([dl_iterate_phdr],,
 	[AC_SEARCH_LIBS([dl_iterate_phdr],[dl])])
 
-AM_PROG_AS
 AC_PROG_CC
 AC_PROG_LIBTOOL
 AC_PROG_CC_STDC
@@ -72,6 +71,18 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
 	[AC_MSG_RESULT([no])]
 )
 CFLAGS="$save_cflags $AM_CFLAGS"
+
+save_cflags="$CFLAGS"
+CFLAGS=
+AC_MSG_CHECKING([whether AS supports .note.GNU-stack])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+__asm__(".section .note.GNU-stack,\"\",@progbits");]])],
+	[AC_MSG_RESULT([yes])]
+	[AM_CFLAGS=-DHAVE_GNU_STACK],
+	[AC_MSG_RESULT([no])]
+)
+CFLAGS="$save_cflags $AM_CFLAGS"
+AM_PROG_AS
 
 AC_MSG_CHECKING([if compiling with clang])
 AC_COMPILE_IFELSE([AC_LANG_PROGRAM([], [[

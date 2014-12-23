@@ -63,6 +63,17 @@ AC_PROG_LIBTOOL
 AC_PROG_CC_STDC
 AM_PROG_CC_C_O
 
+AC_MSG_CHECKING([if compiling with clang])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([], [[
+#ifndef __clang__
+	not clang
+#endif
+	]])],
+	[CLANG=yes],
+	[CLANG=no]
+)
+AC_MSG_RESULT([CLANG])
+
 save_cflags="$CFLAGS"
 CFLAGS=-Wno-pointer-sign
 AC_MSG_CHECKING([whether CC supports -Wno-pointer-sign])
@@ -73,16 +84,9 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
 )
 CFLAGS="$save_cflags $AM_CFLAGS"
 
-AC_MSG_CHECKING([if compiling with clang])
-AC_COMPILE_IFELSE([AC_LANG_PROGRAM([], [[
-#ifndef __clang__
-	not clang
-#endif
-	]])],
-	[AC_MSG_RESULT([yes])]
-	[CLANG_FLAGS=-Qunused-arguments],
-	[AC_MSG_RESULT([no])]
-)
+# TODO: note CFLAGS=...CLANG_CFLAGS has no effect since the latter is undefined
+# investigate its effect
+AS_IF([test "x$CLANG" == "xyes"], [CLANG_FLAGS=-Qunused-arguments])
 CFLAGS="$CFLAGS $CLANG_CFLAGS"
 LDFLAGS="$LDFLAGS $CLANG_FLAGS"
 

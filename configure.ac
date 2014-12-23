@@ -74,6 +74,68 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([], [[
 )
 AC_MSG_RESULT([CLANG])
 
+# We want to check for compiler flag support, but there is no way to make
+# clang's "argument unused" warning fatal.  So we invoke the compiler through a
+# wrapper script that greps for this message.
+saved_CC="$CC"
+saved_LD="$LD"
+flag_wrap="$srcdir/scripts/wrap-compiler-for-flag-check"
+CC="$flag_wrap $CC"
+LD="$flag_wrap $LD"
+
+AC_DEFUN([check_cflag],
+	[AX_CHECK_COMPILE_FLAG([$1], [$2], [$3], [-Werror $4])])
+AC_DEFUN([check_ldflag],
+	[AX_CHECK_LINK_FLAG([$1], [$2], [$3], [-Werror $4])])
+
+
+AC_ARG_ENABLE([hardening],
+	[AS_HELP_STRING([--disable-hardening], [Disable options to frustrate memory corruption exploits])],
+	[],
+	[enable_hardening=yes])
+
+HARDEN_CFLAGS=""
+HARDEN_LDFLAGS=""
+AS_IF([test "x$enable_hardening" == "xyes"], [
+	# Tell GCC to NOT optimize based on signed arithmetic overflow
+	check_cflag([-fno-strict-overflow], [HARDEN_CFLAGS="$HARDEN_CFLAGS -fno-strict-overflow"])
+
+	# _FORTIFY_SOURCE replaces builtin functions with safer versions.
+	check_cflag([-D_FORTIFY_SOURCE=2], 
+		[HARDEN_CFLAGS="$HARDEN_CFLAGS -D_FORTIFY_SOURCE=2"])
+
+	# Use stack-protector-strong if available; if not, fallback to stack-protector-all which
+	# is considered to be overkill
+	check_cflag([-fstack-protector-strong], 
+		[STACK_PROTECT="-fstack-protector-strong"],
+		check_cflag([-fstack-protector-all],
+			[STACK_PROTECT="-fstack-protector-all"],
+			[AC_MSG_ERROR([compiler does not support stack protection - use --disable-hardening to override if you understand the risks])]
+		)
+	)
+
+	check_ldflag([$STACK_PROTECT],
+		[HARDEN_CFLAGS="$HARDEN_CFLAGS $STACK_PROTECT"
+		 check_cflag([-Wstack-protector], [HARDEN_CFLAGS="$HARDEN_CFLAGS -Wstack-protector"],
+		 	[], [$STACK_PROTECT])
+		],
+		[AC_MSG_ERROR([compiler supports stack protection but linker does not])]
+	)
+
+	# Enable read only relocations
+	check_ldflag([-Wl,-z,relro],
+   		[HARDEN_LDFLAGS="$HARDEN_LDFLAGS -Wl,-z,relro"
+    	check_ldflag([-Wl,-z,now], [HARDEN_LDFLAGS="$HARDEN_LDFLAGS -Wl,-z,now"])])
+])
+
+# Restore CC, LD
+CC="$saved_CC"
+LD="$saved_LD"
+
+CFLAGS="$CFLAGS $HARDEN_CFLAGS"
+LDFLAGS="$LDFLAGS $HARDEN_LDFLAGS"
+
+# Removing the dependency on -Wno-pointer-sign should be a goal
 save_cflags="$CFLAGS"
 CFLAGS=-Wno-pointer-sign
 AC_MSG_CHECKING([whether CC supports -Wno-pointer-sign])

@@ -5,6 +5,7 @@ bin_PROGRAMS = openssl
 openssl_CFLAGS = $(USER_CFLAGS)
 openssl_LDADD = $(PLATFORM_LDADD) $(PROG_LDADD)
 openssl_LDADD += $(top_builddir)/ssl/libssl.la
+openssl_LDADD += $(top_builddir)/crypto/libcrypto.la
 
 openssl_SOURCES = apps.c
 openssl_SOURCES += asn1pars.c

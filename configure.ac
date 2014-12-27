@@ -45,6 +45,12 @@ case $host_os in
 	*) ;;
 esac
 
+case $host_cpu in
+	*sparc*)
+		CFLAGS="$CFLAGS -D__STRICT_ALIGNMENT"
+		;;
+esac
+
 AM_CONDITIONAL([HOST_DARWIN],  [test x$HOST_OS = xdarwin])
 AM_CONDITIONAL([HOST_FREEBSD], [test x$HOST_OS = xfreebsd])
 AM_CONDITIONAL([HOST_LINUX],   [test x$HOST_OS = xlinux])

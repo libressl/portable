@@ -125,10 +125,20 @@ $CP crypto/compat/ui_openssl_win.c crypto/ui
 asm_src=$libssl_src/src/crypto
 gen_asm_stdout() {
 	perl $asm_src/$2 $1 > $3.tmp
+	[[ $1 == "elf" ]] && cat <<-EOF >> $3.tmp
+	#if defined(HAVE_GNU_STACK)
+	.section .note.GNU-stack,"",%progbits
+	#endif
+	EOF
 	$MV $3.tmp $3
 }
 gen_asm() {
 	perl $asm_src/$2 $1 $3.tmp
+	[[ $1 == "elf" ]] && cat <<-EOF >> $3.tmp
+	#if defined(HAVE_GNU_STACK)
+	.section .note.GNU-stack,"",%progbits
+	#endif
+	EOF
 	$MV $3.tmp $3
 }
 for abi in elf macosx; do

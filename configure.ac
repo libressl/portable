@@ -45,6 +45,12 @@ case $host_os in
 	*) ;;
 esac
 
+case $host_cpu in
+	*sparc*)
+		CFLAGS="$CFLAGS -D__STRICT_ALIGNMENT"
+		;;
+esac
+
 AM_CONDITIONAL([HOST_DARWIN],  [test x$HOST_OS = xdarwin])
 AM_CONDITIONAL([HOST_FREEBSD], [test x$HOST_OS = xfreebsd])
 AM_CONDITIONAL([HOST_LINUX],   [test x$HOST_OS = xlinux])
@@ -57,7 +63,6 @@ AC_CHECK_FUNC([clock_gettime],,
 AC_CHECK_FUNC([dl_iterate_phdr],,
 	[AC_SEARCH_LIBS([dl_iterate_phdr],[dl])])
 
-AM_PROG_AS
 AC_PROG_CC
 AC_PROG_LIBTOOL
 AC_PROG_CC_STDC
@@ -73,6 +78,7 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([], [[
 	[CLANG=no]
 )
 AC_MSG_RESULT([CLANG])
+AS_IF([test "x$CLANG" == "xyes"], [CLANG_FLAGS=-Qunused-arguments])
 
 # We want to check for compiler flag support, but there is no way to make
 # clang's "argument unused" warning fatal.  So we invoke the compiler through a
@@ -146,9 +152,18 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
 )
 CFLAGS="$save_cflags $AM_CFLAGS"
 
-# TODO: note CFLAGS=...CLANG_CFLAGS has no effect since the latter is undefined
-# investigate its effect
-AS_IF([test "x$CLANG" == "xyes"], [CLANG_FLAGS=-Qunused-arguments])
+save_cflags="$CFLAGS"
+CFLAGS=
+AC_MSG_CHECKING([whether AS supports .note.GNU-stack])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+__asm__(".section .note.GNU-stack,\"\",@progbits");]])],
+	[AC_MSG_RESULT([yes])]
+	[AM_CFLAGS=-DHAVE_GNU_STACK],
+	[AC_MSG_RESULT([no])]
+)
+CFLAGS="$save_cflags $AM_CFLAGS"
+AM_PROG_AS
+
 CFLAGS="$CFLAGS $CLANG_CFLAGS"
 LDFLAGS="$LDFLAGS $CLANG_FLAGS"
 

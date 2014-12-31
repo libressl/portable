@@ -77,7 +77,7 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([], [[
 	[CLANG=yes],
 	[CLANG=no]
 )
-AC_MSG_RESULT([CLANG])
+AC_MSG_RESULT([$CLANG])
 AS_IF([test "x$CLANG" == "xyes"], [CLANG_FLAGS=-Qunused-arguments])
 
 # We want to check for compiler flag support, but there is no way to make

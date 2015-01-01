@@ -80,7 +80,7 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([], [[
 AC_MSG_RESULT([$CLANG])
 AS_IF([test "x$CLANG" == "xyes"], [CLANG_FLAGS=-Qunused-arguments])
 
-# We want to check for compiler flag support, but there is no way to make
+# We want to check for compiler flag support. Prior to clang v5.1, there was no way to make
 # clang's "argument unused" warning fatal.  So we invoke the compiler through a
 # wrapper script that greps for this message.
 saved_CC="$CC"

@@ -95,39 +95,59 @@ AC_ARG_ENABLE([hardening],
 	[], [enable_hardening=yes])
 
 AC_DEFUN([CHECK_CFLAG],
-	 [AC_LANG_ASSERT(C)
-	  AC_MSG_CHECKING([if $saved_CC supports "$1"])
-	  old_cflags="$CFLAGS"
-	  CFLAGS=[$1]
-	  AC_TRY_LINK([#include <stdio.h>],
-		      [printf("Hello")],
-		      AC_MSG_RESULT([yes])
-		      HARDEN_CFLAGS="$HARDEN_CFLAGS [$1]",
-		      AC_MSG_RESULT([no])
-		      $2
-		      )
-	  ])
+	 AC_LANG_ASSERT(C)
+	 AC_MSG_CHECKING([if $saved_CC supports "$1"])
+	 old_cflags="$CFLAGS"
+	 CFLAGS=$1
+	 AC_TRY_LINK([
+		      #include <stdio.h>
+		      ],
+		     [printf("Hello")],
+		     AC_MSG_RESULT([yes])
+		     HARDEN_CFLAGS="$HARDEN_CFLAGS $1",
+		     AC_MSG_RESULT([no])
+		     $2)
+	  CFLAGS=$old_cflags
+)
 
-AS_IF([test "x$enable_hardening" == "xyes" -a "x$HOST_OS" != "xwin"], [
+AC_DEFUN([CHECK_LDFLAG],
+	 AC_LANG_ASSERT(C)
+	 AC_MSG_CHECKING([if $saved_LD supports "$1"])
+	 old_ldflags="$LDFLAGS"
+	 LDFLAGS=$1
+	 AC_TRY_LINK([
+		      #include <stdio.h>
+		      ],
+		     [printf("Hello")],
+		     AC_MSG_RESULT([yes])
+		     HARDEN_LDFLAGS="$HARDEN_LDFLAGS $1",
+		     AC_MSG_RESULT([no])
+		     $2)
+	  LDFLAGS=$old_ldflags
+)
+
+AS_IF([test "x$enable_hardening" == "xyes"], [
 	# Tell GCC to NOT optimize based on signed arithmetic overflow
-	CHECK_CFLAG([-fno-strict-overflow])
+	CHECK_CFLAG([[-fno-strict-overflow]])
 
 	# _FORTIFY_SOURCE replaces builtin functions with safer versions.
-	CHECK_CFLAG([-D_FORTIFY_SOURCE=2])
-
-	# Use stack-protector-strong if available; if not, fallback to
-	# stack-protector-all which is considered to be overkill
-	CHECK_CFLAG([-fstack-protector-strong],
-		CHECK_CFLAG([-fstack-protector-all],
-			AC_MSG_ERROR([compiler does appear to support stack protection
-			  - use --disable-hardening to override])
-		)
-	)
+	CHECK_CFLAG([[-D_FORTIFY_SOURCE=2]])
 
 	# Enable read only relocations
-	CHECK_CFLAG([-Wl,-z,relro])
-	CHECK_CFLAG([-Wl,-z,now])
+	CHECK_LDFLAG([[-Wl,-z,relro]])
+	CHECK_LDFLAG([[-Wl,-z,now]])
 ])
+
+# Use stack-protector-strong if available; if not, fallback to
+# stack-protector-all which is considered to be overkill
+AS_IF([test "x$enable_hardening" == "xyes" -a "x$HOST_OS" != "xwin"], [
+	CHECK_CFLAG([[-fstack-protector-strong]],
+		CHECK_CFLAG([[-fstack-protector-all]],
+			AC_MSG_ERROR([compiler does appear to support stack protection - use --disable-hardening to override])
+		)
+	)
+])
+
 
 # Restore CC, LD
 CC="$saved_CC"

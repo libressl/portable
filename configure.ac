@@ -84,7 +84,7 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([], [[
 	[CLANG=no]
 )
 AC_MSG_RESULT([$CLANG])
-AS_IF([test "x$CLANG" == "xyes"], [CLANG_FLAGS=-Qunused-arguments])
+AS_IF([test "x$CLANG" = "xyes"], [CLANG_FLAGS=-Qunused-arguments])
 
 # We want to check for compiler flag support. Prior to clang v5.1, there was no
 # way to make clang's "argument unused" warning fatal.  So we invoke the
@@ -134,7 +134,7 @@ AC_DEFUN([CHECK_LDFLAG], [
 		     [$2])
 ])
 
-AS_IF([test "x$enable_hardening" == "xyes"], [
+AS_IF([test "x$enable_hardening" = "xyes"], [
 	# Tell GCC to NOT optimize based on signed arithmetic overflow
 	CHECK_CFLAG([[-fno-strict-overflow]])
 
@@ -148,7 +148,7 @@ AS_IF([test "x$enable_hardening" == "xyes"], [
 
 # Use stack-protector-strong if available; if not, fallback to
 # stack-protector-all which is considered to be overkill
-AS_IF([test "x$enable_hardening" == "xyes" -a "x$HOST_OS" != "xwin"], [
+AS_IF([test "x$enable_hardening" = "xyes" -a "x$HOST_OS" != "xwin"], [
 	CHECK_CFLAG([[-fstack-protector-strong]],
 		CHECK_CFLAG([[-fstack-protector-all]],
 			AC_MSG_ERROR([compiler does appear to support stack protection - use --disable-hardening to override])

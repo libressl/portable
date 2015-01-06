@@ -104,7 +104,7 @@ AC_DEFUN([CHECK_CFLAG], [
 	 AC_LANG_ASSERT(C)
 	 AC_MSG_CHECKING([if $saved_CC supports "$1"])
 	 old_cflags="$CFLAGS"
-	 CFLAGS=$1
+	 CFLAGS="$1 -Wall -Werror"
 	 AC_TRY_LINK([
 		      #include <stdio.h>
 		      ],
@@ -121,7 +121,7 @@ AC_DEFUN([CHECK_LDFLAG], [
 	 AC_LANG_ASSERT(C)
 	 AC_MSG_CHECKING([if $saved_LD supports "$1"])
 	 old_ldflags="$LDFLAGS"
-	 LDFLAGS=$1
+	 LDFLAGS="$1 -Wall -Werror"
 	 AC_TRY_LINK([
 		      #include <stdio.h>
 		      ],
@@ -151,7 +151,7 @@ AS_IF([test "x$enable_hardening" = "xyes"], [
 AS_IF([test "x$enable_hardening" = "xyes" -a "x$HOST_OS" != "xwin"], [
 	CHECK_CFLAG([[-fstack-protector-strong]],
 		CHECK_CFLAG([[-fstack-protector-all]],
-			AC_MSG_ERROR([compiler does appear to support stack protection - use --disable-hardening to override])
+			AC_MSG_WARN([compiler does not appear to support stack protection])
 		)
 	)
 ])

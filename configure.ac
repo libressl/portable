@@ -94,7 +94,7 @@ AC_ARG_ENABLE([hardening],
 			[Disable options to frustrate memory corruption exploits])],
 	[], [enable_hardening=yes])
 
-AC_DEFUN([CHECK_CFLAG],
+AC_DEFUN([CHECK_CFLAG], [
 	 AC_LANG_ASSERT(C)
 	 AC_MSG_CHECKING([if $saved_CC supports "$1"])
 	 old_cflags="$CFLAGS"
@@ -104,13 +104,14 @@ AC_DEFUN([CHECK_CFLAG],
 		      ],
 		     [printf("Hello")],
 		     AC_MSG_RESULT([yes])
+		     CFLAGS=$old_cflags
 		     HARDEN_CFLAGS="$HARDEN_CFLAGS $1",
 		     AC_MSG_RESULT([no])
-		     $2)
-	  CFLAGS=$old_cflags
-)
+		     CFLAGS=$old_cflags
+		     [$2])
+])
 
-AC_DEFUN([CHECK_LDFLAG],
+AC_DEFUN([CHECK_LDFLAG], [
 	 AC_LANG_ASSERT(C)
 	 AC_MSG_CHECKING([if $saved_LD supports "$1"])
 	 old_ldflags="$LDFLAGS"
@@ -120,11 +121,12 @@ AC_DEFUN([CHECK_LDFLAG],
 		      ],
 		     [printf("Hello")],
 		     AC_MSG_RESULT([yes])
+		     LDFLAGS=$old_ldflags
 		     HARDEN_LDFLAGS="$HARDEN_LDFLAGS $1",
 		     AC_MSG_RESULT([no])
-		     $2)
-	  LDFLAGS=$old_ldflags
-)
+		     LDFLAGS=$old_ldflags
+		     [$2])
+])
 
 AS_IF([test "x$enable_hardening" == "xyes"], [
 	# Tell GCC to NOT optimize based on signed arithmetic overflow

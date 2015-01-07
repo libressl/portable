@@ -47,6 +47,12 @@ case $host_os in
 		CFLAGS="$CFLAGS -D__EXTENSIONS__ -D_XOPEN_SOURCE=600 -DBSD_COMP"
 		AC_SUBST([PLATFORM_LDADD], ['-lnsl -lsocket'])
 		;;
+	*hpux*)
+		HOST_OS=hpux;
+		CFLAGS="$CFLAGS -mlp64 -D_XOPEN_SOURCE=600 -D__STRICT_ALIGNMENT"
+		#CFLAGS="-g +DD64 -D_XOPEN_SOURCE=600 -D__STRICT_ALIGNMENT"
+		AC_SUBST([PLATFORM_LDADD], ['-lpthread'])
+		;;
 	*) ;;
 esac
 
@@ -62,6 +68,7 @@ AM_CONDITIONAL([HOST_HPUX],    [test x$HOST_OS = xhpux])
 AM_CONDITIONAL([HOST_LINUX],   [test x$HOST_OS = xlinux])
 AM_CONDITIONAL([HOST_SOLARIS], [test x$HOST_OS = xsolaris])
 AM_CONDITIONAL([HOST_WIN],     [test x$HOST_OS = xwin])
+AM_CONDITIONAL([HOST_HPUX],    [test x$HOST_OS = xhpux])
 
 AC_CHECK_FUNC([clock_gettime],,
 	[AC_SEARCH_LIBS([clock_gettime],[rt posix4])])

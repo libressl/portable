@@ -271,6 +271,9 @@ AM_COND_IF([ENABLE_LIBTLS], [AC_CONFIG_FILES([libtls.pc])])
 
 LT_INIT
 
+# gcov coverage reporting
+AX_CODE_COVERAGE
+
 AC_CONFIG_FILES([
 	Makefile
 	include/Makefile

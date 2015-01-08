@@ -73,6 +73,8 @@ AC_DEFUN([AX_CODE_COVERAGE],[
 	dnl Check for --enable-code-coverage
 	AC_REQUIRE([AC_PROG_SED])
 
+	clang="$1"
+
 	# allow to override gcov location
 	AC_ARG_WITH([gcov],
 	  [AS_HELP_STRING([--with-gcov[=GCOV]], [use given GCOV for coverage (GCOV=gcov).])],
@@ -138,7 +140,9 @@ AC_DEFUN([AX_CODE_COVERAGE],[
 
 		dnl Build the code coverage flags
 		CODE_COVERAGE_CFLAGS="-O0 -g -fprofile-arcs -ftest-coverage"
-		CODE_COVERAGE_LDFLAGS="-lgcov"
+		AS_IF([ test "x$clang" = "xyes"], 
+			[CODE_COVERAGE_LDFLAGS="-lprofile_rt"],
+			[CODE_COVERAGE_LDFLAGS="-lgcov"])
 
 		AC_SUBST([CODE_COVERAGE_CFLAGS])
 		AC_SUBST([CODE_COVERAGE_LDFLAGS])

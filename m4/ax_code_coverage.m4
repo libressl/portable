@@ -139,10 +139,14 @@ AC_DEFUN([AX_CODE_COVERAGE],[
 		])
 
 		dnl Build the code coverage flags
-		CODE_COVERAGE_CFLAGS="-O0 -g -fprofile-arcs -ftest-coverage"
-		AS_IF([ test "x$clang" = "xyes"], 
-			[CODE_COVERAGE_LDFLAGS="-lprofile_rt"],
-			[CODE_COVERAGE_LDFLAGS="-lgcov"])
+		AS_IF([ test "x$clang" = "xyes"], [
+				CODE_COVERAGE_CFLAGS="-O0 -g --coverage"
+				CODE_COVERAGE_LDFLAGS="-O0 -g --coverage"
+			], [
+				CODE_COVERAGE_CFLAGS="-O0 -g -ftest-coverage -fprofile-arcs"
+				CODE_COVERAGE_LDFLAGS="-lgcov"
+			]
+		)
 
 		AC_SUBST([CODE_COVERAGE_CFLAGS])
 		AC_SUBST([CODE_COVERAGE_LDFLAGS])

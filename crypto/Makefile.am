@@ -8,9 +8,9 @@ lib_LTLIBRARIES = libcrypto.la
 
 EXTRA_DIST = VERSION
 
-libcrypto_la_LDFLAGS = -version-info @LIBCRYPTO_VERSION@ -no-undefined
+libcrypto_la_LDFLAGS = -version-info @LIBCRYPTO_VERSION@ -no-undefined $(CODE_COVERAGE_LDFLAGS)
 libcrypto_la_LIBADD = libcompat.la libcompatnoopt.la
-libcrypto_la_CFLAGS = $(CFLAGS) $(USER_CFLAGS)
+libcrypto_la_CFLAGS = $(CFLAGS) $(USER_CFLAGS) $(CODE_COVERAGE_CFLAGS)
 libcrypto_la_CFLAGS += -DOPENSSL_NO_HW_PADLOCK
 if OPENSSL_NO_ASM
 libcrypto_la_CFLAGS += -DOPENSSL_NO_ASM
@@ -23,7 +23,7 @@ endif
 noinst_LTLIBRARIES = libcompat.la libcompatnoopt.la
 
 # compatibility functions that need to be built without optimizations
-libcompatnoopt_la_CFLAGS = -O0
+libcompatnoopt_la_CFLAGS = -O0 $(CODE_COVERAGE_CFLAGS)
 libcompatnoopt_la_SOURCES =
 
 if !HAVE_EXPLICIT_BZERO
@@ -31,7 +31,7 @@ libcompatnoopt_la_SOURCES += compat/explicit_bzero.c
 endif
 
 # other compatibility functions
-libcompat_la_CFLAGS = $(CFLAGS) $(USER_CFLAGS)
+libcompat_la_CFLAGS = $(CFLAGS) $(USER_CFLAGS) $(CODE_COVERAGE_CFLAGS)
 libcompat_la_SOURCES =
 libcompat_la_LIBADD = $(PLATFORM_LDADD)
 

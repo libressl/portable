@@ -197,3 +197,11 @@ man/*.1
 man/Makefile.am
 .gitmodules
 COPYING
+
+# Code coverage
+*.func.html
+*.gcov.html
+*.func-sort-c.html
+*-coverage/*
+*-coverage.info
+crypto/*-coverage.info.tmp

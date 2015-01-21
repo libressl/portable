@@ -28,6 +28,48 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.1.3 - Security update and OS support improvements
+	* Fixed various memory leaks in DTLS, including fixes for
+	  CVE-2015-0206.
+
+	* Added Application-Layer Protocol Negotiation (ALPN) support.
+
+	* Removed GOST R 34.10-94 signature authentication.
+
+	* Removed nonfunctional Netscape browser-hang workaround code.
+
+	* Simplfied and refactored SSL/DTLS handshake code.
+
+	* Added SHA256 Camellia cipher suites for TLS 1.2 from RFC 5932.
+
+	* Hide timing info about padding errors during handshakes.
+
+	* Improved libtls support for non-blocking sockets, added randomized
+	  session ID contexts. Work is ongoing with this library - feedback
+	  and potential use-cases are welcome.
+
+	* Support building Windows DLLs.
+	  Thanks to Jan Engelhard.
+
+	* Packaged config wrapper for better compatibility with OpenSSL-based
+	  build systems.
+	  Thanks to @technion from github
+
+	* Ensure the stack is marked non-executable for assembly sections.
+	  Thanks to Anthony G. Bastile.
+
+	* Enable extra compiler hardening flags by default, where applicable.
+	  The default set of hardening features can vary by OS to OS, so
+	  feedback is welcome on this. To disable the default hardening flags,
+	  specify '--disable-hardening' during configure.
+	  Thanks to Jim Barlow
+
+	* Initial HP-UX support, tested with HP-UX 11.31 ia64
+	  Thanks to Kinichiro Inoguchi
+
+	* Initial NetBSD support, tested with NetBSD 6.1.5 x86_64
+	  Imported from OpenNTPD, thanks to @gitisihara from github
+
 2.1.2 - Many new features and improvements
 	* Added reworked GOST cipher suite support
 	   thanks to Dmitry Eremin-Solenikov

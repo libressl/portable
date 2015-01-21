@@ -32,6 +32,9 @@ case $host_os in
 		HOST_ABI=elf
 		CFLAGS="$CFLAGS -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
 		;;
+	*netbsd*)
+		HOST_OS=netbsd
+		;;
 	*openbsd*)
 		HOST_ABI=elf
 		AC_DEFINE([HAVE_ATTRIBUTE__BOUNDED__], [1], [OpenBSD gcc has bounded])
@@ -60,6 +63,7 @@ AM_CONDITIONAL([HOST_DARWIN],  [test x$HOST_OS = xdarwin])
 AM_CONDITIONAL([HOST_FREEBSD], [test x$HOST_OS = xfreebsd])
 AM_CONDITIONAL([HOST_HPUX],    [test x$HOST_OS = xhpux])
 AM_CONDITIONAL([HOST_LINUX],   [test x$HOST_OS = xlinux])
+AM_CONDITIONAL([HOST_NETBSD],  [test x$HOST_OS = xnetbsd])
 AM_CONDITIONAL([HOST_SOLARIS], [test x$HOST_OS = xsolaris])
 AM_CONDITIONAL([HOST_WIN],     [test x$HOST_OS = xwin])
 
@@ -214,7 +218,10 @@ AM_CONDITIONAL([HAVE_TIMINGSAFE_MEMCMP], [test "x$ac_cv_func_timingsafe_memcmp" 
 
 # overrides for arc4random_buf implementations with known issues
 AM_CONDITIONAL([HAVE_ARC4RANDOM_BUF],
-	[test "x$HOST_OS" != xdarwin -a "x$HOST_OS" != xfreebsd -a "x$ac_cv_func_arc4random_buf" = xyes])
+	[test "x$HOST_OS" != xdarwin \
+	   -a "x$HOST_OS" != xfreebsd \
+	   -a "x$HOST_OS" != xnetbsd \
+	   -a "x$ac_cv_func_arc4random_buf" = xyes])
 
 AC_CACHE_CHECK([whether va_copy exists], ac_cv_have_va_copy, [
 	AC_LINK_IFELSE([AC_LANG_PROGRAM([[

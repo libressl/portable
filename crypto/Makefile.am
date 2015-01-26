@@ -773,6 +773,7 @@ noinst_HEADERS += whrlpool/wp_locl.h
 # x509
 libcrypto_la_SOURCES += x509/by_dir.c
 libcrypto_la_SOURCES += x509/by_file.c
+libcrypto_la_SOURCES += x509/by_mem.c
 libcrypto_la_SOURCES += x509/x509_att.c
 libcrypto_la_SOURCES += x509/x509_cmp.c
 libcrypto_la_SOURCES += x509/x509_d2.c

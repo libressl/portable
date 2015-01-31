@@ -4,10 +4,11 @@
  */
 
 #include <errno.h>
-#include <gnu/libc-version.h>
+
+#ifdef __GLIBC__
 #include <string.h>
-#include <sys/types.h>
-#include <unistd.h>
+#include <gnu/libc-version.h>
+#endif
 
 /*
  * Linux-specific glibc 2.16+ interface for determining if a process was
@@ -20,6 +21,7 @@
 int issetugid(void)
 {
 #ifdef HAVE_GETAUXVAL
+#ifdef __GLIBC__
 	/*
 	 * The API for glibc < 2.19 does not indicate if there is an error with
 	 * getauxval. While it should not be the case that any 2.6 or greater
@@ -35,13 +37,16 @@ int issetugid(void)
 	 */
 	const char *glcv = gnu_get_libc_version();
 	if (strverscmp(glcv, "2.19") >= 0) {
+#endif
 		errno = 0;
 		if (getauxval(AT_SECURE) == 0) {
 			if (errno != ENOENT) {
 				return 0;
 			}
 		}
+#ifdef __GLIBC__
 	}
+#endif
 #endif
 	return 1;
 }

@@ -4,15 +4,20 @@ set -e
 ./autogen.sh
 
 if [ "x$ARCH" = "xnative" ]; then
-        ./configure --enable-libtls
-	make clean
-        make -j distcheck
+	./configure --enable-libtls
+	if [ `uname` = "Darwin" ]; then
+		# OS X runs out of resources if we run 'make -j check'
+		make -j
+		make check
+	else
+		make -j distcheck
+	fi
 else
-        CPU=i686
-        if [ "x$ARCH" = "xmingw64" ]; then
-                CPU=x86_64
-        fi
-        export CC=$CPU-w64-mingw32-gcc
+	CPU=i686
+	if [ "x$ARCH" = "xmingw64" ]; then
+		CPU=x86_64
+	fi
+	export CC=$CPU-w64-mingw32-gcc
 
 	if [ -z $(which $CC) ]; then
 		# Update Ubuntu 12.04 with current mingw toolchain
@@ -24,7 +29,6 @@ else
 		export PATH=$PATH:/opt/$ARCH/bin
 	fi
 
-        ./configure --host=$CPU-w64-mingw32 --enable-libtls
-	make clean
-        make -j
+	./configure --host=$CPU-w64-mingw32 --enable-libtls
+	make -j
 fi

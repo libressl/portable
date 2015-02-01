@@ -1,0 +1,28 @@
+#!/bin/sh
+set -e
+
+./autogen.sh
+
+if [ "x$ARCH" = "xnative" ]; then
+        ./configure --enable-libtls
+	make clean
+        make -j distcheck
+else
+        CPU=i686
+        if [ "x$ARCH" = "xmingw64" ]; then
+                CPU=x86_64
+        fi
+        export CC=$CPU-w64-mingw32-gcc
+
+	if [ -z $(which $CC) ]; then
+		# Update Ubuntu 12.04 with current mingw toolchain
+		apt-get update && apt-get install -y python-software-properties
+		apt-add-repository -y ppa:tobydox/mingw-x-precise
+		apt-get update && apt-get install -y $ARCH-x-gcc make
+		export PATH=$PATH:/opt/$ARCH/bin
+	fi
+
+        ./configure --host=$CPU-w64-mingw32 --enable-libtls
+	make clean
+        make -j
+fi

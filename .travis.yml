@@ -12,23 +12,23 @@ env:
 matrix:
         include:
                 - compiler: clang
-                        os: osx
-                       env: ARCH=native
+                  os: osx
+                  env: ARCH=native
                 - compiler: gcc
-                        os: osx
-                       env: ARCH=native
+                  os: osx
+                  env: ARCH=native
                 - compiler: clang
-                        os: linux
-                       env: ARCH=native
+                  os: linux
+                  env: ARCH=native
                 - compiler: gcc
-                        os: linux
-                       env: ARCH=native
+                  os: linux
+                  env: ARCH=native
                 - compiler: gcc
-                        os: linux
-                       env: ARCH=mingw32
+                  os: linux
+                  env: ARCH=mingw32
                 - compiler: gcc
-                        os: linux
-                       env: ARCH=mingw64
+                  os: linux
+                  env: ARCH=mingw64
 
 script:
         "./scripts/travis"

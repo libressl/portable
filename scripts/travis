@@ -7,7 +7,6 @@ if [ "x$ARCH" = "xnative" ]; then
 	./configure --enable-libtls
 	if [ `uname` = "Darwin" ]; then
 		# OS X runs out of resources if we run 'make -j check'
-		make -j
 		make check
 	else
 		make -j distcheck

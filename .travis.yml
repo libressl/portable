@@ -1,14 +1,4 @@
 language: c
-compiler:
-        - clang
-        - gcc
-os:
-        - linux
-        - osx
-env:
-        - ARCH=native
-        - ARCH=mingw32
-        - ARCH=mingw64
 matrix:
         include:
                 - compiler: clang

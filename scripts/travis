@@ -16,9 +16,11 @@ else
 
 	if [ -z $(which $CC) ]; then
 		# Update Ubuntu 12.04 with current mingw toolchain
-		apt-get update && apt-get install -y python-software-properties
-		apt-add-repository -y ppa:tobydox/mingw-x-precise
-		apt-get update && apt-get install -y $ARCH-x-gcc make
+		sudo apt-get update
+		sudo apt-get install -y python-software-properties
+		sudo apt-add-repository -y ppa:tobydox/mingw-x-precise
+		sudo apt-get update
+		sudo apt-get install -y $ARCH-x-gcc make
 		export PATH=$PATH:/opt/$ARCH/bin
 	fi
 

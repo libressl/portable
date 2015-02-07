@@ -53,6 +53,7 @@ tests/timingsafe*
 tests/*test
 tests/*test.c
 tests/memmem.c
+tests/pbkdf2*
 tests/*.pem
 tests/testssl
 tests/*.txt

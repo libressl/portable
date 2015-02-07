@@ -9,6 +9,9 @@ libssl_la_CFLAGS = $(CFLAGS) $(USER_CFLAGS)
 libssl_la_LIBADD = ../crypto/libcrypto.la
 
 libssl_la_SOURCES = bio_ssl.c
+libssl_la_SOURCES += bs_ber.c
+libssl_la_SOURCES += bs_cbb.c
+libssl_la_SOURCES += bs_cbs.c
 libssl_la_SOURCES += d1_both.c
 libssl_la_SOURCES += d1_clnt.c
 libssl_la_SOURCES += d1_enc.c
@@ -51,3 +54,4 @@ libssl_la_SOURCES += t1_srvr.c
 
 noinst_HEADERS = srtp.h
 noinst_HEADERS += ssl_locl.h
+noinst_HEADERS += bytestring.h

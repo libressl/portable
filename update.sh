@@ -190,19 +190,8 @@ done
 
 # copy libcrypto tests
 echo "copying tests"
-rm -f tests/biotest.c
-for i in aead/aeadtest.c aeswrap/aes_wrap.c base64/base64test.c bf/bftest.c \
-	bn/general/bntest.c bn/mont/mont.c \
-	cast/casttest.c chacha/chachatest.c cts128/cts128test.c \
-	des/destest.c dh/dhtest.c dsa/dsatest.c ec/ectest.c ecdh/ecdhtest.c \
-	ecdsa/ecdsatest.c engine/enginetest.c evp/evptest.c exp/exptest.c \
-	gcm128/gcm128test.c hmac/hmactest.c idea/ideatest.c ige/igetest.c \
-	md4/md4test.c md5/md5test.c mdc2/mdc2test.c poly1305/poly1305test.c \
-	pkcs7/pkcs7test.c pqueue/pq_test.c rand/randtest.c rc2/rc2test.c \
-	rc4/rc4test.c rmd/rmdtest.c sha/shatest.c sha1/sha1test.c \
-	sha256/sha256test.c sha512/sha512test.c utf8/utf8test.c \
-	gost/gost2814789t.c ; do
-	 $CP $libcrypto_regress/$i tests
+for i in `find $libcrypto_regress -name '*.c'`; do
+	 $CP "$i" tests
 done
 
 # copy libc tests
@@ -211,9 +200,10 @@ $CP $libc_regress/explicit_bzero/explicit_bzero.c tests
 $CP $libc_regress/timingsafe/timingsafe.c tests
 
 # copy libssl tests
-$CP $libssl_regress/asn1/asn1test.c tests
 $CP $libssl_regress/ssl/testssl tests
-$CP $libssl_regress/ssl/ssltest.c tests
+for i in `find $libssl_regress -name '*.c'`; do
+	 $CP "$i" tests
+done
 $CP $libssl_regress/certs/ca.pem tests
 $CP $libssl_regress/certs/server.pem tests
 

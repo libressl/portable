@@ -194,6 +194,9 @@ for i in `find $libcrypto_regress -name '*.c'`; do
 	 $CP "$i" tests
 done
 
+# the BIO tests rely on resolver results that are OS and environment-specific
+rm tests/biotest.c
+
 # copy libc tests
 $CP $libc_regress/arc4random-fork/arc4random-fork.c tests/arc4randomforktest.c
 $CP $libc_regress/explicit_bzero/explicit_bzero.c tests

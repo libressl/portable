@@ -3,7 +3,10 @@
 
 #include <sys/param.h>
 
-#if defined(__FreeBSD__)
+#if defined(_AIX)
+#include "arc4random_aix.h"
+
+#elif defined(__FreeBSD__)
 #include "arc4random_freebsd.h"
 
 #elif defined(__hpux)

@@ -18,6 +18,10 @@ LT_INIT
 CFLAGS="$CFLAGS -Wall -std=gnu99"
 
 case $host_os in
+	*aix*)
+		HOST_OS=aix
+		AC_SUBST([PLATFORM_LDADD], ['-lperfstat -lpthread'])
+		;;
 	*cygwin*)
 		HOST_OS=cygwin
 		;;
@@ -68,6 +72,7 @@ case $host_os in
 	*) ;;
 esac
 
+AM_CONDITIONAL([HOST_AIX],     [test x$HOST_OS = xaix])
 AM_CONDITIONAL([HOST_CYGWIN],  [test x$HOST_OS = xcygwin])
 AM_CONDITIONAL([HOST_DARWIN],  [test x$HOST_OS = xdarwin])
 AM_CONDITIONAL([HOST_FREEBSD], [test x$HOST_OS = xfreebsd])

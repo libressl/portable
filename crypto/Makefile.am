@@ -69,6 +69,9 @@ if !HAVE_ARC4RANDOM_BUF
 libcompat_la_SOURCES += compat/arc4random.c
 
 if !HAVE_GETENTROPY
+if HOST_AIX
+libcompat_la_SOURCES += compat/getentropy_aix.c
+endif
 if HOST_FREEBSD
 libcompat_la_SOURCES += compat/getentropy_freebsd.c
 endif
@@ -95,6 +98,9 @@ endif
 endif
 
 if !HAVE_ISSETUGID
+if HOST_AIX
+libcompat_la_SOURCES += compat/issetugid_aix.c
+endif
 if HOST_LINUX
 libcompat_la_SOURCES += compat/issetugid_linux.c
 endif
@@ -111,6 +117,7 @@ endif
 
 noinst_HEADERS =
 noinst_HEADERS += compat/arc4random.h
+noinst_HEADERS += compat/arc4random_aix.h
 noinst_HEADERS += compat/arc4random_freebsd.h
 noinst_HEADERS += compat/arc4random_hpux.h
 noinst_HEADERS += compat/arc4random_linux.h

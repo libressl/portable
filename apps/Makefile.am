@@ -10,6 +10,7 @@ openssl_LDADD += $(top_builddir)/crypto/libcrypto.la
 openssl_SOURCES = apps.c
 openssl_SOURCES += asn1pars.c
 openssl_SOURCES += ca.c
+openssl_SOURCES += certhash.c
 openssl_SOURCES += ciphers.c
 openssl_SOURCES += cms.c
 openssl_SOURCES += crl.c

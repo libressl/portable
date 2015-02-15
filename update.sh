@@ -168,7 +168,11 @@ done
 echo copying libtls source
 rm -f tls/*.c tls/*.h
 for i in `awk '/SOURCES|HEADERS/ { print $3 }' tls/Makefile.am` ; do
-	$CP $libtls_src/$i tls
+	if [ -e $libtls_src/$i ]; then
+		$CP $libtls_src/$i tls
+	else
+		$CP $libc_src/string/$i tls
+	fi
 done
 
 # copy openssl(1) source

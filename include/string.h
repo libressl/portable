@@ -33,6 +33,10 @@ size_t strnlen(const char *str, size_t maxlen);
 #endif
 #endif
 
+#ifndef HAVE_STRSEP
+char *strsep(char **stringp, const char *delim);
+#endif
+
 #ifndef HAVE_EXPLICIT_BZERO
 void explicit_bzero(void *, size_t);
 #endif

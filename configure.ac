@@ -196,7 +196,7 @@ LDFLAGS="$LDFLAGS $CLANG_FLAGS"
 
 AC_CHECK_FUNCS([arc4random_buf asprintf explicit_bzero funopen getauxval])
 AC_CHECK_FUNCS([getentropy issetugid memmem poll reallocarray])
-AC_CHECK_FUNCS([strlcat strlcpy strndup strnlen strtonum])
+AC_CHECK_FUNCS([strlcat strlcpy strndup strnlen strsep strtonum])
 AC_CHECK_FUNCS([symlink openat])
 AC_CHECK_FUNCS([timingsafe_bcmp timingsafe_memcmp])
 
@@ -213,6 +213,7 @@ AM_CONDITIONAL([HAVE_STRLCAT], [test "x$ac_cv_func_strlcat" = xyes])
 AM_CONDITIONAL([HAVE_STRLCPY], [test "x$ac_cv_func_strlcpy" = xyes])
 AM_CONDITIONAL([HAVE_STRNDUP], [test "x$ac_cv_func_strndup" = xyes])
 AM_CONDITIONAL([HAVE_STRNLEN], [test "x$ac_cv_func_strnlen" = xyes])
+AM_CONDITIONAL([HAVE_STRSEP], [test "x$ac_cv_func_strsep" = xyes])
 AM_CONDITIONAL([HAVE_STRTONUM], [test "x$ac_cv_func_strtonum" = xyes])
 AM_CONDITIONAL([HAVE_TIMINGSAFE_BCMP], [test "x$ac_cv_func_timingsafe_bcmp" = xyes])
 AM_CONDITIONAL([HAVE_TIMINGSAFE_MEMCMP], [test "x$ac_cv_func_timingsafe_memcmp" = xyes])

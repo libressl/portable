@@ -16,4 +16,9 @@ libtls_la_SOURCES += tls_server.c
 libtls_la_SOURCES += tls_util.c
 libtls_la_SOURCES += tls_verify.c
 noinst_HEADERS = tls_internal.h
+
+if !HAVE_STRSEP
+libtls_la_SOURCES += strsep.c
+endif
+
 endif

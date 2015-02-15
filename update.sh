@@ -290,6 +290,11 @@ echo "copying manpages"
 		$CP $i .
 		echo "dist_man_MANS += $NAME" >> Makefile.am
 	done
+	for i in `ls -1 $libcrypto_src/man/*.3 | sort`; do
+		NAME=`basename "$i"`
+		$CP $i .
+		echo "dist_man_MANS += $NAME" >> Makefile.am
+	done
 	$CP $openssl_app_src/openssl.1 .
 	echo "dist_man_MANS += openssl.1" >> Makefile.am
 	$CP $libtls_src/tls_init.3 .

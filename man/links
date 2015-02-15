@@ -981,6 +981,7 @@ SSL_MLINKS="ASN1_OBJECT_new.3,ASN1_OBJECT_free.3 \
 	SSL_CTX_use_certificate.3,SSL_CTX_use_RSAPrivateKey_file.3 \
 	SSL_CTX_use_certificate.3,SSL_CTX_use_certificate_ASN1.3 \
 	SSL_CTX_use_certificate.3,SSL_CTX_use_certificate_chain_file.3 \
+	SSL_CTX_use_certificate.3,SSL_CTX_use_certificate_chain_mem.3 \
 	SSL_CTX_use_certificate.3,SSL_CTX_use_certificate_file.3 \
 	SSL_CTX_use_certificate.3,SSL_check_private_key.3 \
 	SSL_CTX_use_certificate.3,SSL_use_PrivateKey.3 \

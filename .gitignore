@@ -111,6 +111,7 @@ apps/openssl
 apps/openssl.cnf
 !apps/apps_win.c
 !apps/poll_win.c
+!apps/certhash_disabled.c
 
 crypto/compat/arc4random.c
 crypto/compat/chacha_private.h

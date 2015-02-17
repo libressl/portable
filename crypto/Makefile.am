@@ -103,6 +103,9 @@ endif
 if HOST_HPUX
 libcompat_la_SOURCES += compat/issetugid_hpux.c
 endif
+if HOST_DARWIN
+libcompat_la_SOURCES += compat/issetugid_osx.c
+endif
 if HOST_WIN
 libcompat_la_SOURCES += compat/issetugid_win.c
 endif

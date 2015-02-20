@@ -24,7 +24,11 @@ export PATH=/cygdrive/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio\ 12.0/
 VERSION=`cat VERSION`
 DIST=libressl-$VERSION-$ARCH
 
-CC=$HOST-gcc ./configure --prefix=/ --host=$HOST --enable-libtls
+CC=$HOST-gcc \
+CFLAGS="-Wl,--nxcompat -fstack-protector" \
+LDFLAGS="-lssp -Wl,--dynamicbase,--export-all-symbols" \
+./configure --prefix=/ --host=$HOST --enable-libtls
+
 make clean
 make -j 4 install DESTDIR=`pwd`/tmp
 

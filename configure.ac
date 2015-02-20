@@ -228,7 +228,7 @@ AM_CONDITIONAL([HAVE_ARC4RANDOM_BUF],
 
 # overrides for issetugid implementations with known issues
 AM_CONDITIONAL([HAVE_ISSETUGID],
-       [test "x$HOST_OS" != xdarwin
+       [test "x$HOST_OS" != xdarwin \
 	  -a "x$ac_cv_func_issetugid" = xyes])
 
 AC_CACHE_CHECK([whether va_copy exists], ac_cv_have_va_copy, [

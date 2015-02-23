@@ -197,7 +197,7 @@ LDFLAGS="$LDFLAGS $CLANG_FLAGS"
 AC_CHECK_FUNCS([arc4random_buf asprintf explicit_bzero funopen getauxval])
 AC_CHECK_FUNCS([getentropy issetugid memmem poll reallocarray])
 AC_CHECK_FUNCS([strlcat strlcpy strndup strnlen strsep strtonum])
-AC_CHECK_FUNCS([symlink openat])
+AC_CHECK_FUNCS([symlink])
 AC_CHECK_FUNCS([timingsafe_bcmp timingsafe_memcmp])
 
 # Share test results with automake
@@ -217,7 +217,7 @@ AM_CONDITIONAL([HAVE_STRSEP], [test "x$ac_cv_func_strsep" = xyes])
 AM_CONDITIONAL([HAVE_STRTONUM], [test "x$ac_cv_func_strtonum" = xyes])
 AM_CONDITIONAL([HAVE_TIMINGSAFE_BCMP], [test "x$ac_cv_func_timingsafe_bcmp" = xyes])
 AM_CONDITIONAL([HAVE_TIMINGSAFE_MEMCMP], [test "x$ac_cv_func_timingsafe_memcmp" = xyes])
-AM_CONDITIONAL([BUILD_CERTHASH], [test "x$ac_cv_func_symlink" = xyes -a "x$ac_cv_func_openat" = xyes])
+AM_CONDITIONAL([BUILD_CERTHASH], [test "x$ac_cv_func_symlink" = xyes])
 
 # overrides for arc4random_buf implementations with known issues
 AM_CONDITIONAL([HAVE_ARC4RANDOM_BUF],

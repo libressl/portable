@@ -28,6 +28,45 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.1.4 - Security and feature updates
+	* Improvements to libtls:
+
+	  * a new API for loading CA chains directly from memory instead of a
+	    file, allowing verification with privilege separation in a chroot
+	    without direct access to CA certificate files.
+
+	  * Ciphers default to TLSv1.2 with AEAD and PFS.
+
+	  * Improved error handling and message generation
+
+	  * New APIs and improved documentation
+
+	* Added X509_STORE_load_mem API for loading certificates from memory.
+	  This facilitates accessing certificates from a chrooted environment.
+
+	* New AEAD "MAC alias" allows configuring TLSv1.2 AEAD ciphers by
+	  using 'TLSv1.2+AEAD' as the cipher selection string.
+
+	* Dead and disabled code removal including MD5, Netscape workarounds,
+	  non-POSIX IO, SCTP, RFC 3779 support, many #if 0 sections, and more.
+
+	* ASN1 macro maze expanded to aid reading and searching the code.
+
+	* NULL pointer asserts removed in favor of letting the OS/signal
+	  handler catch them.
+
+	* Refactored argument handling in openssl(1) for consistency and
+	  maintainability.
+
+	* New openssl(1) command 'certhash' replaces the c_rehash script.
+
+	* Support for building with OPENSSL_NO_DEPRECATED
+
+	* Dozens of issues found with the Coverity scanner fixed.
+
+	* Server-side support for TLS_FALLBACK_SCSV for compatibility with
+	  various auditor and vulnerability scanners.
+
 2.1.3 - Security update and OS support improvements
 	* Fixed various memory leaks in DTLS, including fixes for
 	  CVE-2015-0206.

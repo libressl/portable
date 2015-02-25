@@ -104,6 +104,11 @@ AC_ARG_ENABLE([hardening],
 			[Disable options to frustrate memory corruption exploits])],
 	[], [enable_hardening=yes])
 
+AC_ARG_ENABLE([windows-ssp],
+	[AS_HELP_STRING([--enable-windows-ssp],
+			[Enable building the stack smashing protection on
+			 Windows. This currently distributing libssp-0.dll.])])
+
 AC_DEFUN([CHECK_CFLAG], [
 	 AC_LANG_ASSERT(C)
 	 AC_MSG_CHECKING([if $saved_CC supports "$1"])
@@ -148,16 +153,26 @@ AS_IF([test "x$enable_hardening" = "xyes"], [
 	# Enable read only relocations
 	CHECK_LDFLAG([[-Wl,-z,relro]])
 	CHECK_LDFLAG([[-Wl,-z,now]])
-])
 
-# Use stack-protector-strong if available; if not, fallback to
-# stack-protector-all which is considered to be overkill
-AS_IF([test "x$enable_hardening" = "xyes" -a "x$HOST_OS" != "xwin"], [
-	CHECK_CFLAG([[-fstack-protector-strong]],
-		CHECK_CFLAG([[-fstack-protector-all]],
-			AC_MSG_WARN([compiler does not appear to support stack protection])
+	# Windows security flags
+	AS_IF([test "x$HOST_OS" = "xwin"], [
+		CHECK_LDFLAG([[-Wl,--nxcompat]])
+		CHECK_LDFLAG([[-Wl,--dynamicbase]])
+		CHECK_LDFLAG([[-Wl,--high-entropy-va]])
+	])
+
+	# Use stack-protector-strong if available; if not, fallback to
+	# stack-protector-all which is considered to be overkill
+	AS_IF([test "x$enable_windows_ssp" = "xyes" -o "x$HOST_OS" != "xwin"], [
+		CHECK_CFLAG([[-fstack-protector-strong]],
+			CHECK_CFLAG([[-fstack-protector-all]],
+				AC_MSG_WARN([compiler does not appear to support stack protection])
+			)
 		)
-	)
+		AS_IF([test "x$HOST_OS" = "xwin"], [
+			AC_SEARCH_LIBS([__stack_chk_guard],[ssp])
+		])
+	])
 ])
 
 

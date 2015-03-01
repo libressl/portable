@@ -53,20 +53,6 @@ case $host_os in
 	*) ;;
 esac
 
-case $host_cpu in
-	*sparc*)
-		CFLAGS="$CFLAGS -D__STRICT_ALIGNMENT"
-		;;
-	*arm*)
-		old_cflags=$CFLAGS
-		CFLAGS="$old_cflags -I$srcdir/include"
-		AC_TRY_COMPILE([#include "$srcdir/crypto/modes/modes_lcl.h"],
-			       [int a = 0; BSWAP4(a);],
-			       CFLAGS="$old_cflags",
-			       CFLAGS="$old_cflags -D__STRICT_ALIGNMENT")
-		;;
-esac
-
 AM_CONDITIONAL([HOST_DARWIN],  [test x$HOST_OS = xdarwin])
 AM_CONDITIONAL([HOST_FREEBSD], [test x$HOST_OS = xfreebsd])
 AM_CONDITIONAL([HOST_HPUX],    [test x$HOST_OS = xhpux])
@@ -296,6 +282,23 @@ AC_ARG_WITH([enginesdir],
 AC_ARG_ENABLE([asm],
 	AS_HELP_STRING([--disable-asm], [Disable assembly]))
 AM_CONDITIONAL([OPENSSL_NO_ASM], [test "x$enable_asm" = "xno"])
+
+old_cflags=$CFLAGS
+CFLAGS="$old_cflags -I$srcdir/include"
+AC_TRY_COMPILE([#include "$srcdir/crypto/modes/modes_lcl.h"],
+	       [int a = 0; BSWAP4(a);],
+	       BSWAP4=yes, BSWAP4=no)
+CFLAGS="$old_cflags"
+
+case $host_cpu in
+	*sparc*)
+		CFLAGS="$CFLAGS -D__STRICT_ALIGNMENT"
+		;;
+	*arm*)
+		AS_IF([test "x$BSWAP4" = "xyes"],,
+		    CFLAGS="$old_cflags -D__STRICT_ALIGNMENT")
+		;;
+esac
 
 AM_CONDITIONAL([HOST_ASM_ELF_X86_64],
     [test "x$HOST_ABI" = "xelf" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])

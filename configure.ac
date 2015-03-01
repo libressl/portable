@@ -57,6 +57,14 @@ case $host_cpu in
 	*sparc*)
 		CFLAGS="$CFLAGS -D__STRICT_ALIGNMENT"
 		;;
+	*arm*)
+		old_cflags=$CFLAGS
+		CFLAGS="$old_cflags -I$srcdir/include"
+		AC_TRY_COMPILE([#include "$srcdir/crypto/modes/modes_lcl.h"],
+			       [int a = 0; BSWAP4(a);],
+			       CFLAGS="$old_cflags",
+			       CFLAGS="$old_cflags -D__STRICT_ALIGNMENT")
+		;;
 esac
 
 AM_CONDITIONAL([HOST_DARWIN],  [test x$HOST_OS = xdarwin])

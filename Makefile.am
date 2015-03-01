@@ -8,4 +8,6 @@ if ENABLE_LIBTLS
 pkgconfig_DATA += libtls.pc
 endif
 
+@CODE_COVERAGE_RULES@
+
 EXTRA_DIST = VERSION config scripts

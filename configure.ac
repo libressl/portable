@@ -312,6 +312,14 @@ AM_COND_IF([ENABLE_LIBTLS], [AC_CONFIG_FILES([libtls.pc])])
 
 LT_INIT
 
+# gcov coverage reporting
+AX_CODE_COVERAGE([$CLANG])
+AS_IF([ test "x$enable_code_coverage" = "xyes" ], [
+	changequote({,})
+	USER_CFLAGS=`echo "$USER_CFLAGS" | $SED -e 's/-O[0-9]*//g'`
+	changequote([,])
+	])
+
 AC_CONFIG_FILES([
 	Makefile
 	include/Makefile

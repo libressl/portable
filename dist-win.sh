@@ -4,7 +4,7 @@ set -e
 
 export PATH=/cygdrive/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio\ 12.0/VC/bin:$PATH
 VERSION=`cat VERSION`
-DIST=libressl-$VERSION
+DIST=libressl-$VERSION-windows
 
 rm -fr $DIST
 mkdir -p $DIST

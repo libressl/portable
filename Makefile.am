@@ -8,4 +8,4 @@ if ENABLE_LIBTLS
 pkgconfig_DATA += libtls.pc
 endif
 
-EXTRA_DIST = VERSION config scripts
+EXTRA_DIST = README README.windows VERSION config scripts

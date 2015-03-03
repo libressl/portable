@@ -30,16 +30,15 @@ LibreSSL Portable Release Notes:
 
 2.1.4 - Security and feature updates
 	* Improvements to libtls:
-
-	  * a new API for loading CA chains directly from memory instead of a
+	  - a new API for loading CA chains directly from memory instead of a
 	    file, allowing verification with privilege separation in a chroot
 	    without direct access to CA certificate files.
 
-	  * Ciphers default to TLSv1.2 with AEAD and PFS.
+	  - Ciphers default to TLSv1.2 with AEAD and PFS.
 
-	  * Improved error handling and message generation
+	  - Improved error handling and message generation
 
-	  * New APIs and improved documentation
+	  - New APIs and improved documentation
 
 	* Added X509_STORE_load_mem API for loading certificates from memory.
 	  This facilitates accessing certificates from a chrooted environment.
@@ -62,10 +61,37 @@ LibreSSL Portable Release Notes:
 
 	* Support for building with OPENSSL_NO_DEPRECATED
 
-	* Dozens of issues found with the Coverity scanner fixed.
-
 	* Server-side support for TLS_FALLBACK_SCSV for compatibility with
 	  various auditor and vulnerability scanners.
+
+	* Dozens of issues found with the Coverity scanner fixed.
+
+	* Security Updates:
+
+	  - Fix a minor information leak that was introduced in t1_lib.c
+	    r1.71, whereby an additional 28 bytes of .rodata (or .data) is
+	    provided to the network. In most cases this is a non-issue since
+	    the memory content is already public. Issue found and reported by
+	    Felix Groebert of the Google Security Team.
+
+	  - Fixes for the following low-severity issues were integrated into
+	    LibreSSL from OpenSSL 1.0.1k:
+
+	     CVE-2015-0205 - DH client certificates accepted without
+	                     verification
+	     CVE-2014-3570 - Bignum squaring may produce incorrect results
+	     CVE-2014-8275 - Certificate fingerprints can be modified
+	     CVE-2014-3572 - ECDHE silently downgrades to ECDH [Client]
+	     Reported by Karthikeyan Bhargavan of the PROSECCO team at INRIA.
+
+	    The following CVEs were fixed in earlier LibreSSL releases:
+	     CVE-2015-0206 - Memory leak handling repeated DLTS records
+	     CVE-2014-3510 - Flaw handling DTLS anonymous EC(DH) ciphersuites.
+
+	    The following CVEs did not apply to LibreSSL:
+	     CVE-2014-3571 - DTLS segmentation fault in dtls1_get_record
+	     CVE-2014-3569 - no-ssl3 configuration sets method to NULL
+	     CVE-2015-0204 - RSA silently downgrades to EXPORT_RSA
 
 2.1.3 - Security update and OS support improvements
 	* Fixed various memory leaks in DTLS, including fixes for

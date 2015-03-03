@@ -18,6 +18,10 @@ The LibreSSL portable build framework is also mirrored in Github:
 
 	https://github.com/libressl-portable/portable
 
+Please report bugs either to tech@openbsd.org, or to the github issue tracker:
+
+	https://github.com/libressl-portable/portable/issues
+
 If you have checked this source using Git, follow these initial steps to
 prepare the source tree for building:
 

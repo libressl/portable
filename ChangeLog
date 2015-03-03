@@ -10,7 +10,7 @@ generation are here:
 
 	http://cvsweb.openbsd.org/cgi-bin/cvsweb/src/lib/libcrypto/
 
-A new simplified SSL wrapper library is here:
+A simplified TLS wrapper library is here:
 
 	http://cvsweb.openbsd.org/cgi-bin/cvsweb/src/lib/libtls/
 
@@ -19,12 +19,12 @@ with relevant portions of the C library, to a Git repository. This makes it
 easier to follow all of the relevant changes to the upstream project in a
 single place:
 
-	https://github.com/libressl-portable/openbsd/commits/master
+	https://github.com/libressl-portable/openbsd
 
 The portable bits of the project are largely maintained out-of-tree, and their
 history is also available from Git.
 
-	https://github.com/libressl-portable/portable/commits/master
+	https://github.com/libressl-portable/portable
 
 LibreSSL Portable Release Notes:
 

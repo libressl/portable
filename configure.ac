@@ -13,6 +13,9 @@ AC_SUBST([USER_CFLAGS], "-O2 $CFLAGS")
 CFLAGS="$CFLAGS -Wall -std=gnu99 -g"
 
 case $host_os in
+	*cygwin*)
+		HOST_OS=cygwin
+		;;
 	*darwin*)
 		HOST_OS=darwin
 		HOST_ABI=macosx
@@ -53,6 +56,7 @@ case $host_os in
 	*) ;;
 esac
 
+AM_CONDITIONAL([HOST_CYGWIN],  [test x$HOST_OS = xcygwin])
 AM_CONDITIONAL([HOST_DARWIN],  [test x$HOST_OS = xdarwin])
 AM_CONDITIONAL([HOST_FREEBSD], [test x$HOST_OS = xfreebsd])
 AM_CONDITIONAL([HOST_HPUX],    [test x$HOST_OS = xhpux])
@@ -163,7 +167,7 @@ AS_IF([test "x$enable_hardening" = "xyes"], [
 				AC_MSG_WARN([compiler does not appear to support stack protection])
 			)
 		)
-		AS_IF([test "x$HOST_OS" = "xwin"], [
+		AS_IF([test "x$HOST_OS" = "xwin" -o "x$HOST_OS" = "xcygwin"], [
 			AC_SEARCH_LIBS([__stack_chk_guard],[ssp])
 		])
 	])

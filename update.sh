@@ -198,9 +198,6 @@ for i in `find $libcrypto_regress -name '*.c'`; do
 	 $CP "$i" tests
 done
 
-# the BIO tests rely on resolver results that are OS and environment-specific
-rm tests/biotest.c
-
 # copy libc tests
 $CP $libc_regress/arc4random-fork/arc4random-fork.c tests/arc4randomforktest.c
 $CP $libc_regress/explicit_bzero/explicit_bzero.c tests
@@ -229,27 +226,38 @@ tests_posix_only=(
 	explicit_bzero
 	pidwraptest
 )
+# the BIO tests rely on resolver results that are OS and environment-specific
+# explicit_bzero relies on SA_ONSTACK, not available on all systems
+# pidwraptest relies on an OS-specific way to give out pids and is generally
+# awkward on systems with slow fork
+tests_disabled=(
+	biotest
+	explicit_bzero
+	pidwraptest
+)
 $CP $libc_src/string/memmem.c tests/
 (cd tests
 	$CP Makefile.am.tpl Makefile.am
 
 	for i in `ls -1 *.c|sort|grep -v memmem.c`; do
 		TEST=`echo $i|sed -e "s/\.c//"`
-		if [[ ${tests_posix_only[*]} =~ "$TEST" ]]; then
-			echo "if !HOST_WIN" >> Makefile.am
-		fi
-		if ! [[ ${test_drivers[*]} =~ "$TEST" ]]; then
-			echo "TESTS += $TEST" >> Makefile.am
-		fi
-		echo "check_PROGRAMS += $TEST" >> Makefile.am
-		echo "${TEST}_SOURCES = $i" >> Makefile.am
-		if [[ ${TEST} = "explicit_bzero" ]]; then
-			echo "if !HAVE_MEMMEM" >> Makefile.am
-			echo "explicit_bzero_SOURCES += memmem.c" >> Makefile.am
-			echo "endif" >> Makefile.am
-		fi
-		if [[ ${tests_posix_only[*]} =~ "$TEST" ]]; then
-			echo "endif" >> Makefile.am
+		if ! [[ ${tests_disabled[*]} =~ "$TEST" ]]; then
+			if [[ ${tests_posix_only[*]} =~ "$TEST" ]]; then
+				echo "if !HOST_WIN" >> Makefile.am
+			fi
+			if ! [[ ${test_drivers[*]} =~ "$TEST" ]]; then
+				echo "TESTS += $TEST" >> Makefile.am
+			fi
+			echo "check_PROGRAMS += $TEST" >> Makefile.am
+			echo "${TEST}_SOURCES = $i" >> Makefile.am
+			if [[ ${TEST} = "explicit_bzero" ]]; then
+				echo "if !HAVE_MEMMEM" >> Makefile.am
+				echo "explicit_bzero_SOURCES += memmem.c" >> Makefile.am
+				echo "endif" >> Makefile.am
+			fi
+			if [[ ${tests_posix_only[*]} =~ "$TEST" ]]; then
+				echo "endif" >> Makefile.am
+			fi
 		fi
 	done
 )
@@ -259,16 +267,16 @@ $CP $libcrypto_regress/pqueue/expected.txt tests/pq_expected.txt
 chmod 755 tests/testssl
 for i in "${test_drivers[@]}"; do
 	if [ -e tests/${i}.sh ]; then
-		if [[ ${tests_posix_only[*]} =~ "$i" ]]; then
-			echo "if !HOST_WIN" >> tests/Makefile.am
-		fi
 		if ! [[ ${tests_disabled[*]} =~ "$i" ]]; then
+			if [[ ${tests_posix_only[*]} =~ "$i" ]]; then
+				echo "if !HOST_WIN" >> tests/Makefile.am
+			fi
 			echo "TESTS += ${i}.sh" >> tests/Makefile.am
+			if [[ ${tests_posix_only[*]} =~ "$i" ]]; then
+				echo "endif" >> tests/Makefile.am
+			fi
+			echo "EXTRA_DIST += ${i}.sh" >> tests/Makefile.am
 		fi
-		if [[ ${tests_posix_only[*]} =~ "$i" ]]; then
-			echo "endif" >> tests/Makefile.am
-		fi
-		echo "EXTRA_DIST += ${i}.sh" >> tests/Makefile.am
 	fi
 done
 echo "EXTRA_DIST += aeadtests.txt" >> tests/Makefile.am

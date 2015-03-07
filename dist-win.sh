@@ -8,6 +8,7 @@ DIST=libressl-$VERSION-windows
 
 rm -fr $DIST
 mkdir -p $DIST
+autoreconf -i
 
 for ARCH in X86 X64; do
 

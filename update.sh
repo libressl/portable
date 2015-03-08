@@ -18,15 +18,15 @@ fi
  git pull --rebase)
 
 # setup source paths
-dir=`pwd`
-libc_src=$dir/openbsd/src/lib/libc
-libc_regress=$dir/openbsd/src/regress/lib/libc
-libcrypto_src=$dir/openbsd/src/lib/libcrypto
-libcrypto_regress=$dir/openbsd/src/regress/lib/libcrypto
-libssl_src=$dir/openbsd/src/lib/libssl
-libssl_regress=$dir/openbsd/src/regress/lib/libssl
-libtls_src=$dir/openbsd/src/lib/libtls
-openssl_app_src=$dir/openbsd/src/usr.bin/openssl
+CWD=`pwd`
+libc_src=$CWD/openbsd/src/lib/libc
+libc_regress=$CWD/openbsd/src/regress/lib/libc
+libcrypto_src=$CWD/openbsd/src/lib/libcrypto
+libcrypto_regress=$CWD/openbsd/src/regress/lib/libcrypto
+libssl_src=$CWD/openbsd/src/lib/libssl
+libssl_regress=$CWD/openbsd/src/regress/lib/libssl
+libtls_src=$CWD/openbsd/src/lib/libtls
+openssl_app_src=$CWD/openbsd/src/usr.bin/openssl
 
 # load library versions
 source $libcrypto_src/crypto/shlib_version
@@ -184,6 +184,8 @@ for i in `awk '/SOURCES|HEADERS/ { print $3 }' apps/Makefile.am` ; do
 		$CP $openssl_app_src/$i apps
 	fi
 done
+# patch for openssl(1) oscp on windows
+(cd apps; patch -p5 < $CWD/patches/win_bio_sock_init.diff)
 
 # copy libssl source
 echo "copying libssl source"

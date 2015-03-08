@@ -28,6 +28,13 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.1.5 - Bug fixes and a security update
+	* Fix incorrect comparison function in openssl(1) certhash command.
+
+	* Windows port improvements and bug fixes.
+
+	* Reject server DH keys smaller than 1024 bits.
+
 2.1.4 - Security and feature updates
 	* Improvements to libtls:
 	  - a new API for loading CA chains directly from memory instead of a

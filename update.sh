@@ -185,7 +185,7 @@ for i in `awk '/SOURCES|HEADERS/ { print $3 }' apps/Makefile.am` ; do
 	fi
 done
 # patch for openssl(1) oscp on windows
-(cd apps; patch -p5 < $CWD/patches/win_bio_sock_init.diff)
+(cd apps; patch -p4 < $CWD/patches/win_bio_sock_init.diff)
 
 # copy libssl source
 echo "copying libssl source"

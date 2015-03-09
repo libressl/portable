@@ -285,10 +285,14 @@ AC_ARG_ENABLE([asm],
 AM_CONDITIONAL([OPENSSL_NO_ASM], [test "x$enable_asm" = "xno"])
 
 old_cflags=$CFLAGS
-CFLAGS="$old_cflags -I$srcdir/include"
+CFLAGS="$USER_CFLAGS -I$srcdir/include"
+AC_MSG_CHECKING([if BSWAP4 builds without __STRICT_ALIGNMENT])
 AC_TRY_COMPILE([#include "$srcdir/crypto/modes/modes_lcl.h"],
 	       [int a = 0; BSWAP4(a);],
-	       BSWAP4=yes, BSWAP4=no)
+	       AC_MSG_RESULT([yes])
+	       BSWAP4=yes,
+	       AC_MSG_RESULT([no])
+	       BSWAP4=no)
 CFLAGS="$old_cflags"
 
 case $host_cpu in
@@ -297,7 +301,7 @@ case $host_cpu in
 		;;
 	*arm*)
 		AS_IF([test "x$BSWAP4" = "xyes"],,
-		    CFLAGS="$old_cflags -D__STRICT_ALIGNMENT")
+		    CFLAGS="$CFLAGS -D__STRICT_ALIGNMENT")
 		;;
 esac
 

@@ -30,10 +30,15 @@ LibreSSL Portable Release Notes:
 
 2.1.5 - Bug fixes and a security update
 	* Fix incorrect comparison function in openssl(1) certhash command.
+	  Thanks to Christian Neukirchen / Void Linux.
 
 	* Windows port improvements and bug fixes.
+	  - Removed a dependency on libgcc in 32-bit dynamic libraries.
+	  - Correct a hang in openssl(1) reading from stdin on an connection.
+	  - Initialize winsock in openssl(1) earlier, allow 'openssl ocsp' and
+	    any other network-related commands to function properly.
 
-	* Reject server ephemeral DH keys smaller than 1024 bits.
+	* Reject all server DH keys smaller than 1024 bits.
 
 2.1.4 - Security and feature updates
 	* Improvements to libtls:

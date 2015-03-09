@@ -33,7 +33,7 @@ LibreSSL Portable Release Notes:
 
 	* Windows port improvements and bug fixes.
 
-	* Reject server DH keys smaller than 1024 bits.
+	* Reject server ephemeral DH keys smaller than 1024 bits.
 
 2.1.4 - Security and feature updates
 	* Improvements to libtls:

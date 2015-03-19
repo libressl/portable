@@ -304,9 +304,7 @@ echo "copying manpages"
 	$CP $openssl_app_src/openssl.1 .
 	echo "dist_man_MANS += openssl.1" >> Makefile.am
 	$CP $libtls_src/tls_init.3 .
-	echo "if ENABLE_LIBTLS" >> Makefile.am
 	echo "dist_man_MANS += tls_init.3" >> Makefile.am
-	echo "endif" >> Makefile.am
 
 	# convert remaining POD manpages
 	for i in `ls -1 $libssl_src/src/doc/crypto/*.pod | sort`; do
@@ -328,23 +326,19 @@ echo "copying manpages"
 		echo "	ln -f \$(DESTDIR)\$(mandir)/man3/$1 \\" >> Makefile.am
 		echo "    \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
 	done
-	echo "if ENABLE_LIBTLS" >> Makefile.am
 	for i in $TLS_MLINKS; do
 		IFS=","; set $i; unset IFS
 		echo "	ln -f \$(DESTDIR)\$(mandir)/man3/$1 \\" >> Makefile.am
 		echo "    \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
 	done
-	echo "endif" >> Makefile.am
 	echo "" >> Makefile.am
 	echo "uninstall-local:" >> Makefile.am
 	for i in $SSL_MLINKS; do
 		IFS=","; set $i; unset IFS
 		echo "	-rm -f \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
 	done
-	echo "if ENABLE_LIBTLS" >> Makefile.am
 	for i in $TLS_MLINKS; do
 		IFS=","; set $i; unset IFS
 		echo "	rm -f \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
 	done
-	echo "endif" >> Makefile.am
 )

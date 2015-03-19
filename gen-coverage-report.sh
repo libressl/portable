@@ -20,7 +20,7 @@ find -name '*.gcda' -o -name '*.gcno' -delete
 rm -fr $DESTDIR
 
 echo "Configuring to build with code coverage support"
-./configure --enable-libtls CFLAGS='-O0 -fprofile-arcs -ftest-coverage'
+./configure CFLAGS='-O0 -fprofile-arcs -ftest-coverage'
 
 echo "Running all code paths"
 make clean

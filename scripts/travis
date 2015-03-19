@@ -4,7 +4,7 @@ set -e
 ./autogen.sh
 
 if [ "x$ARCH" = "xnative" ]; then
-	./configure --enable-libtls
+	./configure
 	if [ `uname` = "Darwin" ]; then
 		# OS X runs out of resources if we run 'make -j check'
 		make check
@@ -28,6 +28,6 @@ else
 		export PATH=$PATH:/opt/$ARCH/bin
 	fi
 
-	./configure --host=$CPU-w64-mingw32 --enable-libtls
+	./configure --host=$CPU-w64-mingw32
 	make -j
 fi

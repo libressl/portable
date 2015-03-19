@@ -310,11 +310,6 @@ AM_CONDITIONAL([HOST_ASM_ELF_X86_64],
 AM_CONDITIONAL([HOST_ASM_MACOSX_X86_64],
     [test "x$HOST_ABI" = "xmacosx" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
 
-AC_ARG_ENABLE([libtls],
-	AS_HELP_STRING([--enable-libtls], [Enable building the libtls library]))
-AM_CONDITIONAL([ENABLE_LIBTLS], [test "x$enable_libtls" = xyes])
-AM_COND_IF([ENABLE_LIBTLS], [AC_CONFIG_FILES([libtls.pc])])
-
 LT_INIT
 
 AC_CONFIG_FILES([
@@ -329,6 +324,7 @@ AC_CONFIG_FILES([
 	man/Makefile
 	libcrypto.pc
 	libssl.pc
+	libtls.pc
 	openssl.pc
 ])
 

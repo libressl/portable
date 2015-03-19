@@ -1,6 +1,5 @@
 include $(top_srcdir)/Makefile.am.common
 
-if ENABLE_LIBTLS
 lib_LTLIBRARIES = libtls.la
 
 EXTRA_DIST = VERSION
@@ -19,6 +18,4 @@ noinst_HEADERS = tls_internal.h
 
 if !HAVE_STRSEP
 libtls_la_SOURCES += strsep.c
-endif
-
 endif

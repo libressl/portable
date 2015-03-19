@@ -28,6 +28,4 @@ noinst_HEADERS += sys/times.h
 noinst_HEADERS += sys/types.h
 noinst_HEADERS += sys/uio.h
 
-if ENABLE_LIBTLS
 include_HEADERS = tls.h
-endif

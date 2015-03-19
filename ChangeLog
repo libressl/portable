@@ -28,6 +28,25 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+This release primarily addresses a number of security issues in coordination
+with the OpenSSL project.
+
+2.1.6 - Security update
+
+	* Fixes for the following issues are integrated into LibreSSL 2.1.6:
+	  - CVE-2015-0209 - Use After Free following d2i_ECPrivatekey error
+	  - CVE-2015-0286 - Segmentation fault in ASN1_TYPE_cmp
+	  - CVE-2015-0287 - ASN.1 structure reuse memory corruption
+	  - CVE-2015-0288 - X509_to_X509_REQ NULL pointer deref
+	  - CVE-2015-0289 - PKCS7 NULL pointer dereferences
+
+	* The fix for CVE-2015-0207 - Segmentation fault in DTLSv1_listen
+	  is integrated for safety, but LibreSSL is not vulnerable.
+
+	* Libtls is now built by default. The --enable-libtls
+	  configuration option is no longer required.
+	  The libtls API is now stable for the 2.1.x series.
+
 2.1.5 - Bug fixes and a security update
 	* Fix incorrect comparison function in openssl(1) certhash command.
 	  Thanks to Christian Neukirchen / Void Linux.

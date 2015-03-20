@@ -4,7 +4,9 @@
  */
 
 #include <errno.h>
+#if defined(__GLIBC__) && !defined(__UCLIBC__)
 #include <gnu/libc-version.h>
+#endif
 #include <string.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -33,15 +35,19 @@ int issetugid(void)
 	 * info: http://lwn.net/Articles/519085/
 	 *
 	 */
+#if defined(__GLIBC__) && !defined(__UCLIBC__)
 	const char *glcv = gnu_get_libc_version();
 	if (strverscmp(glcv, "2.19") >= 0) {
+#endif
 		errno = 0;
 		if (getauxval(AT_SECURE) == 0) {
 			if (errno != ENOENT) {
 				return 0;
 			}
 		}
+#if defined(__GLIBC__) && !defined(__UCLIBC__)
 	}
+#endif
 #endif
 	return 1;
 }

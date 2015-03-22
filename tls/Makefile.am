@@ -5,7 +5,6 @@ lib_LTLIBRARIES = libtls.la
 EXTRA_DIST = VERSION
 
 libtls_la_LDFLAGS = -version-info @LIBTLS_VERSION@ -no-undefined
-libtls_la_CFLAGS = $(CFLAGS) $(USER_CFLAGS)
 libtls_la_LIBADD = ../crypto/libcrypto.la ../ssl/libssl.la $(PLATFORM_LDADD)
 
 libtls_la_SOURCES = tls.c

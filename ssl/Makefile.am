@@ -5,7 +5,6 @@ lib_LTLIBRARIES = libssl.la
 EXTRA_DIST = VERSION
 
 libssl_la_LDFLAGS = -version-info @LIBSSL_VERSION@ -no-undefined
-libssl_la_CFLAGS = $(CFLAGS) $(USER_CFLAGS)
 libssl_la_LIBADD = ../crypto/libcrypto.la
 
 libssl_la_SOURCES = bio_ssl.c

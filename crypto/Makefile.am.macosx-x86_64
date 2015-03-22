@@ -22,20 +22,20 @@ ASM_X86_64_MACOSX += cpuid-macosx-x86_64.S
 EXTRA_DIST += $(ASM_X86_64_MACOSX)
 
 if HOST_ASM_MACOSX_X86_64
-libcrypto_la_CFLAGS += -DAES_ASM
-libcrypto_la_CFLAGS += -DBSAES_ASM
-libcrypto_la_CFLAGS += -DVPAES_ASM
-libcrypto_la_CFLAGS += -DOPENSSL_IA32_SSE2
-libcrypto_la_CFLAGS += -DOPENSSL_BN_ASM_MONT
-libcrypto_la_CFLAGS += -DOPENSSL_BN_ASM_MONT5
-libcrypto_la_CFLAGS += -DOPENSSL_BN_ASM_GF2m
-libcrypto_la_CFLAGS += -DMD5_ASM
-libcrypto_la_CFLAGS += -DGHASH_ASM
-libcrypto_la_CFLAGS += -DRSA_ASM
-libcrypto_la_CFLAGS += -DSHA1_ASM
-libcrypto_la_CFLAGS += -DSHA256_ASM
-libcrypto_la_CFLAGS += -DSHA512_ASM
-libcrypto_la_CFLAGS += -DWHIRLPOOL_ASM
-libcrypto_la_CFLAGS += -DOPENSSL_CPUID_OBJ
+libcrypto_la_CPPFLAGS += -DAES_ASM
+libcrypto_la_CPPFLAGS += -DBSAES_ASM
+libcrypto_la_CPPFLAGS += -DVPAES_ASM
+libcrypto_la_CPPFLAGS += -DOPENSSL_IA32_SSE2
+libcrypto_la_CPPFLAGS += -DOPENSSL_BN_ASM_MONT
+libcrypto_la_CPPFLAGS += -DOPENSSL_BN_ASM_MONT5
+libcrypto_la_CPPFLAGS += -DOPENSSL_BN_ASM_GF2m
+libcrypto_la_CPPFLAGS += -DMD5_ASM
+libcrypto_la_CPPFLAGS += -DGHASH_ASM
+libcrypto_la_CPPFLAGS += -DRSA_ASM
+libcrypto_la_CPPFLAGS += -DSHA1_ASM
+libcrypto_la_CPPFLAGS += -DSHA256_ASM
+libcrypto_la_CPPFLAGS += -DSHA512_ASM
+libcrypto_la_CPPFLAGS += -DWHIRLPOOL_ASM
+libcrypto_la_CPPFLAGS += -DOPENSSL_CPUID_OBJ
 libcrypto_la_SOURCES += $(ASM_X86_64_MACOSX)
 endif

@@ -211,6 +211,7 @@ done
 
 $CP $libssl_regress/certs/ca.pem tests
 $CP $libssl_regress/certs/server.pem tests
+$CP $libc_src/string/memmem.c tests
 chmod 755 tests/testssl
 
 # add headers

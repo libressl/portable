@@ -43,7 +43,7 @@ case $host_os in
 		;;
 	*netbsd*)
 		HOST_OS=netbsd
-		CFLAGS="$CFLAGS -D_OPENBSD_SOURCE"
+		CPPFLAGS="$CPPFLAGS -D_OPENBSD_SOURCE"
 		;;
 	*openbsd*)
 		HOST_ABI=elf

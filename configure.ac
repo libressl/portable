@@ -9,6 +9,12 @@ AC_CONFIG_MACRO_DIR([m4])
 
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
+AC_PROG_CC
+AC_PROG_CC_STDC
+AM_PROG_CC_C_O
+AC_PROG_LIBTOOL
+LT_INIT
+
 AC_SUBST([USER_CFLAGS], "$CFLAGS")
 CFLAGS="-Wall -std=gnu99 -g -O2"
 
@@ -71,11 +77,6 @@ AC_CHECK_FUNC([clock_gettime],,
 
 AC_CHECK_FUNC([dl_iterate_phdr],,
 	[AC_SEARCH_LIBS([dl_iterate_phdr],[dl])])
-
-AC_PROG_CC
-AC_PROG_LIBTOOL
-AC_PROG_CC_STDC
-AM_PROG_CC_C_O
 
 AC_MSG_CHECKING([if compiling with clang])
 AC_COMPILE_IFELSE([AC_LANG_PROGRAM([], [[
@@ -317,8 +318,6 @@ AM_CONDITIONAL([HOST_ASM_ELF_X86_64],
     [test "x$HOST_ABI" = "xelf" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
 AM_CONDITIONAL([HOST_ASM_MACOSX_X86_64],
     [test "x$HOST_ABI" = "xmacosx" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
-
-LT_INIT
 
 AC_CONFIG_FILES([
 	Makefile

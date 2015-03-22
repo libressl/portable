@@ -197,10 +197,14 @@ echo "copying tests"
 for i in `find $libcrypto_regress -name '*.c'`; do
 	 $CP "$i" tests
 done
+$CP $libcrypto_regress/evp/evptests.txt tests
+$CP $libcrypto_regress/aead/aeadtests.txt tests
+$CP $libcrypto_regress/pqueue/expected.txt tests/pq_expected.txt
 
 # copy libc tests
 $CP $libc_regress/arc4random-fork/arc4random-fork.c tests/arc4randomforktest.c
 $CP $libc_regress/explicit_bzero/explicit_bzero.c tests
+$CP $libc_src/string/memmem.c tests
 $CP $libc_regress/timingsafe/timingsafe.c tests
 
 # copy libssl tests
@@ -208,10 +212,9 @@ $CP $libssl_regress/ssl/testssl tests
 for i in `find $libssl_regress -name '*.c'`; do
 	 $CP "$i" tests
 done
-
 $CP $libssl_regress/certs/ca.pem tests
 $CP $libssl_regress/certs/server.pem tests
-$CP $libc_src/string/memmem.c tests
+
 chmod 755 tests/testssl
 
 # add headers

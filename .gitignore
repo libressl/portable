@@ -92,7 +92,6 @@ INSTALL
 /stamp-h2
 
 include/openssl/Makefile.am
-tests/Makefile.am
 
 crypto/VERSION
 ssl/VERSION

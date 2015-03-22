@@ -287,6 +287,10 @@ AC_ARG_ENABLE([asm],
 	AS_HELP_STRING([--disable-asm], [Disable assembly]))
 AM_CONDITIONAL([OPENSSL_NO_ASM], [test "x$enable_asm" = "xno"])
 
+AC_ARG_ENABLE([extratests],
+	AS_HELP_STRING([--enable-extratests], [Enable extra tests that may be unreliable on some platforms]))
+AM_CONDITIONAL([ENABLE_EXTRATESTS], [test "x$enable_extratests" = xyes])
+
 old_cflags=$CFLAGS
 CFLAGS="$old_cflags -I$srcdir/include"
 AC_TRY_COMPILE([#include "$srcdir/crypto/modes/modes_lcl.h"],

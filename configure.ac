@@ -90,6 +90,9 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([], [[
 AC_MSG_RESULT([$CLANG])
 AS_IF([test "x$CLANG" = "xyes"], [CLANG_FLAGS=-Qunused-arguments])
 
+CFLAGS="$CFLAGS $CLANG_FLAGS"
+LDFLAGS="$LDFLAGS $CLANG_FLAGS"
+
 # We want to check for compiler flag support. Prior to clang v5.1, there was no
 # way to make clang's "argument unused" warning fatal.  So we invoke the
 # compiler through a wrapper script that greps for this message.
@@ -205,9 +208,6 @@ __asm__(".section .note.GNU-stack,\"\",@progbits");]])],
 )
 CFLAGS="$save_cflags $AM_CFLAGS"
 AM_PROG_AS
-
-CFLAGS="$CFLAGS $CLANG_CFLAGS"
-LDFLAGS="$LDFLAGS $CLANG_FLAGS"
 
 AC_CHECK_FUNCS([arc4random_buf asprintf explicit_bzero funopen getauxval])
 AC_CHECK_FUNCS([getentropy issetugid memmem poll reallocarray])

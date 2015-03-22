@@ -13,6 +13,9 @@ AC_SUBST([USER_CFLAGS], "$CFLAGS")
 CFLAGS="-Wall -std=gnu99 -g -O2"
 
 case $host_os in
+	*cygwin*)
+		HOST_OS=cygwin
+		;;
 	*darwin*)
 		HOST_OS=darwin
 		HOST_ABI=macosx
@@ -54,6 +57,7 @@ case $host_os in
 	*) ;;
 esac
 
+AM_CONDITIONAL([HOST_CYGWIN],  [test x$HOST_OS = xcygwin])
 AM_CONDITIONAL([HOST_DARWIN],  [test x$HOST_OS = xdarwin])
 AM_CONDITIONAL([HOST_FREEBSD], [test x$HOST_OS = xfreebsd])
 AM_CONDITIONAL([HOST_HPUX],    [test x$HOST_OS = xhpux])
@@ -283,6 +287,10 @@ AC_ARG_WITH([enginesdir],
 AC_ARG_ENABLE([asm],
 	AS_HELP_STRING([--disable-asm], [Disable assembly]))
 AM_CONDITIONAL([OPENSSL_NO_ASM], [test "x$enable_asm" = "xno"])
+
+AC_ARG_ENABLE([extratests],
+	AS_HELP_STRING([--enable-extratests], [Enable extra tests that may be unreliable on some platforms]))
+AM_CONDITIONAL([ENABLE_EXTRATESTS], [test "x$enable_extratests" = xyes])
 
 old_cflags=$CFLAGS
 CFLAGS="$USER_CFLAGS -I$srcdir/include"

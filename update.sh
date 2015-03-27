@@ -260,25 +260,19 @@ echo "copying manpages"
 	done
 
 	echo "install-data-hook:" >> Makefile.am
-	source ./links
-	for i in $SSL_MLINKS; do
+	for i in `cat ./links`; do
 		IFS=","; set $i; unset IFS
-		echo "	ln -f \$(DESTDIR)\$(mandir)/man3/$1 \\" >> Makefile.am
-		echo "    \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
-	done
-	for i in $TLS_MLINKS; do
-		IFS=","; set $i; unset IFS
-		echo "	ln -f \$(DESTDIR)\$(mandir)/man3/$1 \\" >> Makefile.am
-		echo "    \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
+		if [ "$2" != "" ]; then
+			echo "	ln -f \$(DESTDIR)\$(mandir)/man3/$1 \\" >> Makefile.am
+			echo "    \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
+		fi
 	done
 	echo "" >> Makefile.am
 	echo "uninstall-local:" >> Makefile.am
-	for i in $SSL_MLINKS; do
+	for i in `cat ./links`; do
 		IFS=","; set $i; unset IFS
-		echo "	-rm -f \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
-	done
-	for i in $TLS_MLINKS; do
-		IFS=","; set $i; unset IFS
-		echo "	rm -f \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
+		if [ "$2" != "" ]; then
+			echo "	-rm -f \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
+		fi
 	done
 )

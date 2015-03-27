@@ -52,7 +52,27 @@ do_mv() {
 		rm -f "$1"
 	fi
 }
-CP='cp -p'
+
+do_cp() {
+	if [ $# -lt 2 ]
+	then
+		echo "not enough arguments to cp"
+		exit 1
+	fi
+
+	# all but the last arg are sources, the last one is the destination file or dir
+	for i in $(seq 1 $(expr $# - 1)); do
+		src="${!i}"
+		dest=${!#}
+		if [ -d "$dest" ]
+		then
+			dest="$dest"/$(basename "$src")
+		fi
+		cmp -s "$src" "$dest" || cp -p "$src" "$dest"
+	done
+}
+
+CP='do_cp'
 MV='do_mv'
 
 $CP $libssl_src/src/LICENSE COPYING

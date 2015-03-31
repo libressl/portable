@@ -9,7 +9,9 @@ for i in `ls -1 *.3`; do
   links=`sqlite3 /usr/share/man/mandoc.db \
     "select names.name from mlinks,names where mlinks.name='$name' and mlinks.pageid=names.pageid;"`
   for j in $links; do
-    if [ "x$j" != "x$name" ]; then
+    a=`echo "x$j" | tr '[:upper:]' '[:lower:]'`
+    b=`echo "x$name" | tr '[:upper:]' '[:lower:]'`
+    if [ $a != $b ]; then
       echo $name.3,$j.3 >> links
     fi
   done

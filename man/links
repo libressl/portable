@@ -1100,7 +1100,6 @@ lhash.3,lh_free.3
 lhash.3,lh_insert.3
 lhash.3,lh_new.3
 lhash.3,lh_retrieve.3
-ssl.3,SSL.3
 tls_init.3,tls.3
 tls_init.3,tls_accept_socket.3
 tls_init.3,tls_client.3

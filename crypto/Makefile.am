@@ -97,24 +97,6 @@ endif
 
 endif
 
-if !HAVE_ISSETUGID
-if HOST_AIX
-libcompat_la_SOURCES += compat/issetugid_aix.c
-endif
-if HOST_LINUX
-libcompat_la_SOURCES += compat/issetugid_linux.c
-endif
-if HOST_HPUX
-libcompat_la_SOURCES += compat/issetugid_hpux.c
-endif
-if HOST_DARWIN
-libcompat_la_SOURCES += compat/issetugid_osx.c
-endif
-if HOST_WIN
-libcompat_la_SOURCES += compat/issetugid_win.c
-endif
-endif
-
 noinst_HEADERS =
 noinst_HEADERS += compat/arc4random.h
 noinst_HEADERS += compat/arc4random_aix.h

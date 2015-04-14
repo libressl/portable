@@ -43,8 +43,8 @@ programs to LibreSSL in order to use it, just as in moving from OpenSSL 0.9.8
 to 1.0.1.
 
 The project attempts to provide working alternatives for operating systems with
-limited or broken security primitives (e.g. arc4random(3), issetugid(2)) and
-assists with improving OS-native implementations where possible.
+limited or broken security primitives (e.g. arc4random(3)) and assists with
+improving OS-native implementations where possible.
 
 LibreSSL portable will build on any reasonably modern version of Linux,
 Solaris, or OSX with a standards-compliant compiler and C library.

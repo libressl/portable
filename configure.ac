@@ -220,7 +220,7 @@ CFLAGS="$save_cflags $AM_CFLAGS"
 AM_PROG_AS
 
 AC_CHECK_FUNCS([arc4random_buf asprintf explicit_bzero funopen getauxval])
-AC_CHECK_FUNCS([getentropy issetugid memmem poll reallocarray])
+AC_CHECK_FUNCS([getentropy memmem poll reallocarray])
 AC_CHECK_FUNCS([strlcat strlcpy strndup strnlen strsep strtonum])
 AC_CHECK_FUNCS([symlink])
 AC_CHECK_FUNCS([timingsafe_bcmp timingsafe_memcmp])
@@ -230,7 +230,6 @@ AM_CONDITIONAL([HAVE_ARC4RANDOM_BUF], [test "x$ac_cv_func_arc4random_buf" = xyes
 AM_CONDITIONAL([HAVE_ASPRINTF], [test "x$ac_cv_func_asprintf" = xyes])
 AM_CONDITIONAL([HAVE_EXPLICIT_BZERO], [test "x$ac_cv_func_explicit_bzero" = xyes])
 AM_CONDITIONAL([HAVE_GETENTROPY], [test "x$ac_cv_func_getentropy" = xyes])
-AM_CONDITIONAL([HAVE_ISSETUGID], [test "x$ac_cv_func_issetugid" = xyes])
 AM_CONDITIONAL([HAVE_MEMMEM], [test "x$ac_cv_func_memmem" = xyes])
 AM_CONDITIONAL([HAVE_POLL], [test "x$ac_cv_func_poll" = xyes])
 AM_CONDITIONAL([HAVE_REALLOCARRAY], [test "x$ac_cv_func_reallocarray" = xyes])
@@ -250,11 +249,6 @@ AM_CONDITIONAL([HAVE_ARC4RANDOM_BUF],
 	   -a "x$HOST_OS" != xfreebsd \
 	   -a "x$HOST_OS" != xnetbsd \
 	   -a "x$ac_cv_func_arc4random_buf" = xyes])
-
-# overrides for issetugid implementations with known issues
-AM_CONDITIONAL([HAVE_ISSETUGID],
-       [test "x$HOST_OS" != xdarwin \
-	  -a "x$ac_cv_func_issetugid" = xyes])
 
 AC_CACHE_CHECK([whether va_copy exists], ac_cv_have_va_copy, [
 	AC_LINK_IFELSE([AC_LANG_PROGRAM([[

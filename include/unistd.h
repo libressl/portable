@@ -12,8 +12,4 @@
 int getentropy(void *buf, size_t buflen);
 #endif
 
-#ifndef HAVE_ISSETUGID
-int issetugid(void);
-#endif
-
 #endif

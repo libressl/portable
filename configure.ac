@@ -9,12 +9,13 @@ AC_CONFIG_MACRO_DIR([m4])
 
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
-AM_PROG_AS
 AC_PROG_CC
 AC_PROG_CC_STDC
 AM_PROG_CC_C_O
 AC_PROG_LIBTOOL
 LT_INIT
+
+CFLAGS="$CFLAGS -Wall -std=gnu99"
 
 case $host_os in
 	*aix*)
@@ -87,40 +88,6 @@ AC_CHECK_FUNC([clock_gettime],,
 AC_CHECK_FUNC([dl_iterate_phdr],,
 	[AC_SEARCH_LIBS([dl_iterate_phdr],[dl])])
 
-# Check if -Wno-pointer-sign is supported, a lot of ASN1 code needs this due to
-# char*/unsigned char* mismatches.
-save_cflags="$CFLAGS"
-CFLAGS=-Wno-pointer-sign
-AC_MSG_CHECKING([whether CC supports -Wno-pointer-sign])
-AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
-	[AC_MSG_RESULT([yes])]
-	[AM_CFLAGS=-Wno-pointer-sign],
-	[AC_MSG_RESULT([no])]
-)
-CFLAGS="$save_cflags $AM_CFLAGS"
-
-# Check for some common compiler flag support
-save_cflags="$CFLAGS"
-CFLAGS=-Wall
-AC_MSG_CHECKING([whether CC supports -Wall])
-AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
-	[AC_MSG_RESULT([yes])]
-	[AM_CFLAGS=-Wall],
-	[AC_MSG_RESULT([no])]
-)
-CFLAGS="$save_cflags $AM_CFLAGS"
-
-save_cflags="$CFLAGS"
-CFLAGS=--std=gnu99
-AC_MSG_CHECKING([whether CC supports --std=gnu99])
-AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
-	[AC_MSG_RESULT([yes])]
-	[AM_CFLAGS=--std=gnu99],
-	[AC_MSG_RESULT([no])]
-)
-CFLAGS="$save_cflags $AM_CFLAGS"
-
-# Clang needs some workarounds, check for it
 AC_MSG_CHECKING([if compiling with clang])
 AC_COMPILE_IFELSE([AC_LANG_PROGRAM([], [[
 #ifndef __clang__
@@ -215,7 +182,6 @@ AS_IF([test "x$enable_hardening" = "xyes"], [
 				AC_MSG_WARN([compiler does not appear to support stack protection])
 			)
 		)
-		# Make sure we can actually link libssp on Windows platforms.
 		AS_IF([test "x$HOST_OS" = "xwin"], [
 			AC_SEARCH_LIBS([__stack_chk_guard],[ssp])
 		])
@@ -230,6 +196,17 @@ LD="$saved_LD"
 CFLAGS="$CFLAGS $HARDEN_CFLAGS"
 LDFLAGS="$LDFLAGS $HARDEN_LDFLAGS"
 
+# Removing the dependency on -Wno-pointer-sign should be a goal
+save_cflags="$CFLAGS"
+CFLAGS=-Wno-pointer-sign
+AC_MSG_CHECKING([whether CC supports -Wno-pointer-sign])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
+	[AC_MSG_RESULT([yes])]
+	[AM_CFLAGS=-Wno-pointer-sign],
+	[AC_MSG_RESULT([no])]
+)
+CFLAGS="$save_cflags $AM_CFLAGS"
+
 save_cflags="$CFLAGS"
 CFLAGS=
 AC_MSG_CHECKING([whether AS supports .note.GNU-stack])
@@ -240,6 +217,7 @@ __asm__(".section .note.GNU-stack,\"\",@progbits");]])],
 	[AC_MSG_RESULT([no])]
 )
 CFLAGS="$save_cflags $AM_CFLAGS"
+AM_PROG_AS
 
 AC_CHECK_FUNCS([arc4random_buf asprintf explicit_bzero funopen getauxval])
 AC_CHECK_FUNCS([getentropy memmem poll reallocarray])

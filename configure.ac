@@ -285,7 +285,7 @@ if test "x$ac_cv_have___va_copy" = "xyes" ; then
 	AC_DEFINE([HAVE___VA_COPY], [1], [Define if __va_copy exists])
 fi
 
-AC_CHECK_HEADERS([sys/sysctl.h err.h])
+AC_CHECK_HEADERS([err.h])
 
 AC_ARG_WITH([openssldir],
 	AS_HELP_STRING([--with-openssldir],

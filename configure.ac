@@ -9,6 +9,9 @@ AC_CONFIG_MACRO_DIR([m4])
 
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
+# This must be called before AC_PROG_CC
+USER_CFLAGS="$CFLAGS"
+
 AC_PROG_CC
 AC_PROG_CC_STDC
 AM_PROG_CC_C_O
@@ -20,6 +23,9 @@ CFLAGS="$CFLAGS -Wall -std=gnu99"
 case $host_os in
 	*aix*)
 		HOST_OS=aix
+		if [ $CC != "gcc" ]; then
+			CFLAGS="$USER_CFLAGS"
+		fi
 		AC_SUBST([PLATFORM_LDADD], ['-lperfstat -lpthread'])
 		;;
 	*cygwin*)
@@ -36,7 +42,11 @@ case $host_os in
 		;;
 	*hpux*)
 		HOST_OS=hpux;
-		CFLAGS="$CFLAGS -mlp64"
+		if [ $CC = "gcc" ]; then
+			CFLAGS="$CFLAGS -mlp64"
+		else
+			CFLAGS="-g -O2 +DD64 $USER_CFLAGS"
+		fi
 		CPPFLAGS="$CPPFLAGS -D_XOPEN_SOURCE=600 -D__STRICT_ALIGNMENT"
 		AC_SUBST([PLATFORM_LDADD], ['-lpthread'])
 		;;

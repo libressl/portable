@@ -42,7 +42,7 @@ case $host_os in
 		;;
 	*hpux*)
 		HOST_OS=hpux;
-		if [ $CC = "gcc" ]; then
+		if test "`echo $CC | cut -d ' ' -f 1`" = "gcc" ; then
 			CFLAGS="$CFLAGS -mlp64"
 		else
 			CFLAGS="-g -O2 +DD64 $USER_CFLAGS"

@@ -23,7 +23,7 @@ CFLAGS="$CFLAGS -Wall -std=gnu99"
 case $host_os in
 	*aix*)
 		HOST_OS=aix
-		if [ $CC != "gcc" ]; then
+		if test "`echo $CC | cut -d ' ' -f 1`" != "gcc" ; then
 			CFLAGS="$USER_CFLAGS"
 		fi
 		AC_SUBST([PLATFORM_LDADD], ['-lperfstat -lpthread'])

@@ -263,8 +263,7 @@ echo "copying manpages"
 	for i in `cat ./links`; do
 		IFS=","; set $i; unset IFS
 		if [ "$2" != "" ]; then
-			echo "	ln -f \$(DESTDIR)\$(mandir)/man3/$1 \\" >> Makefile.am
-			echo "    \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
+			echo "	ln -sf $1 \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
 		fi
 	done
 	echo "" >> Makefile.am

@@ -43,6 +43,7 @@ source $libtls_src/shlib_version
 libtls_version=$major:$minor:0
 echo "libtls version $libtls_version"
 echo $libtls_version > tls/VERSION
+echo $libtls_version > libtls-standalone/VERSION
 
 do_mv() {
 	if ! cmp -s "$1" "$2"
@@ -62,6 +63,7 @@ $CP $libssl_src/src/crypto/opensslfeatures.h include/openssl
 $CP $libssl_src/src/e_os2.h include/openssl
 $CP $libssl_src/src/ssl/pqueue.h include
 $CP $libtls_src/tls.h include
+$CP $libtls_src/tls.h libtls-standalone/include
 
 for i in explicit_bzero.c strlcpy.c strlcat.c strndup.c strnlen.c \
 		timingsafe_bcmp.c timingsafe_memcmp.c; do
@@ -72,6 +74,9 @@ $CP $libc_src/crypt/arc4random.c crypto/compat
 $CP $libc_src/crypt/chacha_private.h crypto/compat
 $CP $libcrypto_src/crypto/getentropy_*.c crypto/compat
 $CP $libcrypto_src/crypto/arc4random_*.h crypto/compat
+
+$CP $libcrypto_src/crypto/getentropy_*.c libtls-standalone/src/compat
+$CP $libcrypto_src/crypto/arc4random_*.h libtls-standalone/src/compat
 
 (cd $libssl_src/src/crypto/objects/;
 	perl objects.pl objects.txt obj_mac.num obj_mac.h;
@@ -166,14 +171,15 @@ done
 
 # copy libtls source
 echo copying libtls source
-rm -f tls/*.c tls/*.h
+rm -f tls/*.c tls/*.h libtls/src/*.c libtls/src/*.h
 for i in `awk '/SOURCES|HEADERS/ { print $3 }' tls/Makefile.am` ; do
 	if [ -e $libtls_src/$i ]; then
 		$CP $libtls_src/$i tls
-	else
-		$CP $libc_src/string/$i tls
+		$CP $libtls_src/$i libtls-standalone/src
 	fi
 done
+$CP $libc_src/string/strsep.c tls
+$CP $libc_src/string/strsep.c libtls-standalone/src/compat
 
 # copy openssl(1) source
 echo "copying openssl(1) source"

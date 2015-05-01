@@ -68,7 +68,8 @@ autom4te.cache
 # Libtool adds these, at least sometimes
 INSTALL
 COPYING
-m4
+m4/l*
+!m4/check*.m4
 
 aclocal.m4
 compile

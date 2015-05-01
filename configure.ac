@@ -1,3 +1,17 @@
+# Copyright (c) 2014-2015 Brent Cook
+#
+# Permission to use, copy, modify, and distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+#
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
 AC_INIT([libressl], m4_esyscmd([tr -d '\n' < VERSION]))
 AC_SUBST([LIBCRYPTO_VERSION], m4_esyscmd([tr -d '\n' < crypto/VERSION]))
 AC_SUBST([LIBSSL_VERSION], m4_esyscmd([tr -d '\n' < ssl/VERSION]))
@@ -9,7 +23,7 @@ AC_CONFIG_MACRO_DIR([m4])
 
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
-# This must be called before AC_PROG_CC
+# This must be saved before AC_PROG_CC
 USER_CFLAGS="$CFLAGS"
 
 AC_PROG_CC
@@ -18,272 +32,25 @@ AM_PROG_CC_C_O
 AC_PROG_LIBTOOL
 LT_INIT
 
-CFLAGS="$CFLAGS -Wall -std=gnu99"
+CHECK_OS_OPTIONS
 
-case $host_os in
-	*aix*)
-		HOST_OS=aix
-		if test "`echo $CC | cut -d ' ' -f 1`" != "gcc" ; then
-			CFLAGS="$USER_CFLAGS"
-		fi
-		AC_SUBST([PLATFORM_LDADD], ['-lperfstat -lpthread'])
-		;;
-	*cygwin*)
-		HOST_OS=cygwin
-		;;
-	*darwin*)
-		HOST_OS=darwin
-		HOST_ABI=macosx
-		;;
-	*freebsd*)
-		HOST_OS=freebsd
-		HOST_ABI=elf
-		AC_SUBST([PROG_LDADD], ['-lthr'])
-		;;
-	*hpux*)
-		HOST_OS=hpux;
-		if test "`echo $CC | cut -d ' ' -f 1`" = "gcc" ; then
-			CFLAGS="$CFLAGS -mlp64"
-		else
-			CFLAGS="-g -O2 +DD64 $USER_CFLAGS"
-		fi
-		CPPFLAGS="$CPPFLAGS -D_XOPEN_SOURCE=600 -D__STRICT_ALIGNMENT"
-		AC_SUBST([PLATFORM_LDADD], ['-lpthread'])
-		;;
-	*linux*)
-		HOST_OS=linux
-		HOST_ABI=elf
-		CPPFLAGS="$CPPFLAGS -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
-		;;
-	*netbsd*)
-		HOST_OS=netbsd
-		CPPFLAGS="$CPPFLAGS -D_OPENBSD_SOURCE"
-		;;
-	*openbsd* | *bitrig*)
-		HOST_ABI=elf
-		AC_DEFINE([HAVE_ATTRIBUTE__BOUNDED__], [1], [OpenBSD gcc has bounded])
-		;;
-	*mingw*)
-		HOST_OS=win
-		CPPFLAGS="$CPPFLAGS -D_GNU_SOURCE -D_POSIX -D_POSIX_SOURCE -D__USE_MINGW_ANSI_STDIO"
-		CPPFLAGS="$CPPFLAGS -D_REENTRANT -D_POSIX_THREAD_SAFE_FUNCTIONS"
-		CPPFLAGS="$CPPFLAGS -DWIN32_LEAN_AND_MEAN -D_WIN32_WINNT=0x0600"
-		CPPFLAGS="$CPPFLAGS -DOPENSSL_NO_SPEED -DNO_SYSLOG"
-		CFLAGS="$CFLAGS -static-libgcc"
-		LDFLAGS="$LDFLAGS -static-libgcc"
-		AC_SUBST([PLATFORM_LDADD], ['-lws2_32'])
-		;;
-	*solaris*)
-		HOST_OS=solaris
-		HOST_ABI=elf
-		CPPFLAGS="$CPPFLAGS -D__EXTENSIONS__ -D_XOPEN_SOURCE=600 -DBSD_COMP"
-		AC_SUBST([PLATFORM_LDADD], ['-lnsl -lsocket'])
-		;;
-	*) ;;
-esac
+CHECK_C_HARDENING_OPTIONS
 
-AM_CONDITIONAL([HOST_AIX],     [test x$HOST_OS = xaix])
-AM_CONDITIONAL([HOST_CYGWIN],  [test x$HOST_OS = xcygwin])
-AM_CONDITIONAL([HOST_DARWIN],  [test x$HOST_OS = xdarwin])
-AM_CONDITIONAL([HOST_FREEBSD], [test x$HOST_OS = xfreebsd])
-AM_CONDITIONAL([HOST_HPUX],    [test x$HOST_OS = xhpux])
-AM_CONDITIONAL([HOST_LINUX],   [test x$HOST_OS = xlinux])
-AM_CONDITIONAL([HOST_NETBSD],  [test x$HOST_OS = xnetbsd])
-AM_CONDITIONAL([HOST_SOLARIS], [test x$HOST_OS = xsolaris])
-AM_CONDITIONAL([HOST_WIN],     [test x$HOST_OS = xwin])
-
-AC_CHECK_FUNC([clock_gettime],,
-	[AC_SEARCH_LIBS([clock_gettime],[rt posix4])])
-
-AC_CHECK_FUNC([dl_iterate_phdr],,
-	[AC_SEARCH_LIBS([dl_iterate_phdr],[dl])])
-
-AC_MSG_CHECKING([if compiling with clang])
-AC_COMPILE_IFELSE([AC_LANG_PROGRAM([], [[
-#ifndef __clang__
-	not clang
-#endif
-	]])],
-	[CLANG=yes],
-	[CLANG=no]
-)
-AC_MSG_RESULT([$CLANG])
-AS_IF([test "x$CLANG" = "xyes"], [CLANG_FLAGS=-Qunused-arguments])
-
-CFLAGS="$CFLAGS $CLANG_FLAGS"
-LDFLAGS="$LDFLAGS $CLANG_FLAGS"
-
-# We want to check for compiler flag support. Prior to clang v5.1, there was no
-# way to make clang's "argument unused" warning fatal.  So we invoke the
-# compiler through a wrapper script that greps for this message.
-saved_CC="$CC"
-saved_LD="$LD"
-flag_wrap="$srcdir/scripts/wrap-compiler-for-flag-check"
-CC="$flag_wrap $CC"
-LD="$flag_wrap $LD"
-
-AC_ARG_ENABLE([hardening],
-	[AS_HELP_STRING([--disable-hardening],
-			[Disable options to frustrate memory corruption exploits])],
-	[], [enable_hardening=yes])
-
-AC_ARG_ENABLE([windows-ssp],
-	[AS_HELP_STRING([--enable-windows-ssp],
-			[Enable building the stack smashing protection on
-			 Windows. This currently distributing libssp-0.dll.])])
-
-AC_DEFUN([CHECK_CFLAG], [
-	 AC_LANG_ASSERT(C)
-	 AC_MSG_CHECKING([if $saved_CC supports "$1"])
-	 old_cflags="$CFLAGS"
-	 CFLAGS="$1 -Wall -Werror"
-	 AC_TRY_LINK([
-		      #include <stdio.h>
-		      ],
-		     [printf("Hello")],
-		     AC_MSG_RESULT([yes])
-		     CFLAGS=$old_cflags
-		     HARDEN_CFLAGS="$HARDEN_CFLAGS $1",
-		     AC_MSG_RESULT([no])
-		     CFLAGS=$old_cflags
-		     [$2])
-])
-
-AC_DEFUN([CHECK_LDFLAG], [
-	 AC_LANG_ASSERT(C)
-	 AC_MSG_CHECKING([if $saved_LD supports "$1"])
-	 old_ldflags="$LDFLAGS"
-	 LDFLAGS="$1 -Wall -Werror"
-	 AC_TRY_LINK([
-		      #include <stdio.h>
-		      ],
-		     [printf("Hello")],
-		     AC_MSG_RESULT([yes])
-		     LDFLAGS=$old_ldflags
-		     HARDEN_LDFLAGS="$HARDEN_LDFLAGS $1",
-		     AC_MSG_RESULT([no])
-		     LDFLAGS=$old_ldflags
-		     [$2])
-])
-
-AS_IF([test "x$enable_hardening" = "xyes"], [
-	# Tell GCC to NOT optimize based on signed arithmetic overflow
-	CHECK_CFLAG([[-fno-strict-overflow]])
-
-	# _FORTIFY_SOURCE replaces builtin functions with safer versions.
-	CHECK_CFLAG([[-D_FORTIFY_SOURCE=2]])
-
-	# Enable read only relocations
-	CHECK_LDFLAG([[-Wl,-z,relro]])
-	CHECK_LDFLAG([[-Wl,-z,now]])
-
-	# Windows security flags
-	AS_IF([test "x$HOST_OS" = "xwin"], [
-		CHECK_LDFLAG([[-Wl,--nxcompat]])
-		CHECK_LDFLAG([[-Wl,--dynamicbase]])
-		CHECK_LDFLAG([[-Wl,--high-entropy-va]])
-	])
-
-	# Use stack-protector-strong if available; if not, fallback to
-	# stack-protector-all which is considered to be overkill
-	AS_IF([test "x$enable_windows_ssp" = "xyes" -o "x$HOST_OS" != "xwin"], [
-		CHECK_CFLAG([[-fstack-protector-strong]],
-			CHECK_CFLAG([[-fstack-protector-all]],
-				AC_MSG_WARN([compiler does not appear to support stack protection])
-			)
-		)
-		AS_IF([test "x$HOST_OS" = "xwin"], [
-			AC_SEARCH_LIBS([__stack_chk_guard],[ssp])
-		])
-	])
-])
-
-
-# Restore CC, LD
-CC="$saved_CC"
-LD="$saved_LD"
-
-CFLAGS="$CFLAGS $HARDEN_CFLAGS"
-LDFLAGS="$LDFLAGS $HARDEN_LDFLAGS"
-
-# Removing the dependency on -Wno-pointer-sign should be a goal
-save_cflags="$CFLAGS"
-CFLAGS=-Wno-pointer-sign
-AC_MSG_CHECKING([whether CC supports -Wno-pointer-sign])
-AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
-	[AC_MSG_RESULT([yes])]
-	[AM_CFLAGS=-Wno-pointer-sign],
-	[AC_MSG_RESULT([no])]
-)
-CFLAGS="$save_cflags $AM_CFLAGS"
-
-save_cflags="$CFLAGS"
-CFLAGS=
-AC_MSG_CHECKING([whether AS supports .note.GNU-stack])
-AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
-__asm__(".section .note.GNU-stack,\"\",@progbits");]])],
-	[AC_MSG_RESULT([yes])]
-	[AM_CFLAGS=-DHAVE_GNU_STACK],
-	[AC_MSG_RESULT([no])]
-)
-CFLAGS="$save_cflags $AM_CFLAGS"
+DISABLE_AS_EXECUTABLE_STACK
 AM_PROG_AS
 
-AC_CHECK_FUNCS([arc4random_buf asprintf explicit_bzero funopen getauxval])
-AC_CHECK_FUNCS([getentropy memmem poll reallocarray])
-AC_CHECK_FUNCS([strlcat strlcpy strndup strnlen strsep strtonum])
-AC_CHECK_FUNCS([symlink])
-AC_CHECK_FUNCS([timingsafe_bcmp timingsafe_memcmp])
+DISABLE_COMPILER_WARNINGS
 
-# Share test results with automake
-AM_CONDITIONAL([HAVE_ARC4RANDOM_BUF], [test "x$ac_cv_func_arc4random_buf" = xyes])
-AM_CONDITIONAL([HAVE_ASPRINTF], [test "x$ac_cv_func_asprintf" = xyes])
-AM_CONDITIONAL([HAVE_EXPLICIT_BZERO], [test "x$ac_cv_func_explicit_bzero" = xyes])
-AM_CONDITIONAL([HAVE_GETENTROPY], [test "x$ac_cv_func_getentropy" = xyes])
-AM_CONDITIONAL([HAVE_MEMMEM], [test "x$ac_cv_func_memmem" = xyes])
-AM_CONDITIONAL([HAVE_POLL], [test "x$ac_cv_func_poll" = xyes])
-AM_CONDITIONAL([HAVE_REALLOCARRAY], [test "x$ac_cv_func_reallocarray" = xyes])
-AM_CONDITIONAL([HAVE_STRLCAT], [test "x$ac_cv_func_strlcat" = xyes])
-AM_CONDITIONAL([HAVE_STRLCPY], [test "x$ac_cv_func_strlcpy" = xyes])
-AM_CONDITIONAL([HAVE_STRNDUP], [test "x$ac_cv_func_strndup" = xyes])
-AM_CONDITIONAL([HAVE_STRNLEN], [test "x$ac_cv_func_strnlen" = xyes])
-AM_CONDITIONAL([HAVE_STRSEP], [test "x$ac_cv_func_strsep" = xyes])
-AM_CONDITIONAL([HAVE_STRTONUM], [test "x$ac_cv_func_strtonum" = xyes])
-AM_CONDITIONAL([HAVE_TIMINGSAFE_BCMP], [test "x$ac_cv_func_timingsafe_bcmp" = xyes])
-AM_CONDITIONAL([HAVE_TIMINGSAFE_MEMCMP], [test "x$ac_cv_func_timingsafe_memcmp" = xyes])
+# Check if the certhash command should be built
+AC_CHECK_FUNCS([symlink])
 AM_CONDITIONAL([BUILD_CERTHASH], [test "x$ac_cv_func_symlink" = xyes])
 
-# overrides for arc4random_buf implementations with known issues
-AM_CONDITIONAL([HAVE_ARC4RANDOM_BUF],
-	[test "x$HOST_OS" != xdarwin \
-	   -a "x$HOST_OS" != xfreebsd \
-	   -a "x$HOST_OS" != xnetbsd \
-	   -a "x$ac_cv_func_arc4random_buf" = xyes])
+# Check if funopen exists
+AC_CHECK_FUNC([funopen])
 
-AC_CACHE_CHECK([whether va_copy exists], ac_cv_have_va_copy, [
-	AC_LINK_IFELSE([AC_LANG_PROGRAM([[
-#include <stdarg.h>
-va_list x,y;
-		]], [[ va_copy(x,y); ]])],
-	[ ac_cv_have_va_copy="yes" ],
-	[ ac_cv_have_va_copy="no"
-	])
-])
-if test "x$ac_cv_have_va_copy" = "xyes" ; then
-	AC_DEFINE([HAVE_VA_COPY], [1], [Define if va_copy exists])
-fi
-
-AC_CACHE_CHECK([whether __va_copy exists], ac_cv_have___va_copy, [
-	AC_LINK_IFELSE([AC_LANG_PROGRAM([[
-#include <stdarg.h>
-va_list x,y;
-		]], [[ __va_copy(x,y); ]])],
-	[ ac_cv_have___va_copy="yes" ], [ ac_cv_have___va_copy="no"
-	])
-])
-if test "x$ac_cv_have___va_copy" = "xyes" ; then
-	AC_DEFINE([HAVE___VA_COPY], [1], [Define if __va_copy exists])
-fi
+CHECK_LIBC_COMPAT
+CHECK_LIBC_CRYPTO_COMPAT
+CHECK_VA_COPY
 
 AC_CHECK_HEADERS([err.h])
 
@@ -299,14 +66,11 @@ AC_ARG_WITH([enginesdir],
 	AC_DEFINE_UNQUOTED(ENGINESDIR, "$withval")
 )
 
-AC_ARG_ENABLE([asm],
-	AS_HELP_STRING([--disable-asm], [Disable assembly]))
-AM_CONDITIONAL([OPENSSL_NO_ASM], [test "x$enable_asm" = "xno"])
-
 AC_ARG_ENABLE([extratests],
 	AS_HELP_STRING([--enable-extratests], [Enable extra tests that may be unreliable on some platforms]))
 AM_CONDITIONAL([ENABLE_EXTRATESTS], [test "x$enable_extratests" = xyes])
 
+# Add CPU-specific alignment flags
 old_cflags=$CFLAGS
 CFLAGS="$CFLAGS -I$srcdir/include"
 AC_MSG_CHECKING([if BSWAP4 builds without __STRICT_ALIGNMENT])
@@ -328,6 +92,11 @@ case $host_cpu in
 		;;
 esac
 
+AC_ARG_ENABLE([asm],
+	AS_HELP_STRING([--disable-asm], [Disable assembly]))
+AM_CONDITIONAL([OPENSSL_NO_ASM], [test "x$enable_asm" = "xno"])
+
+# Conditionally enable assembly by default
 AM_CONDITIONAL([HOST_ASM_ELF_X86_64],
     [test "x$HOST_ABI" = "xelf" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
 AM_CONDITIONAL([HOST_ASM_MACOSX_X86_64],

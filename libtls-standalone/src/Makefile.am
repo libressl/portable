@@ -2,7 +2,7 @@ AM_CFLAGS = -I$(top_srcdir)/include
 
 lib_LTLIBRARIES = libtls.la
 
-libtls_la_LDFLAGS = -no-undefined
+libtls_la_LDFLAGS = -version-info @LIBTLS_VERSION@ -no-undefined
 libtls_la_LIBADD = -lcrypto -lssl $(PLATFORM_LDADD)
 libtls_la_LIBADD += $(top_builddir)/compat/libcompat.la
 libtls_la_LIBADD += $(top_builddir)/compat/libcompatnoopt.la

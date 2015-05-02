@@ -13,6 +13,7 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 AC_INIT([libtls], m4_esyscmd([tr -d '\n' < VERSION]))
+AC_SUBST([LIBTLS_VERSION], m4_esyscmd([sed -e 's/\./:/g' VERSION | tr -d '\n']))
 
 AC_CANONICAL_HOST
 AM_INIT_AUTOMAKE([subdir-objects])

@@ -33,7 +33,7 @@ AC_DEFUN([CHECK_LDFLAG], [
 		     [$2])
 ])
 
-AC_DEFUN([DISABLE_AS_EXECUTABLE_STACK] [
+AC_DEFUN([DISABLE_AS_EXECUTABLE_STACK], [
 	save_cflags="$CFLAGS"
 	CFLAGS=
 	AC_MSG_CHECKING([whether AS supports .note.GNU-stack])

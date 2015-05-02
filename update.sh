@@ -43,7 +43,7 @@ source $libtls_src/shlib_version
 libtls_version=$major:$minor:0
 echo "libtls version $libtls_version"
 echo $libtls_version > tls/VERSION
-echo $libtls_version > libtls-standalone/VERSION
+echo $major.$minor.0 > libtls-standalone/VERSION
 
 do_mv() {
 	if ! cmp -s "$1" "$2"
@@ -62,21 +62,35 @@ $CP $libcrypto_src/crypto/arch/amd64/opensslconf.h include/openssl
 $CP $libssl_src/src/crypto/opensslfeatures.h include/openssl
 $CP $libssl_src/src/e_os2.h include/openssl
 $CP $libssl_src/src/ssl/pqueue.h include
-$CP $libtls_src/tls.h include
-$CP $libtls_src/tls.h libtls-standalone/include
 
-for i in explicit_bzero.c strlcpy.c strlcat.c strndup.c strnlen.c \
-		timingsafe_bcmp.c timingsafe_memcmp.c; do
-	$CP $libc_src/string/$i crypto/compat
+sed -e "s/#define HEADER_TLS_H/#define HEADER_TLS_H\n#include <stddef.h>\n#include <stdint.h>/" \
+	$libtls_src/tls.h > include/tls.h
+$CP include/tls.h libtls-standalone/include
+
+for i in crypto/compat libtls-standalone/compat; do
+	$CP $libc_src/crypt/arc4random.c \
+		$libc_src/crypt/chacha_private.h \
+		$libc_src/string/explicit_bzero.c \
+		$libc_src/stdlib/reallocarray.c \
+		$libc_src/string/strlcpy.c \
+		$libc_src/string/strlcat.c \
+		$libc_src/string/strndup.c \
+		$libc_src/string/strnlen.c \
+		$libc_src/string/timingsafe_bcmp.c \
+		$libc_src/string/timingsafe_memcmp.c \
+		$libcrypto_src/crypto/getentropy_*.c \
+		$libcrypto_src/crypto/arc4random_*.h \
+		$i
 done
-$CP $libc_src/stdlib/reallocarray.c crypto/compat
-$CP $libc_src/crypt/arc4random.c crypto/compat
-$CP $libc_src/crypt/chacha_private.h crypto/compat
-$CP $libcrypto_src/crypto/getentropy_*.c crypto/compat
-$CP $libcrypto_src/crypto/arc4random_*.h crypto/compat
 
-$CP $libcrypto_src/crypto/getentropy_*.c libtls-standalone/src/compat
-$CP $libcrypto_src/crypto/arc4random_*.h libtls-standalone/src/compat
+$CP include/stdlib.h \
+	include/string.h \
+	include/unistd.h \
+	libtls-standalone/include
+
+$CP crypto/compat/arc4random*.h \
+	crypto/compat/bsd-asprintf.c \
+	libtls-standalone/compat
 
 (cd $libssl_src/src/crypto/objects/;
 	perl objects.pl objects.txt obj_mac.num obj_mac.h;
@@ -179,7 +193,13 @@ for i in `awk '/SOURCES|HEADERS/ { print $3 }' tls/Makefile.am` ; do
 	fi
 done
 $CP $libc_src/string/strsep.c tls
-$CP $libc_src/string/strsep.c libtls-standalone/src/compat
+$CP $libc_src/string/strsep.c libtls-standalone/compat
+mkdir -p libtls-standalone/m4
+$CP m4/check*.m4 \
+	m4/disable*.m4 \
+	libtls-standalone/m4
+sed -e "s/compat\///" crypto/Makefile.am.arc4random > \
+	libtls-standalone/compat/Makefile.am.arc4random
 
 # copy openssl(1) source
 echo "copying openssl(1) source"

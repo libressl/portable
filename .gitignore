@@ -122,7 +122,11 @@ include/openssl/*.he
 /libtls-standalone/include/*.h
 /libtls-standalone/src/*.c
 /libtls-standalone/src/*.h
-/libtls-standalone/src/compat
+/libtls-standalone/src
+/libtls-standalone/compat
+!/libtls-standalone/compat/Makefile.am
+/libtls-standalone/VERSION
+/libtls-standalone/m4
 
 openbsd/
 

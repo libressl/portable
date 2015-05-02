@@ -4,6 +4,8 @@ lib_LTLIBRARIES = libtls.la
 
 libtls_la_LDFLAGS = -no-undefined
 libtls_la_LIBADD = -lcrypto -lssl $(PLATFORM_LDADD)
+libtls_la_LIBADD += $(top_builddir)/compat/libcompat.la
+libtls_la_LIBADD += $(top_builddir)/compat/libcompatnoopt.la
 
 libtls_la_SOURCES = tls.c
 libtls_la_SOURCES += tls_client.c
@@ -12,7 +14,3 @@ libtls_la_SOURCES += tls_server.c
 libtls_la_SOURCES += tls_util.c
 libtls_la_SOURCES += tls_verify.c
 noinst_HEADERS = tls_internal.h
-
-if !HAVE_STRSEP
-libtls_la_SOURCES += strsep.c
-endif

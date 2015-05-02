@@ -1,3 +1,4 @@
+#
 # Copyright (c) 2014-2015 Brent Cook
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -12,39 +13,33 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-AC_INIT([libtls], m4_esyscmd([tr -d '\n' < VERSION]))
+AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/src
 
-AC_CANONICAL_HOST
-AM_INIT_AUTOMAKE([subdir-objects])
-AC_CONFIG_MACRO_DIR([m4])
+noinst_LTLIBRARIES = libcompat.la libcompatnoopt.la
 
-m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
+# compatibility functions that need to be built without optimizations
+libcompatnoopt_la_CFLAGS = -O0
+libcompatnoopt_la_SOURCES =
 
-# This must be called before AC_PROG_CC
-USER_CFLAGS="$CFLAGS"
+if !HAVE_EXPLICIT_BZERO
+libcompatnoopt_la_SOURCES += explicit_bzero.c
+endif
 
-AC_PROG_CC
-AC_PROG_CC_STDC
-AM_PROG_CC_C_O
-AC_PROG_LIBTOOL
-LT_INIT
+# other compatibility functions
+libcompat_la_CFLAGS = $(CFLAGS) $(USER_CFLAGS)
+libcompat_la_SOURCES =
+libcompat_la_LIBADD = $(PLATFORM_LDADD)
 
-CHECK_OS_OPTIONS
+if !HAVE_ASPRINTF
+libcompat_la_SOURCES += bsd-asprintf.c
+endif
 
-CHECK_C_HARDENING_OPTIONS
+if !HAVE_STRLCPY
+libcompat_la_SOURCES += strlcpy.c
+endif
 
-DISABLE_COMPILER_WARNINGS
+if !HAVE_STRSEP
+libcompat_la_SOURCES += strsep.c
+endif
 
-CHECK_LIBC_COMPAT
-CHECK_LIBC_CRYPTO_COMPAT
-
-AC_CONFIG_FILES([
-	Makefile
-	include/Makefile
-	app/Makefile
-	compat/Makefile
-	src/Makefile
-	libtls.pc
-])
-
-AC_OUTPUT
+include Makefile.am.arc4random

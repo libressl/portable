@@ -251,26 +251,49 @@ chmod 755 tests/testssl
 	done
 )
 
+add_man_links() {
+	filter=$1
+	dest=$2
+	echo "install-data-hook:" >> $dest
+	for i in `grep $filter man/links`; do
+		IFS=","; set $i; unset IFS
+		if [ "$2" != "" ]; then
+			echo "	ln -sf $1 \$(DESTDIR)\$(mandir)/man3/$2" >> $dest
+		fi
+	done
+	echo "" >> $dest
+	echo "uninstall-local:" >> $dest
+	for i in `grep $filter man/links`; do
+		IFS=","; set $i; unset IFS
+		if [ "$2" != "" ]; then
+			echo "	-rm -f \$(DESTDIR)\$(mandir)/man3/$2" >> $dest
+		fi
+	done
+}
+
 # copy manpages
 echo "copying manpages"
-(cd man
-	$CP Makefile.am.tpl Makefile.am
+echo dist_man_MANS= > man/Makefile.am
 
+$CP $openssl_app_src/openssl.1 man
+echo "dist_man_MANS += openssl.1" >> man/Makefile.am
+
+$CP $libtls_src/tls_init.3 man
+echo "dist_man_MANS += tls_init.3" >> man/Makefile.am
+
+(cd man
 	# update new-style manpages
 	for i in `ls -1 $libssl_src/src/doc/ssl/*.3 | sort`; do
 		NAME=`basename "$i"`
 		$CP $i .
 		echo "dist_man_MANS += $NAME" >> Makefile.am
 	done
+
 	for i in `ls -1 $libcrypto_src/man/*.3 | sort`; do
 		NAME=`basename "$i"`
 		$CP $i .
 		echo "dist_man_MANS += $NAME" >> Makefile.am
 	done
-	$CP $openssl_app_src/openssl.1 .
-	echo "dist_man_MANS += openssl.1" >> Makefile.am
-	$CP $libtls_src/tls_init.3 .
-	echo "dist_man_MANS += tls_init.3" >> Makefile.am
 
 	# convert remaining POD manpages
 	for i in `ls -1 $libssl_src/src/doc/crypto/*.pod | sort`; do
@@ -284,20 +307,12 @@ echo "copying manpages"
 		fi
 		echo "dist_man_MANS += $NAME.3" >> Makefile.am
 	done
-
-	echo "install-data-hook:" >> Makefile.am
-	for i in `cat ./links`; do
-		IFS=","; set $i; unset IFS
-		if [ "$2" != "" ]; then
-			echo "	ln -sf $1 \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
-		fi
-	done
-	echo "" >> Makefile.am
-	echo "uninstall-local:" >> Makefile.am
-	for i in `cat ./links`; do
-		IFS=","; set $i; unset IFS
-		if [ "$2" != "" ]; then
-			echo "	-rm -f \$(DESTDIR)\$(mandir)/man3/$2" >> Makefile.am
-		fi
-	done
 )
+add_man_links . man/Makefile.am
+
+# standalone libtls manpages
+mkdir -p libtls-standalone/man
+echo "dist_man_MANS = tls_init.3" > libtls-standalone/man/Makefile.am
+
+$CP $libtls_src/tls_init.3 libtls-standalone/man
+add_man_links tls_init libtls-standalone/man/Makefile.am

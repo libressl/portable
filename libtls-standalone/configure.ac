@@ -44,6 +44,7 @@ AC_CONFIG_FILES([
 	include/Makefile
 	app/Makefile
 	compat/Makefile
+	man/Makefile
 	src/Makefile
 	libtls.pc
 ])

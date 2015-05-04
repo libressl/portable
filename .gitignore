@@ -127,6 +127,7 @@ include/openssl/*.he
 !/libtls-standalone/compat/Makefile.am
 /libtls-standalone/VERSION
 /libtls-standalone/m4
+/libtls-standalone/man
 
 openbsd/
 

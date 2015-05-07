@@ -30,6 +30,6 @@ if [ $? != 0 ]; then
         exit 1;
 fi
 
-rm testdsa.key
+rm testdsa.key dsa512.pem testdsa.pem
 
 exit 0

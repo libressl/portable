@@ -197,8 +197,6 @@ mont_SOURCES = mont.c
 TESTS += optionstest
 check_PROGRAMS += optionstest
 optionstest_SOURCES = optionstest.c
-optionstest_SOURCES += $(top_srcdir)/apps/apps.c
-optionstest_SOURCES += $(top_srcdir)/apps/strtonum.c
 
 # pbkdf2
 TESTS += pbkdf2
@@ -281,6 +279,7 @@ EXTRA_DIST += testssl ca.pem server.pem
 # testdsa
 TESTS += testdsa.sh
 EXTRA_DIST += testdsa.sh
+EXTRA_DIST += openssl.cnf
 
 # testenc
 TESTS += testenc.sh

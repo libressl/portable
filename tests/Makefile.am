@@ -3,6 +3,7 @@ include $(top_srcdir)/Makefile.am.common
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/modes
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/asn1
 AM_CPPFLAGS += -I $(top_srcdir)/ssl
+AM_CPPFLAGS += -I $(top_srcdir)/apps
 
 LDADD = $(PLATFORM_LDADD) $(PROG_LDADD)
 LDADD += $(top_builddir)/ssl/libssl.la
@@ -192,6 +193,13 @@ TESTS += mont
 check_PROGRAMS += mont
 mont_SOURCES = mont.c
 
+# optionstest
+TESTS += optionstest
+check_PROGRAMS += optionstest
+optionstest_SOURCES = optionstest.c
+optionstest_SOURCES += $(top_srcdir)/apps/apps.c
+optionstest_SOURCES += $(top_srcdir)/apps/strtonum.c
+
 # pbkdf2
 TESTS += pbkdf2
 check_PROGRAMS += pbkdf2
@@ -269,6 +277,18 @@ check_PROGRAMS += ssltest
 ssltest_SOURCES = ssltest.c
 EXTRA_DIST += ssltest.sh
 EXTRA_DIST += testssl ca.pem server.pem
+
+# testdsa
+TESTS += testdsa.sh
+EXTRA_DIST += testdsa.sh
+
+# testenc
+TESTS += testenc.sh
+EXTRA_DIST += testenc.sh
+
+# testrsa
+TESTS += testrsa.sh
+EXTRA_DIST += testrsa.sh
 
 # timingsafe
 TESTS += timingsafe

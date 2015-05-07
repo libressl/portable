@@ -58,6 +58,7 @@ tests/pbkdf2*
 tests/*.pem
 tests/testssl
 tests/*.txt
+!tests/optionstest.c
 
 # ctags stuff
 TAGS

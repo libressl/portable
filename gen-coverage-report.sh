@@ -29,9 +29,15 @@ make check
 echo "Generating report"
 mkdir -p $DESTDIR
 find tests -name '*.gcda' -o -name '*.gcno' -delete
-lcov --directory . --capture --output-file $DESTDIR/coverage.tmp \
+lcov --capture --output-file $DESTDIR/coverage.tmp \
+	--rc lcov_branch_coverage=1 \
+	--directory crypto \
+	--directory ssl \
+	--directory tls \
     --test-name "LibreSSL $VERSION"
 genhtml --prefix . --output-directory $DESTDIR \
+	--branch-coverage --function-coverage \
+	--rc lcov_branch_coverage=1 \
     --title "LibreSSL $VERSION" --legend --show-detail $DESTDIR/coverage.tmp
 
 echo "Code coverage report is available under $DESTDIR"

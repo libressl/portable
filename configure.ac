@@ -59,7 +59,7 @@ case $host_os in
 		HOST_OS=netbsd
 		CPPFLAGS="$CPPFLAGS -D_OPENBSD_SOURCE"
 		;;
-	*openbsd*)
+	*openbsd* | *bitrig*)
 		HOST_ABI=elf
 		AC_DEFINE([HAVE_ATTRIBUTE__BOUNDED__], [1], [OpenBSD gcc has bounded])
 		;;

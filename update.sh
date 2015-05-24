@@ -63,8 +63,8 @@ $CP $libssl_src/src/crypto/opensslfeatures.h include/openssl
 $CP $libssl_src/src/e_os2.h include/openssl
 $CP $libssl_src/src/ssl/pqueue.h include
 
-sed -e "s/#define HEADER_TLS_H/#define HEADER_TLS_H\n#include <stddef.h>\n#include <stdint.h>/" \
-	$libtls_src/tls.h > include/tls.h
+$CP $libtls_src/tls.h include/tls.h
+patch -p0 < patches/tls.h.patch
 $CP include/tls.h libtls-standalone/include
 
 for i in crypto/compat libtls-standalone/compat; do

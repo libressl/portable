@@ -1,4 +1,4 @@
-SUBDIRS = include compat src app man
+SUBDIRS = include compat src tests man
 ACLOCAL_AMFLAGS = -I m4
 
 pkgconfigdir = $(libdir)/pkgconfig

@@ -42,10 +42,10 @@ CHECK_LIBC_CRYPTO_COMPAT
 AC_CONFIG_FILES([
 	Makefile
 	include/Makefile
-	app/Makefile
 	compat/Makefile
 	man/Makefile
 	src/Makefile
+	tests/Makefile
 	libtls.pc
 ])
 

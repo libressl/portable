@@ -1002,9 +1002,6 @@ crypto.3,crypto_freereq.3
 crypto.3,crypto_freesession.3
 crypto.3,crypto_get_driverid.3
 crypto.3,crypto_getreq.3
-crypto.3,crypto_kdispatch.3
-crypto.3,crypto_kdone.3
-crypto.3,crypto_kregister.3
 crypto.3,crypto_newsession.3
 crypto.3,crypto_register.3
 crypto.3,crypto_unregister.3
@@ -1100,7 +1097,7 @@ lhash.3,lh_free.3
 lhash.3,lh_insert.3
 lhash.3,lh_new.3
 lhash.3,lh_retrieve.3
-tls_init.3,tls.3
+tls_init.3,tls_accept_fds.3
 tls_init.3,tls_accept_socket.3
 tls_init.3,tls_client.3
 tls_init.3,tls_close.3

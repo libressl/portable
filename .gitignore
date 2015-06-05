@@ -116,6 +116,7 @@ include/openssl/*.he
 !/crypto/Makefile.am.*
 !/crypto/compat/arc4random.h
 !/crypto/compat/b_win.c
+!/crypto/compat/posix_win.c
 !/crypto/compat/bsd_asprintf.c
 !/crypto/compat/ui_openssl_win.c
 

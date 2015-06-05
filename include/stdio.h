@@ -15,35 +15,16 @@ int asprintf(char **str, const char *fmt, ...);
 #endif
 
 #ifdef _WIN32
-#include <errno.h>
-#include <string.h>
 
-static inline void
-posix_perror(const char *s)
-{
-	fprintf(stderr, "%s: %s\n", s, strerror(errno));
-}
+void posix_perror(const char *s);
+FILE * posix_fopen(const char *path, const char *mode);
+int posix_rename(const char *oldpath, const char *newpath);
 
+#ifndef NO_REDEF_POSIX_FUNCTIONS
 #define perror(errnum) posix_perror(errnum)
-
-static inline FILE *
-posix_fopen(const char *path, const char *mode)
-{
-	char *bin_mode = mode;
-	if (strchr(mode, 'b') == NULL) {
-		bin_mode = NULL;
-		if (asprintf(&bin_mode, "%sb", mode) == -1)
-			return NULL;
-		fprintf(stderr, "opening bin file %s\n", bin_mode);
-	}
-
-	FILE *f = fopen(path, bin_mode);
-	if (bin_mode != mode)
-		free(bin_mode);
-	return f;
-}
-
 #define fopen(path, mode) posix_fopen(path, mode)
+#define rename(oldpath, newpath) posix_rename(oldpath, newpath)
+#endif
 
 #endif
 

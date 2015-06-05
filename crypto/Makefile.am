@@ -65,6 +65,10 @@ if !HAVE_TIMINGSAFE_BCMP
 libcompat_la_SOURCES += compat/timingsafe_bcmp.c
 endif
 
+if HOST_WIN
+libcompat_la_SOURCES += compat/posix_win.c
+endif
+
 include Makefile.am.arc4random
 
 libcrypto_la_SOURCES =

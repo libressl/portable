@@ -1,9 +1,42 @@
 This package is the official portable version of LibreSSL
 	(http://www.libressl.org).
 
-LibreSSL is a fork of OpenSSL developed by the OpenBSD project
-(http://www.openbsd.org). LibreSSL is developed on OpenBSD. This
-package then adds portability shims for other operating systems.
+LibreSSL is a fork of OpenSSL 1.0.1 developed by the OpenBSD project.
+    (http://www.openbsd.org).
+
+Compatibility with OpenSSL:
+
+ LibreSSL is API compatible with OpenSSL 1.0.1, but does not yet include all
+ new APIs from OpenSSL 1.0.2 and later. LibreSSL also includes APIs not yet
+ present in OpenSSL. The current common API subset is OpenSSL 1.0.1.
+
+ LibreSSL it is not ABI compatible with any release of OpenSSL, or necessarily
+ earlier releases of LibreSSL. You will need to relink your programs to
+ LibreSSL in order to use it, just as in moving between major versions of OpenSSL.
+ LibreSSL's installed library version numbers are incremented to account for
+ ABI and API changes.
+
+Compatibility with other operating systems:
+
+ While primarily developed on and taking advantage of APIs available on OpenBSD,
+ the LibreSSL portable project attempts to provide working alternatives for
+ other operating systems, and assists with improving OS-native implementations
+ where possible.
+
+At the time of this writing, LibreSSL is know to build and work on:
+
+ - Linux (kernel 3.17 or later recommended)
+ - FreeBSD (tested with 9.2 and later)
+ - NetBSD (tested with 6.1.5)
+ - HP-UX (11i)
+ - Solaris (11 and later preferred)
+ - Mac OS X (tested with 10.8 and later)
+ - AIX (5.3 and later)
+
+LibreSSL also supports the following Windows environments:
+ - Microsoft Windows (Vista or higher, x86 and x64)
+ - Wine (32-bit and 64-bit)
+ - Builds with Mingw-w64 and Cygwin
 
 Official release tarballs are available at your friendly neighborhood
 OpenBSD mirror in directory LibreSSL, e.g.:
@@ -31,20 +64,8 @@ prepare the source tree for building:
     or run './dist.sh' to prepare a tarball.
 
 Once you have a source tree from Git or FTP, run these commands to build and
-install the package:
+install the package on most systems.
 
   ./configure   # see ./configure --help for configuration options
   make check    # runs builtin unit tests
   make install  # set DESTDIR= to install to an alternate location
-
-The resulting library and 'openssl' utility is largely API-compatible with
-OpenSSL 1.0.1. However, it is not ABI compatible - you will need to relink your
-programs to LibreSSL in order to use it, just as in moving from OpenSSL 0.9.8
-to 1.0.1.
-
-The project attempts to provide working alternatives for operating systems with
-limited or broken security primitives (e.g. arc4random(3)) and assists with
-improving OS-native implementations where possible.
-
-LibreSSL portable will build on any reasonably modern version of Linux,
-Solaris, or OSX with a standards-compliant compiler and C library.

@@ -25,6 +25,26 @@ posix_perror(const char *s)
 }
 
 #define perror(errnum) posix_perror(errnum)
+
+static inline FILE *
+posix_fopen(const char *path, const char *mode)
+{
+	char *bin_mode = mode;
+	if (strchr(mode, 'b') == NULL) {
+		bin_mode = NULL;
+		if (asprintf(&bin_mode, "%sb", mode) == -1)
+			return NULL;
+		fprintf(stderr, "opening bin file %s\n", bin_mode);
+	}
+
+	FILE *f = fopen(path, bin_mode);
+	if (bin_mode != mode)
+		free(bin_mode);
+	return f;
+}
+
+#define fopen(path, mode) posix_fopen(path, mode)
+
 #endif
 
 #endif

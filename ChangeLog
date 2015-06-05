@@ -31,6 +31,26 @@ LibreSSL Portable Release Notes:
 This release primarily addresses a number of security issues in coordination
 with the OpenSSL project.
 
+2.2.0 - Build cleanups and OS support
+
+	* AIX Support - thanks to Michael Felt
+
+	* Cygwin Support - thanks to Corinna Vinschen
+
+	* Refactored build macros, support packaging libtls independently.
+	  There are more pieces required to support building and using OpenSSL
+	  with libtls, but this is an initial start at providing an
+	  independent package for people to start hacking on.
+
+	* Removal of OPENSSL_issetugid and all library getenv calls.
+	  Applications can and should no longer rely on environment variables
+	  for changing library behavior. OPENSSL_CONF/SSLEAY_CONF is still
+	  supported with the openssl(1) command.
+
+	* libtls API and documentation additions
+
+	* Various bug fixes and simplifications to libssl and libcrypto
+
 2.1.6 - Security update
 
 	* Fixes for the following issues are integrated into LibreSSL 2.1.6:

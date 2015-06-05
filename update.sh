@@ -210,6 +210,7 @@ for i in `awk '/SOURCES|HEADERS/ { print $3 }' apps/Makefile.am` ; do
 		$CP $openssl_app_src/$i apps
 	fi
 done
+patch -p0 < patches/openssl.c.patch
 
 # copy libssl source
 echo "copying libssl source"

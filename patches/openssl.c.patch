@@ -1,0 +1,29 @@
+--- apps/openssl.c.orig	2015-06-05 03:42:12.956112944 -0500
++++ apps/openssl.c	2015-06-05 03:41:54.215381908 -0500
+@@ -130,6 +130,18 @@
+ #include <openssl/engine.h>
+ #endif
+ 
++#ifdef _WIN32
++#include <fcntl.h>
++static void set_stdio_binary(void)
++{
++	_setmode(_fileno(stdin), _O_BINARY);
++	_setmode(_fileno(stdout), _O_BINARY);
++	_setmode(_fileno(stderr), _O_BINARY);
++}
++#else
++static void set_stdio_binary(void) {};
++#endif
++
+ #include "progs.h"
+ #include "s_apps.h"
+ 
+@@ -216,6 +228,7 @@
+ #endif
+ 
+ 	setup_ui_method();
++	set_stdio_binary();
+ }
+ 
+ static void

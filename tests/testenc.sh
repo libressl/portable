@@ -3,6 +3,9 @@
 
 test=p
 cmd=../apps/openssl
+if [ -e ../apps/openssl.exe ]; then
+	cmd=../apps/openssl.exe
+fi
 
 cat openssl.cnf >$test;
 

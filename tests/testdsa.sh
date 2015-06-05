@@ -5,6 +5,9 @@
 #Test DSA certificate generation of openssl
 
 cmd=../apps/openssl
+if [ -e ../apps/openssl.exe ]; then
+	cmd=../apps/openssl.exe
+fi
 
 if [ -z $srcdir ]; then
 	srcdir=.

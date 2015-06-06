@@ -67,7 +67,7 @@ autom4te.cache
 
 # Libtool adds these, at least sometimes
 INSTALL
-COPYING
+/COPYING
 m4/l*
 !m4/check*.m4
 

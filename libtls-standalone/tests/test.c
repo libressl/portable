@@ -47,5 +47,5 @@ int main()
 
 err:
 	fprintf(stderr, "%s\n", tls_error(tls));
-	return 0;
+	return 1;
 }

@@ -31,6 +31,22 @@ LibreSSL Portable Release Notes:
 This release primarily addresses a number of security issues in coordination
 with the OpenSSL project.
 
+2.1.7 - Security Update
+
+	* Fixes for the following issues are integrated into LibreSSL 2.1.7:
+	 - CVE-2015-1788 - Malformed ECParameters causes infinite loop
+	 - CVE-2015-1789 - Exploitable out-of-bounds read in X509_cmp_time
+	 - CVE-2015-1792 - CMS verify infinite loop with unknown hash function
+
+	* The following CVEs did not apply to LibreSSL or were fixed in
+	  earlier releases:
+	 - CVE-2015-4000 - DHE man-in-the-middle protection (Logjam)
+	 - CVE-2015-1790 - PKCS7 crash with missing EnvelopedContent
+	 - CVE-2014-8176 - Invalid free in DTLS
+
+	* Fixes for the following CVEs are still in review for LibreSSL
+	 - CVE-2015-1791 - Race condition handling NewSessionTicket
+
 2.1.6 - Security update
 
 	* Fixes for the following issues are integrated into LibreSSL 2.1.6:

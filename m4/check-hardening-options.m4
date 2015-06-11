@@ -94,9 +94,7 @@ AC_DEFUN([CHECK_C_HARDENING_OPTIONS], [
 					AC_MSG_WARN([compiler does not appear to support stack protection])
 				)
 			)
-			AS_IF([test "x$HOST_OS" = "xwin"], [
-				AC_SEARCH_LIBS([__stack_chk_guard],[ssp])
-			])
+			AC_SEARCH_LIBS([__stack_chk_guard],[ssp])
 		])
 	])
 

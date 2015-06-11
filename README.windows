@@ -36,5 +36,7 @@ cv2pdb to generate Visual Studio and windbg compatible debug files. cv2pdb is a
 tool developed for the D language and can be found here:
 https://github.com/rainers/cv2pdb
 
-Pre-build Windows binaries are available with the LibreSSL release for your
-convenience.
+Pre-built Windows binaries are available with LibreSSL releases if you do not
+have a mingw-w64 build environment. Mingw-w64 code is largely, but not 100%,
+compatible with code built from Visual Studio. Notably, FILE * pointers cannot
+be shared between code built for Mingw-w64 and Visual Studio.

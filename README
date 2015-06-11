@@ -69,3 +69,19 @@ install the package on most systems.
   ./configure   # see ./configure --help for configuration options
   make check    # runs builtin unit tests
   make install  # set DESTDIR= to install to an alternate location
+
+OS specific build information:
+
+ - HP-UX (11i)
+   Set the UNIX_STD environment variable to '2003' before running 'configure'
+   in order to build with the HP C/aC++ compiler. See the "standards(5)" man
+   page for more details.
+
+    export UNIX_STD=2003
+    ./configure
+    make
+
+ - Windows - Mingw-w64
+   LibreSSL builds against relatively recent versions of Mingw-w64, not to be
+   confused with the original mingw.org project.  Mingw-w64 3.2 or later
+   should work. See README.windows for more information

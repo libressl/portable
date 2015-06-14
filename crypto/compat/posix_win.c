@@ -13,6 +13,7 @@
 
 #include <errno.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
@@ -40,7 +41,7 @@ posix_fopen(const char *path, const char *mode)
 int
 posix_rename(const char *oldpath, const char *newpath)
 {
-	MoveFileEx(oldpath, newpath, MOVEFILE_REPLACE_EXISTING) ? 0 : -1;
+	return MoveFileEx(oldpath, newpath, MOVEFILE_REPLACE_EXISTING) ? 0 : -1;
 }
 
 static int

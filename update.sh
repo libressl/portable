@@ -63,9 +63,8 @@ $CP $libssl_src/src/crypto/opensslfeatures.h include/openssl
 $CP $libssl_src/src/e_os2.h include/openssl
 $CP $libssl_src/src/ssl/pqueue.h include
 
-$CP $libtls_src/tls.h include/tls.h
-patch -p0 < patches/tls.h.patch
-$CP include/tls.h libtls-standalone/include
+$CP $libtls_src/tls.h include
+$CP $libtls_src/tls.h libtls-standalone/include
 
 for i in crypto/compat libtls-standalone/compat; do
 	$CP $libc_src/crypt/arc4random.c \

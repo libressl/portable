@@ -183,11 +183,6 @@ TESTS += md5test
 check_PROGRAMS += md5test
 md5test_SOURCES = md5test.c
 
-# mdc2test
-TESTS += mdc2test
-check_PROGRAMS += mdc2test
-mdc2test_SOURCES = mdc2test.c
-
 # mont
 TESTS += mont
 check_PROGRAMS += mont

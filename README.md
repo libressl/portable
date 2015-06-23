@@ -95,4 +95,4 @@ LibreSSL builds against relatively recent versions of Mingw-w64, not to be
 confused with the original mingw.org project.  Mingw-w64 3.2 or later
 should work. See README.windows for more information
 
-![Build Status](https://travis-ci.org/libressl-portable/portable.svg?branch=master)
+[![Build Status](https://travis-ci.org/libressl-portable/portable.svg?branch=master)](https://travis-ci.org/libressl-portable/portable)

@@ -78,6 +78,12 @@ TESTS += chachatest
 check_PROGRAMS += chachatest
 chachatest_SOURCES = chachatest.c
 
+# cipher_list
+TESTS += cipher_list
+check_PROGRAMS += cipher_list
+cipher_list_SOURCES = cipher_list.c
+noinst_HEADERS = tests.h
+
 # cipherstest
 TESTS += cipherstest
 check_PROGRAMS += cipherstest

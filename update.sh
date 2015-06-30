@@ -238,6 +238,7 @@ $CP $libssl_regress/ssl/testssl tests
 for i in `find $libssl_regress -name '*.c'`; do
 	 $CP "$i" tests
 done
+$CP $libssl_regress/unit/tests.h tests
 $CP $libssl_regress/certs/ca.pem tests
 $CP $libssl_regress/certs/server.pem tests
 

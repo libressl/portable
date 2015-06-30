@@ -47,11 +47,13 @@ test-driver
 *.trs
 tests/aes_wrap*
 tests/arc4random_fork*
+tests/cipher*
 tests/explicit_bzero*
 tests/gost2814789t*
 tests/mont*
 tests/timingsafe*
 tests/*test
+tests/tests.h
 tests/*test.c
 tests/memmem.c
 tests/pbkdf2*
@@ -118,12 +120,14 @@ include/openssl/*.he
 !/crypto/compat/b_win.c
 !/crypto/compat/posix_win.c
 !/crypto/compat/bsd_asprintf.c
+!/crypto/compat/inet_pton.c
 !/crypto/compat/ui_openssl_win.c
 
 /libtls-standalone/include/*.h
 /libtls-standalone/src/*.c
 /libtls-standalone/src/*.h
 /libtls-standalone/src
+/libtls-standalone/tests/test
 /libtls-standalone/compat
 !/libtls-standalone/compat/Makefile.am
 /libtls-standalone/VERSION

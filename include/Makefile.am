@@ -14,6 +14,7 @@ noinst_HEADERS += unistd.h
 noinst_HEADERS += win32netcompat.h
 
 noinst_HEADERS += arpa/inet.h
+noinst_HEADERS += arpa/nameser.h
 
 noinst_HEADERS += machine/endian.h
 

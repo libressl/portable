@@ -35,6 +35,8 @@ with the OpenSSL project.
 
 	* Assorted build fixes for musl, HP-UX, Mingw, Solaris.
 
+	* Initial support for Windows 2009, 2003, XP
+
 	* Protocol parsing conversions to BoringSSL's CRYPTO ByteString (CBS) API
 
 	* Added EC_curve_nid2nist and EC_curve_nist2nid from OpenSSL

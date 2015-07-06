@@ -212,6 +212,9 @@ for i in `awk '/SOURCES|HEADERS/ { print $3 }' apps/Makefile.am` ; do
 	fi
 done
 patch -p0 < patches/openssl.c.patch
+patch -p0 < patches/ossl_typ.h.patch
+patch -p0 < patches/pkcs7.h.patch
+patch -p0 < patches/x509.h.patch
 
 # copy libssl source
 echo "copying libssl source"

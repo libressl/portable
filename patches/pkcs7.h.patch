@@ -1,0 +1,14 @@
+--- include/openssl/pkcs7.h.orig	2015-07-06 13:26:27.369203527 -0700
++++ include/openssl/pkcs7.h	2015-07-06 13:27:37.637051967 -0700
+@@ -69,6 +69,11 @@
+ extern "C" {
+ #endif
+ 
++#ifdef _WIN32
++#undef PKCS7_ISSUER_AND_SERIAL
++#undef PKCS7_SIGNER_INFO
++#endif
++
+ /*
+ Encryption_ID		DES-CBC
+ Digest_ID		MD5

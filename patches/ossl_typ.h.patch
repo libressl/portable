@@ -1,0 +1,18 @@
+--- include/openssl/ossl_typ.h.orig	2015-07-06 13:21:18.788571423 -0700
++++ include/openssl/ossl_typ.h	2015-07-06 13:24:14.906468003 -0700
+@@ -100,6 +100,15 @@
+ typedef struct ASN1_ITEM_st ASN1_ITEM;
+ typedef struct asn1_pctx_st ASN1_PCTX;
+ 
++#ifdef _WIN32
++#undef X509_NAME
++#undef X509_CERT_PAIR
++#undef X509_EXTENSIONS
++#undef OCSP_REQUEST
++#undef OCSP_RESPONSE
++#undef PKCS7_ISSUER_AND_SERIAL
++#endif
++
+ #ifdef BIGNUM
+ #undef BIGNUM
+ #endif

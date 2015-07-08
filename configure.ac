@@ -60,12 +60,6 @@ AC_ARG_WITH([openssldir],
 	AC_DEFINE_UNQUOTED(OPENSSLDIR, "$withval")
 )
 
-AC_ARG_WITH([enginesdir],
-	AS_HELP_STRING([--with-enginesdir],
-		       [Set the default engines directory (use with openssldir)]),
-	AC_DEFINE_UNQUOTED(ENGINESDIR, "$withval")
-)
-
 AC_ARG_ENABLE([extratests],
 	AS_HELP_STRING([--enable-extratests], [Enable extra tests that may be unreliable on some platforms]))
 AM_CONDITIONAL([ENABLE_EXTRATESTS], [test "x$enable_extratests" = xyes])

@@ -203,7 +203,9 @@ sed -e "s/compat\///" crypto/Makefile.am.arc4random > \
 # copy openssl(1) source
 echo "copying openssl(1) source"
 $CP $libc_src/stdlib/strtonum.c apps
+$CP $libcrypto_src/cert.pem apps
 $CP $libcrypto_src/openssl.cnf apps
+$CP $libcrypto_src/x509v3.cnf apps
 for i in `awk '/SOURCES|HEADERS/ { print $3 }' apps/Makefile.am` ; do
 	if [ -e $openssl_app_src/$i ]; then
 		$CP $openssl_app_src/$i apps

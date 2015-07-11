@@ -84,4 +84,24 @@ noinst_HEADERS += s_apps.h
 noinst_HEADERS += testdsa.h
 noinst_HEADERS += testrsa.h
 noinst_HEADERS += timeouts.h
-noinst_HEADERS += openssl.cnf
+
+EXTRA_DIST = cert.pem
+EXTRA_DIST += openssl.cnf
+EXTRA_DIST += x509v3.cnf
+
+install-exec-hook:
+	@mkdir -p "$(DESTDIR)/$(OPENSSLDIR)"
+	@for i in cert.pem openssl.cnf x509v3.cnf; do \
+		if [ ! -f "$(DESTDIR)/$(OPENSSLDIR)/$i" ]; then \
+			$(INSTALL) -m 644 "$(srcdir)/$$i" "$(DESTDIR)/$(OPENSSLDIR)/$$i"; \
+		else \
+			echo " $(DESTDIR)/$(OPENSSLDIR)/$$i already exists, install will not overwrite"; \
+		fi \
+	done
+
+uninstall-local:
+	@for i in cert.pem openssl.cnf x509v3.cnf; do \
+		if cmp -s "$(DESTDIR)/$(OPENSSLDIR)/$$i" "$(srcdir)/$$i"; then \
+			rm -f "$(DESTDIR)/$(OPENSSLDIR)/$$i"; \
+		fi \
+	done

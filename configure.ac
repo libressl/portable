@@ -57,8 +57,11 @@ AC_CHECK_HEADERS([err.h])
 AC_ARG_WITH([openssldir],
 	AS_HELP_STRING([--with-openssldir],
 		       [Set the default openssl directory]),
-	AC_DEFINE_UNQUOTED(OPENSSLDIR, "$withval")
+	OPENSSLDIR="$withval",
+	OPENSSLDIR="$sysconfdir/ssl"
 )
+AC_SUBST(OPENSSLDIR)
+AC_DEFINE_UNQUOTED(OPENSSLDIR, "$OPENSSLDIR")
 
 AC_ARG_ENABLE([extratests],
 	AS_HELP_STRING([--enable-extratests], [Enable extra tests that may be unreliable on some platforms]))

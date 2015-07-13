@@ -35,7 +35,7 @@ with the OpenSSL project.
 
 	* Assorted build fixes for musl, HP-UX, Mingw, Solaris.
 
-	* Initial support for Windows Embeded 2009, Server 2003, XP
+	* Initial support for Windows Embedded 2009, Server 2003, XP
 
 	* Protocol parsing conversions to BoringSSL's CRYPTO ByteString (CBS) API
 

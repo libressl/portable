@@ -26,4 +26,14 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
 	[AC_MSG_RESULT([no])]
 )
 CFLAGS="$save_cflags $AM_CFLAGS"
+
+save_cflags="$CFLAGS"
+CFLAGS=-fno-strict-aliasing
+AC_MSG_CHECKING([whether CC supports -fno-strict-aliasing])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
+	[AC_MSG_RESULT([yes])]
+	[AM_CFLAGS=-fno-strict-aliasing],
+	[AC_MSG_RESULT([no])]
+)
+CFLAGS="$save_cflags $AM_CFLAGS"
 ])

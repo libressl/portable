@@ -93,6 +93,7 @@ stamp-h2
 
 include/openssl/Makefile.am
 
+VERSION
 crypto/VERSION
 ssl/VERSION
 tls/VERSION

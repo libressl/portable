@@ -1,13 +1,13 @@
 # This must be called before AC_PROG_CC
 AC_DEFUN([CHECK_OS_OPTIONS], [
 
-CFLAGS="$CFLAGS -Wall -std=gnu99"
+CFLAGS="$CFLAGS -Wall -std=gnu99 -fno-strict-aliasing"
 
 case $host_os in
 	*aix*)
 		HOST_OS=aix
 		if test "`echo $CC | cut -d ' ' -f 1`" != "gcc" ; then
-			CFLAGS="$USER_CFLAGS"
+			CFLAGS="-qnoansialias $USER_CFLAGS"
 		fi
 		AC_SUBST([PLATFORM_LDADD], ['-lperfstat -lpthread'])
 		;;
@@ -28,7 +28,7 @@ case $host_os in
 		if test "`echo $CC | cut -d ' ' -f 1`" = "gcc" ; then
 			CFLAGS="$CFLAGS -mlp64"
 		else
-			CFLAGS="-g -O2 +DD64 $USER_CFLAGS"
+			CFLAGS="-g -O2 +DD64 +Otype_safety=strong $USER_CFLAGS"
 		fi
 		CPPFLAGS="$CPPFLAGS -D_XOPEN_SOURCE=600 -D__STRICT_ALIGNMENT"
 		AC_SUBST([PLATFORM_LDADD], ['-lpthread'])

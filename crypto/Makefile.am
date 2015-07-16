@@ -20,6 +20,12 @@ libcrypto_la_CPPFLAGS += -DOPENSSL_NO_ASM
 endif
 endif
 
+if OPENSSLDIR_DEFINED
+libcrypto_la_CPPFLAGS += -DOPENSSLDIR=\"@OPENSSLDIR@\"
+else
+libcrypto_la_CPPFLAGS += -DOPENSSLDIR=\"$(sysconfdir)/ssl\"
+endif
+
 noinst_LTLIBRARIES = libcompat.la libcompatnoopt.la
 
 # compatibility functions that need to be built without optimizations

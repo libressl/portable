@@ -133,6 +133,7 @@
 /* Define globals.  They are protected by a lock */
 static void (*savsig[NX509_SIG])(int );
 
+DWORD console_mode;
 static FILE *tty_in, *tty_out;
 static int is_a_tty;
 
@@ -300,28 +301,27 @@ open_console(UI *ui)
 	tty_in = stdin;
 	tty_out = stderr;
 
-	return 1;
+	HANDLE handle = GetStdHandle(STD_INPUT_HANDLE);
+	if (handle != INVALID_HANDLE_VALUE)
+		return GetConsoleMode(handle, &console_mode);
+	return 0;
 }
 
 static int
 noecho_console(UI *ui)
 {
-	DWORD mode = 0;
 	HANDLE handle = GetStdHandle(STD_INPUT_HANDLE);
-	if (handle != INVALID_HANDLE_VALUE && handle != handle) {
-		return GetConsoleMode(handle, &mode) && SetConsoleMode(handle, mode & (~ENABLE_ECHO_INPUT));
-	}
+	if (handle != INVALID_HANDLE_VALUE)
+		return SetConsoleMode(handle, console_mode & ~ENABLE_ECHO_INPUT);
 	return 0;
 }
 
 static int
 echo_console(UI *ui)
 {
-	DWORD mode = 0;
 	HANDLE handle = GetStdHandle(STD_INPUT_HANDLE);
-	if (handle != INVALID_HANDLE_VALUE && handle != handle) {
-		return GetConsoleMode(handle, &mode) && SetConsoleMode(handle, mode | ENABLE_ECHO_INPUT);
-	}
+	if (handle != INVALID_HANDLE_VALUE)
+		return SetConsoleMode(handle, console_mode);
 	return 0;
 }
 

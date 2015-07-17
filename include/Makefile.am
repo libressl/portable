@@ -21,6 +21,7 @@ noinst_HEADERS += machine/endian.h
 noinst_HEADERS += netinet/in.h
 noinst_HEADERS += netinet/tcp.h
 
+noinst_HEADERS += sys/cdefs.h
 noinst_HEADERS += sys/ioctl.h
 noinst_HEADERS += sys/mman.h
 noinst_HEADERS += sys/select.h

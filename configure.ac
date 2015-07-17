@@ -88,6 +88,18 @@ case $host_cpu in
 		;;
 esac
 
+AC_MSG_CHECKING([if .gnu.warning accepts long strings])
+AC_LINK_IFELSE([AC_LANG_SOURCE([[
+extern void SSLv3_method();
+__asm__(".section .gnu.warning.SSLv3_method; .ascii \"SSLv3_method is insecure\" ; .text");
+int main() {return 0;}
+]])], [
+    AC_DEFINE(HAS_GNU_WARNING_LONG, 1, [Define if .gnu.warning accepts long strings.])
+    AC_MSG_RESULT(yes)
+], [
+   AC_MSG_RESULT(no)
+])
+
 AC_ARG_ENABLE([asm],
 	AS_HELP_STRING([--disable-asm], [Disable assembly]))
 AM_CONDITIONAL([OPENSSL_NO_ASM], [test "x$enable_asm" = "xno"])

@@ -445,7 +445,6 @@ EVP_DigestInit.3,EVP_get_digestbyobj.3
 EVP_DigestInit.3,EVP_md2.3
 EVP_DigestInit.3,EVP_md5.3
 EVP_DigestInit.3,EVP_md_null.3
-EVP_DigestInit.3,EVP_mdc2.3
 EVP_DigestInit.3,EVP_ripemd160.3
 EVP_DigestInit.3,EVP_sha.3
 EVP_DigestInit.3,EVP_sha1.3

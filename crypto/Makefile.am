@@ -433,7 +433,6 @@ libcrypto_la_SOURCES += engine/eng_lib.c
 libcrypto_la_SOURCES += engine/eng_list.c
 libcrypto_la_SOURCES += engine/eng_openssl.c
 libcrypto_la_SOURCES += engine/eng_pkey.c
-libcrypto_la_SOURCES += engine/eng_rsax.c
 libcrypto_la_SOURCES += engine/eng_table.c
 libcrypto_la_SOURCES += engine/tb_asnmth.c
 libcrypto_la_SOURCES += engine/tb_cipher.c

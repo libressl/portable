@@ -97,6 +97,7 @@ VERSION
 crypto/VERSION
 ssl/VERSION
 tls/VERSION
+libtls-standalone/VERSION
 
 ssl/*.c
 ssl/*.h

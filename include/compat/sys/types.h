@@ -3,14 +3,14 @@
  * sys/types.h compatibility shim
  */
 
-#ifndef LIBCRYPTOCOMPAT_SYS_TYPES_H
-#define LIBCRYPTOCOMPAT_SYS_TYPES_H
-
 #ifdef _MSC_VER
 #include <../include/sys/types.h>
 #else
 #include_next <sys/types.h>
 #endif
+
+#ifndef LIBCRYPTOCOMPAT_SYS_TYPES_H
+#define LIBCRYPTOCOMPAT_SYS_TYPES_H
 
 #include <stdint.h>
 

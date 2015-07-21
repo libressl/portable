@@ -6,7 +6,10 @@
 #ifndef LIBCRYPTOCOMPAT_SYS_STAT_H
 #define LIBCRYPTOCOMPAT_SYS_STAT_H
 
-#ifdef _MSC_VER
+#ifndef _MSC_VER
+#include_next <sys/stat.h>
+#else
+
 #include <windows.h>
 #include <../include/sys/stat.h>
 
@@ -88,8 +91,6 @@
 #define	S_ISCHR(mode)  (((mode) & S_IFMT) == S_IFCHR)
 #define	S_ISBLK(mode)  (((mode) & S_IFMT) == S_IFBLK)
 
-#else
-#include_next <sys/stat.h>
 #endif
 
 #endif

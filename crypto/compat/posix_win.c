@@ -189,4 +189,11 @@ int gettimeofday(struct timeval * tp, struct timezone * tzp)
 	tp->tv_usec = (long)(system_time.wMilliseconds * 1000);
 	return 0;
 }
+
+unsigned int sleep(unsigned int seconds)
+{
+	Sleep(seconds * 1000);
+	return seconds;
+}
+
 #endif

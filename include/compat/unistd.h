@@ -21,11 +21,7 @@
 
 #define access _access
 
-static inline unsigned int sleep(unsigned int seconds)
-{
-	Sleep(seconds * 1000);
-	return seconds;
-}
+unsigned int sleep(unsigned int seconds);
 
 #endif
 

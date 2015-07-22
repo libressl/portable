@@ -11,7 +11,7 @@ LDADD += $(top_builddir)/crypto/libcrypto.la
 
 TESTS =
 check_PROGRAMS =
-EXTRA_DIST = CMakeFiles.txt
+EXTRA_DIST = CMakeLists.txt
 DISTCLEANFILES = pidwraptest.txt
 
 # aeadtest

@@ -8,10 +8,14 @@ include_directories(
 	../apps
 )
 
+set(ENV{srcdir} ${CMAKE_CURRENT_SOURCE_DIR})
+
 # aeadtest
 add_executable(aeadtest aeadtest.c)
 target_link_libraries(aeadtest ${OPENSSL_LIBS})
-add_test(aeadtest ${CMAKE_CURRENT_SOURCE_DIR}/aeadtest.sh)
+add_test(aeadtest aeadtest.sh)
+configure_file(aeadtests.txt aeadtests.txt COPYONLY)
+configure_file(aeadtest.sh aeadtest.sh COPYONLY)
 
 # aes_wrap
 add_executable(aes_wrap aes_wrap.c)

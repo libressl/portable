@@ -11,11 +11,11 @@ include_directories(
 set(ENV{srcdir} ${CMAKE_CURRENT_SOURCE_DIR})
 
 # aeadtest
-add_executable(aeadtest aeadtest.c)
-target_link_libraries(aeadtest ${OPENSSL_LIBS})
-add_test(aeadtest aeadtest.sh)
-configure_file(aeadtests.txt aeadtests.txt COPYONLY)
-configure_file(aeadtest.sh aeadtest.sh COPYONLY)
+#add_executable(aeadtest aeadtest.c)
+#target_link_libraries(aeadtest ${OPENSSL_LIBS})
+#add_test(aeadtest aeadtest.sh)
+#configure_file(aeadtests.txt aeadtests.txt COPYONLY)
+#configure_file(aeadtest.sh aeadtest.sh COPYONLY)
 
 # aes_wrap
 add_executable(aes_wrap aes_wrap.c)
@@ -116,9 +116,9 @@ target_link_libraries(enginetest ${OPENSSL_LIBS})
 add_test(enginetest enginetest)
 
 # evptest
-add_executable(evptest evptest.c)
-target_link_libraries(evptest ${OPENSSL_LIBS})
-add_test(evptest ${CMAKE_CURRENT_SOURCE_DIR}/evptest.sh)
+#add_executable(evptest evptest.c)
+#target_link_libraries(evptest ${OPENSSL_LIBS})
+#add_test(evptest ${CMAKE_CURRENT_SOURCE_DIR}/evptest.sh)
 
 # explicit_bzero
 # explicit_bzero relies on SA_ONSTACK, which is unavailable on Windows
@@ -197,9 +197,9 @@ target_link_libraries(poly1305test ${OPENSSL_LIBS})
 add_test(poly1305test poly1305test)
 
 # pq_test
-add_executable(pq_test pq_test.c)
-target_link_libraries(pq_test ${OPENSSL_LIBS})
-add_test(pq_test ${CMAKE_CURRENT_SOURCE_DIR}/pq_test.sh)
+#add_executable(pq_test pq_test.c)
+#target_link_libraries(pq_test ${OPENSSL_LIBS})
+#add_test(pq_test ${CMAKE_CURRENT_SOURCE_DIR}/pq_test.sh)
 
 # randtest
 add_executable(randtest randtest.c)
@@ -242,18 +242,18 @@ target_link_libraries(shatest ${OPENSSL_LIBS})
 add_test(shatest shatest)
 
 # ssltest
-add_executable(ssltest ssltest.c)
-target_link_libraries(ssltest ${OPENSSL_LIBS})
-add_test(ssltest ${CMAKE_CURRENT_SOURCE_DIR}/ssltest.sh)
+#add_executable(ssltest ssltest.c)
+#target_link_libraries(ssltest ${OPENSSL_LIBS})
+#add_test(ssltest ${CMAKE_CURRENT_SOURCE_DIR}/ssltest.sh)
 
 # testdsa
-add_test(testdsa ${CMAKE_CURRENT_SOURCE_DIR}/testdsa.sh)
+#add_test(testdsa ${CMAKE_CURRENT_SOURCE_DIR}/testdsa.sh)
 
 # testenc
 add_test(testenc ${CMAKE_CURRENT_SOURCE_DIR}/testenc.sh)
 
 # testrsa
-add_test(testrsa ${CMAKE_CURRENT_SOURCE_DIR}/testrsa.sh)
+#add_test(testrsa ${CMAKE_CURRENT_SOURCE_DIR}/testrsa.sh)
 
 # timingsafe
 add_executable(timingsafe timingsafe.c)

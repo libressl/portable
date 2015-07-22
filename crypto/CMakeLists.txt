@@ -281,7 +281,6 @@ set(
 	engine/eng_list.c
 	engine/eng_openssl.c
 	engine/eng_pkey.c
-	engine/eng_rsax.c
 	engine/eng_table.c
 	engine/tb_asnmth.c
 	engine/tb_cipher.c

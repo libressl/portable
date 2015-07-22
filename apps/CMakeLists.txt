@@ -75,10 +75,5 @@ else()
 	set(OPENSSL_SRC ${OPENSSL_SRC} strtonum.c)
 endif()
 
-set(OPENSSL_LIBS ssl crypto)
-if(CMAKE_HOST_WIN32)
-	set(OPENSSL_LIBS ${OPENSSL_LIBS} ws2_32)
-endif()
-
 add_executable(openssl ${OPENSSL_SRC})
 target_link_libraries(openssl ${OPENSSL_LIBS})

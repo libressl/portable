@@ -1,7 +1,10 @@
 cmake_minimum_required (VERSION 3.2)
 include(CheckFunctionExists)
+include(CheckIncludeFiles)
 
 project (LibreSSL)
+
+enable_testing()
 
 if(CMAKE_SYSTEM_NAME MATCHES "OpenBSD")
 	add_definitions(-DHAVE_ATTRIBUTE__BOUNDED__)
@@ -123,7 +126,18 @@ if(HAVE_MEMCMP)
 	add_definitions(-DHAVE_MEMCMP)
 endif()
 
+check_include_files(err.h HAVE_ERR_H)
+if(HAVE_ERR_H)
+	add_definitions(-DHAVE_ERR_H)
+endif()
+
+set(OPENSSL_LIBS ssl crypto)
+if(CMAKE_HOST_WIN32)
+	set(OPENSSL_LIBS ${OPENSSL_LIBS} ws2_32)
+endif()
+
 add_subdirectory(crypto)
 add_subdirectory(ssl)
 add_subdirectory(apps)
 add_subdirectory(tls)
+add_subdirectory(tests)

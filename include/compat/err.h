@@ -17,16 +17,16 @@
 #include <string.h>
 
 #define err(exitcode, format, ...) \
-  errx(exitcode, format ": %s", __VA_ARGS__, strerror(errno))
+  errx(exitcode, format ": %s", ## __VA_ARGS__, strerror(errno))
 
 #define errx(exitcode, format, ...) \
-  do { warnx(format, __VA_ARGS__); exit(exitcode); } while (0)
+  do { warnx(format, ## __VA_ARGS__); exit(exitcode); } while (0)
 
 #define warn(format, ...) \
-  warnx(format ": %s", __VA_ARGS__, strerror(errno))
+  warnx(format ": %s", ## __VA_ARGS__, strerror(errno))
 
 #define warnx(format, ...) \
-  fprintf(stderr, format "\n", __VA_ARGS__)
+  fprintf(stderr, format "\n", ## __VA_ARGS__)
 
 #endif
 

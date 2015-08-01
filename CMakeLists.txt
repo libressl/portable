@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.2)
+cmake_minimum_required (VERSION 2.8)
 include(CheckFunctionExists)
 include(CheckIncludeFiles)
 
@@ -8,6 +8,13 @@ enable_testing()
 
 if(CMAKE_SYSTEM_NAME MATCHES "OpenBSD")
 	add_definitions(-DHAVE_ATTRIBUTE__BOUNDED__)
+endif()
+
+if(CMAKE_SYSTEM_NAME MATCHES "Linux")
+	add_definitions(-D_DEFAULT_SOURCE)
+	add_definitions(-D_BSD_SOURCE)
+	add_definitions(-D_POSIX_SOURCE)
+	add_definitions(-D_GNU_SOURCE)
 endif()
 
 add_definitions(-DLIBRESSL_INTERNAL)

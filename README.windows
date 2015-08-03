@@ -40,3 +40,7 @@ Pre-built Windows binaries are available with LibreSSL releases if you do not
 have a mingw-w64 build environment. Mingw-w64 code is largely, but not 100%,
 compatible with code built from Visual Studio. Notably, FILE * pointers cannot
 be shared between code built for Mingw-w64 and Visual Studio.
+
+As of LibreSSL 2.2.2, Visual Studio Native builds can be produced using CMake.
+This produces ABI-compatible libraries for linking with native code generated
+by Visual Studio.

@@ -1,6 +1,8 @@
 ![LibreSSL image](http://www.libressl.org/images/libressl.jpg)
 ## Official portable version of [LibreSSL](http://www.libressl.org) ##
 
+[![Build Status](https://travis-ci.org/libressl-portable/portable.svg?branch=master)](https://travis-ci.org/libressl-portable/portable)
+
 LibreSSL is a fork of [OpenSSL](https://www.openssl.org) 1.0.1g developed by the
 [OpenBSD](http://www.openbsd.org) project.  Our goal is to modernize the codebase,
 improve security, and apply best practice development processes from OpenBSD.
@@ -37,7 +39,7 @@ At the time of this writing, LibreSSL is know to build and work on:
 LibreSSL also supports the following Windows environments:
 * Microsoft Windows (XP or higher, x86 and x64)
 * Wine (32-bit and 64-bit)
-* Builds with Mingw-w64 and Cygwin
+* Builds with Mingw-w64, Cygwin, and Visual Studio
 
 Official release tarballs are available at your friendly neighborhood
 OpenBSD mirror in directory
@@ -67,12 +69,32 @@ prepare the source tree for building:
 ## Building LibreSSL ##
 
 Once you have a source tree from Git or FTP, run these commands to build and
-install the package on most systems.
+install the package on most systems:
 
 ```sh
 ./configure   # see ./configure --help for configuration options
 make check    # runs builtin unit tests
 make install  # set DESTDIR= to install to an alternate location
+```
+
+If you wish to use the CMake build system, use these commands:
+
+```sh
+mkdir build
+cd build
+cmake ..
+make
+make test
+```
+
+For faster builds, you can use Ninja as well:
+
+```sh
+mkdir build-ninja
+cd build-ninja
+cmake -G"Ninja" ..
+ninja
+ninja test
 ```
 
 ### OS specific build information: ###
@@ -95,4 +117,17 @@ LibreSSL builds against relatively recent versions of Mingw-w64, not to be
 confused with the original mingw.org project.  Mingw-w64 3.2 or later
 should work. See README.windows for more information
 
-[![Build Status](https://travis-ci.org/libressl-portable/portable.svg?branch=master)](https://travis-ci.org/libressl-portable/portable)
+#### Windows - Visual Studio ####
+
+LibreSSL builds using the CMake target "Visual Studio 12 2013", and may build
+against older/newer targets as well. To generate a Visual Studio project,
+install CMake, enter the LibreSSL source directory and run:
+
+```sh
+ mkdir build-vs2013
+ cd build-vs2013
+ cmake -G"Visual Studio 12 2013" ..
+```
+
+This will generate a LibreSSL.sln file that you can incorporate into other
+projects or build by itself.

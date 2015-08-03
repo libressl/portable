@@ -604,6 +604,7 @@ if(NOT HAVE_EXPLICIT_BZERO)
 		set(CRYPTO_SRC ${CRYPTO_SRC} compat/explicit_bzero_win.c)
 	else()
 		set(CRYPTO_SRC ${CRYPTO_SRC} compat/explicit_bzero.c)
+		set_source_files_properties(compat/explicit_bzero.c PROPERTIES COMPILE_FLAGS -O0)
 	endif()
 endif()
 

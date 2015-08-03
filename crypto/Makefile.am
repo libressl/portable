@@ -34,7 +34,11 @@ libcompatnoopt_la_CFLAGS = -O0
 libcompatnoopt_la_SOURCES =
 
 if !HAVE_EXPLICIT_BZERO
+if HOST_WIN
+libcompatnoopt_la_SOURCES += compat/explicit_bzero_win.c
+else
 libcompatnoopt_la_SOURCES += compat/explicit_bzero.c
+endif
 endif
 
 # other compatibility functions

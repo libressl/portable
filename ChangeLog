@@ -28,8 +28,51 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
-This release primarily addresses a number of security issues in coordination
-with the OpenSSL project.
+2.2.2 - More TLS parser rework, bug fixes, expanded portable build support
+
+	* Switched 'openssl dhparam' default from 512 to 2048 bits
+
+	* Reworked openssl(1) option handling
+
+	* More CRYPTO ByteString (CBC) packet parsing conversions
+
+	* Fixed 'openssl pkeyutl -verify' to exit with a 0 on success
+
+	* Fixed dozens of Coverity issues including dead code, memory leaks,
+	  logic errors and more.
+
+	* Ensure that openssl(1) restores terminal echo state after reading a
+	  password.
+
+	* Incorporated fix for OpenSSL Issue #3683
+
+	* LibreSSL version define LIBRESSL_VERSION_NUMBER will now be bumped
+	  for each portable release.
+
+	* Removed workarounds for TLS client padding bugs.
+
+	* No longer disable ECDHE-ECDSA on OS X
+
+	* Removed SSLv3 support from openssl(1)
+
+	* Removed IE 6 SSLv3 workarounds.
+
+	* Modifie tls_write in libtls to allow partial writes, clarified with
+	  examples in the documentation.
+
+	* Removed RSAX engine
+
+	* Tested SSLv3 removal with the OpenBSD ports tree and found several
+	  applications that were not ready to build without SSLv3 yet. For
+	  now, building a program that intentionally uses SSLv3 will result in
+	  a linker warning.
+
+	* Added TLS_method, TLS_client_method and TLS_server_method as a
+	  replacement for the SSLv23_*method calls.
+
+	* Added initial cmake build support, including support for building with
+	  Visual Studio, currently tested with Visual Studio 2013 Community
+	  Edition.
 
 2.2.1 - Build fixes, feature added, features removed
 

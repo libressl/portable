@@ -307,7 +307,7 @@ echo "dist_man_MANS += tls_init.3" >> man/Makefile.am
 		BASE=`echo $i|sed -e "s/\.pod//"`
 		NAME=`basename "$BASE"`
 		# reformat file if new
-		if [ ! -f $NAME.3 -o $BASE.pod -nt $NAME.3 -o ../VERSION -nt $NAME.3 ]; then
+		if [ ! -f $NAME.3 -o $BASE.pod -nt $NAME.3 -o ../include/openssl/opensslv.h -nt $NAME.3 ]; then
 			echo processing $NAME
 			pod2man --official --release="LibreSSL $VERSION" --center=LibreSSL \
 				--section=3 $POD2MAN --name=$NAME < $BASE.pod > $NAME.3

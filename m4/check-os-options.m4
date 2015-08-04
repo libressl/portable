@@ -28,7 +28,7 @@ case $host_os in
 		if test "`echo $CC | cut -d ' ' -f 1`" = "gcc" ; then
 			CFLAGS="$CFLAGS -mlp64"
 		else
-			CFLAGS="-g -O2 +DD64 +Otype_safety=strong $USER_CFLAGS"
+			CFLAGS="-g -O2 +DD64 +Otype_safety=off $USER_CFLAGS"
 		fi
 		CPPFLAGS="$CPPFLAGS -D_XOPEN_SOURCE=600 -D__STRICT_ALIGNMENT"
 		AC_SUBST([PLATFORM_LDADD], ['-lpthread'])

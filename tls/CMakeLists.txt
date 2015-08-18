@@ -19,4 +19,11 @@ if(NOT HAVE_STRCASECMP)
 	set(TLS_SRC ${TLS_SRC} strsep.c)
 endif()
 
-add_library(tls ${TLS_SRC})
+add_library(tls-objects OBJECT ${TLS_SRC})
+set_property(TARGET tls-objects PROPERTY POSITION_INDEPENDENT_CODE 1)
+add_library(tls STATIC $<TARGET_OBJECTS:tls-objects>)
+add_library(tls-shared SHARED $<TARGET_OBJECTS:tls-objects>)
+set_target_properties(tls-shared PROPERTIES OUTPUT_NAME tls)
+set_target_properties(tls-shared PROPERTIES VERSION ${TLS_VERSION} SOVERSION ${TLS_MAJOR_VERSION})
+
+install(TARGETS tls tls-shared DESTINATION lib)

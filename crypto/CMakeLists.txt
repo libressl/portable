@@ -638,4 +638,12 @@ if(NOT HAVE_TIMINGSAFE_MEMCMP)
 	set(CRYPTO_SRC ${CRYPTO_SRC} compat/timingsafe_memcmp.c)
 endif()
 
-add_library(crypto ${CRYPTO_SRC})
+add_library(crypto-objects OBJECT ${CRYPTO_SRC})
+set_property(TARGET crypto-objects PROPERTY POSITION_INDEPENDENT_CODE 1)
+add_library(crypto STATIC $<TARGET_OBJECTS:crypto-objects>)
+add_library(crypto-shared SHARED $<TARGET_OBJECTS:crypto-objects>)
+set_target_properties(crypto-shared PROPERTIES OUTPUT_NAME crypto)
+set_target_properties(crypto-shared PROPERTIES VERSION ${CRYPTO_VERSION} SOVERSION ${CRYPTO_MAJOR_VERSION})
+install(TARGETS crypto crypto-shared DESTINATION lib)
+
+

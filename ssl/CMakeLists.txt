@@ -4,9 +4,8 @@ include_directories(
 	../include/compat
 )
 
-add_library(
-	ssl
-
+set(
+	SSL_SRC
 	bio_ssl.c
 	bs_ber.c
 	bs_cbb.c
@@ -51,3 +50,12 @@ add_library(
 	t1_reneg.c
 	t1_srvr.c
 )
+
+add_library(ssl-objects OBJECT ${SSL_SRC})
+set_property(TARGET ssl-objects PROPERTY POSITION_INDEPENDENT_CODE 1)
+add_library(ssl STATIC $<TARGET_OBJECTS:ssl-objects>)
+add_library(ssl-shared SHARED $<TARGET_OBJECTS:ssl-objects>)
+set_target_properties(ssl-shared PROPERTIES OUTPUT_NAME ssl)
+set_target_properties(ssl-shared PROPERTIES VERSION ${SSL_VERSION} SOVERSION ${SSL_MAJOR_VERSION})
+
+install(TARGETS ssl ssl-shared DESTINATION lib)

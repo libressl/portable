@@ -77,3 +77,5 @@ endif()
 
 add_executable(openssl ${OPENSSL_SRC})
 target_link_libraries(openssl ${OPENSSL_LIBS})
+
+install(TARGETS openssl DESTINATION bin)

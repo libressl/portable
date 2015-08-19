@@ -7,7 +7,7 @@ includedir=@includedir@
 
 Name: LibreSSL-libssl
 Description: Secure Sockets Layer and cryptography libraries
-Version: @LIBSSL_VERSION@
+Version: @VERSION@
 Requires:
 Requires.private: libcrypto
 Conflicts:

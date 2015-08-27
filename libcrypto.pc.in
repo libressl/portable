@@ -11,5 +11,5 @@ Version: @VERSION@
 Requires:
 Conflicts:
 Libs: -L${libdir} -lcrypto
-Libs.private: @LIBS@
+Libs.private: @LIBS@ @PLATFORM_LDADD@
 Cflags: -I${includedir}

@@ -28,6 +28,19 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.2.3 - Bug fixes
+
+	* LibreSSL 2.2.2 incorrectly handles ClientHello messages that do not
+	  include TLS extensions, resulting in such handshakes being aborted.
+	  This release corrects the handling of such messages, thanks to
+	  Ligushka from github.
+
+	* Added install target for cmake builds, thanks to Jeff Davey.
+
+	* Updated pkgconfig files to correctly report the release version
+	  number, not the individual library ABI version numbers, thanks to
+	  Jan Engelhardt.
+
 2.2.2 - More TLS parser rework, bug fixes, expanded portable build support
 
 	* Switched 'openssl dhparam' default from 512 to 2048 bits

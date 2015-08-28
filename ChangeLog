@@ -28,7 +28,7 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
-2.2.3 - Bug fixes
+2.2.3 - Bug fixes, build enhancements
 
 	* LibreSSL 2.2.2 incorrectly handles ClientHello messages that do not
 	  include TLS extensions, resulting in such handshakes being aborted.

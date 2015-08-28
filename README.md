@@ -62,7 +62,7 @@ If you have checked this source using Git, follow these initial steps to
 prepare the source tree for building:
 
 1. Ensure you have the following packages installed:
-   automake, autoconf, bash, git, libtool, perl, pod2man
+   automake, autoconf, git, libtool, perl, pod2man
 2. Run './autogen.sh' to prepare the source tree for building or
    run './dist.sh' to prepare a tarball.
 

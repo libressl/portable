@@ -52,8 +52,14 @@ do_mv() {
 		rm -f "$1"
 	fi
 }
-CP='cp -p'
 MV='do_mv'
+
+do_cp_libc() {
+	sed "/DEF_WEAK/d" < "$1" > "$2"/`basename "$1"`
+}
+CP_LIBC='do_cp_libc'
+
+CP='cp -p'
 
 $CP $libssl_src/src/LICENSE COPYING
 
@@ -79,7 +85,7 @@ for i in crypto/compat libtls-standalone/compat; do
 	    $libc_src/string/timingsafe_memcmp.c \
 	    $libcrypto_src/crypto/getentropy_*.c \
 	    $libcrypto_src/crypto/arc4random_*.h; do
-		sed "/DEF_WEAK/d" < $j > $i/`basename "$j"`
+		$CP_LIBC $j $i
 	done
 done
 
@@ -192,8 +198,10 @@ for i in `awk '/SOURCES|HEADERS/ { print $3 }' tls/Makefile.am` ; do
 		$CP $libtls_src/$i libtls-standalone/src
 	fi
 done
-$CP $libc_src/string/strsep.c tls
-$CP $libc_src/string/strsep.c libtls-standalone/compat
+
+$CP_LIBC $libc_src/string/strsep.c tls
+$CP_LIBC $libc_src/string/strsep.c libtls-standalone/compat
+
 mkdir -p libtls-standalone/m4
 $CP m4/check*.m4 \
 	m4/disable*.m4 \

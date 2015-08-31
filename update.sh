@@ -66,7 +66,7 @@ $CP $libtls_src/tls.h include
 $CP $libtls_src/tls.h libtls-standalone/include
 
 for i in crypto/compat libtls-standalone/compat; do
-	$CP $libc_src/crypt/arc4random.c \
+	for j in $libc_src/crypt/arc4random.c \
 	    $libc_src/crypt/chacha_private.h \
 	    $libc_src/string/explicit_bzero.c \
 	    $libc_src/stdlib/reallocarray.c \
@@ -78,8 +78,9 @@ for i in crypto/compat libtls-standalone/compat; do
 	    $libc_src/string/timingsafe_bcmp.c \
 	    $libc_src/string/timingsafe_memcmp.c \
 	    $libcrypto_src/crypto/getentropy_*.c \
-	    $libcrypto_src/crypto/arc4random_*.h \
-	    $i
+	    $libcrypto_src/crypto/arc4random_*.h; do
+		sed "/DEF_WEAK/d" < $j > $i/`basename "$j"`
+	done
 done
 
 $CP include/compat/stdlib.h \

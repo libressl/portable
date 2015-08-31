@@ -31,7 +31,6 @@ libssl_la_SOURCES += s3_cbc.c
 libssl_la_SOURCES += s3_clnt.c
 libssl_la_SOURCES += s3_enc.c
 libssl_la_SOURCES += s3_lib.c
-libssl_la_SOURCES += s3_meth.c
 libssl_la_SOURCES += s3_pkt.c
 libssl_la_SOURCES += s3_srvr.c
 libssl_la_SOURCES += ssl_algs.c

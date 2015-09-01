@@ -240,7 +240,7 @@ $CP $libcrypto_regress/pqueue/expected.txt tests/pq_expected.txt
 # copy libc tests
 $CP $libc_regress/arc4random-fork/arc4random-fork.c tests/arc4randomforktest.c
 $CP $libc_regress/explicit_bzero/explicit_bzero.c tests
-$CP $libc_src/string/memmem.c tests
+$CP_LIBC $libc_src/string/memmem.c tests
 $CP $libc_regress/timingsafe/timingsafe.c tests
 
 # copy libssl tests

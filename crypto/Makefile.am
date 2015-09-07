@@ -9,6 +9,9 @@ lib_LTLIBRARIES = libcrypto.la
 EXTRA_DIST = VERSION
 EXTRA_DIST += CMakeLists.txt
 
+# needed for a CMake target
+EXTRA_DIST += compat/strcasecmp.c
+
 libcrypto_la_LDFLAGS = -version-info @LIBCRYPTO_VERSION@ -no-undefined
 libcrypto_la_LIBADD = libcompat.la libcompatnoopt.la
 libcrypto_la_CPPFLAGS = -DLIBRESSL_INTERNAL

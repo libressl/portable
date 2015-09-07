@@ -45,6 +45,7 @@ Makefile.in
 test-driver
 *.log
 *.trs
+!tests/optionstest.c
 tests/aes_wrap*
 tests/arc4random_fork*
 tests/cipher*
@@ -60,7 +61,6 @@ tests/pbkdf2*
 tests/*.pem
 tests/testssl
 tests/*.txt
-!tests/optionstest.c
 
 # ctags stuff
 TAGS
@@ -70,8 +70,8 @@ autom4te.cache
 # Libtool adds these, at least sometimes
 INSTALL
 /COPYING
-m4/l*
 !m4/check*.m4
+m4/l*
 
 aclocal.m4
 compile
@@ -108,15 +108,15 @@ include/tls.h
 include/openssl/*.h
 include/openssl/*.he
 
-/apps/*.h
-/apps/*.c
-/apps/openssl
-/apps/openssl.cnf
 !/apps/apps_win.c
 !/apps/poll_win.c
 !/apps/certhash_disabled.c
+/apps/*.h
+/apps/*.c
+/apps/*.cnf
+/apps/*.pem
+/apps/openssl
 
-/crypto
 !/crypto/Makefile.am.*
 !/crypto/compat/arc4random.h
 !/crypto/compat/b_win.c
@@ -126,14 +126,15 @@ include/openssl/*.he
 !/crypto/compat/inet_pton.c
 !/crypto/compat/ui_openssl_win.c
 !/crypto/CMakeLists.txt
+/crypto
 
+!/libtls-standalone/compat/Makefile.am
 /libtls-standalone/include/*.h
 /libtls-standalone/src/*.c
 /libtls-standalone/src/*.h
 /libtls-standalone/src
 /libtls-standalone/tests/test
 /libtls-standalone/compat
-!/libtls-standalone/compat/Makefile.am
 /libtls-standalone/VERSION
 /libtls-standalone/m4
 /libtls-standalone/man

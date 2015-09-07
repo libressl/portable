@@ -1,5 +1,7 @@
 include $(top_srcdir)/Makefile.am.common
 
+EXTRA_DIST = CMakeLists.txt
+
 SUBDIRS = openssl
 
 noinst_HEADERS = pqueue.h

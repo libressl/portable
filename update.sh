@@ -280,7 +280,8 @@ done
 
 # copy manpages
 echo "copying manpages"
-echo dist_man_MANS= > man/Makefile.am
+echo EXTRA_DIST = CMakeLists.txt > man/Makefile.am
+echo dist_man_MANS = >> man/Makefile.am
 
 $CP $openssl_app_src/openssl.1 man
 echo "dist_man_MANS += openssl.1" >> man/Makefile.am

@@ -158,6 +158,10 @@ if(CMAKE_HOST_WIN32)
 	set(OPENSSL_LIBS ${OPENSSL_LIBS} ws2_32)
 endif()
 
+if(NOT (CMAKE_SYSTEM_NAME MATCHES "Darwin" OR MSVC))
+	set(BUILD_SHARED true)
+endif()
+
 add_subdirectory(crypto)
 add_subdirectory(ssl)
 add_subdirectory(apps)

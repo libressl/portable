@@ -13,7 +13,7 @@ LibreSSL is API compatible with OpenSSL 1.0.1, but does not yet include all
 new APIs from OpenSSL 1.0.2 and later. LibreSSL also includes APIs not yet
 present in OpenSSL. The current common API subset is OpenSSL 1.0.1.
 
-LibreSSL it is not ABI compatible with any release of OpenSSL, or necessarily
+LibreSSL is not ABI compatible with any release of OpenSSL, or necessarily
 earlier releases of LibreSSL. You will need to relink your programs to
 LibreSSL in order to use it, just as in moving between major versions of OpenSSL.
 LibreSSL's installed library version numbers are incremented to account for

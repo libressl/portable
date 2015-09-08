@@ -29,15 +29,24 @@
 
 #include <windows.h>
 
+#if _MSC_VER >= 1900
+#include <../ucrt/stdio.h>
+#include <../ucrt/wchar.h>
+#include <../ucrt/string.h>
+#include <../ucrt/stdlib.h>
+#include <../ucrt/sys/types.h>
+#include <../ucrt/errno.h>
+#else
 #include <../include/stdio.h>
-#include <../include/stdarg.h>
 #include <../include/wchar.h>
 #include <../include/string.h>
 #include <../include/stdlib.h>
-#include <../include/malloc.h>
 #include <../include/sys/types.h>
-#include <sys/stat.h>
 #include <../include/errno.h>
+#endif
+
+#include <stdarg.h>
+#include <sys/stat.h>
 
 /* Indicates that d_type field is available in dirent structure */
 #define _DIRENT_HAVE_D_TYPE

@@ -4,7 +4,11 @@
  */
 
 #ifdef _MSC_VER
+#if _MSC_VER >= 1900
+#include <../ucrt/sys/types.h>
+#else
 #include <../include/sys/types.h>
+#endif
 #else
 #include_next <sys/types.h>
 #endif

@@ -11,7 +11,11 @@
 #else
 
 #include <windows.h>
+#if _MSC_VER >= 1900
+#include <../ucrt/sys/stat.h>
+#else
 #include <../include/sys/stat.h>
+#endif
 
 /* File type and permission flags for stat() */
 #if !defined(S_IFMT)

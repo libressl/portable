@@ -7,7 +7,11 @@
 #define LIBCRYPTOCOMPAT_STRING_H
 
 #ifdef _MSC_VER
+#if _MSC_VER >= 1900
+#include <../ucrt/string.h>
+#else
 #include <../include/string.h>
+#endif
 #else
 #include_next <string.h>
 #endif

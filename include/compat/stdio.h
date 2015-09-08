@@ -7,7 +7,13 @@
 #define LIBCRYPTOCOMPAT_STDIO_H
 
 #ifdef _MSC_VER
+#if _MSC_VER >= 1900
+#include <../ucrt/stdlib.h>
+#include <../ucrt/corecrt_io.h>
+#include <../ucrt/stdio.h>
+#else
 #include <../include/stdio.h>
+#endif
 #else
 #include_next <stdio.h>
 #endif

@@ -51,16 +51,15 @@ set(
 	t1_srvr.c
 )
 
-add_library(ssl-objects OBJECT ${SSL_SRC})
-set_property(TARGET ssl-objects PROPERTY POSITION_INDEPENDENT_CODE 1)
-add_library(ssl STATIC $<TARGET_OBJECTS:ssl-objects>)
-set(SSL_TARGETS ssl)
-
 if (BUILD_SHARED)
+	add_library(ssl-objects OBJECT ${SSL_SRC})
+	add_library(ssl STATIC $<TARGET_OBJECTS:ssl-objects>)
 	add_library(ssl-shared SHARED $<TARGET_OBJECTS:ssl-objects>)
 	set_target_properties(ssl-shared PROPERTIES OUTPUT_NAME ssl)
-	set_target_properties(ssl-shared PROPERTIES VERSION ${SSL_VERSION} SOVERSION ${SSL_MAJOR_VERSION})
-	set(SSL_TARGETS ${SSL_TARGETS} ssl-shared)
+	set_target_properties(ssl-shared PROPERTIES VERSION ${SSL_VERSION}
+		SOVERSION ${SSL_MAJOR_VERSION})
+	install(TARGETS ssl ssl-shared DESTINATION lib)
+else()
+	add_library(ssl STATIC ${SSL_SRC})
+	install(TARGETS ssl DESTINATION lib)
 endif()
-
-install(TARGETS ${SSL_TARGETS} DESTINATION lib)

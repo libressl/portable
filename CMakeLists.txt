@@ -36,6 +36,8 @@ add_definitions(-DLIBRESSL_INTERNAL)
 add_definitions(-DOPENSSL_NO_HW_PADLOCK)
 add_definitions(-DOPENSSL_NO_ASM)
 
+set(CMAKE_POSITION_INDEPENDENT_CODE true)
+
 if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID MATCHES "Clang")
 	add_definitions(-Wno-pointer-sign)
 endif()

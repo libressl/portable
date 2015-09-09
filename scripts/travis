@@ -3,10 +3,10 @@ set -e
 
 ./autogen.sh
 
-if "x$ARCH" = "xnative"; then
+if [ "x$ARCH" = "xnative" ]; then
 	# test autotools
 	./configure
-	if `uname` = "Darwin"; then
+	if [ `uname` = "Darwin" ]; then
 		# OS X runs out of resources if we run 'make -j check'
 		make check
 	else
@@ -21,7 +21,7 @@ if "x$ARCH" = "xnative"; then
 	cd build
 
 	# test cmake and ninja
-	if `uname` = "Darwin"; then
+	if [ `uname` = "Darwin" ]; then
 		cmake ..
 		make
 	else
@@ -33,7 +33,7 @@ if "x$ARCH" = "xnative"; then
 	fi
 else
 	CPU=i686
-	if "x$ARCH" = "xmingw64"; then
+	if [ "x$ARCH" = "xmingw64" ]; then
 		CPU=x86_64
 	fi
 	export CC=$CPU-w64-mingw32-gcc

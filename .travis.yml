@@ -22,8 +22,3 @@ matrix:
 
 script:
   "./scripts/travis"
-
-addons:
-  apt:
-    packages:
-      - cmake

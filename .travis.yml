@@ -27,4 +27,3 @@ addons:
   apt:
     packages:
       - cmake
-      - ninja-build

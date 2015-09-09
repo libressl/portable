@@ -21,8 +21,8 @@ if [ "x$ARCH" = "xnative" ]; then
 	# test cmake and ninja
 	mkdir build
 	cd build
-	cmake -GNinja ..
-	ninja
+	cmake ..
+	make
 else
 	CPU=i686
 	if [ "x$ARCH" = "xmingw64" ]; then

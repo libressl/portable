@@ -1,24 +1,30 @@
 language: c
 matrix:
-        include:
-                - compiler: clang
-                  os: osx
-                  env: ARCH=native
-                - compiler: gcc
-                  os: osx
-                  env: ARCH=native
-                - compiler: clang
-                  os: linux
-                  env: ARCH=native
-                - compiler: gcc
-                  os: linux
-                  env: ARCH=native
-                - compiler: gcc
-                  os: linux
-                  env: ARCH=mingw32
-                - compiler: gcc
-                  os: linux
-                  env: ARCH=mingw64
+  include:
+    - compiler: clang
+      os: osx
+      env: ARCH=native
+    - compiler: gcc
+      os: osx
+      env: ARCH=native
+    - compiler: clang
+      os: linux
+      env: ARCH=native
+    - compiler: gcc
+      os: linux
+      env: ARCH=native
+    - compiler: gcc
+      os: linux
+      env: ARCH=mingw32
+    - compiler: gcc
+      os: linux
+      env: ARCH=mingw64
 
 script:
-        "./scripts/travis"
+  "./scripts/travis"
+
+addons:
+  apt:
+    packages:
+      - cmake
+      - ninja-build

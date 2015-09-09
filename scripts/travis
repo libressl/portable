@@ -4,6 +4,7 @@ set -e
 ./autogen.sh
 
 if [ "x$ARCH" = "xnative" ]; then
+	# test autotools
 	./configure
 	if [ `uname` = "Darwin" ]; then
 		# OS X runs out of resources if we run 'make -j check'
@@ -11,6 +12,17 @@ if [ "x$ARCH" = "xnative" ]; then
 	else
 		make -j distcheck
 	fi
+
+	# make distribution
+	make dist
+	tar zxvf libressl-*.tar.gz
+	cd libressl-*
+
+	# test cmake and ninja
+	mkdir build
+	cd build
+	cmake -GNinja ..
+	ninja
 else
 	CPU=i686
 	if [ "x$ARCH" = "xmingw64" ]; then

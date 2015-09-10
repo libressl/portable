@@ -106,7 +106,6 @@ tls/*.h
 include/pqueue.h
 include/tls.h
 include/openssl/*.h
-include/openssl/*.he
 
 !/apps/apps_win.c
 !/apps/poll_win.c

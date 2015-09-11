@@ -6,7 +6,7 @@ set -e
 if [ "x$ARCH" = "xnative" ]; then
 	# test autotools
 	./configure
-	make check
+	make -j 4 check
 
 	# make distribution
 	make dist

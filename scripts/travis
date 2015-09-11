@@ -4,12 +4,29 @@ set -e
 ./autogen.sh
 
 if [ "x$ARCH" = "xnative" ]; then
+	# test autotools
 	./configure
+	make check
+
+	# make distribution
+	make dist
+	tar zxvf libressl-*.tar.gz
+	cd libressl-*
+	mkdir build
+	cd build
+
+	# test cmake and ninja
 	if [ `uname` = "Darwin" ]; then
-		# OS X runs out of resources if we run 'make -j check'
-		make check
+		cmake ..
+		make
 	else
-		make -j distcheck
+		sudo apt-get update
+		sudo apt-get install -y python-software-properties
+		sudo apt-add-repository -y ppa:kalakris/cmake
+		sudo apt-get update
+		sudo apt-get install -y cmake ninja-build
+		cmake -GNinja ..
+		ninja
 	fi
 else
 	CPU=i686

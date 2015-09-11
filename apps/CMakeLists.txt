@@ -21,7 +21,6 @@ set(
 	ec.c
 	ecparam.c
 	enc.c
-	engine.c
 	errstr.c
 	gendh.c
 	gendsa.c

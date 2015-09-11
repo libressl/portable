@@ -21,7 +21,6 @@ openssl_SOURCES += dsaparam.c
 openssl_SOURCES += ec.c
 openssl_SOURCES += ecparam.c
 openssl_SOURCES += enc.c
-openssl_SOURCES += engine.c
 openssl_SOURCES += errstr.c
 openssl_SOURCES += gendh.c
 openssl_SOURCES += gendsa.c

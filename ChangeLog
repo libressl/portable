@@ -28,6 +28,44 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.3.0 - SSLv3 removed, libtls API changes, portability improvements
+e
+	* SSLv3 is now permanently removed from the tree.
+
+	* The libtls API is changed from the 2.2.x series.
+
+	  The read/writte functions work correctly with external event
+	  libraries.  See the tls_init man page for examples of using libtls
+	  correctly in asynchronous mode.
+
+	  Client-side verification is now supported, with the client supplying
+	  the certificate to the server.
+
+	  Also, when using tls_connect_fds, tls_connect_socket or
+	  tls_accept_fds, libtls no longer implicitly closes the passed in
+	  sockets. The caller is responsible for closing them in this case.
+
+	* When loading a DSA key from an raw (without DH parameters) ASN.1
+	  serialization, perform some consistency checks on its `p' and `q'
+	  values, and return an error if the checks failed.
+
+	  Thanks for Georgi Guninski (guninski at guninski dot com) for
+	  mentioning the possibility of a weak (non prime) q value and
+	  providing a test case.
+
+	  See
+	  https://cpunks.org/pipermail/cypherpunks/2015-September/009007.html
+	  for a longer discussion.
+
+	* Removed support for DTLS_BAD_VER. Pre-DTLSv1 implementations are no
+	  longer supported.
+
+	* The engine command and parameters are removed from the openssl(1).
+	  Previous releases removed dynamic and builtin engine support
+	  already.
+
+	* The out_len argument of AEAD changed from ssize_t to size_t.
+
 2.2.3 - Bug fixes, build enhancements
 
 	* LibreSSL 2.2.2 incorrectly handles ClientHello messages that do not

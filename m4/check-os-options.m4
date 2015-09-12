@@ -43,6 +43,7 @@ case $host_os in
 		CPPFLAGS="$CPPFLAGS -D_OPENBSD_SOURCE"
 		;;
 	*openbsd* | *bitrig*)
+		HOST_OS=openbsd
 		HOST_ABI=elf
 		AC_DEFINE([HAVE_ATTRIBUTE__BOUNDED__], [1], [OpenBSD gcc has bounded])
 		;;
@@ -72,6 +73,7 @@ AM_CONDITIONAL([HOST_FREEBSD], [test x$HOST_OS = xfreebsd])
 AM_CONDITIONAL([HOST_HPUX],    [test x$HOST_OS = xhpux])
 AM_CONDITIONAL([HOST_LINUX],   [test x$HOST_OS = xlinux])
 AM_CONDITIONAL([HOST_NETBSD],  [test x$HOST_OS = xnetbsd])
+AM_CONDITIONAL([HOST_OPENBSD], [test x$HOST_OS = xopenbsd])
 AM_CONDITIONAL([HOST_SOLARIS], [test x$HOST_OS = xsolaris])
 AM_CONDITIONAL([HOST_WIN],     [test x$HOST_OS = xwin])
 ])

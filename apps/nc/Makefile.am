@@ -1,5 +1,7 @@
 include $(top_srcdir)/Makefile.am.common
 
+if HOST_OPENBSD
+
 if HAVE_POLL
 
 noinst_PROGRAMS = nc
@@ -14,6 +16,8 @@ noinst_HEADERS = atomicio.h
 
 if !HAVE_STRTONUM
 nc_SOURCES += strtonum.c
+endif
+
 endif
 
 endif

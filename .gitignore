@@ -107,14 +107,15 @@ include/pqueue.h
 include/tls.h
 include/openssl/*.h
 
-!/apps/apps_win.c
-!/apps/poll_win.c
-!/apps/certhash_disabled.c
-/apps/*.h
-/apps/*.c
-/apps/*.cnf
-/apps/*.pem
-/apps/openssl
+/apps/nc/*.h
+/apps/nc/*.c
+/apps/nc/nc*
+/apps/openssl/*.h
+/apps/openssl/*.c
+/apps/openssl/*.cnf
+/apps/openssl/*.pem
+/apps/openssl/openssl
+/apps/openssl/compat/strtonum.c
 
 !/crypto/Makefile.am.*
 !/crypto/compat/arc4random.h

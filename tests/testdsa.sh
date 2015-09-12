@@ -4,9 +4,9 @@
 
 #Test DSA certificate generation of openssl
 
-cmd=../apps/openssl
-if [ -e ../apps/openssl.exe ]; then
-	cmd=../apps/openssl.exe
+cmd=../apps/openssl/openssl
+if [ -e ../apps/openssl/openssl.exe ]; then
+	cmd=../apps/openssl/openssl.exe
 fi
 
 if [ -z $srcdir ]; then

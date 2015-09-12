@@ -1,0 +1,11 @@
+include $(top_srcdir)/Makefile.am.common
+
+bin_PROGRAMS = nc
+
+nc_LDADD = $(PLATFORM_LDADD) $(PROG_LDADD)
+nc_LDADD += $(top_builddir)/tls/libtls.la
+
+nc_SOURCES = atomicio.c
+nc_SOURCES += netcat.c
+nc_SOURCES += socks.c
+noinst_HEADERS = atomicio.h

@@ -119,6 +119,8 @@ AC_CONFIG_FILES([
 	tls/Makefile
 	tests/Makefile
 	apps/Makefile
+	apps/openssl/Makefile
+	apps/nc/Makefile
 	man/Makefile
 	libcrypto.pc
 	libssl.pc

@@ -3,7 +3,8 @@ include $(top_srcdir)/Makefile.am.common
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/modes
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/asn1
 AM_CPPFLAGS += -I $(top_srcdir)/ssl
-AM_CPPFLAGS += -I $(top_srcdir)/apps
+AM_CPPFLAGS += -I $(top_srcdir)/apps/openssl
+AM_CPPFLAGS += -I $(top_srcdir)/apps/openssl/compat
 
 LDADD = $(PLATFORM_LDADD) $(PROG_LDADD)
 LDADD += $(top_builddir)/ssl/libssl.la

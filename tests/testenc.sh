@@ -2,9 +2,9 @@
 #	$OpenBSD: testenc.sh,v 1.1 2014/08/26 17:50:07 jsing Exp $
 
 test=p
-cmd=../apps/openssl
-if [ -e ../apps/openssl.exe ]; then
-	cmd=../apps/openssl.exe
+cmd=../apps/openssl/openssl
+if [ -e ../apps/openssl/openssl.exe ]; then
+	cmd=../apps/openssl/openssl.exe
 fi
 
 cat openssl.cnf >$test;

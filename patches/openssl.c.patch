@@ -1,5 +1,5 @@
---- apps/openssl.c.orig	2015-07-20 02:01:42.000000000 -0600
-+++ apps/openssl.c	2015-07-20 02:02:00.000000000 -0600
+--- apps/openssl/openssl.c.orig	2015-07-20 02:01:42.000000000 -0600
++++ apps/openssl/openssl.c	2015-07-20 02:02:00.000000000 -0600
 @@ -130,6 +130,19 @@
  #include <openssl/engine.h>
  #endif

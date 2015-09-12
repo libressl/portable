@@ -29,7 +29,7 @@ history is also available from Git.
 LibreSSL Portable Release Notes:
 
 2.3.0 - SSLv3 removed, libtls API changes, portability improvements
-e
+
 	* SSLv3 is now permanently removed from the tree.
 
 	* The libtls API is changed from the 2.2.x series.

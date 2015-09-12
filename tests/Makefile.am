@@ -8,6 +8,7 @@ AM_CPPFLAGS += -I $(top_srcdir)/apps
 LDADD = $(PLATFORM_LDADD) $(PROG_LDADD)
 LDADD += $(top_builddir)/ssl/libssl.la
 LDADD += $(top_builddir)/crypto/libcrypto.la
+LDADD += $(top_builddir)/tls/libtls.la
 
 TESTS =
 check_PROGRAMS =
@@ -88,6 +89,11 @@ noinst_HEADERS = tests.h
 TESTS += cipherstest
 check_PROGRAMS += cipherstest
 cipherstest_SOURCES = cipherstest.c
+
+# clienttest
+TESTS += clienttest
+check_PROGRAMS += clienttest
+clienttest_SOURCES = clienttest.c
 
 # cts128test
 TESTS += cts128test
@@ -300,3 +306,7 @@ TESTS += utf8test
 check_PROGRAMS += utf8test
 utf8test_SOURCES = utf8test.c
 
+# verifytest
+TESTS += verifytest
+check_PROGRAMS += verifytest
+verifytest_SOURCES = verifytest.c

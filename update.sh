@@ -25,6 +25,7 @@ libcrypto_regress=$CWD/openbsd/src/regress/lib/libcrypto
 libssl_src=$CWD/openbsd/src/lib/libssl
 libssl_regress=$CWD/openbsd/src/regress/lib/libssl
 libtls_src=$CWD/openbsd/src/lib/libtls
+libtls_regress=$CWD/openbsd/src/regress/lib/libtls
 openssl_app_src=$CWD/openbsd/src/usr.bin/openssl
 
 # load library versions
@@ -251,6 +252,11 @@ done
 $CP $libssl_regress/unit/tests.h tests
 $CP $libssl_regress/certs/ca.pem tests
 $CP $libssl_regress/certs/server.pem tests
+
+# copy libtls tests
+for i in `find $libtls_regress -name '*.c'`; do
+	 $CP "$i" tests
+done
 
 chmod 755 tests/testssl
 

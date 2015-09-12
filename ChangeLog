@@ -34,7 +34,7 @@ e
 
 	* The libtls API is changed from the 2.2.x series.
 
-	  The read/writte functions work correctly with external event
+	  The read/write functions work correctly with external event
 	  libraries.  See the tls_init man page for examples of using libtls
 	  correctly in asynchronous mode.
 

@@ -5,7 +5,8 @@ include_directories(
 	../crypto/modes
 	../crypto/asn1
 	../ssl
-	../apps
+	../apps/openssl
+	../apps/openssl/compat
 )
 
 set(ENV{srcdir} ${CMAKE_CURRENT_SOURCE_DIR})
@@ -74,6 +75,11 @@ add_test(cipher_list cipher_list)
 add_executable(cipherstest cipherstest.c)
 target_link_libraries(cipherstest ${OPENSSL_LIBS})
 add_test(cipherstest cipherstest)
+
+# clienttest
+add_executable(clienttest clienttest.c)
+target_link_libraries(clienttest ${OPENSSL_LIBS})
+add_test(clienttest clienttest)
 
 # cts128test
 add_executable(cts128test cts128test.c)
@@ -264,3 +270,8 @@ add_test(timingsafe timingsafe)
 add_executable(utf8test utf8test.c)
 target_link_libraries(utf8test ${OPENSSL_LIBS})
 add_test(utf8test utf8test)
+
+# verifytest
+add_executable(verifytest verifytest.c)
+target_link_libraries(verifytest tls ${OPENSSL_LIBS})
+add_test(verifytest verifytest)

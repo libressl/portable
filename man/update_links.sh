@@ -3,7 +3,7 @@
 # Run this periodically to ensure that the manpage links are up to date
 
 echo "# This is an auto-generated file by $0" > links
-sudo makewhatis
+doas makewhatis
 for i in `ls -1 *.3`; do
   name=`echo $i|cut -d. -f1`
   links=`sqlite3 /usr/share/man/mandoc.db \

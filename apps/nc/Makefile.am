@@ -13,7 +13,7 @@ nc_SOURCES += socks.c
 noinst_HEADERS = atomicio.h
 
 if !HAVE_STRTONUM
-nc_SOURCES += compat/strtonum.c
+nc_SOURCES += strtonum.c
 endif
 
 endif

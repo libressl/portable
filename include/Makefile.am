@@ -31,6 +31,7 @@ noinst_HEADERS += compat/sys/ioctl.h
 noinst_HEADERS += compat/sys/mman.h
 noinst_HEADERS += compat/sys/param.h
 noinst_HEADERS += compat/sys/select.h
+noinst_HEADERS += compat/sys/socket.h
 noinst_HEADERS += compat/sys/stat.h
 noinst_HEADERS += compat/sys/time.h
 noinst_HEADERS += compat/sys/types.h

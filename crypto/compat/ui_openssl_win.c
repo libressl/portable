@@ -286,7 +286,7 @@ error:
 	if (ps >= 1)
 		popsig();
 
-	OPENSSL_cleanse(result, BUFSIZ);
+	explicit_bzero(result, BUFSIZ);
 	return ok;
 }
 

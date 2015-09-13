@@ -41,6 +41,10 @@ Makefile.in
 *.def
 *.pc
 
+# man pages
+*.1
+*.3
+
 # tests
 test-driver
 *.log
@@ -142,7 +146,4 @@ include/openssl/*.h
 openbsd/
 
 *.tar.gz
-apps/*.1*
-man/*.3
-man/*.1
 man/Makefile.am

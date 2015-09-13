@@ -2,6 +2,8 @@ include $(top_srcdir)/Makefile.am.common
 
 bin_PROGRAMS = openssl
 
+dist_man_MANS = openssl.1
+
 openssl_LDADD = $(PLATFORM_LDADD) $(PROG_LDADD)
 openssl_LDADD += $(top_builddir)/ssl/libssl.la
 openssl_LDADD += $(top_builddir)/crypto/libcrypto.la

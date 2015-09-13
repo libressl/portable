@@ -6,6 +6,8 @@ if HAVE_POLL
 
 noinst_PROGRAMS = nc
 
+EXTRA_DIST = nc.1
+
 nc_LDADD = $(PLATFORM_LDADD) $(PROG_LDADD)
 nc_LDADD += $(top_builddir)/tls/libtls.la
 

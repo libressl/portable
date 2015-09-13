@@ -1,40 +1,12 @@
---- apps/openssl/openssl.c.orig	2015-07-20 02:01:42.000000000 -0600
-+++ apps/openssl/openssl.c	2015-07-20 02:02:00.000000000 -0600
-@@ -130,6 +130,19 @@
- #include <openssl/engine.h>
- #endif
-
-+#ifdef _WIN32
-+#include <io.h>
-+#include <fcntl.h>
-+static void set_stdio_binary(void)
-+{
-+	_setmode(_fileno(stdin), _O_BINARY);
-+	_setmode(_fileno(stdout), _O_BINARY);
-+	_setmode(_fileno(stderr), _O_BINARY);
-+}
-+#else
-+static void set_stdio_binary(void) {};
-+#endif
-+
- #include "progs.h"
- #include "s_apps.h"
-
-@@ -204,7 +216,9 @@
+--- apps/openssl/openssl.c.orig	Sun Sep 13 09:11:31 2015
++++ apps/openssl/openssl.c	Sun Sep 13 09:10:02 2015
+@@ -399,7 +399,9 @@
  static void
  openssl_startup(void)
  {
 +#ifndef _WIN32
  	signal(SIGPIPE, SIG_IGN);
 +#endif
-
- 	CRYPTO_malloc_init();
+ 
  	OpenSSL_add_all_algorithms();
-@@ -216,6 +230,7 @@
- #endif
-
- 	setup_ui_method();
-+	set_stdio_binary();
- }
-
- static void
+ 	SSL_library_init();

@@ -111,6 +111,7 @@ include/pqueue.h
 include/tls.h
 include/openssl/*.h
 
+!/apps/nc/readpassphrase.c
 /apps/nc/*.h
 /apps/nc/*.c
 /apps/nc/nc*

@@ -15,8 +15,10 @@ case $host_os in
 		HOST_OS=cygwin
 		;;
 	*darwin*)
+		BUILD_NC=yes
 		HOST_OS=darwin
 		HOST_ABI=macosx
+		AC_SUBST([PROG_LDADD], ['-lresolv'])
 		;;
 	*freebsd*)
 		HOST_OS=freebsd
@@ -34,15 +36,18 @@ case $host_os in
 		AC_SUBST([PLATFORM_LDADD], ['-lpthread'])
 		;;
 	*linux*)
+		BUILD_NC=yes
 		HOST_OS=linux
 		HOST_ABI=elf
 		CPPFLAGS="$CPPFLAGS -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
+		AC_SUBST([PROG_LDADD], ['-lresolv'])
 		;;
 	*netbsd*)
 		HOST_OS=netbsd
 		CPPFLAGS="$CPPFLAGS -D_OPENBSD_SOURCE"
 		;;
 	*openbsd* | *bitrig*)
+		BUILD_NC=yes
 		HOST_OS=openbsd
 		HOST_ABI=elf
 		AC_DEFINE([HAVE_ATTRIBUTE__BOUNDED__], [1], [OpenBSD gcc has bounded])
@@ -66,6 +71,7 @@ case $host_os in
 	*) ;;
 esac
 
+AM_CONDITIONAL([BUILD_NC],     [test x$BUILD_NC = xyes])
 AM_CONDITIONAL([HOST_AIX],     [test x$HOST_OS = xaix])
 AM_CONDITIONAL([HOST_CYGWIN],  [test x$HOST_OS = xcygwin])
 AM_CONDITIONAL([HOST_DARWIN],  [test x$HOST_OS = xdarwin])

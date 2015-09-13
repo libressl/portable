@@ -23,6 +23,7 @@ noinst_HEADERS += compat/arpa/nameser.h
 noinst_HEADERS += compat/machine/endian.h
 
 noinst_HEADERS += compat/netinet/in.h
+noinst_HEADERS += compat/netinet/ip.h
 noinst_HEADERS += compat/netinet/tcp.h
 
 noinst_HEADERS += compat/sys/cdefs.h
@@ -31,7 +32,6 @@ noinst_HEADERS += compat/sys/mman.h
 noinst_HEADERS += compat/sys/param.h
 noinst_HEADERS += compat/sys/select.h
 noinst_HEADERS += compat/sys/stat.h
-noinst_HEADERS += compat/sys/socket.h
 noinst_HEADERS += compat/sys/time.h
 noinst_HEADERS += compat/sys/types.h
 noinst_HEADERS += compat/sys/uio.h

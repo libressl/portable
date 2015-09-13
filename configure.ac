@@ -52,8 +52,6 @@ CHECK_LIBC_COMPAT
 CHECK_LIBC_CRYPTO_COMPAT
 CHECK_VA_COPY
 
-AC_CHECK_HEADERS([err.h])
-
 AC_ARG_WITH([openssldir],
 	AS_HELP_STRING([--with-openssldir],
 		       [Set the default openssl directory]),

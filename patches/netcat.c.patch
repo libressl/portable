@@ -1,0 +1,137 @@
+--- apps/nc/netcat.c.orig	Sun Sep 13 08:12:39 2015
++++ apps/nc/netcat.c	Sun Sep 13 16:39:51 2015
+@@ -98,9 +98,13 @@
+ int	Dflag;					/* sodebug */
+ int	Iflag;					/* TCP receive buffer size */
+ int	Oflag;					/* TCP send buffer size */
++#ifdef TCP_MD5SIG
+ int	Sflag;					/* TCP MD5 signature option */
++#endif
+ int	Tflag = -1;				/* IP Type of Service */
++#ifdef SO_RTABLE
+ int	rtableid = -1;
++#endif
+ 
+ int	usetls;					/* use TLS */
+ char    *Cflag;					/* Public cert file */
+@@ -150,7 +154,7 @@
+ 	struct servent *sv;
+ 	socklen_t len;
+ 	struct sockaddr_storage cliaddr;
+-	char *proxy;
++	char *proxy = NULL;
+ 	const char *errstr, *proxyhost = "", *proxyport = NULL;
+ 	struct addrinfo proxyhints;
+ 	char unix_dg_tmp_socket_buf[UNIX_DG_TMP_SOCKET_SIZE];
+@@ -251,12 +255,14 @@
+ 		case 'u':
+ 			uflag = 1;
+ 			break;
++#ifdef SO_RTABLE
+ 		case 'V':
+ 			rtableid = (int)strtonum(optarg, 0,
+ 			    RT_TABLEID_MAX, &errstr);
+ 			if (errstr)
+ 				errx(1, "rtable %s: %s", errstr, optarg);
+ 			break;
++#endif
+ 		case 'v':
+ 			vflag = 1;
+ 			break;
+@@ -289,9 +295,11 @@
+ 				errx(1, "TCP send window %s: %s",
+ 				    errstr, optarg);
+ 			break;
++#ifdef TCP_MD5SIG
+ 		case 'S':
+ 			Sflag = 1;
+ 			break;
++#endif
+ 		case 'T':
+ 			errstr = NULL;
+ 			errno = 0;
+@@ -776,7 +784,10 @@
+ remote_connect(const char *host, const char *port, struct addrinfo hints)
+ {
+ 	struct addrinfo *res, *res0;
+-	int s, error, on = 1;
++	int s, error;
++#ifdef SO_BINDANY
++	int on = 1;
++#endif
+ 
+ 	if ((error = getaddrinfo(host, port, &hints, &res)))
+ 		errx(1, "getaddrinfo: %s", gai_strerror(error));
+@@ -787,16 +798,20 @@
+ 		    SOCK_NONBLOCK, res0->ai_protocol)) < 0)
+ 			continue;
+ 
++#ifdef SO_RTABLE
+ 		if (rtableid >= 0 && (setsockopt(s, SOL_SOCKET, SO_RTABLE,
+ 		    &rtableid, sizeof(rtableid)) == -1))
+ 			err(1, "setsockopt SO_RTABLE");
++#endif
+ 
+ 		/* Bind to a local port or source address if specified. */
+ 		if (sflag || pflag) {
+ 			struct addrinfo ahints, *ares;
+ 
++#ifdef SO_BINDANY
+ 			/* try SO_BINDANY, but don't insist */
+ 			setsockopt(s, SOL_SOCKET, SO_BINDANY, &on, sizeof(on));
++#endif
+ 			memset(&ahints, 0, sizeof(struct addrinfo));
+ 			ahints.ai_family = res0->ai_family;
+ 			ahints.ai_socktype = uflag ? SOCK_DGRAM : SOCK_STREAM;
+@@ -887,9 +902,11 @@
+ 		    res0->ai_protocol)) < 0)
+ 			continue;
+ 
++#ifdef SO_RTABLE
+ 		if (rtableid >= 0 && (setsockopt(s, SOL_SOCKET, SO_RTABLE,
+ 		    &rtableid, sizeof(rtableid)) == -1))
+ 			err(1, "setsockopt SO_RTABLE");
++#endif
+ 
+ 		ret = setsockopt(s, SOL_SOCKET, SO_REUSEPORT, &x, sizeof(x));
+ 		if (ret == -1)
+@@ -1337,11 +1354,13 @@
+ {
+ 	int x = 1;
+ 
++#ifdef TCP_MD5SIG
+ 	if (Sflag) {
+ 		if (setsockopt(s, IPPROTO_TCP, TCP_MD5SIG,
+ 			&x, sizeof(x)) == -1)
+ 			err(1, NULL);
+ 	}
++#endif
+ 	if (Dflag) {
+ 		if (setsockopt(s, SOL_SOCKET, SO_DEBUG,
+ 			&x, sizeof(x)) == -1)
+@@ -1516,15 +1535,19 @@
+ 	\t-P proxyuser\tUsername for proxy authentication\n\
+ 	\t-p port\t	Specify local port for remote connects\n\
+ 	\t-R CAfile	CA bundle\n\
+-	\t-r		Randomize remote ports\n\
+-	\t-S		Enable the TCP MD5 signature option\n\
+-	\t-s source	Local source address\n\
++	\t-r		Randomize remote ports\n"
++#ifdef TCP_MD5SIG
++	"\t-S		Enable the TCP MD5 signature option\n"
++#endif
++	"\t-s source	Local source address\n\
+ 	\t-T keyword	TOS value or TLS options\n\
+ 	\t-t		Answer TELNET negotiation\n\
+ 	\t-U		Use UNIX domain socket\n\
+-	\t-u		UDP mode\n\
+-	\t-V rtable	Specify alternate routing table\n\
+-	\t-v		Verbose\n\
++	\t-u		UDP mode\n"
++#ifdef SO_RTABLE
++	"\t-V rtable	Specify alternate routing table\n"
++#endif
++	"\t-v		Verbose\n\
+ 	\t-w timeout	Timeout for connects and final net reads\n\
+ 	\t-X proto	Proxy protocol: \"4\", \"5\" (SOCKS) or \"connect\"\n\
+ 	\t-x addr[:port]\tSpecify proxy address and port\n\

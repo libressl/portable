@@ -66,7 +66,6 @@ $CP $libssl_src/src/LICENSE COPYING
 
 $CP $libcrypto_src/crypto/arch/amd64/opensslconf.h include/openssl
 $CP $libssl_src/src/crypto/opensslfeatures.h include/openssl
-$CP $libssl_src/src/e_os2.h include/openssl
 $CP $libssl_src/src/ssl/pqueue.h include
 
 $CP $libtls_src/tls.h include

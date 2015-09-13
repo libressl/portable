@@ -11,6 +11,7 @@ libtls_la_LIBADD = ../crypto/libcrypto.la ../ssl/libssl.la $(PLATFORM_LDADD)
 libtls_la_SOURCES = tls.c
 libtls_la_SOURCES += tls_client.c
 libtls_la_SOURCES += tls_config.c
+libtls_la_SOURCES += tls_conninfo.c
 libtls_la_SOURCES += tls_server.c
 libtls_la_SOURCES += tls_peer.c
 libtls_la_SOURCES += tls_util.c

@@ -419,7 +419,6 @@ noinst_HEADERS += ec/ec_lcl.h
 libcrypto_la_SOURCES += ecdh/ech_err.c
 libcrypto_la_SOURCES += ecdh/ech_key.c
 libcrypto_la_SOURCES += ecdh/ech_lib.c
-libcrypto_la_SOURCES += ecdh/ech_ossl.c
 noinst_HEADERS += ecdh/ech_locl.h
 
 # ecdsa

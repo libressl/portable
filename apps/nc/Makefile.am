@@ -7,8 +7,8 @@ noinst_PROGRAMS = nc
 EXTRA_DIST = nc.1
 
 nc_LDADD = $(PLATFORM_LDADD) $(PROG_LDADD)
-nc_LDADD += $(top_builddir)/tls/libcrypto.la
-nc_LDADD += $(top_builddir)/tls/libssl.la
+nc_LDADD += $(top_builddir)/crypto/libcrypto.la
+nc_LDADD += $(top_builddir)/ssl/libssl.la
 nc_LDADD += $(top_builddir)/tls/libtls.la
 
 CPPFLAGS += -I$(top_srcdir)/apps/nc/compat

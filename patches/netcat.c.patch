@@ -1,5 +1,5 @@
 --- apps/nc/netcat.c.orig	Sun Sep 13 08:12:39 2015
-+++ apps/nc/netcat.c	Sun Sep 13 19:05:00 2015
++++ apps/nc/netcat.c	Sun Sep 13 19:15:13 2015
 @@ -98,9 +98,13 @@
  int	Dflag;					/* sodebug */
  int	Iflag;					/* TCP receive buffer size */
@@ -90,7 +90,7 @@
 -	int s, ret, x = 1;
 +	int s;
 +#ifdef SO_REUSEPORT
-+	int ret; x = 1;
++	int ret, x = 1;
 +#endif
  	int error;
  

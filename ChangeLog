@@ -57,6 +57,10 @@ LibreSSL Portable Release Notes:
 	  https://cpunks.org/pipermail/cypherpunks/2015-September/009007.html
 	  for a longer discussion.
 
+	* Fixed a bug in ECDH_compute_key that can lead to silent truncation
+	  of the result key without error. A coding error could cause software
+	  to use much shorter keys than intended.
+
 	* Removed support for DTLS_BAD_VER. Pre-DTLSv1 implementations are no
 	  longer supported.
 
@@ -64,7 +68,20 @@ LibreSSL Portable Release Notes:
 	  Previous releases removed dynamic and builtin engine support
 	  already.
 
+	* Added Certplus CA root certificate to the default cert.pem file.
+
+	* New interface OPENSSL_cpu_caps is provided that does not allow
+	  software to inadvertently modify cpu capability flags.
+	  OPENSSL_ia32cap and OPENSSL_ia32cap_loc are removed.
+
 	* The out_len argument of AEAD changed from ssize_t to size_t.
+
+	* Deduplicated DTLS code, sharing bugfixes and improvements with
+	  TLS.
+
+	* Converted 'nc' to use libtls for client and server operations; it is
+	  included in the libressl-portable distribution as an example of how
+	  to use the library.
 
 2.2.3 - Bug fixes, build enhancements
 

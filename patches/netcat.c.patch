@@ -1,5 +1,5 @@
 --- apps/nc/netcat.c.orig	Sun Sep 13 08:12:39 2015
-+++ apps/nc/netcat.c	Sun Sep 13 18:56:27 2015
++++ apps/nc/netcat.c	Sun Sep 13 19:05:00 2015
 @@ -98,9 +98,13 @@
  int	Dflag;					/* sodebug */
  int	Iflag;					/* TCP receive buffer size */
@@ -83,7 +83,19 @@
  			memset(&ahints, 0, sizeof(struct addrinfo));
  			ahints.ai_family = res0->ai_family;
  			ahints.ai_socktype = uflag ? SOCK_DGRAM : SOCK_STREAM;
-@@ -887,13 +902,17 @@
+@@ -865,7 +880,10 @@
+ local_listen(char *host, char *port, struct addrinfo hints)
+ {
+ 	struct addrinfo *res, *res0;
+-	int s, ret, x = 1;
++	int s;
++#ifdef SO_REUSEPORT
++	int ret; x = 1;
++#endif
+ 	int error;
+ 
+ 	/* Allow nodename to be null. */
+@@ -887,13 +905,17 @@
  		    res0->ai_protocol)) < 0)
  			continue;
  
@@ -101,7 +113,7 @@
  
  		set_common_sockopts(s, res0->ai_family);
  
-@@ -1337,11 +1356,13 @@
+@@ -1337,11 +1359,13 @@
  {
  	int x = 1;
  
@@ -115,7 +127,7 @@
  	if (Dflag) {
  		if (setsockopt(s, SOL_SOCKET, SO_DEBUG,
  			&x, sizeof(x)) == -1)
-@@ -1516,15 +1537,19 @@
+@@ -1516,15 +1540,19 @@
  	\t-P proxyuser\tUsername for proxy authentication\n\
  	\t-p port\t	Specify local port for remote connects\n\
  	\t-R CAfile	CA bundle\n\

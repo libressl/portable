@@ -263,7 +263,6 @@ set(
 	ecdh/ech_err.c
 	ecdh/ech_key.c
 	ecdh/ech_lib.c
-	ecdh/ech_ossl.c
 	ecdsa/ecs_asn1.c
 	ecdsa/ecs_err.c
 	ecdsa/ecs_lib.c

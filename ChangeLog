@@ -68,6 +68,9 @@ LibreSSL Portable Release Notes:
 	  Previous releases removed dynamic and builtin engine support
 	  already.
 
+	* SHA-0 is removed, which was withdrawn shortly after publication 20
+	  years ago.
+
 	* Added Certplus CA root certificate to the default cert.pem file.
 
 	* New interface OPENSSL_cpu_caps is provided that does not allow

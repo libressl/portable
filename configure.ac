@@ -84,6 +84,10 @@ case $host_cpu in
 		AS_IF([test "x$BSWAP4" = "xyes"],,
 		    CPPFLAGS="$CPPFLAGS -D__STRICT_ALIGNMENT")
 		;;
+	*amd64*)
+		host_cpu=x86_64
+		;;
+
 esac
 
 AC_MSG_CHECKING([if .gnu.warning accepts long strings])

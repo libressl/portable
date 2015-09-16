@@ -273,11 +273,6 @@ TESTS += sha512test
 check_PROGRAMS += sha512test
 sha512test_SOURCES = sha512test.c
 
-# shatest
-TESTS += shatest
-check_PROGRAMS += shatest
-shatest_SOURCES = shatest.c
-
 # ssltest
 TESTS += ssltest.sh
 check_PROGRAMS += ssltest

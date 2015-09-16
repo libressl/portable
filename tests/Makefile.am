@@ -215,9 +215,10 @@ pbkdf2_SOURCES = pbkdf2.c
 # pidwraptest relies on an OS-specific way to give out pids and is generally
 # awkward on systems with slow fork
 if ENABLE_EXTRATESTS
-TESTS += pidwraptest
+TESTS += pidwraptest.sh
 check_PROGRAMS += pidwraptest
 pidwraptest_SOURCES = pidwraptest.c
+EXTRA_DIST += pidwraptest.sh
 endif
 
 # pkcs7test

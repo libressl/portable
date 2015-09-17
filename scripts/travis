@@ -19,6 +19,7 @@ if [ "x$ARCH" = "xnative" ]; then
 	if [ `uname` = "Darwin" ]; then
 		cmake ..
 		make
+		make test
 	else
 		sudo apt-get update
 		sudo apt-get install -y python-software-properties

@@ -242,11 +242,6 @@ add_executable(sha512test sha512test.c)
 target_link_libraries(sha512test ${OPENSSL_LIBS})
 add_test(sha512test sha512test)
 
-# shatest
-add_executable(shatest shatest.c)
-target_link_libraries(shatest ${OPENSSL_LIBS})
-add_test(shatest shatest)
-
 # ssltest
 #add_executable(ssltest ssltest.c)
 #target_link_libraries(ssltest ${OPENSSL_LIBS})

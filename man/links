@@ -446,7 +446,6 @@ EVP_DigestInit.3,EVP_md2.3
 EVP_DigestInit.3,EVP_md5.3
 EVP_DigestInit.3,EVP_md_null.3
 EVP_DigestInit.3,EVP_ripemd160.3
-EVP_DigestInit.3,EVP_sha.3
 EVP_DigestInit.3,EVP_sha1.3
 EVP_DigestInit.3,EVP_sha224.3
 EVP_DigestInit.3,EVP_sha256.3
@@ -1104,6 +1103,7 @@ tls_init.3,tls_config_clear_keys.3
 tls_init.3,tls_config_free.3
 tls_init.3,tls_config_insecure_noverifycert.3
 tls_init.3,tls_config_insecure_noverifyname.3
+tls_init.3,tls_config_insecure_noverifytime.3
 tls_init.3,tls_config_new.3
 tls_init.3,tls_config_parse_protocols.3
 tls_init.3,tls_config_prefer_ciphers_client.3
@@ -1124,6 +1124,8 @@ tls_init.3,tls_config_verify.3
 tls_init.3,tls_config_verify_client.3
 tls_init.3,tls_config_verify_client_optional.3
 tls_init.3,tls_configure.3
+tls_init.3,tls_conn_cipher.3
+tls_init.3,tls_conn_version.3
 tls_init.3,tls_connect.3
 tls_init.3,tls_connect_fds.3
 tls_init.3,tls_connect_servername.3

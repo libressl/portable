@@ -2,6 +2,7 @@ include_directories(
 	.
 	../include
 	../include/compat
+	./openssl
 )
 
 set(
@@ -63,7 +64,7 @@ endif()
 
 if(CMAKE_HOST_WIN32)
 	set(OPENSSL_SRC ${OPENSSL_SRC} openssl/compat/apps_win.c)
-	set(OPENSSL_SRC ${OPENSSL_SRC} openssl/compat/hash_win.c)
+	set(OPENSSL_SRC ${OPENSSL_SRC} openssl/compat/certhash_win.c)
 	set(OPENSSL_SRC ${OPENSSL_SRC} openssl/compat/poll_win.c)
 endif()
 

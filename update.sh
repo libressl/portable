@@ -300,7 +300,7 @@ add_man_links() {
 	done
 }
 
-# apply local patches (Windows support)
+# apply local patches
 for i in patches/*.patch; do
     patch -p0 < $i
 done

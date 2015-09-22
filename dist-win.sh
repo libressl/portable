@@ -29,20 +29,11 @@ for ARCH in X86 X64; do
 	make -j 4 install DESTDIR=`pwd`/stage-$ARCHDIR
 
 	mkdir -p $DIST/$ARCHDIR
-	#cp -a stage-$ARCHDIR/usr/local/lib/* $DIST/$ARCHDIR
 	if [ ! -e $DIST/include ]; then
-		cp -a stage-$ARCHDIR/usr/local/include $DIST
-		sed -i -e 'N;/\n.*__non/s/"\? *\n/ /;P;D' \
-		       $DIST/include/openssl/*.h $DIST/include/*.h
-		sed -i -e 'N;/\n.*__attr/s/"\? *\n/ /;P;D' \
-		       $DIST/include/openssl/*.h $DIST/include/*.h
-		sed -i -e "s/__attr.*;/;/"  \
-		       -e "s/sys\/time.h/winsock2.h/" \
-		       $DIST/include/openssl/*.h $DIST/include/*.h
+		cp -r stage-$ARCHDIR/usr/local/include $DIST
 	fi
 
 	cp stage-$ARCHDIR/usr/local/bin/* $DIST/$ARCHDIR
-	#cp /usr/$HOST/sys-root/mingw/bin/libssp* $DIST/$ARCHDIR
 
 	for i in libcrypto libssl libtls; do
 		DLL=$(basename `ls -1 $DIST/$ARCHDIR/$i*.dll`|cut -d. -f1)

@@ -45,7 +45,7 @@ asn1test_SOURCES = asn1test.c
 # asn1time
 TESTS += asn1time
 check_PROGRAMS += asn1time
-asn1test_SOURCES = asn1time.c
+asn1time_SOURCES = asn1time.c
 
 # base64test
 TESTS += base64test

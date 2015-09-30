@@ -1,4 +1,3 @@
-# This must be called before AC_PROG_CC
 AC_DEFUN([CHECK_OS_OPTIONS], [
 
 CFLAGS="$CFLAGS -Wall -std=gnu99 -fno-strict-aliasing"

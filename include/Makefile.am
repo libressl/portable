@@ -11,6 +11,7 @@ noinst_HEADERS += compat/err.h
 noinst_HEADERS += compat/netdb.h
 noinst_HEADERS += compat/poll.h
 noinst_HEADERS += compat/readpassphrase.h
+noinst_HEADERS += compat/resolv.h
 noinst_HEADERS += compat/stdio.h
 noinst_HEADERS += compat/stdlib.h
 noinst_HEADERS += compat/string.h

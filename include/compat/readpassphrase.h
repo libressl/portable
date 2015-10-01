@@ -37,11 +37,7 @@
 #define RPP_SEVENBIT    0x10		/* Strip the high bit from input. */
 #define RPP_STDIN       0x20		/* Read from stdin, not /dev/tty */
 
-#include <sys/cdefs.h>
-
-__BEGIN_DECLS
 char * readpassphrase(const char *, char *, size_t, int);
-__END_DECLS
 
 #endif /* !_READPASSPHRASE_H_ */
 

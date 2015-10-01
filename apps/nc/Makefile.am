@@ -21,6 +21,10 @@ noinst_HEADERS += compat/sys/socket.h
 
 nc_SOURCES += compat/socket.c
 
+if !HAVE_B64_NTOP
+nc_SOURCES += compat/base64.c
+endif
+
 if !HAVE_ACCEPT4
 nc_SOURCES += compat/accept4.c
 endif

@@ -258,6 +258,11 @@ TESTS += rc4test
 check_PROGRAMS += rc4test
 rc4test_SOURCES = rc4test.c
 
+# rfc5280time
+TESTS += rfc5280time
+check_PROGRAMS += rfc5280time
+rfc5280time_SOURCES = rfc5280time.c
+
 # rmdtest
 TESTS += rmdtest
 check_PROGRAMS += rmdtest

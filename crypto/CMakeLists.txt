@@ -54,6 +54,7 @@ set(
 	asn1/a_strex.c
 	asn1/a_strnid.c
 	asn1/a_time.c
+	asn1/a_time_tm.c
 	asn1/a_type.c
 	asn1/a_utctm.c
 	asn1/a_utf8.c

@@ -152,6 +152,7 @@ libcrypto_la_SOURCES += asn1/a_sign.c
 libcrypto_la_SOURCES += asn1/a_strex.c
 libcrypto_la_SOURCES += asn1/a_strnid.c
 libcrypto_la_SOURCES += asn1/a_time.c
+libcrypto_la_SOURCES += asn1/a_time_tm.c
 libcrypto_la_SOURCES += asn1/a_type.c
 libcrypto_la_SOURCES += asn1/a_utctm.c
 libcrypto_la_SOURCES += asn1/a_utf8.c

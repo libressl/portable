@@ -227,6 +227,11 @@ add_executable(rc4test rc4test.c)
 target_link_libraries(rc4test ${OPENSSL_LIBS})
 add_test(rc4test rc4test)
 
+# rfc5280time
+add_executable(rfc5280time rfc5280time.c)
+target_link_libraries(rfc5280time ${OPENSSL_LIBS})
+add_test(rfc5280time rfc5280time)
+
 # rmdtest
 add_executable(rmdtest rmdtest.c)
 target_link_libraries(rmdtest ${OPENSSL_LIBS})

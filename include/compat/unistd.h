@@ -30,7 +30,7 @@ int getentropy(void *buf, size_t buflen);
 #endif
 
 #ifndef HAVE_TAME
-#define tame(request, paths)
+#define tame(request, paths) 0
 #endif
 
 #endif

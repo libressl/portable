@@ -29,4 +29,8 @@ unsigned int sleep(unsigned int seconds);
 int getentropy(void *buf, size_t buflen);
 #endif
 
+#ifndef HAVE_TAME
+#define tame(request, paths)
+#endif
+
 #endif

@@ -13,3 +13,7 @@
 #else
 #include_next <time.h>
 #endif
+
+#ifdef _WIN32
+#define timegm(tm) _mkgmtime(tm)
+#endif

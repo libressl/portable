@@ -1,8 +1,8 @@
 include $(top_srcdir)/Makefile.am.common
 
-AM_CFLAGS += -I$(top_srcdir)/crypto/asn1
-AM_CFLAGS += -I$(top_srcdir)/crypto/evp
-AM_CFLAGS += -I$(top_srcdir)/crypto/modes
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/asn1
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/evp
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/modes
 
 lib_LTLIBRARIES = libcrypto.la
 
@@ -14,7 +14,8 @@ EXTRA_DIST += compat/strcasecmp.c
 
 libcrypto_la_LDFLAGS = -version-info @LIBCRYPTO_VERSION@ -no-undefined
 libcrypto_la_LIBADD = libcompat.la libcompatnoopt.la
-libcrypto_la_CPPFLAGS = -DLIBRESSL_INTERNAL
+libcrypto_la_CPPFLAGS = $(AM_CPPFLAGS)
+libcrypto_la_CPPFLAGS += -DLIBRESSL_INTERNAL
 libcrypto_la_CPPFLAGS += -DOPENSSL_NO_HW_PADLOCK
 if OPENSSL_NO_ASM
 libcrypto_la_CPPFLAGS += -DOPENSSL_NO_ASM

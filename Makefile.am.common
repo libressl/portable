@@ -1,2 +1,2 @@
-AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/include/compat
-AM_CPPFLAGS = -DLIBRESSL_INTERNAL
+AM_CFLAGS =
+AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/include/compat -DLIBRESSL_INTERNAL

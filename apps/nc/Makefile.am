@@ -11,7 +11,7 @@ nc_LDADD += $(top_builddir)/crypto/libcrypto.la
 nc_LDADD += $(top_builddir)/ssl/libssl.la
 nc_LDADD += $(top_builddir)/tls/libtls.la
 
-CPPFLAGS += -I$(top_srcdir)/apps/nc/compat
+AM_CPPFLAGS += -I$(top_srcdir)/apps/nc/compat
 
 nc_SOURCES = atomicio.c
 nc_SOURCES += netcat.c

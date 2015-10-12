@@ -18,10 +18,10 @@ AM_CONDITIONAL([HAVE_STRTONUM], [test "x$ac_cv_func_strtonum" = xyes])
 ])
 
 AC_DEFUN([CHECK_SYSCALL_COMPAT], [
-AC_CHECK_FUNCS([accept4 poll tame])
+AC_CHECK_FUNCS([accept4 pledge poll])
 AM_CONDITIONAL([HAVE_ACCEPT4], [test "x$ac_cv_func_accept4" = xyes])
+AM_CONDITIONAL([HAVE_PLEDGE], [test "x$ac_cv_func_pledge" = xyes])
 AM_CONDITIONAL([HAVE_POLL], [test "x$ac_cv_func_poll" = xyes])
-AM_CONDITIONAL([HAVE_TAME], [test "x$ac_cv_func_tame" = xyes])
 ])
 
 AC_DEFUN([CHECK_B64_NTOP], [

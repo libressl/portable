@@ -1,6 +1,17 @@
---- apps/nc/netcat.c.orig	Sun Sep 13 08:12:39 2015
-+++ apps/nc/netcat.c	Sun Sep 13 19:15:13 2015
-@@ -98,9 +98,13 @@
+--- apps/nc/netcat.c.orig	2015-10-14 15:39:27.000000000 +0900
++++ apps/nc/netcat.c	2015-10-14 15:42:35.000000000 +0900
+@@ -57,6 +57,10 @@
+ #include <tls.h>
+ #include "atomicio.h"
+ 
++#ifndef IPV6_TCLASS
++#define IPV6_TCLASS -1
++#endif
++
+ #define PORT_MAX	65535
+ #define PORT_MAX_LEN	6
+ #define UNIX_DG_TMP_SOCKET_SIZE	19
+@@ -93,9 +97,13 @@
  int	Dflag;					/* sodebug */
  int	Iflag;					/* TCP receive buffer size */
  int	Oflag;					/* TCP send buffer size */
@@ -14,7 +25,7 @@
  
  int	usetls;					/* use TLS */
  char    *Cflag;					/* Public cert file */
-@@ -150,7 +154,7 @@
+@@ -145,7 +153,7 @@
  	struct servent *sv;
  	socklen_t len;
  	struct sockaddr_storage cliaddr;
@@ -23,7 +34,7 @@
  	const char *errstr, *proxyhost = "", *proxyport = NULL;
  	struct addrinfo proxyhints;
  	char unix_dg_tmp_socket_buf[UNIX_DG_TMP_SOCKET_SIZE];
-@@ -251,12 +255,14 @@
+@@ -246,12 +254,14 @@
  		case 'u':
  			uflag = 1;
  			break;
@@ -38,7 +49,7 @@
  		case 'v':
  			vflag = 1;
  			break;
-@@ -289,9 +295,11 @@
+@@ -284,9 +294,11 @@
  				errx(1, "TCP send window %s: %s",
  				    errstr, optarg);
  			break;
@@ -50,7 +61,7 @@
  		case 'T':
  			errstr = NULL;
  			errno = 0;
-@@ -776,7 +784,10 @@
+@@ -771,7 +783,10 @@
  remote_connect(const char *host, const char *port, struct addrinfo hints)
  {
  	struct addrinfo *res, *res0;
@@ -62,7 +73,7 @@
  
  	if ((error = getaddrinfo(host, port, &hints, &res)))
  		errx(1, "getaddrinfo: %s", gai_strerror(error));
-@@ -787,16 +798,20 @@
+@@ -782,16 +797,20 @@
  		    SOCK_NONBLOCK, res0->ai_protocol)) < 0)
  			continue;
  
@@ -83,7 +94,7 @@
  			memset(&ahints, 0, sizeof(struct addrinfo));
  			ahints.ai_family = res0->ai_family;
  			ahints.ai_socktype = uflag ? SOCK_DGRAM : SOCK_STREAM;
-@@ -865,7 +880,10 @@
+@@ -860,7 +879,10 @@
  local_listen(char *host, char *port, struct addrinfo hints)
  {
  	struct addrinfo *res, *res0;
@@ -95,7 +106,7 @@
  	int error;
  
  	/* Allow nodename to be null. */
-@@ -887,13 +905,17 @@
+@@ -882,13 +904,17 @@
  		    res0->ai_protocol)) < 0)
  			continue;
  
@@ -113,7 +124,7 @@
  
  		set_common_sockopts(s, res0->ai_family);
  
-@@ -1337,11 +1359,13 @@
+@@ -1332,11 +1358,13 @@
  {
  	int x = 1;
  
@@ -127,7 +138,7 @@
  	if (Dflag) {
  		if (setsockopt(s, SOL_SOCKET, SO_DEBUG,
  			&x, sizeof(x)) == -1)
-@@ -1516,15 +1540,19 @@
+@@ -1511,15 +1539,19 @@
  	\t-P proxyuser\tUsername for proxy authentication\n\
  	\t-p port\t	Specify local port for remote connects\n\
  	\t-R CAfile	CA bundle\n\

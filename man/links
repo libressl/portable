@@ -1137,6 +1137,8 @@ tls_init.3,tls_load_file.3
 tls_init.3,tls_peer_cert_contains_name.3
 tls_init.3,tls_peer_cert_hash.3
 tls_init.3,tls_peer_cert_issuer.3
+tls_init.3,tls_peer_cert_notafter.3
+tls_init.3,tls_peer_cert_notbefore.3
 tls_init.3,tls_peer_cert_provided.3
 tls_init.3,tls_peer_cert_subject.3
 tls_init.3,tls_read.3

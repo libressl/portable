@@ -121,6 +121,11 @@ if(HAVE_STRSEP)
 	add_definitions(-DHAVE_STRSEP)
 endif()
 
+check_function_exists(timegm HAVE_TIMEGM)
+if(HAVE_TIMEGM)
+	add_definitions(-DHAVE_TIMEGM)
+endif()
+
 check_function_exists(arc4random_buf HAVE_ARC4RANDOM_BUF)
 if(HAVE_ARC4RANDOM_BUF)
 	add_definitions(-DHAVE_ARC4RANDOM_BUF)

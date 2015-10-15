@@ -596,6 +596,10 @@ if(NOT HAVE_STRNDUP)
 	endif()
 endif()
 
+if(NOT HAVE_TIMEGM)
+	set(CRYPTO_SRC ${CRYPTO_SRC} compat/timegm.c)
+endif()
+
 if(NOT HAVE_EXPLICIT_BZERO)
 	if(CMAKE_HOST_WIN32)
 		set(CRYPTO_SRC ${CRYPTO_SRC} compat/explicit_bzero_win.c)

@@ -34,7 +34,7 @@
 #define DAYS_PER_100Y (365*100 + 24)
 #define DAYS_PER_4Y   (365*4   + 1)
 
-int __month_to_secs(int month, int is_leap)
+static int __month_to_secs(int month, int is_leap)
 {
 	static const int secs_through_month[] = {
 		0, 31*86400, 59*86400, 90*86400,
@@ -45,7 +45,7 @@ int __month_to_secs(int month, int is_leap)
 	return t;
 }
 
-long long __year_to_secs(long long year, int *is_leap)
+static long long __year_to_secs(long long year, int *is_leap)
 {
 	if (year-2ULL <= 136) {
 		int y = year;
@@ -93,7 +93,7 @@ long long __year_to_secs(long long year, int *is_leap)
 	return (year-100) * 31536000LL + leaps * 86400LL + 946684800 + 86400;
 }
 
-long long __tm_to_secs(const struct tm *tm)
+static long long __tm_to_secs(const struct tm *tm)
 {
 	int is_leap;
 	long long year = tm->tm_year;
@@ -116,7 +116,7 @@ long long __tm_to_secs(const struct tm *tm)
 	return t;
 }
 
-int __secs_to_tm(long long t, struct tm *tm)
+static int __secs_to_tm(long long t, struct tm *tm)
 {
 	long long days, secs;
 	int remdays, remsecs, remyears;

@@ -28,9 +28,12 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
-2.2.4 - Build fixes
+2.2.4 - Build and bug fixes
 
 	* Backported build fixes for CMake on Windows, OSX and Linux
+
+	* Fixes for a memory leak and out-of-bounds access in OBJ_obj2txt
+	  reported by Qualys Security.
 
 2.2.3 - Bug fixes, build enhancements
 

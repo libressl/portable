@@ -121,7 +121,6 @@ copy_hdrs crypto "stack/stack.h lhash/lhash.h stack/safestack.h
 copy_hdrs ssl "srtp.h ssl.h ssl2.h ssl3.h ssl23.h tls1.h dtls1.h"
 
 $CP $libssl_src/src/crypto/opensslv.h include/openssl
-patch -p0 < patches/opensslv.h
 awk '/LIBRESSL_VERSION_TEXT/ {print $4}' < include/openssl/opensslv.h | cut -d\" -f1 > VERSION
 echo "LibreSSL version `cat VERSION`"
 

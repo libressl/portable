@@ -31,6 +31,11 @@ LibreSSL Portable Release Notes:
 This release primarily addresses a number of security issues in coordination
 with the OpenSSL project.
 
+2.1.8 - Security Update
+
+	* Fixes for a memory leak and out-of-bounds access in OBJ_obj2txt
+	  reported by Qualys Security.
+
 2.1.7 - Security Update
 
 	* Fixes for the following issues are integrated into LibreSSL 2.1.7:

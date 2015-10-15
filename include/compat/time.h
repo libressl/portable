@@ -14,6 +14,10 @@
 #include_next <time.h>
 #endif
 
-#ifdef _WIN32
+#ifndef HAVE_TIMEGM
+#ifdef  HAVE__MKGMTIME
 #define timegm(tm) _mkgmtime(tm)
+#else
+time_t timegm(struct tm *tm);
+#endif
 #endif

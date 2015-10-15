@@ -3,9 +3,6 @@
  * limits.h compatibility shim
  */
 
-#ifndef LIBCRYPTOCOMPAT_LIMITS_H
-#define LIBCRYPTOCOMPAT_LIMITS_H
-
 #ifdef _MSC_VER
 #if _MSC_VER >= 1900
 #include <../ucrt/limits.h>
@@ -21,6 +18,4 @@
 #ifndef PATH_MAX
 #define PATH_MAX MAXPATHLEN
 #endif
-#endif
-
 #endif

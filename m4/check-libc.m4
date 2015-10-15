@@ -4,6 +4,7 @@ AC_CHECK_HEADERS([err.h readpassphrase.h])
 # Check for general libc functions
 AC_CHECK_FUNCS([asprintf inet_pton memmem readpassphrase reallocarray])
 AC_CHECK_FUNCS([strlcat strlcpy strndup strnlen strsep strtonum])
+AC_CHECK_FUNCS([timegm _mkgmtime])
 AM_CONDITIONAL([HAVE_ASPRINTF], [test "x$ac_cv_func_asprintf" = xyes])
 AM_CONDITIONAL([HAVE_INET_PTON], [test "x$ac_cv_func_inet_pton" = xyes])
 AM_CONDITIONAL([HAVE_MEMMEM], [test "x$ac_cv_func_memmem" = xyes])
@@ -15,6 +16,8 @@ AM_CONDITIONAL([HAVE_STRNDUP], [test "x$ac_cv_func_strndup" = xyes])
 AM_CONDITIONAL([HAVE_STRNLEN], [test "x$ac_cv_func_strnlen" = xyes])
 AM_CONDITIONAL([HAVE_STRSEP], [test "x$ac_cv_func_strsep" = xyes])
 AM_CONDITIONAL([HAVE_STRTONUM], [test "x$ac_cv_func_strtonum" = xyes])
+AM_CONDITIONAL([HAVE_TIMEGM], [test "x$ac_cv_func_timegm" = xyes])
+AM_CONDITIONAL([HAVE__MKGMTIME], [test "x$ac_cv_func__mkgmtime" = xyes])
 ])
 
 AC_DEFUN([CHECK_SYSCALL_COMPAT], [

@@ -129,6 +129,7 @@ include/openssl/*.h
 !/crypto/compat/posix_win.c
 !/crypto/compat/bsd_asprintf.c
 !/crypto/compat/inet_pton.c
+!/crypto/compat/timegm.c
 !/crypto/compat/ui_openssl_win.c
 !/crypto/CMakeLists.txt
 /crypto

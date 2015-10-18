@@ -48,6 +48,9 @@ AM_CONDITIONAL([BUILD_CERTHASH], [test "x$ac_cv_func_symlink" = xyes])
 # Check if funopen exists
 AC_CHECK_FUNC([funopen])
 
+# Check if time_t is sized correctly
+AC_CHECK_SIZEOF([time_t], [time.h])
+
 CHECK_LIBC_COMPAT
 CHECK_SYSCALL_COMPAT
 CHECK_CRYPTO_COMPAT

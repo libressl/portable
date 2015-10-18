@@ -15,9 +15,5 @@
 #endif
 
 #ifndef HAVE_TIMEGM
-#ifdef  HAVE__MKGMTIME
-#define timegm(tm) _mkgmtime(tm)
-#else
 time_t timegm(struct tm *tm);
-#endif
 #endif

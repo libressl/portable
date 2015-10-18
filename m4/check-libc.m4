@@ -17,7 +17,6 @@ AM_CONDITIONAL([HAVE_STRNLEN], [test "x$ac_cv_func_strnlen" = xyes])
 AM_CONDITIONAL([HAVE_STRSEP], [test "x$ac_cv_func_strsep" = xyes])
 AM_CONDITIONAL([HAVE_STRTONUM], [test "x$ac_cv_func_strtonum" = xyes])
 AM_CONDITIONAL([HAVE_TIMEGM], [test "x$ac_cv_func_timegm" = xyes])
-AM_CONDITIONAL([HAVE__MKGMTIME], [test "x$ac_cv_func__mkgmtime" = xyes])
 ])
 
 AC_DEFUN([CHECK_SYSCALL_COMPAT], [

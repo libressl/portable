@@ -74,9 +74,7 @@ libcompat_la_SOURCES += compat/inet_pton.c
 endif
 
 if !HAVE_TIMEGM
-if !HAVE__MKGMTIME
 libcompat_la_SOURCES += compat/timegm.c
-endif
 endif
 
 if !HAVE_REALLOCARRAY

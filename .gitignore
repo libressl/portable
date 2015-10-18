@@ -97,7 +97,6 @@ ltmain.sh
 missing
 stamp-h1
 stamp-h2
-tap-driver.sh
 
 include/openssl/Makefile.am
 

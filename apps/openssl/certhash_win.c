@@ -3,7 +3,7 @@
  * certhash dummy implementation for platforms without symlinks
  */
 
-#include <apps.h>
+#include "apps.h"
 
 int
 certhash_main(int argc, char **argv)

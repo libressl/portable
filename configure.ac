@@ -48,9 +48,6 @@ AM_CONDITIONAL([BUILD_CERTHASH], [test "x$ac_cv_func_symlink" = xyes])
 # Check if funopen exists
 AC_CHECK_FUNC([funopen])
 
-# Check if time_t is sized correctly
-AC_CHECK_SIZEOF([time_t], [time.h])
-
 CHECK_LIBC_COMPAT
 CHECK_SYSCALL_COMPAT
 CHECK_CRYPTO_COMPAT
@@ -117,6 +114,9 @@ AM_CONDITIONAL([HOST_ASM_ELF_X86_64],
 AM_CONDITIONAL([HOST_ASM_MACOSX_X86_64],
     [test "x$HOST_ABI" = "xmacosx" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
 
+# Check if time_t is sized correctly
+AC_CHECK_SIZEOF([time_t], [time.h])
+
 AC_CONFIG_FILES([
 	Makefile
 	include/Makefile
@@ -134,5 +134,11 @@ AC_CONFIG_FILES([
 	libtls.pc
 	openssl.pc
 ])
+
+AM_CONDITIONAL([SMALL_TIME_T], [test "$ac_cv_sizeof_time_t" = "4"])
+if test "$ac_cv_sizeof_time_t" = "4"; then
+    echo " ** Warning, this system is unable to represent times past 2038"
+    echo " ** It will behave incorrectly when handling valid RFC5280 dates"
+fi
 
 AC_OUTPUT

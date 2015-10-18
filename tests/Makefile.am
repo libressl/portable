@@ -259,9 +259,15 @@ check_PROGRAMS += rc4test
 rc4test_SOURCES = rc4test.c
 
 # rfc5280time
+if SMALL_TIME_T
+TESTS += rfc5280time_too_small
+check_PROGRAMS += rfc5280time_too_small
+rfc5280time_too_small_SOURCES = rfc5280time.c
+else
 TESTS += rfc5280time
 check_PROGRAMS += rfc5280time
 rfc5280time_SOURCES = rfc5280time.c
+endif
 
 # rmdtest
 TESTS += rmdtest

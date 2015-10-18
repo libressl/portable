@@ -264,11 +264,11 @@ rc4test_SOURCES = rc4test.c
 check_PROGRAMS += rfc5280time
 rfc5280time_SOURCES = rfc5280time.c
 if SMALL_TIME_T
-TESTS += rfc5280time.test
+TESTS += rfc5280time_small.test
 else
 TESTS += rfc5280time
 endif
-EXTRA_DIST += rfc5280time.test
+EXTRA_DIST += rfc5280time_small.test
 
 # rmdtest
 TESTS += rmdtest

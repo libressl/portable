@@ -9,9 +9,13 @@
 #else
 #include <../include/time.h>
 #endif
-#define gmtime_r(tp, tm) ((gmtime_s((tm), (tp)) == 0) ? (tm) : NULL)
 #else
 #include_next <time.h>
+#endif
+
+#ifdef _WIN32
+struct tm *__gmtime_r(const time_t * t, struct tm * tm);
+#define gmtime_r(tp, tm) __gmtime_r(tp, tm)
 #endif
 
 #ifndef HAVE_TIMEGM

@@ -115,6 +115,8 @@ include/openssl/*.h
 /apps/nc/*.h
 /apps/nc/*.c
 /apps/nc/nc*
+!/apps/openssl/apps_win.c
+!/apps/openssl/certhash_win.c
 /apps/openssl/*.h
 /apps/openssl/*.c
 /apps/openssl/*.cnf

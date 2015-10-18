@@ -60,11 +60,11 @@ openssl_SOURCES += x509.c
 if BUILD_CERTHASH
 openssl_SOURCES += certhash.c
 else
-openssl_SOURCES += compat/certhash_win.c
+openssl_SOURCES += certhash_win.c
 endif
 
 if HOST_WIN
-openssl_SOURCES += compat/apps_win.c
+openssl_SOURCES += apps_win.c
 else
 openssl_SOURCES += apps_posix.c
 endif

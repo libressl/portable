@@ -10,7 +10,7 @@
 #include <io.h>
 #include <fcntl.h>
 
-#include <apps.h>
+#include "apps.h"
 
 double
 app_tminterval(int stop, int usertime)

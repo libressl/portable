@@ -11,13 +11,18 @@
 #ifdef _WIN32
 
 #include <ws2tcpip.h>
-
-#define SHUT_RDWR SD_BOTH
-#define SHUT_RD   SD_RECEIVE
-#define SHUT_WR   SD_SEND
-
 #include <errno.h>
 #include <unistd.h>
+
+#ifndef SHUT_RDWR
+#define SHUT_RDWR SD_BOTH
+#endif
+#ifndef SHUT_RD
+#define SHUT_RD   SD_RECEIVE
+#endif
+#ifndef SHUT_WR
+#define SHUT_WR   SD_SEND
+#endif
 
 int posix_connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
 

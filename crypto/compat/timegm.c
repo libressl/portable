@@ -188,6 +188,18 @@ static int __secs_to_tm(long long t, struct tm *tm)
 	return 0;
 }
 
+#ifdef _WIN32
+struct tm *__gmtime_r(const time_t *t, struct tm *tm)
+{
+	if (__secs_to_tm(*t, tm) < 0) {
+		errno = EOVERFLOW;
+		return 0;
+	}
+	tm->tm_isdst = 0;
+	return tm;
+}
+#endif
+
 time_t timegm(struct tm *tm)
 {
 	struct tm new;

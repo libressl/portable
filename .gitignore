@@ -49,13 +49,14 @@ Makefile.in
 test-driver
 *.log
 *.trs
-!tests/optionstest.c
 tests/aes_wrap*
 tests/arc4random_fork*
+tests/asn1time*
 tests/cipher*
 tests/explicit_bzero*
 tests/gost2814789t*
 tests/mont*
+tests/rfc5280time*
 tests/timingsafe*
 tests/*test
 tests/tests.h
@@ -65,6 +66,8 @@ tests/pbkdf2*
 tests/*.pem
 tests/testssl
 tests/*.txt
+!tests/optionstest.c
+!tests/*.test
 
 # ctags stuff
 TAGS
@@ -94,6 +97,7 @@ ltmain.sh
 missing
 stamp-h1
 stamp-h2
+tap-driver.sh
 
 include/openssl/Makefile.am
 
@@ -111,18 +115,18 @@ include/pqueue.h
 include/tls.h
 include/openssl/*.h
 
-!/apps/nc/readpassphrase.c
 /apps/nc/*.h
 /apps/nc/*.c
 /apps/nc/nc*
-!/apps/openssl/apps_win.c
-!/apps/openssl/certhash_win.c
+!/apps/nc/readpassphrase.c
 /apps/openssl/*.h
 /apps/openssl/*.c
 /apps/openssl/*.cnf
 /apps/openssl/*.pem
 /apps/openssl/openssl
 /apps/openssl/compat/strtonum.c
+!/apps/openssl/apps_win.c
+!/apps/openssl/certhash_win.c
 
 !/crypto/Makefile.am.*
 !/crypto/compat/arc4random.h

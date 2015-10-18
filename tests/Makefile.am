@@ -11,6 +11,8 @@ LDADD += $(top_builddir)/ssl/libssl.la
 LDADD += $(top_builddir)/crypto/libcrypto.la
 LDADD += $(top_builddir)/tls/libtls.la
 
+TEST_LOG_DRIVER = env AM_TAP_AWK='$(AWK)' $(SHELL) $(top_srcdir)/tap-driver.sh
+
 TESTS =
 check_PROGRAMS =
 EXTRA_DIST = CMakeLists.txt
@@ -259,15 +261,14 @@ check_PROGRAMS += rc4test
 rc4test_SOURCES = rc4test.c
 
 # rfc5280time
-if SMALL_TIME_T
-TESTS += rfc5280time_too_small
-check_PROGRAMS += rfc5280time_too_small
-rfc5280time_too_small_SOURCES = rfc5280time.c
-else
-TESTS += rfc5280time
 check_PROGRAMS += rfc5280time
 rfc5280time_SOURCES = rfc5280time.c
+if SMALL_TIME_T
+TESTS += rfc5280time.test
+else
+TESTS += rfc5280time
 endif
+EXTRA_DIST += rfc5280time.test
 
 # rmdtest
 TESTS += rmdtest

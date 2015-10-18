@@ -141,4 +141,6 @@ if test "$ac_cv_sizeof_time_t" = "4"; then
     echo " ** It will behave incorrectly when handling valid RFC5280 dates"
 fi
 
+AC_REQUIRE_AUX_FILE([tap-driver.sh])
+
 AC_OUTPUT

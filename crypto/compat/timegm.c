@@ -208,6 +208,12 @@ time_t timegm(struct tm *tm)
 		errno = EOVERFLOW;
 		return -1;
 	}
+#if SIZEOF_TIME_T != 8
+	if (t > (long long)INT_MAX || t < (long long)INT_MIN) {
+		errno = EOVERFLOW;
+		return -1;
+	}
+#endif
 	*tm = new;
 	tm->tm_isdst = 0;
 	return t;

@@ -19,6 +19,7 @@ case $host_os in
 		HOST_ABI=macosx
 		;;
 	*freebsd*)
+		BUILD_NC=yes
 		HOST_OS=freebsd
 		HOST_ABI=elf
 		AC_SUBST([PROG_LDADD], ['-lthr'])
@@ -40,6 +41,7 @@ case $host_os in
 		CPPFLAGS="$CPPFLAGS -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
 		;;
 	*netbsd*)
+		BUILD_NC=yes
 		HOST_OS=netbsd
 		CPPFLAGS="$CPPFLAGS -D_OPENBSD_SOURCE"
 		;;

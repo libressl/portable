@@ -28,6 +28,38 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.3.1 - ASN.1 and time handling cleanups
+
+	* ASN.1 cleanups and RFC5280 compliance fixes.
+
+	* Time representations switched from 'unsigned long' to 'time_t'. LibreSSL
+	  now checks if the host OS supports 64-bit time_t.
+
+	* Fixed a leak in SSL_new in the error path.
+
+	* Support always extracting the peer cipher and version with libtls.
+
+	* Added ability to check certificate validity times with libtls,
+	  tls_peer_cert_notbefore and tls_peer_cert_notafter.
+
+	* Changed tls_connect_servername to use the first address that resolves with
+	  getaddrinfo().
+
+	* Remove broken conditional EVP_CHECK_DES_KEY code (non-functional since
+	  initial commit in 2004).
+
+	* Fixed a memory leak and out-of-bounds access in OBJ_obj2txt, reported
+	  by Qualys Security.
+
+	* Fixed an up-to 7 byte overflow in RC4 when len is not a multiple of
+	  sizeof(RC4_CHUNK), reported by Pascal Cuoq <cuoq at trust-in-soft.com>.
+
+	* Reject too small bits value in BN_generate_prime_ex(), so that it does
+	  not risk becoming negative in probable_prime_dh_safe(), reported by
+		Franck Denis.
+
+	* Enable nc(1) builds on more platforms.
+
 2.3.0 - SSLv3 removed, libtls API changes, portability improvements
 
 	* SSLv3 is now permanently removed from the tree.

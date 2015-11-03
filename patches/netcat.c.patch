@@ -1,5 +1,5 @@
---- apps/nc/netcat.c.orig	2015-10-23 16:01:14.000000000 -0700
-+++ apps/nc/netcat.c	2015-10-23 16:17:08.000000000 -0700
+--- apps/nc/netcat.c.orig	Mon Nov  2 20:00:31 2015
++++ apps/nc/netcat.c	Mon Nov  2 20:00:39 2015
 @@ -57,6 +57,10 @@
  #include <tls.h>
  #include "atomicio.h"
@@ -80,7 +80,7 @@
  		if (pledge("stdio rpath wpath cpath tmppath unix", NULL) == -1)
  			err(1, "pledge");
  	}
-@@ -797,7 +811,10 @@
+@@ -798,7 +812,10 @@
  remote_connect(const char *host, const char *port, struct addrinfo hints)
  {
  	struct addrinfo *res, *res0;
@@ -92,7 +92,7 @@
  
  	if ((error = getaddrinfo(host, port, &hints, &res)))
  		errx(1, "getaddrinfo: %s", gai_strerror(error));
-@@ -808,16 +825,20 @@
+@@ -809,16 +826,20 @@
  		    SOCK_NONBLOCK, res0->ai_protocol)) < 0)
  			continue;
  
@@ -113,7 +113,7 @@
  			memset(&ahints, 0, sizeof(struct addrinfo));
  			ahints.ai_family = res0->ai_family;
  			ahints.ai_socktype = uflag ? SOCK_DGRAM : SOCK_STREAM;
-@@ -886,7 +907,10 @@
+@@ -887,7 +908,10 @@
  local_listen(char *host, char *port, struct addrinfo hints)
  {
  	struct addrinfo *res, *res0;
@@ -125,7 +125,7 @@
  	int error;
  
  	/* Allow nodename to be null. */
-@@ -908,13 +932,17 @@
+@@ -909,13 +933,17 @@
  		    res0->ai_protocol)) < 0)
  			continue;
  

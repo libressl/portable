@@ -1,5 +1,5 @@
---- tests/rfc5280time.c.orig	Sat Oct 17 22:36:27 2015
-+++ tests/rfc5280time.c	Sat Oct 17 22:44:25 2015
+--- tests/rfc5280time.c.orig	Mon Nov  2 20:00:31 2015
++++ tests/rfc5280time.c	Mon Nov  2 20:03:12 2015
 @@ -91,6 +91,7 @@
  		.data = "20150923032700Z",
  		.time = 1442978820,
@@ -10,7 +10,7 @@
  		.str = "00000101000000Z",
 @@ -103,6 +104,7 @@
  		.data = "20491231235959Z",
- 		.time = 2524607999,
+ 		.time = 2524607999LL,
  	},
 +#endif
  	{
@@ -18,7 +18,7 @@
  		.str = "19500101000000Z",
 @@ -112,6 +114,7 @@
  };
-
+ 
  struct rfc5280_time_test rfc5280_gentime_tests[] = {
 +#if SIZEOF_TIME_T == 8
  	{
@@ -26,7 +26,7 @@
  		.str = "99991231235959Z",
 @@ -129,6 +132,7 @@
  		.data = "20500101000000Z",
- 		.time =  2524608000,
+ 		.time =  2524608000LL,
  	},
 +#endif
  };
@@ -40,21 +40,21 @@
  	{
  		.str = "491231235959Z",
  		.data = "491231235959Z",
- 		.time = 2524607999,
+ 		.time = 2524607999LL,
  	},
 +#endif
  	{
  		.str = "700101000000Z",
  		.data = "700101000000Z",
 @@ -273,14 +279,14 @@
-
+ 
  	if ((i = X509_cmp_time(gt, &att->time)) != -1) {
  		fprintf(stderr, "FAIL: test %i - X509_cmp_time failed - returned %d compared to %lld\n",
 -		    test_no, i, att->time);
 +		    test_no, i, (long long)att->time);
  		goto done;
  	}
-
+ 
  	att->time--;
  	if ((i = X509_cmp_time(gt, &att->time)) != 1) {
  		fprintf(stderr, "FAIL: test %i - X509_cmp_time failed - returned %d compared to %lld\n",
@@ -64,14 +64,14 @@
  	}
  	att->time++;
 @@ -325,14 +331,14 @@
-
+ 
  	if ((i = X509_cmp_time(ut, &att->time)) != -1) {
  		fprintf(stderr, "FAIL: test %i - X509_cmp_time failed - returned %d compared to %lld\n",
 -		    test_no, i, att->time);
 +		    test_no, i, (long long)att->time);
  		goto done;
  	}
-
+ 
  	att->time--;
  	if ((i = X509_cmp_time(ut, &att->time)) != 1) {
  		fprintf(stderr, "FAIL: test %i - X509_cmp_time failed - returned %d compared to %lld\n",

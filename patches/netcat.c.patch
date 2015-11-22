@@ -1,5 +1,5 @@
---- apps/nc/netcat.c.orig	Mon Nov  2 20:00:31 2015
-+++ apps/nc/netcat.c	Mon Nov  2 20:00:39 2015
+--- apps/nc/netcat.c.orig	2015-11-22 09:54:13.947164164 -0600
++++ apps/nc/netcat.c	2015-11-22 10:49:52.455236524 -0600
 @@ -57,6 +57,10 @@
  #include <tls.h>
  #include "atomicio.h"
@@ -61,26 +61,19 @@
  		case 'T':
  			errstr = NULL;
  			errno = 0;
-@@ -310,14 +322,16 @@
+@@ -310,9 +322,11 @@
  	argc -= optind;
  	argv += optind;
  
 +#ifdef SO_RTABLE
- 	if (rtableid >= 0) {
- 		/*
- 		 * XXX No pledge if doing rtable manipulation!
- 		 * XXX the routing table stuff is dangerous and can't be pledged.
- 		 * XXX rtable should really have a better interface than sockopt
- 		 */
--	}
--	else if (family == AF_UNIX) {
-+	} else
+ 	if (rtableid >= 0)
+ 		if (setrtable(rtableid) == -1)
+ 			err(1, "setrtable");
 +#endif
-+	if (family == AF_UNIX) {
+ 
+ 	if (family == AF_UNIX) {
  		if (pledge("stdio rpath wpath cpath tmppath unix", NULL) == -1)
- 			err(1, "pledge");
- 	}
-@@ -798,7 +812,10 @@
+@@ -792,7 +806,10 @@
  remote_connect(const char *host, const char *port, struct addrinfo hints)
  {
  	struct addrinfo *res, *res0;
@@ -92,17 +85,7 @@
  
  	if ((error = getaddrinfo(host, port, &hints, &res)))
  		errx(1, "getaddrinfo: %s", gai_strerror(error));
-@@ -809,16 +826,20 @@
- 		    SOCK_NONBLOCK, res0->ai_protocol)) < 0)
- 			continue;
- 
-+#ifdef SO_RTABLE
- 		if (rtableid >= 0 && (setsockopt(s, SOL_SOCKET, SO_RTABLE,
- 		    &rtableid, sizeof(rtableid)) == -1))
- 			err(1, "setsockopt SO_RTABLE");
-+#endif
- 
- 		/* Bind to a local port or source address if specified. */
+@@ -807,8 +824,10 @@
  		if (sflag || pflag) {
  			struct addrinfo ahints, *ares;
  
@@ -113,7 +96,7 @@
  			memset(&ahints, 0, sizeof(struct addrinfo));
  			ahints.ai_family = res0->ai_family;
  			ahints.ai_socktype = uflag ? SOCK_DGRAM : SOCK_STREAM;
-@@ -887,7 +908,10 @@
+@@ -877,7 +896,10 @@
  local_listen(char *host, char *port, struct addrinfo hints)
  {
  	struct addrinfo *res, *res0;
@@ -125,15 +108,9 @@
  	int error;
  
  	/* Allow nodename to be null. */
-@@ -909,13 +933,17 @@
+@@ -899,9 +921,11 @@
  		    res0->ai_protocol)) < 0)
  			continue;
- 
-+#ifdef SO_RTABLE
- 		if (rtableid >= 0 && (setsockopt(s, SOL_SOCKET, SO_RTABLE,
- 		    &rtableid, sizeof(rtableid)) == -1))
- 			err(1, "setsockopt SO_RTABLE");
-+#endif
  
 +#ifdef SO_REUSEPORT
  		ret = setsockopt(s, SOL_SOCKET, SO_REUSEPORT, &x, sizeof(x));
@@ -143,7 +120,7 @@
  
  		set_common_sockopts(s, res0->ai_family);
  
-@@ -1358,11 +1386,13 @@
+@@ -1344,11 +1368,13 @@
  {
  	int x = 1;
  
@@ -157,7 +134,7 @@
  	if (Dflag) {
  		if (setsockopt(s, SOL_SOCKET, SO_DEBUG,
  			&x, sizeof(x)) == -1)
-@@ -1537,15 +1567,19 @@
+@@ -1523,15 +1549,19 @@
  	\t-P proxyuser\tUsername for proxy authentication\n\
  	\t-p port\t	Specify local port for remote connects\n\
  	\t-R CAfile	CA bundle\n\

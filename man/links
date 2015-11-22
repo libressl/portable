@@ -1141,14 +1141,6 @@ lh_new.3,LHASH_COMP_FN_TYPE.3
 lh_new.3,LHASH_DOALL_ARG_FN_TYPE.3
 lh_new.3,LHASH_DOALL_FN_TYPE.3
 lh_new.3,LHASH_HASH_FN_TYPE.3
-lh_new.3,lh_<type>_delete.3
-lh_new.3,lh_<type>_doall.3
-lh_new.3,lh_<type>_doall_arg.3
-lh_new.3,lh_<type>_error.3
-lh_new.3,lh_<type>_free.3
-lh_new.3,lh_<type>_insert.3
-lh_new.3,lh_<type>_new.3
-lh_new.3,lh_<type>_retrieve.3
 lh_new.3,lh_delete.3
 lh_new.3,lh_doall.3
 lh_new.3,lh_doall_arg.3

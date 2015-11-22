@@ -11,7 +11,7 @@ for i in `ls -1 *.3`; do
   for j in $links; do
     a=`echo "x$j" | tr '[:upper:]' '[:lower:]'`
     b=`echo "x$name" | tr '[:upper:]' '[:lower:]'`
-    if [ $a != $b ]; then
+    if [[ $a != $b && $a != *"<type>"* ]]; then
       echo $name.3,$j.3 >> links
     fi
   done

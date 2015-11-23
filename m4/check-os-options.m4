@@ -11,6 +11,7 @@ case $host_os in
 		AC_SUBST([PLATFORM_LDADD], ['-lperfstat -lpthread'])
 		;;
 	*cygwin*)
+		BUILD_NC=yes
 		HOST_OS=cygwin
 		;;
 	*darwin*)
@@ -62,6 +63,7 @@ case $host_os in
 		AC_SUBST([PLATFORM_LDADD], ['-lws2_32'])
 		;;
 	*solaris*)
+		BUILD_NC=yes
 		HOST_OS=solaris
 		HOST_ABI=elf
 		CPPFLAGS="$CPPFLAGS -D__EXTENSIONS__ -D_XOPEN_SOURCE=600 -DBSD_COMP"

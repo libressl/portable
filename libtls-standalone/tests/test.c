@@ -5,7 +5,7 @@ int main()
 {
 	struct tls *tls;
 	struct tls_config *tls_config;
-	size_t written, read;
+	ssize_t written, read;
 	char buf[4096];
 
 	if (tls_init() != 0) {
@@ -31,10 +31,10 @@ int main()
 	if (tls_connect(tls, "google.com", "443") != 0)
 		goto err;
 
-	if (tls_write(tls, "GET /\r\n", 7, &written) != 0)
+	if ((written = tls_write(tls, "GET /\r\n", 7)) < 0)
 		goto err;
 
-	if (tls_read(tls, buf, sizeof(buf), &read) != 0)
+	if ((read = tls_read(tls, buf, sizeof(buf))) < 0)
 		goto err;
 
 	buf[read - 1] = '\0';

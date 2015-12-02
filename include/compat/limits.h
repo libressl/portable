@@ -4,11 +4,7 @@
  */
 
 #ifdef _MSC_VER
-#if _MSC_VER >= 1900
-#include <../ucrt/limits.h>
-#else
 #include <../include/limits.h>
-#endif
 #else
 #include_next <limits.h>
 #endif

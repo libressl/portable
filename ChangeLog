@@ -28,12 +28,31 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.2.5 - Reliability Update
+
+	* Fixes from OpenSSL 1.0.1q
+	 - CVE-2015-3194 - NULL pointer dereference in client side certificate
+	                   validation.
+	 - CVE-2015-3195 - Memory leak in PKCS7 - not reachable from TLS/SSL
+
+	* The following OpenSSL CVEs did not apply to LibreSSL
+	 - CVE-2015-3193 - Carry propagating bug in the x86_64 Montgomery
+	                   squaring procedure.
+	 - CVE-2015-3196 - Double free race condition of the identify hint
+	                   data.
+
+	 See https://marc.info/?l=openbsd-announce&m=144925068504102
+
 2.2.4 - Build and bug fixes
 
 	* Backported build fixes for CMake on Windows, OSX and Linux
 
 	* Fixes for a memory leak and out-of-bounds access in OBJ_obj2txt
 	  reported by Qualys Security.
+	 - CVE-2015-5333 - memory leak in OBJ_obj2txt
+	 - CVE-2015-5334 - 1-byte buffer overflow in OBJ_obj2txt
+
+	 See http://www.openwall.com/lists/oss-security/2015/10/16/1
 
 2.2.3 - Bug fixes, build enhancements
 

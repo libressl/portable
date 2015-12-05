@@ -28,11 +28,13 @@ int asprintf(char **str, const char *fmt, ...);
 
 void posix_perror(const char *s);
 FILE * posix_fopen(const char *path, const char *mode);
+char * posix_fgets(char *s, int size, FILE *stream);
 int posix_rename(const char *oldpath, const char *newpath);
 
 #ifndef NO_REDEF_POSIX_FUNCTIONS
 #define perror(errnum) posix_perror(errnum)
 #define fopen(path, mode) posix_fopen(path, mode)
+#define fgets(s, size, stream) posix_fgets(s, size, stream)
 #define rename(oldpath, newpath) posix_rename(oldpath, newpath)
 #endif
 

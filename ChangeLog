@@ -49,6 +49,8 @@ LibreSSL Portable Release Notes:
 
 	* Fixed GCC 5.x+ preprocessor checks, reported by Ruslan Babayev
 
+	* Improved console handling with openssl(1) on Windows.
+
 	* Fixes from OpenSSL 1.0.1q
 	 - CVE-2015-3194 - NULL pointer dereference in client side certificate
 	                   validation.

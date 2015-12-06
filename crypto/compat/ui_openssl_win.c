@@ -301,27 +301,39 @@ open_console(UI *ui)
 	tty_in = stdin;
 	tty_out = stderr;
 
-	HANDLE handle = GetStdHandle(STD_INPUT_HANDLE);
-	if (handle != INVALID_HANDLE_VALUE)
-		return GetConsoleMode(handle, &console_mode);
+	HANDLE handle = (HANDLE)_get_osfhandle(STDIN_FILENO);
+	if (handle != INVALID_HANDLE_VALUE) {
+		if (GetFileType(handle) == FILE_TYPE_CHAR)
+			return GetConsoleMode(handle, &console_mode);
+		else
+			return 1;
+	}
 	return 0;
 }
 
 static int
 noecho_console(UI *ui)
 {
-	HANDLE handle = GetStdHandle(STD_INPUT_HANDLE);
-	if (handle != INVALID_HANDLE_VALUE)
-		return SetConsoleMode(handle, console_mode & ~ENABLE_ECHO_INPUT);
+	HANDLE handle = (HANDLE)_get_osfhandle(STDIN_FILENO);
+	if (handle != INVALID_HANDLE_VALUE) {
+		if (GetFileType(handle) == FILE_TYPE_CHAR)
+			return SetConsoleMode(handle, console_mode & ~ENABLE_ECHO_INPUT);
+		else
+			return 1;
+	}
 	return 0;
 }
 
 static int
 echo_console(UI *ui)
 {
-	HANDLE handle = GetStdHandle(STD_INPUT_HANDLE);
-	if (handle != INVALID_HANDLE_VALUE)
-		return SetConsoleMode(handle, console_mode);
+	HANDLE handle = (HANDLE)_get_osfhandle(STDIN_FILENO);
+	if (handle != INVALID_HANDLE_VALUE) {
+		if (GetFileType(handle) == FILE_TYPE_CHAR)
+			return SetConsoleMode(handle, console_mode);
+		else
+			return 1;
+	}
 	return 0;
 }
 

@@ -1,6 +1,6 @@
-diff -urN include/openssl.orig/dtls1.h include/openssl/dtls1.h
---- include/openssl.orig/dtls1.h	Mon Sep 21 21:45:45 2015
-+++ include/openssl/dtls1.h	Mon Sep 21 21:58:56 2015
+diff -u include/openssl.orig/dtls1.h include/openssl/dtls1.h
+--- include/openssl.orig/dtls1.h	Mon Dec  7 07:58:32 2015
++++ include/openssl/dtls1.h	Mon Dec  7 07:56:14 2015
 @@ -60,7 +60,11 @@
  #ifndef HEADER_DTLS1_H
  #define HEADER_DTLS1_H
@@ -13,9 +13,9 @@ diff -urN include/openssl.orig/dtls1.h include/openssl/dtls1.h
  
  #include <stdio.h>
  #include <stdlib.h>
-diff -urN include/openssl.orig/opensslconf.h include/openssl/opensslconf.h
---- include/openssl.orig/opensslconf.h	Mon Sep 21 21:45:45 2015
-+++ include/openssl/opensslconf.h	Mon Sep 21 21:56:13 2015
+diff -u include/openssl.orig/opensslconf.h include/openssl/opensslconf.h
+--- include/openssl.orig/opensslconf.h	Mon Dec  7 07:58:32 2015
++++ include/openssl/opensslconf.h	Mon Dec  7 07:56:14 2015
 @@ -1,6 +1,10 @@
  #include <openssl/opensslfeatures.h>
  /* crypto/opensslconf.h.in */
@@ -27,10 +27,10 @@ diff -urN include/openssl.orig/opensslconf.h include/openssl/opensslconf.h
  /* Generate 80386 code? */
  #undef I386_ONLY
  
-diff -urN include/openssl.orig/ossl_typ.h include/openssl/ossl_typ.h
---- include/openssl.orig/ossl_typ.h	Mon Sep 21 21:45:45 2015
-+++ include/openssl/ossl_typ.h	Mon Sep 21 21:56:22 2015
-@@ -100,6 +100,22 @@
+diff -u include/openssl.orig/ossl_typ.h include/openssl/ossl_typ.h
+--- include/openssl.orig/ossl_typ.h	Mon Dec  7 07:58:32 2015
++++ include/openssl/ossl_typ.h	Mon Dec  7 07:56:14 2015
+@@ -80,6 +80,22 @@
  typedef struct ASN1_ITEM_st ASN1_ITEM;
  typedef struct asn1_pctx_st ASN1_PCTX;
  
@@ -53,9 +53,9 @@ diff -urN include/openssl.orig/ossl_typ.h include/openssl/ossl_typ.h
  #ifdef BIGNUM
  #undef BIGNUM
  #endif
-diff -urN include/openssl.orig/pkcs7.h include/openssl/pkcs7.h
---- include/openssl.orig/pkcs7.h	Mon Sep 21 21:45:45 2015
-+++ include/openssl/pkcs7.h	Mon Sep 21 21:56:29 2015
+diff -u include/openssl.orig/pkcs7.h include/openssl/pkcs7.h
+--- include/openssl.orig/pkcs7.h	Mon Dec  7 07:58:32 2015
++++ include/openssl/pkcs7.h	Mon Dec  7 07:56:14 2015
 @@ -69,6 +69,18 @@
  extern "C" {
  #endif
@@ -75,9 +75,9 @@ diff -urN include/openssl.orig/pkcs7.h include/openssl/pkcs7.h
  /*
  Encryption_ID		DES-CBC
  Digest_ID		MD5
-diff -urN include/openssl.orig/x509.h include/openssl/x509.h
---- include/openssl.orig/x509.h	Mon Sep 21 21:45:45 2015
-+++ include/openssl/x509.h	Mon Sep 21 21:56:35 2015
+diff -u include/openssl.orig/x509.h include/openssl/x509.h
+--- include/openssl.orig/x509.h	Mon Dec  7 07:58:32 2015
++++ include/openssl/x509.h	Mon Dec  7 07:56:14 2015
 @@ -112,6 +112,19 @@
  extern "C" {
  #endif

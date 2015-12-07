@@ -2,7 +2,11 @@ include $(top_srcdir)/Makefile.am.common
 
 if BUILD_NC
 
+if ENABLE_NC
+bin_PROGRAMS = nc
+else
 noinst_PROGRAMS = nc
+endif
 
 EXTRA_DIST = nc.1
 

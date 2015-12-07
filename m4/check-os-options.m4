@@ -72,7 +72,11 @@ case $host_os in
 	*) ;;
 esac
 
-AM_CONDITIONAL([BUILD_NC],     [test x$BUILD_NC = xyes])
+AC_ARG_ENABLE([nc],
+	AS_HELP_STRING([--enable-nc], [Enable installing TLS-enabled nc(1)]))
+AM_CONDITIONAL([ENABLE_NC], [test "x$enable_nc" = xyes])
+AM_CONDITIONAL([BUILD_NC],  [test x$BUILD_NC = xyes -o "x$enable_nc" = xyes])
+
 AM_CONDITIONAL([HOST_AIX],     [test x$HOST_OS = xaix])
 AM_CONDITIONAL([HOST_CYGWIN],  [test x$HOST_OS = xcygwin])
 AM_CONDITIONAL([HOST_DARWIN],  [test x$HOST_OS = xdarwin])

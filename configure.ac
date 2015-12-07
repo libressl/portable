@@ -114,10 +114,6 @@ AM_CONDITIONAL([HOST_ASM_ELF_X86_64],
 AM_CONDITIONAL([HOST_ASM_MACOSX_X86_64],
     [test "x$HOST_ABI" = "xmacosx" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
 
-AC_ARG_ENABLE([nc],
-	AS_HELP_STRING([--enable-nc], [Enable installing TLS-enabled nc(1)]))
-AM_CONDITIONAL([ENABLE_NC], [test "x$enable_nc" = xyes])
-
 # Check if time_t is sized correctly
 AC_CHECK_SIZEOF([time_t], [time.h])
 

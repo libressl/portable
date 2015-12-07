@@ -1,5 +1,5 @@
 --- apps/nc/netcat.c.orig	Sun Dec  6 22:05:45 2015
-+++ apps/nc/netcat.c	Sun Dec  6 23:23:15 2015
++++ apps/nc/netcat.c	Mon Dec  7 07:52:00 2015
 @@ -57,6 +57,10 @@
  #include <tls.h>
  #include "atomicio.h"
@@ -11,7 +11,17 @@
  #define PORT_MAX	65535
  #define UNIX_DG_TMP_SOCKET_SIZE	19
  
-@@ -92,9 +96,13 @@
+@@ -65,7 +69,9 @@
+ #define POLL_NETIN 2
+ #define POLL_STDOUT 3
+ #define BUFSIZE 16384
++#ifndef DEFAULT_CA_FILE
+ #define DEFAULT_CA_FILE "/etc/ssl/cert.pem"
++#endif
+ 
+ #define TLS_LEGACY	(1 << 1)
+ #define TLS_NOVERIFY	(1 << 2)
+@@ -92,9 +98,13 @@
  int	Dflag;					/* sodebug */
  int	Iflag;					/* TCP receive buffer size */
  int	Oflag;					/* TCP send buffer size */
@@ -25,7 +35,7 @@
  
  int	usetls;					/* use TLS */
  char    *Cflag;					/* Public cert file */
-@@ -144,7 +152,7 @@
+@@ -144,7 +154,7 @@
  	struct servent *sv;
  	socklen_t len;
  	struct sockaddr_storage cliaddr;
@@ -34,7 +44,7 @@
  	const char *errstr, *proxyhost = "", *proxyport = NULL;
  	struct addrinfo proxyhints;
  	char unix_dg_tmp_socket_buf[UNIX_DG_TMP_SOCKET_SIZE];
-@@ -245,12 +253,14 @@
+@@ -245,12 +255,14 @@
  		case 'u':
  			uflag = 1;
  			break;
@@ -49,7 +59,7 @@
  		case 'v':
  			vflag = 1;
  			break;
-@@ -283,9 +293,11 @@
+@@ -283,9 +295,11 @@
  				errx(1, "TCP send window %s: %s",
  				    errstr, optarg);
  			break;
@@ -61,7 +71,7 @@
  		case 'T':
  			errstr = NULL;
  			errno = 0;
-@@ -309,9 +321,11 @@
+@@ -309,9 +323,11 @@
  	argc -= optind;
  	argv += optind;
  
@@ -73,7 +83,19 @@
  
  	if (family == AF_UNIX) {
  		if (pledge("stdio rpath wpath cpath tmppath unix", NULL) == -1)
-@@ -791,7 +805,10 @@
+@@ -444,7 +460,10 @@
+ 				errx(1, "-H and -T noverify may not be used"
+ 				    "together");
+ 			tls_config_insecure_noverifycert(tls_cfg);
+-		}
++		} else {
++                        if (Rflag && access(Rflag, R_OK) == -1)
++                                errx(1, "unable to find root CA file %s", Rflag);
++                }
+ 	}
+ 	if (lflag) {
+ 		struct tls *tls_cctx = NULL;
+@@ -791,7 +810,10 @@
  remote_connect(const char *host, const char *port, struct addrinfo hints)
  {
  	struct addrinfo *res, *res0;
@@ -85,7 +107,7 @@
  
  	if ((error = getaddrinfo(host, port, &hints, &res)))
  		errx(1, "getaddrinfo: %s", gai_strerror(error));
-@@ -806,8 +823,10 @@
+@@ -806,8 +828,10 @@
  		if (sflag || pflag) {
  			struct addrinfo ahints, *ares;
  
@@ -96,7 +118,7 @@
  			memset(&ahints, 0, sizeof(struct addrinfo));
  			ahints.ai_family = res0->ai_family;
  			ahints.ai_socktype = uflag ? SOCK_DGRAM : SOCK_STREAM;
-@@ -876,7 +895,10 @@
+@@ -876,7 +900,10 @@
  local_listen(char *host, char *port, struct addrinfo hints)
  {
  	struct addrinfo *res, *res0;
@@ -108,7 +130,7 @@
  	int error;
  
  	/* Allow nodename to be null. */
-@@ -898,9 +920,11 @@
+@@ -898,9 +925,11 @@
  		    res0->ai_protocol)) < 0)
  			continue;
  
@@ -120,7 +142,7 @@
  
  		set_common_sockopts(s, res0->ai_family);
  
-@@ -1340,11 +1364,13 @@
+@@ -1340,11 +1369,13 @@
  {
  	int x = 1;
  
@@ -134,29 +156,30 @@
  	if (Dflag) {
  		if (setsockopt(s, SOL_SOCKET, SO_DEBUG,
  			&x, sizeof(x)) == -1)
-@@ -1519,15 +1545,19 @@
+@@ -1519,14 +1550,22 @@
  	\t-P proxyuser\tUsername for proxy authentication\n\
  	\t-p port\t	Specify local port for remote connects\n\
  	\t-R CAfile	CA bundle\n\
 -	\t-r		Randomize remote ports\n\
 -	\t-S		Enable the TCP MD5 signature option\n\
--	\t-s source	Local source address\n\
 +	\t-r		Randomize remote ports\n"
 +#ifdef TCP_MD5SIG
-+	"\t-S		Enable the TCP MD5 signature option\n"
++        "\
++	\t-S		Enable the TCP MD5 signature option\n"
 +#endif
-+	"\t-s source	Local source address\n\
++        "\
+ 	\t-s source	Local source address\n\
  	\t-T keyword	TOS value or TLS options\n\
  	\t-t		Answer TELNET negotiation\n\
  	\t-U		Use UNIX domain socket\n\
 -	\t-u		UDP mode\n\
 -	\t-V rtable	Specify alternate routing table\n\
--	\t-v		Verbose\n\
 +	\t-u		UDP mode\n"
 +#ifdef SO_RTABLE
-+	"\t-V rtable	Specify alternate routing table\n"
++        "\
++	\t-V rtable	Specify alternate routing table\n"
 +#endif
-+	"\t-v		Verbose\n\
++        "\
+ 	\t-v		Verbose\n\
  	\t-w timeout	Timeout for connects and final net reads\n\
  	\t-X proto	Proxy protocol: \"4\", \"5\" (SOCKS) or \"connect\"\n\
- 	\t-x addr[:port]\tSpecify proxy address and port\n\

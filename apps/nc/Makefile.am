@@ -12,6 +12,11 @@ nc_LDADD += $(top_builddir)/ssl/libssl.la
 nc_LDADD += $(top_builddir)/tls/libtls.la
 
 AM_CPPFLAGS += -I$(top_srcdir)/apps/nc/compat
+if OPENSSLDIR_DEFINED
+AM_CPPFLAGS += -DDEFAULT_CA_FILE=\"@OPENSSLDIR@/cert.pem\"
+else
+AM_CPPFLAGS += -DDEFAULT_CA_FILE=\"$(sysconfdir)/ssl/cert.pem\"
+endif
 
 nc_SOURCES = atomicio.c
 nc_SOURCES += netcat.c

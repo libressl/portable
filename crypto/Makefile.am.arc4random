@@ -1,5 +1,6 @@
 if !HAVE_ARC4RANDOM_BUF
 libcompat_la_SOURCES += compat/arc4random.c
+libcompat_la_SOURCES += compat/arc4random_uniform.c
 
 if !HAVE_GETENTROPY
 if HOST_AIX

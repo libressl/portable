@@ -73,6 +73,7 @@ $CP $libtls_src/tls.h libtls-standalone/include
 
 for i in crypto/compat libtls-standalone/compat; do
 	for j in $libc_src/crypt/arc4random.c \
+	    $libc_src/crypt/arc4random_uniform.c \
 	    $libc_src/crypt/chacha_private.h \
 	    $libc_src/string/explicit_bzero.c \
 	    $libc_src/stdlib/reallocarray.c \

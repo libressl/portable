@@ -1,0 +1,12 @@
+--- ./openbsd/src/lib/libtls/tls_internal.h	Thu Oct 15 16:12:24 2015
++++ ./tls/tls_internal.h	Sun Dec  6 20:18:17 2015
+@@ -24,7 +24,9 @@
+ 
+ #include <openssl/ssl.h>
+ 
++#ifndef _PATH_SSL_CA_FILE
+ #define _PATH_SSL_CA_FILE "/etc/ssl/cert.pem"
++#endif
+ 
+ #define TLS_CIPHERS_COMPAT	"ALL:!aNULL:!eNULL"
+ #define TLS_CIPHERS_DEFAULT	"TLSv1.2+AEAD+ECDHE:TLSv1.2+AEAD+DHE"

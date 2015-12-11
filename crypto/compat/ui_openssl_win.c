@@ -301,8 +301,8 @@ open_console(UI *ui)
 	tty_in = stdin;
 	tty_out = stderr;
 
-	HANDLE handle = (HANDLE)_get_osfhandle(_fileno(stdin));
-	if (handle != INVALID_HANDLE_VALUE) {
+	HANDLE handle = GetStdHandle(STD_INPUT_HANDLE);
+	if (handle != NULL && handle != INVALID_HANDLE_VALUE) {
 		if (GetFileType(handle) == FILE_TYPE_CHAR)
 			return GetConsoleMode(handle, &console_mode);
 		else
@@ -314,8 +314,8 @@ open_console(UI *ui)
 static int
 noecho_console(UI *ui)
 {
-	HANDLE handle = (HANDLE)_get_osfhandle(_fileno(stdin));
-	if (handle != INVALID_HANDLE_VALUE) {
+	HANDLE handle = GetStdHandle(STD_INPUT_HANDLE);
+	if (handle != NULL && handle != INVALID_HANDLE_VALUE) {
 		if (GetFileType(handle) == FILE_TYPE_CHAR)
 			return SetConsoleMode(handle, console_mode & ~ENABLE_ECHO_INPUT);
 		else
@@ -327,8 +327,8 @@ noecho_console(UI *ui)
 static int
 echo_console(UI *ui)
 {
-	HANDLE handle = (HANDLE)_get_osfhandle(_fileno(stdin));
-	if (handle != INVALID_HANDLE_VALUE) {
+	HANDLE handle = GetStdHandle(STD_INPUT_HANDLE);
+	if (handle != NULL && handle != INVALID_HANDLE_VALUE) {
 		if (GetFileType(handle) == FILE_TYPE_CHAR)
 			return SetConsoleMode(handle, console_mode);
 		else

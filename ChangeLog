@@ -43,7 +43,8 @@ LibreSSL Portable Release Notes:
 
 	* More man pages converted from pod to mdoc format
 
-	* Added QuoVadis root certificates to cert.pem
+	* Added COMODO RSA Certification Authority and QuoVadis
+	  root certificates to cert.pem
 
 	* Added support for building nc(1) on Solaris
 

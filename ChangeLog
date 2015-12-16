@@ -46,6 +46,10 @@ LibreSSL Portable Release Notes:
 	* Added COMODO RSA Certification Authority and QuoVadis
 	  root certificates to cert.pem
 
+	* Removed Remove "C=US, O=VeriSign, Inc., OU=Class 3 Public Primary Certification
+	  Authority" (serial 3c:91:31:cb:1f:f6:d0:1b:0e:9a:b8:d0:44:bf:12:be) root
+	  certificate from cert.pem.
+
 	* Added support for building nc(1) on Solaris
 
 	* Fixed GCC 5.x+ preprocessor checks, reported by Ruslan Babayev

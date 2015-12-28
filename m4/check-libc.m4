@@ -41,7 +41,7 @@ AC_CACHE_CHECK([for b64_ntop], ac_cv_have_b64_ntop_arg, [
 	[ ac_cv_have_b64_ntop_arg="no"
 	])
 ])
-AM_CONDITIONAL([HAVE_B64_NTOP], [test "x$ac_cv_func_b64_ntop" = xyes])
+AM_CONDITIONAL([HAVE_B64_NTOP], [test "x$ac_cv_func_b64_ntop_arg" = xyes])
 ])
 
 AC_DEFUN([CHECK_CRYPTO_COMPAT], [

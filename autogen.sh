@@ -9,3 +9,7 @@ autoreconf -i -f
 sed 's/-fuse-linker-plugin)/-fuse-linker-plugin|-fstack-protector*)/' \
   ltmain.sh > ltmain.sh.fixed
 mv -f ltmain.sh.fixed ltmain.sh
+
+# Update config scripts and fixup permissions
+find . ! -perm -u=w ! -path "*git*" -exec chmod u+w {} \;
+cp scripts/config.* .

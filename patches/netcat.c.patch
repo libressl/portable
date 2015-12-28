@@ -1,5 +1,5 @@
---- apps/nc/netcat.c.orig	Sun Dec  6 22:05:45 2015
-+++ apps/nc/netcat.c	Mon Dec  7 07:52:00 2015
+--- apps/nc/netcat.c.orig	Mon Dec 28 08:46:10 2015
++++ apps/nc/netcat.c	Mon Dec 28 08:46:19 2015
 @@ -57,6 +57,10 @@
  #include <tls.h>
  #include "atomicio.h"
@@ -35,7 +35,7 @@
  
  int	usetls;					/* use TLS */
  char    *Cflag;					/* Public cert file */
-@@ -144,7 +154,7 @@
+@@ -150,7 +160,7 @@
  	struct servent *sv;
  	socklen_t len;
  	struct sockaddr_storage cliaddr;
@@ -44,7 +44,7 @@
  	const char *errstr, *proxyhost = "", *proxyport = NULL;
  	struct addrinfo proxyhints;
  	char unix_dg_tmp_socket_buf[UNIX_DG_TMP_SOCKET_SIZE];
-@@ -245,12 +255,14 @@
+@@ -251,12 +261,14 @@
  		case 'u':
  			uflag = 1;
  			break;
@@ -59,7 +59,7 @@
  		case 'v':
  			vflag = 1;
  			break;
-@@ -283,9 +295,11 @@
+@@ -289,9 +301,11 @@
  				errx(1, "TCP send window %s: %s",
  				    errstr, optarg);
  			break;
@@ -71,7 +71,7 @@
  		case 'T':
  			errstr = NULL;
  			errno = 0;
-@@ -309,9 +323,11 @@
+@@ -315,9 +329,11 @@
  	argc -= optind;
  	argv += optind;
  
@@ -83,7 +83,7 @@
  
  	if (family == AF_UNIX) {
  		if (pledge("stdio rpath wpath cpath tmppath unix", NULL) == -1)
-@@ -444,7 +460,10 @@
+@@ -460,7 +476,10 @@
  				errx(1, "-H and -T noverify may not be used"
  				    "together");
  			tls_config_insecure_noverifycert(tls_cfg);
@@ -95,7 +95,7 @@
  	}
  	if (lflag) {
  		struct tls *tls_cctx = NULL;
-@@ -791,7 +810,10 @@
+@@ -807,7 +826,10 @@
  remote_connect(const char *host, const char *port, struct addrinfo hints)
  {
  	struct addrinfo *res, *res0;
@@ -107,7 +107,7 @@
  
  	if ((error = getaddrinfo(host, port, &hints, &res)))
  		errx(1, "getaddrinfo: %s", gai_strerror(error));
-@@ -806,8 +828,10 @@
+@@ -822,8 +844,10 @@
  		if (sflag || pflag) {
  			struct addrinfo ahints, *ares;
  
@@ -118,7 +118,7 @@
  			memset(&ahints, 0, sizeof(struct addrinfo));
  			ahints.ai_family = res0->ai_family;
  			ahints.ai_socktype = uflag ? SOCK_DGRAM : SOCK_STREAM;
-@@ -876,7 +900,10 @@
+@@ -892,7 +916,10 @@
  local_listen(char *host, char *port, struct addrinfo hints)
  {
  	struct addrinfo *res, *res0;
@@ -130,7 +130,7 @@
  	int error;
  
  	/* Allow nodename to be null. */
-@@ -898,9 +925,11 @@
+@@ -914,9 +941,11 @@
  		    res0->ai_protocol)) < 0)
  			continue;
  
@@ -142,7 +142,7 @@
  
  		set_common_sockopts(s, res0->ai_family);
  
-@@ -1340,11 +1369,13 @@
+@@ -1356,11 +1385,13 @@
  {
  	int x = 1;
  
@@ -156,7 +156,7 @@
  	if (Dflag) {
  		if (setsockopt(s, SOL_SOCKET, SO_DEBUG,
  			&x, sizeof(x)) == -1)
-@@ -1519,14 +1550,22 @@
+@@ -1538,14 +1569,22 @@
  	\t-P proxyuser\tUsername for proxy authentication\n\
  	\t-p port\t	Specify local port for remote connects\n\
  	\t-R CAfile	CA bundle\n\

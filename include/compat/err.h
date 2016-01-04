@@ -13,20 +13,66 @@
 #define LIBCRYPTOCOMPAT_ERR_H
 
 #include <errno.h>
+#include <stdarg.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
-#define err(exitcode, format, ...) \
-  errx(exitcode, format ": %s", ## __VA_ARGS__, strerror(errno))
+static inline void
+err(int eval, const char *fmt, ...)
+{
+	int sverrno = errno;
+	va_list ap;
 
-#define errx(exitcode, format, ...) \
-  do { warnx(format, ## __VA_ARGS__); exit(exitcode); } while (0)
+	va_start(ap, fmt);
+	if (fmt != NULL) {
+		vfprintf(stderr, fmt, ap);
+		fprintf(stderr, ": ");
+	}
+	fprintf(stderr, "%s\n", strerror(sverrno));
+	exit(eval);
+	va_end(ap);
+}
 
-#define warn(format, ...) \
-  warnx(format ": %s", ## __VA_ARGS__, strerror(errno))
+static inline void
+errx(int eval, const char *fmt, ...)
+{
+	va_list ap;
 
-#define warnx(format, ...) \
-  fprintf(stderr, format "\n", ## __VA_ARGS__)
+	va_start(ap, fmt);
+	if (fmt != NULL)
+		vfprintf(stderr, fmt, ap);
+	fprintf(stderr, "\n");
+	exit(eval);
+	va_end(ap);
+}
+
+static inline void
+warn(const char *fmt, ...)
+{
+	int sverrno = errno;
+	va_list ap;
+
+	va_start(ap, fmt);
+	if (fmt != NULL) {
+		vfprintf(stderr, fmt, ap);
+		fprintf(stderr, ": ");
+	}
+	fprintf(stderr, "%s\n", strerror(sverrno));
+	va_end(ap);
+}
+
+static inline void
+warnx(const char *fmt, ...)
+{
+	va_list ap;
+
+	va_start(ap, fmt);
+	if (fmt != NULL)
+		vfprintf(stderr, fmt, ap);
+	fprintf(stderr, "\n");
+	va_end(ap);
+}
 
 #endif
 

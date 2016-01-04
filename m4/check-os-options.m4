@@ -4,6 +4,7 @@ CFLAGS="$CFLAGS -Wall -std=gnu99 -fno-strict-aliasing"
 
 case $host_os in
 	*aix*)
+		BUILD_NC=yes
 		HOST_OS=aix
 		if test "`echo $CC | cut -d ' ' -f 1`" != "gcc" ; then
 			CFLAGS="-qnoansialias $USER_CFLAGS"

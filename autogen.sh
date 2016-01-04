@@ -11,5 +11,5 @@ sed 's/-fuse-linker-plugin)/-fuse-linker-plugin|-fstack-protector*)/' \
 mv -f ltmain.sh.fixed ltmain.sh
 
 # Update config scripts and fixup permissions
-find . ! -perm -u=w ! -path "*git*" -exec chmod u+w {} \;
+find . ! -perm -u=w -exec chmod u+w {} \;
 cp scripts/config.* .

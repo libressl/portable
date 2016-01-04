@@ -17,11 +17,17 @@ case $host_os in
 		;;
 	*darwin*)
 		BUILD_NC=yes
+                # weak seed on failure to open /dev/random, based on latest public source
+                # http://www.opensource.apple.com/source/Libc/Libc-997.90.3/gen/FreeBSD/arc4random.c
+                USE_BUILTIN_ARC4RANDOM=yes
 		HOST_OS=darwin
 		HOST_ABI=macosx
 		;;
 	*freebsd*)
 		BUILD_NC=yes
+                # fork detection missing, weak seed on failure
+                # https://svnweb.freebsd.org/base/head/lib/libc/gen/arc4random.c?revision=268642&view=markup
+                USE_BUILTIN_ARC4RANDOM=yes
 		HOST_OS=freebsd
 		HOST_ABI=elf
 		AC_SUBST([PROG_LDADD], ['-lthr'])
@@ -44,6 +50,16 @@ case $host_os in
 		;;
 	*netbsd*)
 		BUILD_NC=yes
+               AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+#include <sys/param.h>
+#if __NetBSD_Version__ < 700000001
+        undefined
+#endif
+                       ]], [[]])],
+                       [ USE_BUILTIN_ARC4RANDOM=no ],
+                       [ USE_BUILTIN_ARC4RANDOM=yes ]
+               )
+
 		HOST_OS=netbsd
 		CPPFLAGS="$CPPFLAGS -D_OPENBSD_SOURCE"
 		;;

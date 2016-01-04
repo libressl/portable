@@ -225,8 +225,8 @@ if ENABLE_EXTRATESTS
 TESTS += pidwraptest.sh
 check_PROGRAMS += pidwraptest
 pidwraptest_SOURCES = pidwraptest.c
-EXTRA_DIST += pidwraptest.sh
 endif
+EXTRA_DIST += pidwraptest.sh
 
 # pkcs7test
 TESTS += pkcs7test

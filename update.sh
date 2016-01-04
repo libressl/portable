@@ -301,8 +301,13 @@ add_man_links() {
 }
 
 # apply local patches
+PATCH=patch
+# Prefer gnu patch on AIX systems, if available
+if [ -x /opt/freeware/bin/patch ]; then
+    PATCH=/opt/freeware/bin/patch
+fi
 for i in patches/*.patch; do
-    patch -p0 < $i
+    $PATCH -p0 < $i
 done
 
 # copy manpages

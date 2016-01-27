@@ -48,13 +48,24 @@ LibreSSL Portable Release Notes:
 
 	* Removed Remove "C=US, O=VeriSign, Inc., OU=Class 3 Public Primary Certification
 	  Authority" (serial 3c:91:31:cb:1f:f6:d0:1b:0e:9a:b8:d0:44:bf:12:be) root
-	  certificate from cert.pem.
+	  certificate from cert.pem
 
 	* Added support for building nc(1) on Solaris
 
 	* Fixed GCC 5.x+ preprocessor checks, reported by Ruslan Babayev
 
-	* Improved console handling with openssl(1) on Windows.
+	* Improved console handling with openssl(1) on Windows
+
+	* Ensure the network stack is enabled on Windows when running
+	  tls_init()
+
+	* Fixed incorrect TLS certificate loading by nc(1)
+
+	* Added support for Solaris 11.3's getentropy(2) system call
+
+	* Enabled support for using NetBSD 7.0's arc4random(3) implementation
+
+	* Deprecated the SSL_OP_SINGLE_DH_USE flag by disabling its effect
 
 	* Fixes from OpenSSL 1.0.1q
 	 - CVE-2015-3194 - NULL pointer dereference in client side certificate

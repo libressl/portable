@@ -28,6 +28,10 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.2.6
+
+	* Deprecated the SSL_OP_SINGLE_DH_USE flag.
+
 2.2.5 - Reliability Update
 
 	* Fixes from OpenSSL 1.0.1q

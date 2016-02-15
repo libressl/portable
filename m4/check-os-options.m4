@@ -1,10 +1,10 @@
 AC_DEFUN([CHECK_OS_OPTIONS], [
 
 CFLAGS="$CFLAGS -Wall -std=gnu99 -fno-strict-aliasing"
+BUILD_NC=yes
 
 case $host_os in
 	*aix*)
-		BUILD_NC=yes
 		HOST_OS=aix
 		if test "`echo $CC | cut -d ' ' -f 1`" != "gcc" ; then
 			CFLAGS="-qnoansialias $USER_CFLAGS"
@@ -12,24 +12,22 @@ case $host_os in
 		AC_SUBST([PLATFORM_LDADD], ['-lperfstat -lpthread'])
 		;;
 	*cygwin*)
-		BUILD_NC=yes
 		HOST_OS=cygwin
 		;;
 	*darwin*)
-		BUILD_NC=yes
-                # weak seed on failure to open /dev/random, based on latest public source
-                # http://www.opensource.apple.com/source/Libc/Libc-997.90.3/gen/FreeBSD/arc4random.c
-                USE_BUILTIN_ARC4RANDOM=yes
 		HOST_OS=darwin
 		HOST_ABI=macosx
+		# weak seed on failure to open /dev/random, based on latest
+		# public source:
+		# http://www.opensource.apple.com/source/Libc/Libc-997.90.3/gen/FreeBSD/arc4random.c
+		USE_BUILTIN_ARC4RANDOM=yes
 		;;
 	*freebsd*)
-		BUILD_NC=yes
-                # fork detection missing, weak seed on failure
-                # https://svnweb.freebsd.org/base/head/lib/libc/gen/arc4random.c?revision=268642&view=markup
-                USE_BUILTIN_ARC4RANDOM=yes
 		HOST_OS=freebsd
 		HOST_ABI=elf
+		# fork detection missing, weak seed on failure
+		# https://svnweb.freebsd.org/base/head/lib/libc/gen/arc4random.c?revision=268642&view=markup
+		USE_BUILTIN_ARC4RANDOM=yes
 		AC_SUBST([PROG_LDADD], ['-lthr'])
 		;;
 	*hpux*)
@@ -43,14 +41,14 @@ case $host_os in
 		AC_SUBST([PLATFORM_LDADD], ['-lpthread'])
 		;;
 	*linux*)
-		BUILD_NC=yes
 		HOST_OS=linux
 		HOST_ABI=elf
 		CPPFLAGS="$CPPFLAGS -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
 		;;
 	*netbsd*)
-		BUILD_NC=yes
-               AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+		HOST_OS=netbsd
+		HOST_ABI=elf
+		AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
 #include <sys/param.h>
 #if __NetBSD_Version__ < 700000001
         undefined
@@ -58,19 +56,17 @@ case $host_os in
                        ]], [[]])],
                        [ USE_BUILTIN_ARC4RANDOM=no ],
                        [ USE_BUILTIN_ARC4RANDOM=yes ]
-               )
-
-		HOST_OS=netbsd
+		)
 		CPPFLAGS="$CPPFLAGS -D_OPENBSD_SOURCE"
 		;;
 	*openbsd* | *bitrig*)
-		BUILD_NC=yes
 		HOST_OS=openbsd
 		HOST_ABI=elf
 		AC_DEFINE([HAVE_ATTRIBUTE__BOUNDED__], [1], [OpenBSD gcc has bounded])
 		;;
 	*mingw*)
 		HOST_OS=win
+		BUILD_NC=no
 		CPPFLAGS="$CPPFLAGS -D_GNU_SOURCE -D_POSIX -D_POSIX_SOURCE -D__USE_MINGW_ANSI_STDIO"
 		CPPFLAGS="$CPPFLAGS -D_REENTRANT -D_POSIX_THREAD_SAFE_FUNCTIONS"
 		CPPFLAGS="$CPPFLAGS -DWIN32_LEAN_AND_MEAN -D_WIN32_WINNT=0x0501"
@@ -80,7 +76,6 @@ case $host_os in
 		AC_SUBST([PLATFORM_LDADD], ['-lws2_32'])
 		;;
 	*solaris*)
-		BUILD_NC=yes
 		HOST_OS=solaris
 		HOST_ABI=elf
 		CPPFLAGS="$CPPFLAGS -D__EXTENSIONS__ -D_XOPEN_SOURCE=600 -DBSD_COMP"

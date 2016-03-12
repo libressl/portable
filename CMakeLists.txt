@@ -96,7 +96,7 @@ if(HAVE_STRLCAT)
 	add_definitions(-DHAVE_STRLCAT)
 endif()
 
-check_function_exists(strlcat HAVE_STRLCPY)
+check_function_exists(strlcpy HAVE_STRLCPY)
 if(HAVE_STRLCPY)
 	add_definitions(-DHAVE_STRLCPY)
 endif()

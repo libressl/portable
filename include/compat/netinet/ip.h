@@ -3,6 +3,10 @@
  * netinet/ip.h compatibility shim
  */
 
+#if defined(__hpux)
+#include <netinet/in_systm.h>
+#endif
+
 #ifndef _WIN32
 #include_next <netinet/ip.h>
 #else

@@ -22,7 +22,7 @@ for ARCH in X86 X64; do
 
 	echo Building for $HOST
 
-	CC=$HOST-gcc ./configure --host=$HOST
+	CC=$HOST-gcc ./configure --host=$HOST --with-openssldir=c:/libressl/ssl
 	make clean
 	PATH=$PATH:/usr/$HOST/sys-root/mingw/bin \
 	   make -j 4 check

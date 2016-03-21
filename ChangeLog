@@ -34,17 +34,14 @@ LibreSSL Portable Release Notes:
 
 	* Fixed broken manpage links
 
-	* Added 'install_sw' make alias for software expecting this to exist,
-	  e.g. nginx
+	* Fixed an nginx compatibility issue by adding an 'install_sw' make alias
 
 	* Fixed HP-UX builds
 
-	* Set OPENSSLDIR to c:\LibreSSL\ssl on Windows binary builds
+	* Changed the default configuration directory to c:\LibreSSL\ssl on Windows
+	  binary builds
 
-	* Remove SSLv3 from more documentation
-
-	* cert.pem has been reorganized and synced with Mozilla's certificate
-	  store.
+	* cert.pem has been reorganized and synced with Mozilla's certificate store
 
 2.3.2 - Compatibility and Reliability fixes
 

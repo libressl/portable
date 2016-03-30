@@ -3,7 +3,7 @@ include(CheckFunctionExists)
 include(CheckLibraryExists)
 include(CheckIncludeFiles)
 
-project (LibreSSL)
+project (LibreSSL C)
 
 enable_testing()
 

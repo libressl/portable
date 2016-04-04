@@ -17,7 +17,7 @@ set(
 )
 
 
-if(NOT HAVE_STRCASECMP)
+if(NOT HAVE_STRSEP)
 	set(TLS_SRC ${TLS_SRC} strsep.c)
 endif()
 

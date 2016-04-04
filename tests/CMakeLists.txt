@@ -134,12 +134,13 @@ add_test(enginetest enginetest)
 # explicit_bzero
 # explicit_bzero relies on SA_ONSTACK, which is unavailable on Windows
 if(NOT CMAKE_HOST_WIN32)
-add_executable(explicit_bzero explicit_bzero.c)
+if(HAVE_MEMMEM)
+	add_executable(explicit_bzero explicit_bzero.c)
+else()
+	add_executable(explicit_bzero explicit_bzero.c memmem.c)
+endif()
 target_link_libraries(explicit_bzero ${OPENSSL_LIBS})
 add_test(explicit_bzero explicit_bzero)
-#if !HAVE_MEMMEM
-#explicit_bzero_SOURCES += memmem.c
-#endif
 endif()
 
 # exptest
@@ -230,7 +231,11 @@ add_test(rc4test rc4test)
 # rfc5280time
 add_executable(rfc5280time rfc5280time.c)
 target_link_libraries(rfc5280time ${OPENSSL_LIBS})
-add_test(rfc5280time rfc5280time)
+if(SMALL_TIME_T)
+	add_test(rfc5280time ${CMAKE_CURRENT_SOURCE_DIR}/rfc5280time_small.test)
+else()
+	add_test(rfc5280time rfc5280time)
+endif()
 
 # rmdtest
 add_executable(rmdtest rmdtest.c)

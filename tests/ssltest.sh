@@ -6,9 +6,16 @@ if [ -e ./ssltest.exe ]; then
 	ssltest_bin=./ssltest.exe
 fi
 
-openssl_bin=../apps/openssl/openssl
-if [ -e ../apps/openssl/openssl.exe ]; then
-	openssl_bin=../apps/openssl/openssl.exe
+if [ -d ../apps/openssl ]; then
+	openssl_bin=../apps/openssl/openssl
+	if [ -e ../apps/openssl/openssl.exe ]; then
+		openssl_bin=../apps/openssl/openssl.exe
+	fi
+else
+	openssl_bin=../apps/openssl
+	if [ -e ../apps/openssl.exe ]; then
+		openssl_bin=../apps/openssl.exe
+	fi
 fi
 
 if [ -z $srcdir ]; then

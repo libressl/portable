@@ -172,7 +172,7 @@ if(CMAKE_SYSTEM_NAME MATCHES "Linux")
 	endif()
 endif()
 
-if(NOT (CMAKE_SYSTEM_NAME MATCHES "Darwin" OR MSVC))
+if(NOT (CMAKE_SYSTEM_NAME MATCHES "(Darwin|MINGW|CYGWIN)" OR MSVC))
 	set(BUILD_SHARED true)
 endif()
 

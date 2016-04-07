@@ -89,6 +89,7 @@ noinst_HEADERS += timeouts.h
 EXTRA_DIST = cert.pem
 EXTRA_DIST += openssl.cnf
 EXTRA_DIST += x509v3.cnf
+EXTRA_DIST += CMakeLists.txt
 
 install-exec-hook:
 	@if [ "@OPENSSLDIR@x" != "x" ]; then \

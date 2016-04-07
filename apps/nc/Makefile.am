@@ -9,6 +9,7 @@ noinst_PROGRAMS = nc
 endif
 
 EXTRA_DIST = nc.1
+EXTRA_DIST += CMakeLists.txt
 
 nc_LDADD = $(PLATFORM_LDADD) $(PROG_LDADD)
 nc_LDADD += $(top_builddir)/crypto/libcrypto.la

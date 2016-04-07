@@ -142,6 +142,11 @@ if(HAVE_ARC4RANDOM_BUF)
 	add_definitions(-DHAVE_ARC4RANDOM_BUF)
 endif()
 
+check_function_exists(arc4random_uniform HAVE_ARC4RANDOM_UNIFORM)
+if(HAVE_ARC4RANDOM_UNIFORM)
+	add_definitions(-DHAVE_ARC4RANDOM_UNIFORM)
+endif()
+
 check_function_exists(explicit_bzero HAVE_EXPLICIT_BZERO)
 if(HAVE_EXPLICIT_BZERO)
 	add_definitions(-DHAVE_EXPLICIT_BZERO)

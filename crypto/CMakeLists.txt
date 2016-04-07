@@ -631,6 +631,10 @@ if(NOT HAVE_ARC4RANDOM_BUF)
 	endif()
 endif()
 
+if(NOT HAVE_ARC4RANDOM_UNIFORM)
+	set(CRYPTO_SRC ${CRYPTO_SRC} compat/arc4random_uniform.c)
+endif()
+
 if(NOT HAVE_TIMINGSAFE_BCMP)
 	set(CRYPTO_SRC ${CRYPTO_SRC} compat/timingsafe_bcmp.c)
 endif()

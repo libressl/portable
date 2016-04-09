@@ -12,11 +12,10 @@ include_directories(
 set(ENV{srcdir} ${CMAKE_CURRENT_SOURCE_DIR})
 
 # aeadtest
-#add_executable(aeadtest aeadtest.c)
-#target_link_libraries(aeadtest ${OPENSSL_LIBS})
-#add_test(aeadtest aeadtest.sh)
-#configure_file(aeadtests.txt aeadtests.txt COPYONLY)
-#configure_file(aeadtest.sh aeadtest.sh COPYONLY)
+add_executable(aeadtest aeadtest.c)
+target_link_libraries(aeadtest ${OPENSSL_LIBS})
+add_test(aeadtest ${CMAKE_CURRENT_SOURCE_DIR}/aeadtest.sh)
+set_tests_properties(aeadtest PROPERTIES ENVIRONMENT "srcdir=${CMAKE_CURRENT_SOURCE_DIR}")
 
 # aes_wrap
 add_executable(aes_wrap aes_wrap.c)
@@ -127,9 +126,10 @@ target_link_libraries(enginetest ${OPENSSL_LIBS})
 add_test(enginetest enginetest)
 
 # evptest
-#add_executable(evptest evptest.c)
-#target_link_libraries(evptest ${OPENSSL_LIBS})
-#add_test(evptest ${CMAKE_CURRENT_SOURCE_DIR}/evptest.sh)
+add_executable(evptest evptest.c)
+target_link_libraries(evptest ${OPENSSL_LIBS})
+add_test(evptest ${CMAKE_CURRENT_SOURCE_DIR}/evptest.sh)
+set_tests_properties(evptest PROPERTIES ENVIRONMENT "srcdir=${CMAKE_CURRENT_SOURCE_DIR}")
 
 # explicit_bzero
 # explicit_bzero relies on SA_ONSTACK, which is unavailable on Windows
@@ -209,9 +209,10 @@ target_link_libraries(poly1305test ${OPENSSL_LIBS})
 add_test(poly1305test poly1305test)
 
 # pq_test
-#add_executable(pq_test pq_test.c)
-#target_link_libraries(pq_test ${OPENSSL_LIBS})
-#add_test(pq_test ${CMAKE_CURRENT_SOURCE_DIR}/pq_test.sh)
+add_executable(pq_test pq_test.c)
+target_link_libraries(pq_test ${OPENSSL_LIBS})
+add_test(pq_test ${CMAKE_CURRENT_SOURCE_DIR}/pq_test.sh)
+set_tests_properties(pq_test PROPERTIES ENVIRONMENT "srcdir=${CMAKE_CURRENT_SOURCE_DIR}")
 
 # randtest
 add_executable(randtest randtest.c)
@@ -258,18 +259,22 @@ target_link_libraries(sha512test ${OPENSSL_LIBS})
 add_test(sha512test sha512test)
 
 # ssltest
-#add_executable(ssltest ssltest.c)
-#target_link_libraries(ssltest ${OPENSSL_LIBS})
-#add_test(ssltest ${CMAKE_CURRENT_SOURCE_DIR}/ssltest.sh)
+add_executable(ssltest ssltest.c)
+target_link_libraries(ssltest ${OPENSSL_LIBS})
+add_test(ssltest ${CMAKE_CURRENT_SOURCE_DIR}/ssltest.sh)
+set_tests_properties(ssltest PROPERTIES ENVIRONMENT "srcdir=${CMAKE_CURRENT_SOURCE_DIR}")
 
 # testdsa
-#add_test(testdsa ${CMAKE_CURRENT_SOURCE_DIR}/testdsa.sh)
+add_test(testdsa ${CMAKE_CURRENT_SOURCE_DIR}/testdsa.sh)
+set_tests_properties(testdsa PROPERTIES ENVIRONMENT "srcdir=${CMAKE_CURRENT_SOURCE_DIR}")
 
 # testenc
 add_test(testenc ${CMAKE_CURRENT_SOURCE_DIR}/testenc.sh)
+set_tests_properties(testenc PROPERTIES ENVIRONMENT "srcdir=${CMAKE_CURRENT_SOURCE_DIR}")
 
 # testrsa
-#add_test(testrsa ${CMAKE_CURRENT_SOURCE_DIR}/testrsa.sh)
+add_test(testrsa ${CMAKE_CURRENT_SOURCE_DIR}/testrsa.sh)
+set_tests_properties(testrsa PROPERTIES ENVIRONMENT "srcdir=${CMAKE_CURRENT_SOURCE_DIR}")
 
 # timingsafe
 add_executable(timingsafe timingsafe.c)

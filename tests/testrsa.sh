@@ -4,9 +4,16 @@
 
 #Test RSA certificate generation of openssl
 
-cmd=../apps/openssl/openssl
-if [ -e ../apps/openssl/openssl.exe ]; then
-	cmd=../apps/openssl/openssl.exe
+if [ -d ../apps/openssl ]; then
+	cmd=../apps/openssl/openssl
+	if [ -e ../apps/openssl/openssl.exe ]; then
+		cmd=../apps/openssl/openssl.exe
+	fi
+else
+	cmd=../apps/openssl
+	if [ -e ../apps/openssl.exe ]; then
+		cmd=../apps/openssl.exe
+	fi
 fi
 
 if [ -z $srcdir ]; then

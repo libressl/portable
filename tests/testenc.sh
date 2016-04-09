@@ -2,12 +2,23 @@
 #	$OpenBSD: testenc.sh,v 1.1 2014/08/26 17:50:07 jsing Exp $
 
 test=p
-cmd=../apps/openssl/openssl
-if [ -e ../apps/openssl/openssl.exe ]; then
-	cmd=../apps/openssl/openssl.exe
+if [ -d ../apps/openssl ]; then
+	cmd=../apps/openssl/openssl
+	if [ -e ../apps/openssl/openssl.exe ]; then
+		cmd=../apps/openssl/openssl.exe
+	fi
+else
+	cmd=../apps/openssl
+	if [ -e ../apps/openssl.exe ]; then
+		cmd=../apps/openssl.exe
+	fi
 fi
 
-cat openssl.cnf >$test;
+if [ -z $srcdir ]; then
+	srcdir=.
+fi
+
+cat $srcdir/openssl.cnf >$test;
 
 echo cat
 $cmd enc < $test > $test.cipher

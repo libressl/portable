@@ -46,7 +46,6 @@ endif()
 
 add_definitions(-DLIBRESSL_INTERNAL)
 add_definitions(-DOPENSSL_NO_HW_PADLOCK)
-add_definitions(-DOPENSSL_NO_ASM)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE true)
 
@@ -180,6 +179,14 @@ endif()
 check_include_files(err.h HAVE_ERR_H)
 if(HAVE_ERR_H)
 	add_definitions(-DHAVE_ERR_H)
+endif()
+
+if("${CMAKE_C_COMPILER_ABI}" STREQUAL "ELF" AND "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64" AND ENABLE_ASM)
+	set(HOST_ASM_ELF_X86_64 true)
+endif()
+
+if(APPLE AND "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64" AND ENABLE_ASM)
+	set(HOST_ASM_MACOSX_X86_64 true)
 endif()
 
 set(OPENSSL_LIBS ssl crypto)

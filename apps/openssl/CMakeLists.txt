@@ -79,3 +79,11 @@ target_link_libraries(openssl ${OPENSSL_LIBS})
 
 install(TARGETS openssl DESTINATION bin)
 install(FILES openssl.1 DESTINATION share/man/man1)
+
+if(NOT "${OPENSSLDIR}" STREQUAL "")
+	set(CONF_DIR "${OPENSSLDIR}")
+else()
+	set(CONF_DIR "${CMAKE_INSTALL_PREFIX}/etc/ssl")
+endif()
+install(FILES cert.pem openssl.cnf x509v3.cnf DESTINATION ${CONF_DIR})
+install(DIRECTORY DESTINATION ${CONF_DIR}/cert)

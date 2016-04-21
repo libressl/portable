@@ -6,7 +6,7 @@ EXTRA_DIST = VERSION
 EXTRA_DIST += CMakeLists.txt
 
 libssl_la_LDFLAGS = -version-info @LIBSSL_VERSION@ -no-undefined
-libssl_la_LIBADD = ../crypto/libcrypto.la
+libssl_la_LIBADD = $(abs_top_builddir)/crypto/libcrypto.la
 
 libssl_la_SOURCES = bio_ssl.c
 libssl_la_SOURCES += bs_ber.c

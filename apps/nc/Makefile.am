@@ -11,9 +11,9 @@ endif
 EXTRA_DIST = nc.1
 
 nc_LDADD = $(PLATFORM_LDADD) $(PROG_LDADD)
-nc_LDADD += $(top_builddir)/crypto/libcrypto.la
-nc_LDADD += $(top_builddir)/ssl/libssl.la
-nc_LDADD += $(top_builddir)/tls/libtls.la
+nc_LDADD += $(abs_top_builddir)/crypto/libcrypto.la
+nc_LDADD += $(abs_top_builddir)/ssl/libssl.la
+nc_LDADD += $(abs_top_builddir)/tls/libtls.la
 
 AM_CPPFLAGS += -I$(top_srcdir)/apps/nc/compat
 if OPENSSLDIR_DEFINED

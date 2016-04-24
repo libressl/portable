@@ -64,8 +64,10 @@ AM_CONDITIONAL([HAVE_ARC4RANDOM_BUF],
 
 # Check for getentropy fallback dependencies
 AC_CHECK_FUNC([getauxval])
-AC_CHECK_FUNC([clock_gettime],, [AC_SEARCH_LIBS([clock_gettime],[rt posix4])])
-AC_CHECK_FUNC([dl_iterate_phdr],, [AC_SEARCH_LIBS([dl_iterate_phdr],[dl])])
+AC_SEARCH_LIBS([clock_gettime],[rt posix4])
+AC_CHECK_FUNC([clock_gettime])
+AC_SEARCH_LIBS([dl_iterate_phdr],[dl])
+AC_CHECK_FUNC([dl_iterate_phdr])
 ])
 
 AC_DEFUN([CHECK_VA_COPY], [

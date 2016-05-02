@@ -43,6 +43,12 @@ else()
 	set(NC_SRC ${NC_SRC} compat/strtonum.c)
 endif()
 
+if(NOT "${OPENSSLDIR}" STREQUAL "")
+	add_definitions(-DDEFAULT_CA_FILE=\"${OPENSSLDIR}/cert.pem\")
+else()
+	add_definitions(-DDEFAULT_CA_FILE=\"${CMAKE_INSTALL_PREFIX}/etc/ssl/cert.pem\")
+endif()
+
 add_executable(nc ${NC_SRC})
 target_link_libraries(nc tls ${OPENSSL_LIBS})
 

@@ -23,6 +23,17 @@ string(STRIP ${TLS_VERSION} TLS_VERSION)
 string(REPLACE ":" "." TLS_VERSION ${TLS_VERSION})
 string(REGEX REPLACE "\\..*" "" TLS_MAJOR_VERSION ${TLS_VERSION})
 
+option(ENABLE_ASM "Enable assembly" ON)
+option(ENABLE_EXTRATESTS "Enable extra tests that may be unreliable on some platforms" OFF)
+option(ENABLE_NC "Enable installing TLS-enabled nc(1)" OFF)
+set(OPENSSLDIR ${OPENSSLDIR} CACHE PATH "Set the default openssl directory" FORCE)
+
+set(BUILD_NC true)
+
+if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
+	add_definitions(-fno-common)
+endif()
+
 if(CMAKE_SYSTEM_NAME MATCHES "OpenBSD")
 	add_definitions(-DHAVE_ATTRIBUTE__BOUNDED__)
 endif()
@@ -32,6 +43,10 @@ if(CMAKE_SYSTEM_NAME MATCHES "Linux")
 	add_definitions(-D_BSD_SOURCE)
 	add_definitions(-D_POSIX_SOURCE)
 	add_definitions(-D_GNU_SOURCE)
+endif()
+
+if(CMAKE_SYSTEM_NAME MATCHES "MINGW")
+	set(BUILD_NC false)
 endif()
 
 if(CMAKE_SYSTEM_NAME MATCHES "HP-UX")

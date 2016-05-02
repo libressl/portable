@@ -21,6 +21,12 @@ if(NOT HAVE_STRSEP)
 	set(TLS_SRC ${TLS_SRC} strsep.c)
 endif()
 
+if(NOT "${OPENSSLDIR}" STREQUAL "")
+	add_definitions(-D_PATH_SSL_CA_FILE=\"${OPENSSLDIR}/cert.pem\")
+else()
+	add_definitions(-D_PATH_SSL_CA_FILE=\"${CMAKE_INSTALL_PREFIX}/etc/ssl/cert.pem\")
+endif()
+
 if (BUILD_SHARED)
 	add_library(tls-objects OBJECT ${TLS_SRC})
 	add_library(tls STATIC $<TARGET_OBJECTS:tls-objects>)

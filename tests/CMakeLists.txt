@@ -9,8 +9,6 @@ include_directories(
 	../apps/openssl/compat
 )
 
-set(ENV{srcdir} ${CMAKE_CURRENT_SOURCE_DIR})
-
 # aeadtest
 add_executable(aeadtest aeadtest.c)
 target_link_libraries(aeadtest ${OPENSSL_LIBS})
@@ -24,7 +22,7 @@ add_test(aes_wrap aes_wrap)
 
 # arc4randomforktest
 # Windows/mingw does not have fork, but Cygwin does.
-if(NOT CMAKE_HOST_WIN32)
+if(NOT CMAKE_HOST_WIN32 AND NOT CMAKE_SYSTEM_NAME MATCHES "MINGW")
 add_executable(arc4randomforktest arc4randomforktest.c)
 target_link_libraries(arc4randomforktest ${OPENSSL_LIBS})
 add_test(arc4randomforktest ${CMAKE_CURRENT_SOURCE_DIR}/arc4randomforktest.sh)
@@ -49,6 +47,14 @@ add_test(base64test base64test)
 add_executable(bftest bftest.c)
 target_link_libraries(bftest ${OPENSSL_LIBS})
 add_test(bftest bftest)
+
+# biotest
+# the BIO tests rely on resolver results that are OS and environment-specific
+if(ENABLE_EXTRATESTS)
+	add_executable(biotest biotest.c)
+	target_link_libraries(biotest ${OPENSSL_LIBS})
+	add_test(biotest biotest)
+endif()
 
 # bntest
 add_executable(bntest bntest.c)
@@ -197,6 +203,15 @@ add_test(optionstest optionstest)
 add_executable(pbkdf2 pbkdf2.c)
 target_link_libraries(pbkdf2 ${OPENSSL_LIBS})
 add_test(pbkdf2 pbkdf2)
+
+# pidwraptest
+# pidwraptest relies on an OS-specific way to give out pids and is generally
+# awkward on systems with slow fork
+if(ENABLE_EXTRATESTS)
+	add_executable(pidwraptest pidwraptest.c)
+	target_link_libraries(pidwraptest ${OPENSSL_LIBS})
+	add_test(pidwraptest ${CMAKE_CURRENT_SOURCE_DIR}/pidwraptest.sh)
+endif()
 
 # pkcs7test
 add_executable(pkcs7test pkcs7test.c)

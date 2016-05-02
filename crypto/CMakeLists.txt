@@ -742,6 +742,12 @@ else()
 	endif()
 endif()
 
+if(NOT "${OPENSSLDIR}" STREQUAL "")
+	add_definitions(-DOPENSSLDIR=\"${OPENSSLDIR}\")
+else()
+	add_definitions(-DOPENSSLDIR=\"${CMAKE_INSTALL_PREFIX}/etc/ssl\")
+endif()
+
 if (BUILD_SHARED)
 	add_library(crypto-objects OBJECT ${CRYPTO_SRC})
 	add_library(crypto STATIC $<TARGET_OBJECTS:crypto-objects>)

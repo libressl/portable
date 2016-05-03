@@ -28,7 +28,12 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
-2.2.6
+2.2.7 - Security Update
+
+	* Fix multiple vulnerabilities in libcrypto relating to ASN.1 and encoding.
+	From OpenSSL.
+
+2.2.6 - Security Update
 
 	* Deprecated the SSL_OP_SINGLE_DH_USE flag.
 

@@ -28,6 +28,13 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.3.4 - Security Update
+
+	* Fix multiple vulnerabilities in libcrypto relating to ASN.1 and encoding.
+	From OpenSSL.
+
+	* Minor build fixes
+
 2.3.3 - OpenBSD 5.9 release branch tagged
 
 	* Reworked build scripts to better sync with OpenNTPD-portable

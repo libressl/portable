@@ -28,6 +28,10 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.3.5 - Reliability fix
+
+	* Fixed an error in libcrypto when parsing some ASN.1 elements > 16k.
+
 2.3.4 - Security Update
 
 	* Fix multiple vulnerabilities in libcrypto relating to ASN.1 and encoding.

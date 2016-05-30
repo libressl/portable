@@ -1,5 +1,5 @@
---- apps/nc/netcat.c.orig	Mon Dec 28 08:46:10 2015
-+++ apps/nc/netcat.c	Mon Dec 28 08:46:19 2015
+--- apps/nc/netcat.c.orig	Mon May 30 11:05:31 2016
++++ apps/nc/netcat.c	Mon May 30 11:05:44 2016
 @@ -57,6 +57,10 @@
  #include <tls.h>
  #include "atomicio.h"
@@ -83,7 +83,7 @@
  
  	if (family == AF_UNIX) {
  		if (pledge("stdio rpath wpath cpath tmppath unix", NULL) == -1)
-@@ -460,7 +476,10 @@
+@@ -469,7 +485,10 @@
  				errx(1, "-H and -T noverify may not be used"
  				    "together");
  			tls_config_insecure_noverifycert(tls_cfg);
@@ -95,7 +95,7 @@
  	}
  	if (lflag) {
  		struct tls *tls_cctx = NULL;
-@@ -807,7 +826,10 @@
+@@ -817,7 +836,10 @@
  remote_connect(const char *host, const char *port, struct addrinfo hints)
  {
  	struct addrinfo *res, *res0;
@@ -107,7 +107,7 @@
  
  	if ((error = getaddrinfo(host, port, &hints, &res)))
  		errx(1, "getaddrinfo: %s", gai_strerror(error));
-@@ -822,8 +844,10 @@
+@@ -832,8 +854,10 @@
  		if (sflag || pflag) {
  			struct addrinfo ahints, *ares;
  
@@ -118,7 +118,7 @@
  			memset(&ahints, 0, sizeof(struct addrinfo));
  			ahints.ai_family = res0->ai_family;
  			ahints.ai_socktype = uflag ? SOCK_DGRAM : SOCK_STREAM;
-@@ -892,7 +916,10 @@
+@@ -902,7 +926,10 @@
  local_listen(char *host, char *port, struct addrinfo hints)
  {
  	struct addrinfo *res, *res0;
@@ -130,7 +130,7 @@
  	int error;
  
  	/* Allow nodename to be null. */
-@@ -914,9 +941,11 @@
+@@ -924,9 +951,11 @@
  		    res0->ai_protocol)) < 0)
  			continue;
  
@@ -142,7 +142,7 @@
  
  		set_common_sockopts(s, res0->ai_family);
  
-@@ -1356,11 +1385,13 @@
+@@ -1366,11 +1395,13 @@
  {
  	int x = 1;
  
@@ -156,7 +156,7 @@
  	if (Dflag) {
  		if (setsockopt(s, SOL_SOCKET, SO_DEBUG,
  			&x, sizeof(x)) == -1)
-@@ -1538,14 +1569,22 @@
+@@ -1553,14 +1584,22 @@
  	\t-P proxyuser\tUsername for proxy authentication\n\
  	\t-p port\t	Specify local port for remote connects\n\
  	\t-R CAfile	CA bundle\n\

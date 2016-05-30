@@ -50,6 +50,8 @@ LibreSSL Portable Release Notes:
 	* Reworked error handling in libtls so that configuration errors are
 	  visible.
 
+	* Deprecated internal use of EVP_[Cipher|Encrypt|Decrypt]_Final.
+
 	* Manpage fixes and updates
 
 2.3.5 - Reliability fix

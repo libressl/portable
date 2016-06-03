@@ -12,5 +12,5 @@ Requires:
 Requires.private: libcrypto libssl
 Conflicts:
 Libs: -L${libdir} -ltls
-Libs.private: @LIBS@ -lcrypto -lssl
+Libs.private: @LIBS@ -lcrypto -lssl @PLATFORM_LDADD@
 Cflags: -I${includedir}

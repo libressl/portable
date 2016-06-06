@@ -28,6 +28,15 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.4.1 - Security fix
+
+	* Correct a problem that prevents the DSA signing algorithm from
+	  running in constant time even if the flag BN_FLG_CONSTTIME is set.
+	  This issue was reported by Cesar Pereida (Aalto University), Billy
+	  Brumley (Tampere University of Technology), and Yuval Yarom (The
+	  University of Adelaide and NICTA). The fix was developed by Cesar
+	  Pereida.
+
 2.4.0 - Build improvements, new features
 
 	* Many improvements to the CMake build infrastructure, including

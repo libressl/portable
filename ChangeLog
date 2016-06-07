@@ -35,7 +35,7 @@ LibreSSL Portable Release Notes:
 	  This issue was reported by Cesar Pereida (Aalto University), Billy
 	  Brumley (Tampere University of Technology), and Yuval Yarom (The
 	  University of Adelaide and NICTA). The fix was developed by Cesar
-	  Pereida.
+	  Pereida. See OpenBSD 5.8 errata 17, June 6, 2016
 
 2.2.8 - Reliability fix
 

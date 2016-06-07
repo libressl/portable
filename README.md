@@ -30,7 +30,7 @@ At the time of this writing, LibreSSL is know to build and work on:
 
 * Linux (kernel 3.17 or later recommended)
 * FreeBSD (tested with 9.2 and later)
-* NetBSD (tested with 6.1.5)
+* NetBSD (7.0 or later recommended)
 * HP-UX (11i)
 * Solaris (11 and later preferred)
 * Mac OS X (tested with 10.8 and later)

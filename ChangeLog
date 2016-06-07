@@ -31,11 +31,11 @@ LibreSSL Portable Release Notes:
 2.3.6 - Security fix
 
 	* Correct a problem that prevents the DSA signing algorithm from
-	   running in constant time even if the flag BN_FLG_CONSTTIME is set.
-	   This issue was reported by Cesar Pereida (Aalto University), Billy
-	   Brumley (Tampere University of Technology), and Yuval Yarom (The
-	   University of Adelaide and NICTA). The fix was developed by Cesar
-	   Pereida.
+	  running in constant time even if the flag BN_FLG_CONSTTIME is set.
+	  This issue was reported by Cesar Pereida (Aalto University), Billy
+	  Brumley (Tampere University of Technology), and Yuval Yarom (The
+	  University of Adelaide and NICTA). The fix was developed by Cesar
+	  Pereida. See OpenBSD 5.9 errata 11, June 6, 2016
 
 2.3.5 - Reliability fix
 

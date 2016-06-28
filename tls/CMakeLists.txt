@@ -7,6 +7,7 @@ include_directories(
 set(
 	TLS_SRC
 	tls.c
+	tls_bio_cb.c
 	tls_client.c
 	tls_config.c
 	tls_conninfo.c

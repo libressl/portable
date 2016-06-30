@@ -1,5 +1,5 @@
---- apps/nc/netcat.c.orig	Mon May 30 11:05:31 2016
-+++ apps/nc/netcat.c	Mon May 30 11:05:44 2016
+--- apps/nc/netcat.c.orig	Wed Jun 29 21:28:27 2016
++++ apps/nc/netcat.c	Thu Jun 30 05:32:31 2016
 @@ -57,6 +57,10 @@
  #include <tls.h>
  #include "atomicio.h"
@@ -35,7 +35,7 @@
  
  int	usetls;					/* use TLS */
  char    *Cflag;					/* Public cert file */
-@@ -150,7 +160,7 @@
+@@ -152,7 +162,7 @@
  	struct servent *sv;
  	socklen_t len;
  	struct sockaddr_storage cliaddr;
@@ -44,7 +44,7 @@
  	const char *errstr, *proxyhost = "", *proxyport = NULL;
  	struct addrinfo proxyhints;
  	char unix_dg_tmp_socket_buf[UNIX_DG_TMP_SOCKET_SIZE];
-@@ -251,12 +261,14 @@
+@@ -262,12 +272,14 @@
  		case 'u':
  			uflag = 1;
  			break;
@@ -59,7 +59,7 @@
  		case 'v':
  			vflag = 1;
  			break;
-@@ -289,9 +301,11 @@
+@@ -300,9 +312,11 @@
  				errx(1, "TCP send window %s: %s",
  				    errstr, optarg);
  			break;
@@ -71,7 +71,7 @@
  		case 'T':
  			errstr = NULL;
  			errno = 0;
-@@ -315,9 +329,11 @@
+@@ -326,9 +340,11 @@
  	argc -= optind;
  	argv += optind;
  
@@ -83,7 +83,7 @@
  
  	if (family == AF_UNIX) {
  		if (pledge("stdio rpath wpath cpath tmppath unix", NULL) == -1)
-@@ -469,7 +485,10 @@
+@@ -480,7 +496,10 @@
  				errx(1, "-H and -T noverify may not be used"
  				    "together");
  			tls_config_insecure_noverifycert(tls_cfg);
@@ -95,19 +95,19 @@
  	}
  	if (lflag) {
  		struct tls *tls_cctx = NULL;
-@@ -817,7 +836,10 @@
+@@ -832,7 +851,10 @@
  remote_connect(const char *host, const char *port, struct addrinfo hints)
  {
  	struct addrinfo *res, *res0;
--	int s, error, on = 1;
-+	int s, error;
+-	int s, error, on = 1, save_errno;
++	int s, error, save_errno;
 +#ifdef SO_BINDANY
 +	int on = 1;
 +#endif
  
  	if ((error = getaddrinfo(host, port, &hints, &res)))
  		errx(1, "getaddrinfo: %s", gai_strerror(error));
-@@ -832,8 +854,10 @@
+@@ -847,8 +869,10 @@
  		if (sflag || pflag) {
  			struct addrinfo ahints, *ares;
  
@@ -118,19 +118,19 @@
  			memset(&ahints, 0, sizeof(struct addrinfo));
  			ahints.ai_family = res0->ai_family;
  			ahints.ai_socktype = uflag ? SOCK_DGRAM : SOCK_STREAM;
-@@ -902,7 +926,10 @@
+@@ -919,7 +943,10 @@
  local_listen(char *host, char *port, struct addrinfo hints)
  {
  	struct addrinfo *res, *res0;
--	int s, ret, x = 1;
-+	int s;
+-	int s, ret, x = 1, save_errno;
++	int s, save_errno;
 +#ifdef SO_REUSEPORT
 +	int ret, x = 1;
 +#endif
  	int error;
  
  	/* Allow nodename to be null. */
-@@ -924,9 +951,11 @@
+@@ -941,9 +968,11 @@
  		    res0->ai_protocol)) < 0)
  			continue;
  
@@ -142,7 +142,7 @@
  
  		set_common_sockopts(s, res0->ai_family);
  
-@@ -1366,11 +1395,13 @@
+@@ -1401,29 +1430,26 @@
  {
  	int x = 1;
  
@@ -156,7 +156,82 @@
  	if (Dflag) {
  		if (setsockopt(s, SOL_SOCKET, SO_DEBUG,
  			&x, sizeof(x)) == -1)
-@@ -1553,14 +1584,22 @@
+ 			err(1, NULL);
+ 	}
+ 	if (Tflag != -1) {
+-		int proto, option;
+-
+-		if (af == AF_INET6) {
+-			proto = IPPROTO_IPV6;
+-			option = IPV6_TCLASS;
+-		} else {
+-			proto = IPPROTO_IP;
+-			option = IP_TOS;
+-		}
+-
+-		if (setsockopt(s, proto, option, &Tflag, sizeof(Tflag)) == -1)
++		if (af == AF_INET && setsockopt(s, IPPROTO_IP,
++		    IP_TOS, &Tflag, sizeof(Tflag)) == -1)
+ 			err(1, "set IP ToS");
++
++		else if (af == AF_INET6 && setsockopt(s, IPPROTO_IPV6,
++		    IPV6_TCLASS, &Tflag, sizeof(Tflag)) == -1)
++			err(1, "set IPv6 Traffic Class");
+ 	}
+ 	if (Iflag) {
+ 		if (setsockopt(s, SOL_SOCKET, SO_RCVBUF,
+@@ -1435,29 +1461,28 @@
+ 		    &Oflag, sizeof(Oflag)) == -1)
+ 			err(1, "set TCP send buffer size");
+ 	}
+-	if (ttl != -1 || minttl != -1) {
+-		int proto, in_ttl_opt, out_ttl_opt;
+-		switch (af) {
+-		case AF_INET:
+-			proto = IPPROTO_IP;
+-			in_ttl_opt = IP_MINTTL;
+-			out_ttl_opt = IP_TTL;
+-			break;
+-		case AF_INET6:
+-			proto = IPPROTO_IPV6;
+-			in_ttl_opt = IPV6_MINHOPCOUNT;
+-			out_ttl_opt = IPV6_UNICAST_HOPS;
+-			break;
+-		default:
+-			errx(1, "unknown address family: %d", af);
+-		}
+-		if (minttl != -1 && setsockopt(s, proto, in_ttl_opt,
+-		    &minttl, sizeof(minttl)))
+-			err(1, "setsockopt minttl");
+-		if (ttl != -1 && setsockopt(s, proto, out_ttl_opt,
+-		    &ttl, sizeof(ttl)))
+-			err(1, "setsockopt ttl");
++
++	if (ttl != -1) {
++		if (af == AF_INET && setsockopt(s, IPPROTO_IP,
++	    	    IP_TTL, &ttl, sizeof(ttl)))
++			err(1, "setsockopt IP_TTL");
++
++		else if (af == AF_INET6 && setsockopt(s, IPPROTO_IPV6,
++		    IPV6_UNICAST_HOPS, &ttl, sizeof(ttl)))
++			err(1, "setsockopt IPV6_UNICAST_HOPS");
+ 	}
++
++	if (minttl != -1) {
++		if (af == AF_INET && setsockopt(s, IPPROTO_IP,
++		    IP_MINTTL, &minttl, sizeof(minttl)))
++			err(1, "setsockopt IP_MINTTL");
++
++#ifdef IPV6_MINHOPCOUNT
++		else if (af == AF_INET6 && setsockopt(s, IPPROTO_IPV6,
++		    IPV6_MINHOPCOUNT, &minttl, sizeof(minttl)))
++			err(1, "setsockopt IPV6_MINHOPCOUNT");
++#endif
++	}
+ }
+ 
+ int
+@@ -1613,14 +1638,22 @@
  	\t-P proxyuser\tUsername for proxy authentication\n\
  	\t-p port\t	Specify local port for remote connects\n\
  	\t-R CAfile	CA bundle\n\

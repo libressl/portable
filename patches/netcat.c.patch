@@ -1,5 +1,5 @@
---- apps/nc/netcat.c.orig	Wed Jun 29 21:28:27 2016
-+++ apps/nc/netcat.c	Thu Jun 30 08:16:42 2016
+--- apps/nc/netcat.c.orig	Thu Jun 30 19:56:49 2016
++++ apps/nc/netcat.c	Thu Jun 30 19:59:09 2016
 @@ -65,7 +65,9 @@
  #define POLL_NETIN 2
  #define POLL_STDOUT 3
@@ -131,7 +131,7 @@
  
  		set_common_sockopts(s, res0->ai_family);
  
-@@ -1401,29 +1426,28 @@
+@@ -1401,11 +1426,13 @@
  {
  	int x = 1;
  
@@ -145,86 +145,26 @@
  	if (Dflag) {
  		if (setsockopt(s, SOL_SOCKET, SO_DEBUG,
  			&x, sizeof(x)) == -1)
- 			err(1, NULL);
+@@ -1442,13 +1469,17 @@
  	}
- 	if (Tflag != -1) {
--		int proto, option;
--
--		if (af == AF_INET6) {
--			proto = IPPROTO_IPV6;
--			option = IPV6_TCLASS;
--		} else {
--			proto = IPPROTO_IP;
--			option = IP_TOS;
--		}
--
--		if (setsockopt(s, proto, option, &Tflag, sizeof(Tflag)) == -1)
-+		if (af == AF_INET && setsockopt(s, IPPROTO_IP,
-+		    IP_TOS, &Tflag, sizeof(Tflag)) == -1)
- 			err(1, "set IP ToS");
-+
-+#ifdef IPV6_TCLASS
-+		if (af == AF_INET6 && setsockopt(s, IPPROTO_IPV6,
-+		    IPV6_TCLASS, &Tflag, sizeof(Tflag)) == -1)
-+			err(1, "set IPv6 traffic class");
-+#endif
- 	}
- 	if (Iflag) {
- 		if (setsockopt(s, SOL_SOCKET, SO_RCVBUF,
-@@ -1435,29 +1459,30 @@
- 		    &Oflag, sizeof(Oflag)) == -1)
- 			err(1, "set TCP send buffer size");
- 	}
--	if (ttl != -1 || minttl != -1) {
--		int proto, in_ttl_opt, out_ttl_opt;
--		switch (af) {
--		case AF_INET:
--			proto = IPPROTO_IP;
--			in_ttl_opt = IP_MINTTL;
--			out_ttl_opt = IP_TTL;
--			break;
--		case AF_INET6:
--			proto = IPPROTO_IPV6;
--			in_ttl_opt = IPV6_MINHOPCOUNT;
--			out_ttl_opt = IPV6_UNICAST_HOPS;
--			break;
--		default:
--			errx(1, "unknown address family: %d", af);
--		}
--		if (minttl != -1 && setsockopt(s, proto, in_ttl_opt,
--		    &minttl, sizeof(minttl)))
--			err(1, "setsockopt minttl");
--		if (ttl != -1 && setsockopt(s, proto, out_ttl_opt,
--		    &ttl, sizeof(ttl)))
--			err(1, "setsockopt ttl");
-+
-+	if (ttl != -1) {
-+		if (af == AF_INET && setsockopt(s, IPPROTO_IP,
-+		    IP_TTL, &ttl, sizeof(ttl)))
-+			err(1, "set IP TTL");
-+
-+		if (af == AF_INET6 && setsockopt(s, IPPROTO_IPV6,
-+		    IPV6_UNICAST_HOPS, &ttl, sizeof(ttl)))
-+			err(1, "set IPv6 unicast hops");
- 	}
-+
-+	if (minttl != -1) {
+ 
+ 	if (minttl != -1) {
 +#ifdef IP_MINTTL
-+		if (af == AF_INET && setsockopt(s, IPPROTO_IP,
-+		    IP_MINTTL, &minttl, sizeof(minttl)) == -1)
-+			err(1, "set IP min TTL");
+ 		if (af == AF_INET && setsockopt(s, IPPROTO_IP,
+ 		    IP_MINTTL, &minttl, sizeof(minttl)))
+ 			err(1, "set IP min TTL");
 +#endif
-+
+ 
+-		else if (af == AF_INET6 && setsockopt(s, IPPROTO_IPV6,
 +#ifdef IPV6_MINHOPCOUNT
 +		if (af == AF_INET6 && setsockopt(s, IPPROTO_IPV6,
-+		    IPV6_MINHOPCOUNT, &minttl, sizeof(minttl)) == -1)
-+			err(1, "set IPv6 min hop count");
+ 		    IPV6_MINHOPCOUNT, &minttl, sizeof(minttl)))
+ 			err(1, "set IPv6 min hop count");
 +#endif
-+	}
+ 	}
  }
  
- int
-@@ -1613,14 +1638,22 @@
+@@ -1605,14 +1636,22 @@
  	\t-P proxyuser\tUsername for proxy authentication\n\
  	\t-p port\t	Specify local port for remote connects\n\
  	\t-R CAfile	CA bundle\n\

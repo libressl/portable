@@ -213,8 +213,8 @@ if ENABLE_EXTRATESTS
 TESTS += ocsptest.sh
 check_PROGRAMS += ocsp_test
 ocsp_test_SOURCES = ocsp_test.c
-EXTRA_DIST += ocsptest.sh
 endif
+EXTRA_DIST += ocsptest.sh
 
 # optionstest
 TESTS += optionstest

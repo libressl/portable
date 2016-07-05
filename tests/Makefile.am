@@ -208,6 +208,14 @@ TESTS += mont
 check_PROGRAMS += mont
 mont_SOURCES = mont.c
 
+# ocsp_test
+if ENABLE_EXTRATESTS
+TESTS += ocsptest.sh
+check_PROGRAMS += ocsp_test
+ocsp_test_SOURCES = ocsp_test.c
+EXTRA_DIST += ocsptest.sh
+endif
+
 # optionstest
 TESTS += optionstest
 check_PROGRAMS += optionstest

@@ -194,6 +194,14 @@ add_executable(mont mont.c)
 target_link_libraries(mont ${OPENSSL_LIBS})
 add_test(mont mont)
 
+# ocsp_test
+if(ENABLE_EXTRATESTS)
+	add_executable(ocsp_test ocsp_test.c)
+	target_link_libraries(ocsp_test ${OPENSSL_LIBS})
+	add_test(ocsptest ${CMAKE_CURRENT_SOURCE_DIR}/ocsptest.sh)
+	set_tests_properties(ocsptest PROPERTIES ENVIRONMENT "srcdir=${CMAKE_CURRENT_SOURCE_DIR}")
+endif()
+
 # optionstest
 add_executable(optionstest optionstest.c)
 target_link_libraries(optionstest ${OPENSSL_LIBS})

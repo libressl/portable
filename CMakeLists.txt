@@ -49,6 +49,10 @@ if(CMAKE_SYSTEM_NAME MATCHES "MINGW")
 	set(BUILD_NC false)
 endif()
 
+if(MSVC)
+	set(BUILD_NC false)
+endif()
+
 if(CMAKE_SYSTEM_NAME MATCHES "HP-UX")
 	if(CMAKE_C_COMPILER MATCHES "gcc")
 		set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -std=gnu99 -fno-strict-aliasing")

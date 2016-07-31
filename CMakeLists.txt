@@ -107,7 +107,7 @@ if(HAVE_STRNDUP)
 endif()
 
 if(MSVC)
-	set(HAVE_STRNLEN)
+	set(HAVE_STRNLEN true)
 	add_definitions(-DHAVE_STRNLEN)
 else()
 	check_function_exists(strnlen HAVE_STRNLEN)

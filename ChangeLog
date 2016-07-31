@@ -28,6 +28,17 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.3.7 - OCSP fixes
+
+	* Fix several issues in the OCSP code that could result in the
+	  incorrect generation and parsing of OCSP requests. This remediates a
+	  lack of error checking on time parsing in these functions, and
+	  ensures that only GENERALIZEDTIME formats are accepted for OCSP, as
+	  per RFC 6960.
+
+	  Issues reported, and fixes provided by  Kazuki Yamaguchi <k@rhe.jp>
+	  and Kinichiro Inoguchi <kinichiro.inoguchi@gmail.com>
+
 2.3.6 - Security fix
 
 	* Correct a problem that prevents the DSA signing algorithm from

@@ -28,6 +28,45 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.4.2 - Bug fixes and improvements
+
+	* Fixed loading default certificate locations with openssl s_client.
+
+	* Ensured OSCP only uses and compares GENERALIZEDTIME values as per
+	  RFC6960. Also added fixes for OCSP to work with intermediate
+	  certificates provided in responses.
+
+	* Improved behavior of arc4random on Windows to not appear to leak
+	  memory in debug tools, reduced privileges of allocated memory.
+
+	* Fixed incorrect results from BN_mod_word() when the modulus is too
+	  large, thanks to Brian Smith from BoringSSL.
+
+	* Correctly handle an EOF prior to completing the TLS handshake in
+	  libtls.
+
+	* Improved libtls ceritificate loading and cipher string validation.
+
+	* Updated libtls cipher group suites into four categories:
+	    "secure"   (TLSv1.2+AEAD+PFS)
+	    "compat"   (HIGH:!aNULL)
+	    "legacy"   (HIGH:MEDIUM:!aNULL)
+	    "insecure" (ALL:!aNULL:!eNULL)
+	  This allows for flexibility and finer grained control, rather than
+	  having two extremes.
+
+	* Limited support for 'backward compatible' SSLv2 handshake packets to
+	  when TLS 1.0 is enabled, providing more restricted compatibility
+	  with TLS 1.0 clients.
+
+	* openssl(1) and other documentation improvements.
+
+	* Removed flags for disabling constant-time operations.
+	  This removes support for DSA_FLAG_NO_EXP_CONSTTIME,
+	  DH_FLAG_NO_EXP_CONSTTIME, and RSA_FLAG_NO_CONSTTIME flags, making
+	  all of these operations unconditionally constant-time.
+
+
 2.4.1 - Security fix
 
 	* Correct a problem that prevents the DSA signing algorithm from

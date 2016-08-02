@@ -196,6 +196,11 @@ add_test(mont mont)
 
 # ocsp_test
 if(ENABLE_EXTRATESTS)
+	if(NOT "${OPENSSLDIR}" STREQUAL "")
+		add_definitions(-D_PATH_SSL_CA_FILE=\"${OPENSSLDIR}/cert.pem\")
+	else()
+		add_definitions(-D_PATH_SSL_CA_FILE=\"${CMAKE_INSTALL_PREFIX}/etc/ssl/cert.pem\")
+	endif()
 	add_executable(ocsp_test ocsp_test.c)
 	target_link_libraries(ocsp_test ${OPENSSL_LIBS})
 	add_test(ocsptest ${CMAKE_CURRENT_SOURCE_DIR}/ocsptest.sh)

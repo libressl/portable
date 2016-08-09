@@ -21,6 +21,8 @@ case $host_os in
 		# public source:
 		# http://www.opensource.apple.com/source/Libc/Libc-997.90.3/gen/FreeBSD/arc4random.c
 		USE_BUILTIN_ARC4RANDOM=yes
+		# Not available on iOS
+		AC_CHECK_HEADER([arpa/telnet.h], [], [BUILD_NC=no])
 		;;
 	*freebsd*)
 		HOST_OS=freebsd

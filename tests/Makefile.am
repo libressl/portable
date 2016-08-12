@@ -5,6 +5,7 @@ AM_CPPFLAGS += -I $(top_srcdir)/crypto/asn1
 AM_CPPFLAGS += -I $(top_srcdir)/ssl
 AM_CPPFLAGS += -I $(top_srcdir)/apps/openssl
 AM_CPPFLAGS += -I $(top_srcdir)/apps/openssl/compat
+AM_CPPFLAGS += -D_PATH_SSL_CA_FILE=\"$(top_srcdir)/apps/openssl/cert.pem\"
 
 LDADD = $(PLATFORM_LDADD) $(PROG_LDADD)
 LDADD += $(abs_top_builddir)/ssl/libssl.la

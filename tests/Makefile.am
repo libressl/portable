@@ -324,6 +324,11 @@ TESTS += timingsafe
 check_PROGRAMS += timingsafe
 timingsafe_SOURCES = timingsafe.c
 
+# tls_ext_alpn
+TESTS += tls_ext_alpn
+check_PROGRAMS += tls_ext_alpn
+tls_ext_alpn_SOURCES = tls_ext_alpn.c
+
 # utf8test
 TESTS += utf8test
 check_PROGRAMS += utf8test

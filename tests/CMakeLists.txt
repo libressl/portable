@@ -305,6 +305,11 @@ add_executable(timingsafe timingsafe.c)
 target_link_libraries(timingsafe ${OPENSSL_LIBS})
 add_test(timingsafe timingsafe)
 
+# tls_ext_alpn
+add_executable(tls_ext_alpn tls_ext_alpn.c)
+target_link_libraries(tls_ext_alpn ${OPENSSL_LIBS})
+add_test(tls_ext_alpn tls_ext_alpn)
+
 # utf8test
 add_executable(utf8test utf8test.c)
 target_link_libraries(utf8test ${OPENSSL_LIBS})

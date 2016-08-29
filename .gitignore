@@ -58,6 +58,7 @@ tests/gost2814789t*
 tests/mont*
 tests/rfc5280time*
 tests/timingsafe*
+tests/tls_ext_alpn*
 tests/*test
 tests/tests.h
 tests/*test.c

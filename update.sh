@@ -29,12 +29,12 @@ libtls_regress=$CWD/openbsd/src/regress/lib/libtls
 app_src=$CWD/openbsd/src/usr.bin
 
 # load library versions
-. $libcrypto_src/crypto/shlib_version
+. $libcrypto_src/shlib_version
 libcrypto_version=$major:$minor:0
 echo "libcrypto version $libcrypto_version"
 echo $libcrypto_version > crypto/VERSION
 
-. $libssl_src/ssl/shlib_version
+. $libssl_src/shlib_version
 libssl_version=$major:$minor:0
 echo "libssl version $libssl_version"
 echo $libssl_version > ssl/VERSION
@@ -62,11 +62,11 @@ CP_LIBC='do_cp_libc'
 
 CP='cp -p'
 
-$CP $libssl_src/src/LICENSE COPYING
+$CP $libssl_src/LICENSE COPYING
 
-$CP $libcrypto_src/crypto/arch/amd64/opensslconf.h include/openssl
-$CP $libssl_src/src/crypto/opensslfeatures.h include/openssl
-$CP $libssl_src/src/ssl/pqueue.h include
+$CP $libcrypto_src/arch/amd64/opensslconf.h include/openssl
+$CP $libcrypto_src/opensslfeatures.h include/openssl
+$CP $libssl_src/pqueue.h include
 
 $CP $libtls_src/tls.h include
 $CP $libtls_src/tls.h libtls-standalone/include
@@ -84,8 +84,8 @@ for i in crypto/compat libtls-standalone/compat; do
 	    $libc_src/string/strnlen.c \
 	    $libc_src/string/timingsafe_bcmp.c \
 	    $libc_src/string/timingsafe_memcmp.c \
-	    $libcrypto_src/crypto/getentropy_*.c \
-	    $libcrypto_src/crypto/arc4random_*.h; do
+	    $libcrypto_src/arc4random/getentropy_*.c \
+	    $libcrypto_src/arc4random/arc4random_*.h; do
 		$CP_LIBC $j $i
 	done
 done
@@ -99,20 +99,20 @@ $CP crypto/compat/arc4random*.h \
 	crypto/compat/bsd-asprintf.c \
 	libtls-standalone/compat
 
-(cd $libssl_src/src/crypto/objects/;
+(cd $libcrypto_src/objects/;
 	perl objects.pl objects.txt obj_mac.num obj_mac.h;
 	perl obj_dat.pl obj_mac.h obj_dat.h )
 mkdir -p include/openssl crypto/objects
-$MV $libssl_src/src/crypto/objects/obj_mac.h ./include/openssl/obj_mac.h
-$MV $libssl_src/src/crypto/objects/obj_dat.h ./crypto/objects/obj_dat.h
+$MV $libcrypto_src/objects/obj_mac.h ./include/openssl/obj_mac.h
+$MV $libcrypto_src/objects/obj_dat.h ./crypto/objects/obj_dat.h
 
 copy_hdrs() {
 	for file in $2; do
-		$CP $libssl_src/src/$1/$file include/openssl
+		$CP $1/$file include/openssl
 	done
 }
 
-copy_hdrs crypto "stack/stack.h lhash/lhash.h stack/safestack.h
+copy_hdrs $libcrypto_src "stack/stack.h lhash/lhash.h stack/safestack.h
 	ossl_typ.h err/err.h crypto.h comp/comp.h x509/x509.h buffer/buffer.h
 	objects/objects.h asn1/asn1.h bn/bn.h ec/ec.h ecdsa/ecdsa.h
 	ecdh/ecdh.h rsa/rsa.h sha/sha.h x509/x509_vfy.h pkcs7/pkcs7.h pem/pem.h
@@ -126,9 +126,9 @@ copy_hdrs crypto "stack/stack.h lhash/lhash.h stack/safestack.h
 	chacha/chacha.h evp/evp.h poly1305/poly1305.h camellia/camellia.h
 	gost/gost.h"
 
-copy_hdrs ssl "srtp.h ssl.h ssl2.h ssl3.h ssl23.h tls1.h dtls1.h"
+copy_hdrs $libssl_src "srtp.h ssl.h ssl2.h ssl3.h ssl23.h tls1.h dtls1.h"
 
-$CP $libssl_src/src/crypto/opensslv.h include/openssl
+$CP $libcrypto_src/opensslv.h include/openssl
 awk '/LIBRESSL_VERSION_TEXT/ {print $4}' < include/openssl/opensslv.h | cut -d\" -f1 > VERSION
 echo "LibreSSL version `cat VERSION`"
 
@@ -139,8 +139,8 @@ for i in `awk '/SOURCES|HEADERS/ { print $3 }' crypto/Makefile.am` ; do
 	dir=`dirname $i`
 	mkdir -p crypto/$dir
 	if [ $dir != "compat" ]; then
-		if [ -e $libssl_src/src/crypto/$i ]; then
-			$CP $libssl_src/src/crypto/$i crypto/$i
+		if [ -e $libcrypto_src/$i ]; then
+			$CP $libcrypto_src/$i crypto/$i
 		fi
 	fi
 done
@@ -148,7 +148,7 @@ $CP crypto/compat/b_win.c crypto/bio
 $CP crypto/compat/ui_openssl_win.c crypto/ui
 
 # generate assembly crypto algorithms
-asm_src=$libssl_src/src/crypto
+asm_src=$libcrypto_src
 gen_asm_stdout() {
 	perl $asm_src/$2 $1 > $3.tmp
 	[ $1 = "elf" ] && cat <<-EOF >> $3.tmp
@@ -238,7 +238,7 @@ done
 echo "copying libssl source"
 rm -f ssl/*.c ssl/*.h
 for i in `awk '/SOURCES|HEADERS/ { print $3 }' ssl/Makefile.am` ; do
-	$CP $libssl_src/src/ssl/$i ssl
+	$CP $libssl_src/$i ssl
 done
 
 # copy libcrypto tests
@@ -320,7 +320,7 @@ echo "dist_man_MANS += tls_init.3" >> man/Makefile.am
 
 (cd man
 	# update new-style manpages
-	for i in `ls -1 $libssl_src/src/doc/ssl/*.3 | sort`; do
+	for i in `ls -1 $libssl_src/doc/*.3 | sort`; do
 		NAME=`basename "$i"`
 		$CP $i .
 		echo "dist_man_MANS += $NAME" >> Makefile.am
@@ -333,7 +333,7 @@ echo "dist_man_MANS += tls_init.3" >> man/Makefile.am
 	done
 
 	# convert remaining POD manpages
-	for i in `ls -1 $libssl_src/src/doc/crypto/*.pod | sort`; do
+	for i in `ls -1 $libcrypto_src/doc/*.pod | sort`; do
 		BASE=`echo $i|sed -e "s/\.pod//"`
 		NAME=`basename "$BASE"`
 		# reformat file if new

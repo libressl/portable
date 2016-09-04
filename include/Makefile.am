@@ -29,7 +29,6 @@ noinst_HEADERS += compat/netinet/in.h
 noinst_HEADERS += compat/netinet/ip.h
 noinst_HEADERS += compat/netinet/tcp.h
 
-noinst_HEADERS += compat/sys/cdefs.h
 noinst_HEADERS += compat/sys/ioctl.h
 noinst_HEADERS += compat/sys/mman.h
 noinst_HEADERS += compat/sys/param.h

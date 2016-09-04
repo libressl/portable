@@ -18,8 +18,6 @@
 
 #include <stdint.h>
 
-#include <sys/cdefs.h>
-
 #ifdef __MINGW32__
 #include <_bsd_types.h>
 #endif

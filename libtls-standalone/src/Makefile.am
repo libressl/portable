@@ -8,6 +8,7 @@ libtls_la_LIBADD += $(top_builddir)/compat/libcompat.la
 libtls_la_LIBADD += $(top_builddir)/compat/libcompatnoopt.la
 
 libtls_la_SOURCES = tls.c
+libtls_la_SOURCES += tls_bio_cb.c
 libtls_la_SOURCES += tls_client.c
 libtls_la_SOURCES += tls_config.c
 libtls_la_SOURCES += tls_server.c

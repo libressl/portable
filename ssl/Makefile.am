@@ -4,6 +4,7 @@ lib_LTLIBRARIES = libssl.la
 
 EXTRA_DIST = VERSION
 EXTRA_DIST += CMakeLists.txt
+EXTRA_DIST += ssl.def
 
 libssl_la_LDFLAGS = -version-info @LIBSSL_VERSION@ -no-undefined
 libssl_la_LIBADD = $(abs_top_builddir)/crypto/libcrypto.la

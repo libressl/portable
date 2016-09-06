@@ -753,11 +753,14 @@ if (BUILD_SHARED)
 	add_library(crypto STATIC $<TARGET_OBJECTS:crypto-objects>)
 	add_library(crypto-shared SHARED $<TARGET_OBJECTS:crypto-objects>)
 	if (WIN32)
+		target_sources(crypto-shared PRIVATE
+			${CMAKE_CURRENT_SOURCE_DIR}/crypto.def)
 		target_link_libraries(crypto-shared crypto Ws2_32.lib)
 		set(CRYPTO_POSTFIX -${CRYPTO_MAJOR_VERSION})
 	endif()
 	set_target_properties(crypto-shared PROPERTIES
-		OUTPUT_NAME crypto${CRYPTO_POSTFIX} ARCHIVE_OUTPUT_NAME crypto)
+		OUTPUT_NAME crypto${CRYPTO_POSTFIX}
+		ARCHIVE_OUTPUT_NAME crypto${CRYPTO_POSTFIX})
 	set_target_properties(crypto-shared PROPERTIES VERSION
 		${CRYPTO_VERSION} SOVERSION ${CRYPTO_MAJOR_VERSION})
 	install(TARGETS crypto crypto-shared DESTINATION lib)

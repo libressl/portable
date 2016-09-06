@@ -53,11 +53,14 @@ if (BUILD_SHARED)
 	add_library(ssl STATIC $<TARGET_OBJECTS:ssl-objects>)
 	add_library(ssl-shared SHARED $<TARGET_OBJECTS:ssl-objects>)
 	if (WIN32)
+		target_sources(ssl-shared PRIVATE
+			${CMAKE_CURRENT_SOURCE_DIR}/ssl.def)
 		target_link_libraries(ssl-shared crypto-shared Ws2_32.lib)
 		set(SSL_POSTFIX -${SSL_MAJOR_VERSION})
 	endif()
 	set_target_properties(ssl-shared PROPERTIES
-		OUTPUT_NAME ssl${SSL_POSTFIX} ARCHIVE_OUTPUT_NAME ssl)
+		OUTPUT_NAME ssl${SSL_POSTFIX}
+		ARCHIVE_OUTPUT_NAME ssl${SSL_POSTFIX})
 	set_target_properties(ssl-shared PROPERTIES VERSION ${SSL_VERSION}
 		SOVERSION ${SSL_MAJOR_VERSION})
 	install(TARGETS ssl ssl-shared DESTINATION lib)

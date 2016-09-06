@@ -33,11 +33,14 @@ if (BUILD_SHARED)
 	add_library(tls STATIC $<TARGET_OBJECTS:tls-objects>)
 	add_library(tls-shared SHARED $<TARGET_OBJECTS:tls-objects>)
 	if (WIN32)
+		target_sources(tls-shared PRIVATE
+			${CMAKE_CURRENT_SOURCE_DIR}/tls.def)
 		target_link_libraries(tls-shared ssl-shared crypto-shared Ws2_32.lib)
 		set(TLS_POSTFIX -${TLS_MAJOR_VERSION})
 	endif()
 	set_target_properties(tls-shared PROPERTIES
-		OUTPUT_NAME tls${TLS_POSTFIX} ARCHIVE_OUTPUT_NAME tls)
+		OUTPUT_NAME tls${TLS_POSTFIX}
+		ARCHIVE_OUTPUT_NAME tls${TLS_POSTFIX})
 	set_target_properties(tls-shared PROPERTIES VERSION ${TLS_VERSION}
 		SOVERSION ${TLS_MAJOR_VERSION})
 	install(TARGETS tls tls-shared DESTINATION lib)

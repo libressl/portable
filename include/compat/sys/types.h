@@ -49,6 +49,11 @@ typedef SSIZE_T ssize_t;
 #else
 
 #ifndef __warn_references
+
+#ifndef __STRING
+#define __STRING(x) #x
+#endif
+
 #if defined(__GNUC__)  && defined (HAS_GNU_WARNING_LONG)
 #define __warn_references(sym,msg)          \
   __asm__(".section .gnu.warning." __STRING(sym)  \

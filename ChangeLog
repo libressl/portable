@@ -52,10 +52,14 @@ LibreSSL Portable Release Notes:
 
 	* Add support for OCSP intermediate certificates.
 
-	* Improved behavior of arc4random on Windows when using memory leak
-	  analysis software.
+	* Added functions used by stunnel and exim from BoringSSL - this
+	  brings in X509_check_host, X509_check_email, X509_check_ip, and
+	  X509_check_ip_asc.
 
 	* Added initial support for iOS, thanks to Jacob Berkman.
+
+	* Improved behavior of arc4random on Windows when using memory leak
+	  analysis software.
 
 	* Correctly handle an EOF that occurs prior to the TLS handshake
 	  completing. Reported by Vasily Kolobkov, based on a diff from Marko

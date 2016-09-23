@@ -9,6 +9,7 @@ lib_LTLIBRARIES = libcrypto.la
 
 EXTRA_DIST = VERSION
 EXTRA_DIST += CMakeLists.txt
+EXTRA_DIST += crypto.def
 
 # needed for a CMake target
 EXTRA_DIST += compat/strcasecmp.c

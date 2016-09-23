@@ -28,7 +28,56 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
-2.4.3 - Bug fixes and reliability improvements
+2.5.0 - New APIs, bug fixes and improvements
+
+	* libtls now supports ALPN and SNI
+
+	* libtls adds a new callback interface for integrating custom IO
+	  functions. Thanks to Tobias Pape.
+
+	* libtls now handles 4 cipher suite groups:
+	    "secure" (TLSv1.2+AEAD+PFS)
+	    "compat" (HIGH:!aNULL)
+	    "legacy" (HIGH:MEDIUM:!aNULL)
+	    "insecure" (ALL:!aNULL:!eNULL)
+
+	    This allows for flexibility and finer grained control, rather than
+	    having two extremes (an issue raised by Marko Kreen some time ago).
+
+	* Tightened error handling for tls_config_set_ciphers().
+
+	* libtls now always loads CA, key and certificate files at the time the
+	  configuration function is called. This simplifies code and results in
+	  a single memory based code path being used to provide data to libssl.
+
+	* Add support for OCSP intermediate certificates.
+
+	* Improved behavior of arc4random on Windows when using memory leak
+	  analysis software.
+
+	* Added initial support for iOS, thanks to Jacob Berkman.
+
+	* Correctly handle an EOF that occurs prior to the TLS handshake
+	  completing. Reported by Vasily Kolobkov, based on a diff from Marko
+	  Kreen.
+
+	* Limit the support of the "backward compatible" ssl2 handshake to
+	  only be used if TLS 1.0 is enabled.
+
+	* Fix incorrect results in certain cases on 64-bit systems when
+	  BN_mod_word() can return incorrect results. BN_mod_word() now can
+	  return an error condition. Thanks to Brian Smith.
+
+	* Added constant-time updates to address CVE-2016-0702
+
+	* Fixed undefined behavior in BN_GF2m_mod_arr()
+
+	* Removed unused Cryptographic Message Support (CMS)
+
+	* More conversions of long long idioms to time_t
+
+	* Improved compatibility by avoiding printing NULL strings with
+	  printf.
 
 	* Reverted change that cleans up the EVP cipher context in
 	  EVP_EncryptFinal() and EVP_DecryptFinal(). Some software relies on the

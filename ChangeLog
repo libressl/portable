@@ -28,6 +28,15 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.3.8 - Security and reliability fixes
+
+	* Avoid unbounded memory growth in libssl, which can be triggered by a
+	  TLS client repeatedly renegotiating and sending OCSP Status Request
+	  TLS extensions.
+
+	* Avoid falling back to a weak digest for (EC)DH when using SNI with
+	  libssl.
+
 2.3.7 - OCSP fixes
 
 	* Fix several issues in the OCSP code that could result in the

@@ -91,23 +91,42 @@ endif()
 
 if(MSVC)
 	add_definitions(-Dinline=__inline)
-
-	set(MSVC_DISABLED_WARNINGS_LIST
-		"C4057" # C4057: 'initializing' : 'unsigned char *' differs in
-		        # indirection to slightly different base types from 'char [2]'
-		"C4100" # 'exarg' : unreferenced formal parameter
-		"C4127" # conditional expression is constant
-		"C4242" # 'function' : conversion from 'int' to 'uint8_t',
-		        # possible loss of data
-		"C4244" # 'function' : conversion from 'int' to 'uint8_t',
-		        # possible loss of data
-		"C4267" # conversion from 'size_t' to 'some type that is almost
-		        # certainly safe to convert a size_t to'.
-		"C4706" # assignment within conditional expression
-		"C4820" # 'bytes' bytes padding added after construct 'member_name'
-		"C4996" # 'read': The POSIX name for this item is deprecated. Instead,
-		        # use the ISO C++ conformant name: _read.
-	)
+	message(STATUS "Using [${CMAKE_C_COMPILER_ID}] compiler")
+	if(CMAKE_C_COMPILER_ID MATCHES "MSVC")
+		set(MSVC_DISABLED_WARNINGS_LIST
+			"C4057" # C4057: 'initializing' : 'unsigned char *' differs in
+		        	# indirection to slightly different base types from 'char [2]'
+			"C4100" # 'exarg' : unreferenced formal parameter
+			"C4127" # conditional expression is constant
+			"C4242" # 'function' : conversion from 'int' to 'uint8_t',
+			        # possible loss of data
+			"C4244" # 'function' : conversion from 'int' to 'uint8_t',
+			        # possible loss of data
+			"C4267" # conversion from 'size_t' to 'some type that is almost
+				# certainly safe to convert a size_t to'.
+			"C4706" # assignment within conditional expression
+			"C4820" # 'bytes' bytes padding added after construct 'member_name'
+			"C4996" # 'read': The POSIX name for this item is deprecated. Instead,
+			        # use the ISO C++ conformant name: _read.
+		)
+	elseif(CMAKE_C_COMPILER_ID MATCHES "Intel")
+		add_definitions(-D_CRT_SUPPRESS_RESTRICT)
+		set(MSVC_DISABLED_WARNINGS_LIST
+			"C111"  # Unreachable statement
+			"C128"  # Unreachable loop
+			"C167"  # Unexplict casting unsigned to signed
+			"C186"  # Pointless comparison of unsigned int with zero
+			"C188"  # Enumerated type mixed with another type
+			"C344"  # Redeclared type
+			"C556"  # Unexplict casting signed to unsigned
+			"C869"  # Unreferenced parameters
+			"C1786" # Deprecated functions
+			"C2545" # Empty else statement
+			"C2557" # Comparing signed to unsigned
+			"C2722" # List init syntax is c++11 feature
+			"C3280" # Declaration hides variable
+		)
+	endif()
 	string(REPLACE "C" " -wd" MSVC_DISABLED_WARNINGS_STR
 		${MSVC_DISABLED_WARNINGS_LIST})
 	string(REGEX REPLACE "[/-]W[1234][ ]?" "" CMAKE_C_FLAGS ${CMAKE_C_FLAGS})

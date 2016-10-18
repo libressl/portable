@@ -215,7 +215,7 @@ TESTS += ocsptest.sh
 check_PROGRAMS += ocsp_test
 ocsp_test_SOURCES = ocsp_test.c
 endif
-EXTRA_DIST += ocsptest.sh
+EXTRA_DIST += ocsptest.sh ocsptest.bat
 
 # optionstest
 TESTS += optionstest
@@ -251,7 +251,7 @@ poly1305test_SOURCES = poly1305test.c
 TESTS += pq_test.sh
 check_PROGRAMS += pq_test
 pq_test_SOURCES = pq_test.c
-EXTRA_DIST += pq_test.sh
+EXTRA_DIST += pq_test.sh pq_test.bat
 EXTRA_DIST += pq_expected.txt
 
 # randtest
@@ -303,21 +303,21 @@ sha512test_SOURCES = sha512test.c
 TESTS += ssltest.sh
 check_PROGRAMS += ssltest
 ssltest_SOURCES = ssltest.c
-EXTRA_DIST += ssltest.sh
-EXTRA_DIST += testssl ca.pem server.pem
+EXTRA_DIST += ssltest.sh ssltest.bat
+EXTRA_DIST += testssl testssl.bat ca.pem server.pem
 
 # testdsa
 TESTS += testdsa.sh
-EXTRA_DIST += testdsa.sh
+EXTRA_DIST += testdsa.sh testdsa.bat
 EXTRA_DIST += openssl.cnf
 
 # testenc
 TESTS += testenc.sh
-EXTRA_DIST += testenc.sh
+EXTRA_DIST += testenc.sh testenc.bat
 
 # testrsa
 TESTS += testrsa.sh
-EXTRA_DIST += testrsa.sh
+EXTRA_DIST += testrsa.sh testrsa.bat
 
 # timingsafe
 TESTS += timingsafe

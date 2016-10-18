@@ -14,8 +14,7 @@ add_definitions(-D_PATH_SSL_CA_FILE=\"${CMAKE_CURRENT_SOURCE_DIR}/../apps/openss
 # aeadtest
 add_executable(aeadtest aeadtest.c)
 target_link_libraries(aeadtest ${OPENSSL_LIBS})
-add_test(aeadtest ${CMAKE_CURRENT_SOURCE_DIR}/aeadtest.sh)
-set_tests_properties(aeadtest PROPERTIES ENVIRONMENT "srcdir=${CMAKE_CURRENT_SOURCE_DIR}")
+add_test(aeadtest aeadtest ${CMAKE_CURRENT_SOURCE_DIR}/aeadtests.txt)
 
 # aes_wrap
 add_executable(aes_wrap aes_wrap.c)
@@ -25,9 +24,9 @@ add_test(aes_wrap aes_wrap)
 # arc4randomforktest
 # Windows/mingw does not have fork, but Cygwin does.
 if(NOT CMAKE_HOST_WIN32 AND NOT CMAKE_SYSTEM_NAME MATCHES "MINGW")
-add_executable(arc4randomforktest arc4randomforktest.c)
-target_link_libraries(arc4randomforktest ${OPENSSL_LIBS})
-add_test(arc4randomforktest ${CMAKE_CURRENT_SOURCE_DIR}/arc4randomforktest.sh)
+	add_executable(arc4randomforktest arc4randomforktest.c)
+	target_link_libraries(arc4randomforktest ${OPENSSL_LIBS})
+	add_test(arc4randomforktest ${CMAKE_CURRENT_SOURCE_DIR}/arc4randomforktest.sh)
 endif()
 
 # asn1test
@@ -136,19 +135,18 @@ add_test(enginetest enginetest)
 # evptest
 add_executable(evptest evptest.c)
 target_link_libraries(evptest ${OPENSSL_LIBS})
-add_test(evptest ${CMAKE_CURRENT_SOURCE_DIR}/evptest.sh)
-set_tests_properties(evptest PROPERTIES ENVIRONMENT "srcdir=${CMAKE_CURRENT_SOURCE_DIR}")
+add_test(evptest evptest ${CMAKE_CURRENT_SOURCE_DIR}/evptests.txt)
 
 # explicit_bzero
 # explicit_bzero relies on SA_ONSTACK, which is unavailable on Windows
 if(NOT CMAKE_HOST_WIN32)
-if(HAVE_MEMMEM)
-	add_executable(explicit_bzero explicit_bzero.c)
-else()
-	add_executable(explicit_bzero explicit_bzero.c memmem.c)
-endif()
-target_link_libraries(explicit_bzero ${OPENSSL_LIBS})
-add_test(explicit_bzero explicit_bzero)
+	if(HAVE_MEMMEM)
+		add_executable(explicit_bzero explicit_bzero.c)
+	else()
+		add_executable(explicit_bzero explicit_bzero.c memmem.c)
+	endif()
+	target_link_libraries(explicit_bzero ${OPENSSL_LIBS})
+	add_test(explicit_bzero explicit_bzero)
 endif()
 
 # exptest
@@ -200,7 +198,11 @@ add_test(mont mont)
 if(ENABLE_EXTRATESTS)
 	add_executable(ocsp_test ocsp_test.c)
 	target_link_libraries(ocsp_test ${OPENSSL_LIBS})
-	add_test(ocsptest ${CMAKE_CURRENT_SOURCE_DIR}/ocsptest.sh)
+	if(NOT MSVC)
+		add_test(ocsptest ${CMAKE_CURRENT_SOURCE_DIR}/ocsptest.sh)
+	else()
+		add_test(ocsptest ${CMAKE_CURRENT_SOURCE_DIR}/ocsptest.bat)
+	endif()
 endif()
 
 # optionstest
@@ -216,7 +218,7 @@ add_test(pbkdf2 pbkdf2)
 # pidwraptest
 # pidwraptest relies on an OS-specific way to give out pids and is generally
 # awkward on systems with slow fork
-if(ENABLE_EXTRATESTS)
+if(ENABLE_EXTRATESTS AND NOT MSVC)
 	add_executable(pidwraptest pidwraptest.c)
 	target_link_libraries(pidwraptest ${OPENSSL_LIBS})
 	add_test(pidwraptest ${CMAKE_CURRENT_SOURCE_DIR}/pidwraptest.sh)
@@ -235,7 +237,11 @@ add_test(poly1305test poly1305test)
 # pq_test
 add_executable(pq_test pq_test.c)
 target_link_libraries(pq_test ${OPENSSL_LIBS})
-add_test(pq_test ${CMAKE_CURRENT_SOURCE_DIR}/pq_test.sh)
+if(NOT MSVC)
+	add_test(pq_test ${CMAKE_CURRENT_SOURCE_DIR}/pq_test.sh)
+else()
+	add_test(pq_test ${CMAKE_CURRENT_SOURCE_DIR}/pq_test.bat)
+endif()
 set_tests_properties(pq_test PROPERTIES ENVIRONMENT "srcdir=${CMAKE_CURRENT_SOURCE_DIR}")
 
 # randtest
@@ -285,19 +291,35 @@ add_test(sha512test sha512test)
 # ssltest
 add_executable(ssltest ssltest.c)
 target_link_libraries(ssltest ${OPENSSL_LIBS})
-add_test(ssltest ${CMAKE_CURRENT_SOURCE_DIR}/ssltest.sh)
+if(NOT MSVC)
+	add_test(ssltest ${CMAKE_CURRENT_SOURCE_DIR}/ssltest.sh)
+else()
+	add_test(ssltest ${CMAKE_CURRENT_SOURCE_DIR}/ssltest.bat)
+endif()
 set_tests_properties(ssltest PROPERTIES ENVIRONMENT "srcdir=${CMAKE_CURRENT_SOURCE_DIR}")
 
 # testdsa
-add_test(testdsa ${CMAKE_CURRENT_SOURCE_DIR}/testdsa.sh)
+if(NOT MSVC)
+	add_test(testdsa ${CMAKE_CURRENT_SOURCE_DIR}/testdsa.sh)
+else()
+	add_test(testdsa ${CMAKE_CURRENT_SOURCE_DIR}/testdsa.bat)
+endif()
 set_tests_properties(testdsa PROPERTIES ENVIRONMENT "srcdir=${CMAKE_CURRENT_SOURCE_DIR}")
 
 # testenc
-add_test(testenc ${CMAKE_CURRENT_SOURCE_DIR}/testenc.sh)
+if(NOT MSVC)
+	add_test(testenc ${CMAKE_CURRENT_SOURCE_DIR}/testenc.sh)
+else()
+	add_test(testenc ${CMAKE_CURRENT_SOURCE_DIR}/testenc.bat)
+endif()
 set_tests_properties(testenc PROPERTIES ENVIRONMENT "srcdir=${CMAKE_CURRENT_SOURCE_DIR}")
 
 # testrsa
-add_test(testrsa ${CMAKE_CURRENT_SOURCE_DIR}/testrsa.sh)
+if(NOT MSVC)
+	add_test(testrsa ${CMAKE_CURRENT_SOURCE_DIR}/testrsa.sh)
+else()
+	add_test(testrsa ${CMAKE_CURRENT_SOURCE_DIR}/testrsa.bat)
+endif()
 set_tests_properties(testrsa PROPERTIES ENVIRONMENT "srcdir=${CMAKE_CURRENT_SOURCE_DIR}")
 
 # timingsafe

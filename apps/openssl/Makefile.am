@@ -92,9 +92,9 @@ EXTRA_DIST += CMakeLists.txt
 
 install-exec-hook:
 	@if [ "@OPENSSLDIR@x" != "x" ]; then \
-		OPENSSLDIR="$(DESTDIR)/@OPENSSLDIR@"; \
+		OPENSSLDIR="$(DESTDIR)@OPENSSLDIR@"; \
 	else \
-		OPENSSLDIR="$(DESTDIR)/$(sysconfdir)/ssl"; \
+		OPENSSLDIR="$(DESTDIR)$(sysconfdir)/ssl"; \
 	fi; \
 	mkdir -p "$$OPENSSLDIR/certs"; \
 	for i in cert.pem openssl.cnf x509v3.cnf; do \
@@ -107,9 +107,9 @@ install-exec-hook:
 
 uninstall-local:
 	@if [ "@OPENSSLDIR@x" != "x" ]; then \
-		OPENSSLDIR="$(DESTDIR)/@OPENSSLDIR@"; \
+		OPENSSLDIR="$(DESTDIR)@OPENSSLDIR@"; \
 	else \
-		OPENSSLDIR="$(DESTDIR)/$(sysconfdir)/ssl"; \
+		OPENSSLDIR="$(DESTDIR)$(sysconfdir)/ssl"; \
 	fi; \
 	for i in cert.pem openssl.cnf x509v3.cnf; do \
 		if cmp -s "$$OPENSSLDIR/$$i" "$(srcdir)/$$i"; then \

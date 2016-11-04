@@ -12,6 +12,7 @@ set(
 	tls_config.c
 	tls_conninfo.c
 	tls_server.c
+	tls_ocsp.c
 	tls_peer.c
 	tls_util.c
 	tls_verify.c

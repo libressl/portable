@@ -24,6 +24,7 @@ libtls_la_SOURCES += tls_bio_cb.c
 libtls_la_SOURCES += tls_config.c
 libtls_la_SOURCES += tls_conninfo.c
 libtls_la_SOURCES += tls_server.c
+libtls_la_SOURCES += tls_ocsp.c
 libtls_la_SOURCES += tls_peer.c
 libtls_la_SOURCES += tls_util.c
 libtls_la_SOURCES += tls_verify.c

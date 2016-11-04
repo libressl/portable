@@ -24,9 +24,9 @@ diff -u include/openssl.orig/opensslconf.h include/openssl/opensslconf.h
 +#define __attribute__(a)
 +#endif
 +
- /* Generate 80386 code? */
- #undef I386_ONLY
- 
+ #if defined(HEADER_CRYPTLIB_H) && !defined(OPENSSLDIR)
+ #define OPENSSLDIR "/etc/ssl"
+
 diff -u include/openssl.orig/ossl_typ.h include/openssl/ossl_typ.h
 --- include/openssl.orig/ossl_typ.h	Mon Dec  7 07:58:32 2015
 +++ include/openssl/ossl_typ.h	Mon Dec  7 07:56:14 2015

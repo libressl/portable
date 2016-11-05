@@ -295,7 +295,7 @@ add_man_links() {
 	for i in `grep $filter man/links`; do
 		IFS=","; set $i; unset IFS
 		if [ "$2" != "" ]; then
-			echo "	ln -sf $1 \$(DESTDIR)\$(mandir)/man3/$2" >> $dest
+			echo "	ln -sf \"$1\" \"\$(DESTDIR)\$(mandir)/man3/$2\"" >> $dest
 		fi
 	done
 	echo "" >> $dest
@@ -303,7 +303,7 @@ add_man_links() {
 	for i in `grep $filter man/links`; do
 		IFS=","; set $i; unset IFS
 		if [ "$2" != "" ]; then
-			echo "	-rm -f \$(DESTDIR)\$(mandir)/man3/$2" >> $dest
+			echo "	-rm -f \"\$(DESTDIR)\$(mandir)/man3/$2\"" >> $dest
 		fi
 	done
 }

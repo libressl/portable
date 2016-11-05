@@ -754,7 +754,7 @@ if (BUILD_SHARED)
 	if (WIN32)
 		target_sources(crypto-shared PRIVATE
 			${CMAKE_CURRENT_SOURCE_DIR}/crypto.def)
-		target_link_libraries(crypto-shared crypto Ws2_32.lib)
+		target_link_libraries(crypto-shared Ws2_32.lib)
 		set(CRYPTO_POSTFIX -${CRYPTO_MAJOR_VERSION})
 	endif()
 	set_target_properties(crypto-shared PROPERTIES

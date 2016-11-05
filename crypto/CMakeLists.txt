@@ -11,24 +11,24 @@ include_directories(
 if(HOST_ASM_ELF_X86_64)
 	set(
 		ASM_X86_64_ELF_SRC
-		aes/aes-elf-x86_64.s
-		aes/bsaes-elf-x86_64.s
-		aes/vpaes-elf-x86_64.s
-		aes/aesni-elf-x86_64.s
-		aes/aesni-sha1-elf-x86_64.s
-		bn/modexp512-elf-x86_64.s
-		bn/mont-elf-x86_64.s
-		bn/mont5-elf-x86_64.s
-		bn/gf2m-elf-x86_64.s
-		camellia/cmll-elf-x86_64.s
-		md5/md5-elf-x86_64.s
-		modes/ghash-elf-x86_64.s
-		rc4/rc4-elf-x86_64.s
-		rc4/rc4-md5-elf-x86_64.s
-		sha/sha1-elf-x86_64.s
+		aes/aes-elf-x86_64.S
+		aes/bsaes-elf-x86_64.S
+		aes/vpaes-elf-x86_64.S
+		aes/aesni-elf-x86_64.S
+		aes/aesni-sha1-elf-x86_64.S
+		bn/modexp512-elf-x86_64.S
+		bn/mont-elf-x86_64.S
+		bn/mont5-elf-x86_64.S
+		bn/gf2m-elf-x86_64.S
+		camellia/cmll-elf-x86_64.S
+		md5/md5-elf-x86_64.S
+		modes/ghash-elf-x86_64.S
+		rc4/rc4-elf-x86_64.S
+		rc4/rc4-md5-elf-x86_64.S
+		sha/sha1-elf-x86_64.S
 		sha/sha256-elf-x86_64.S
 		sha/sha512-elf-x86_64.S
-		whrlpool/wp-elf-x86_64.s
+		whrlpool/wp-elf-x86_64.S
 		cpuid-elf-x86_64.S
 	)
 	add_definitions(-DAES_ASM)
@@ -53,24 +53,24 @@ endif()
 if(HOST_ASM_MACOSX_X86_64)
 	set(
 		ASM_X86_64_MACOSX_SRC
-		aes/aes-macosx-x86_64.s
-		aes/bsaes-macosx-x86_64.s
-		aes/vpaes-macosx-x86_64.s
-		aes/aesni-macosx-x86_64.s
-		aes/aesni-sha1-macosx-x86_64.s
-		bn/modexp512-macosx-x86_64.s
-		bn/mont-macosx-x86_64.s
-		bn/mont5-macosx-x86_64.s
-		bn/gf2m-macosx-x86_64.s
-		camellia/cmll-macosx-x86_64.s
-		md5/md5-macosx-x86_64.s
-		modes/ghash-macosx-x86_64.s
-		rc4/rc4-macosx-x86_64.s
-		rc4/rc4-md5-macosx-x86_64.s
-		sha/sha1-macosx-x86_64.s
+		aes/aes-macosx-x86_64.S
+		aes/bsaes-macosx-x86_64.S
+		aes/vpaes-macosx-x86_64.S
+		aes/aesni-macosx-x86_64.S
+		aes/aesni-sha1-macosx-x86_64.S
+		bn/modexp512-macosx-x86_64.S
+		bn/mont-macosx-x86_64.S
+		bn/mont5-macosx-x86_64.S
+		bn/gf2m-macosx-x86_64.S
+		camellia/cmll-macosx-x86_64.S
+		md5/md5-macosx-x86_64.S
+		modes/ghash-macosx-x86_64.S
+		rc4/rc4-macosx-x86_64.S
+		rc4/rc4-md5-macosx-x86_64.S
+		sha/sha1-macosx-x86_64.S
 		sha/sha256-macosx-x86_64.S
 		sha/sha512-macosx-x86_64.S
-		whrlpool/wp-macosx-x86_64.s
+		whrlpool/wp-macosx-x86_64.S
 		cpuid-macosx-x86_64.S
 	)
 	add_definitions(-DAES_ASM)

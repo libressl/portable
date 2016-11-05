@@ -134,6 +134,7 @@ noinst_HEADERS += constant_time_locl.h
 noinst_HEADERS += cryptlib.h
 noinst_HEADERS += md32_common.h
 noinst_HEADERS += o_time.h
+noinst_HEADERS += x86_arch.h
 
 # aes
 libcrypto_la_SOURCES += aes/aes_cfb.c
@@ -563,9 +564,6 @@ libcrypto_la_SOURCES += idea/i_ecb.c
 libcrypto_la_SOURCES += idea/i_ofb64.c
 libcrypto_la_SOURCES += idea/i_skey.c
 noinst_HEADERS += idea/idea_lcl.h
-
-# krb5
-libcrypto_la_SOURCES += krb5/krb5_asn.c
 
 # lhash
 libcrypto_la_SOURCES += lhash/lh_stats.c

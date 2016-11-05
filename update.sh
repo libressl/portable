@@ -328,7 +328,7 @@ echo "dist_man_MANS += tls_init.3" >> man/Makefile.am
 
 (cd man
 	# update new-style manpages
-	for i in `ls -1 $libssl_src/doc/*.3 | sort`; do
+	for i in `ls -1 $libssl_src/man/*.3 | sort`; do
 		NAME=`basename "$i"`
 		$CP $i .
 		echo "dist_man_MANS += $NAME" >> Makefile.am
@@ -338,19 +338,6 @@ echo "dist_man_MANS += tls_init.3" >> man/Makefile.am
 		NAME=`basename "$i"`
 		$CP $i .
 		echo "dist_man_MANS += $NAME" >> Makefile.am
-	done
-
-	# convert remaining POD manpages
-	for i in `ls -1 $libcrypto_src/doc/*.pod | sort`; do
-		BASE=`echo $i|sed -e "s/\.pod//"`
-		NAME=`basename "$BASE"`
-		# reformat file if new
-		if [ ! -f $NAME.3 -o $BASE.pod -nt $NAME.3 -o ../include/openssl/opensslv.h -nt $NAME.3 ]; then
-			echo processing $NAME
-			pod2man --official --release="LibreSSL $VERSION" --center=LibreSSL \
-				--section=3 $POD2MAN --name=$NAME < $BASE.pod > $NAME.3
-		fi
-		echo "dist_man_MANS += $NAME.3" >> Makefile.am
 	done
 )
 add_man_links . man/Makefile.am

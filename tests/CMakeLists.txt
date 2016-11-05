@@ -341,3 +341,8 @@ add_test(utf8test utf8test)
 add_executable(verifytest verifytest.c)
 target_link_libraries(verifytest tls ${OPENSSL_LIBS})
 add_test(verifytest verifytest)
+
+# x25519test
+add_executable(x25519test x25519test.c)
+target_link_libraries(x25519test ${OPENSSL_LIBS})
+add_test(x25519test x25519test)

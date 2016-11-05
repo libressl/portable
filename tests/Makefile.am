@@ -338,3 +338,8 @@ utf8test_SOURCES = utf8test.c
 TESTS += verifytest
 check_PROGRAMS += verifytest
 verifytest_SOURCES = verifytest.c
+
+# x25519test
+TESTS += x25519test
+check_PROGRAMS += x25519test
+x25519test_SOURCES = x25519test.c

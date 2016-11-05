@@ -281,6 +281,8 @@ set(
 	conf/conf_mall.c
 	conf/conf_mod.c
 	conf/conf_sap.c
+	curve25519/curve25519-generic.c
+	curve25519/curve25519.c
 	des/cbc_cksm.c
 	des/cbc_enc.c
 	des/cfb64ede.c

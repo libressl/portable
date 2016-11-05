@@ -344,6 +344,12 @@ libcrypto_la_SOURCES += conf/conf_mod.c
 libcrypto_la_SOURCES += conf/conf_sap.c
 noinst_HEADERS += conf/conf_def.h
 
+# curve25519
+libcrypto_la_SOURCES += curve25519/curve25519-generic.c
+libcrypto_la_SOURCES += curve25519/curve25519.c
+noinst_HEADERS += curve25519/curve25519_internal.h
+
+
 # des
 libcrypto_la_SOURCES += des/cbc_cksm.c
 libcrypto_la_SOURCES += des/cbc_enc.c

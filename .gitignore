@@ -39,6 +39,7 @@ Makefile.in
 *.la
 
 *.def
+*.sym
 *.pc
 
 # man pages

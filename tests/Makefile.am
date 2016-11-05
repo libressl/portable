@@ -8,9 +8,9 @@ AM_CPPFLAGS += -I $(top_srcdir)/apps/openssl/compat
 AM_CPPFLAGS += -D_PATH_SSL_CA_FILE=\"$(top_srcdir)/apps/openssl/cert.pem\"
 
 LDADD = $(PLATFORM_LDADD) $(PROG_LDADD)
-LDADD += $(abs_top_builddir)/ssl/libssl.la
+LDADD += $(abs_top_builddir)/tls/.libs/libtls.a
+LDADD += $(abs_top_builddir)/ssl/.libs/libssl.a
 LDADD += $(abs_top_builddir)/crypto/libcrypto.la
-LDADD += $(abs_top_builddir)/tls/libtls.la
 
 TEST_LOG_DRIVER = env AM_TAP_AWK='$(AWK)' $(SHELL) $(top_srcdir)/tap-driver.sh
 

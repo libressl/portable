@@ -199,6 +199,10 @@ for i in `awk '/SOURCES|HEADERS/ { print $3 }' tls/Makefile.am` ; do
 		$CP $libtls_src/$i libtls-standalone/src
 	fi
 done
+# add the libtls symbol export list
+grep '^[[:alpha:]]' < $libtls_src/Symbols.list > tls/tls.sym
+echo EXPORTS > tls/tls.def
+cat tls/tls.sym >> tls/tls.def
 
 $CP_LIBC $libc_src/string/strsep.c tls
 $CP_LIBC $libc_src/string/strsep.c libtls-standalone/compat
@@ -240,6 +244,10 @@ rm -f ssl/*.c ssl/*.h
 for i in `awk '/SOURCES|HEADERS/ { print $3 }' ssl/Makefile.am` ; do
 	$CP $libssl_src/$i ssl
 done
+# add the libssl symbol export list
+grep '^[[:alpha:]]' < $libssl_src/Symbols.list > ssl/ssl.sym
+echo EXPORTS > ssl/ssl.def
+cat ssl/ssl.sym >> ssl/ssl.def
 
 # copy libcrypto tests
 echo "copying tests"

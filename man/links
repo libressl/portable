@@ -1628,7 +1628,6 @@ tls_init.3,tls_peer_ocsp_next_update.3
 tls_init.3,tls_peer_ocsp_response_status.3
 tls_init.3,tls_peer_ocsp_result_msg.3
 tls_init.3,tls_peer_ocsp_revocation_time.3
-tls_init.3,tls_peer_ocsp_this_update".3
 tls_init.3,tls_peer_ocsp_this_update.3
 tls_init.3,tls_peer_ocsp_url.3
 tls_init.3,tls_read.3

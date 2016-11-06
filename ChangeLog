@@ -28,6 +28,27 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.4.4 - Reliability improvements
+
+	* Avoid continual processing of an unlimited number of TLS records,
+	  which can cause a denial-of-service condition.
+
+	* In X509_cmp_time(), pass asn1_time_parse() the tag of the field
+	  being parsed so that a malformed GeneralizedTime field is recognized as
+	  an error instead of potentially being interpreted as if it was a valid
+	  UTCTime.
+
+	* Improve ticket validity checking when tlsext_ticket_key_cb()
+	  callback chooses a different HMAC algorithm.
+
+	* Check for packets with a truncated DTLS cookie.
+
+	* Detect zero-length encrypted session data early, instead of when
+	  malloc(0) fails or the HMAC check fails.
+
+	* Check for and handle failure of HMAC_{Update,Final} or
+	  EVP_DecryptUpdate()
+
 2.4.3 - Bug fixes and reliability improvements
 
 	* Reverted change that cleans up the EVP cipher context in

@@ -774,6 +774,7 @@ libcrypto_la_SOURCES += x509/x509spki.c
 libcrypto_la_SOURCES += x509/x509type.c
 libcrypto_la_SOURCES += x509/x_all.c
 noinst_HEADERS += x509/x509_lcl.h
+noinst_HEADERS += x509/vpm_int.h
 
 # x509v3
 libcrypto_la_SOURCES += x509v3/pcy_cache.c

@@ -28,6 +28,11 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.3.9 - Reliability improvements
+
+	* Avoid continual processing of an unlimited number of TLS records,
+	  which can cause a denial-of-service condition.
+
 2.3.8 - Security and reliability fixes
 
 	* Avoid unbounded memory growth in libssl, which can be triggered by a

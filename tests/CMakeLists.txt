@@ -14,6 +14,8 @@ add_definitions(-D_PATH_SSL_CA_FILE=\"${CMAKE_CURRENT_SOURCE_DIR}/../apps/openss
 foreach(lib IN LISTS OPENSSL_LIBS)
 	if(${lib} STREQUAL "ssl-shared")
 		set(TESTS_LIBS ${TESTS_LIBS} ssl)
+	elseif(${lib} STREQUAL "crypto-shared")
+		set(TESTS_LIBS ${TESTS_LIBS} crypto)
 	else()
 		set(TESTS_LIBS ${TESTS_LIBS} ${lib})
 	endif()

@@ -20,7 +20,15 @@ case $host_os in
 		# weak seed on failure to open /dev/random, based on latest
 		# public source:
 		# http://www.opensource.apple.com/source/Libc/Libc-997.90.3/gen/FreeBSD/arc4random.c
-		USE_BUILTIN_ARC4RANDOM=yes
+		AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+#include <unistd.h>
+#include <sys/random.h>
+                       ]], [[
+char buf[1]; getentropy(buf, 1);
+					   ]])],
+                       [ USE_BUILTIN_ARC4RANDOM=no ],
+                       [ USE_BUILTIN_ARC4RANDOM=yes ]
+		)
 		# Not available on iOS
 		AC_CHECK_HEADER([arpa/telnet.h], [], [BUILD_NC=no])
 		;;

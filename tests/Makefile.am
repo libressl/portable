@@ -11,6 +11,9 @@ LDADD = $(PLATFORM_LDADD) $(PROG_LDADD)
 LDADD += $(abs_top_builddir)/tls/.libs/libtls.a
 LDADD += $(abs_top_builddir)/ssl/.libs/libssl.a
 LDADD += $(abs_top_builddir)/crypto/.libs/libcrypto.a
+if HOST_ASM_MACOSX_X86_64
+LDADD += $(abs_top_builddir)/crypto/.libs/libcrypto_la-cpuid-macosx-x86_64.o
+endif
 
 TEST_LOG_DRIVER = env AM_TAP_AWK='$(AWK)' $(SHELL) $(top_srcdir)/tap-driver.sh
 

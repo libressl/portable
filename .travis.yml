@@ -10,15 +10,23 @@ matrix:
     - compiler: clang
       os: linux
       env: ARCH=native
+      dist: trusty
+      sudo: required
     - compiler: gcc
       os: linux
       env: ARCH=native
+      dist: trusty
+      sudo: required
     - compiler: gcc
       os: linux
       env: ARCH=mingw32
+      dist: trusty
+      sudo: required
     - compiler: gcc
       os: linux
       env: ARCH=mingw64
+      dist: trusty
+      sudo: required
 
 script:
   "./scripts/travis"

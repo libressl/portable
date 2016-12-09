@@ -47,7 +47,61 @@ AM_CONDITIONAL([HAVE_B64_NTOP], [test "x$ac_cv_func_b64_ntop_arg" = xyes])
 AC_DEFUN([CHECK_CRYPTO_COMPAT], [
 # Check crypto-related libc functions and syscalls
 AC_CHECK_FUNCS([arc4random arc4random_buf arc4random_uniform])
-AC_CHECK_FUNCS([explicit_bzero getauxval getentropy])
+AC_CHECK_FUNCS([explicit_bzero getauxval])
+
+AC_CACHE_CHECK([for getentropy], ac_cv_func_getentropy, [
+	AC_LINK_IFELSE([AC_LANG_PROGRAM([[
+#include <sys/types.h>
+#include <sys/random.h>
+
+#ifdef __APPLE__
+#  include <AvailabilityMacros.h>
+
+/*
+ * Before macOS 10.12 getentropy() was not available. In 10.12 however it
+ * seems to be not marked for retro-compatibility and thus we cannot cross
+ * compile targeting, e.g., 10.12 unless we disable getentropy().
+ *
+ * To test,
+ *
+ *    export CFLAGS="-mmacosx-version-min=10.11"
+ *    ./configure
+ *    # ensure that getentropy() is not found
+ *
+ * Based on: https://gitweb.torproject.org/tor.git/commit/?id=https://gitweb.torproject.org/tor.git/commit/?id=16fcbd21c963a9a65bf55024680c8323c8b7175d
+ */
+#  ifndef MAC_OS_X_VERSION_10_12
+#    define MAC_OS_X_VERSION_10_12 101200
+#  endif
+#  if defined(MAC_OS_X_VERSION_MIN_REQUIRED)
+#    if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_12
+#      error "Running on Mac OSX 10.11 or earlier"
+#    endif
+#  endif
+#endif
+
+/*
+ * As of iOS 10.1, getentropy() as a system call is defined but is not
+ * declared in sys/random.h and submitting an App that links to getentropy()
+ * leads to the App store rejecting the App because:
+ *
+ * > The app references non-public symbols in $appname: _getentropy
+ *
+ * Disabling the check for getentropy() and thus enabling libressl own
+ * emulation of that fixes the issue.
+ */
+#if (defined TARGET_IPHONE_OS || defined TARGET_IPHONE_SIMULATOR)
+#  error "As far as we know, getentropy() is not usable on iOS"
+#endif
+		]], [[
+	char buffer[1024];
+	(void)getentropy(buffer, sizeof (buffer));
+]])],
+	[ ac_cv_func_getentropy="yes" ],
+	[ ac_cv_func_getentropy="no"
+	])
+])
+
 AC_CHECK_FUNCS([timingsafe_bcmp timingsafe_memcmp])
 AM_CONDITIONAL([HAVE_ARC4RANDOM], [test "x$ac_cv_func_arc4random" = xyes])
 AM_CONDITIONAL([HAVE_ARC4RANDOM_BUF], [test "x$ac_cv_func_arc4random_buf" = xyes])

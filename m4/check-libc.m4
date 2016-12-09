@@ -52,10 +52,27 @@ AC_CHECK_FUNCS([explicit_bzero getauxval])
 AC_CACHE_CHECK([for getentropy], ac_cv_func_getentropy, [
 	AC_LINK_IFELSE([AC_LANG_PROGRAM([[
 #include <sys/types.h>
-#include <sys/random.h>
+#include <unistd.h>
 
 #ifdef __APPLE__
 #  include <AvailabilityMacros.h>
+#  include <TargetConditionals.h>
+
+# if (TARGET_OS_IPHONE || TARGET_OS_SIMULATOR)
+
+/*
+ * As of iOS 10.1, getentropy() as a system call is defined but is not
+ * declared in sys/random.h and submitting an App that links to getentropy()
+ * leads to the App store rejecting the App because:
+ *
+ * > The app references non-public symbols in $appname: _getentropy
+ *
+ * Disabling the check for getentropy() and thus enabling libressl own
+ * emulation of that fixes the issue.
+ */
+#  error "As far as we know, getentropy() is not usable on iOS"
+
+# else
 
 /*
  * Before macOS 10.12 getentropy() was not available. In 10.12 however it
@@ -78,24 +95,13 @@ AC_CACHE_CHECK([for getentropy], ac_cv_func_getentropy, [
 #      error "Running on Mac OSX 10.11 or earlier"
 #    endif
 #  endif
-#endif
 
-/*
- * As of iOS 10.1, getentropy() as a system call is defined but is not
- * declared in sys/random.h and submitting an App that links to getentropy()
- * leads to the App store rejecting the App because:
- *
- * > The app references non-public symbols in $appname: _getentropy
- *
- * Disabling the check for getentropy() and thus enabling libressl own
- * emulation of that fixes the issue.
- */
-#if (defined TARGET_IPHONE_OS || defined TARGET_IPHONE_SIMULATOR)
-#  error "As far as we know, getentropy() is not usable on iOS"
-#endif
+# endif
+#endif /* __APPLE__ */
 		]], [[
-	char buffer[1024];
-	(void)getentropy(buffer, sizeof (buffer));
+	extern int getentropy(void *, size_t);
+	char buffer;
+	(void)getentropy(&buffer, sizeof (buffer));
 ]])],
 	[ ac_cv_func_getentropy="yes" ],
 	[ ac_cv_func_getentropy="no"

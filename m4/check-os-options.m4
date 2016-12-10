@@ -17,10 +17,43 @@ case $host_os in
 	*darwin*)
 		HOST_OS=darwin
 		HOST_ABI=macosx
+		#
+		# Don't use arc4random on systems before 10.12 because of
 		# weak seed on failure to open /dev/random, based on latest
 		# public source:
 		# http://www.opensource.apple.com/source/Libc/Libc-997.90.3/gen/FreeBSD/arc4random.c
-		USE_BUILTIN_ARC4RANDOM=yes
+		#
+		# We use the presence of getentropy() to detect 10.12. The
+		# following check take into account that:
+ 		#
+		#   - iOS <= 10.1 fails because of missing getentropy and
+		#     hence they miss sys/random.h
+		#
+		#   - in macOS 10.12 getentropy is not tagged as introduced in
+		#     10.12 so we cannot use it for target < 10.12
+		#
+		AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+#include <AvailabilityMacros.h>
+#include <unistd.h>
+#include <sys/random.h>  /* Systems without getentropy() should die here */
+
+/* Based on: https://gitweb.torproject.org/tor.git/commit/?id=16fcbd21 */
+#ifndef MAC_OS_X_VERSION_10_12
+#  define MAC_OS_X_VERSION_10_12 101200
+#endif
+#if defined(MAC_OS_X_VERSION_MIN_REQUIRED)
+#  if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_12
+#    error "Running on Mac OSX 10.11 or earlier"
+#  endif
+#endif
+                       ]], [[
+char buf[1]; getentropy(buf, 1);
+					   ]])],
+                       [ USE_BUILTIN_ARC4RANDOM=no ],
+                       [ USE_BUILTIN_ARC4RANDOM=yes ]
+		)
+		AC_MSG_CHECKING([whether to use builtin arc4random])
+		AC_MSG_RESULT([$USE_BUILTIN_ARC4RANDOM])
 		# Not available on iOS
 		AC_CHECK_HEADER([arpa/telnet.h], [], [BUILD_NC=no])
 		;;

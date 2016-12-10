@@ -54,52 +54,37 @@ AC_CACHE_CHECK([for getentropy], ac_cv_func_getentropy, [
 #include <sys/types.h>
 #include <unistd.h>
 
+/*
+ * Explanation:
+ *
+ *   - iOS <= 10.1 fails because of missing sys/random.h
+ *
+ *   - in macOS 10.12 getentropy is not tagged as introduced in
+ *     10.12 so we cannot use it for target < 10.12
+ */
 #ifdef __APPLE__
 #  include <AvailabilityMacros.h>
 #  include <TargetConditionals.h>
 
 # if (TARGET_OS_IPHONE || TARGET_OS_SIMULATOR)
-
-/*
- * As of iOS 10.1, getentropy() as a system call is defined but is not
- * declared in sys/random.h and submitting an App that links to getentropy()
- * leads to the App store rejecting the App because:
- *
- * > The app references non-public symbols in $appname: _getentropy
- *
- * Disabling the check for getentropy() and thus enabling libressl own
- * emulation of that fixes the issue.
- */
-#  error "As far as we know, getentropy() is not usable on iOS"
-
+#  include <sys/random.h> /* Not available as of iOS <= 10.1 */
 # else
 
-/*
- * Before macOS 10.12 getentropy() was not available. In 10.12 however it
- * seems to be not marked for retro-compatibility and thus we cannot cross
- * compile targeting, e.g., 10.12 unless we disable getentropy().
- *
- * To test,
- *
- *    export CFLAGS="-mmacosx-version-min=10.11"
- *    ./configure
- *    # ensure that getentropy() is not found
- *
- * Based on: https://gitweb.torproject.org/tor.git/commit/?id=https://gitweb.torproject.org/tor.git/commit/?id=16fcbd21c963a9a65bf55024680c8323c8b7175d
- */
+#  include <sys/random.h> /* Pre 10.12 systems should die here */
+
+/* Based on: https://gitweb.torproject.org/tor.git/commit/?id=16fcbd21 */
 #  ifndef MAC_OS_X_VERSION_10_12
-#    define MAC_OS_X_VERSION_10_12 101200
+#    define MAC_OS_X_VERSION_10_12 101200 /* Robustness */
 #  endif
 #  if defined(MAC_OS_X_VERSION_MIN_REQUIRED)
 #    if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_12
-#      error "Running on Mac OSX 10.11 or earlier"
+#      error "Targeting on Mac OSX 10.11 or earlier"
 #    endif
 #  endif
 
 # endif
 #endif /* __APPLE__ */
 		]], [[
-	extern int getentropy(void *, size_t);
 	char buffer;
 	(void)getentropy(&buffer, sizeof (buffer));
 ]])],

@@ -146,6 +146,11 @@ for i in `awk '/SOURCES|HEADERS/ { print $3 }' crypto/Makefile.am` ; do
 done
 $CP crypto/compat/b_win.c crypto/bio
 $CP crypto/compat/ui_openssl_win.c crypto/ui
+# add the libcrypto symbol export list
+grep '^[[:alpha:]]' < $libcrypto_src/Symbols.list > crypto/crypto.sym
+echo EXPORTS > crypto/crypto.def
+grep -v BIO_s_log crypto/crypto.sym >> crypto/crypto.def
+cat crypto/crypto_win.list >> crypto/crypto.def
 
 # generate assembly crypto algorithms
 asm_src=$libcrypto_src

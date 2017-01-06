@@ -298,6 +298,11 @@ add_executable(sha512test sha512test.c)
 target_link_libraries(sha512test ${TESTS_LIBS})
 add_test(sha512test sha512test)
 
+# ssl_versions
+add_executable(ssl_versions ssl_versions.c)
+target_link_libraries(ssl_versions ${TESTS_LIBS})
+add_test(ssl_versions ssl_versions)
+
 # ssltest
 add_executable(ssltest ssltest.c)
 target_link_libraries(ssltest ${TESTS_LIBS})

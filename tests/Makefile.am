@@ -302,6 +302,11 @@ TESTS += sha512test
 check_PROGRAMS += sha512test
 sha512test_SOURCES = sha512test.c
 
+# ssl_versions
+TESTS += ssl_versions
+check_PROGRAMS += ssl_versions
+ssl_versions_SOURCES = ssl_versions.c
+
 # ssltest
 TESTS += ssltest.sh
 check_PROGRAMS += ssltest

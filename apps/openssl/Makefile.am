@@ -4,9 +4,9 @@ bin_PROGRAMS = openssl
 
 dist_man_MANS = openssl.1
 
-openssl_LDADD = $(PLATFORM_LDADD) $(PROG_LDADD)
-openssl_LDADD += $(abs_top_builddir)/ssl/libssl.la
+openssl_LDADD = $(abs_top_builddir)/ssl/libssl.la
 openssl_LDADD += $(abs_top_builddir)/crypto/libcrypto.la
+openssl_LDADD += $(PLATFORM_LDADD) $(PROG_LDADD)
 
 openssl_SOURCES = apps.c
 openssl_SOURCES += asn1pars.c

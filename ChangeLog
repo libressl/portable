@@ -28,6 +28,45 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.5.1 - Bug and security fixes, new features, documentation updates
+
+	* X509_cmp_time() now passes a malformed GeneralizedTime field as an
+	  error. Reported by Theofilos Petsios.
+
+	* Detect zero-length encrypted session data early, instead of when
+	  malloc(0) fails or the HMAC check fails. Noted independently by
+	  jsing@ and Kurt Cancemi.
+
+	* Check for and handle failure of HMAC_{Update,Final} or
+	  EVP_DecryptUpdate().
+
+	* Massive update and normalization of manpages, conversion to
+	  mandoc format. Many pages were rewritten for clarity and accuracy.
+	  Portable doc links are up-to-date with a new conversion tool.
+
+	* Curve25519 Key Exchange support.
+
+	* Support for alternate chains for certificate verification.
+
+	* Code cleanups, CBB conversions, further unification of DTLS/SSL
+	  handshake code, further ASN1 macro expansion and removal.
+
+	* Private symbol are now hidden in libssl and libcryto.
+
+	* Friendly certificate verification error messages in libtls, peer
+	  verification is now always enabled.
+
+	* Added OSCP stapling support to libtls and netcat.
+
+	* Avoid a side-channel cache-timing attack that can leak the ECDSA
+	  private keys when signing. This is due to BN_mod_inverse() being
+	  used without the constant time flag being set. Reported by Cesar
+	  Pereida Garcia and Billy Brumley (Tampere University of Technology).
+	  The fix was developed by Cesar Pereida Garcia.
+
+	* iOS and MacOS compatibility updates from Simone Basso and Jacob
+	  Berkman.
+
 2.5.0 - New APIs, bug fixes and improvements
 
 	* libtls now supports ALPN and SNI

@@ -28,6 +28,19 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.4.5  - Security and compatibility fixes
+
+	* Avoid a side-channel cache-timing attack that can leak the ECDSA
+	  private keys when signing. This is due to BN_mod_inverse() being
+	  used without the constant time flag being set.
+
+	  This issue was reported by Cesar Pereida Garcia and Billy Brumley
+	  (Tampere University of Technology). The fix was developed by Cesar
+	  Pereida Garcia.
+
+	* iOS and MacOS compatibility updates from Simone Basso and Jacob
+	  Berkman.
+
 2.4.4 - Reliability improvements
 
 	* Avoid continual processing of an unlimited number of TLS records,

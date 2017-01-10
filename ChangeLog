@@ -56,7 +56,7 @@ LibreSSL Portable Release Notes:
 	* Friendly certificate verification error messages in libtls, peer
 	  verification is now always enabled.
 
-	* Added OSCP stapling support to libtls and netcat.
+	* Added OCSP stapling support to libtls and netcat.
 
 	* Avoid a side-channel cache-timing attack that can leak the ECDSA
 	  private keys when signing. This is due to BN_mod_inverse() being
@@ -137,7 +137,7 @@ LibreSSL Portable Release Notes:
 
 	* Fixed loading default certificate locations with openssl s_client.
 
-	* Ensured OSCP only uses and compares GENERALIZEDTIME values as per
+	* Ensured OCSP only uses and compares GENERALIZEDTIME values as per
 	  RFC6960. Also added fixes for OCSP to work with intermediate
 	  certificates provided in responses.
 

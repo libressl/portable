@@ -14,6 +14,7 @@ EXTRA_DIST += crypto.sym
 EXTRA_DIST += crypto_portable.sym
 
 crypto_portable_symbols =
+crypto_remove_symbols =
 
 # needed for a CMake target
 EXTRA_DIST += compat/strcasecmp.c
@@ -285,6 +286,8 @@ libcrypto_la_SOURCES += bio/bss_fd.c
 libcrypto_la_SOURCES += bio/bss_file.c
 if !HOST_WIN
 libcrypto_la_SOURCES += bio/bss_log.c
+else
+crypto_remove_symbols += BIO_s_log
 endif
 libcrypto_la_SOURCES += bio/bss_mem.c
 libcrypto_la_SOURCES += bio/bss_null.c
@@ -847,5 +850,8 @@ crypto_portable.sym:
 	@cp crypto.sym crypto_portable.sym
 	@for symbol in $(crypto_portable_symbols); do ( \
 		echo $$symbol >> crypto_portable.sym; \
+	) done
+	@for symbol in $(crypto_remove_symbols); do ( \
+		sed -i -e "/$$symbol/d" crypto_portable.sym; \
 	) done
 

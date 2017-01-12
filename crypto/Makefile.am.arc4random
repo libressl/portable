@@ -1,6 +1,8 @@
 if !HAVE_ARC4RANDOM_BUF
 libcompat_la_SOURCES += compat/arc4random.c
+crypto_portable_symbols += arc4random_buf
 libcompat_la_SOURCES += compat/arc4random_uniform.c
+crypto_portable_symbols += arc4random_uniform
 
 if !HAVE_GETENTROPY
 if HOST_AIX

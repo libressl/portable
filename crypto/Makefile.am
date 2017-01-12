@@ -11,11 +11,14 @@ EXTRA_DIST = VERSION
 EXTRA_DIST += CMakeLists.txt
 EXTRA_DIST += crypto.def
 EXTRA_DIST += crypto.sym
+EXTRA_DIST += crypto_portable.sym
+
+crypto_portable_symbols =
 
 # needed for a CMake target
 EXTRA_DIST += compat/strcasecmp.c
 
-libcrypto_la_LDFLAGS = -version-info @LIBCRYPTO_VERSION@ -no-undefined -export-symbols $(top_srcdir)/crypto/crypto.sym
+libcrypto_la_LDFLAGS = -version-info @LIBCRYPTO_VERSION@ -no-undefined -export-symbols $(top_srcdir)/crypto/crypto_portable.sym
 libcrypto_la_LIBADD = libcompat.la
 if !HAVE_EXPLICIT_BZERO
 libcrypto_la_LIBADD += libcompatnoopt.la
@@ -51,6 +54,7 @@ libcompatnoopt_la_SOURCES += compat/explicit_bzero_win.c
 else
 libcompatnoopt_la_SOURCES += compat/explicit_bzero.c
 endif
+crypto_portable_symbols += explicit_bzero
 endif
 
 # other compatibility functions
@@ -59,46 +63,67 @@ libcompat_la_LIBADD = $(PLATFORM_LDADD)
 
 if !HAVE_STRLCAT
 libcompat_la_SOURCES += compat/strlcat.c
+crypto_portable_symbols += strlcat
 endif
 
 if !HAVE_STRLCPY
 libcompat_la_SOURCES += compat/strlcpy.c
+crypto_portable_symbols += strlcpy
 endif
 
 if !HAVE_STRNDUP
 libcompat_la_SOURCES += compat/strndup.c
+crypto_portable_symbols += strndup
 # the only user of strnlen is strndup, so only build it if needed
 if !HAVE_STRNLEN
 libcompat_la_SOURCES += compat/strnlen.c
+crypto_portable_symbols += strnlen
 endif
 endif
 
 if !HAVE_ASPRINTF
 libcompat_la_SOURCES += compat/bsd-asprintf.c
+crypto_portable_symbols += asprintf
+crypto_portable_symbols += vasprintf
 endif
 
 if !HAVE_INET_PTON
 libcompat_la_SOURCES += compat/inet_pton.c
+crypto_portable_symbols += inet_pton
 endif
 
 if !HAVE_TIMEGM
 libcompat_la_SOURCES += compat/timegm.c
+crypto_portable_symbols += timegm
 endif
 
 if !HAVE_REALLOCARRAY
 libcompat_la_SOURCES += compat/reallocarray.c
+crypto_portable_symbols += reallocarray
 endif
 
 if !HAVE_TIMINGSAFE_MEMCMP
 libcompat_la_SOURCES += compat/timingsafe_memcmp.c
+crypto_portable_symbols += timingsafe_memcmp
 endif
 
 if !HAVE_TIMINGSAFE_BCMP
 libcompat_la_SOURCES += compat/timingsafe_bcmp.c
+crypto_portable_symbols += timingsafe_bcmp
 endif
 
 if HOST_WIN
 libcompat_la_SOURCES += compat/posix_win.c
+crypto_portable_symbols += posix_perror
+crypto_portable_symbols += posix_fopen
+crypto_portable_symbols += posix_fgets
+crypto_portable_symbols += posix_rename
+crypto_portable_symbols += posix_connect
+crypto_portable_symbols += posix_close
+crypto_portable_symbols += posix_read
+crypto_portable_symbols += posix_write
+crypto_portable_symbols += posix_getsockopt
+crypto_portable_symbols += posix_setsockopt
 endif
 
 include Makefile.am.arc4random
@@ -814,3 +839,13 @@ libcrypto_la_SOURCES += x509v3/v3_utl.c
 libcrypto_la_SOURCES += x509v3/v3err.c
 noinst_HEADERS += x509v3/ext_dat.h
 noinst_HEADERS += x509v3/pcy_int.h
+
+EXTRA_libcrypto_la_DEPENDENCIES =
+EXTRA_libcrypto_la_DEPENDENCIES += crypto_portable.sym
+
+crypto_portable.sym:
+	@cp crypto.sym crypto_portable.sym
+	@for symbol in $(crypto_portable_symbols); do ( \
+		echo $$symbol >> crypto_portable.sym; \
+	) done
+

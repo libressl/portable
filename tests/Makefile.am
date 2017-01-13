@@ -332,6 +332,14 @@ TESTS += timingsafe
 check_PROGRAMS += timingsafe
 timingsafe_SOURCES = timingsafe.c
 
+# tlstest
+if !HOST_WIN
+TESTS += tlstest.sh
+check_PROGRAMS += tlstest
+tlstest_SOURCES = tlstest.c
+EXTRA_DIST += tlstest.sh tlstest.bat
+endif
+
 # tls_ext_alpn
 TESTS += tls_ext_alpn
 check_PROGRAMS += tls_ext_alpn

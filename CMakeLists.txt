@@ -261,9 +261,9 @@ if(NOT BUILD_SHARED)
 endif()
 
 if(USE_SHARED)
-	set(OPENSSL_LIBS ssl-shared crypto-shared)
+	set(OPENSSL_LIBS tls-shared ssl-shared crypto-shared)
 else()
-	set(OPENSSL_LIBS ssl crypto)
+	set(OPENSSL_LIBS tls ssl crypto)
 endif()
 
 if(CMAKE_HOST_WIN32)

@@ -12,7 +12,9 @@ include_directories(
 add_definitions(-D_PATH_SSL_CA_FILE=\"${CMAKE_CURRENT_SOURCE_DIR}/../apps/openssl/cert.pem\")
 
 foreach(lib IN LISTS OPENSSL_LIBS)
-	if(${lib} STREQUAL "ssl-shared")
+	if(${lib} STREQUAL "tls-shared")
+		set(TESTS_LIBS ${TESTS_LIBS} tls)
+	elseif(${lib} STREQUAL "ssl-shared")
 		set(TESTS_LIBS ${TESTS_LIBS} ssl)
 	elseif(${lib} STREQUAL "crypto-shared")
 		set(TESTS_LIBS ${TESTS_LIBS} crypto)
@@ -342,6 +344,18 @@ add_executable(timingsafe timingsafe.c)
 target_link_libraries(timingsafe ${TESTS_LIBS})
 add_test(timingsafe timingsafe)
 
+# tlstest
+if(NOT CMAKE_HOST_WIN32 AND NOT CMAKE_SYSTEM_NAME MATCHES "MINGW")
+add_executable(tlstest tlstest.c)
+target_link_libraries(tlstest ${TESTS_LIBS})
+if(NOT MSVC)
+	add_test(tlstest ${CMAKE_CURRENT_SOURCE_DIR}/tlstest.sh)
+else()
+	add_test(tlstest ${CMAKE_CURRENT_SOURCE_DIR}/tlstest.bat)
+endif()
+set_tests_properties(tlstest PROPERTIES ENVIRONMENT "srcdir=${CMAKE_CURRENT_SOURCE_DIR}")
+endif()
+
 # tls_ext_alpn
 add_executable(tls_ext_alpn tls_ext_alpn.c)
 target_link_libraries(tls_ext_alpn ${TESTS_LIBS})
@@ -365,6 +379,7 @@ add_test(x25519test x25519test)
 if(ENABLE_VSTEST AND USE_SHARED)
 	add_custom_command(TARGET x25519test POST_BUILD
 		COMMAND "${CMAKE_COMMAND}" -E copy
+		"$<TARGET_FILE:tls-shared>"
 		"$<TARGET_FILE:ssl-shared>"
 		"$<TARGET_FILE:crypto-shared>"
 		"${CMAKE_CURRENT_BINARY_DIR}"

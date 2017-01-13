@@ -48,8 +48,8 @@ set(
 	t1_srvr.c
 )
 
+add_library(ssl-objects OBJECT ${SSL_SRC})
 if (BUILD_SHARED)
-	add_library(ssl-objects OBJECT ${SSL_SRC})
 	add_library(ssl STATIC $<TARGET_OBJECTS:ssl-objects>)
 	add_library(ssl-shared SHARED $<TARGET_OBJECTS:ssl-objects>)
 	if (WIN32)

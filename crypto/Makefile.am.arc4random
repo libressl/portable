@@ -1,5 +1,6 @@
 if !HAVE_ARC4RANDOM_BUF
 libcompat_la_SOURCES += compat/arc4random.c
+crypto_portable_symbols += arc4random
 crypto_portable_symbols += arc4random_buf
 libcompat_la_SOURCES += compat/arc4random_uniform.c
 crypto_portable_symbols += arc4random_uniform
@@ -29,6 +30,7 @@ endif
 if HOST_WIN
 libcompat_la_SOURCES += compat/getentropy_win.c
 endif
+crypto_portable_symbols += getentropy
 endif
 
 endif

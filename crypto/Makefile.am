@@ -11,7 +11,6 @@ EXTRA_DIST = VERSION
 EXTRA_DIST += CMakeLists.txt
 EXTRA_DIST += crypto.def
 EXTRA_DIST += crypto.sym
-EXTRA_DIST += crypto_portable.sym
 
 crypto_portable_symbols =
 crypto_remove_symbols =
@@ -852,6 +851,7 @@ crypto_portable.sym:
 		echo $$symbol >> crypto_portable.sym; \
 	) done
 	@for symbol in $(crypto_remove_symbols); do ( \
-		sed -i -e "/$$symbol/d" crypto_portable.sym; \
+		grep -v "$$symbol" crypto_portable.sym > crypto_portable.tmp; \
+		mv crypto_portable.tmp crypto_portable.sym; \
 	) done
 

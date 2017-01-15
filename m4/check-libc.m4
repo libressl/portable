@@ -141,3 +141,73 @@ if test "x$ac_cv_have___va_copy" = "xyes" ; then
 	AC_DEFINE([HAVE___VA_COPY], [1], [Define if __va_copy exists])
 fi
 ])
+
+AC_DEFUN([GENERATE_CRYPTO_PORTABLE_SYM], [
+crypto_sym=$srcdir/crypto/crypto.sym
+crypto_p_sym=$srcdir/crypto/crypto_portable.sym
+echo "generating $crypto_p_sym ..."
+chmod u+w $srcdir/crypto
+cp $crypto_sym $crypto_p_sym
+chmod u+w $crypto_p_sym
+if test "x$ac_cv_func_arc4random" = "xno" ; then
+	echo arc4random >> $crypto_p_sym
+fi
+if test "x$ac_cv_func_arc4random_buf" = "xno" ; then
+	echo arc4random_buf >> $crypto_p_sym
+fi
+if test "x$ac_cv_func_arc4random_uniform" = "xno" ; then
+	echo arc4random_uniform >> $crypto_p_sym
+fi
+if test "x$ac_cv_func_asprintf" = "xno" ; then
+	echo asprintf >> $crypto_p_sym
+	echo vasprintf >> $crypto_p_sym
+fi
+if test "x$ac_cv_func_explicit_bzero" = "xno" ; then
+	echo explicit_bzero >> $crypto_p_sym
+fi
+if test "x$ac_cv_func_getentropy" = "xno" ; then
+	echo getentropy >> $crypto_p_sym
+fi
+if test "x$ac_cv_func_inet_pton" = "xno" ; then
+	echo inet_pton >> $crypto_p_sym
+fi
+if test "x$ac_cv_func_reallocarray" = "xno" ; then
+	echo reallocarray >> $crypto_p_sym
+fi
+if test "x$ac_cv_func_strlcat" = "xno" ; then
+	echo strlcat >> $crypto_p_sym
+fi
+if test "x$ac_cv_func_strlcpy" = "xno" ; then
+	echo strlcpy >> $crypto_p_sym
+fi
+if test "x$ac_cv_func_strndup" = "xno" ; then
+	echo strndup >> $crypto_p_sym
+fi
+if test "x$ac_cv_func_strnlen" = "xno" ; then
+	echo strnlen >> $crypto_p_sym
+fi
+if test "x$ac_cv_func_timegm" = "xno" ; then
+	echo timegm >> $crypto_p_sym
+fi
+if test "x$ac_cv_func_timingsafe_bcmp" = "xno" ; then
+	echo timingsafe_bcmp >> $crypto_p_sym
+fi
+if test "x$ac_cv_func_timingsafe_memcmp" = "xno" ; then
+	echo timingsafe_memcmp >> $crypto_p_sym
+fi
+if test "x$HOST_OS" = "xwin" ; then
+	echo posix_perror >> $crypto_p_sym
+	echo posix_fopen >> $crypto_p_sym
+	echo posix_fgets >> $crypto_p_sym
+	echo posix_rename >> $crypto_p_sym
+	echo posix_connect >> $crypto_p_sym
+	echo posix_close >> $crypto_p_sym
+	echo posix_read >> $crypto_p_sym
+	echo posix_write >> $crypto_p_sym
+	echo posix_getsockopt >> $crypto_p_sym
+	echo posix_setsockopt >> $crypto_p_sym
+
+	grep -v BIO_s_log $crypto_p_sym > $crypto_p_sym.tmp
+	mv $crypto_p_sym.tmp $crypto_p_sym
+fi
+])

@@ -10,11 +10,12 @@ lib_LTLIBRARIES = libcrypto.la
 EXTRA_DIST = VERSION
 EXTRA_DIST += CMakeLists.txt
 EXTRA_DIST += crypto.def
+EXTRA_DIST += crypto.sym
 
 # needed for a CMake target
 EXTRA_DIST += compat/strcasecmp.c
 
-libcrypto_la_LDFLAGS = -version-info @LIBCRYPTO_VERSION@ -no-undefined
+libcrypto_la_LDFLAGS = -version-info @LIBCRYPTO_VERSION@ -no-undefined -export-symbols $(top_srcdir)/crypto/crypto_portable.sym
 libcrypto_la_LIBADD = libcompat.la
 if !HAVE_EXPLICIT_BZERO
 libcrypto_la_LIBADD += libcompatnoopt.la

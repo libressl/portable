@@ -109,6 +109,9 @@ wsa_errno(int err)
 	case WSAEAFNOSUPPORT:
 		errno = EAFNOSUPPORT;
 		break;
+	case WSAEBADF:
+		errno = EBADF;
+		break;
 	case WSAENETRESET:
 	case WSAENOTCONN:
 	case WSAECONNABORTED:
@@ -135,7 +138,7 @@ posix_close(int fd)
 {
 	if (closesocket(fd) == SOCKET_ERROR) {
 		int err = WSAGetLastError();
-		return err == WSAENOTSOCK ?
+		return (err == WSAENOTSOCK || err == WSAEBADF) ?
 			close(fd) : wsa_errno(err);
 	}
 	return 0;
@@ -147,7 +150,7 @@ posix_read(int fd, void *buf, size_t count)
 	ssize_t rc = recv(fd, buf, count, 0);
 	if (rc == SOCKET_ERROR) {
 		int err = WSAGetLastError();
-		return err == WSAENOTSOCK ?
+		return (err == WSAENOTSOCK || err == WSAEBADF) ?
 			read(fd, buf, count) : wsa_errno(err);
 	}
 	return rc;
@@ -159,7 +162,7 @@ posix_write(int fd, const void *buf, size_t count)
 	ssize_t rc = send(fd, buf, count, 0);
 	if (rc == SOCKET_ERROR) {
 		int err = WSAGetLastError();
-		return err == WSAENOTSOCK ?
+		return (err == WSAENOTSOCK || err == WSAEBADF) ?
 			write(fd, buf, count) : wsa_errno(err);
 	}
 	return rc;

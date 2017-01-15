@@ -18,6 +18,11 @@
 #include <stdio.h>
 #include <string.h>
 
+#if defined(_MSC_VER)
+__declspec(noreturn)
+#else
+__attribute__((noreturn))
+#endif
 static inline void
 err(int eval, const char *fmt, ...)
 {
@@ -34,6 +39,11 @@ err(int eval, const char *fmt, ...)
 	va_end(ap);
 }
 
+#if defined(_MSC_VER)
+__declspec(noreturn)
+#else
+__attribute__((noreturn))
+#endif
 static inline void
 errx(int eval, const char *fmt, ...)
 {

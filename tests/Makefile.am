@@ -337,6 +337,9 @@ if !HOST_WIN
 TESTS += tlstest.sh
 check_PROGRAMS += tlstest
 tlstest_SOURCES = tlstest.c
+if !HAVE_PIPE2
+tlstest_SOURCES += compat/pipe2.c
+endif
 EXTRA_DIST += tlstest.sh tlstest.bat
 endif
 

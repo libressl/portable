@@ -40,4 +40,8 @@ int getentropy(void *buf, size_t buflen);
 
 #define pledge(request, paths) 0
 
+#ifndef HAVE_PIPE2
+int pipe2(int fildes[2], int flags);
+#endif
+
 #endif

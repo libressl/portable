@@ -346,7 +346,16 @@ add_test(timingsafe timingsafe)
 
 # tlstest
 if(NOT CMAKE_HOST_WIN32 AND NOT CMAKE_SYSTEM_NAME MATCHES "MINGW")
-add_executable(tlstest tlstest.c)
+
+set(TLSTEST_SRC tlstest.c)
+check_function_exists(pipe2 HAVE_PIPE2)
+if(HAVE_PIPE2)
+	add_definitions(-DHAVE_PIPE2)
+else()
+	set(TLSTEST_SRC ${TLSTEST_SRC} compat/pipe2.c)
+endif()
+
+add_executable(tlstest ${TLSTEST_SRC})
 target_link_libraries(tlstest ${TESTS_LIBS})
 if(NOT MSVC)
 	add_test(tlstest ${CMAKE_CURRENT_SOURCE_DIR}/tlstest.sh)

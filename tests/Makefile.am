@@ -333,7 +333,6 @@ check_PROGRAMS += timingsafe
 timingsafe_SOURCES = timingsafe.c
 
 # tlstest
-if !HOST_WIN
 TESTS += tlstest.sh
 check_PROGRAMS += tlstest
 tlstest_SOURCES = tlstest.c
@@ -341,7 +340,6 @@ if !HAVE_PIPE2
 tlstest_SOURCES += compat/pipe2.c
 endif
 EXTRA_DIST += tlstest.sh tlstest.bat
-endif
 
 # tls_ext_alpn
 TESTS += tls_ext_alpn

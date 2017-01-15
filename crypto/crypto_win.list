@@ -1,6 +1,7 @@
 arc4random_buf
 asprintf
 explicit_bzero
+inet_pton
 gettimeofday
 posix_close
 posix_connect

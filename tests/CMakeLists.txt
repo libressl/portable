@@ -345,8 +345,6 @@ target_link_libraries(timingsafe ${TESTS_LIBS})
 add_test(timingsafe timingsafe)
 
 # tlstest
-if(NOT CMAKE_HOST_WIN32 AND NOT CMAKE_SYSTEM_NAME MATCHES "MINGW")
-
 set(TLSTEST_SRC tlstest.c)
 check_function_exists(pipe2 HAVE_PIPE2)
 if(HAVE_PIPE2)
@@ -363,7 +361,6 @@ else()
 	add_test(tlstest ${CMAKE_CURRENT_SOURCE_DIR}/tlstest.bat)
 endif()
 set_tests_properties(tlstest PROPERTIES ENVIRONMENT "srcdir=${CMAKE_CURRENT_SOURCE_DIR}")
-endif()
 
 # tls_ext_alpn
 add_executable(tls_ext_alpn tls_ext_alpn.c)

@@ -8,6 +8,7 @@ noinst_HEADERS = pqueue.h
 noinst_HEADERS += compat/dirent.h
 noinst_HEADERS += compat/dirent_msvc.h
 noinst_HEADERS += compat/err.h
+noinst_HEADERS += compat/fcntl.h
 noinst_HEADERS += compat/limits.h
 noinst_HEADERS += compat/netdb.h
 noinst_HEADERS += compat/poll.h

@@ -14,5 +14,8 @@ if "%srcdir%"=="" (
 
 %srcdir%\testssl.bat %srcdir%\server.pem %srcdir%\server.pem %srcdir%\ca.pem ^
     %ssltest_bin% %openssl_bin%
+if !errorlevel! neq 0 (
+	exit /b 1
+)
 
 endlocal

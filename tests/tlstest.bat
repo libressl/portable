@@ -10,5 +10,8 @@ if "%srcdir%"=="" (
 )
 
 %tlstest_bin% %srcdir%\server.pem %srcdir%\server.pem %srcdir%\ca.pem
+if !errorlevel! neq 0 (
+	exit /b 1
+)
 
 endlocal

@@ -12,6 +12,7 @@
 #include <ws2tcpip.h>
 
 #include <errno.h>
+#include <fcntl.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -37,6 +38,28 @@ posix_fopen(const char *path, const char *mode)
 	}
 
 	return fopen(path, mode);
+}
+
+int
+posix_open(const char *path, ...)
+{
+	va_list ap;
+	mode_t mode = 0;
+	int flags;
+
+	va_start(ap, path);
+	flags = va_arg(ap, int);
+	if (flags & O_CREAT)
+		mode = va_arg(ap, int);
+	va_end(ap);
+
+	flags |= O_BINARY;
+	if (flags & O_CLOEXEC) {
+		flags &= ~O_CLOEXEC;
+		flags |= O_NOINHERIT;
+	}
+	flags &= ~O_NONBLOCK;
+	return open(path, flags, mode);
 }
 
 char *

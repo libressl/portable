@@ -7,6 +7,7 @@ posix_close
 posix_connect
 posix_fgets
 posix_fopen
+posix_open
 posix_read
 posix_rename
 posix_write

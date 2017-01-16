@@ -201,6 +201,7 @@ if test "x$HOST_OS" = "xwin" ; then
 	echo posix_perror >> $crypto_p_sym
 	echo posix_fopen >> $crypto_p_sym
 	echo posix_fgets >> $crypto_p_sym
+	echo posix_open >> $crypto_p_sym
 	echo posix_rename >> $crypto_p_sym
 	echo posix_connect >> $crypto_p_sym
 	echo posix_close >> $crypto_p_sym

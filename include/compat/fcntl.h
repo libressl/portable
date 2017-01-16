@@ -29,4 +29,10 @@
 #define FD_CLOEXEC      1
 #endif
 
+int posix_open(const char *path, ...);
+
+#ifndef NO_REDEF_POSIX_FUNCTIONS
+#define open(path, ...) posix_open(path, __VA_ARGS__)
+#endif
+
 #endif

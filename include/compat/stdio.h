@@ -26,6 +26,10 @@ int asprintf(char **str, const char *fmt, ...);
 
 #ifdef _WIN32
 
+#if defined(_MSC_VER)
+#define __func__ __FUNCTION__
+#endif
+
 void posix_perror(const char *s);
 FILE * posix_fopen(const char *path, const char *mode);
 char * posix_fgets(char *s, int size, FILE *stream);

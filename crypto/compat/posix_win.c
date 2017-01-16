@@ -44,7 +44,7 @@ int
 posix_open(const char *path, ...)
 {
 	va_list ap;
-	mode_t mode = 0;
+	int mode = 0;
 	int flags;
 
 	va_start(ap, path);

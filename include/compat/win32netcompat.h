@@ -26,7 +26,10 @@
 
 int posix_connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
 
+int posix_open(const char *path, ...);
+
 int posix_close(int fd);
+
 ssize_t posix_read(int fd, void *buf, size_t count);
 
 ssize_t posix_write(int fd, const void *buf, size_t count);
@@ -39,6 +42,7 @@ int posix_setsockopt(int sockfd, int level, int optname,
 
 #ifndef NO_REDEF_POSIX_FUNCTIONS
 #define connect(sockfd, addr, addrlen) posix_connect(sockfd, addr, addrlen)
+#define open(path, ...) posix_open(path, __VA_ARGS__)
 #define close(fd) posix_close(fd)
 #define read(fd, buf, count) posix_read(fd, buf, count)
 #define write(fd, buf, count) posix_write(fd, buf, count)

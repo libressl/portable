@@ -148,9 +148,6 @@ $CP crypto/compat/b_win.c crypto/bio
 $CP crypto/compat/ui_openssl_win.c crypto/ui
 # add the libcrypto symbol export list
 grep '^[[:alpha:]]' < $libcrypto_src/Symbols.list > crypto/crypto.sym
-echo EXPORTS > crypto/crypto.def
-grep -v BIO_s_log crypto/crypto.sym >> crypto/crypto.def
-cat crypto/crypto_win.list >> crypto/crypto.def
 
 # generate assembly crypto algorithms
 asm_src=$libcrypto_src
@@ -206,8 +203,6 @@ for i in `awk '/SOURCES|HEADERS/ { print $3 }' tls/Makefile.am` ; do
 done
 # add the libtls symbol export list
 grep '^[[:alpha:]]' < $libtls_src/Symbols.list > tls/tls.sym
-echo EXPORTS > tls/tls.def
-cat tls/tls.sym >> tls/tls.def
 
 $CP_LIBC $libc_src/string/strsep.c tls
 $CP_LIBC $libc_src/string/strsep.c libtls-standalone/compat
@@ -251,8 +246,6 @@ for i in `awk '/SOURCES|HEADERS/ { print $3 }' ssl/Makefile.am` ; do
 done
 # add the libssl symbol export list
 grep '^[[:alpha:]]' < $libssl_src/Symbols.list > ssl/ssl.sym
-echo EXPORTS > ssl/ssl.def
-cat ssl/ssl.sym >> ssl/ssl.def
 
 # copy libcrypto tests
 echo "copying tests"

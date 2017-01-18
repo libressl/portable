@@ -4,6 +4,9 @@ macro(export_symbol TARGET FILENAME)
 
 	if(WIN32)
 		string(REPLACE ".sym" ".def" DEF_FILENAME ${FILENAME})
+		file(WRITE ${DEF_FILENAME} "EXPORTS\n")
+		file(READ ${FILENAME} SYMBOLS)
+		file(APPEND ${DEF_FILENAME} "${SYMBOLS}")
 		target_sources(${TARGET} PRIVATE ${DEF_FILENAME})
 
 	elseif(APPLE)

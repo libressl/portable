@@ -351,6 +351,10 @@ set(
 	ec/ecp_mont.c
 	ec/ecp_nist.c
 	ec/ecp_oct.c
+	ec/ecp_nistp224.c
+	ec/ecp_nistp256.c
+	ec/ecp_nistp521.c
+	ec/ecp_nistputil.c
 	ec/ecp_smpl.c
 	ecdh/ech_err.c
 	ecdh/ech_key.c

@@ -17,6 +17,8 @@
 #include_next <fcntl.h>
 #endif
 
+#endif
+
 #ifndef O_NONBLOCK
 #define O_NONBLOCK      0x100000
 #endif
@@ -27,6 +29,4 @@
 
 #ifndef FD_CLOEXEC
 #define FD_CLOEXEC      1
-#endif
-
 #endif

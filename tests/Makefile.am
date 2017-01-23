@@ -73,6 +73,7 @@ endif
 
 # bntest
 TESTS += bntest
+bntest_CPPFLAGS = $(AM_CPPFLAGS) -ULIBRESSL_INTERNAL
 check_PROGRAMS += bntest
 bntest_SOURCES = bntest.c
 
@@ -170,6 +171,7 @@ endif
 # exptest
 TESTS += exptest
 check_PROGRAMS += exptest
+exptest_CPPFLAGS = $(AM_CPPFLAGS) -ULIBRESSL_INTERNAL
 exptest_SOURCES = exptest.c
 
 # gcm128test

@@ -3,6 +3,7 @@ include_directories(
 	../include
 	../include/compat
 	asn1
+	bn
 	dsa
 	evp
 	modes

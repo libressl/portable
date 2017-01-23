@@ -71,6 +71,7 @@ endif()
 
 # bntest
 add_executable(bntest bntest.c)
+set_source_files_properties(bntest.c PROPERTIES COMPILE_FLAGS -ULIBRESSL_INTERNAL)
 target_link_libraries(bntest ${TESTS_LIBS})
 add_test(bntest bntest)
 
@@ -163,6 +164,7 @@ endif()
 
 # exptest
 add_executable(exptest exptest.c)
+set_source_files_properties(exptest.c PROPERTIES COMPILE_FLAGS -ULIBRESSL_INTERNAL)
 target_link_libraries(exptest ${TESTS_LIBS})
 add_test(exptest exptest)
 

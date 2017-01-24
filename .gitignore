@@ -117,10 +117,15 @@ include/pqueue.h
 include/tls.h
 include/openssl/*.h
 
+/apps/ocspcheck/*.h
+/apps/ocspcheck/*.c
+/apps/ocspcheck/ocspcheck*
+
 /apps/nc/*.h
 /apps/nc/*.c
 /apps/nc/nc*
 !/apps/nc/readpassphrase.c
+
 /apps/openssl/*.h
 /apps/openssl/*.c
 /apps/openssl/*.cnf

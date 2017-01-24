@@ -26,7 +26,8 @@ libssl_src=$CWD/openbsd/src/lib/libssl
 libssl_regress=$CWD/openbsd/src/regress/lib/libssl
 libtls_src=$CWD/openbsd/src/lib/libtls
 libtls_regress=$CWD/openbsd/src/regress/lib/libtls
-app_src=$CWD/openbsd/src/usr.bin
+bin_src=$CWD/openbsd/src/usr.bin
+sbin_src=$CWD/openbsd/src/usr.sbin
 
 # load library versions
 . $libcrypto_src/shlib_version
@@ -216,25 +217,35 @@ sed -e "s/compat\///" crypto/Makefile.am.arc4random > \
 
 # copy nc(1) source
 echo "copying nc(1) source"
-$CP $app_src/nc/nc.1 apps/nc
+$CP $bin_src/nc/nc.1 apps/nc
 rm -f apps/nc/*.c apps/nc/*.h
 $CP_LIBC $libc_src/stdlib/strtonum.c apps/nc/compat
 for i in `awk '/SOURCES|HEADERS|MANS/ { print $3 }' apps/nc/Makefile.am` ; do
-	if [ -e $app_src/nc/$i ]; then
-		$CP $app_src/nc/$i apps/nc
+	if [ -e $bin_src/nc/$i ]; then
+		$CP $bin_src/nc/$i apps/nc
+	fi
+done
+
+# copy ocspcheck(1) source
+echo "copying ocspcheck(1) source"
+$CP $sbin_src/ocspcheck/ocspcheck.8 apps/ocspcheck
+rm -f apps/ocspcheck/*.c apps/ocspcheck/*.h
+for i in `awk '/SOURCES|HEADERS|MANS/ { print $3 }' apps/ocspcheck/Makefile.am` ; do
+	if [ -e $sbin_src/ocspcheck/$i ]; then
+		$CP $sbin_src/ocspcheck/$i apps/ocspcheck
 	fi
 done
 
 # copy openssl(1) source
 echo "copying openssl(1) source"
-$CP $app_src/openssl/openssl.1 apps/openssl
+$CP $bin_src/openssl/openssl.1 apps/openssl
 $CP_LIBC $libc_src/stdlib/strtonum.c apps/openssl/compat
 $CP $libcrypto_src/cert.pem apps/openssl
 $CP $libcrypto_src/openssl.cnf apps/openssl
 $CP $libcrypto_src/x509v3.cnf apps/openssl
 for i in `awk '/SOURCES|HEADERS|MANS/ { print $3 }' apps/openssl/Makefile.am` ; do
-	if [ -e $app_src/openssl/$i ]; then
-		$CP $app_src/openssl/$i apps/openssl
+	if [ -e $bin_src/openssl/$i ]; then
+		$CP $bin_src/openssl/$i apps/openssl
 	fi
 done
 

@@ -287,6 +287,11 @@ add_executable(rmdtest rmdtest.c)
 target_link_libraries(rmdtest ${TESTS_LIBS})
 add_test(rmdtest rmdtest)
 
+# rsa_test
+add_executable(rsa_test rsa_test.c)
+target_link_libraries(rsa_test ${TESTS_LIBS})
+add_test(rsa_test rsa_test)
+
 # sha1test
 add_executable(sha1test sha1test.c)
 target_link_libraries(sha1test ${TESTS_LIBS})

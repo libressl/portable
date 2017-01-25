@@ -289,6 +289,11 @@ TESTS += rmdtest
 check_PROGRAMS += rmdtest
 rmdtest_SOURCES = rmdtest.c
 
+# rsa_test
+TESTS += rsa_test
+check_PROGRAMS += rsa_test
+rsa_test_SOURCES = rsa_test.c
+
 # sha1test
 TESTS += sha1test
 check_PROGRAMS += sha1test

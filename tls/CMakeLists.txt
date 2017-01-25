@@ -19,10 +19,6 @@ set(
 )
 
 
-if(NOT HAVE_STRSEP)
-	set(TLS_SRC ${TLS_SRC} strsep.c)
-endif()
-
 if(NOT "${OPENSSLDIR}" STREQUAL "")
 	add_definitions(-D_PATH_SSL_CA_FILE=\"${OPENSSLDIR}/cert.pem\")
 else()

@@ -714,6 +714,11 @@ if(NOT HAVE_STRNDUP)
 	endif()
 endif()
 
+if(NOT HAVE_STRSEP)
+	set(CRYPTO_SRC ${CRYPTO_SRC} compat/strsep.c)
+	set(EXTRA_EXPORT ${EXTRA_EXPORT} strsep)
+endif()
+
 if(NOT HAVE_TIMEGM)
 	set(CRYPTO_SRC ${CRYPTO_SRC} compat/timegm.c)
 	set(EXTRA_EXPORT ${EXTRA_EXPORT} timegm)

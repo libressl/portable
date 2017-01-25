@@ -188,6 +188,9 @@ fi
 if test "x$ac_cv_func_strnlen" = "xno" ; then
 	echo strnlen >> $crypto_p_sym
 fi
+if test "x$ac_cv_func_strsep" = "xno" ; then
+	echo strsep >> $crypto_p_sym
+fi
 if test "x$ac_cv_func_timegm" = "xno" ; then
 	echo timegm >> $crypto_p_sym
 fi

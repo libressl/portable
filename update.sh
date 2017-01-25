@@ -83,6 +83,7 @@ for i in crypto/compat libtls-standalone/compat; do
 	    $libc_src/string/strlcat.c \
 	    $libc_src/string/strndup.c \
 	    $libc_src/string/strnlen.c \
+	    $libc_src/string/strsep.c \
 	    $libc_src/string/timingsafe_bcmp.c \
 	    $libc_src/string/timingsafe_memcmp.c \
 	    $libcrypto_src/arc4random/getentropy_*.c \
@@ -204,9 +205,6 @@ for i in `awk '/SOURCES|HEADERS/ { print $3 }' tls/Makefile.am` ; do
 done
 # add the libtls symbol export list
 grep '^[[:alpha:]]' < $libtls_src/Symbols.list > tls/tls.sym
-
-$CP_LIBC $libc_src/string/strsep.c tls
-$CP_LIBC $libc_src/string/strsep.c libtls-standalone/compat
 
 mkdir -p libtls-standalone/m4
 $CP m4/check*.m4 \

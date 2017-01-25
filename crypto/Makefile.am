@@ -73,6 +73,10 @@ libcompat_la_SOURCES += compat/strnlen.c
 endif
 endif
 
+if !HAVE_STRSEP
+libcompat_la_SOURCES += compat/strsep.c
+endif
+
 if !HAVE_ASPRINTF
 libcompat_la_SOURCES += compat/bsd-asprintf.c
 endif

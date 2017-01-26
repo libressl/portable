@@ -14,6 +14,7 @@
 #include <io.h>
 #include <process.h>
 
+#define STDOUT_FILENO   1
 #define STDERR_FILENO   2
 
 #define R_OK    4

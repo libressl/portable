@@ -30,3 +30,11 @@
 #ifndef FD_CLOEXEC
 #define FD_CLOEXEC      1
 #endif
+
+#ifndef S_IRGRP
+#define S_IRGRP         0
+#endif
+
+#ifndef S_IROTH
+#define S_IROTH         0
+#endif

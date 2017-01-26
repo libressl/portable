@@ -228,6 +228,8 @@ done
 echo "copying ocspcheck(1) source"
 $CP $sbin_src/ocspcheck/ocspcheck.8 apps/ocspcheck
 rm -f apps/ocspcheck/*.c apps/ocspcheck/*.h
+$CP_LIBC $libc_src/net/inet_ntop.c apps/ocspcheck/compat
+$CP_LIBC $libc_src/string/memmem.c apps/ocspcheck/compat
 for i in `awk '/SOURCES|HEADERS|MANS/ { print $3 }' apps/ocspcheck/Makefile.am` ; do
 	if [ -e $sbin_src/ocspcheck/$i ]; then
 		$CP $sbin_src/ocspcheck/$i apps/ocspcheck

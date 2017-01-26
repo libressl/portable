@@ -120,6 +120,8 @@ include/openssl/*.h
 /apps/ocspcheck/*.h
 /apps/ocspcheck/*.c
 /apps/ocspcheck/ocspcheck*
+/apps/ocspcheck/compat/inet_ntop.c
+/apps/ocspcheck/compat/memmem.c
 
 /apps/nc/*.h
 /apps/nc/*.c

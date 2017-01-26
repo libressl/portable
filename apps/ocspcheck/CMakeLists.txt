@@ -11,6 +11,20 @@ set(
 	ocspcheck.c
 )
 
+check_function_exists(inet_ntop HAVE_INET_NTOP)
+if(HAVE_INET_NTOP)
+        add_definitions(-DHAVE_INET_NTOP)
+else()
+        set(OCSPCHECK_SRC ${OCSPCHECK_SRC} compat/inet_ntop.c)
+endif()
+
+check_function_exists(inet_ntop HAVE_MEMMEM)
+if(HAVE_MEMMEM)
+        add_definitions(-DHAVE_MEMMEM)
+else()
+        set(OCSPCHECK_SRC ${OCSPCHECK_SRC} compat/memmem.c)
+endif()
+
 if(NOT "${OPENSSLDIR}" STREQUAL "")
 	add_definitions(-DDEFAULT_CA_FILE=\"${OPENSSLDIR}/cert.pem\")
 else()

@@ -19,27 +19,24 @@ set(
 	d1_srtp.c
 	d1_srvr.c
 	pqueue.c
-	s23_clnt.c
-	s23_lib.c
-	s23_pkt.c
-	s23_srvr.c
-	s3_both.c
 	s3_cbc.c
-	s3_clnt.c
 	s3_lib.c
-	s3_pkt.c
-	s3_srvr.c
 	ssl_algs.c
 	ssl_asn1.c
+	ssl_both.c
 	ssl_cert.c
 	ssl_ciph.c
+	ssl_clnt.c
 	ssl_err.c
-	ssl_err2.c
 	ssl_lib.c
+	ssl_packet.c
+	ssl_pkt.c
 	ssl_rsa.c
 	ssl_sess.c
+	ssl_srvr.c
 	ssl_stat.c
 	ssl_txt.c
+	ssl_versions.c
 	t1_clnt.c
 	t1_enc.c
 	t1_lib.c

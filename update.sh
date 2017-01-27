@@ -76,8 +76,9 @@ for i in crypto/compat libtls-standalone/compat; do
 	for j in $libc_src/crypt/arc4random.c \
 	    $libc_src/crypt/arc4random_uniform.c \
 	    $libc_src/crypt/chacha_private.h \
-	    $libc_src/string/explicit_bzero.c \
+	    $libc_src/net/inet_pton.c \
 	    $libc_src/stdlib/reallocarray.c \
+	    $libc_src/string/explicit_bzero.c \
 	    $libc_src/string/strcasecmp.c \
 	    $libc_src/string/strlcpy.c \
 	    $libc_src/string/strlcat.c \
@@ -217,6 +218,7 @@ sed -e "s/compat\///" crypto/Makefile.am.arc4random > \
 echo "copying nc(1) source"
 $CP $bin_src/nc/nc.1 apps/nc
 rm -f apps/nc/*.c apps/nc/*.h
+$CP_LIBC $libc_src/net/base64.c apps/nc/compat
 $CP_LIBC $libc_src/stdlib/strtonum.c apps/nc/compat
 for i in `awk '/SOURCES|HEADERS|MANS/ { print $3 }' apps/nc/Makefile.am` ; do
 	if [ -e $bin_src/nc/$i ]; then
@@ -269,7 +271,7 @@ $CP $libcrypto_regress/aead/aeadtests.txt tests
 # copy libc tests
 $CP $libc_regress/arc4random-fork/arc4random-fork.c tests/arc4randomforktest.c
 $CP $libc_regress/explicit_bzero/explicit_bzero.c tests
-$CP_LIBC $libc_src/string/memmem.c tests
+$CP_LIBC $libc_src/string/memmem.c tests/compat
 $CP $libc_regress/timingsafe/timingsafe.c tests
 
 # copy libssl tests

@@ -163,7 +163,7 @@ TESTS += explicit_bzero
 check_PROGRAMS += explicit_bzero
 explicit_bzero_SOURCES = explicit_bzero.c
 if !HAVE_MEMMEM
-explicit_bzero_SOURCES += memmem.c
+explicit_bzero_SOURCES += compat/memmem.c
 endif
 endif
 endif

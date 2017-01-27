@@ -332,11 +332,7 @@ echo "copying manpages"
 echo EXTRA_DIST = CMakeLists.txt > man/Makefile.am
 echo dist_man_MANS = >> man/Makefile.am
 
-$CP $libtls_src/tls_init.3 man
-echo "dist_man_MANS += tls_init.3" >> man/Makefile.am
-
 (cd man
-	# update new-style manpages
 	for i in `ls -1 $libssl_src/man/*.3 | sort`; do
 		NAME=`basename "$i"`
 		$CP $i .
@@ -348,12 +344,11 @@ echo "dist_man_MANS += tls_init.3" >> man/Makefile.am
 		$CP $i .
 		echo "dist_man_MANS += $NAME" >> Makefile.am
 	done
+
+	for i in `ls -1 $libtls_src/man/*.3 | sort`; do
+		NAME=`basename "$i"`
+		$CP $i .
+		echo "dist_man_MANS += $NAME" >> Makefile.am
+	done
 )
 add_man_links . man/Makefile.am
-
-# standalone libtls manpages
-mkdir -p libtls-standalone/man
-echo "dist_man_MANS = tls_init.3" > libtls-standalone/man/Makefile.am
-
-$CP $libtls_src/tls_init.3 libtls-standalone/man
-add_man_links tls_init libtls-standalone/man/Makefile.am

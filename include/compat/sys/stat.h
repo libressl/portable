@@ -8,6 +8,15 @@
 
 #ifndef _MSC_VER
 #include_next <sys/stat.h>
+
+/* for old MinGW */
+#ifndef S_IRGRP
+#define S_IRGRP         0
+#endif
+#ifndef S_IROTH
+#define S_IROTH         0
+#endif
+
 #else
 
 #include <windows.h>

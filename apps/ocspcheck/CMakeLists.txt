@@ -1,3 +1,5 @@
+if(NOT MSVC)
+
 include_directories(
 	.
 	./compat
@@ -36,3 +38,5 @@ target_link_libraries(ocspcheck tls ${OPENSSL_LIBS})
 
 install(TARGETS ocspcheck DESTINATION bin)
 install(FILES ocspcheck.8 DESTINATION share/man/man8)
+
+endif()

@@ -23,8 +23,8 @@ BIO_sock_init(void)
 	if (!wsa_init_done) {
 		if (WSAStartup(version_requested, &wsa_state) != 0) {
 			int err = WSAGetLastError();
-			SYSerr(SYS_F_WSASTARTUP, err);
-			BIOerr(BIO_F_BIO_SOCK_INIT, BIO_R_WSASTARTUP);
+			SYSerror(err);
+			BIOerror(BIO_R_WSASTARTUP);
 			return (-1);
 		}
 		wsa_init_done = 1;

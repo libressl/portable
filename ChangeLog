@@ -48,7 +48,7 @@ LibreSSL Portable Release Notes:
 
 	* Support for alternate chains for certificate verification.
 
-	* Code cleanups, CBB conversions, further unification of DTLS/SSL
+	* Code cleanups, CBS conversions, further unification of DTLS/SSL
 	  handshake code, further ASN1 macro expansion and removal.
 
 	* Private symbol are now hidden in libssl and libcryto.
@@ -58,6 +58,39 @@ LibreSSL Portable Release Notes:
 
 	* Added OCSP stapling support to libtls and netcat.
 
+	* Added ocspcheck utility to validate a certificate against its OCSP
+	  responder and save the reply for stapling
+
+	* Enhanced regression tests and error handling for libtls.
+
+	* Added explicit constant and non-constant time BN functions,
+	  defaulting to constant time wherever possible.
+
+	* Moved many leaked implementation details in public structs behind
+	  opaque pointers.
+
+	* Added ticket support to libtls.
+
+	* Added support for setting the supported EC curves via
+	  SSL{_CTX}_set1_groups{_list}() - also provide defines for the previous
+	  SSL{_CTX}_set1_curves{_list} names. This also changes the default
+	  list of curves to be X25519, P-256 and P-384. All other curves must
+          be manually enabled.
+
+	* Added -groups option to openssl(1) s_client for specifying the curves
+          to be used in a colon-separated list.
+
+	* Merged client/server version negotiation code paths into one,
+	  reducing much duplicate code.
+
+	* Removed error function codes from libssl and libcrypto.
+
+	* Fixed an issue where a truncated packet could crash via an OOB read.
+
+	* Added SSL_OP_NO_CLIENT_RENEGOTIATION option that disallows
+	  client-initiated renegotiation. This is the default for libtls
+	  servers.
+
 	* Avoid a side-channel cache-timing attack that can leak the ECDSA
 	  private keys when signing. This is due to BN_mod_inverse() being
 	  used without the constant time flag being set. Reported by Cesar
@@ -66,6 +99,7 @@ LibreSSL Portable Release Notes:
 
 	* iOS and MacOS compatibility updates from Simone Basso and Jacob
 	  Berkman.
+
 
 2.5.0 - New APIs, bug fixes and improvements
 

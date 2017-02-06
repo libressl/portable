@@ -1,13 +1,17 @@
-macro(export_symbol TARGET FILENAME)
+macro(export_symbol TARGET FILENAME STATIC_LIB)
 
 	set(FLAG "")
 
 	if(WIN32)
 		string(REPLACE ".sym" ".def" DEF_FILENAME ${FILENAME})
-		file(WRITE ${DEF_FILENAME} "EXPORTS\n")
-		file(READ ${FILENAME} SYMBOLS)
-		file(APPEND ${DEF_FILENAME} "${SYMBOLS}")
 		target_sources(${TARGET} PRIVATE ${DEF_FILENAME})
+		add_custom_command(OUTPUT ${DEF_FILENAME}
+		    COMMAND cmake ARGS -DSYM_FILE=${FILENAME}
+		    -DDEF_FILE=${DEF_FILENAME}
+		    -DLIB_FILE=$<TARGET_FILE:${STATIC_LIB}>
+		    -P ${CMAKE_CURRENT_SOURCE_DIR}/../cmake_generate_def.cmake
+		    DEPENDS ${STATIC_LIB}
+		    COMMENTS generating ${DEF_FILENAME} file ...)
 
 	elseif(APPLE)
 		set(FLAG "-exported_symbols_list ${FILENAME}")

@@ -64,11 +64,11 @@ tests/tls_ext_alpn*
 tests/*test
 tests/tests.h
 tests/*test.c
-tests/memmem.c
 tests/pbkdf2*
 tests/*.pem
 tests/testssl
 tests/*.txt
+tests/compat/*.c
 !tests/optionstest.c
 !tests/*.test
 
@@ -127,6 +127,7 @@ include/openssl/*.h
 /apps/nc/*.c
 /apps/nc/nc*
 !/apps/nc/readpassphrase.c
+/apps/nc/compat/*.c
 
 /apps/openssl/*.h
 /apps/openssl/*.c
@@ -164,3 +165,4 @@ openbsd/
 
 *.tar.gz
 man/Makefile.am
+man/mandoc.db

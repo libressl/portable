@@ -148,8 +148,6 @@ if test "$ac_cv_sizeof_time_t" = "4"; then
         echo " ** You can solve this by adjusting the build flags in your"
         echo " ** mingw-w64 toolchain. Refer to README.windows for details."
     fi
-
-    exit 1
 fi
 
 AC_REQUIRE_AUX_FILE([tap-driver.sh])

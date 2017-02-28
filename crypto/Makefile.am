@@ -527,6 +527,7 @@ libcrypto_la_SOURCES += evp/m_gost2814789.c
 libcrypto_la_SOURCES += evp/m_gostr341194.c
 libcrypto_la_SOURCES += evp/m_md4.c
 libcrypto_la_SOURCES += evp/m_md5.c
+libcrypto_la_SOURCES += evp/m_md5_sha1.c
 libcrypto_la_SOURCES += evp/m_null.c
 libcrypto_la_SOURCES += evp/m_ripemd.c
 libcrypto_la_SOURCES += evp/m_sha1.c

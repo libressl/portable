@@ -429,6 +429,7 @@ set(
 	evp/m_gostr341194.c
 	evp/m_md4.c
 	evp/m_md5.c
+	evp/m_md5_sha1.c
 	evp/m_null.c
 	evp/m_ripemd.c
 	evp/m_sha1.c

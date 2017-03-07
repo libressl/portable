@@ -39,6 +39,7 @@ set(
 	ssl_versions.c
 	t1_clnt.c
 	t1_enc.c
+	t1_hash.c
 	t1_lib.c
 	t1_meth.c
 	t1_reneg.c

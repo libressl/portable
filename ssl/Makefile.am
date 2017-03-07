@@ -42,6 +42,7 @@ libssl_la_SOURCES += ssl_txt.c
 libssl_la_SOURCES += ssl_versions.c
 libssl_la_SOURCES += t1_clnt.c
 libssl_la_SOURCES += t1_enc.c
+libssl_la_SOURCES += t1_hash.c
 libssl_la_SOURCES += t1_lib.c
 libssl_la_SOURCES += t1_meth.c
 libssl_la_SOURCES += t1_reneg.c

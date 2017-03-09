@@ -691,6 +691,11 @@ if(NOT HAVE_REALLOCARRAY)
 	set(EXTRA_EXPORT ${EXTRA_EXPORT} reallocarray)
 endif()
 
+if(NOT HAVE_RECALLOCARRAY)
+	set(CRYPTO_SRC ${CRYPTO_SRC} compat/recallocarray.c)
+	set(EXTRA_EXPORT ${EXTRA_EXPORT} recallocarray)
+endif()
+
 if(NOT HAVE_STRCASECMP)
 	set(CRYPTO_SRC ${CRYPTO_SRC} compat/strcasecmp.c)
 	set(EXTRA_EXPORT ${EXTRA_EXPORT} strcasecmp)

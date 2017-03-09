@@ -93,6 +93,10 @@ if !HAVE_REALLOCARRAY
 libcompat_la_SOURCES += compat/reallocarray.c
 endif
 
+if !HAVE_RECALLOCARRAY
+libcompat_la_SOURCES += compat/recallocarray.c
+endif
+
 if !HAVE_TIMINGSAFE_MEMCMP
 libcompat_la_SOURCES += compat/timingsafe_memcmp.c
 endif

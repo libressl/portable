@@ -29,6 +29,10 @@ uint32_t arc4random_uniform(uint32_t upper_bound);
 void *reallocarray(void *, size_t, size_t);
 #endif
 
+#ifndef HAVE_RECALLOCARRAY
+void *recallocarray(void *, size_t, size_t, size_t);
+#endif
+
 #ifndef HAVE_STRTONUM
 long long strtonum(const char *nptr, long long minval,
 		long long maxval, const char **errstr);

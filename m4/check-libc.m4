@@ -3,7 +3,8 @@ AC_DEFUN([CHECK_LIBC_COMPAT], [
 AC_CHECK_HEADERS([err.h readpassphrase.h])
 # Check for general libc functions
 AC_CHECK_FUNCS([asprintf inet_ntop inet_pton memmem readpassphrase])
-AC_CHECK_FUNCS([reallocarray strlcat strlcpy strndup strnlen strsep strtonum])
+AC_CHECK_FUNCS([reallocarray recallocarray])
+AC_CHECK_FUNCS([strlcat strlcpy strndup strnlen strsep strtonum])
 AC_CHECK_FUNCS([timegm _mkgmtime])
 AM_CONDITIONAL([HAVE_ASPRINTF], [test "x$ac_cv_func_asprintf" = xyes])
 AM_CONDITIONAL([HAVE_INET_NTOP], [test "x$ac_cv_func_inet_ntop" = xyes])
@@ -11,6 +12,7 @@ AM_CONDITIONAL([HAVE_INET_PTON], [test "x$ac_cv_func_inet_pton" = xyes])
 AM_CONDITIONAL([HAVE_MEMMEM], [test "x$ac_cv_func_memmem" = xyes])
 AM_CONDITIONAL([HAVE_READPASSPHRASE], [test "x$ac_cv_func_readpassphrase" = xyes])
 AM_CONDITIONAL([HAVE_REALLOCARRAY], [test "x$ac_cv_func_reallocarray" = xyes])
+AM_CONDITIONAL([HAVE_RECALLOCARRAY], [test "x$ac_cv_func_recallocarray" = xyes])
 AM_CONDITIONAL([HAVE_STRLCAT], [test "x$ac_cv_func_strlcat" = xyes])
 AM_CONDITIONAL([HAVE_STRLCPY], [test "x$ac_cv_func_strlcpy" = xyes])
 AM_CONDITIONAL([HAVE_STRNDUP], [test "x$ac_cv_func_strndup" = xyes])
@@ -176,6 +178,9 @@ if test "x$ac_cv_func_inet_pton" = "xno" ; then
 fi
 if test "x$ac_cv_func_reallocarray" = "xno" ; then
 	echo reallocarray >> $crypto_p_sym
+fi
+if test "x$ac_cv_func_recallocarray" = "xno" ; then
+	echo recallocarray >> $crypto_p_sym
 fi
 if test "x$ac_cv_func_strlcat" = "xno" ; then
 	echo strlcat >> $crypto_p_sym

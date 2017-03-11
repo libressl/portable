@@ -292,6 +292,16 @@ add_executable(rsa_test rsa_test.c)
 target_link_libraries(rsa_test ${TESTS_LIBS})
 add_test(rsa_test rsa_test)
 
+# servertest
+add_executable(servertest servertest.c)
+target_link_libraries(servertest ${TESTS_LIBS})
+if(NOT MSVC)
+	add_test(servertest ${CMAKE_CURRENT_SOURCE_DIR}/servertest.sh)
+else()
+	add_test(servertest ${CMAKE_CURRENT_SOURCE_DIR}/servertest.bat)
+endif()
+set_tests_properties(servertest PROPERTIES ENVIRONMENT "srcdir=${CMAKE_CURRENT_SOURCE_DIR}")
+
 # sha1test
 add_executable(sha1test sha1test.c)
 target_link_libraries(sha1test ${TESTS_LIBS})

@@ -294,6 +294,12 @@ TESTS += rsa_test
 check_PROGRAMS += rsa_test
 rsa_test_SOURCES = rsa_test.c
 
+# servertest
+TESTS += servertest.sh
+check_PROGRAMS += servertest
+servertest_SOURCES = servertest.c
+EXTRA_DIST += servertest.sh servertest.bat
+
 # sha1test
 TESTS += sha1test
 check_PROGRAMS += sha1test

@@ -384,6 +384,11 @@ add_executable(tls_ext_alpn tls_ext_alpn.c)
 target_link_libraries(tls_ext_alpn ${TESTS_LIBS})
 add_test(tls_ext_alpn tls_ext_alpn)
 
+# tls_prf
+add_executable(tls_prf tls_prf.c)
+target_link_libraries(tls_prf ${TESTS_LIBS})
+add_test(tls_prf tls_prf)
+
 # utf8test
 add_executable(utf8test utf8test.c)
 target_link_libraries(utf8test ${TESTS_LIBS})

@@ -359,6 +359,11 @@ TESTS += tls_ext_alpn
 check_PROGRAMS += tls_ext_alpn
 tls_ext_alpn_SOURCES = tls_ext_alpn.c
 
+# tls_prf
+TESTS += tls_prf
+check_PROGRAMS += tls_prf
+tls_prf_SOURCES = tls_prf.c
+
 # utf8test
 TESTS += utf8test
 check_PROGRAMS += utf8test

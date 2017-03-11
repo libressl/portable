@@ -61,6 +61,7 @@ tests/rfc5280time*
 tests/ssl_versions*
 tests/timingsafe*
 tests/tls_ext_alpn*
+tests/tls_prf*
 tests/*test
 tests/tests.h
 tests/*test.c

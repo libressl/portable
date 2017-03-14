@@ -142,6 +142,16 @@ AM_CONDITIONAL([SMALL_TIME_T], [test "$ac_cv_sizeof_time_t" = "4"])
 if test "$ac_cv_sizeof_time_t" = "4"; then
     echo " ** Warning, this system is unable to represent times past 2038"
     echo " ** It will behave incorrectly when handling valid RFC5280 dates"
+
+    if test "$host_os" = "mingw32" ; then
+        echo " **"
+        echo " ** On Mingw-w64, you can solve this problem by switching to"
+        echo " ** MSVC 2005 ABI which provides 64-bit time_t. If you want to"
+        echo " ** do that, rebuild $PACKAGE_NAME (and everything that links with it)"
+        echo " ** with CPPFLAGS=-D__MINGW_USE_VC2005_COMPAT"
+    fi
+
+    exit 1
 fi
 
 AC_REQUIRE_AUX_FILE([tap-driver.sh])

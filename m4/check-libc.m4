@@ -2,11 +2,12 @@ AC_DEFUN([CHECK_LIBC_COMPAT], [
 # Check for libc headers
 AC_CHECK_HEADERS([err.h readpassphrase.h])
 # Check for general libc functions
-AC_CHECK_FUNCS([asprintf inet_ntop inet_pton memmem readpassphrase])
+AC_CHECK_FUNCS([asprintf getpagesize inet_ntop inet_pton memmem readpassphrase])
 AC_CHECK_FUNCS([reallocarray recallocarray])
 AC_CHECK_FUNCS([strlcat strlcpy strndup strnlen strsep strtonum])
 AC_CHECK_FUNCS([timegm _mkgmtime])
 AM_CONDITIONAL([HAVE_ASPRINTF], [test "x$ac_cv_func_asprintf" = xyes])
+AM_CONDITIONAL([HAVE_GETPAGESIZE], [test "x$ac_cv_func_getpagesize" = xyes])
 AM_CONDITIONAL([HAVE_INET_NTOP], [test "x$ac_cv_func_inet_ntop" = xyes])
 AM_CONDITIONAL([HAVE_INET_PTON], [test "x$ac_cv_func_inet_pton" = xyes])
 AM_CONDITIONAL([HAVE_MEMMEM], [test "x$ac_cv_func_memmem" = xyes])

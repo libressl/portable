@@ -737,8 +737,10 @@ endif()
 
 if(NOT HAVE_ARC4RANDOM_BUF)
 	set(CRYPTO_SRC ${CRYPTO_SRC} compat/arc4random.c)
+	set(CRYPTO_SRC ${CRYPTO_SRC} compat/arc4random_uniform.c)
 	set(EXTRA_EXPORT ${EXTRA_EXPORT} arc4random)
 	set(EXTRA_EXPORT ${EXTRA_EXPORT} arc4random_buf)
+	set(EXTRA_EXPORT ${EXTRA_EXPORT} arc4random_uniform)
 
 	if(NOT HAVE_GETENTROPY)
 		if(CMAKE_HOST_WIN32)
@@ -760,11 +762,6 @@ if(NOT HAVE_ARC4RANDOM_BUF)
 		endif()
 		set(EXTRA_EXPORT ${EXTRA_EXPORT} getentropy)
 	endif()
-endif()
-
-if(NOT HAVE_ARC4RANDOM_UNIFORM)
-	set(CRYPTO_SRC ${CRYPTO_SRC} compat/arc4random_uniform.c)
-	set(EXTRA_EXPORT ${EXTRA_EXPORT} arc4random_uniform)
 endif()
 
 if(NOT HAVE_TIMINGSAFE_BCMP)

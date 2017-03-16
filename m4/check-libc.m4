@@ -152,14 +152,13 @@ echo "generating $crypto_p_sym ..."
 chmod u+w $srcdir/crypto
 cp $crypto_sym $crypto_p_sym
 chmod u+w $crypto_p_sym
-if test "x$ac_cv_func_arc4random" = "xno" ; then
-	echo arc4random >> $crypto_p_sym
-fi
 if test "x$ac_cv_func_arc4random_buf" = "xno" ; then
+	echo arc4random >> $crypto_p_sym
 	echo arc4random_buf >> $crypto_p_sym
-fi
-if test "x$ac_cv_func_arc4random_uniform" = "xno" ; then
 	echo arc4random_uniform >> $crypto_p_sym
+	if test "x$ac_cv_func_getentropy" = "xno" ; then
+		echo getentropy >> $crypto_p_sym
+	fi
 fi
 if test "x$ac_cv_func_asprintf" = "xno" ; then
 	echo asprintf >> $crypto_p_sym
@@ -167,9 +166,6 @@ if test "x$ac_cv_func_asprintf" = "xno" ; then
 fi
 if test "x$ac_cv_func_explicit_bzero" = "xno" ; then
 	echo explicit_bzero >> $crypto_p_sym
-fi
-if test "x$ac_cv_func_getentropy" = "xno" ; then
-	echo getentropy >> $crypto_p_sym
 fi
 if test "x$ac_cv_func_inet_pton" = "xno" ; then
 	echo inet_pton >> $crypto_p_sym

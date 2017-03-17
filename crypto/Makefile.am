@@ -81,6 +81,10 @@ if !HAVE_ASPRINTF
 libcompat_la_SOURCES += compat/bsd-asprintf.c
 endif
 
+if !HAVE_GETPAGESIZE
+libcompat_la_SOURCES += compat/getpagesize.c
+endif
+
 if !HAVE_INET_PTON
 libcompat_la_SOURCES += compat/inet_pton.c
 endif
@@ -91,6 +95,10 @@ endif
 
 if !HAVE_REALLOCARRAY
 libcompat_la_SOURCES += compat/reallocarray.c
+endif
+
+if !HAVE_RECALLOCARRAY
+libcompat_la_SOURCES += compat/recallocarray.c
 endif
 
 if !HAVE_TIMINGSAFE_MEMCMP

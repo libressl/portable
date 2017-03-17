@@ -681,6 +681,10 @@ if(NOT HAVE_ASPRINTF)
 	set(EXTRA_EXPORT ${EXTRA_EXPORT} vasprintf)
 endif()
 
+if(NOT HAVE_GETPAGESIZE)
+	set(CRYPTO_SRC ${CRYPTO_SRC} compat/getpagesize.c)
+endif()
+
 if(NOT HAVE_INET_PTON)
 	set(CRYPTO_SRC ${CRYPTO_SRC} compat/inet_pton.c)
 	set(EXTRA_EXPORT ${EXTRA_EXPORT} inet_pton)
@@ -689,6 +693,11 @@ endif()
 if(NOT HAVE_REALLOCARRAY)
 	set(CRYPTO_SRC ${CRYPTO_SRC} compat/reallocarray.c)
 	set(EXTRA_EXPORT ${EXTRA_EXPORT} reallocarray)
+endif()
+
+if(NOT HAVE_RECALLOCARRAY)
+	set(CRYPTO_SRC ${CRYPTO_SRC} compat/recallocarray.c)
+	set(EXTRA_EXPORT ${EXTRA_EXPORT} recallocarray)
 endif()
 
 if(NOT HAVE_STRCASECMP)

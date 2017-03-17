@@ -78,6 +78,7 @@ for i in crypto/compat libtls-standalone/compat; do
 	    $libc_src/crypt/chacha_private.h \
 	    $libc_src/net/inet_pton.c \
 	    $libc_src/stdlib/reallocarray.c \
+	    $libc_src/stdlib/recallocarray.c \
 	    $libc_src/string/explicit_bzero.c \
 	    $libc_src/string/strcasecmp.c \
 	    $libc_src/string/strlcpy.c \

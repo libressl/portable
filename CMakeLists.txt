@@ -219,6 +219,11 @@ if(HAVE_GETENTROPY)
 	add_definitions(-DHAVE_GETENTROPY)
 endif()
 
+check_function_exists(getpagesize HAVE_GETPAGESIZE)
+if(HAVE_GETPAGESIZE)
+	add_definitions(-DHAVE_GETPAGESIZE)
+endif()
+
 check_function_exists(timingsafe_bcmp HAVE_TIMINGSAFE_BCMP)
 if(HAVE_TIMINGSAFE_BCMP)
 	add_definitions(-DHAVE_TIMINGSAFE_BCMP)

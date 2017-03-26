@@ -30,38 +30,29 @@ LibreSSL Portable Release Notes:
 
 2.5.2 - Security features and bugfixes
 
-	* Improved portability of ocspcheck(1)
+	* Added the recallocarray(3) memory allocation function, and converted
+	  various places in the library to use it, such as CBB and BUF_MEM_grow.
+	  recallocarray(3) is similar to reallocarray. Newly allocated memory
+	  is cleared similar to calloc(3). Memory that becomes unallocated
+	  while shrinking or moving existing allocations is explicitly
+	  discarded by unmapping or clearing to 0
 
-	* Fixed assorted memory leaks and error handling.
+	* Added new root CAs from SECOM Trust Systems / Security Communication
+	  of Japan.
 
-	* Removed STREEBOG 512 MAC
-
-	* Addednew root CAs from SECOM Trust Systems / Security Communication
-	  of Japan
-
-	* Added EVP interface for MD5+SHA1 hashes
+	* Added EVP interface for MD5+SHA1 hashes.
 
 	* Fixed DTLS client failures when the server sends a certificate
 	  request.
 
-	* Many new regression tests
-
 	* Correct handling of padding when upgrading an SSLv2 challenge into
 	  an SSLv3/TLS connection.
-
-	* Added recallocarray(1) memory allocation function, converted various
-	  places in the library to use it, such as CBB and BUF_MEM_grow.
-	  This function ensures that when a private memory buffer is resized,
-	  freed memory is explicitly cleared before being returned to the
-	  heap.
 
 	* Allow protocols and ciphers to be set on a TLS config object in
 	  libtls.
 
 	* Improved nc(1) TLS handshake CPU usage and server-side error
 	  reporting.
-
-	* Removed handshake digest code and replaced with handshake hash.
 
 2.5.1 - Bug and security fixes, new features, documentation updates
 

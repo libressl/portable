@@ -28,6 +28,8 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.5.2 - OpenBSD 6.1 Release
+
 2.5.2 - Security features and bugfixes
 
 	* Added the recallocarray(3) memory allocation function, and converted

@@ -28,7 +28,11 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
-2.5.2 - OpenBSD 6.1 Release
+2.5.3 - OpenBSD 6.1 Release
+
+	* Documentation updates
+
+	* Improved ocspcheck(1) error handling
 
 2.5.2 - Security features and bugfixes
 

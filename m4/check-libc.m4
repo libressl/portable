@@ -150,9 +150,9 @@ fi
 
 AC_DEFUN([GENERATE_CRYPTO_PORTABLE_SYM], [
 crypto_sym=$srcdir/crypto/crypto.sym
-crypto_p_sym=$srcdir/crypto/crypto_portable.sym
+crypto_p_sym=./crypto/crypto_portable.sym
 echo "generating $crypto_p_sym ..."
-chmod u+w $srcdir/crypto
+mkdir -p ./crypto
 cp $crypto_sym $crypto_p_sym
 chmod u+w $crypto_p_sym
 if test "x$ac_cv_func_arc4random_buf" = "xno" ; then

@@ -15,7 +15,10 @@ EXTRA_DIST += crypto.sym
 # needed for a CMake target
 EXTRA_DIST += compat/strcasecmp.c
 
-libcrypto_la_LDFLAGS = -version-info @LIBCRYPTO_VERSION@ -no-undefined -export-symbols $(top_srcdir)/crypto/crypto_portable.sym
+BUILT_SOURCES = crypto_portable.sym
+CLEANFILES = crypto_portable.sym
+
+libcrypto_la_LDFLAGS = -version-info @LIBCRYPTO_VERSION@ -no-undefined -export-symbols crypto_portable.sym
 libcrypto_la_LIBADD = libcompat.la
 if !HAVE_EXPLICIT_BZERO
 libcrypto_la_LIBADD += libcompatnoopt.la

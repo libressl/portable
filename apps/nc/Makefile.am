@@ -4,6 +4,7 @@ if BUILD_NC
 
 if ENABLE_NC
 bin_PROGRAMS = nc
+dist_man_MANS = nc.1
 else
 noinst_PROGRAMS = nc
 endif

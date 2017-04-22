@@ -681,6 +681,11 @@ if(NOT HAVE_ASPRINTF)
 	set(EXTRA_EXPORT ${EXTRA_EXPORT} vasprintf)
 endif()
 
+if(NOT HAVE_FREEZERO)
+	set(CRYPTO_SRC ${CRYPTO_SRC} compat/freezero.c)
+	set(EXTRA_EXPORT ${EXTRA_EXPORT} freezero)
+endif()
+
 if(NOT HAVE_GETPAGESIZE)
 	set(CRYPTO_SRC ${CRYPTO_SRC} compat/getpagesize.c)
 endif()

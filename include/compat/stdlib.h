@@ -25,6 +25,10 @@ void arc4random_buf(void *_buf, size_t n);
 uint32_t arc4random_uniform(uint32_t upper_bound);
 #endif
 
+#ifndef HAVE_FREEZERO
+void freezero(void *ptr, size_t sz);
+#endif
+
 #ifndef HAVE_REALLOCARRAY
 void *reallocarray(void *, size_t, size_t);
 #endif

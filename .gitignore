@@ -143,6 +143,7 @@ include/openssl/*.h
 !/crypto/compat/arc4random.h
 !/crypto/compat/b_win.c
 !/crypto/compat/explicit_bzero_win.c
+!/crypto/compat/freezero.c
 !/crypto/compat/getpagesize.c
 !/crypto/compat/posix_win.c
 !/crypto/compat/bsd_asprintf.c

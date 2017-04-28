@@ -84,6 +84,10 @@ if !HAVE_ASPRINTF
 libcompat_la_SOURCES += compat/bsd-asprintf.c
 endif
 
+if !HAVE_FREEZERO
+libcompat_la_SOURCES += compat/freezero.c
+endif
+
 if !HAVE_GETPAGESIZE
 libcompat_la_SOURCES += compat/getpagesize.c
 endif

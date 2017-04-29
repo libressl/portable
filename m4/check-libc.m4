@@ -152,6 +152,7 @@ AC_DEFUN([GENERATE_CRYPTO_PORTABLE_SYM], [
 AS_CASE([$host_cpu],
 	[i?86], [HOSTARCH=intel],
 	[x86_64], [HOSTARCH=intel],
+	[amd64], [HOSTARCH=intel],
 )
 AC_SUBST([HOSTARCH])
 crypto_sym=$srcdir/crypto/crypto.sym

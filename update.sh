@@ -151,7 +151,7 @@ done
 $CP crypto/compat/b_win.c crypto/bio
 $CP crypto/compat/ui_openssl_win.c crypto/ui
 # add the libcrypto symbol export list
-grep '^[[:alpha:]]' < $libcrypto_src/Symbols.list > crypto/crypto.sym
+grep -v OPENSSL_ia32cap_P $libcrypto_src/Symbols.list | grep '^[[:alpha:]]' > crypto/crypto.sym
 
 # generate assembly crypto algorithms
 asm_src=$libcrypto_src

@@ -28,6 +28,28 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.5.4 - Security Updates
+
+	* Revert a previous change that forced consistency between return
+	  value and error code when specifing a certificate verification
+	  callback, since this breaks the documented API. When a user supplied
+	  callback always returns 1, and later code checks the error code to
+	  potentially abort post verification, this will result in incorrect
+	  successul certificate verification.
+
+	* Switched Linux getrandom() usage to non-blocking mode, continuing to
+	  use fallback mechanims if unsuccessful. This works around a design
+	  flaw in Linux getrandom(2) where early boot usage in a library makes
+	  it impossible to recover if getrandom(2) is not yet initialized.
+
+	* Fixed a bug caused by the return value being set early to signal
+	  successful DTLS cookie validation. This can mask a later failure and
+	  result in a positive return value being returned from
+	  ssl3_get_client_hello(), when it should return a negative value to
+	  propagate the error.
+
+	* Fixed a build error on non-x86/x86_64 systems running Solaris.
+
 2.5.3 - OpenBSD 6.1 Release
 
 	* Documentation updates

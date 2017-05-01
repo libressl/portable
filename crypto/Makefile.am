@@ -583,6 +583,9 @@ noinst_HEADERS += gost/gost.h
 noinst_HEADERS += gost/gost_asn1.h
 noinst_HEADERS += gost/gost_locl.h
 
+# hkdf
+libcrypto_la_SOURCES += hkdf/hkdf.c
+
 # hmac
 libcrypto_la_SOURCES += hmac/hm_ameth.c
 libcrypto_la_SOURCES += hmac/hm_pmeth.c

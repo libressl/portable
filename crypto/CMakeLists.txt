@@ -463,6 +463,7 @@ set(
 	gost/gostr341001_pmeth.c
 	gost/gostr341194.c
 	gost/streebog.c
+	hkdf/hkdf.c
 	hmac/hm_ameth.c
 	hmac/hm_pmeth.c
 	hmac/hmac.c

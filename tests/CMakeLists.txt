@@ -178,6 +178,11 @@ add_executable(gost2814789t gost2814789t.c)
 target_link_libraries(gost2814789t ${TESTS_LIBS})
 add_test(gost2814789t gost2814789t)
 
+# hkdf_test
+add_executable(hkdf_test hkdf_test.c)
+target_link_libraries(hkdf_test ${TESTS_LIBS})
+add_test(hkdf_test hkdf_test)
+
 # hmactest
 add_executable(hmactest hmactest.c)
 target_link_libraries(hmactest ${TESTS_LIBS})

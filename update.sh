@@ -121,7 +121,7 @@ copy_hdrs $libcrypto_src "stack/stack.h lhash/lhash.h stack/safestack.h
 	ossl_typ.h err/err.h crypto.h comp/comp.h x509/x509.h buffer/buffer.h
 	objects/objects.h asn1/asn1.h bn/bn.h ec/ec.h ecdsa/ecdsa.h
 	ecdh/ecdh.h rsa/rsa.h sha/sha.h x509/x509_vfy.h pkcs7/pkcs7.h pem/pem.h
-	pem/pem2.h hmac/hmac.h rand/rand.h md5/md5.h
+	pem/pem2.h hkdf/hkdf.h hmac/hmac.h rand/rand.h md5/md5.h
 	asn1/asn1_mac.h x509v3/x509v3.h conf/conf.h ocsp/ocsp.h
 	aes/aes.h modes/modes.h asn1/asn1t.h dso/dso.h bf/blowfish.h
 	bio/bio.h cast/cast.h cmac/cmac.h conf/conf_api.h des/des.h dh/dh.h

@@ -26,6 +26,7 @@
 typedef unsigned char   u_char;
 typedef unsigned short  u_short;
 typedef unsigned int    u_int;
+typedef uint32_t        in_addr_t;
 
 #include <basetsd.h>
 typedef SSIZE_T ssize_t;

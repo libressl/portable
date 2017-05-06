@@ -18,16 +18,17 @@ fi
 
 # setup source paths
 CWD=`pwd`
-libc_src=$CWD/openbsd/src/lib/libc
-libc_regress=$CWD/openbsd/src/regress/lib/libc
-libcrypto_src=$CWD/openbsd/src/lib/libcrypto
-libcrypto_regress=$CWD/openbsd/src/regress/lib/libcrypto
-libssl_src=$CWD/openbsd/src/lib/libssl
-libssl_regress=$CWD/openbsd/src/regress/lib/libssl
-libtls_src=$CWD/openbsd/src/lib/libtls
-libtls_regress=$CWD/openbsd/src/regress/lib/libtls
-bin_src=$CWD/openbsd/src/usr.bin
-sbin_src=$CWD/openbsd/src/usr.sbin
+OPENBSD_SRC=$CWD/openbsd/src
+libc_src=$OPENBSD_SRC/lib/libc
+libc_regress=$OPENBSD_SRC/regress/lib/libc
+libcrypto_src=$OPENBSD_SRC/lib/libcrypto
+libcrypto_regress=$OPENBSD_SRC/regress/lib/libcrypto
+libssl_src=$OPENBSD_SRC/lib/libssl
+libssl_regress=$OPENBSD_SRC/regress/lib/libssl
+libtls_src=$OPENBSD_SRC/lib/libtls
+libtls_regress=$OPENBSD_SRC/regress/lib/libtls
+bin_src=$OPENBSD_SRC/usr.bin
+sbin_src=$OPENBSD_SRC/usr.sbin
 
 # load library versions
 . $libcrypto_src/shlib_version

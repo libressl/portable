@@ -10,4 +10,4 @@ if [ -z $srcdir ]; then
 	srcdir=.
 fi
 
-$tlstest_bin $srcdir/server.pem $srcdir/server.pem $srcdir/ca.pem
+$tlstest_bin $srcdir/ca.pem $srcdir/server.pem $srcdir/server.pem

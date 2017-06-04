@@ -1,5 +1,5 @@
---- apps/nc/netcat.c.orig	Thu Mar 16 19:26:06 2017
-+++ apps/nc/netcat.c	Sat Mar 25 11:17:36 2017
+--- apps/nc/netcat.c.orig	Sat Jun  3 19:34:23 2017
++++ apps/nc/netcat.c	Sat Jun  3 19:51:37 2017
 @@ -65,7 +65,9 @@
  #define POLL_NETIN 2
  #define POLL_STDOUT 3
@@ -24,16 +24,7 @@
  
  int	usetls;					/* use TLS */
  char    *Cflag;					/* Public cert file */
-@@ -149,7 +155,7 @@
- 	struct servent *sv;
- 	socklen_t len;
- 	struct sockaddr_storage cliaddr;
--	char *proxy, *proxyport = NULL;
-+	char *proxy = NULL, *proxyport = NULL;
- 	const char *errstr;
- 	struct addrinfo proxyhints;
- 	char unix_dg_tmp_socket_buf[UNIX_DG_TMP_SOCKET_SIZE];
-@@ -259,12 +265,14 @@
+@@ -264,12 +270,14 @@
  		case 'u':
  			uflag = 1;
  			break;
@@ -48,7 +39,7 @@
  		case 'v':
  			vflag = 1;
  			break;
-@@ -300,9 +308,11 @@
+@@ -316,9 +324,11 @@
  		case 'o':
  			oflag = optarg;
  			break;
@@ -60,7 +51,7 @@
  		case 'T':
  			errstr = NULL;
  			errno = 0;
-@@ -326,9 +336,11 @@
+@@ -342,9 +352,11 @@
  	argc -= optind;
  	argv += optind;
  
@@ -72,7 +63,7 @@
  
  	if (family == AF_UNIX) {
  		if (pledge("stdio rpath wpath cpath tmppath unix", NULL) == -1)
-@@ -865,7 +877,10 @@
+@@ -889,7 +901,10 @@
  remote_connect(const char *host, const char *port, struct addrinfo hints)
  {
  	struct addrinfo *res, *res0;
@@ -84,7 +75,7 @@
  
  	if ((error = getaddrinfo(host, port, &hints, &res0)))
  		errx(1, "getaddrinfo for host \"%s\" port %s: %s", host,
-@@ -880,8 +895,10 @@
+@@ -904,8 +919,10 @@
  		if (sflag || pflag) {
  			struct addrinfo ahints, *ares;
  
@@ -95,7 +86,7 @@
  			memset(&ahints, 0, sizeof(struct addrinfo));
  			ahints.ai_family = res->ai_family;
  			ahints.ai_socktype = uflag ? SOCK_DGRAM : SOCK_STREAM;
-@@ -952,7 +969,10 @@
+@@ -976,7 +993,10 @@
  local_listen(char *host, char *port, struct addrinfo hints)
  {
  	struct addrinfo *res, *res0;
@@ -107,7 +98,7 @@
  	int error;
  
  	/* Allow nodename to be null. */
-@@ -973,9 +993,11 @@
+@@ -997,9 +1017,11 @@
  		    res->ai_protocol)) < 0)
  			continue;
  
@@ -119,7 +110,7 @@
  
  		set_common_sockopts(s, res->ai_family);
  
-@@ -1425,11 +1447,13 @@
+@@ -1455,11 +1477,13 @@
  {
  	int x = 1;
  
@@ -133,7 +124,24 @@
  	if (Dflag) {
  		if (setsockopt(s, SOL_SOCKET, SO_DEBUG,
  			&x, sizeof(x)) == -1)
-@@ -1466,13 +1490,17 @@
+@@ -1470,9 +1494,16 @@
+ 		    IP_TOS, &Tflag, sizeof(Tflag)) == -1)
+ 			err(1, "set IP ToS");
+ 
++#ifdef IPV6_TCLASS
+ 		else if (af == AF_INET6 && setsockopt(s, IPPROTO_IPV6,
+ 		    IPV6_TCLASS, &Tflag, sizeof(Tflag)) == -1)
+ 			err(1, "set IPv6 traffic class");
++#else
++		else if (af == AF_INET6) {
++			errno = ENOPROTOOPT
++			err(1, "set IPv6 traffic class not supported");
++		}
++#endif
+ 	}
+ 	if (Iflag) {
+ 		if (setsockopt(s, SOL_SOCKET, SO_RCVBUF,
+@@ -1496,13 +1527,17 @@
  	}
  
  	if (minttl != -1) {
@@ -152,7 +160,7 @@
  	}
  }
  
-@@ -1666,14 +1694,22 @@
+@@ -1710,14 +1745,22 @@
  	\t-P proxyuser\tUsername for proxy authentication\n\
  	\t-p port\t	Specify local port for remote connects\n\
  	\t-R CAfile	CA bundle\n\
@@ -177,5 +185,5 @@
 +#endif
 +	"\
  	\t-v		Verbose\n\
+ 	\t-W recvlimit	Terminate after receiving a number of packets\n\
  	\t-w timeout	Timeout for connects and final net reads\n\
- 	\t-X proto	Proxy protocol: \"4\", \"5\" (SOCKS) or \"connect\"\n\

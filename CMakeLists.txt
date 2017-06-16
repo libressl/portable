@@ -4,7 +4,7 @@ include(CheckLibraryExists)
 include(CheckIncludeFiles)
 include(CheckTypeSize)
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}" ${CMAKE_MODULE_PATH})
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}" ${CMAKE_MODULE_PATH})
 include(cmake_export_symbol)
 
 project (LibreSSL C)

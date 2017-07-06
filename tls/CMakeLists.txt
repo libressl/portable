@@ -39,9 +39,9 @@ if (BUILD_SHARED)
 		ARCHIVE_OUTPUT_NAME tls${TLS_POSTFIX})
 	set_target_properties(tls-shared PROPERTIES VERSION ${TLS_VERSION}
 		SOVERSION ${TLS_MAJOR_VERSION})
-	install(TARGETS tls tls-shared DESTINATION lib)
+	install(TARGETS tls tls-shared DESTINATION ${CMAKE_INSTALL_LIBDIR})
 else()
 	add_library(tls STATIC ${TLS_SRC})
-	install(TARGETS tls DESTINATION lib)
+	install(TARGETS tls DESTINATION ${CMAKE_INSTALL_LIBDIR})
 endif()
 

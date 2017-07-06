@@ -823,9 +823,9 @@ if (BUILD_SHARED)
 		ARCHIVE_OUTPUT_NAME crypto${CRYPTO_POSTFIX})
 	set_target_properties(crypto-shared PROPERTIES VERSION
 		${CRYPTO_VERSION} SOVERSION ${CRYPTO_MAJOR_VERSION})
-	install(TARGETS crypto crypto-shared DESTINATION lib)
+	install(TARGETS crypto crypto-shared DESTINATION ${CMAKE_INSTALL_LIBDIR})
 else()
 	add_library(crypto STATIC ${CRYPTO_SRC})
-	install(TARGETS crypto DESTINATION lib)
+	install(TARGETS crypto DESTINATION ${CMAKE_INSTALL_LIBDIR})
 endif()
 

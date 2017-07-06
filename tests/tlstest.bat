@@ -9,7 +9,7 @@ if "%srcdir%"=="" (
 	set srcdir=.
 )
 
-%tlstest_bin% %srcdir%\server.pem %srcdir%\server.pem %srcdir%\ca.pem
+%tlstest_bin% %srcdir%\ca.pem %srcdir%\server.pem %srcdir%\server.pem
 if !errorlevel! neq 0 (
 	exit /b 1
 )

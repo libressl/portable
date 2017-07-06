@@ -53,8 +53,10 @@ add_executable(nc ${NC_SRC})
 target_link_libraries(nc tls ${OPENSSL_LIBS})
 
 if(ENABLE_NC)
-	install(TARGETS nc DESTINATION bin)
-	install(FILES nc.1 DESTINATION share/man/man1)
+	if(ENABLE_LIBRESSL_INSTALL)
+		install(TARGETS nc DESTINATION bin)
+		install(FILES nc.1 DESTINATION share/man/man1)
+	endif(ENABLE_LIBRESSL_INSTALL)
 endif()
 
 endif()

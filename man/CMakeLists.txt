@@ -1,9 +1,11 @@
-install(DIRECTORY .
-    DESTINATION share/man/man3
-    FILES_MATCHING PATTERN "*.3"
-    )
+if(ENABLE_LIBRESSL_INSTALL)
+	install(DIRECTORY .
+	    DESTINATION share/man/man3
+	    FILES_MATCHING PATTERN "*.3"
+	    )
 
-install(DIRECTORY .
-    DESTINATION share/man/man1
-    FILES_MATCHING PATTERN "*.1"
-    )
+	install(DIRECTORY .
+	    DESTINATION share/man/man1
+	    FILES_MATCHING PATTERN "*.1"
+	    )
+endif(ENABLE_LIBRESSL_INSTALL)

@@ -1,9 +1,9 @@
 install(DIRECTORY .
-    DESTINATION share/man/man3
+    DESTINATION ${CMAKE_INSTALL_MANDIR}/man3
     FILES_MATCHING PATTERN "*.3"
     )
 
 install(DIRECTORY .
-    DESTINATION share/man/man1
+    DESTINATION ${CMAKE_INSTALL_MANDIR}/man1
     FILES_MATCHING PATTERN "*.1"
     )

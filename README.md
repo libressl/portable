@@ -136,10 +136,10 @@ projects or build by itself.
 
 | Option Name | Default | Description 
 | ------------ | -----: | ------ 
-|  LIBRESSL_SKIP_INSTALL | OFF | allows skipping install() rules.  Can be specified from command line using -DLIBRESSL_SKIP_INSTALL=ON
+|  LIBRESSL_SKIP_INSTALL | OFF | allows skipping install() rules.  Can be specified from command line using ```-DLIBRESSL_SKIP_INSTALL=ON```
 |  ENABLE_ASM | ON | builds assembly optimized rules.
 |  ENABLE_EXTRATESTS | OFF | Enable extra tests that may be unreliable on some platforms
 |  ENABLE_NC | OFF | Enable installing TLS-enabled nc(1)
 |  ENABLE_VSTEST | OFF | Enable test on Visual Studio 
-|  OPENSSLDIR | Blank | Set the default openssl directory.  Can be specified from command line using -DOPENSSLDIR=<dirname>
+|  OPENSSLDIR | Blank | Set the default openssl directory.  Can be specified from command line using -DOPENSSLDIR=```dirname```
 

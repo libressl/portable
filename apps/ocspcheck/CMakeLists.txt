@@ -37,8 +37,9 @@ add_executable(ocspcheck ${OCSPCHECK_SRC})
 target_link_libraries(ocspcheck tls ${OPENSSL_LIBS})
 
 if(ENABLE_LIBRESSL_INSTALL)
-	install(TARGETS ocspcheck DESTINATION bin)
-	install(FILES ocspcheck.8 DESTINATION share/man/man8)
+	install(TARGETS ocspcheck DESTINATION ${CMAKE_INSTALL_BINDIR})
+	install(FILES ocspcheck.8 DESTINATION ${CMAKE_INSTALL_MANDIR}/man8)
+
 endif(ENABLE_LIBRESSL_INSTALL)
 
 endif()

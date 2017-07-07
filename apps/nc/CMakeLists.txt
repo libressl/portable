@@ -54,8 +54,8 @@ target_link_libraries(nc tls ${OPENSSL_LIBS})
 
 if(ENABLE_NC)
 	if(ENABLE_LIBRESSL_INSTALL)
-		install(TARGETS nc DESTINATION bin)
-		install(FILES nc.1 DESTINATION share/man/man1)
+		install(TARGETS nc DESTINATION ${CMAKE_INSTALL_BINDIR})
+		install(FILES nc.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
 	endif(ENABLE_LIBRESSL_INSTALL)
 endif()
 

@@ -1,7 +1,7 @@
 if(ENABLE_LIBRESSL_INSTALL)
 	install(DIRECTORY .
-        	DESTINATION include
+	        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 	        PATTERN "CMakeLists.txt" EXCLUDE
-        	PATTERN "compat" EXCLUDE
+	        PATTERN "compat" EXCLUDE
 	        PATTERN "Makefile*" EXCLUDE)
 endif(ENABLE_LIBRESSL_INSTALL)

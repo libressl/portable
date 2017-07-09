@@ -28,7 +28,68 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.6.0 - New APIs, bug fixes and improvements
+
+	* Added support for providing CRLs to libtls. Once a CRL is provided we
+	  enable CRL checking for the full certificate chain. Based on a diff
+	  from Jack Burton
+
+	* Allow non-compliant clients using IP literal addresses with SNI
+	  to connect to a server using libtls.
+
+	* Avoid a potential NULL pointer dereference in d2i_ECPrivateKey().
+	  Reported by Robert Swiecki, who found the issue using honggfuzz.
+
+	* Added definitions for three OIDs used in EV certificates.
+	  From Kyle J. McKay
+
+	* Plugged a memory leak in tls_ocsp_free.
+
+	* Added tls_peer_cert_chain_pem, tls_cert_hash, and tls_hex_string to
+	  libtls, useful in private certificate validation callbacks such as
+	  those in relayd.
+
+	* Converted explicit lear/free sequences to use freezero(3).
+
+	* Reworked TLS certificate name verification code to more strictly
+	  follow RFC 6125.
+
+	* Cleaned up and simplified server key exchange EC point handling.
+
+	* Added tls_keypair_clear_key for clearing key material.
+
+	* Removed inconsistent IPv6 handling from BIO_get_accept_socket,
+	  simplified BIO_get_host_ip and BIO_accept.
+
+	* Fixed the openssl(1) ca command so that is generates certificates
+	  with RFC 5280-conformant time. Problem noticed by Harald Dunkel.
+
+	* Added ASN1_TIME_set_tm to set an asn1 from a struct tm *
+
+	* Added SSL{,_CTX}_set_{min,max}_proto_version() functions.
+
+	* Added HKDF (HMAC Key Derivation Function) from BoringSSL
+
+	* Providea a tls_unload_file() function that frees the memory returned
+	  from a tls_load_file() call, ensuring that it the contents become
+	  inaccessible. This is specifically needed on platforms where the
+	  library allocators may be different from the application allocator.
+
+	* Perform reference counting for tls_config. This allows
+	  tls_config_free() to be called as soon as it has been passed to the
+	  final tls_configure() call, simplifying lifetime tracking for the
+	  application.
+
+	* Moved internal state of SSL and other structures to be opaque.
+
+	* Dropped cipher suites with DSS authentication.
+
+	* nc(1) improvements, including:
+	   nc -W to terminate nc after receiving a number of packets
+	   nc -Z for saving the peer certificate and chain in a pem file
+
 2.5.5 - Bug fixes
+
 	* Distinguish between self-issued certificates and self-signed
 	  certificates. The certificate verification code has special cases
 	  for self-signed certificates and without this change, self-issued

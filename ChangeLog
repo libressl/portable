@@ -28,6 +28,21 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.5.5 - Bug fixes
+	* Distinguish between self-issued certificates and self-signed
+	  certificates. The certificate verification code has special cases
+	  for self-signed certificates and without this change, self-issued
+	  certificates (which it seems are common place with
+	  openvpn/easyrsa) were also being included in this category.
+
+	* Fix a bug caused by the return value being set early to signal
+	  successful DTLS cookie validation. This can mask a later failure and
+	  result in a positive return value being returned from
+	  ssl3_get_client_hello(), when it should return a negative value to
+	  propagate the error.
+
+	* Added getpagesize fallback, needed for Android bionic libc.
+
 2.5.4 - Security Updates
 
 	* Revert a previous change that forced consistency between return

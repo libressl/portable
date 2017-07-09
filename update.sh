@@ -63,6 +63,10 @@ do_cp_libc() {
 CP_LIBC='do_cp_libc'
 
 CP='cp -p'
+GREP='grep'
+if [ -x /opt/csw/bin/ggrep ]; then
+	GREP='/opt/csw/bin/ggrep'
+fi
 
 $CP $libssl_src/LICENSE COPYING
 
@@ -152,7 +156,7 @@ done
 $CP crypto/compat/b_win.c crypto/bio
 $CP crypto/compat/ui_openssl_win.c crypto/ui
 # add the libcrypto symbol export list
-grep -v OPENSSL_ia32cap_P $libcrypto_src/Symbols.list | grep '^[[:alpha:]]' > crypto/crypto.sym
+$GREP -v OPENSSL_ia32cap_P $libcrypto_src/Symbols.list | $GREP '^[[:alpha:]]' > crypto/crypto.sym
 
 # generate assembly crypto algorithms
 asm_src=$libcrypto_src
@@ -207,7 +211,7 @@ for i in `awk '/SOURCES|HEADERS/ { print $3 }' tls/Makefile.am` ; do
 	fi
 done
 # add the libtls symbol export list
-grep '^[[:alpha:]]' < $libtls_src/Symbols.list > tls/tls.sym
+$GREP '^[[:alpha:]]' < $libtls_src/Symbols.list > tls/tls.sym
 
 mkdir -p libtls-standalone/m4
 $CP m4/check*.m4 \
@@ -260,7 +264,7 @@ for i in `awk '/SOURCES|HEADERS/ { print $3 }' ssl/Makefile.am` ; do
 	$CP $libssl_src/$i ssl
 done
 # add the libssl symbol export list
-grep '^[[:alpha:]]' < $libssl_src/Symbols.list > ssl/ssl.sym
+$GREP '^[[:alpha:]]' < $libssl_src/Symbols.list > ssl/ssl.sym
 
 # copy libcrypto tests
 echo "copying tests"
@@ -305,7 +309,7 @@ add_man_links() {
 	filter=$1
 	dest=$2
 	echo "install-data-hook:" >> $dest
-	for i in `grep $filter man/links`; do
+	for i in `$GREP $filter man/links`; do
 		IFS=","; set $i; unset IFS
 		if [ "$2" != "" ]; then
 			echo "	ln -sf \"$1\" \"\$(DESTDIR)\$(mandir)/man3/$2\"" >> $dest
@@ -313,7 +317,7 @@ add_man_links() {
 	done
 	echo "" >> $dest
 	echo "uninstall-local:" >> $dest
-	for i in `grep $filter man/links`; do
+	for i in `$GREP $filter man/links`; do
 		IFS=","; set $i; unset IFS
 		if [ "$2" != "" ]; then
 			echo "	-rm -f \"\$(DESTDIR)\$(mandir)/man3/$2\"" >> $dest

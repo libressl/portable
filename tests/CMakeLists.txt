@@ -168,6 +168,11 @@ set_source_files_properties(exptest.c PROPERTIES COMPILE_FLAGS -ULIBRESSL_INTERN
 target_link_libraries(exptest ${TESTS_LIBS})
 add_test(exptest exptest)
 
+# freenull
+add_executable(freenull freenull.c)
+target_link_libraries(freenull ${TESTS_LIBS})
+add_test(freenull freenull)
+
 # gcm128test
 add_executable(gcm128test gcm128test.c)
 target_link_libraries(gcm128test ${TESTS_LIBS})

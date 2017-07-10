@@ -174,6 +174,12 @@ check_PROGRAMS += exptest
 exptest_CPPFLAGS = $(AM_CPPFLAGS) -ULIBRESSL_INTERNAL
 exptest_SOURCES = exptest.c
 
+# freenull
+TESTS += freenull
+check_PROGRAMS += freenull
+freenull_CPPFLAGS = $(AM_CPPFLAGS) -ULIBRESSL_INTERNAL
+freenull_SOURCES = freenull.c
+
 # gcm128test
 TESTS += gcm128test
 check_PROGRAMS += gcm128test

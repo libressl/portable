@@ -43,13 +43,10 @@ LibreSSL Portable Release Notes:
 	* Added definitions for three OIDs used in EV certificates.
 	  From Kyle J. McKay
 
-	* Plugged a memory leak in tls_ocsp_free.
+	* Added tls_peer_cert_chain_pem to libtls, useful in private
+	  certificate validation callbacks such as those in relayd.
 
-	* Added tls_peer_cert_chain_pem, tls_cert_hash, and tls_hex_string to
-	  libtls, useful in private certificate validation callbacks such as
-	  those in relayd.
-
-	* Converted explicit lear/free sequences to use freezero(3).
+	* Converted explicit clear/free sequences to use freezero(3).
 
 	* Reworked TLS certificate name verification code to more strictly
 	  follow RFC 6125.
@@ -70,7 +67,7 @@ LibreSSL Portable Release Notes:
 
 	* Added HKDF (HMAC Key Derivation Function) from BoringSSL
 
-	* Providea a tls_unload_file() function that frees the memory returned
+	* Provided a tls_unload_file() function that frees the memory returned
 	  from a tls_load_file() call, ensuring that it the contents become
 	  inaccessible. This is specifically needed on platforms where the
 	  library allocators may be different from the application allocator.

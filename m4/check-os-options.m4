@@ -13,6 +13,7 @@ case $host_os in
 		;;
 	*cygwin*)
 		HOST_OS=cygwin
+		CPPFLAGS="$CPPFLAGS -D_GNU_SOURCE"
 		;;
 	*darwin*)
 		HOST_OS=darwin

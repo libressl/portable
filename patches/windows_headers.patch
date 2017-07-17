@@ -4,36 +4,35 @@ diff -u include/openssl.orig/dtls1.h include/openssl/dtls1.h
 @@ -60,7 +60,11 @@
  #ifndef HEADER_DTLS1_H
  #define HEADER_DTLS1_H
- 
+
 +#if defined(_WIN32)
 +#include <winsock2.h>
 +#else
  #include <sys/time.h>
 +#endif
- 
+
  #include <stdio.h>
  #include <stdlib.h>
-diff -u include/openssl.orig/opensslconf.h include/openssl/opensslconf.h
---- include/openssl.orig/opensslconf.h	Mon Dec  7 07:58:32 2015
-+++ include/openssl/opensslconf.h	Mon Dec  7 07:56:14 2015
+--- include/openssl/opensslconf.h.orig	Sat Nov  5 08:36:25 2016
++++ include/openssl/opensslconf.h	Mon Jul 17 06:06:58 2017
 @@ -1,6 +1,10 @@
  #include <openssl/opensslfeatures.h>
  /* crypto/opensslconf.h.in */
- 
+
 +#if defined(_MSC_VER) && !defined(__attribute__)
 +#define __attribute__(a)
 +#endif
 +
  #if defined(HEADER_CRYPTLIB_H) && !defined(OPENSSLDIR)
  #define OPENSSLDIR "/etc/ssl"
-
+ #endif
 diff -u include/openssl.orig/ossl_typ.h include/openssl/ossl_typ.h
 --- include/openssl.orig/ossl_typ.h	Mon Dec  7 07:58:32 2015
 +++ include/openssl/ossl_typ.h	Mon Dec  7 07:56:14 2015
 @@ -80,6 +80,22 @@
  typedef struct ASN1_ITEM_st ASN1_ITEM;
  typedef struct asn1_pctx_st ASN1_PCTX;
- 
+
 +#if defined(_WIN32) && defined(__WINCRYPT_H__)
 +#ifndef LIBRESSL_INTERNAL
 +#ifdef _MSC_VER
@@ -59,7 +58,7 @@ diff -u include/openssl.orig/pkcs7.h include/openssl/pkcs7.h
 @@ -69,6 +69,18 @@
  extern "C" {
  #endif
- 
+
 +#if defined(_WIN32) && defined(__WINCRYPT_H__)
 +#ifndef LIBRESSL_INTERNAL
 +#ifdef _MSC_VER
@@ -81,7 +80,7 @@ diff -u include/openssl.orig/x509.h include/openssl/x509.h
 @@ -112,6 +112,19 @@
  extern "C" {
  #endif
- 
+
 +#if defined(_WIN32)
 +#ifndef LIBRESSL_INTERNAL
 +#ifdef _MSC_VER

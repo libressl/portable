@@ -38,6 +38,7 @@ libssl_la_SOURCES += ssl_rsa.c
 libssl_la_SOURCES += ssl_sess.c
 libssl_la_SOURCES += ssl_srvr.c
 libssl_la_SOURCES += ssl_stat.c
+libssl_la_SOURCES += ssl_tlsext.c
 libssl_la_SOURCES += ssl_txt.c
 libssl_la_SOURCES += ssl_versions.c
 libssl_la_SOURCES += t1_clnt.c
@@ -50,4 +51,5 @@ libssl_la_SOURCES += t1_srvr.c
 
 noinst_HEADERS = srtp.h
 noinst_HEADERS += ssl_locl.h
+noinst_HEADERS += ssl_tlsext.h
 noinst_HEADERS += bytestring.h

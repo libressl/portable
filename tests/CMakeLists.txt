@@ -371,6 +371,11 @@ add_executable(timingsafe timingsafe.c)
 target_link_libraries(timingsafe ${TESTS_LIBS})
 add_test(timingsafe timingsafe)
 
+# tlsexttest
+add_executable(tlsexttest tlsexttest.c)
+target_link_libraries(tlsexttest ${TESTS_LIBS})
+add_test(tlsexttest tlsexttest)
+
 # tlstest
 set(TLSTEST_SRC tlstest.c)
 check_function_exists(pipe2 HAVE_PIPE2)

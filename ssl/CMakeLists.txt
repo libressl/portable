@@ -35,6 +35,7 @@ set(
 	ssl_sess.c
 	ssl_srvr.c
 	ssl_stat.c
+	ssl_tlsext.c
 	ssl_txt.c
 	ssl_versions.c
 	t1_clnt.c

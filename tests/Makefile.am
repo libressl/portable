@@ -356,6 +356,12 @@ TESTS += timingsafe
 check_PROGRAMS += timingsafe
 timingsafe_SOURCES = timingsafe.c
 
+# tlsexttest
+TESTS += tlsexttest
+check_PROGRAMS += tlsexttest
+tlsexttest_CPPFLAGS = $(AM_CPPFLAGS) -ULIBRESSL_INTERNAL
+tlsexttest_SOURCES = tlsexttest.c
+
 # tlstest
 TESTS += tlstest.sh
 check_PROGRAMS += tlstest

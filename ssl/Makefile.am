@@ -46,7 +46,6 @@ libssl_la_SOURCES += t1_enc.c
 libssl_la_SOURCES += t1_hash.c
 libssl_la_SOURCES += t1_lib.c
 libssl_la_SOURCES += t1_meth.c
-libssl_la_SOURCES += t1_reneg.c
 libssl_la_SOURCES += t1_srvr.c
 
 noinst_HEADERS = srtp.h

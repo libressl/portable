@@ -43,7 +43,6 @@ set(
 	t1_hash.c
 	t1_lib.c
 	t1_meth.c
-	t1_reneg.c
 	t1_srvr.c
 )
 

@@ -253,7 +253,9 @@ poll(struct pollfd *pfds, nfds_t nfds, int timeout_ms)
 	looptime_ms = timeout_ms > 100 ? 100 : timeout_ms;
 
 	do {
-		struct timeval tv = {0, looptime_ms * 1000};
+		struct timeval tv;
+		tv.tv_sec = 0;
+		tv.tv_usec = looptime_ms * 1000;
 		int handle_signaled = 0;
 
 		/*

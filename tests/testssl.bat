@@ -124,18 +124,6 @@ for %%p in ( SSLv3 ) do (
 )
 
 REM #
-REM # Next Protocol Negotiation tests
-REM #
-echo "Testing NPN..."
-%ssltest% -bio_pair -tls1 -npn_client & if !errorlevel! neq 0 exit /b 1
-%ssltest% -bio_pair -tls1 -npn_server & if !errorlevel! neq 0 exit /b 1
-%ssltest% -bio_pair -tls1 -npn_server_reject & if !errorlevel! neq 0 exit /b 1
-%ssltest% -bio_pair -tls1 -npn_client -npn_server_reject & if !errorlevel! neq 0 exit /b 1
-%ssltest% -bio_pair -tls1 -npn_client -npn_server & if !errorlevel! neq 0 exit /b 1
-%ssltest% -bio_pair -tls1 -npn_client -npn_server -num 2 & if !errorlevel! neq 0 exit /b 1
-%ssltest% -bio_pair -tls1 -npn_client -npn_server -num 2 -reuse & if !errorlevel! neq 0 exit /b 1
-
-REM #
 REM # ALPN tests
 REM #
 echo "Testing ALPN..."

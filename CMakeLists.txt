@@ -109,14 +109,20 @@ if(MSVC)
 		set(MSVC_DISABLED_WARNINGS_LIST
 			"C4057" # C4057: 'initializing' : 'unsigned char *' differs in
 		        	# indirection to slightly different base types from 'char [2]'
+			"C4018" # '>=': signed/unsigned mismatch
 			"C4100" # 'exarg' : unreferenced formal parameter
 			"C4127" # conditional expression is constant
+			"C4146" # unary minus operator applied to unsigned
+			        # type, result still unsigned
 			"C4242" # 'function' : conversion from 'int' to 'uint8_t',
 			        # possible loss of data
 			"C4244" # 'function' : conversion from 'int' to 'uint8_t',
 			        # possible loss of data
+			"C4245" # 'initializing': conversion from 'long' to
+			        # 'unsigned long', signed/unsigned mismatch
 			"C4267" # conversion from 'size_t' to 'some type that is almost
 				# certainly safe to convert a size_t to'.
+			"C4389" # '!=': signed/unsigned mismatch
 			"C4706" # assignment within conditional expression
 			"C4820" # 'bytes' bytes padding added after construct 'member_name'
 			"C4996" # 'read': The POSIX name for this item is deprecated. Instead,

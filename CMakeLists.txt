@@ -306,6 +306,7 @@ endif()
 check_type_size(time_t SIZEOF_TIME_T)
 if(SIZEOF_TIME_T STREQUAL "4")
 	set(SMALL_TIME_T true)
+	add_definitions(-DSMALL_TIME_T)
 	message(WARNING " ** Warning, this system is unable to represent times past 2038\n"
 	                " ** It will behave incorrectly when handling valid RFC5280 dates")
 endif()

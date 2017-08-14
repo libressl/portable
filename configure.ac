@@ -134,6 +134,7 @@ AC_CONFIG_FILES([
 
 AM_CONDITIONAL([SMALL_TIME_T], [test "$ac_cv_sizeof_time_t" = "4"])
 if test "$ac_cv_sizeof_time_t" = "4"; then
+    AC_DEFINE([SMALL_TIME_T])
     echo " ** Warning, this system is unable to represent times past 2038"
     echo " ** It will behave incorrectly when handling valid RFC5280 dates"
 

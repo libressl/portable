@@ -1,0 +1,56 @@
+--- crypto/modes/gcm128.c.orig	Tue Aug 29 23:04:52 2017
++++ crypto/modes/gcm128.c	Tue Aug 29 23:06:31 2017
+@@ -224,7 +224,7 @@ static void gcm_gmult_8bit(u64 Xi[2], const u128 Htabl
+ 		rem  = (size_t)Z.lo&0xff;
+ 		Z.lo = (Z.hi<<56)|(Z.lo>>8);
+ 		Z.hi = (Z.hi>>8);
+-#ifdef _LP64
++#if defined(_LP64) || defined(_WIN64)
+ 		Z.hi ^= rem_8bit[rem];
+ #else
+ 		Z.hi ^= (u64)rem_8bit[rem]<<32;
+@@ -347,7 +347,7 @@ static void gcm_gmult_4bit(u64 Xi[2], const u128 Htabl
+ 		rem  = (size_t)Z.lo&0xf;
+ 		Z.lo = (Z.hi<<60)|(Z.lo>>4);
+ 		Z.hi = (Z.hi>>4);
+-#ifdef _LP64
++#if defined(_LP64) || defined(_WIN64)
+ 		Z.hi ^= rem_4bit[rem];
+ #else
+ 		Z.hi ^= (u64)rem_4bit[rem]<<32;
+@@ -364,7 +364,7 @@ static void gcm_gmult_4bit(u64 Xi[2], const u128 Htabl
+ 		rem  = (size_t)Z.lo&0xf;
+ 		Z.lo = (Z.hi<<60)|(Z.lo>>4);
+ 		Z.hi = (Z.hi>>4);
+-#ifdef _LP64
++#if defined(_LP64) || defined(_WIN64)
+ 		Z.hi ^= rem_4bit[rem];
+ #else
+ 		Z.hi ^= (u64)rem_4bit[rem]<<32;
+@@ -421,7 +421,7 @@ static void gcm_ghash_4bit(u64 Xi[2],const u128 Htable
+ 		rem  = (size_t)Z.lo&0xf;
+ 		Z.lo = (Z.hi<<60)|(Z.lo>>4);
+ 		Z.hi = (Z.hi>>4);
+-#ifdef _LP64
++#if defined(_LP64) || defined(_WIN64)
+ 		Z.hi ^= rem_4bit[rem];
+ #else
+ 		Z.hi ^= (u64)rem_4bit[rem]<<32;
+@@ -439,7 +439,7 @@ static void gcm_ghash_4bit(u64 Xi[2],const u128 Htable
+ 		rem  = (size_t)Z.lo&0xf;
+ 		Z.lo = (Z.hi<<60)|(Z.lo>>4);
+ 		Z.hi = (Z.hi>>4);
+-#ifdef _LP64
++#if defined(_LP64) || defined(_WIN64)
+ 		Z.hi ^= rem_4bit[rem];
+ #else
+ 		Z.hi ^= (u64)rem_4bit[rem]<<32;
+@@ -588,7 +588,7 @@ static void gcm_gmult_1bit(u64 Xi[2],const u64 H[2])
+ 
+ 	for (j=0; j<16/sizeof(long); ++j) {
+ #if BYTE_ORDER == LITTLE_ENDIAN
+-#ifdef _LP64
++#if defined(_LP64) || defined(_WIN64)
+ #ifdef BSWAP8
+ 			X = (long)(BSWAP8(xi[j]));
+ #else

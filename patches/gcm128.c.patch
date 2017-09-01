@@ -5,7 +5,7 @@
  		Z.lo = (Z.hi<<56)|(Z.lo>>8);
  		Z.hi = (Z.hi>>8);
 -#ifdef _LP64
-+#if defined(_LP64) || defined(_WIN64)
++#if SIZE_MAX == 0xffffffffffffffff
  		Z.hi ^= rem_8bit[rem];
  #else
  		Z.hi ^= (u64)rem_8bit[rem]<<32;
@@ -14,7 +14,7 @@
  		Z.lo = (Z.hi<<60)|(Z.lo>>4);
  		Z.hi = (Z.hi>>4);
 -#ifdef _LP64
-+#if defined(_LP64) || defined(_WIN64)
++#if SIZE_MAX == 0xffffffffffffffff
  		Z.hi ^= rem_4bit[rem];
  #else
  		Z.hi ^= (u64)rem_4bit[rem]<<32;
@@ -23,7 +23,7 @@
  		Z.lo = (Z.hi<<60)|(Z.lo>>4);
  		Z.hi = (Z.hi>>4);
 -#ifdef _LP64
-+#if defined(_LP64) || defined(_WIN64)
++#if SIZE_MAX == 0xffffffffffffffff
  		Z.hi ^= rem_4bit[rem];
  #else
  		Z.hi ^= (u64)rem_4bit[rem]<<32;
@@ -32,7 +32,7 @@
  		Z.lo = (Z.hi<<60)|(Z.lo>>4);
  		Z.hi = (Z.hi>>4);
 -#ifdef _LP64
-+#if defined(_LP64) || defined(_WIN64)
++#if SIZE_MAX == 0xffffffffffffffff
  		Z.hi ^= rem_4bit[rem];
  #else
  		Z.hi ^= (u64)rem_4bit[rem]<<32;
@@ -41,7 +41,7 @@
  		Z.lo = (Z.hi<<60)|(Z.lo>>4);
  		Z.hi = (Z.hi>>4);
 -#ifdef _LP64
-+#if defined(_LP64) || defined(_WIN64)
++#if SIZE_MAX == 0xffffffffffffffff
  		Z.hi ^= rem_4bit[rem];
  #else
  		Z.hi ^= (u64)rem_4bit[rem]<<32;
@@ -50,7 +50,7 @@
  	for (j=0; j<16/sizeof(long); ++j) {
  #if BYTE_ORDER == LITTLE_ENDIAN
 -#ifdef _LP64
-+#if defined(_LP64) || defined(_WIN64)
++#if SIZE_MAX == 0xffffffffffffffff
  #ifdef BSWAP8
  			X = (long)(BSWAP8(xi[j]));
  #else

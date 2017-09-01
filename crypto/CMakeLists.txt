@@ -559,7 +559,6 @@ set(
 	rsa/rsa_pss.c
 	rsa/rsa_saos.c
 	rsa/rsa_sign.c
-	rsa/rsa_ssl.c
 	rsa/rsa_x931.c
 	sha/sha1_one.c
 	sha/sha1dgst.c

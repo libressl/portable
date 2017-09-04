@@ -28,6 +28,59 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.6.1 - Code removal, rewrites
+
+	* Added a "-T tlscompat" option to nc(1), which enables the use of all
+	  TLS protocols and "compat" ciphers. This allows for TLS connections
+	  to TLS servers that are using less than ideal cipher suites, without
+	  having to resort to "-T tlsall" which enables all known cipher
+	  suites.  Diff from Kyle J. McKay.
+
+	* Added a new TLS extension handling framework, somewhat analogous to
+	  BoringSSL, and converted all TLS extensions to use it. Added new TLS
+	  extension regression tests.
+
+	* Improved and added many new manpages. Updated *check_private_key
+	  manpages with additional cautions regarding their use.
+
+	* Cleaned up the EC key/curve configuration handling.
+
+	* Added tls_config_set_ecdhecurves() to libtls, which allows the names
+	  of the eliptical curves that may be used during client and server
+	  key exchange to be specified.
+
+	* Converted more code paths to use CBB/CBS.
+
+	* Removed support for DSS/DSA, since we removed the cipher suites a
+	  while back.
+
+	* Removed NPN support. NPN was never standardised and the last draft
+	  expired in October 2012. ALPN was standardised in July 2014 and has
+	  been supported in LibreSSL since December 2014. NPN has also been
+	  removed from Chromium in May 2016.
+
+	* Removed SSL_OP_CRYPTOPRO_TLSEXT_BUG workaround for old/broken
+	  CryptoPro clients.
+
+	* Removed support for the TLS padding extension, which was added as a
+	  workaround for an old bug in F5's TLS termintation.
+
+	* Workaround a new bug in F5's TLS termination handling the
+	  elliptical curves extension. RFC 4492 only defines elliptic_curves
+	  for ClientHello. However, F5 is sending it in ServerHello.  We need
+	  to skip over it since our TLS extension parsing code is now more
+	  strict. Thanks to Armin Wolfermann and WJ Liu for reporting.
+
+	* Added ability to clamp notafter valies in certificates for systems
+	  with 32-bit time_t. This is necessary to conform to RFC 5280
+	  4.1.2.5.
+
+	* Imported SSL_CTX_set_min_proto_version(3) from OpenSSL
+
+	* Remove the original (pre-IETF) chacha20-poly1305 cipher suites.
+
+	* Reclassified ECDHE-RSA-DES-CBC3-SHA from HIGH to MEDIUM.
+
 2.6.0 - New APIs, bug fixes and improvements
 
 	* Added support for providing CRLs to libtls. Once a CRL is provided we

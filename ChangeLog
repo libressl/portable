@@ -65,7 +65,7 @@ LibreSSL Portable Release Notes:
 	* Removed support for the TLS padding extension, which was added as a
 	  workaround for an old bug in F5's TLS termintation.
 
-	* Workaround a new bug in F5's TLS termination handling the
+	* Worked around another bug in F5's TLS termination handling of the
 	  elliptical curves extension. RFC 4492 only defines elliptic_curves
 	  for ClientHello. However, F5 is sending it in ServerHello.  We need
 	  to skip over it since our TLS extension parsing code is now more
@@ -75,9 +75,9 @@ LibreSSL Portable Release Notes:
 	  with 32-bit time_t. This is necessary to conform to RFC 5280
 	  4.1.2.5.
 
-	* Imported SSL_CTX_set_min_proto_version(3) from OpenSSL
+	* Implemented the SSL_CTX_set_min_proto_version(3) API.
 
-	* Remove the original (pre-IETF) chacha20-poly1305 cipher suites.
+	* Removed the original (pre-IETF) chacha20-poly1305 cipher suites.
 
 	* Reclassified ECDHE-RSA-DES-CBC3-SHA from HIGH to MEDIUM.
 

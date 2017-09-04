@@ -56,20 +56,25 @@ or to the github
 Severe vulnerabilities or bugs requiring coordination with OpenSSL can be
 sent to the core team at libressl-security@openbsd.org.
 
-## Prerequisites when building from git ##
+# Building LibreSSL #
 
-If you have checked this source using Git, follow these initial steps to
-prepare the source tree for building:
+## Prerequisites when building from a Git checkout ##
+
+If you have checked this source using Git, or have downloaded a source tarball
+from Github, follow these initial steps to prepare the source tree for
+building. *Your build _will fail_ if you do not follow these instructions! If
+you do not want to follow these instructions or cannot meet the prerequistes,
+download a release tarball from https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/ instead. Using official release tarballs is strongly advised if you are not a developer.*
 
 1. Ensure you have the following packages installed:
-   automake, autoconf, git, libtool, perl, pod2man
+   automake, autoconf, git, libtool, perl
 2. Run './autogen.sh' to prepare the source tree for building or
    run './dist.sh' to prepare a tarball.
 
-## Building LibreSSL ##
+## Steps that apply to all builds ##
 
-Once you have a source tree from Git or FTP, run these commands to build and
-install the package on most systems:
+Once you have a source tree using git or by downloading from an OpenBSD mirror,
+run these commands to build and install the package on most systems:
 
 ```sh
 ./configure   # see ./configure --help for configuration options
@@ -134,8 +139,8 @@ projects or build by itself.
 
 #### Cmake - Additional Options ####
 
-| Option Name | Default | Description 
-| ------------ | -----: | ------ 
+| Option Name | Default | Description
+| ------------ | -----: | ------
 |  LIBRESSL_SKIP_INSTALL | OFF | allows skipping install() rules.  Can be specified from command line using <br>```-DLIBRESSL_SKIP_INSTALL=ON``` |
 |  ENABLE_ASM | ON | builds assembly optimized rules. |
 |  ENABLE_EXTRATESTS | OFF | Enable extra tests that may be unreliable on some platforms |

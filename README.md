@@ -62,9 +62,7 @@ sent to the core team at libressl-security@openbsd.org.
 
 If you have checked this source using Git, or have downloaded a source tarball
 from Github, follow these initial steps to prepare the source tree for
-building. *Your build _will fail_ if you do not follow these instructions! If
-you do not want to follow these instructions or cannot meet the prerequistes,
-download a release tarball from https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/ instead. Using official release tarballs is strongly advised if you are not a developer.*
+building. _Note: Your build will fail if you do not follow these instructions! If you cannot follow these instructions (e.g. Windows system using CMake) or cannot meet these prerequistes, please download an official release distribution from https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/ instead. Using official releases is strongly advised if you are not a developer._
 
 1. Ensure you have the following packages installed:
    automake, autoconf, git, libtool, perl

@@ -71,8 +71,10 @@ building. _Note: Your build will fail if you do not follow these instructions! I
 
 ## Steps that apply to all builds ##
 
-Once you have a source tree using git or by downloading from an OpenBSD mirror,
-run these commands to build and install the package on most systems:
+Once you have a source tree, either by downloaded using git and having
+run the autogen.sh script above, or by downloading a release distribution from
+an OpenBSD mirror, run these commands to build and install the package on most
+systems:
 
 ```sh
 ./configure   # see ./configure --help for configuration options
@@ -122,9 +124,9 @@ should work. See README.windows for more information
 
 #### Windows - Visual Studio ####
 
-LibreSSL builds using the CMake target "Visual Studio 12 2013", and may build
-against older/newer targets as well. To generate a Visual Studio project,
-install CMake, enter the LibreSSL source directory and run:
+LibreSSL builds using the CMake target "Visual Studio 12 2013" and newer. To
+generate a Visual Studio project, install CMake, enter the LibreSSL source
+directory and run:
 
 ```sh
  mkdir build-vs2013
@@ -132,8 +134,9 @@ install CMake, enter the LibreSSL source directory and run:
  cmake -G"Visual Studio 12 2013" ..
 ```
 
-This will generate a LibreSSL.sln file that you can incorporate into other
-projects or build by itself.
+Replace "Visual Studion 12 2013" with whatever version of Visual Studio you
+have installed. This will generate a LibreSSL.sln file that you can incorporate
+into other projects or build by itself.
 
 #### Cmake - Additional Options ####
 

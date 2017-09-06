@@ -63,7 +63,7 @@ LibreSSL Portable Release Notes:
 	  CryptoPro clients.
 
 	* Removed support for the TLS padding extension, which was added as a
-	  workaround for an old bug in F5's TLS termintation.
+	  workaround for an old bug in F5's TLS termination.
 
 	* Worked around another bug in F5's TLS termination handling of the
 	  elliptical curves extension. RFC 4492 only defines elliptic_curves

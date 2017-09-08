@@ -3,5 +3,6 @@ if(ENABLE_LIBRESSL_INSTALL)
 	        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 	        PATTERN "CMakeLists.txt" EXCLUDE
 	        PATTERN "compat" EXCLUDE
+	        PATTERN "pqueue.h" EXCLUDE
 	        PATTERN "Makefile*" EXCLUDE)
 endif(ENABLE_LIBRESSL_INSTALL)

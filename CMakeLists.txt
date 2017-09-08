@@ -324,6 +324,23 @@ if(NOT MSVC OR ENABLE_VSTEST)
 	add_subdirectory(tests)
 endif()
 
+if(NOT MSVC)
+	# Create pkgconfig files.
+	set(prefix      ${CMAKE_INSTALL_PREFIX})
+	set(exec_prefix \${prefix})
+	set(libdir      \${exec_prefix}/${CMAKE_INSTALL_LIBDIR})
+	set(includedir  \${prefix}/include)
+	file(STRINGS    "VERSION" VERSION LIMIT_COUNT 1)
+	file(GLOB       OPENSSL_PKGCONFIGS "*.pc.in")
+	foreach(file ${OPENSSL_PKGCONFIGS})
+		get_filename_component(filename ${file} NAME)
+		string(REPLACE ".in" "" new_file "${filename}")
+		configure_file(${filename} pkgconfig/${new_file} @ONLY)
+	endforeach()
+	install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/pkgconfig
+		DESTINATION ${CMAKE_INSTALL_LIBDIR})
+endif()
+
 configure_file(
 	"${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
 	"${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"

@@ -45,6 +45,7 @@ Makefile.in
 # man pages
 *.1
 *.3
+*.5
 
 # tests
 test-driver

@@ -57,6 +57,7 @@ fi
 echo "differences between release and regenerated release tag:"
 diff -urN \
 	-x *.3 \
+	-x *.5 \
 	-x Makefile.in \
 	-x aclocal.m4 \
 	-x compile \

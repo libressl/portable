@@ -347,7 +347,7 @@ echo dist_man_MANS = >> man/Makefile.am
 		echo "dist_man_MANS += $NAME" >> Makefile.am
 	done
 
-	for i in `ls -1 $libcrypto_src/man/*.3 | sort`; do
+	for i in `ls -1 $libcrypto_src/man/*.[35] | sort`; do
 		NAME=`basename "$i"`
 		$CP $i .
 		echo "dist_man_MANS += $NAME" >> Makefile.am

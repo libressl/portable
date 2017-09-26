@@ -28,6 +28,28 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.6.2 - Bug fixes
+
+	* Provide a useful error with libtls if there are no OCSP URLs in a
+	  peer certificate.
+
+	* Keep track of which keypair is in use by a TLS context, fixing a bug
+	  where a TLS server with SNI would only return the OCSP staple for the
+	  default keypair. Issue reported by William Graeber and confirmed by
+	  Andreas Bartelt.
+
+	* Fixed various issues in the OCSP extension parsing code.
+	  The original code incorrectly passes the pointer allocated via
+	  CBS_stow() (using malloc()) to a d2i_*() function and then calls
+	  free() on the now incremented pointer, most likely resulting in a
+	  crash. This issue was reported by Robert Swiecki who found the issue
+	  using honggfuzz.
+
+	* If tls_config_parse_protocols() is called with a NULL pointer,
+	  return the default protocols instead of crashing - this makes the
+	  behaviour more useful and mirrors what we already do in
+	  tls_config_set_ciphers() et al.
+
 2.6.1 - Code removal, rewrites
 
 	* Added a "-T tlscompat" option to nc(1), which enables the use of all

@@ -20,7 +20,7 @@ else()
         set(OCSPCHECK_SRC ${OCSPCHECK_SRC} compat/inet_ntop.c)
 endif()
 
-check_function_exists(inet_ntop HAVE_MEMMEM)
+check_function_exists(memmem HAVE_MEMMEM)
 if(HAVE_MEMMEM)
         add_definitions(-DHAVE_MEMMEM)
 else()

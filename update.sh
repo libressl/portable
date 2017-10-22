@@ -338,25 +338,32 @@ done
 # copy manpages
 echo "copying manpages"
 echo EXTRA_DIST = CMakeLists.txt > man/Makefile.am
-echo dist_man_MANS = >> man/Makefile.am
+echo dist_man3_MANS = >> man/Makefile.am
+echo dist_man5_MANS = >> man/Makefile.am
 
 (cd man
 	for i in `ls -1 $libssl_src/man/*.3 | sort`; do
 		NAME=`basename "$i"`
 		$CP $i .
-		echo "dist_man_MANS += $NAME" >> Makefile.am
+		echo "dist_man3_MANS += $NAME" >> Makefile.am
 	done
 
-	for i in `ls -1 $libcrypto_src/man/*.[35] | sort`; do
+	for i in `ls -1 $libcrypto_src/man/*.3 | sort`; do
 		NAME=`basename "$i"`
 		$CP $i .
-		echo "dist_man_MANS += $NAME" >> Makefile.am
+		echo "dist_man3_MANS += $NAME" >> Makefile.am
 	done
 
 	for i in `ls -1 $libtls_src/man/*.3 | sort`; do
 		NAME=`basename "$i"`
 		$CP $i .
-		echo "dist_man_MANS += $NAME" >> Makefile.am
+		echo "dist_man3_MANS += $NAME" >> Makefile.am
+	done
+
+	for i in `ls -1 $libcrypto_src/man/*.5 | sort`; do
+		NAME=`basename "$i"`
+		$CP $i .
+		echo "dist_man5_MANS += $NAME" >> Makefile.am
 	done
 )
 add_man_links . man/Makefile.am

@@ -28,6 +28,21 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.6.4 - Bug fixes
+
+	* Make tls_config_parse_protocols() work correctly when passed a NULL
+	  pointer for a protocol string. Issue found by semarie@, who also
+	  provided the diff.
+
+	* Correct TLS extensions handling when no extensions are present.
+	  If no TLS extensions are present in a client hello or server hello,
+	  omit the entire extensions block, rather than including it with a
+	  length of zero. Thanks to Eric Elena <eric at voguemerry dot com> for
+	  providing packet captures and testing the fix.
+
+	* Fixed portable builds on older Android systems, and systems with out
+	  IPV6_TCLASS support.
+
 2.6.3 - OpenBSD 6.2 Release
 
 	* No core changes from LibreSSL 2.6.2

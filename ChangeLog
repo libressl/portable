@@ -28,6 +28,17 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.7.0 - Bug fixes and improvements
+
+	* Merged more DTLS support into the regular TLS code path, removing
+	  duplicated code.
+
+	* Converted ssl3_send_client_hello(), ssl3_send_server_hello() to CBB.
+
+	* Rewrite ASN1_TYPE_{get,set}_octetstring() using templated ASN.1.
+	  This removes the last remaining use of the old M_ASN1_* macros
+	  (asn1_mac.h) from API that needs to continue to exist.
+
 2.6.4 - Bug fixes
 
 	* Make tls_config_parse_protocols() work correctly when passed a NULL

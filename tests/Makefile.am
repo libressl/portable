@@ -113,6 +113,11 @@ TESTS += clienttest
 check_PROGRAMS += clienttest
 clienttest_SOURCES = clienttest.c
 
+# configtest
+TESTS += configtest
+check_PROGRAMS += configtest
+configtest_SOURCES = configtest.c
+
 # cts128test
 TESTS += cts128test
 check_PROGRAMS += cts128test

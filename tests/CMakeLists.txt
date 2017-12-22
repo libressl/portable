@@ -110,6 +110,11 @@ add_executable(clienttest clienttest.c)
 target_link_libraries(clienttest ${TESTS_LIBS})
 add_test(clienttest clienttest)
 
+# configtest
+add_executable(configtest configtest.c)
+target_link_libraries(configtest ${TESTS_LIBS})
+add_test(configtest configtest)
+
 # cts128test
 add_executable(cts128test cts128test.c)
 target_link_libraries(cts128test ${TESTS_LIBS})

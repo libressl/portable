@@ -41,6 +41,11 @@ if(NOT CMAKE_HOST_WIN32 AND NOT CMAKE_SYSTEM_NAME MATCHES "MINGW")
 	add_test(arc4randomforktest ${CMAKE_CURRENT_SOURCE_DIR}/arc4randomforktest.sh)
 endif()
 
+# asn1evp
+add_executable(asn1evp asn1evp.c)
+target_link_libraries(asn1evp ${TESTS_LIBS})
+add_test(asn1evp asn1evp)
+
 # asn1test
 add_executable(asn1test asn1test.c)
 target_link_libraries(asn1test ${TESTS_LIBS})

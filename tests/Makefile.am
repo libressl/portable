@@ -43,6 +43,11 @@ arc4randomforktest_SOURCES = arc4randomforktest.c
 endif
 EXTRA_DIST += arc4randomforktest.sh
 
+# asn1evp
+TESTS += asn1evp
+check_PROGRAMS += asn1evp
+asn1evp_SOURCES = asn1evp.c
+
 # asn1test
 TESTS += asn1test
 check_PROGRAMS += asn1test

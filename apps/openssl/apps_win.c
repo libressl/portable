@@ -13,7 +13,7 @@
 #include "apps.h"
 
 double
-app_tminterval(int stop, int usertime)
+app_timer_user(int stop)
 {
 	static unsigned __int64 tmstart;
 	union {
@@ -22,13 +22,11 @@ app_tminterval(int stop, int usertime)
 	} ct, et, kt, ut;
 
 	GetProcessTimes(GetCurrentProcess(), &ct.ft, &et.ft, &kt.ft, &ut.ft);
-
-	if (stop == TM_START) {
-		tmstart = ut.u64 + kt.u64;
-	} else {
+	if (stop)
 		return (ut.u64 + kt.u64 - tmstart) / (double) 10000000;
-	}
-	return 0;
+
+	tmstart = ut.u64 + kt.u64;
+	return 0.0;
 }
 
 int

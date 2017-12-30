@@ -1,6 +1,6 @@
---- tests/tlsexttest.c.orig	Sun Sep  3 00:44:51 2017
-+++ tests/tlsexttest.c	Sun Sep  3 00:47:06 2017
-@@ -1676,7 +1676,9 @@ static unsigned char tlsext_sni_clienthello[] = {
+--- tests/tlsexttest.c.orig	2017-12-30 20:03:09.279079726 +0900
++++ tests/tlsexttest.c	2017-12-30 20:07:21.849939140 +0900
+@@ -1676,7 +1676,9 @@ static unsigned char tlsext_sni_clienthe
  };
  
  static unsigned char tlsext_sni_serverhello[] = {
@@ -39,3 +39,73 @@
  	if (!tlsext_sni_serverhello_parse(ssl, &cbs, &alert)) {
  		FAIL("failed to parse serverhello SNI\n");
  		goto err;
+@@ -2741,7 +2743,10 @@ unsigned char tlsext_clienthello_default
+ 	0x03, 0x01, 0x03, 0x03, 0x02, 0x01, 0x02, 0x03,
+ };
+ 
+-unsigned char tlsext_clienthello_disabled[] = {};
++unsigned char tlsext_clienthello_disabled[] = {
++	0x00
++};
++const size_t sizeof_tlsext_clienthello_disabled = 0;
+ 
+ static int
+ test_tlsext_clienthello_build(void)
+@@ -2806,18 +2811,18 @@ test_tlsext_clienthello_build(void)
+ 	if (!CBB_finish(&cbb, &data, &dlen))
+ 		errx(1, "failed to finish CBB");
+ 
+-	if (dlen != sizeof(tlsext_clienthello_disabled)) {
++	if (dlen != sizeof_tlsext_clienthello_disabled) {
+ 		FAIL("got clienthello extensions with length %zu, "
+ 		    "want length %zu\n", dlen,
+-		    sizeof(tlsext_clienthello_disabled));
++		    sizeof_tlsext_clienthello_disabled);
+ 		compare_data(data, dlen, tlsext_clienthello_disabled,
+-		    sizeof(tlsext_clienthello_disabled));
++		    sizeof_tlsext_clienthello_disabled);
+ 		goto err;
+ 	}
+ 	if (memcmp(data, tlsext_clienthello_disabled, dlen) != 0) {
+ 		FAIL("clienthello extensions differs:\n");
+ 		compare_data(data, dlen, tlsext_clienthello_disabled,
+-		    sizeof(tlsext_clienthello_disabled));
++		    sizeof_tlsext_clienthello_disabled);
+ 		goto err;
+ 	}
+ 
+@@ -2832,7 +2837,10 @@ test_tlsext_clienthello_build(void)
+ 	return (failure);
+ }
+ 
+-unsigned char tlsext_serverhello_default[] = {};
++unsigned char tlsext_serverhello_default[] = {
++	0x00
++};
++const size_t sizeof_tlsext_serverhello_default = 0;
+ 
+ unsigned char tlsext_serverhello_enabled[] = {
+ 	0x00, 0x13, 0xff, 0x01, 0x00, 0x01, 0x00, 0x00,
+@@ -2872,18 +2880,18 @@ test_tlsext_serverhello_build(void)
+ 	if (!CBB_finish(&cbb, &data, &dlen))
+ 		errx(1, "failed to finish CBB");
+ 
+-	if (dlen != sizeof(tlsext_serverhello_default)) {
++	if (dlen != sizeof_tlsext_serverhello_default) {
+ 		FAIL("got serverhello extensions with length %zu, "
+ 		    "want length %zu\n", dlen,
+-		    sizeof(tlsext_serverhello_default));
++		    sizeof_tlsext_serverhello_default);
+ 		compare_data(data, dlen, tlsext_serverhello_default,
+-		    sizeof(tlsext_serverhello_default));
++		    sizeof_tlsext_serverhello_default);
+ 		goto err;
+ 	}
+ 	if (memcmp(data, tlsext_serverhello_default, dlen) != 0) {
+ 		FAIL("serverhello extensions differs:\n");
+ 		compare_data(data, dlen, tlsext_serverhello_default,
+-		    sizeof(tlsext_serverhello_default));
++		    sizeof_tlsext_serverhello_default);
+ 		goto err;
+ 	}
+ 

@@ -34,9 +34,9 @@ err(int eval, const char *fmt, ...)
 		vfprintf(stderr, fmt, ap);
 		fprintf(stderr, ": ");
 	}
+	va_end(ap);
 	fprintf(stderr, "%s\n", strerror(sverrno));
 	exit(eval);
-	va_end(ap);
 }
 
 #if defined(_MSC_VER)
@@ -52,9 +52,9 @@ errx(int eval, const char *fmt, ...)
 	va_start(ap, fmt);
 	if (fmt != NULL)
 		vfprintf(stderr, fmt, ap);
+	va_end(ap);
 	fprintf(stderr, "\n");
 	exit(eval);
-	va_end(ap);
 }
 
 static inline void
@@ -68,8 +68,8 @@ warn(const char *fmt, ...)
 		vfprintf(stderr, fmt, ap);
 		fprintf(stderr, ": ");
 	}
-	fprintf(stderr, "%s\n", strerror(sverrno));
 	va_end(ap);
+	fprintf(stderr, "%s\n", strerror(sverrno));
 }
 
 static inline void
@@ -80,8 +80,8 @@ warnx(const char *fmt, ...)
 	va_start(ap, fmt);
 	if (fmt != NULL)
 		vfprintf(stderr, fmt, ap);
-	fprintf(stderr, "\n");
 	va_end(ap);
+	fprintf(stderr, "\n");
 }
 
 #endif

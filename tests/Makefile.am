@@ -177,7 +177,6 @@ exptest_SOURCES = exptest.c
 # freenull
 TESTS += freenull
 check_PROGRAMS += freenull
-freenull_CPPFLAGS = $(AM_CPPFLAGS) -ULIBRESSL_INTERNAL
 freenull_SOURCES = freenull.c
 
 # gcm128test
@@ -359,7 +358,6 @@ timingsafe_SOURCES = timingsafe.c
 # tlsexttest
 TESTS += tlsexttest
 check_PROGRAMS += tlsexttest
-tlsexttest_CPPFLAGS = $(AM_CPPFLAGS) -ULIBRESSL_INTERNAL
 tlsexttest_SOURCES = tlsexttest.c
 
 # tlstest

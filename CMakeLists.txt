@@ -107,26 +107,23 @@ if(MSVC)
 	message(STATUS "Using [${CMAKE_C_COMPILER_ID}] compiler")
 	if(CMAKE_C_COMPILER_ID MATCHES "MSVC")
 		set(MSVC_DISABLED_WARNINGS_LIST
-			"C4057" # C4057: 'initializing' : 'unsigned char *' differs in
-		        	# indirection to slightly different base types from 'char [2]'
-			"C4018" # '>=': signed/unsigned mismatch
-			"C4100" # 'exarg' : unreferenced formal parameter
+			"C4018" # 'expression' : signed/unsigned mismatch
+			"C4057" # 'operator' : 'identifier1' indirection to
+		        	# slightly different base types from 'identifier2'
+			"C4100" # 'identifier' : unreferenced formal parameter
 			"C4127" # conditional expression is constant
-			"C4146" # unary minus operator applied to unsigned
-			        # type, result still unsigned
-			"C4242" # 'function' : conversion from 'int' to 'uint8_t',
-			        # possible loss of data
-			"C4244" # 'function' : conversion from 'int' to 'uint8_t',
-			        # possible loss of data
-			"C4245" # 'initializing': conversion from 'long' to
-			        # 'unsigned long', signed/unsigned mismatch
-			"C4267" # conversion from 'size_t' to 'some type that is almost
-				# certainly safe to convert a size_t to'.
-			"C4389" # '!=': signed/unsigned mismatch
+			"C4146" # unary minus operator applied to unsigned type,
+				# result still unsigned
+			"C4244" # 'argument' : conversion from 'type1' to 'type2',
+				# possible loss of data
+			"C4245" # 'conversion' : conversion from 'type1' to 'type2',
+				# signed/unsigned mismatch
+			"C4267" # 'var' : conversion from 'size_t' to 'type',
+				# possible loss of data
+			"C4389" # 'operator' : signed/unsigned mismatch
 			"C4706" # assignment within conditional expression
-			"C4820" # 'bytes' bytes padding added after construct 'member_name'
-			"C4996" # 'read': The POSIX name for this item is deprecated. Instead,
-			        # use the ISO C++ conformant name: _read.
+			"C4996" # The POSIX name for this item is deprecated.
+				# Instead, use the ISO C and C++ conformant name
 		)
 	elseif(CMAKE_C_COMPILER_ID MATCHES "Intel")
 		add_definitions(-D_CRT_SUPPRESS_RESTRICT)

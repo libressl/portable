@@ -11,6 +11,7 @@ set(
 	tls_client.c
 	tls_config.c
 	tls_conninfo.c
+	tls_keypair.c
 	tls_server.c
 	tls_ocsp.c
 	tls_peer.c

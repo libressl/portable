@@ -345,6 +345,7 @@ libcrypto_la_SOURCES += bio/bf_null.c
 libcrypto_la_SOURCES += bio/bio_cb.c
 libcrypto_la_SOURCES += bio/bio_err.c
 libcrypto_la_SOURCES += bio/bio_lib.c
+libcrypto_la_SOURCES += bio/bio_meth.c
 libcrypto_la_SOURCES += bio/bss_acpt.c
 libcrypto_la_SOURCES += bio/bss_bio.c
 libcrypto_la_SOURCES += bio/bss_conn.c

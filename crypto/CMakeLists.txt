@@ -217,6 +217,7 @@ set(
 	bio/bio_cb.c
 	bio/bio_err.c
 	bio/bio_lib.c
+	bio/bio_meth.c
 	bio/bss_acpt.c
 	bio/bss_bio.c
 	bio/bss_conn.c

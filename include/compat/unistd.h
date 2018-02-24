@@ -7,7 +7,16 @@
 #define LIBCRYPTOCOMPAT_UNISTD_H
 
 #ifndef _MSC_VER
+
 #include_next <unistd.h>
+
+#ifdef __MINGW32__
+int ftruncate(int fd, off_t length);
+uid_t getuid(void);
+ssize_t pread(int d, void *buf, size_t nbytes, off_t offset);
+ssize_t pwrite(int d, const void *buf, size_t nbytes, off_t offset);
+#endif
+
 #else
 
 #include <stdlib.h>
@@ -22,9 +31,18 @@
 #define X_OK    0
 #define F_OK    0
 
+#define SEEK_SET        0
+#define SEEK_CUR        1
+#define SEEK_END        2
+
 #define access _access
 
 unsigned int sleep(unsigned int seconds);
+
+int ftruncate(int fd, off_t length);
+uid_t getuid(void);
+ssize_t pread(int d, void *buf, size_t nbytes, off_t offset);
+ssize_t pwrite(int d, const void *buf, size_t nbytes, off_t offset);
 
 #endif
 

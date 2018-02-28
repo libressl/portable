@@ -2045,6 +2045,7 @@ tls_config_set_protocols.3,tls_config_set_ciphers.3
 tls_config_set_protocols.3,tls_config_set_dheparams.3
 tls_config_set_protocols.3,tls_config_set_ecdhecurves.3
 tls_config_set_session_id.3,tls_config_add_ticket_key.3
+tls_config_set_session_id.3,tls_config_set_session_fd.3
 tls_config_set_session_id.3,tls_config_set_session_lifetime.3
 tls_config_verify.3,tls_config_insecure_noverifycert.3
 tls_config_verify.3,tls_config_insecure_noverifyname.3
@@ -2052,6 +2053,7 @@ tls_config_verify.3,tls_config_insecure_noverifytime.3
 tls_conn_version.3,tls_conn_alpn_selected.3
 tls_conn_version.3,tls_conn_cipher.3
 tls_conn_version.3,tls_conn_servername.3
+tls_conn_version.3,tls_conn_session_resumed.3
 tls_conn_version.3,tls_peer_cert_chain_pem.3
 tls_conn_version.3,tls_peer_cert_contains_name.3
 tls_conn_version.3,tls_peer_cert_hash.3

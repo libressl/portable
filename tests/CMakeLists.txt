@@ -5,6 +5,7 @@ include_directories(
 	../crypto/modes
 	../crypto/asn1
 	../ssl
+	../tls
 	../apps/openssl
 	../apps/openssl/compat
 )
@@ -212,6 +213,14 @@ add_test(ideatest ideatest)
 add_executable(igetest igetest.c)
 target_link_libraries(igetest ${TESTS_LIBS})
 add_test(igetest igetest)
+
+# keypairtest
+add_executable(keypairtest keypairtest.c)
+target_link_libraries(keypairtest ${TESTS_LIBS})
+add_test(keypairtest keypairtest
+	${CMAKE_CURRENT_SOURCE_DIR}/ca.pem
+	${CMAKE_CURRENT_SOURCE_DIR}/server.pem
+	${CMAKE_CURRENT_SOURCE_DIR}/server.pem)
 
 # md4test
 add_executable(md4test md4test.c)

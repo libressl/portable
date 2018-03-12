@@ -3,6 +3,7 @@ include $(top_srcdir)/Makefile.am.common
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/modes
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/asn1
 AM_CPPFLAGS += -I $(top_srcdir)/ssl
+AM_CPPFLAGS += -I $(top_srcdir)/tls
 AM_CPPFLAGS += -I $(top_srcdir)/apps/openssl
 AM_CPPFLAGS += -I $(top_srcdir)/apps/openssl/compat
 AM_CPPFLAGS += -D_PATH_SSL_CA_FILE=\"$(top_srcdir)/apps/openssl/cert.pem\"
@@ -218,6 +219,12 @@ ideatest_SOURCES = ideatest.c
 TESTS += igetest
 check_PROGRAMS += igetest
 igetest_SOURCES = igetest.c
+
+# keypairtest
+TESTS += keypairtest.sh
+check_PROGRAMS += keypairtest
+keypairtest_SOURCES = keypairtest.c
+EXTRA_DIST += keypairtest.sh
 
 # md4test
 TESTS += md4test

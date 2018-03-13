@@ -80,6 +80,7 @@ char buf[1]; getentropy(buf, 1);
 		HOST_OS=linux
 		HOST_ABI=elf
 		CPPFLAGS="$CPPFLAGS -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
+		AC_SUBST([PLATFORM_LDADD], ['-lpthread'])
 		;;
 	*netbsd*)
 		HOST_OS=netbsd

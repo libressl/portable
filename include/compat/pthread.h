@@ -25,17 +25,16 @@ static BOOL CALLBACK _pthread_once_win32_cb(PINIT_ONCE once, PVOID param, PVOID 
 {
 	void (*cb) (void) = param;
 	cb();
-    return TRUE;
+	return TRUE;
 }
 
 static int pthread_once(pthread_once_t *once, void (*cb) (void))
 {
 	BOOL rc = InitOnceExecuteOnce(&once->once, _pthread_once_win32_cb, cb, NULL);
-	if (rc == 0) {
+	if (rc == 0)
 		return -1;
-	} else {
+	else
 		return 0;
-	}
 }
 
 #else

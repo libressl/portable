@@ -40,9 +40,6 @@ endif
 if !HAVE_FREEZERO
 	-echo freezero >> crypto_portable.sym
 endif
-if !HAVE_INET_PTON
-	-echo inet_pton >> crypto_portable.sym
-endif
 if !HAVE_REALLOCARRAY
 	-echo reallocarray >> crypto_portable.sym
 endif
@@ -164,10 +161,6 @@ endif
 
 if !HAVE_GETPAGESIZE
 libcompat_la_SOURCES += compat/getpagesize.c
-endif
-
-if !HAVE_INET_PTON
-libcompat_la_SOURCES += compat/inet_pton.c
 endif
 
 if !HAVE_TIMEGM

@@ -21,7 +21,6 @@ noinst_HEADERS += compat/time.h
 noinst_HEADERS += compat/unistd.h
 noinst_HEADERS += compat/win32netcompat.h
 
-noinst_HEADERS += compat/arpa/inet.h
 noinst_HEADERS += compat/arpa/nameser.h
 
 noinst_HEADERS += compat/machine/endian.h

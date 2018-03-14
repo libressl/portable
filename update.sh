@@ -82,7 +82,6 @@ for i in crypto/compat libtls-standalone/compat; do
 	for j in $libc_src/crypt/arc4random.c \
 	    $libc_src/crypt/arc4random_uniform.c \
 	    $libc_src/crypt/chacha_private.h \
-	    $libc_src/net/inet_pton.c \
 	    $libc_src/stdlib/reallocarray.c \
 	    $libc_src/stdlib/recallocarray.c \
 	    $libc_src/string/explicit_bzero.c \
@@ -237,7 +236,6 @@ done
 echo "copying ocspcheck(1) source"
 $CP $sbin_src/ocspcheck/ocspcheck.8 apps/ocspcheck
 rm -f apps/ocspcheck/*.c apps/ocspcheck/*.h
-$CP_LIBC $libc_src/net/inet_ntop.c apps/ocspcheck/compat
 $CP_LIBC $libc_src/string/memmem.c apps/ocspcheck/compat
 for i in `awk '/SOURCES|HEADERS|MANS/ { print $3 }' apps/ocspcheck/Makefile.am` ; do
 	if [ -e $sbin_src/ocspcheck/$i ]; then

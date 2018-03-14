@@ -5,7 +5,7 @@
 
 #ifdef _WIN32
 
-#include <synchapi.h>
+#include <windows.h>
 
 /*
  * Static once initialization values.

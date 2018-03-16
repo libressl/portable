@@ -215,12 +215,14 @@ target_link_libraries(igetest ${TESTS_LIBS})
 add_test(igetest igetest)
 
 # keypairtest
+if(NOT MSVC)
 add_executable(keypairtest keypairtest.c)
 target_link_libraries(keypairtest ${TESTS_LIBS})
 add_test(keypairtest keypairtest
 	${CMAKE_CURRENT_SOURCE_DIR}/ca.pem
 	${CMAKE_CURRENT_SOURCE_DIR}/server.pem
 	${CMAKE_CURRENT_SOURCE_DIR}/server.pem)
+endif()
 
 # md4test
 add_executable(md4test md4test.c)

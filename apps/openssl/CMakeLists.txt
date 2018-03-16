@@ -55,12 +55,12 @@ set(
 	x509.c
 )
 
-if(CMAKE_HOST_UNIX)
+if(UNIX)
 	set(OPENSSL_SRC ${OPENSSL_SRC} apps_posix.c)
 	set(OPENSSL_SRC ${OPENSSL_SRC} certhash.c)
 endif()
 
-if(CMAKE_HOST_WIN32)
+if(WIN32)
 	set(OPENSSL_SRC ${OPENSSL_SRC} apps_win.c)
 	set(OPENSSL_SRC ${OPENSSL_SRC} certhash_win.c)
 	set(OPENSSL_SRC ${OPENSSL_SRC} compat/poll_win.c)

@@ -163,7 +163,7 @@ add_test(evptest evptest ${CMAKE_CURRENT_SOURCE_DIR}/evptests.txt)
 
 # explicit_bzero
 # explicit_bzero relies on SA_ONSTACK, which is unavailable on Windows
-if(NOT CMAKE_HOST_WIN32)
+if(NOT WIN32)
 	if(HAVE_MEMMEM)
 		add_executable(explicit_bzero explicit_bzero.c)
 	else()

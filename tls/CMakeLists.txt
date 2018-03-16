@@ -19,15 +19,15 @@ set(
 	tls_verify.c
 )
 
-if(CMAKE_HOST_WIN32)
-set(
-	TLS_SRC
-	${TLS_SRC}
-	compat/ftruncate.c
-	compat/getuid.c
-	compat/pread.c
-	compat/pwrite.c
-)
+if(WIN32)
+	set(
+		TLS_SRC
+		${TLS_SRC}
+		compat/ftruncate.c
+		compat/getuid.c
+		compat/pread.c
+		compat/pwrite.c
+	)
 endif()
 
 if(NOT "${OPENSSLDIR}" STREQUAL "")

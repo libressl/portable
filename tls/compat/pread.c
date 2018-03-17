@@ -4,6 +4,10 @@
  * Kinichiro Inoguchi <inoguchi@openbsd.org>
  */
 
+#ifdef _WIN32
+
+#define NO_REDEF_POSIX_FUNCTIONS
+
 #include <unistd.h>
 
 ssize_t
@@ -21,3 +25,5 @@ pread(int d, void *buf, size_t nbytes, off_t offset)
 		return -1;
 	return bytes;
 }
+
+#endif

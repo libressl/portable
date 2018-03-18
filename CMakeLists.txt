@@ -280,7 +280,7 @@ else()
 	set(OPENSSL_LIBS tls ssl crypto)
 endif()
 
-if(CMAKE_HOST_WIN32)
+if(WIN32)
 	set(OPENSSL_LIBS ${OPENSSL_LIBS} ws2_32)
 endif()
 if(CMAKE_SYSTEM_NAME MATCHES "Linux")

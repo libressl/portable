@@ -28,6 +28,7 @@ set(
 	ssl_ciph.c
 	ssl_clnt.c
 	ssl_err.c
+	ssl_init.c
 	ssl_lib.c
 	ssl_packet.c
 	ssl_pkt.c

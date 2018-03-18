@@ -31,6 +31,7 @@ libssl_la_SOURCES += ssl_cert.c
 libssl_la_SOURCES += ssl_ciph.c
 libssl_la_SOURCES += ssl_clnt.c
 libssl_la_SOURCES += ssl_err.c
+libssl_la_SOURCES += ssl_init.c
 libssl_la_SOURCES += ssl_lib.c
 libssl_la_SOURCES += ssl_packet.c
 libssl_la_SOURCES += ssl_pkt.c

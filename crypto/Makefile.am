@@ -209,6 +209,7 @@ endif
 
 libcrypto_la_SOURCES += cpt_err.c
 libcrypto_la_SOURCES += cryptlib.c
+libcrypto_la_SOURCES += crypto_init.c
 libcrypto_la_SOURCES += cversion.c
 libcrypto_la_SOURCES += ex_data.c
 libcrypto_la_SOURCES += malloc-wrapper.c
@@ -485,6 +486,7 @@ libcrypto_la_SOURCES += dsa/dsa_err.c
 libcrypto_la_SOURCES += dsa/dsa_gen.c
 libcrypto_la_SOURCES += dsa/dsa_key.c
 libcrypto_la_SOURCES += dsa/dsa_lib.c
+libcrypto_la_SOURCES += dsa/dsa_meth.c
 libcrypto_la_SOURCES += dsa/dsa_ossl.c
 libcrypto_la_SOURCES += dsa/dsa_pmeth.c
 libcrypto_la_SOURCES += dsa/dsa_prn.c
@@ -785,6 +787,7 @@ libcrypto_la_SOURCES += rsa/rsa_eay.c
 libcrypto_la_SOURCES += rsa/rsa_err.c
 libcrypto_la_SOURCES += rsa/rsa_gen.c
 libcrypto_la_SOURCES += rsa/rsa_lib.c
+libcrypto_la_SOURCES += rsa/rsa_meth.c
 libcrypto_la_SOURCES += rsa/rsa_none.c
 libcrypto_la_SOURCES += rsa/rsa_oaep.c
 libcrypto_la_SOURCES += rsa/rsa_pk1.c

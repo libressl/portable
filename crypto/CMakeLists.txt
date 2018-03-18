@@ -112,6 +112,7 @@ set(
 	${CRYPTO_SRC}
 	cpt_err.c
 	cryptlib.c
+	crypto_init.c
 	cversion.c
 	ex_data.c
 	malloc-wrapper.c
@@ -324,6 +325,7 @@ set(
 	dsa/dsa_gen.c
 	dsa/dsa_key.c
 	dsa/dsa_lib.c
+	dsa/dsa_meth.c
 	dsa/dsa_ossl.c
 	dsa/dsa_pmeth.c
 	dsa/dsa_prn.c
@@ -552,6 +554,7 @@ set(
 	rsa/rsa_err.c
 	rsa/rsa_gen.c
 	rsa/rsa_lib.c
+	rsa/rsa_meth.c
 	rsa/rsa_none.c
 	rsa/rsa_oaep.c
 	rsa/rsa_pk1.c

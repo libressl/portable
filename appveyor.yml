@@ -1,6 +1,6 @@
 environment:
   PATH: C:\msys64\usr\bin;C:\msys64\mingw64\bin;C:\Windows\System32;C:\Windows;%PATH%
-  VSTEST: OFF
+  VSTEST: ON
   
   matrix:
     # x86 builds
@@ -48,4 +48,4 @@ build_script:
   - cmake --build . --config %CONFIG%
 
 test_script:
-  - ctest
+  - ctest -C %CONFIG%

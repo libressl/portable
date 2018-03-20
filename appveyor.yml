@@ -1,0 +1,51 @@
+environment:
+  PATH: C:\msys64\usr\bin;C:\msys64\mingw64\bin;C:\Windows\System32;C:\Windows;%PATH%
+  VSTEST: OFF
+  
+  matrix:
+    # x86 builds
+    - GENERATOR: Visual Studio 14 2015
+      CONFIG: Release
+      SHARED_LIBS: ON
+    - GENERATOR: Visual Studio 14 2015
+      CONFIG: Release
+      SHARED_LIBS: OFF
+    - GENERATOR: Visual Studio 14 2015
+      CONFIG: Debug
+      SHARED_LIBS: ON
+    - GENERATOR: Visual Studio 14 2015
+      CONFIG: Debug
+      SHARED_LIBS: ON
+
+    # x64 builds
+    - GENERATOR: Visual Studio 14 2015 Win64
+      CONFIG: Release
+      SHARED_LIBS: ON
+    - GENERATOR: Visual Studio 14 2015 Win64
+      CONFIG: Release
+      SHARED_LIBS: OFF
+    - GENERATOR: Visual Studio 14 2015 Win64
+      CONFIG: Debug
+      SHARED_LIBS: ON
+    - GENERATOR: Visual Studio 14 2015 Win64
+      CONFIG: Debug
+      SHARED_LIBS: ON
+
+init:
+  # update mysy2
+  - C:\msys64\usr\bin\bash -lc "pacman --needed --noconfirm -Sy pacman-mirrors"
+  - C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Sy"
+  - C:\msys64\usr\bin\bash -lc "pacman --noconfirm -S autoconf perl"
+  - C:\msys64\usr\bin\bash -lc "pacman --noconfirm -S git"
+  
+before_build:
+  - bash autogen.sh
+  - mkdir build
+  - cd build
+  - cmake .. -G "%GENERATOR%" -DBUILD_SHARED=%SHARED_LIBS% -DENABLE_VSTEST=%VSTEST%
+
+build_script:
+  - cmake --build . --config %CONFIG%
+
+test_script:
+  - ctest

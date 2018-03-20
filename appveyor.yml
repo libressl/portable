@@ -1,35 +1,42 @@
 environment:
   PATH: C:\msys64\usr\bin;C:\msys64\mingw64\bin;C:\Windows\System32;C:\Windows;%PATH%
-  VSTEST: ON
   
   matrix:
     # x86 builds
     - GENERATOR: Visual Studio 14 2015
       CONFIG: Release
       SHARED_LIBS: ON
+      VSTEST: OFF
     - GENERATOR: Visual Studio 14 2015
       CONFIG: Release
       SHARED_LIBS: OFF
+      VSTEST: ON      
     - GENERATOR: Visual Studio 14 2015
       CONFIG: Debug
       SHARED_LIBS: ON
+      VSTEST: OFF
     - GENERATOR: Visual Studio 14 2015
       CONFIG: Debug
       SHARED_LIBS: OFF
+      VSTEST: ON
 
     # x64 builds
     - GENERATOR: Visual Studio 14 2015 Win64
       CONFIG: Release
       SHARED_LIBS: ON
+      VSTEST: OFF
     - GENERATOR: Visual Studio 14 2015 Win64
       CONFIG: Release
       SHARED_LIBS: OFF
+      VSTEST: ON
     - GENERATOR: Visual Studio 14 2015 Win64
       CONFIG: Debug
       SHARED_LIBS: ON
+      VSTEST: OFF      
     - GENERATOR: Visual Studio 14 2015 Win64
       CONFIG: Debug
       SHARED_LIBS: OFF
+      VSTEST: ON
 
 init:
   # update mysy2

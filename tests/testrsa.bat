@@ -5,29 +5,26 @@ REM	testrsa.bat
 
 REM # Test RSA certificate generation of openssl
 
-set cmd=..\apps\openssl\Debug\openssl.exe
-if not exist %cmd% exit /b 1
-
-if "%srcdir%"=="" (
-	set srcdir=.
-)
+set openssl_bin=%1
+set openssl_bin=%openssl_bin:/=\%
+if not exist %openssl_bin% exit /b 1
 
 REM # Generate RSA private key
-%cmd% genrsa -out rsakey.pem
+%openssl_bin% genrsa -out rsakey.pem
 if !errorlevel! neq 0 (
 	exit /b 1
 )
 
 
 REM # Generate an RSA certificate
-%cmd% req -config %srcdir%\openssl.cnf -key rsakey.pem -new -x509 -days 365 -out rsacert.pem
+%openssl_bin% req -config %srcdir%\openssl.cnf -key rsakey.pem -new -x509 -days 365 -out rsacert.pem
 if !errorlevel! neq 0 (
 	exit /b 1
 )
 
 
 REM # Now check the certificate
-%cmd% x509 -text -in rsacert.pem
+%openssl_bin% x509 -text -in rsacert.pem
 if !errorlevel! neq 0 (
 	exit /b 1
 )

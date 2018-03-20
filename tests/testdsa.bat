@@ -5,29 +5,26 @@ REM	testdsa.bat
 
 REM # Test DSA certificate generation of openssl
 
-set cmd=..\apps\openssl\Debug\openssl.exe
-if not exist %cmd% exit /b 1
-
-if "%srcdir%"=="" (
-	set srcdir=.
-)
+set openssl_bin=%1
+set openssl_bin=%openssl_bin:/=\%
+if not exist %openssl_bin% exit /b 1
 
 REM # Generate DSA paramter set
-%cmd% dsaparam 512 -out dsa512.pem
+%openssl_bin% dsaparam 512 -out dsa512.pem
 if !errorlevel! neq 0 (
 	exit /b 1
 )
 
 
 REM # Generate a DSA certificate
-%cmd% req -config %srcdir%\openssl.cnf -x509 -newkey dsa:dsa512.pem -out testdsa.pem -keyout testdsa.key
+%openssl_bin% req -config %srcdir%\openssl.cnf -x509 -newkey dsa:dsa512.pem -out testdsa.pem -keyout testdsa.key
 if !errorlevel! neq 0 (
 	exit /b 1
 )
 
 
 REM # Now check the certificate
-%cmd% x509 -text -in testdsa.pem
+%openssl_bin% x509 -text -in testdsa.pem
 if !errorlevel! neq 0 (
 	exit /b 1
 )

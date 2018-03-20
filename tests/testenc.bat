@@ -3,16 +3,16 @@ setlocal enabledelayedexpansion
 REM	testenc.bat
 
 set test=p
-set cmd=..\apps\openssl\Debug\openssl.exe
-if not exist %cmd% exit /b 1
 
-set srcdir=..\..\tests
+set openssl_bin=%1
+set openssl_bin=%openssl_bin:/=\%
+if not exist %openssl_bin% exit /b 1
 
 copy %srcdir%\openssl.cnf %test%
 
 echo cat
-%cmd% enc -in %test% -out %test%.cipher
-%cmd% enc -in %test%.cipher -out %test%.clear
+%openssl_bin% enc -in %test% -out %test%.cipher
+%openssl_bin% enc -in %test%.cipher -out %test%.clear
 fc /b %test% %test%.clear
 if !errorlevel! neq 0 (
 	exit /b 1
@@ -21,8 +21,8 @@ if !errorlevel! neq 0 (
 )
 
 echo base64
-%cmd% enc -a -e -in %test% -out %test%.cipher
-%cmd% enc -a -d -in %test%.cipher -out %test%.clear
+%openssl_bin% enc -a -e -in %test% -out %test%.cipher
+%openssl_bin% enc -a -d -in %test%.cipher -out %test%.clear
 fc /b %test% %test%.clear
 if !errorlevel! neq 0 (
 	exit /b 1
@@ -45,8 +45,8 @@ for %%i in (
 	rc4 rc4-40
 ) do (
 	echo %%i
-	%cmd% %%i -e -k test -in %test% -out %test%.%%i.cipher
-	%cmd% %%i -d -k test -in %test%.%%i.cipher -out %test%.%%i.clear
+	%openssl_bin% %%i -e -k test -in %test% -out %test%.%%i.cipher
+	%openssl_bin% %%i -d -k test -in %test%.%%i.cipher -out %test%.%%i.clear
 	fc /b %test% %test%.%%i.clear
 	if !errorlevel! neq 0 (
 		exit /b 1
@@ -55,8 +55,8 @@ for %%i in (
 	)
 
 	echo %%i base64
-	%cmd% %%i -a -e -k test -in %test% -out %test%.%%i.cipher
-	%cmd% %%i -a -d -k test -in %test%.%%i.cipher -out %test%.%%i.clear
+	%openssl_bin% %%i -a -e -k test -in %test% -out %test%.%%i.cipher
+	%openssl_bin% %%i -a -d -k test -in %test%.%%i.cipher -out %test%.%%i.clear
 	fc /b %test% %test%.%%i.clear
 	if !errorlevel! neq 0 (
 		exit /b 1

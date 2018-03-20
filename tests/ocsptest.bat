@@ -1,11 +1,12 @@
 @echo off
 setlocal enabledelayedexpansion
-REM	ocsptest.bat
+REM	ocspocsp_test_bin.bat
 
-set TEST=Debug\ocsp_test.exe
-if not exist %TEST% exit /b 1
+set ocsp_test_bin=%1
+set ocsp_test_bin=%ocsp_test_bin:/=\%
+if not exist %ocsp_test_bin% exit /b 1
 
-%TEST% www.amazon.com 443 & if !errorlevel! neq 0 exit /b 1
-%TEST% cloudflare.com 443 & if !errorlevel! neq 0 exit /b 1
+%ocsp_test_bin% www.amazon.com 443 & if !errorlevel! neq 0 exit /b 1
+%ocsp_test_bin% cloudflare.com 443 & if !errorlevel! neq 0 exit /b 1
 
 endlocal

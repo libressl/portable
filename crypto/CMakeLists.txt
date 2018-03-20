@@ -809,29 +809,23 @@ if(EXTRA_EXPORT)
 	endforeach()
 endif()
 
-add_library(crypto-objects OBJECT ${CRYPTO_SRC})
-set(CRYPTO_LIBRARIES crypto)
-if (BUILD_SHARED)
-	list(APPEND CRYPTO_LIBRARIES crypto-shared)
-	add_library(crypto STATIC $<TARGET_OBJECTS:crypto-objects>)
-	add_library(crypto-shared SHARED $<TARGET_OBJECTS:crypto-objects>)
-	export_symbol(crypto-shared ${CMAKE_CURRENT_BINARY_DIR}/crypto_p.sym)
+add_library(crypto ${CRYPTO_SRC})
+if (BUILD_SHARED_LIBS)
+	export_symbol(crypto ${CMAKE_CURRENT_BINARY_DIR}/crypto_p.sym)
 	if (WIN32)
-		target_link_libraries(crypto-shared Ws2_32.lib)
+		target_link_libraries(crypto Ws2_32.lib)
 		set(CRYPTO_POSTFIX -${CRYPTO_MAJOR_VERSION})
 	endif()
-	set_target_properties(crypto-shared PROPERTIES
+	set_target_properties(crypto PROPERTIES
 		OUTPUT_NAME crypto${CRYPTO_POSTFIX}
 		ARCHIVE_OUTPUT_NAME crypto${CRYPTO_POSTFIX})
-	set_target_properties(crypto-shared PROPERTIES VERSION
+	set_target_properties(crypto PROPERTIES VERSION
 		${CRYPTO_VERSION} SOVERSION ${CRYPTO_MAJOR_VERSION})
-else()
-	add_library(crypto STATIC ${CRYPTO_SRC})
 endif()
 
 if(ENABLE_LIBRESSL_INSTALL)
 	install(
-		TARGETS ${CRYPTO_LIBRARIES}
+		TARGETS crypto
 		ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 		RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}

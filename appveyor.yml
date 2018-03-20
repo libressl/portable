@@ -15,7 +15,7 @@ environment:
       SHARED_LIBS: ON
     - GENERATOR: Visual Studio 14 2015
       CONFIG: Debug
-      SHARED_LIBS: ON
+      SHARED_LIBS: OFF
 
     # x64 builds
     - GENERATOR: Visual Studio 14 2015 Win64
@@ -29,7 +29,7 @@ environment:
       SHARED_LIBS: ON
     - GENERATOR: Visual Studio 14 2015 Win64
       CONFIG: Debug
-      SHARED_LIBS: ON
+      SHARED_LIBS: OFF
 
 init:
   # update mysy2

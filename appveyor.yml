@@ -55,4 +55,4 @@ build_script:
   - cmake --build . --config %CONFIG%
 
 test_script:
-  - ctest -C %CONFIG%
+  - ctest -C %CONFIG% --timeout 150 --output-on-failure

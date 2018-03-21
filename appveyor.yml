@@ -55,4 +55,5 @@ build_script:
   - cmake --build . --config %CONFIG%
 
 test_script:
-  - ctest -C %CONFIG% --timeout 150 --output-on-failure
+  # TODO: Determine how to run ssltest on AppVeyor
+  - ctest -C %CONFIG% --timeout 150 --output-on-failure -E ssltest

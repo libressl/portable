@@ -30,10 +30,11 @@ LibreSSL Portable Release Notes:
 
 2.7.0 - Bug fixes and improvements
 
-	* Added support for many new OpenSSL 1.0.2 and 1.1 APIs, based on an
-	  observations of real-world usage among applications. These are
-	  implemented in parallel with existing OpenSSL 1.0.1 APIs for
-	  backward compatibility.
+	* Added support for many OpenSSL 1.0.2 and 1.1 APIs, based on
+	  observations of real-world usage in applications. These are
+	  implemented in parallel with existing OpenSSL 1.0.1 APIs - visibility
+	  changes have not been made to existing structs, allowing code written
+	  for older OpenSSL APIs to continue working.
 
 	* Extensive corrections, improvements, and additions to the
 	  API documentation, including new public APIs from OpenSSL that had
@@ -45,12 +46,12 @@ LibreSSL Portable Release Notes:
 	  side-effect, minimum Windows support is Vista or higher.
 
 	* Converted more packet handling methods to CBB, which improves
-	  resiliency when processing malformed input data.
+	  resiliency when generating TLS messages.
 
-	* Rewrote TLS extension handling, improving consistency of
-	  checks for malformed or duplicate extensions.
+	* Completed TLS extension handling rewrite, improving consistency of
+	  checks for malformed and duplicate extensions.
 
-	* Rewrite ASN1_TYPE_{get,set}_octetstring() using templated ASN.1.
+	* Rewrote ASN1_TYPE_{get,set}_octetstring() using templated ASN.1.
 	  This removes the last remaining use of the old M_ASN1_* macros
 	  (asn1_mac.h) from API that needs to continue to exist.
 

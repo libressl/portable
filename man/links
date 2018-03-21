@@ -1404,6 +1404,7 @@ SSL_CTX_use_certificate.3,SSL_use_certificate_file.3
 SSL_SESSION_free.3,SSL_SESSION_up_ref.3
 SSL_SESSION_get_ex_new_index.3,SSL_SESSION_get_ex_data.3
 SSL_SESSION_get_ex_new_index.3,SSL_SESSION_set_ex_data.3
+SSL_SESSION_get_id.3,SSL_SESSION_set1_id.3
 SSL_SESSION_get_time.3,SSL_SESSION_get_timeout.3
 SSL_SESSION_get_time.3,SSL_SESSION_set_time.3
 SSL_SESSION_get_time.3,SSL_SESSION_set_timeout.3
@@ -1659,6 +1660,7 @@ X509_STORE_set1_param.3,X509_STORE_add_cert.3
 X509_STORE_set1_param.3,X509_STORE_add_crl.3
 X509_STORE_set1_param.3,X509_STORE_get0_objects.3
 X509_STORE_set1_param.3,X509_STORE_get_ex_data.3
+X509_STORE_set1_param.3,X509_STORE_get_ex_new_index.3
 X509_STORE_set1_param.3,X509_STORE_set_depth.3
 X509_STORE_set1_param.3,X509_STORE_set_ex_data.3
 X509_STORE_set1_param.3,X509_STORE_set_flags.3

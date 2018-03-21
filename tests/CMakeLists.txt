@@ -427,14 +427,3 @@ add_test(verifytest verifytest)
 add_executable(x25519test x25519test.c)
 target_link_libraries(x25519test ${OPENSSL_LIBS})
 add_test(x25519test x25519test)
-
-if(ENABLE_VSTEST AND BUILD_SHARED_LIBS)
-	add_custom_command(TARGET x25519test POST_BUILD
-		COMMAND "${CMAKE_COMMAND}" -E copy
-		"$<TARGET_FILE:tls>"
-		"$<TARGET_FILE:ssl>"
-		"$<TARGET_FILE:crypto>"
-		"${CMAKE_CURRENT_BINARY_DIR}"
-		COMMENT "Copying DLLs for regression tests")
-endif()
-

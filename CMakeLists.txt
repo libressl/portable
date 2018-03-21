@@ -29,10 +29,10 @@ string(REGEX REPLACE "\\..*" "" TLS_MAJOR_VERSION ${TLS_VERSION})
 
 option(LIBRESSL_SKIP_INSTALL "Skip installation" ${LIBRESSL_SKIP_INSTALL})
 option(LIBRESSL_APPS "Build apps" ON)
+option(LIBRESSL_TESTS "Build tests" ON)
 option(ENABLE_ASM "Enable assembly" ON)
 option(ENABLE_EXTRATESTS "Enable extra tests that may be unreliable on some platforms" OFF)
 option(ENABLE_NC "Enable installing TLS-enabled nc(1)" OFF)
-option(ENABLE_VSTEST "Enable test on Visual Studio" OFF)
 set(OPENSSLDIR ${OPENSSLDIR} CACHE PATH "Set the default openssl directory" FORCE)
 
 if(NOT LIBRESSL_SKIP_INSTALL)
@@ -300,7 +300,8 @@ add_subdirectory(include)
 if(NOT MSVC)
 	add_subdirectory(man)
 endif()
-if(NOT MSVC OR ENABLE_VSTEST)
+# Tests require the openssl executable and are unavailable when building shared libraries
+if(LIBRESSL_APPS AND LIBRESSL_TESTS AND NOT BUILD_SHARED_LIBS)
 	add_subdirectory(tests)
 endif()
 

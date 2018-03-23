@@ -30,9 +30,11 @@ time_t timegm(struct tm *tm);
 #define CLOCK_REALTIME 0
 #endif
 
+#ifndef _WIN32
 #ifndef HAVE_CLOCK_GETTIME
 int
 clock_gettime(clockid_t clock_id, struct timespec *tp);
+#endif
 #endif
 
 #ifndef timespecsub

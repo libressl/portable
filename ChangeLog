@@ -28,6 +28,13 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.7.1 - Bug fixes
+
+	* In int_x509_param_set_hosts, Call strlen() if name length provided
+	  is 0. Issue notice by Christian Heimes <christian@python.org>
+
+	* Fixed openssl(1) build on MacOS 10.11 and older.
+
 2.7.0 - Bug fixes and improvements
 
 	* Added support for many OpenSSL 1.0.2 and 1.1 APIs, based on

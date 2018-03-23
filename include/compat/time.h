@@ -3,6 +3,9 @@
  * sys/time.h compatibility shim
  */
 
+#ifndef LIBCRYPTOCOMPAT_TIME_H
+#define LIBCRYPTOCOMPAT_TIME_H
+
 #ifdef _MSC_VER
 #if _MSC_VER >= 1900
 #include <../ucrt/time.h>
@@ -31,7 +34,8 @@ time_t timegm(struct tm *tm);
 #endif
 
 #ifndef HAVE_CLOCK_GETTIME
-int clock_gettime(int clock_id, struct timespec *tp);
+typedef int clockid_t;
+int clock_gettime(clockid_t clock_id, struct timespec *tp);
 #endif
 
 #ifndef timespecsub
@@ -44,4 +48,6 @@ int clock_gettime(int clock_id, struct timespec *tp);
                         (vsp)->tv_nsec += 1000000000L;                  \
                 }                                                       \
         } while (0)
+#endif
+
 #endif

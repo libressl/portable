@@ -283,6 +283,12 @@ endif()
 if(WIN32)
 	set(OPENSSL_LIBS ${OPENSSL_LIBS} ws2_32)
 endif()
+
+check_function_exists(clock_gettime HAVE_CLOCK_GETTIME)
+if(HAVE_CLOCK_GETTIME)
+	add_definitions(-DHAVE_CLOCK_GETTIME)
+endif()
+
 if(CMAKE_SYSTEM_NAME MATCHES "Linux")
 	check_library_exists(rt clock_gettime "time.h" HAVE_CLOCK_GETTIME)
 	if (HAVE_CLOCK_GETTIME)

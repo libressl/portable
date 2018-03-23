@@ -74,6 +74,12 @@ openssl_SOURCES += compat/poll_win.c
 endif
 endif
 
+if !HAVE_CLOCK_GETTIME
+if HOST_DARWIN
+openssl_SOURCES += compat/clock_gettime_osx.c
+endif
+endif
+
 if !HAVE_STRTONUM
 openssl_SOURCES += compat/strtonum.c
 endif

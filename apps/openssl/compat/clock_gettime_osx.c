@@ -5,7 +5,7 @@
 #define ORWL_GIGA UINT64_C(1000000000)
 
 int
-clock_gettime(clock_id_t clock_id, struct timespec *tp)
+clock_gettime(int clock_id, struct timespec *tp)
 {
 	static double orwl_timebase = 0.0;
 	static uint64_t orwl_timestart = 0;

@@ -3,9 +3,6 @@
  * sys/time.h compatibility shim
  */
 
-#ifndef LIBCRYPTOCOMPAT_TIME_H
-#define LIBCRYPTOCOMPAT_TIME_H
-
 #ifdef _MSC_VER
 #if _MSC_VER >= 1900
 #include <../ucrt/time.h>
@@ -15,6 +12,9 @@
 #else
 #include_next <time.h>
 #endif
+
+#ifndef LIBCRYPTOCOMPAT_TIME_H
+#define LIBCRYPTOCOMPAT_TIME_H
 
 #ifdef _WIN32
 struct tm *__gmtime_r(const time_t * t, struct tm * tm);

@@ -13,10 +13,6 @@ int gettimeofday(struct timeval *tp, void *tzp);
 #include_next <sys/time.h>
 #endif
 
-#ifndef CLOCK_MONOTONIC
-#define CLOCK_MONOTONIC CLOCK_REALTIME
-#endif
-
 #ifndef timersub
 #define timersub(tvp, uvp, vvp)                                         \
 	do {                                                            \

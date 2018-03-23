@@ -22,6 +22,19 @@ struct tm *__gmtime_r(const time_t * t, struct tm * tm);
 time_t timegm(struct tm *tm);
 #endif
 
+#ifndef CLOCK_MONOTONIC
+#define CLOCK_MONOTONIC CLOCK_REALTIME
+#endif
+
+#ifndef CLOCK_REALTIME
+#define CLOCK_REALTIME 0
+#endif
+
+#ifndef HAVE_CLOCK_GETTIME
+int
+clock_gettime(clockid_t clock_id, struct timespec *tp);
+#endif
+
 #ifndef timespecsub
 #define timespecsub(tsp, usp, vsp)                                      \
         do {                                                            \

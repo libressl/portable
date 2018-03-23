@@ -131,6 +131,8 @@ AC_SEARCH_LIBS([clock_gettime],[rt posix4])
 AC_CHECK_FUNC([clock_gettime])
 AC_SEARCH_LIBS([dl_iterate_phdr],[dl])
 AC_CHECK_FUNC([dl_iterate_phdr])
+
+AM_CONDITIONAL([HAVE_CLOCK_GETTIME], [test "x$ac_cv_func_clock_gettime" = xyes])
 ])
 
 AC_DEFUN([CHECK_VA_COPY], [

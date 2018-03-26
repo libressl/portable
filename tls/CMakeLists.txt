@@ -36,30 +36,24 @@ else()
 	add_definitions(-D_PATH_SSL_CA_FILE=\"${CMAKE_INSTALL_PREFIX}/etc/ssl/cert.pem\")
 endif()
 
-add_library(tls-objects OBJECT ${TLS_SRC})
-set(TLS_LIBRARIES tls)
-if (BUILD_SHARED)
-	list(APPEND TLS_LIBRARIES tls-shared)
-	add_library(tls STATIC $<TARGET_OBJECTS:tls-objects>)
-	add_library(tls-shared SHARED $<TARGET_OBJECTS:tls-objects>)
-	export_symbol(tls-shared ${CMAKE_CURRENT_SOURCE_DIR}/tls.sym)
-	target_link_libraries(tls-shared ssl-shared crypto-shared)
+add_library(tls ${TLS_SRC})
+if (BUILD_SHARED_LIBS)
+	export_symbol(tls ${CMAKE_CURRENT_SOURCE_DIR}/tls.sym)
+	target_link_libraries(tls ssl crypto)
 	if (WIN32)
-		target_link_libraries(tls-shared Ws2_32.lib)
+		target_link_libraries(tls Ws2_32.lib)
 		set(TLS_POSTFIX -${TLS_MAJOR_VERSION})
 	endif()
-	set_target_properties(tls-shared PROPERTIES
+	set_target_properties(tls PROPERTIES
 		OUTPUT_NAME tls${TLS_POSTFIX}
 		ARCHIVE_OUTPUT_NAME tls${TLS_POSTFIX})
-	set_target_properties(tls-shared PROPERTIES VERSION ${TLS_VERSION}
+	set_target_properties(tls PROPERTIES VERSION ${TLS_VERSION}
 		SOVERSION ${TLS_MAJOR_VERSION})
-else()
-	add_library(tls STATIC ${TLS_SRC})
 endif()
 
 if(ENABLE_LIBRESSL_INSTALL)
 	install(
-		TARGETS ${TLS_LIBRARIES}
+		TARGETS tls
 		ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 		RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}

@@ -12,18 +12,30 @@ if [ "x$ARCH" = "xnative" ]; then
 	make dist
 	tar zxvf libressl-*.tar.gz
 	cd libressl-*
-	mkdir build
-	cd build
+	mkdir build-static
+	mkdir build-shared
+
+	cd build-static
 
 	# test cmake and ninja
 	if [ `uname` = "Darwin" ]; then
 		cmake ..
 		make
 		make test
+
+		cd ../build-shared
+		cmake -DBUILD_SHARED_LIBS=ON ..
+		make
+		make test
 	else
 		sudo apt-get update
 		sudo apt-get install -y cmake ninja-build
 		cmake -GNinja ..
+		ninja
+		ninja test
+
+		cd ../build-shared
+		cmake -GNinja -DBUILD_SHARED_LIBS=ON ..
 		ninja
 		ninja test
 	fi

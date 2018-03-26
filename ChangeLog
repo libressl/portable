@@ -28,6 +28,14 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.7.2 - Stable release
+
+	* Updated and added extensive new HISTORY sections to API manuals.
+
+	* Added support for shared library builds with CMake on all supported
+	  platforms. Note that some of the CMake options have changed, consult
+	  the README for details.
+
 2.7.1 - Bug fixes
 
 	* Fixed a bug in int_x509_param_set_hosts, calling strlen() if name

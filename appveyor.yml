@@ -6,37 +6,29 @@ environment:
     - GENERATOR: Visual Studio 14 2015
       CONFIG: Release
       SHARED_LIBS: ON
-      VSTEST: OFF
     - GENERATOR: Visual Studio 14 2015
       CONFIG: Release
       SHARED_LIBS: OFF
-      VSTEST: ON      
     - GENERATOR: Visual Studio 14 2015
       CONFIG: Debug
       SHARED_LIBS: ON
-      VSTEST: OFF
     - GENERATOR: Visual Studio 14 2015
       CONFIG: Debug
       SHARED_LIBS: OFF
-      VSTEST: ON
 
     # x64 builds
     - GENERATOR: Visual Studio 14 2015 Win64
       CONFIG: Release
       SHARED_LIBS: ON
-      VSTEST: OFF
     - GENERATOR: Visual Studio 14 2015 Win64
       CONFIG: Release
       SHARED_LIBS: OFF
-      VSTEST: ON
     - GENERATOR: Visual Studio 14 2015 Win64
       CONFIG: Debug
       SHARED_LIBS: ON
-      VSTEST: OFF      
     - GENERATOR: Visual Studio 14 2015 Win64
       CONFIG: Debug
       SHARED_LIBS: OFF
-      VSTEST: ON
 
 init:
   # update mysy2
@@ -49,7 +41,7 @@ before_build:
   - bash autogen.sh
   - mkdir build
   - cd build
-  - cmake .. -G "%GENERATOR%" -DBUILD_SHARED_LIBS=%SHARED_LIBS% -DENABLE_VSTEST=%VSTEST%
+  - cmake .. -G "%GENERATOR%" -DBUILD_SHARED_LIBS=%SHARED_LIBS%
 
 build_script:
   - cmake --build . --config %CONFIG%

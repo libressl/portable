@@ -66,15 +66,20 @@ if(ENABLE_EXTRATESTS)
 endif()
 
 # bntest
-add_executable(bntest bntest.c)
-set_source_files_properties(bntest.c PROPERTIES COMPILE_FLAGS -ULIBRESSL_INTERNAL)
-target_link_libraries(bntest ${OPENSSL_LIBS})
-add_test(bntest bntest)
+if(NOT BUILD_SHARED_LIBS)
+	add_executable(bntest bntest.c)
+	set_source_files_properties(bntest.c PROPERTIES COMPILE_FLAGS
+		-ULIBRESSL_INTERNAL)
+	target_link_libraries(bntest ${OPENSSL_LIBS})
+	add_test(bntest bntest)
+endif()
 
 # bytestringtest
-add_executable(bytestringtest bytestringtest.c)
-target_link_libraries(bytestringtest ${OPENSSL_LIBS})
-add_test(bytestringtest bytestringtest)
+if(NOT BUILD_SHARED_LIBS)
+	add_executable(bytestringtest bytestringtest.c)
+	target_link_libraries(bytestringtest ${OPENSSL_LIBS})
+	add_test(bytestringtest bytestringtest)
+endif()
 
 # casttest
 add_executable(casttest casttest.c)
@@ -87,9 +92,11 @@ target_link_libraries(chachatest ${OPENSSL_LIBS})
 add_test(chachatest chachatest)
 
 # cipher_list
-add_executable(cipher_list cipher_list.c)
-target_link_libraries(cipher_list ${OPENSSL_LIBS})
-add_test(cipher_list cipher_list)
+if(NOT BUILD_SHARED_LIBS)
+	add_executable(cipher_list cipher_list.c)
+	target_link_libraries(cipher_list ${OPENSSL_LIBS})
+	add_test(cipher_list cipher_list)
+endif()
 
 # cipherstest
 add_executable(cipherstest cipherstest.c)
@@ -164,10 +171,13 @@ if(NOT WIN32)
 endif()
 
 # exptest
-add_executable(exptest exptest.c)
-set_source_files_properties(exptest.c PROPERTIES COMPILE_FLAGS -ULIBRESSL_INTERNAL)
-target_link_libraries(exptest ${OPENSSL_LIBS})
-add_test(exptest exptest)
+if(NOT BUILD_SHARED_LIBS)
+	add_executable(exptest exptest.c)
+	set_source_files_properties(exptest.c PROPERTIES COMPILE_FLAGS
+		-ULIBRESSL_INTERNAL)
+	target_link_libraries(exptest ${OPENSSL_LIBS})
+	add_test(exptest exptest)
+endif()
 
 # freenull
 add_executable(freenull freenull.c)
@@ -205,12 +215,14 @@ target_link_libraries(igetest ${OPENSSL_LIBS})
 add_test(igetest igetest)
 
 # keypairtest
-add_executable(keypairtest keypairtest.c)
-target_link_libraries(keypairtest ${OPENSSL_LIBS})
-add_test(keypairtest keypairtest
-	${CMAKE_CURRENT_SOURCE_DIR}/ca.pem
-	${CMAKE_CURRENT_SOURCE_DIR}/server.pem
-	${CMAKE_CURRENT_SOURCE_DIR}/server.pem)
+if(NOT BUILD_SHARED_LIBS)
+	add_executable(keypairtest keypairtest.c)
+	target_link_libraries(keypairtest ${OPENSSL_LIBS})
+	add_test(keypairtest keypairtest
+		${CMAKE_CURRENT_SOURCE_DIR}/ca.pem
+		${CMAKE_CURRENT_SOURCE_DIR}/server.pem
+		${CMAKE_CURRENT_SOURCE_DIR}/server.pem)
+endif()
 
 # md4test
 add_executable(md4test md4test.c)
@@ -268,14 +280,20 @@ target_link_libraries(poly1305test ${OPENSSL_LIBS})
 add_test(poly1305test poly1305test)
 
 # pq_test
-add_executable(pq_test pq_test.c)
-target_link_libraries(pq_test ${OPENSSL_LIBS})
-if(NOT MSVC)
-	add_test(NAME pq_test COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/pq_test.sh)
-else()
-	add_test(NAME pq_test COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/pq_test.bat $<TARGET_FILE:pq_test>)
+if(NOT BUILD_SHARED_LIBS)
+	add_executable(pq_test pq_test.c)
+	target_link_libraries(pq_test ${OPENSSL_LIBS})
+	if(NOT MSVC)
+		add_test(NAME pq_test COMMAND
+			${CMAKE_CURRENT_SOURCE_DIR}/pq_test.sh)
+	else()
+		add_test(NAME pq_test COMMAND
+			${CMAKE_CURRENT_SOURCE_DIR}/pq_test.bat
+			$<TARGET_FILE:pq_test>)
+	endif()
+	set_tests_properties(pq_test PROPERTIES ENVIRONMENT
+		"srcdir=${TEST_SOURCE_DIR}")
 endif()
-set_tests_properties(pq_test PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 
 # randtest
 add_executable(randtest randtest.c)
@@ -337,9 +355,11 @@ target_link_libraries(sha512test ${OPENSSL_LIBS})
 add_test(sha512test sha512test)
 
 # ssl_versions
-add_executable(ssl_versions ssl_versions.c)
-target_link_libraries(ssl_versions ${OPENSSL_LIBS})
-add_test(ssl_versions ssl_versions)
+if(NOT BUILD_SHARED_LIBS)
+	add_executable(ssl_versions ssl_versions.c)
+	target_link_libraries(ssl_versions ${OPENSSL_LIBS})
+	add_test(ssl_versions ssl_versions)
+endif()
 
 # ssltest
 add_executable(ssltest ssltest.c)
@@ -381,9 +401,11 @@ target_link_libraries(timingsafe ${OPENSSL_LIBS})
 add_test(timingsafe timingsafe)
 
 # tlsexttest
-add_executable(tlsexttest tlsexttest.c)
-target_link_libraries(tlsexttest ${OPENSSL_LIBS})
-add_test(tlsexttest tlsexttest)
+if(NOT BUILD_SHARED_LIBS)
+	add_executable(tlsexttest tlsexttest.c)
+	target_link_libraries(tlsexttest ${OPENSSL_LIBS})
+	add_test(tlsexttest tlsexttest)
+endif()
 
 # tlstest
 set(TLSTEST_SRC tlstest.c)
@@ -404,26 +426,45 @@ endif()
 set_tests_properties(tlstest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 
 # tls_ext_alpn
-add_executable(tls_ext_alpn tls_ext_alpn.c)
-target_link_libraries(tls_ext_alpn ${OPENSSL_LIBS})
-add_test(tls_ext_alpn tls_ext_alpn)
+if(NOT BUILD_SHARED_LIBS)
+	add_executable(tls_ext_alpn tls_ext_alpn.c)
+	target_link_libraries(tls_ext_alpn ${OPENSSL_LIBS})
+	add_test(tls_ext_alpn tls_ext_alpn)
+endif()
 
 # tls_prf
-add_executable(tls_prf tls_prf.c)
-target_link_libraries(tls_prf ${OPENSSL_LIBS})
-add_test(tls_prf tls_prf)
+if(NOT BUILD_SHARED_LIBS)
+	add_executable(tls_prf tls_prf.c)
+	target_link_libraries(tls_prf ${OPENSSL_LIBS})
+	add_test(tls_prf tls_prf)
+endif()
 
 # utf8test
-add_executable(utf8test utf8test.c)
-target_link_libraries(utf8test ${OPENSSL_LIBS})
-add_test(utf8test utf8test)
+if(NOT BUILD_SHARED_LIBS)
+	add_executable(utf8test utf8test.c)
+	target_link_libraries(utf8test ${OPENSSL_LIBS})
+	add_test(utf8test utf8test)
+endif()
 
 # verifytest
-add_executable(verifytest verifytest.c)
-target_link_libraries(verifytest tls ${OPENSSL_LIBS})
-add_test(verifytest verifytest)
+if(NOT BUILD_SHARED_LIBS)
+	add_executable(verifytest verifytest.c)
+	target_link_libraries(verifytest ${OPENSSL_LIBS})
+	add_test(verifytest verifytest)
+endif()
 
 # x25519test
 add_executable(x25519test x25519test.c)
 target_link_libraries(x25519test ${OPENSSL_LIBS})
 add_test(x25519test x25519test)
+
+if(BUILD_SHARED_LIBS)
+	add_custom_command(TARGET x25519test POST_BUILD
+		COMMAND "${CMAKE_COMMAND}" -E copy
+		"$<TARGET_FILE:tls>"
+		"$<TARGET_FILE:ssl>"
+		"$<TARGET_FILE:crypto>"
+		"${CMAKE_CURRENT_BINARY_DIR}"
+		COMMENT "Copying DLLs for regression tests")
+endif()
+

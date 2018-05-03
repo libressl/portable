@@ -82,7 +82,7 @@ AS_CASE([$host_cpu],
 	[*sparc*], [CPPFLAGS="$CPPFLAGS -D__STRICT_ALIGNMENT"],
 	[*arm*], AS_IF([test "x$BSWAP4" = "xyes"],,
 		    CPPFLAGS="$CPPFLAGS -D__STRICT_ALIGNMENT"),
-	[*amd64*], [host_cpu=x86_64, HOSTARCH=intel],
+	[*amd64*], [host_cpu=x86_64 HOSTARCH=intel],
 	[i?86], [HOSTARCH=intel],
 	[x86_64], [HOSTARCH=intel]
 )

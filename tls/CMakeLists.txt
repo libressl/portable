@@ -1,9 +1,3 @@
-include_directories(
-	.
-	../include
-	../include/compat
-)
-
 set(
 	TLS_SRC
 	tls.c
@@ -37,6 +31,13 @@ else()
 endif()
 
 add_library(tls ${TLS_SRC})
+target_include_directories(tls
+	PRIVATE
+		.
+	PUBLIC
+		../include
+		../include/compat)
+
 if (BUILD_SHARED_LIBS)
 	export_symbol(tls ${CMAKE_CURRENT_SOURCE_DIR}/tls.sym)
 	target_link_libraries(tls ssl crypto)

@@ -1,7 +1,5 @@
 include_directories(
 	.
-	../include
-	../include/compat
 	../crypto/modes
 	../crypto/asn1
 	../ssl

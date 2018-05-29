@@ -1,9 +1,3 @@
-include_directories(
-	.
-	../../include
-	../../include/compat
-)
-
 set(
 	OPENSSL_SRC
 	apps.c
@@ -74,6 +68,7 @@ else()
 endif()
 
 add_executable(openssl ${OPENSSL_SRC})
+target_include_directories(openssl PRIVATE .)
 target_link_libraries(openssl ${OPENSSL_LIBS})
 
 if(ENABLE_LIBRESSL_INSTALL)

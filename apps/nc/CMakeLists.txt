@@ -1,12 +1,5 @@
 if(BUILD_NC)
 
-include_directories(
-	.
-	./compat
-	../../include
-	../../include/compat
-)
-
 set(
 	NC_SRC
 	atomicio.c
@@ -50,6 +43,7 @@ else()
 endif()
 
 add_executable(nc ${NC_SRC})
+target_include_directories(nc PRIVATE . ./compat)
 target_link_libraries(nc tls ${OPENSSL_LIBS})
 
 if(ENABLE_NC)

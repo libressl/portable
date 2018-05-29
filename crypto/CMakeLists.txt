@@ -1,14 +1,3 @@
-include_directories(
-	.
-	../include
-	../include/compat
-	asn1
-	bn
-	dsa
-	evp
-	modes
-)
-
 if(HOST_ASM_ELF_X86_64)
 	set(
 		ASM_X86_64_ELF_SRC
@@ -810,6 +799,18 @@ if(EXTRA_EXPORT)
 endif()
 
 add_library(crypto ${CRYPTO_SRC})
+target_include_directories(crypto
+	PRIVATE
+		.
+		asn1
+		bn
+		dsa
+		evp
+		modes
+	PUBLIC
+		../include
+		../include/compat)
+
 if (BUILD_SHARED_LIBS)
 	export_symbol(crypto ${CMAKE_CURRENT_BINARY_DIR}/crypto_p.sym)
 	if (WIN32)

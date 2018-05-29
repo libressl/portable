@@ -1,12 +1,5 @@
 if(NOT MSVC)
 
-include_directories(
-	.
-	./compat
-	../../include
-	../../include/compat
-)
-
 set(
 	OCSPCHECK_SRC
 	http.c
@@ -27,6 +20,7 @@ else()
 endif()
 
 add_executable(ocspcheck ${OCSPCHECK_SRC})
+target_include_directories(ocspcheck PRIVATE . ./compat)
 target_link_libraries(ocspcheck tls ${OPENSSL_LIBS})
 
 if(ENABLE_LIBRESSL_INSTALL)

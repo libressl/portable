@@ -28,18 +28,33 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.7.4 - Security fixes
+
+	* Avoid a timing side-channel leak when generating DSA and ECDSA
+	  signatures. This is caused by an attempt to do fast modular
+	  arithmetic, which introduces branches that leak information
+	  regarding secret values. Issue identified and reported by Keegan
+	  Ryan of NCC Group.
+
+	* Reject excessively large primes in DH key generation. Problem
+	  reported by Guido Vranken to OpenSSL
+	  (https://github.com/openssl/openssl/pull/6457) and based on his
+	  diff.
+
 2.7.3 - Bug fixes
 
-	* Removed incorrect NULL checks in DH_set0_key(). Reported by Ondrej Sury
+	* Removed incorrect NULL checks in DH_set0_key(). Reported by Ondrej
+	  Sury
 
 	* Fixed an issue normalizing CPU architecture in the configure script,
 	  which disabled assembly optimizations on platforms that get detected
 	  as 'amd64', opposed to 'x86_64'
 
 	* Limited tls_config_clear_keys() to only clear private keys.
-	  This was inadvertently clearing the keypair, which includes the OCSP staple
-	  and pubkey hash - if an application called tls_configure() followed by
-	  tls_config_clear_keys(), this would prevent OCSP staples from working.
+	  This was inadvertently clearing the keypair, which includes the OCSP
+	  staple and pubkey hash - if an application called tls_configure()
+	  followed by tls_config_clear_keys(), this would prevent OCSP staples
+	  from working.
 
 2.7.2 - Stable release
 

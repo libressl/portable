@@ -28,6 +28,19 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.6.5 - Security fixes
+
+	* Avoid a timing side-channel leak when generating DSA and ECDSA
+	  signatures. This is caused by an attempt to do fast modular
+	  arithmetic, which introduces branches that leak information
+	  regarding secret values. Issue identified and reported by Keegan
+	  Ryan of NCC Group.
+
+	* Reject excessively large primes in DH key generation. Problem
+	  reported by Guido Vranken to OpenSSL
+	  (https://github.com/openssl/openssl/pull/6457) and based on his
+	  diff.
+
 2.6.4 - Bug fixes
 
 	* Make tls_config_parse_protocols() work correctly when passed a NULL

@@ -68,7 +68,7 @@ else()
 endif()
 
 add_executable(openssl ${OPENSSL_SRC})
-target_include_directories(openssl PRIVATE .)
+target_include_directories(openssl PRIVATE . ../../include/compat)
 target_link_libraries(openssl ${OPENSSL_LIBS})
 
 if(ENABLE_LIBRESSL_INSTALL)

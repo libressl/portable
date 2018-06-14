@@ -6,6 +6,7 @@ include_directories(
 	../tls
 	../apps/openssl
 	../apps/openssl/compat
+	../include/compat
 )
 
 add_definitions(-D_PATH_SSL_CA_FILE=\"${CMAKE_CURRENT_SOURCE_DIR}/../apps/openssl/cert.pem\")

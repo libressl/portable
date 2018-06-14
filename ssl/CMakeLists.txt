@@ -45,9 +45,9 @@ add_library(ssl ${SSL_SRC})
 target_include_directories(ssl
 	PRIVATE
 		.
+		../include/compat
 	PUBLIC
-		../include
-		../include/compat)
+		../include)
 
 if (BUILD_SHARED_LIBS)
 	export_symbol(ssl ${CMAKE_CURRENT_SOURCE_DIR}/ssl.sym)

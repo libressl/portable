@@ -34,9 +34,9 @@ add_library(tls ${TLS_SRC})
 target_include_directories(tls
 	PRIVATE
 		.
+		../include/compat
 	PUBLIC
-		../include
-		../include/compat)
+		../include)
 
 if (BUILD_SHARED_LIBS)
 	export_symbol(tls ${CMAKE_CURRENT_SOURCE_DIR}/tls.sym)

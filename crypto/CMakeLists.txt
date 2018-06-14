@@ -807,9 +807,9 @@ target_include_directories(crypto
 		dsa
 		evp
 		modes
+		../include/compat
 	PUBLIC
-		../include
-		../include/compat)
+		../include)
 
 if (BUILD_SHARED_LIBS)
 	export_symbol(crypto ${CMAKE_CURRENT_BINARY_DIR}/crypto_p.sym)

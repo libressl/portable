@@ -15,5 +15,10 @@
 
 makewhatis -a .
 
+# We have to filter out some links that fail on case-insensitive filesystems
+# Running makewhatis with the right arguments should work on mandoc systems.
 echo "# This is an auto-generated file by $0" > links
-/usr/src/regress/usr.bin/mandoc/db/mlinks/obj/mlinks mandoc.db | sort | grep -v OCSP_crlID_new >> links
+/usr/src/regress/usr.bin/mandoc/db/mlinks/obj/mlinks mandoc.db | \
+    grep -v OCSP_crlID_new | \
+    grep -v bn_print | \
+    sort >> links

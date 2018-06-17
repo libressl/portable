@@ -16,4 +16,4 @@
 makewhatis -a .
 
 echo "# This is an auto-generated file by $0" > links
-/usr/src/regress/usr.bin/mandoc/db/mlinks/obj/mlinks mandoc.db | sort >> links
+/usr/src/regress/usr.bin/mandoc/db/mlinks/obj/mlinks mandoc.db | sort | grep -v OCSP_crlID_new >> links

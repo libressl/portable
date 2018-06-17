@@ -1896,7 +1896,6 @@ bn_dump.3,bn_mul_normal.3
 bn_dump.3,bn_mul_part_recursive.3
 bn_dump.3,bn_mul_recursive.3
 bn_dump.3,bn_mul_words.3
-bn_dump.3,bn_print.3
 bn_dump.3,bn_set_high.3
 bn_dump.3,bn_set_low.3
 bn_dump.3,bn_set_max.3

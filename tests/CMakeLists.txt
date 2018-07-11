@@ -64,6 +64,11 @@ if(ENABLE_EXTRATESTS)
 	add_test(biotest biotest)
 endif()
 
+# bnaddsub
+add_executable(bnaddsub bnaddsub.c)
+target_link_libraries(bnaddsub ${OPENSSL_LIBS})
+add_test(bnaddsub bnaddsub)
+
 # bntest
 if(NOT BUILD_SHARED_LIBS)
 	add_executable(bntest bntest.c)

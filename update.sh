@@ -278,7 +278,7 @@ awk -f $libcrypto_regress/free/freenull.awk \
 	< $libcrypto_src/Symbols.list > tests/freenull.c.body
 cat $libcrypto_regress/free/freenull.c.head tests/freenull.c.body \
 	$libcrypto_regress/free/freenull.c.tail > tests/freenull.c.tmp
-mv tests/freenull.c.tmp tests/freenull.c
+$MV tests/freenull.c.tmp tests/freenull.c
 
 # copy libc tests
 $CP $libc_regress/arc4random-fork/arc4random-fork.c tests/arc4randomforktest.c

@@ -273,6 +273,13 @@ done
 $CP $libcrypto_regress/evp/evptests.txt tests
 $CP $libcrypto_regress/aead/aeadtests.txt tests
 
+# generate libcrypto freenull.c
+awk -f $libcrypto_regress/free/freenull.awk \
+	< $libcrypto_src/Symbols.list > tests/freenull.c.body
+cat $libcrypto_regress/free/freenull.c.head tests/freenull.c.body \
+	$libcrypto_regress/free/freenull.c.tail > tests/freenull.c.tmp
+mv tests/freenull.c.tmp tests/freenull.c
+
 # copy libc tests
 $CP $libc_regress/arc4random-fork/arc4random-fork.c tests/arc4randomforktest.c
 $CP $libc_regress/explicit_bzero/explicit_bzero.c tests

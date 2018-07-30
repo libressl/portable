@@ -2,6 +2,13 @@
 ACCESS_DESCRIPTION_new.3,ACCESS_DESCRIPTION_free.3
 ACCESS_DESCRIPTION_new.3,AUTHORITY_INFO_ACCESS_free.3
 ACCESS_DESCRIPTION_new.3,AUTHORITY_INFO_ACCESS_new.3
+ASN1_INTEGER_get.3,ASN1_ENUMERATED_get.3
+ASN1_INTEGER_get.3,ASN1_ENUMERATED_set.3
+ASN1_INTEGER_get.3,ASN1_ENUMERATED_to_BN.3
+ASN1_INTEGER_get.3,ASN1_INTEGER_set.3
+ASN1_INTEGER_get.3,ASN1_INTEGER_to_BN.3
+ASN1_INTEGER_get.3,BN_to_ASN1_ENUMERATED.3
+ASN1_INTEGER_get.3,BN_to_ASN1_INTEGER.3
 ASN1_OBJECT_new.3,ASN1_OBJECT_free.3
 ASN1_STRING_TABLE_add.3,ASN1_STRING_TABLE_cleanup.3
 ASN1_STRING_TABLE_add.3,ASN1_STRING_TABLE_get.3
@@ -2431,7 +2438,7 @@ tls_ocsp_process_response.3,tls_peer_ocsp_cert_status.3
 tls_ocsp_process_response.3,tls_peer_ocsp_crl_reason.3
 tls_ocsp_process_response.3,tls_peer_ocsp_next_update.3
 tls_ocsp_process_response.3,tls_peer_ocsp_response_status.3
-tls_ocsp_process_response.3,tls_peer_ocsp_result_msg.3
+tls_ocsp_process_response.3,tls_peer_ocsp_result.3
 tls_ocsp_process_response.3,tls_peer_ocsp_revocation_time.3
 tls_ocsp_process_response.3,tls_peer_ocsp_this_update.3
 tls_ocsp_process_response.3,tls_peer_ocsp_url.3

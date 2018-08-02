@@ -28,6 +28,60 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.8.0 - Bug fixes and improvements
+
+	* Extensive documentation updates and additional API history.
+
+	* Fixed a pair of 20+ year-old bugs in X509_NAME_add_entry
+
+	* Tighten up checks for various X509_VERIFY_PARAM functions,
+	  'poisoning' parameters so that an unverified certificate cannot be
+	  used if it fails verification.
+
+	* Fixed a potential memory leak on failure in ASN1_item_digest
+
+	* Fixed a potential memory alignment crash in asn1_item_combine_free
+
+	* Removed unused SSL3_FLAGS_DELAY_CLIENT_FINISHED and
+	  SSL3_FLAGS_POP_BUFFER flags in write path, simplifying IO paths.
+
+	* Removed SSL_OP_TLS_ROLLBACK_BUG buggy client workarounds.
+
+	* Made ENGINE_finish and ENGINE_free succeed on NULL and simplify callers
+	  and matching OpenSSL behavior, rewrote ENGINE_* documentation.
+
+	* Added const annotations to many existing APIs.
+
+	* Fixed small timing side-channels in ecdsa_sign_setup and
+	  dsa_sign_setup.
+
+	* Documented security pitfalls with BN_FLG_CONSTTIME and constant-time
+	  operation of BN_* functions.
+
+	* Updated BN_clear to use explicit_bzero.
+
+	* Added a missing bounds check in c2i_ASN1_BIT_STRING.
+
+	* More CBS conversions, including simplifications to RSA key exchange,
+	  and converted code to use dedicated buffers for secrets.
+
+	* Removed three remaining single DES cipher suites.
+
+	* Fixed a potential leak/incorrect return value in DSA signature generation.
+
+	* Added a blinding value when generating DSA and ECDSA signatures, in
+	  order to reduce the possibility of a side-channel attack leaking the
+	  private key.
+
+	* Added ECC constant time scalar multiplication support.
+	  From Billy Brumley and his team.
+
+	* Implemented RSASSA-PKCS1-v1_5 as specified in RFC 8017.
+	  Based on an OpenSSL commit by David Benjamin.
+
+	* Cleaned up BN_* implementations following changes made in OpenSSL by
+	  Davide Galassi and others.
+
 2.7.4 - Security fixes
 
 	* Avoid a timing side-channel leak when generating DSA and ECDSA

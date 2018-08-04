@@ -50,7 +50,8 @@ LibreSSL Portable Release Notes:
 	* Made ENGINE_finish and ENGINE_free succeed on NULL and simplify callers
 	  and matching OpenSSL behavior, rewrote ENGINE_* documentation.
 
-	* Added const annotations to many existing APIs.
+	* Added const annotations to many existing APIs from OpenSSL, making
+	  interoperability easier for downstream applications.
 
 	* Fixed small timing side-channels in ecdsa_sign_setup and
 	  dsa_sign_setup.
@@ -67,17 +68,19 @@ LibreSSL Portable Release Notes:
 
 	* Removed three remaining single DES cipher suites.
 
-	* Fixed a potential leak/incorrect return value in DSA signature generation.
+	* Fixed a potential leak/incorrect return value in DSA signature
+	  generation.
 
 	* Added a blinding value when generating DSA and ECDSA signatures, in
 	  order to reduce the possibility of a side-channel attack leaking the
 	  private key.
 
 	* Added ECC constant time scalar multiplication support.
-	  From Billy Brumley and his team.
+	  From Billy Brumley and his team at Tampere University of Technology.
 
-	* Implemented RSASSA-PKCS1-v1_5 as specified in RFC 8017.
-	  Based on an OpenSSL commit by David Benjamin.
+	* Revised the implementation of RSASSA-PKCS1-v1_5 to match the
+	  specification in RFC 8017. Based on an OpenSSL commit by David
+	  Benjamin.
 
 	* Cleaned up BN_* implementations following changes made in OpenSSL by
 	  Davide Galassi and others.

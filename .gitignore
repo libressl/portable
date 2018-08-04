@@ -55,6 +55,7 @@ tests/aes_wrap*
 tests/arc4random_fork*
 tests/asn1evp*
 tests/asn1time*
+tests/bnaddsub*
 tests/cipher*
 tests/explicit_bzero*
 tests/freenull*

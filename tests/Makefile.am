@@ -77,6 +77,11 @@ check_PROGRAMS += biotest
 biotest_SOURCES = biotest.c
 endif
 
+# bnaddsub
+TESTS += bnaddsub
+check_PROGRAMS += bnaddsub
+bnaddsub_SOURCES = bnaddsub.c
+
 # bntest
 TESTS += bntest
 bntest_CPPFLAGS = $(AM_CPPFLAGS) -ULIBRESSL_INTERNAL

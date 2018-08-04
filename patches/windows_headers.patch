@@ -81,7 +81,7 @@ diff -u include/openssl.orig/x509.h include/openssl/x509.h
  extern "C" {
  #endif
 
-+#if defined(_WIN32)
++#if defined(_WIN32) && defined(__WINCRYPT_H__)
 +#ifndef LIBRESSL_INTERNAL
 +#ifdef _MSC_VER
 +#pragma message("Warning, overriding WinCrypt defines")

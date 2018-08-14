@@ -614,6 +614,7 @@ libcrypto_la_SOURCES += evp/m_ripemd.c
 libcrypto_la_SOURCES += evp/m_sha1.c
 libcrypto_la_SOURCES += evp/m_sigver.c
 libcrypto_la_SOURCES += evp/m_streebog.c
+libcrypto_la_SOURCES += evp/m_sm3.c
 libcrypto_la_SOURCES += evp/m_wp.c
 libcrypto_la_SOURCES += evp/names.c
 libcrypto_la_SOURCES += evp/p5_crpt.c
@@ -805,6 +806,10 @@ libcrypto_la_SOURCES += sha/sha1dgst.c
 libcrypto_la_SOURCES += sha/sha256.c
 libcrypto_la_SOURCES += sha/sha512.c
 noinst_HEADERS += sha/sha_locl.h
+
+# sm3
+libcrypto_la_SOURCES += sm3/sm3.c
+noinst_HEADERS += sm3/sm3_locl.h
 
 # stack
 libcrypto_la_SOURCES += stack/stack.c

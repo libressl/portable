@@ -358,6 +358,11 @@ add_executable(sha512test sha512test.c)
 target_link_libraries(sha512test ${OPENSSL_LIBS})
 add_test(sha512test sha512test)
 
+# sm3test
+add_executable(sm3test sm3test.c)
+target_link_libraries(sm3test ${OPENSSL_LIBS})
+add_test(sm3test sm3test)
+
 # ssl_versions
 if(NOT BUILD_SHARED_LIBS)
 	add_executable(ssl_versions ssl_versions.c)

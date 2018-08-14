@@ -424,6 +424,7 @@ set(
 	evp/m_sha1.c
 	evp/m_sigver.c
 	evp/m_streebog.c
+	evp/m_sm3.c
 	evp/m_wp.c
 	evp/names.c
 	evp/p5_crpt.c
@@ -558,6 +559,7 @@ set(
 	sha/sha1dgst.c
 	sha/sha256.c
 	sha/sha512.c
+	sm3/sm3.c
 	stack/stack.c
 	ts/ts_asn1.c
 	ts/ts_conf.c

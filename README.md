@@ -66,13 +66,13 @@ building. _Note: Your build will fail if you do not follow these instructions! I
 
 1. Ensure you have the following packages installed:
    automake, autoconf, git, libtool, perl
-2. Run './autogen.sh' to prepare the source tree for building or
-   run './dist.sh' to prepare a tarball.
+2. Run `./autogen.sh` to prepare the source tree for building or
+   run `./dist.sh` to prepare a tarball.
 
 ## Steps that apply to all builds ##
 
 Once you have a source tree, either by downloaded using git and having
-run the autogen.sh script above, or by downloading a release distribution from
+run the `autogen.sh` script above, or by downloading a release distribution from
 an OpenBSD mirror, run these commands to build and install the package on most
 systems:
 
@@ -106,7 +106,7 @@ ninja test
 
 #### HP-UX (11i) ####
 
-Set the UNIX_STD environment variable to '2003' before running 'configure'
+Set the UNIX_STD environment variable to `2003` before running `configure`
 in order to build with the HP C/aC++ compiler. See the "standards(5)" man
 page for more details.
 

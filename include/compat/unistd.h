@@ -62,6 +62,7 @@ int getpagesize(void);
 #endif
 
 #define pledge(request, paths) 0
+#define unveil(path, permissions) 0
 
 #ifndef HAVE_PIPE2
 int pipe2(int fildes[2], int flags);

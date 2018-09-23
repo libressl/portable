@@ -84,8 +84,10 @@ LibreSSL Portable Release Notes:
 	* Added more cipher tests to appstest.sh, including all TLSv1.2
 	  ciphers.
 
-	* Added RSA_meth_get_finish() RSA_meth_set1_name(), and
-	  EVP_CIPHER_CTX_(get|set)_iv() from OpenSSL.
+	* Added RSA_meth_get_finish() RSA_meth_set1_name() from OpenSSL.
+
+	* Added new EVP_CIPHER_CTX_(get|set)_iv() API that allows the IV to be
+	  retrieved and set with appropriate validation.
 
 2.8.0 - Bug fixes, security, and compatibility improvements
 

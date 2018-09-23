@@ -28,6 +28,65 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.8.1 - Test and compatibility improvements
+
+	* Added Wycheproof test vectors for ECDH, RSASSA-PSS, AES-GCM,
+	  AES-CMAC, AES-CCM, AES-CBC-PKCS5, DSA, ChaCha20-Poly1305, ECDSA,
+	  X25519, and applied appropriate fixes for errors uncovered by tests.
+
+	* Simplified key exchange signature generation and verification.
+
+	* Fixed a one-byte buffer overrun in callers of EVP_read_pw_string
+
+	* Converted more code paths to use CBB/CBS. All handshake messages are
+	  now created by CBB.
+
+	* Fixed various memory leaks found by Coverity.
+
+	* Simplfied session ticket parsing and handling, inspired by
+	  BoringSSL.
+
+	* Modified signature of CRYPTO_mem_leaks_* to return -1. This function
+	  is a no-op in LibreSSL, so this function returns an error to not
+	  indicate the (non-)existence of memory leaks.
+
+	* SSL_copy_session_id, PEM_Sign, EVP_EncodeUpdate, BIO_set_cipher,
+	  X509_OBJECT_up_ref_count now return an int for error handling,
+	  matching OpenSSL.
+
+	* Converted a number of #defines into proper functions, matching
+	  OpenSSL's ABI.
+
+	* Added X509_get0_serialNumber from OpenSSL.
+
+	* Removed EVP_PKEY2PKCS8_broken and PKCS8_set_broken, while adding
+	  PKCS8_pkey_add1_attr_by_NID and PKCS8_pkey_get0_attrs, matching
+	  OpenSSL.
+
+	* Removed broken pkcs8 formats from openssl(1).
+
+	* Converted more functions in public API to use const arguments.
+
+	* Stopped handing AES-GCM in ssl_cipher_get_evp, since they use the
+	  EVP_AEAD interface.
+
+	* Stopped using composite EVP_CIPHER AEADs.
+
+	* Added timing-safe compares for checking results of signature
+	  verification. There are no known attacks, this is just inexpensive
+	  prudence.
+
+	* Correctly clear the current cipher state, when changing cipher state.
+	  This fixed an issue where renegotion of cipher suites would fail
+	  when switched from AEAD to non-AEAD or vice-versa.
+	  Issue reported by Bernard Spil.
+
+	* Added more cipher tests to appstest.sh, including all TLSv1.2
+	  ciphers.
+
+	* Added RSA_meth_get_finish() RSA_meth_set1_name(), and
+	  EVP_CIPHER_CTX_(get|set)_iv() from OpenSSL.
+
 2.8.0 - Bug fixes, security, and compatibility improvements
 
 	* Extensive documentation updates and additional API history.

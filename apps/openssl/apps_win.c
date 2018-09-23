@@ -13,6 +13,20 @@
 #include "apps.h"
 
 double
+app_timer_real(int get)
+{
+	static __int64 start;
+	__int64 now;
+
+	now = GetTickCount64();
+	if (get) {
+		return (now - start) / 1000.0;
+	}
+	start = now;
+	return 0.0;
+}
+
+double
 app_timer_user(int stop)
 {
 	static unsigned __int64 tmstart;

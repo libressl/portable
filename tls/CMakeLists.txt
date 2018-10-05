@@ -40,7 +40,7 @@ target_include_directories(tls
 
 if (BUILD_SHARED_LIBS)
 	export_symbol(tls ${CMAKE_CURRENT_SOURCE_DIR}/tls.sym)
-	target_link_libraries(tls ssl crypto ${PLATFORM_LDADD})
+	target_link_libraries(tls ssl crypto ${PLATFORM_LIBS})
 	if (WIN32)
 		set(TLS_POSTFIX -${TLS_MAJOR_VERSION})
 	endif()

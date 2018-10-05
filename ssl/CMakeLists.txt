@@ -51,7 +51,7 @@ target_include_directories(ssl
 
 if (BUILD_SHARED_LIBS)
 	export_symbol(ssl ${CMAKE_CURRENT_SOURCE_DIR}/ssl.sym)
-	target_link_libraries(ssl crypto ${PLATFORM_LDADD})
+	target_link_libraries(ssl crypto ${PLATFORM_LIBS})
 	if (WIN32)
 		set(SSL_POSTFIX -${SSL_MAJOR_VERSION})
 	endif()

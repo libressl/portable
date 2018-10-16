@@ -32,17 +32,17 @@ bin_src=$OPENBSD_SRC/usr.bin
 sbin_src=$OPENBSD_SRC/usr.sbin
 
 # load library versions
-. $libcrypto_src/shlib_version
+. "$libcrypto_src/shlib_version"
 libcrypto_version=$major:$minor:0
 echo "libcrypto version $libcrypto_version"
 echo $libcrypto_version > crypto/VERSION
 
-. $libssl_src/shlib_version
+. "$libssl_src/shlib_version"
 libssl_version=$major:$minor:0
 echo "libssl version $libssl_version"
 echo $libssl_version > ssl/VERSION
 
-. $libtls_src/shlib_version
+. "$libtls_src/shlib_version"
 libtls_version=$major:$minor:0
 echo "libtls version $libtls_version"
 echo $libtls_version > tls/VERSION

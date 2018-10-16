@@ -28,18 +28,19 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
-2.8.1 - Stable release
+2.8.2 - Stable release
 
-	* Added Wycheproof ECDH and ECDHA Web Crypto test vectors, along with
-	  test harness fixes.
+	* Added Wycheproof support for ECDH and ECDSA Web Crypto test vectors,
+	  along with test harness fixes.
 
 	* Fixed memory leak in nc(1)
 
 2.8.1 - Test and compatibility improvements
 
-	* Added Wycheproof test vectors for ECDH, RSASSA-PSS, AES-GCM,
-	  AES-CMAC, AES-CCM, AES-CBC-PKCS5, DSA, ChaCha20-Poly1305, ECDSA,
-	  X25519, and applied appropriate fixes for errors uncovered by tests.
+	* Added Wycheproof support for ECDH, RSASSA-PSS, AES-GCM,
+	  AES-CMAC, AES-CCM, AES-CBC-PKCS5, DSA, ChaCha20-Poly1305, ECDSA, and
+	  X25519 test vectors. Applied appropriate fixes for errors uncovered
+	  by tests.
 
 	* Simplified key exchange signature generation and verification.
 
@@ -50,7 +51,7 @@ LibreSSL Portable Release Notes:
 
 	* Fixed various memory leaks found by Coverity.
 
-	* Simplfied session ticket parsing and handling, inspired by
+	* Simplified session ticket parsing and handling, inspired by
 	  BoringSSL.
 
 	* Modified signature of CRYPTO_mem_leaks_* to return -1. This function
@@ -1057,7 +1058,7 @@ LibreSSL Portable Release Notes:
 
 	* Removed nonfunctional Netscape browser-hang workaround code.
 
-	* Simplfied and refactored SSL/DTLS handshake code.
+	* Simplified and refactored SSL/DTLS handshake code.
 
 	* Added SHA256 Camellia cipher suites for TLS 1.2 from RFC 5932.
 

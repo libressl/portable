@@ -28,6 +28,13 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.8.1 - Stable release
+
+	* Added Wycheproof ECDH and ECDHA Web Crypto test vectors, along with
+	  test harness fixes.
+
+	* Fixed memory leak in nc(1)
+
 2.8.1 - Test and compatibility improvements
 
 	* Added Wycheproof test vectors for ECDH, RSASSA-PSS, AES-GCM,

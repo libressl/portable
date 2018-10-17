@@ -85,7 +85,7 @@ LibreSSL Portable Release Notes:
 	  prudence.
 
 	* Correctly clear the current cipher state, when changing cipher state.
-	  This fixed an issue where renegotion of cipher suites would fail
+	  This fixed an issue where renegotiation of cipher suites would fail
 	  when switched from AEAD to non-AEAD or vice-versa.
 	  Issue reported by Bernard Spil.
 

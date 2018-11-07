@@ -237,7 +237,6 @@ noinst_HEADERS += aes/aes_locl.h
 # asn1
 libcrypto_la_SOURCES += asn1/a_bitstr.c
 libcrypto_la_SOURCES += asn1/a_bool.c
-libcrypto_la_SOURCES += asn1/a_bytes.c
 libcrypto_la_SOURCES += asn1/a_d2i_fp.c
 libcrypto_la_SOURCES += asn1/a_digest.c
 libcrypto_la_SOURCES += asn1/a_dup.c
@@ -248,7 +247,6 @@ libcrypto_la_SOURCES += asn1/a_mbstr.c
 libcrypto_la_SOURCES += asn1/a_object.c
 libcrypto_la_SOURCES += asn1/a_octet.c
 libcrypto_la_SOURCES += asn1/a_print.c
-libcrypto_la_SOURCES += asn1/a_set.c
 libcrypto_la_SOURCES += asn1/a_sign.c
 libcrypto_la_SOURCES += asn1/a_strex.c
 libcrypto_la_SOURCES += asn1/a_strnid.c

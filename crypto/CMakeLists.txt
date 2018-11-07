@@ -120,7 +120,6 @@ set(
 	aes/aes_wrap.c
 	asn1/a_bitstr.c
 	asn1/a_bool.c
-	asn1/a_bytes.c
 	asn1/a_d2i_fp.c
 	asn1/a_digest.c
 	asn1/a_dup.c
@@ -131,7 +130,6 @@ set(
 	asn1/a_object.c
 	asn1/a_octet.c
 	asn1/a_print.c
-	asn1/a_set.c
 	asn1/a_sign.c
 	asn1/a_strex.c
 	asn1/a_strnid.c

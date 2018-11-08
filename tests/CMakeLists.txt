@@ -69,6 +69,11 @@ add_executable(bnaddsub bnaddsub.c)
 target_link_libraries(bnaddsub ${OPENSSL_LIBS})
 add_test(bnaddsub bnaddsub)
 
+# bn_rand_interval
+add_executable(bn_rand_interval bn_rand_interval.c)
+target_link_libraries(bn_rand_interval ${OPENSSL_LIBS})
+add_test(bn_rand_interval bn_rand_interval)
+
 # bntest
 if(NOT BUILD_SHARED_LIBS)
 	add_executable(bntest bntest.c)

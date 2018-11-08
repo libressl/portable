@@ -82,6 +82,11 @@ TESTS += bnaddsub
 check_PROGRAMS += bnaddsub
 bnaddsub_SOURCES = bnaddsub.c
 
+# bn_rand_interval
+TESTS += bn_rand_interval
+check_PROGRAMS += bn_rand_interval
+bn_rand_interval_SOURCES = bn_rand_interval.c
+
 # bntest
 TESTS += bntest
 bntest_CPPFLAGS = $(AM_CPPFLAGS) -ULIBRESSL_INTERNAL

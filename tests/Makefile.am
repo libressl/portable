@@ -420,3 +420,8 @@ verifytest_SOURCES = verifytest.c
 TESTS += x25519test
 check_PROGRAMS += x25519test
 x25519test_SOURCES = x25519test.c
+
+# x509name
+TESTS += x509name
+check_PROGRAMS += x509name
+x509name_SOURCES = x509name.c

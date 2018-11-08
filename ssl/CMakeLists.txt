@@ -8,7 +8,6 @@ set(
 	d1_clnt.c
 	d1_enc.c
 	d1_lib.c
-	d1_meth.c
 	d1_pkt.c
 	d1_srtp.c
 	d1_srvr.c
@@ -24,6 +23,7 @@ set(
 	ssl_err.c
 	ssl_init.c
 	ssl_lib.c
+	ssl_methods.c
 	ssl_packet.c
 	ssl_pkt.c
 	ssl_rsa.c
@@ -33,12 +33,9 @@ set(
 	ssl_tlsext.c
 	ssl_txt.c
 	ssl_versions.c
-	t1_clnt.c
 	t1_enc.c
 	t1_hash.c
 	t1_lib.c
-	t1_meth.c
-	t1_srvr.c
 )
 
 add_library(ssl ${SSL_SRC})

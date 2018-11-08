@@ -1,6 +1,6 @@
---- tests/ocsp_test.c.orig	2016-10-18 18:12:39.854607509 +0900
-+++ tests/ocsp_test.c	2016-10-18 18:14:29.261600559 +0900
-@@ -16,6 +16,11 @@
+--- tests/ocsp_test.c.orig	2018-07-24 21:59:17.000000000 -0500
++++ tests/ocsp_test.c	2018-11-07 18:44:43.000000000 -0600
+@@ -35,6 +35,11 @@
  	hints.ai_family = AF_INET;
  	hints.ai_socktype = SOCK_STREAM;
  

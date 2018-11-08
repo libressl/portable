@@ -1,5 +1,5 @@
---- tests/tlsexttest.c.orig	2017-12-30 20:03:09.279079726 +0900
-+++ tests/tlsexttest.c	2017-12-30 20:07:21.849939140 +0900
+--- tests/tlsexttest.c.orig	Wed Nov  7 20:01:26 2018
++++ tests/tlsexttest.c	Wed Nov  7 20:01:35 2018
 @@ -1676,7 +1676,9 @@
  };
  
@@ -10,7 +10,7 @@
  
  static int
  test_tlsext_sni_clienthello(void)
-@@ -1841,9 +1843,9 @@
+@@ -1839,9 +1841,9 @@
  	if (!CBB_finish(&cbb, &data, &dlen))
  		errx(1, "failed to finish CBB");
  
@@ -22,7 +22,7 @@
  		goto err;
  	}
  
-@@ -1852,14 +1854,14 @@
+@@ -1850,14 +1852,14 @@
  		fprintf(stderr, "received:\n");
  		hexdump(data, dlen);
  		fprintf(stderr, "test data:\n");
@@ -39,7 +39,7 @@
  	if (!tlsext_sni_serverhello_parse(ssl, &cbs, &alert)) {
  		FAIL("failed to parse serverhello SNI\n");
  		goto err;
-@@ -2744,7 +2746,10 @@
+@@ -2741,7 +2743,10 @@
  	0x03, 0x01, 0x03, 0x03, 0x02, 0x01, 0x02, 0x03,
  };
  
@@ -51,7 +51,7 @@
  
  static int
  test_tlsext_clienthello_build(void)
-@@ -2811,18 +2816,18 @@
+@@ -2806,18 +2811,18 @@
  	if (!CBB_finish(&cbb, &data, &dlen))
  		errx(1, "failed to finish CBB");
  
@@ -74,7 +74,7 @@
  		goto err;
  	}
  
-@@ -2837,7 +2842,10 @@
+@@ -2832,7 +2837,10 @@
  	return (failure);
  }
  
@@ -86,7 +86,7 @@
  
  unsigned char tlsext_serverhello_enabled[] = {
  	0x00, 0x13, 0xff, 0x01, 0x00, 0x01, 0x00, 0x00,
-@@ -2877,18 +2885,18 @@
+@@ -2872,18 +2880,18 @@
  	if (!CBB_finish(&cbb, &data, &dlen))
  		errx(1, "failed to finish CBB");
  

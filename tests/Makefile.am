@@ -236,6 +236,11 @@ check_PROGRAMS += keypairtest
 keypairtest_SOURCES = keypairtest.c
 EXTRA_DIST += keypairtest.sh
 
+# key_schedule
+TESTS += key_schedule
+check_PROGRAMS += key_schedule
+key_schedule_SOURCES = key_schedule.c
+
 # md4test
 TESTS += md4test
 check_PROGRAMS += md4test

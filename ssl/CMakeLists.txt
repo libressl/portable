@@ -36,6 +36,7 @@ set(
 	t1_enc.c
 	t1_hash.c
 	t1_lib.c
+	tls13_key_schedule.c
 )
 
 add_library(ssl ${SSL_SRC})

@@ -227,6 +227,10 @@ add_test(igetest igetest)
 
 # keypairtest
 if(NOT BUILD_SHARED_LIBS)
+	add_executable(key_schedule key_schedule.c)
+	target_link_libraries(key_schedule ${OPENSSL_LIBS})
+	add_test(key_schedule key_schedule)
+
 	add_executable(keypairtest keypairtest.c)
 	target_link_libraries(keypairtest ${OPENSSL_LIBS})
 	add_test(keypairtest keypairtest

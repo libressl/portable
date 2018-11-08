@@ -61,6 +61,7 @@ tests/cipher*
 tests/explicit_bzero*
 tests/freenull*
 tests/gost2814789t*
+tests/key_schedule*
 tests/mont*
 tests/rfc5280time*
 tests/ssl_versions*

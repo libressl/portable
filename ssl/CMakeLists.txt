@@ -28,6 +28,7 @@ set(
 	ssl_pkt.c
 	ssl_rsa.c
 	ssl_sess.c
+	ssl_sigalgs.c
 	ssl_srvr.c
 	ssl_stat.c
 	ssl_tlsext.c
@@ -36,6 +37,7 @@ set(
 	t1_enc.c
 	t1_hash.c
 	t1_lib.c
+	tls13_handshake.c
 	tls13_key_schedule.c
 )
 

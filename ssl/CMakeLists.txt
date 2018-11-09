@@ -28,6 +28,7 @@ set(
 	ssl_pkt.c
 	ssl_rsa.c
 	ssl_sess.c
+	ssl_sigalgs.c
 	ssl_srvr.c
 	ssl_stat.c
 	ssl_tlsext.c

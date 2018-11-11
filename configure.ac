@@ -80,12 +80,12 @@ CFLAGS="$old_cflags"
 
 AS_CASE([$host_cpu],
 	[*sparc*], [CPPFLAGS="$CPPFLAGS -D__STRICT_ALIGNMENT"],
-	[*arm*], AS_IF([test "x$BSWAP4" = "xyes"],,
-		    CPPFLAGS="$CPPFLAGS -D__STRICT_ALIGNMENT"),
+	[*arm*], [host_cpu=arm],
 	[*amd64*], [host_cpu=x86_64 HOSTARCH=intel],
 	[i?86], [HOSTARCH=intel],
 	[x86_64], [HOSTARCH=intel]
 )
+AS_IF([test "x$BSWAP4" = "xyes" -a "$host_cpu" = "arm" ],,CPPFLAGS="$CPPFLAGS -D__STRICT_ALIGNMENT")
 AM_CONDITIONAL([HOST_CPU_IS_INTEL], [test "x$HOSTARCH" = "xintel"])
 
 AC_MSG_CHECKING([if .gnu.warning accepts long strings])
@@ -105,6 +105,8 @@ AC_ARG_ENABLE([asm],
 AM_CONDITIONAL([OPENSSL_NO_ASM], [test "x$enable_asm" = "xno"])
 
 # Conditionally enable assembly by default
+AM_CONDITIONAL([HOST_ASM_ELF_ARM],
+    [test "x$HOST_ABI" = "xelf" -a "$host_cpu" = "arm" -a "x$enable_asm" != "xno"])
 AM_CONDITIONAL([HOST_ASM_ELF_X86_64],
     [test "x$HOST_ABI" = "xelf" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
 AM_CONDITIONAL([HOST_ASM_MACOSX_X86_64],

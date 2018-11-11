@@ -17,6 +17,8 @@
 
 #include <windows.h>
 
+#include <openssl/crypto.h>
+
 static HANDLE locks[CRYPTO_NUM_LOCKS];
 
 void

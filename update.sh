@@ -178,8 +178,21 @@ gen_asm() {
 	EOF
 	$MV $3.tmp $3
 }
+
+echo generating arm ASM source for elf
+gen_asm_stdout elf aes/asm/aes-armv4.pl crypto/aes/aes-elf-armv4.S
+gen_asm_stdout elf bn/asm/armv4-gf2m.pl crypto/bn/gf2m-elf-armv4.S
+gen_asm_stdout elf bn/asm/armv4-mont.pl crypto/bn/mont-elf-armv4.S
+gen_asm_stdout elf sha/asm/sha1-armv4-large.pl crypto/sha/sha1-elf-armv4.S
+gen_asm_stdout elf sha/asm/sha256-armv4.pl crypto/sha/sha256-elf-armv4.S
+gen_asm_stdout elf sha/asm/sha512-armv4.pl crypto/sha/sha512-elf-armv4.S
+gen_asm_stdout elf modes/asm/ghash-armv4.pl crypto/modes/ghash-elf-armv4.S
+$CP $libcrypto_src/armv4cpuid.S crypto
+$CP $libcrypto_src/armcap.c crypto
+$CP $libcrypto_src/arm_arch.h crypto
+
 for abi in elf macosx; do
-	echo generating ASM source for $abi
+	echo generating x86_64 ASM source for $abi
 	gen_asm_stdout $abi aes/asm/aes-x86_64.pl        crypto/aes/aes-$abi-x86_64.S
 	gen_asm_stdout $abi aes/asm/vpaes-x86_64.pl      crypto/aes/vpaes-$abi-x86_64.S
 	gen_asm_stdout $abi aes/asm/bsaes-x86_64.pl      crypto/aes/bsaes-$abi-x86_64.S

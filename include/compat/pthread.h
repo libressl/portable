@@ -38,23 +38,18 @@ pthread_once(pthread_once_t *once, void (*cb) (void))
 		return 0;
 }
 
-struct pthread {
-	HANDLE handle;
-};
-typedef struct pthread pthread_t;
+typedef DWORD pthread_t;
 
 static inline pthread_t
 pthread_self(void)
 {
-	pthread_t self;
-	self.handle = GetCurrentThread();
-	return self;
+	return GetCurrentThreadId();
 }
 
 static inline int
 pthread_equal(pthread_t t1, pthread_t t2)
 {
-	return t1.handle == t2.handle;
+	return t1 == t2;
 }
 
 #else

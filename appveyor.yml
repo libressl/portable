@@ -1,6 +1,6 @@
 environment:
   PATH: C:\msys64\usr\bin;C:\msys64\mingw64\bin;C:\Windows\System32;C:\Windows;%PATH%
-  
+
   matrix:
     # x86 builds
     - GENERATOR: Visual Studio 14 2015
@@ -31,12 +31,12 @@ environment:
       SHARED_LIBS: OFF
 
 init:
-  # update mysy2
+  # update msys2
   - C:\msys64\usr\bin\bash -lc "pacman --needed --noconfirm -Sy pacman-mirrors"
   - C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Sy"
   - C:\msys64\usr\bin\bash -lc "pacman --noconfirm -S autoconf perl"
   - C:\msys64\usr\bin\bash -lc "pacman --noconfirm -S git"
-  
+
 before_build:
   - bash autogen.sh
   - mkdir build

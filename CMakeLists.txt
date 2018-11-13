@@ -66,7 +66,7 @@ if(WIN32)
 	set(BUILD_NC false)
 endif()
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O2 -Wall -g")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O2 -Wall")
 
 if(CMAKE_SYSTEM_NAME MATCHES "HP-UX")
 	if(CMAKE_C_COMPILER MATCHES "gcc")

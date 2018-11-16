@@ -1,5 +1,5 @@
---- apps/nc/netcat.c.orig	2018-11-07 17:01:38.000000000 -0600
-+++ apps/nc/netcat.c	2018-11-07 17:37:57.000000000 -0600
+--- apps/nc/netcat.c.orig	Fri Nov  9 12:02:51 2018
++++ apps/nc/netcat.c	Fri Nov 16 04:38:56 2018
 @@ -92,9 +92,13 @@
  int	Dflag;					/* sodebug */
  int	Iflag;					/* TCP receive buffer size */
@@ -11,7 +11,7 @@
 +#ifdef SO_RTABLE
  int	rtableid = -1;
 +#endif
-
+ 
  int	usetls;					/* use TLS */
  char    *Cflag;					/* Public cert file */
 @@ -266,12 +270,14 @@
@@ -44,16 +44,16 @@
 @@ -344,9 +352,11 @@
  	argc -= optind;
  	argv += optind;
-
+ 
 +#ifdef SO_RTABLE
  	if (rtableid >= 0)
  		if (setrtable(rtableid) == -1)
  			err(1, "setrtable");
 +#endif
-
+ 
  	/* Cruft to make sure options are clean, and used properly. */
  	if (argv[0] && !argv[1] && family == AF_UNIX) {
-@@ -909,7 +919,10 @@
+@@ -916,7 +926,10 @@
  remote_connect(const char *host, const char *port, struct addrinfo hints)
  {
  	struct addrinfo *res, *res0;
@@ -62,13 +62,13 @@
 +#ifdef SO_BINDANY
 +	int on = 1;
 +#endif
-
+ 
  	if ((error = getaddrinfo(host, port, &hints, &res0)))
  		errx(1, "getaddrinfo for host \"%s\" port %s: %s", host,
-@@ -924,8 +937,10 @@
+@@ -931,8 +944,10 @@
  		if (sflag || pflag) {
  			struct addrinfo ahints, *ares;
-
+ 
 +#ifdef SO_BINDANY
  			/* try SO_BINDANY, but don't insist */
  			setsockopt(s, SOL_SOCKET, SO_BINDANY, &on, sizeof(on));
@@ -76,7 +76,7 @@
  			memset(&ahints, 0, sizeof(struct addrinfo));
  			ahints.ai_family = res->ai_family;
  			ahints.ai_socktype = uflag ? SOCK_DGRAM : SOCK_STREAM;
-@@ -996,7 +1011,10 @@
+@@ -1003,7 +1018,10 @@
  local_listen(const char *host, const char *port, struct addrinfo hints)
  {
  	struct addrinfo *res, *res0;
@@ -86,24 +86,24 @@
 +	int ret, x = 1;
 +#endif
  	int error;
-
+ 
  	/* Allow nodename to be null. */
-@@ -1017,9 +1035,11 @@
+@@ -1024,9 +1042,11 @@
  		    res->ai_protocol)) < 0)
  			continue;
-
+ 
 +#ifdef SO_REUSEPORT
  		ret = setsockopt(s, SOL_SOCKET, SO_REUSEPORT, &x, sizeof(x));
  		if (ret == -1)
  			err(1, NULL);
 +#endif
-
+ 
  		set_common_sockopts(s, res->ai_family);
-
-@@ -1475,11 +1495,13 @@
+ 
+@@ -1492,11 +1512,13 @@
  {
  	int x = 1;
-
+ 
 +#ifdef TCP_MD5SIG
  	if (Sflag) {
  		if (setsockopt(s, IPPROTO_TCP, TCP_MD5SIG,
@@ -114,10 +114,10 @@
  	if (Dflag) {
  		if (setsockopt(s, SOL_SOCKET, SO_DEBUG,
  			&x, sizeof(x)) == -1)
-@@ -1490,9 +1512,16 @@
+@@ -1507,9 +1529,16 @@
  		    IP_TOS, &Tflag, sizeof(Tflag)) == -1)
  			err(1, "set IP ToS");
-
+ 
 +#ifdef IPV6_TCLASS
  		else if (af == AF_INET6 && setsockopt(s, IPPROTO_IPV6,
  		    IPV6_TCLASS, &Tflag, sizeof(Tflag)) == -1)
@@ -131,16 +131,16 @@
  	}
  	if (Iflag) {
  		if (setsockopt(s, SOL_SOCKET, SO_RCVBUF,
-@@ -1516,13 +1545,17 @@
+@@ -1533,13 +1562,17 @@
  	}
-
+ 
  	if (minttl != -1) {
 +#ifdef IP_MINTTL
  		if (af == AF_INET && setsockopt(s, IPPROTO_IP,
  		    IP_MINTTL, &minttl, sizeof(minttl)))
  			err(1, "set IP min TTL");
 +#endif
-
+ 
 -		else if (af == AF_INET6 && setsockopt(s, IPPROTO_IPV6,
 +#ifdef IPV6_MINHOPCOUNT
 +		if (af == AF_INET6 && setsockopt(s, IPPROTO_IPV6,
@@ -149,8 +149,8 @@
 +#endif
  	}
  }
-
-@@ -1748,14 +1781,22 @@
+ 
+@@ -1761,14 +1794,22 @@
  	\t-P proxyuser\tUsername for proxy authentication\n\
  	\t-p port\t	Specify local port for remote connects\n\
  	\t-R CAfile	CA bundle\n\

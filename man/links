@@ -2329,6 +2329,7 @@ tls_load_file.3,tls_config_set_ocsp_staple_mem.3
 tls_load_file.3,tls_config_set_verify_depth.3
 tls_load_file.3,tls_config_verify_client.3
 tls_load_file.3,tls_config_verify_client_optional.3
+tls_load_file.3,tls_default_ca_cert_file.3
 tls_load_file.3,tls_unload_file.3
 tls_ocsp_process_response.3,tls_peer_ocsp_cert_status.3
 tls_ocsp_process_response.3,tls_peer_ocsp_crl_reason.3

@@ -33,8 +33,7 @@ LibreSSL Portable Release Notes:
 	* CRYPTO_LOCK is now automatically initialized, with the legacy
 	  callbacks stubbed for compatibility.
 
-	* Added the SM3 hash function from the Chinese standard GB/T
-	  32905-2016.
+	* Added the SM3 hash function from the Chinese standard GB/T 32905-2016.
 
 	* Added more OPENSSL_NO_* macros for compatibility with OpenSSL.
 
@@ -44,10 +43,8 @@ LibreSSL Portable Release Notes:
 	* Added additional wycheproof tests and related bug fixes.
 
 	* Simplified sigalgs option processing and handshake signing algorithm
-	  selection.
 
-	* Added the ability to use the RSA PSS algorithm for handshake
-	  signatures.
+	* Added the ability to use the RSA PSS algorithm for handshake signatures.
 
 	* Added bn_rand_interval() and use it in code needing ranges of random
 	  bn values.
@@ -57,17 +54,18 @@ LibreSSL Portable Release Notes:
 
 	* Added handshake state machine from RFC8446.
 
-	* Removed some ASN.1 related code from libcrypto that had not been
-	  used since around 2000.
+	* Removed some ASN.1 related code from libcrypto that had not been used
+	  since around 2000.
 
 	* Unexported internal symbols and internalized more record layer structs.
 
 	* Added support for assembly optimizations on 32-bit ARM ELF targets.
 
-	* Fix timing vulnerability in ECDSA signature generation (CVE-2018-0735).
+	* Improved protection against timing side channels in ECDSA signature generation.
 
-	* Fix for Portsmash vulnerability originally by Brumley, ul Hassan and
-	  Tuveri.
+	* Coordinate blinding was added to some elliptic curves. This is the
+	  last bit of the work by Brumley et al. to protect against the
+	  Portsmash vulnerability.
 
 	* Ensure transcript handshake is always freed with TLS 1.2.
 

@@ -30,6 +30,11 @@ LibreSSL Portable Release Notes:
 
 2.9.0 - Development release
 
+	* Fixed warnings about clock_gettime on Windows Visual Studio builds.
+
+	* Fixed CMake builds on systems where getpagesize is defined as an
+	  inline function.
+
 	* CRYPTO_LOCK is now automatically initialized, with the legacy
 	  callbacks stubbed for compatibility.
 
@@ -44,7 +49,8 @@ LibreSSL Portable Release Notes:
 
 	* Simplified sigalgs option processing and handshake signing algorithm
 
-	* Added the ability to use the RSA PSS algorithm for handshake signatures.
+	* Added the ability to use the RSA PSS algorithm for handshake
+	  signatures.
 
 	* Added bn_rand_interval() and use it in code needing ranges of random
 	  bn values.
@@ -61,7 +67,8 @@ LibreSSL Portable Release Notes:
 
 	* Added support for assembly optimizations on 32-bit ARM ELF targets.
 
-	* Improved protection against timing side channels in ECDSA signature generation.
+	* Improved protection against timing side channels in ECDSA signature
+	  generation.
 
 	* Coordinate blinding was added to some elliptic curves. This is the
 	  last bit of the work by Brumley et al. to protect against the

@@ -28,6 +28,22 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.7.5 - Stable release
+
+	* Fixed warnings about clock_gettime on Windows Visual Studio builds.
+
+	* Fixed CMake builds on systems where getpagesize is defined as an
+	  inline function.
+
+	* Fixed manpage installation on case-insensitive filesystems.
+
+	* Added a blinding value when generating DSA and ECDSA signatures, in
+	  order to reduce the possibility of a side-channel attack leaking the
+	  private key.
+
+	* Fixed a non-uniformity in getentropy(2) emulation where a block of
+	  all zeroes would be discarded.
+
 2.7.4 - Security fixes
 
 	* Avoid a timing side-channel leak when generating DSA and ECDSA

@@ -28,6 +28,19 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.8.3 - Stable release
+
+	* Fixed warnings about clock_gettime on Windows Visual Studio builds.
+
+	* Fixed CMake builds on systems where getpagesize is defined as an
+	  inline function.
+
+	* Implemented coordinate blinding for EC_POINT as an additional
+	  mitigation for the portsmash vulnerability.
+
+	* Fixed a non-uniformity in getentropy(2) emulation where a block of
+	  all zeroes would be discarded.
+
 2.8.2 - Stable release
 
 	* Added Wycheproof support for ECDH and ECDSA Web Crypto test vectors,

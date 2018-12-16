@@ -3,6 +3,9 @@ environment:
 
   matrix:
     # x86 builds
+    - GENERATOR: Visual Studio 15 2017
+      CONFIG: Release
+      SHARED_LIBS: ON
     - GENERATOR: Visual Studio 14 2015
       CONFIG: Release
       SHARED_LIBS: ON
@@ -17,6 +20,9 @@ environment:
       SHARED_LIBS: OFF
 
     # x64 builds
+    - GENERATOR: Visual Studio 15 2017 Win64
+      CONFIG: Release
+      SHARED_LIBS: ON
     - GENERATOR: Visual Studio 14 2015 Win64
       CONFIG: Release
       SHARED_LIBS: ON
@@ -31,7 +37,7 @@ environment:
       SHARED_LIBS: OFF
 
 init:
-  # update msys2
+  # update mysy2
   - C:\msys64\usr\bin\bash -lc "pacman --needed --noconfirm -Sy pacman-mirrors"
   - C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Sy"
   - C:\msys64\usr\bin\bash -lc "pacman --noconfirm -S autoconf perl"

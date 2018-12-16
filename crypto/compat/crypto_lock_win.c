@@ -19,7 +19,7 @@
 
 #include <openssl/crypto.h>
 
-static HANDLE locks[CRYPTO_NUM_LOCKS];
+static CRITICAL_SECTION locks[CRYPTO_NUM_LOCKS];
 
 void
 crypto_init_locks(void)
@@ -27,7 +27,16 @@ crypto_init_locks(void)
 	int i;
 
 	for (i = 0; i < CRYPTO_NUM_LOCKS; i++)
-		locks[i] = CreateMutex(NULL, FALSE, NULL);
+		InitializeCriticalSection(&locks[i]);
+}
+
+void
+crypto_free_locks(void)
+{
+	int i;
+
+	for (i = 0; i < CRYPTO_NUM_LOCKS; i++)
+		DeleteCriticalSection(&locks[i]);
 }
 
 void
@@ -37,9 +46,9 @@ CRYPTO_lock(int mode, int type, const char *file, int line)
 		return;
 
 	if (mode & CRYPTO_LOCK)
-		WaitForSingleObject(locks[type], INFINITE);
+		EnterCriticalSection(&locks[type]);
 	else
-		ReleaseMutex(locks[type]);
+		LeaveCriticalSection(&locks[type]);
 }
 
 int

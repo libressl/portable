@@ -30,8 +30,7 @@ CRYPTO_lock(int mode, int type, const char *file, int line)
 	if (locks[type] == NULL) {
 		LPCRITICAL_SECTION lcs = malloc(sizeof(CRITICAL_SECTION));
 		InitializeCriticalSection(lcs);
-		if (InterlockedCompareExchangePointer((void **)&locks[type], (void *)lcs, NULL) != NULL)
-		{
+		if (InterlockedCompareExchangePointer((void **)&locks[type], (void *)lcs, NULL) != NULL) {
 			DeleteCriticalSection(lcs);
 			free(lcs);
 		}
@@ -47,10 +46,9 @@ int
 CRYPTO_add_lock(int *pointer, int amount, int type, const char *file,
     int line)
 {
-	int ret = 0;
-	CRYPTO_lock(CRYPTO_LOCK|CRYPTO_WRITE, type, file, line);
-	ret = *pointer + amount;
-	*pointer = ret;
-	CRYPTO_lock(CRYPTO_UNLOCK|CRYPTO_WRITE, type, file, line);
-	return (ret);
+	/*
+	 * Windows is LLP64. sizeof(LONG) == sizeof(int) on 32-bit and 64-bit.
+	 */
+	int ret = InterlockedExchangeAdd((LONG *)pointer, (LONG)amount);
+	return ret + amount;
 }

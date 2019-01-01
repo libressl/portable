@@ -154,7 +154,6 @@ for i in `awk '/SOURCES|HEADERS/ { print $3 }' crypto/Makefile.am` ; do
 	fi
 done
 $CP crypto/compat/b_win.c crypto/bio
-$CP crypto/compat/crypto_lock_win.c crypto
 $CP crypto/compat/ui_openssl_win.c crypto/ui
 # add the libcrypto symbol export list
 $GREP -v OPENSSL_ia32cap_P $libcrypto_src/Symbols.list | $GREP '^[A-Za-z0-9_]' > crypto/crypto.sym

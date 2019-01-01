@@ -669,7 +669,7 @@ if(UNIX)
 endif()
 
 if(WIN32)
-	set(CRYPTO_SRC ${CRYPTO_SRC} crypto_lock_win.c)
+	set(CRYPTO_SRC ${CRYPTO_SRC} compat/crypto_lock_win.c)
 	set(CRYPTO_SRC ${CRYPTO_SRC} bio/b_win.c)
 	set(CRYPTO_UNEXPORT ${CRYPTO_UNEXPORT} BIO_s_log)
 	set(CRYPTO_SRC ${CRYPTO_SRC} ui/ui_openssl_win.c)

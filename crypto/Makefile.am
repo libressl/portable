@@ -216,7 +216,7 @@ libcrypto_la_SOURCES += crypto_init.c
 if !HOST_WIN
 libcrypto_la_SOURCES += crypto_lock.c
 else
-libcrypto_la_SOURCES += crypto_lock_win.c
+libcrypto_la_SOURCES += compat/crypto_lock_win.c
 endif
 libcrypto_la_SOURCES += cversion.c
 libcrypto_la_SOURCES += ex_data.c

@@ -19,16 +19,7 @@
 
 #include <openssl/crypto.h>
 
-static HANDLE locks[CRYPTO_NUM_LOCKS];
-
-void
-crypto_init_locks(void)
-{
-	int i;
-
-	for (i = 0; i < CRYPTO_NUM_LOCKS; i++)
-		locks[i] = CreateMutex(NULL, FALSE, NULL);
-}
+static volatile LPCRITICAL_SECTION locks[CRYPTO_NUM_LOCKS] = { NULL };
 
 void
 CRYPTO_lock(int mode, int type, const char *file, int line)
@@ -36,10 +27,20 @@ CRYPTO_lock(int mode, int type, const char *file, int line)
 	if (type < 0 || type >= CRYPTO_NUM_LOCKS)
 		return;
 
+	if (locks[type] == NULL) {
+		LPCRITICAL_SECTION lcs = malloc(sizeof(CRITICAL_SECTION));
+		InitializeCriticalSection(lcs);
+		if (InterlockedCompareExchangePointer((void **)&locks[type], (void *)lcs, NULL) != NULL)
+		{
+			DeleteCriticalSection(lcs);
+			free(lcs);
+		}
+	}
+
 	if (mode & CRYPTO_LOCK)
-		WaitForSingleObject(locks[type], INFINITE);
+		EnterCriticalSection(locks[type]);
 	else
-		ReleaseMutex(locks[type]);
+		LeaveCriticalSection(locks[type]);
 }
 
 int

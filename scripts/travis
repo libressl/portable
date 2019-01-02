@@ -30,6 +30,7 @@ if [ "x$ARCH" = "xnative" ]; then
 	else
 		sudo apt-get update
 		sudo apt-get install -y cmake ninja-build
+
 		cmake -GNinja ..
 		ninja
 		ninja test
@@ -40,6 +41,9 @@ if [ "x$ARCH" = "xnative" ]; then
 		ninja test
 	fi
 else
+	sudo apt-get update
+	sudo apt-get install -y cmake ninja-build
+
 	CPU=i686
 	if [ "x$ARCH" = "xmingw64" ]; then
 		CPU=x86_64
@@ -54,4 +58,19 @@ else
 
 	./configure --host=$CPU-w64-mingw32
 	make -j
+
+	(
+	 rm -fr build-static
+	 mkdir build-static
+	 cd build-static
+	 cmake -GNinja -DCMAKE_TOOLCHAIN_FILE=../scripts/$CPU-w64-mingw32.cmake ..
+	 ninja
+	)
+	(
+	 rm -fr build-shared
+	 mkdir build-shared
+	 cd build-shared
+	 cmake -GNinja -DCMAKE_TOOLCHAIN_FILE=../scripts/$CPU-w64-mingw32.cmake -DBUILD_SHARED_LIBS=ON ..
+	 ninja
+	)
 fi

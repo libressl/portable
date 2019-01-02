@@ -8,3 +8,12 @@
 #else
 #include <win32netcompat.h>
 #endif
+
+#ifndef LIBCRYPTOCOMPAT_NETINET_IN_H
+#define LIBCRYPTOCOMPAT_NETINET_IN_H
+
+#ifdef __ANDROID__
+typedef uint16_t in_port_t;
+#endif
+
+#endif

@@ -59,12 +59,12 @@ if(CMAKE_SYSTEM_NAME MATCHES "Linux")
 	set(PLATFORM_LIBS ${PLATFORM_LIBS} pthread)
 endif()
 
-if(CMAKE_SYSTEM_NAME MATCHES "MINGW")
+if(WIN32 OR (CMAKE_SYSTEM_NAME MATCHES "MINGW"))
 	set(BUILD_NC false)
-endif()
-
-if(WIN32)
-	set(BUILD_NC false)
+	add_definitions(-D_GNU_SOURCE)
+	add_definitions(-D_POSIX)
+	add_definitions(-D_POSIX_SOURCE)
+	add_definitions(-D__USE_MINGW_ANSI_STDIO)
 endif()
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O2 -Wall")

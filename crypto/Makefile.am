@@ -226,6 +226,7 @@ libcrypto_la_SOURCES += mem_dbg.c
 libcrypto_la_SOURCES += o_init.c
 libcrypto_la_SOURCES += o_str.c
 libcrypto_la_SOURCES += o_time.c
+noinst_HEADERS += arm_arch.h
 noinst_HEADERS += constant_time_locl.h
 noinst_HEADERS += cryptlib.h
 noinst_HEADERS += md32_common.h

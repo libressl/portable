@@ -40,7 +40,8 @@ if [ "x$ARCH" = "xnative" ]; then
 		ninja
 		ninja test
 	fi
-else
+
+elif [ "x$ARCH" = "xmingw32" -o "x$ARCH" = "xmingw64" ]; then
 	sudo apt-get update
 	sudo apt-get install -y cmake ninja-build
 
@@ -73,4 +74,25 @@ else
 	 cmake -GNinja -DCMAKE_TOOLCHAIN_FILE=../scripts/$CPU-w64-mingw32.cmake -DBUILD_SHARED_LIBS=ON ..
 	 ninja
 	)
+
+elif [ "x$ARCH" = "xarm32" -o "x$ARCH" = "xarm64" ]; then
+	sudo apt-get update
+	sudo apt-get install -y qemu-user-static binfmt-support
+
+	if [ "x$ARCH" = "xarm32" ]; then
+		sudo apt-get install -y g++-arm-linux-gnueabihf
+		sudo ln -s /usr/arm-linux-gnueabihf/lib /lib/arm-linux-gnueabihf
+		sudo ln -s /lib/arm-linux-gnueabihf/ld-2.19.so /lib/ld-linux-armhf.so.3
+		export CC=arm-linux-gnueabihf-gcc
+		./configure --host=arm-linux
+	else
+		sudo apt-get install -y g++-aarch64-linux-gnu
+		sudo ln -s /usr/aarch64-linux-gnu/lib/ /lib/aarch64-linux-gnu
+		sudo ln -s /lib/aarch64-linux-gnu/ld-2.19.so /lib/ld-linux-aarch64.so.1
+		export CC=aarch64-linux-gnu-gcc
+		./configure --host=aarch64-linux
+	fi
+
+	make -j 4 check
+	file apps/openssl/.libs/openssl
 fi

@@ -27,6 +27,16 @@ matrix:
       env: ARCH=mingw64
       dist: trusty
       sudo: required
+    - compiler: gcc
+      os: linux
+      env: ARCH=arm32
+      dist: trusty
+      sudo: required
+    - compiler: gcc
+      os: linux
+      env: ARCH=arm64
+      dist: trusty
+      sudo: required
 
 script:
   "./scripts/travis"

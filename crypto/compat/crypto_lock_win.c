@@ -1,6 +1,7 @@
 /* $OpenBSD: crypto_lock.c,v 1.1 2018/11/11 06:41:28 bcook Exp $ */
 /*
- * Copyright (c) 2018 Brent Cook <bcook@openbsd.org>
+ * Copyright (c) 2019 Brent Cook <bcook@openbsd.org>
+ * Copyright (c) 2019 John Norrbin <jlnorrbin@johnex.se>
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -29,8 +30,9 @@ CRYPTO_lock(int mode, int type, const char *file, int line)
 
 	if (locks[type] == NULL) {
 		LPCRITICAL_SECTION lcs = malloc(sizeof(CRITICAL_SECTION));
+		if (lcs == NULL) exit(ENOMEM);
 		InitializeCriticalSection(lcs);
-		if (InterlockedCompareExchangePointer((void **)&locks[type], (void *)lcs, NULL) != NULL) {
+		if (InterlockedCompareExchangePointer((PVOID*)&locks[type], (PVOID)lcs, NULL) != NULL) {
 			DeleteCriticalSection(lcs);
 			free(lcs);
 		}

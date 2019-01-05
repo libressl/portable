@@ -95,4 +95,65 @@ elif [ "x$ARCH" = "xarm32" -o "x$ARCH" = "xarm64" ]; then
 
 	make -j 4 check
 	file apps/openssl/.libs/openssl
+
+elif [ "x$ARCH" = "xandroid" ]; then
+	echo y | sdkmanager 'ndk-bundle'
+	echo y | sdkmanager 'cmake;3.6.4111459'
+	echo y | sdkmanager 'lldb;3.0'
+	echo y | sdkmanager --update
+	echo y | sdkmanager --licenses
+
+	export CMAKE=$ANDROID_HOME/cmake/3.6.4111459/bin/cmake
+	export NINJA=$ANDROID_HOME/cmake/3.6.4111459/bin/ninja
+	export ANDROID_NDK_HOME=$ANDROID_HOME/ndk-bundle
+	export TC_FILE=$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake
+
+	# get available API level and architecture
+	pdir=$ANDROID_NDK_HOME/platforms
+	level_arch=""
+	level=$MIN_NAL
+	while [ $level -le $MAX_NAL ]
+	do
+		if [ -d $pdir/android-$level ] ; then
+			adir=$pdir/android-$level
+			if [ -d $adir/arch-arm ] ; then
+				level_arch="$level_arch $level;armeabi-v7a"
+			fi
+			if [ -d $adir/arch-arm64 ] ; then
+				level_arch="$level_arch $level;arm64-v8a"
+			fi
+			if [ -d $adir/arch-x86 ] ; then
+				level_arch="$level_arch $level;x86"
+			fi
+			if [ -d $adir/arch-x86_64 ] ; then
+				level_arch="$level_arch $level;x86_64"
+			fi
+		fi
+		level=`expr $level + 1`
+	done
+
+	# build each API level and architecture
+	for la in $level_arch
+	do
+		NAL=`echo $la | cut -d ';' -f 1`
+		ABI=`echo $la | cut -d ';' -f 2`
+		echo ""
+		echo "##### Date: `date`, Native API level: $NAL, ABI: $ABI"
+
+		(
+		 build_dir=build_$NAL_$ABI
+		 rm -fr $build_dir
+		 mkdir $build_dir
+		 cd $build_dir
+		 $CMAKE -GNinja -DCMAKE_MAKE_PROGRAM=$NINJA \
+		 -DANDROID_NDK=$ANDROID_NDK_HOME \
+		 -DCMAKE_TOOLCHAIN_FILE=$TC_FILE \
+		 -DANDROID_ABI=$ABI -DANDROID_NATIVE_API_LEVEL=$NAPI ..
+
+		 $NINJA -j 4
+
+		 echo ""
+		 file apps/openssl/openssl
+		)
+	done
 fi

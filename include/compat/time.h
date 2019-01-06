@@ -39,7 +39,11 @@ typedef int clockid_t;
 int clock_gettime(clockid_t clock_id, struct timespec *tp);
 #endif
 
-#ifndef timespecsub
+#ifdef timespecsub
+#define HAVE_TIMESPECSUB
+#endif
+
+#ifndef HAVE_TIMESPECSUB
 #define timespecsub(tsp, usp, vsp)                                      \
         do {                                                            \
                 (vsp)->tv_sec = (tsp)->tv_sec - (usp)->tv_sec;          \
@@ -50,6 +54,7 @@ int clock_gettime(clockid_t clock_id, struct timespec *tp);
                 }                                                       \
         } while (0)
 #endif
+
 #endif
 
 #endif

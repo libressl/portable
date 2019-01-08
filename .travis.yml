@@ -37,6 +37,91 @@ matrix:
       env: ARCH=arm64
       dist: trusty
       sudo: required
+    - language: android
+      name: "Android 4.x"
+      env: ARCH=android MIN_NAL=14 MAX_NAL=20
+      dist: trusty
+      sudo: required
+      android:
+        components:
+          - tools
+          - tools
+          - platform-tools
+          - build-tools-27.0.3
+          - android-27
+          - extra-google-m2repository
+          - extra-android-m2repository
+      licenses:
+        - 'android-sdk-preview-license-.+'
+        - 'android-sdk-license-.+'
+    - language: android
+      name: "Android 5.x"
+      env: ARCH=android MIN_NAL=21 MAX_NAL=22
+      dist: trusty
+      sudo: required
+      android:
+        components:
+          - tools
+          - tools
+          - platform-tools
+          - build-tools-27.0.3
+          - android-27
+          - extra-google-m2repository
+          - extra-android-m2repository
+      licenses:
+        - 'android-sdk-preview-license-.+'
+        - 'android-sdk-license-.+'
+    - language: android
+      name: "Android 6.x 7.x"
+      env: ARCH=android MIN_NAL=23 MAX_NAL=25
+      dist: trusty
+      sudo: required
+      android:
+        components:
+          - tools
+          - tools
+          - platform-tools
+          - build-tools-27.0.3
+          - android-27
+          - extra-google-m2repository
+          - extra-android-m2repository
+      licenses:
+        - 'android-sdk-preview-license-.+'
+        - 'android-sdk-license-.+'
+    - language: android
+      name: "Android 8.x"
+      env: ARCH=android MIN_NAL=26 MAX_NAL=27
+      dist: trusty
+      sudo: required
+      android:
+        components:
+          - tools
+          - tools
+          - platform-tools
+          - build-tools-27.0.3
+          - android-27
+          - extra-google-m2repository
+          - extra-android-m2repository
+      licenses:
+        - 'android-sdk-preview-license-.+'
+        - 'android-sdk-license-.+'
+    - language: android
+      name: "Android 9.x"
+      env: ARCH=android MIN_NAL=28 MAX_NAL=28
+      dist: trusty
+      sudo: required
+      android:
+        components:
+          - tools
+          - tools
+          - platform-tools
+          - build-tools-27.0.3
+          - android-27
+          - extra-google-m2repository
+          - extra-android-m2repository
+      licenses:
+        - 'android-sdk-preview-license-.+'
+        - 'android-sdk-license-.+'
 
 script:
   "./scripts/travis"

@@ -85,6 +85,13 @@ if(NOT BUILD_SHARED_LIBS)
 	add_test(bntest bntest)
 endif()
 
+# buffertest
+if(NOT BUILD_SHARED_LIBS)
+	add_executable(buffertest buffertest.c)
+	target_link_libraries(buffertest ${OPENSSL_LIBS})
+	add_test(buffertest buffertest)
+endif()
+
 # bytestringtest
 if(NOT BUILD_SHARED_LIBS)
 	add_executable(bytestringtest bytestringtest.c)

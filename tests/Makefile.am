@@ -93,6 +93,12 @@ bntest_CPPFLAGS = $(AM_CPPFLAGS) -ULIBRESSL_INTERNAL
 check_PROGRAMS += bntest
 bntest_SOURCES = bntest.c
 
+# buffertest
+TESTS += buffertest
+buffertest_CPPFLAGS = $(AM_CPPFLAGS)
+check_PROGRAMS += buffertest
+buffertest_SOURCES = buffertest.c
+
 # bytestringtest
 TESTS += bytestringtest
 check_PROGRAMS += bytestringtest

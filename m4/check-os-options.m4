@@ -9,7 +9,7 @@ case $host_os in
 		if test "`echo $CC | cut -d ' ' -f 1`" != "gcc" ; then
 			CFLAGS="-qnoansialias $USER_CFLAGS"
 		fi
-		AC_SUBST([PLATFORM_LDADD], ['-lperfstat -lpthread'])
+		AC_SUBST([PLATFORM_LDADD], ['-lperfstat'])
 		;;
 	*cygwin*)
 		HOST_OS=cygwin
@@ -74,13 +74,11 @@ char buf[1]; getentropy(buf, 1);
 			CFLAGS="-g -O2 +DD64 +Otype_safety=off $USER_CFLAGS"
 		fi
 		CPPFLAGS="$CPPFLAGS -D_XOPEN_SOURCE=600 -D__STRICT_ALIGNMENT"
-		AC_SUBST([PLATFORM_LDADD], ['-lpthread'])
 		;;
 	*linux*)
 		HOST_OS=linux
 		HOST_ABI=elf
 		CPPFLAGS="$CPPFLAGS -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
-		AC_SUBST([PLATFORM_LDADD], ['-lpthread'])
 		;;
 	*netbsd*)
 		HOST_OS=netbsd

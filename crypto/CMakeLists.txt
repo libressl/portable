@@ -359,6 +359,7 @@ set(
 	ec/ec_cvt.c
 	ec/ec_err.c
 	ec/ec_key.c
+	ec/ec_kmeth.c
 	ec/ec_lib.c
 	ec/ec_mult.c
 	ec/ec_oct.c
@@ -397,6 +398,7 @@ set(
 	engine/tb_dsa.c
 	engine/tb_ecdh.c
 	engine/tb_ecdsa.c
+	engine/tb_eckey.c
 	engine/tb_pkmeth.c
 	engine/tb_rand.c
 	engine/tb_rsa.c
@@ -833,6 +835,8 @@ target_include_directories(crypto
 		asn1
 		bn
 		dsa
+		ec
+		ecdsa
 		evp
 		modes
 		../include/compat

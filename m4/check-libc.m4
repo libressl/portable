@@ -131,6 +131,7 @@ AC_SEARCH_LIBS([dl_iterate_phdr],[dl])
 AC_CHECK_FUNCS([dl_iterate_phdr])
 
 AC_SEARCH_LIBS([pthread_once],[pthread])
+AC_SEARCH_LIBS([pthread_mutex_lock],[pthread])
 AC_SEARCH_LIBS([clock_gettime],[rt posix4])
 AC_CHECK_FUNCS([clock_gettime])
 AM_CONDITIONAL([HAVE_CLOCK_GETTIME], [test "x$ac_cv_func_clock_gettime" = xyes])

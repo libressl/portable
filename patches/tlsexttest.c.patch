@@ -1,24 +1,24 @@
---- tests/tlsexttest.c.orig	Wed Nov  7 20:01:26 2018
-+++ tests/tlsexttest.c	Wed Nov  7 20:01:35 2018
+--- tests/tlsexttest.c.orig	Fri Jan 18 18:12:03 2019
++++ tests/tlsexttest.c	Fri Jan 18 18:38:20 2019
 @@ -1676,7 +1676,9 @@
  };
  
- static unsigned char tlsext_sni_serverhello[] = {
+ static unsigned char tlsext_sni_server[] = {
 +	0x00
  };
-+const size_t sizeof_tlsext_sni_serverhello = 0;
++const size_t sizeof_tlsext_sni_server = 0;
  
  static int
- test_tlsext_sni_clienthello(void)
+ test_tlsext_sni_client(void)
 @@ -1839,9 +1841,9 @@
  	if (!CBB_finish(&cbb, &data, &dlen))
  		errx(1, "failed to finish CBB");
  
--	if (dlen != sizeof(tlsext_sni_serverhello)) {
-+	if (dlen != sizeof_tlsext_sni_serverhello) {
- 		FAIL("got serverhello SNI with length %zu, "
--		    "want length %zu\n", dlen, sizeof(tlsext_sni_serverhello));
-+		    "want length %zu\n", dlen, sizeof_tlsext_sni_serverhello);
+-	if (dlen != sizeof(tlsext_sni_server)) {
++	if (dlen != sizeof_tlsext_sni_server) {
+ 		FAIL("got server SNI with length %zu, "
+-		    "want length %zu\n", dlen, sizeof(tlsext_sni_server));
++		    "want length %zu\n", dlen, sizeof_tlsext_sni_server)
  		goto err;
  	}
  
@@ -26,18 +26,18 @@
  		fprintf(stderr, "received:\n");
  		hexdump(data, dlen);
  		fprintf(stderr, "test data:\n");
--		hexdump(tlsext_sni_serverhello, sizeof(tlsext_sni_serverhello));
-+		hexdump(tlsext_sni_serverhello, sizeof_tlsext_sni_serverhello);
+-		hexdump(tlsext_sni_server, sizeof(tlsext_sni_server));
++		hexdump(tlsext_sni_server, sizeof_tlsext_sni_server);
  		goto err;
  	}
  
  	free(ssl->session->tlsext_hostname);
  	ssl->session->tlsext_hostname = NULL;
  
--	CBS_init(&cbs, tlsext_sni_serverhello, sizeof(tlsext_sni_serverhello));
-+	CBS_init(&cbs, tlsext_sni_serverhello, sizeof_tlsext_sni_serverhello);
- 	if (!tlsext_sni_serverhello_parse(ssl, &cbs, &alert)) {
- 		FAIL("failed to parse serverhello SNI\n");
+-	CBS_init(&cbs, tlsext_sni_server, sizeof(tlsext_sni_server));
++	CBS_init(&cbs, tlsext_sni_server, sizeof_tlsext_sni_server);
+ 	if (!tlsext_sni_client_parse(ssl, &cbs, &alert)) {
+ 		FAIL("failed to parse server SNI\n");
  		goto err;
 @@ -2741,7 +2743,10 @@
  	0x03, 0x01, 0x03, 0x03, 0x02, 0x01, 0x02, 0x03,

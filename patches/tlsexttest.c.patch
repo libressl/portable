@@ -1,5 +1,5 @@
 --- tests/tlsexttest.c.orig	Fri Jan 18 18:12:03 2019
-+++ tests/tlsexttest.c	Fri Jan 18 18:38:20 2019
++++ tests/tlsexttest.c	Fri Jan 18 18:44:24 2019
 @@ -1676,7 +1676,9 @@
  };
  
@@ -18,7 +18,7 @@
 +	if (dlen != sizeof_tlsext_sni_server) {
  		FAIL("got server SNI with length %zu, "
 -		    "want length %zu\n", dlen, sizeof(tlsext_sni_server));
-+		    "want length %zu\n", dlen, sizeof_tlsext_sni_server)
++		    "want length %zu\n", dlen, sizeof_tlsext_sni_server);
  		goto err;
  	}
  

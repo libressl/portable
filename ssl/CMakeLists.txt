@@ -39,8 +39,10 @@ set(
 	t1_lib.c
 	tls13_buffer.c
 	tls13_handshake.c
+	tls13_handshake_msg.c
 	tls13_key_schedule.c
 	tls13_record.c
+	tls13_record_layer.c
 )
 
 add_library(ssl ${SSL_SRC})

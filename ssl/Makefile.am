@@ -48,8 +48,10 @@ libssl_la_SOURCES += t1_hash.c
 libssl_la_SOURCES += t1_lib.c
 libssl_la_SOURCES += tls13_buffer.c
 libssl_la_SOURCES += tls13_handshake.c
+libssl_la_SOURCES += tls13_handshake_msg.c
 libssl_la_SOURCES += tls13_key_schedule.c
 libssl_la_SOURCES += tls13_record.c
+libssl_la_SOURCES += tls13_record_layer.c
 
 noinst_HEADERS = bytestring.h
 noinst_HEADERS += srtp.h

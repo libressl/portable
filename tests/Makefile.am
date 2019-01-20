@@ -322,6 +322,11 @@ TESTS += rc4test
 check_PROGRAMS += rc4test
 rc4test_SOURCES = rc4test.c
 
+# recordtest
+TESTS += recordtest
+check_PROGRAMS += recordtest
+recordtest_SOURCES = recordtest.c
+
 # rfc5280time
 check_PROGRAMS += rfc5280time
 rfc5280time_SOURCES = rfc5280time.c
@@ -426,6 +431,11 @@ tls_prf_SOURCES = tls_prf.c
 TESTS += utf8test
 check_PROGRAMS += utf8test
 utf8test_SOURCES = utf8test.c
+
+# valid_handshakes_terminate
+TESTS += valid_handshakes_terminate
+check_PROGRAMS += valid_handshakes_terminate
+valid_handshakes_terminate_SOURCES = valid_handshakes_terminate.c
 
 # verifytest
 TESTS += verifytest

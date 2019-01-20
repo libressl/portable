@@ -332,6 +332,11 @@ add_executable(rc4test rc4test.c)
 target_link_libraries(rc4test ${OPENSSL_LIBS})
 add_test(rc4test rc4test)
 
+# recordtest
+add_executable(recordtest recordtest.c)
+target_link_libraries(recordtest ${OPENSSL_LIBS})
+add_test(recordtest recordtest)
+
 # rfc5280time
 add_executable(rfc5280time rfc5280time.c)
 target_link_libraries(rfc5280time ${OPENSSL_LIBS})
@@ -472,6 +477,10 @@ if(NOT BUILD_SHARED_LIBS)
 	target_link_libraries(utf8test ${OPENSSL_LIBS})
 	add_test(utf8test utf8test)
 endif()
+
+add_executable(valid_handshakes_terminate valid_handshakes_terminate.c)
+target_link_libraries(valid_handshakes_terminate ${OPENSSL_LIBS})
+add_test(valid_handshakes_terminate valid_handshakes_terminate)
 
 # verifytest
 if(NOT BUILD_SHARED_LIBS)

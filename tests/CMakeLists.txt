@@ -333,9 +333,11 @@ target_link_libraries(rc4test ${OPENSSL_LIBS})
 add_test(rc4test rc4test)
 
 # recordtest
-add_executable(recordtest recordtest.c)
-target_link_libraries(recordtest ${OPENSSL_LIBS})
-add_test(recordtest recordtest)
+if(NOT BUILD_SHARED_LIBS)
+	add_executable(recordtest recordtest.c)
+	target_link_libraries(recordtest ${OPENSSL_LIBS})
+	add_test(recordtest recordtest)
+endif()
 
 # rfc5280time
 add_executable(rfc5280time rfc5280time.c)

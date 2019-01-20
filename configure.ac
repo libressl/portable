@@ -26,7 +26,7 @@ m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 # This must be saved before AC_PROG_CC
 USER_CFLAGS="$CFLAGS"
 
-AC_PROG_CC
+AC_PROG_CC([cc gcc])
 AC_PROG_CC_STDC
 AM_PROG_CC_C_O
 AC_PROG_LIBTOOL

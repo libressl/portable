@@ -1,6 +1,6 @@
---- apps/openssl/openssl.c.orig	Fri Nov  4 09:33:19 2016
-+++ apps/openssl/openssl.c	Sat Nov  5 15:28:35 2016
-@@ -396,7 +396,9 @@
+--- apps/openssl/openssl.c.orig	Fri Dec 14 01:44:33 2018
++++ apps/openssl/openssl.c	Sat Jan 19 22:19:23 2019
+@@ -350,7 +350,9 @@
  static void
  openssl_startup(void)
  {

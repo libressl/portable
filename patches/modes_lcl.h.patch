@@ -1,6 +1,6 @@
---- openbsd/src/lib/libssl/src/crypto/modes/modes_lcl.h	Sat Dec  6 17:15:50 2014
-+++ crypto/modes/modes_lcl.h	Sun Jul 17 17:45:27 2016
-@@ -43,14 +43,16 @@
+--- crypto/modes/modes_lcl.h.orig	Tue Nov 14 10:25:15 2017
++++ crypto/modes/modes_lcl.h	Sat Jan 19 22:19:23 2019
+@@ -45,14 +45,16 @@
  			asm ("bswapl %0"		\
  			: "+r"(ret));	ret;		})
  # elif (defined(__arm__) || defined(__arm)) && !defined(__STRICT_ALIGNMENT)

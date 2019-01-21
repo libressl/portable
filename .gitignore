@@ -79,6 +79,11 @@ tests/compat/*.c
 tests/x509name*
 !tests/optionstest.c
 !tests/*.test
+tests/client.c
+tests/init_pledge.c
+tests/server.c
+tests/util.c
+tests/valid_handshakes_terminate.c
 
 # ctags stuff
 TAGS

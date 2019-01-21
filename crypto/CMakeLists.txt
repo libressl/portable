@@ -19,8 +19,8 @@ if(HOST_ASM_ELF_ARMV4)
 	add_definitions(-DSHA256_ASM)
 	add_definitions(-DSHA512_ASM)
 	add_definitions(-DOPENSSL_CPUID_OBJ)
-	set(CRYPTO_SRC ${CRYPTO_SRC} ${ASM_ARMV4_ELF_SRC})
 	set_property(SOURCE ${ASM_ARMV4_ELF_SRC} PROPERTY LANGUAGE C)
+	set(CRYPTO_SRC ${CRYPTO_SRC} ${ASM_ARMV4_ELF_SRC})
 endif()
 
 if(HOST_ASM_ELF_X86_64)
@@ -196,13 +196,22 @@ if((NOT HOST_ASM_ELF_X86_64) AND
 	(NOT HOST_ASM_MACOSX_X86_64) AND
 	(NOT HOST_ASM_MASM_X86_64) AND
 	(NOT HOST_ASM_MINGW64_X86_64) AND
-	(NOT HOST_ASM_ELF_ARMV4)
-)
+	(NOT HOST_ASM_ELF_ARMV4))
+	set(
+		CRYPTO_SRC
+		${CRYPTO_SRC}
+		aes/aes_core.c
+	)
+endif()
+
+if((NOT HOST_ASM_ELF_X86_64) AND
+	(NOT HOST_ASM_MACOSX_X86_64) AND
+	(NOT HOST_ASM_MASM_X86_64) AND
+	(NOT HOST_ASM_MINGW64_X86_64))
 	set(
 		CRYPTO_SRC
 		${CRYPTO_SRC}
 		aes/aes_cbc.c
-		aes/aes_core.c
 		camellia/camellia.c
 		camellia/cmll_cbc.c
 		rc4/rc4_enc.c

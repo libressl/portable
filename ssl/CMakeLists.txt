@@ -19,6 +19,7 @@ set(
 	ssl_both.c
 	ssl_cert.c
 	ssl_ciph.c
+	ssl_ciphers.c
 	ssl_clnt.c
 	ssl_err.c
 	ssl_init.c
@@ -41,6 +42,7 @@ set(
 	tls13_handshake.c
 	tls13_handshake_msg.c
 	tls13_key_schedule.c
+	tls13_lib.c
 	tls13_record.c
 	tls13_record_layer.c
 )

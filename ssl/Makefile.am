@@ -28,6 +28,7 @@ libssl_la_SOURCES += ssl_asn1.c
 libssl_la_SOURCES += ssl_both.c
 libssl_la_SOURCES += ssl_cert.c
 libssl_la_SOURCES += ssl_ciph.c
+libssl_la_SOURCES += ssl_ciphers.c
 libssl_la_SOURCES += ssl_clnt.c
 libssl_la_SOURCES += ssl_err.c
 libssl_la_SOURCES += ssl_init.c
@@ -50,6 +51,7 @@ libssl_la_SOURCES += tls13_buffer.c
 libssl_la_SOURCES += tls13_handshake.c
 libssl_la_SOURCES += tls13_handshake_msg.c
 libssl_la_SOURCES += tls13_key_schedule.c
+libssl_la_SOURCES += tls13_lib.c
 libssl_la_SOURCES += tls13_record.c
 libssl_la_SOURCES += tls13_record_layer.c
 

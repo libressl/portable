@@ -6,27 +6,12 @@ environment:
   PATH: C:\msys64\usr\bin;C:\msys64\mingw64\bin;C:\Windows\System32;C:\Windows;%PATH%
 
   matrix:
-    # x86 builds
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      GENERATOR: Visual Studio 14 2015
-      CONFIG: Release
-      SHARED_LIBS: ON
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      GENERATOR: Visual Studio 14 2015
-      CONFIG: Release
-      SHARED_LIBS: OFF
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      GENERATOR: Visual Studio 14 2015
-      CONFIG: Debug
-      SHARED_LIBS: ON
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      GENERATOR: Visual Studio 14 2015
-      CONFIG: Debug
-      SHARED_LIBS: OFF
-
-    # x64 builds
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       GENERATOR: Visual Studio 14 2015 Win64
+      CONFIG: Release
+      SHARED_LIBS: ON
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      GENERATOR: Visual Studio 14 2015
       CONFIG: Release
       SHARED_LIBS: ON
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
@@ -34,12 +19,8 @@ environment:
       CONFIG: Release
       SHARED_LIBS: OFF
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      GENERATOR: Visual Studio 14 2015 Win64
-      CONFIG: Debug
-      SHARED_LIBS: ON
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      GENERATOR: Visual Studio 14 2015 Win64
-      CONFIG: Debug
+      GENERATOR: Visual Studio 14 2015
+      CONFIG: Release
       SHARED_LIBS: OFF
 
 init:

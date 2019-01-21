@@ -108,7 +108,98 @@ if(HOST_ASM_MACOSX_X86_64)
 	set_property(SOURCE ${ASM_X86_64_MACOSX_SRC} PROPERTY XCODE_EXPLICIT_FILE_TYPE "sourcecode.asm")
 endif()
 
-if((NOT HOST_ASM_ELF_X86_64) AND (NOT HOST_ASM_MACOSX_X86_64))
+if(HOST_ASM_MASM_X86_64)
+	set(
+		ASM_X86_64_MASM_SRC
+		aes/aes-masm-x86_64.S
+		aes/bsaes-masm-x86_64.S
+		aes/vpaes-masm-x86_64.S
+		aes/aesni-masm-x86_64.S
+		aes/aesni-sha1-masm-x86_64.S
+		#bn/modexp512-masm-x86_64.S
+		#bn/mont-masm-x86_64.S
+		#bn/mont5-masm-x86_64.S
+		#bn/gf2m-masm-x86_64.S
+		camellia/cmll-masm-x86_64.S
+		md5/md5-masm-x86_64.S
+		modes/ghash-masm-x86_64.S
+		rc4/rc4-masm-x86_64.S
+		rc4/rc4-md5-masm-x86_64.S
+		sha/sha1-masm-x86_64.S
+		sha/sha256-masm-x86_64.S
+		sha/sha512-masm-x86_64.S
+		whrlpool/wp-masm-x86_64.S
+		cpuid-masm-x86_64.S
+	)
+	add_definitions(-DAES_ASM)
+	add_definitions(-DBSAES_ASM)
+	add_definitions(-DVPAES_ASM)
+	add_definitions(-DOPENSSL_IA32_SSE2)
+	#add_definitions(-DOPENSSL_BN_ASM_MONT)
+	#add_definitions(-DOPENSSL_BN_ASM_MONT5)
+	#add_definitions(-DOPENSSL_BN_ASM_GF2m)
+	add_definitions(-DMD5_ASM)
+	add_definitions(-DGHASH_ASM)
+	add_definitions(-DRSA_ASM)
+	add_definitions(-DSHA1_ASM)
+	add_definitions(-DSHA256_ASM)
+	add_definitions(-DSHA512_ASM)
+	add_definitions(-DWHIRLPOOL_ASM)
+	add_definitions(-DOPENSSL_CPUID_OBJ)
+	set(CRYPTO_SRC ${CRYPTO_SRC} ${ASM_X86_64_MASM_SRC})
+	set_property(SOURCE ${ASM_X86_64_MASM_SRC} PROPERTY LANGUAGE C)
+	set_property(SOURCE ${ASM_X86_64_MASM_SRC} PROPERTY XCODE_EXPLICIT_FILE_TYPE "sourcecode.asm")
+endif()
+
+if(HOST_ASM_MINGW64_X86_64)
+	set(
+		ASM_X86_64_MINGW64_SRC
+		aes/aes-mingw64-x86_64.S
+		aes/bsaes-mingw64-x86_64.S
+		aes/vpaes-mingw64-x86_64.S
+		aes/aesni-mingw64-x86_64.S
+		aes/aesni-sha1-mingw64-x86_64.S
+		#bn/modexp512-mingw64-x86_64.S
+		#bn/mont-mingw64-x86_64.S
+		#bn/mont5-mingw64-x86_64.S
+		#bn/gf2m-mingw64-x86_64.S
+		camellia/cmll-mingw64-x86_64.S
+		md5/md5-mingw64-x86_64.S
+		modes/ghash-mingw64-x86_64.S
+		rc4/rc4-mingw64-x86_64.S
+		rc4/rc4-md5-mingw64-x86_64.S
+		sha/sha1-mingw64-x86_64.S
+		sha/sha256-mingw64-x86_64.S
+		sha/sha512-mingw64-x86_64.S
+		whrlpool/wp-mingw64-x86_64.S
+		cpuid-mingw64-x86_64.S
+	)
+	add_definitions(-DAES_ASM)
+	add_definitions(-DBSAES_ASM)
+	add_definitions(-DVPAES_ASM)
+	add_definitions(-DOPENSSL_IA32_SSE2)
+	#add_definitions(-DOPENSSL_BN_ASM_MONT)
+	#add_definitions(-DOPENSSL_BN_ASM_MONT5)
+	#add_definitions(-DOPENSSL_BN_ASM_GF2m)
+	add_definitions(-DMD5_ASM)
+	add_definitions(-DGHASH_ASM)
+	add_definitions(-DRSA_ASM)
+	add_definitions(-DSHA1_ASM)
+	add_definitions(-DSHA256_ASM)
+	add_definitions(-DSHA512_ASM)
+	add_definitions(-DWHIRLPOOL_ASM)
+	add_definitions(-DOPENSSL_CPUID_OBJ)
+	set(CRYPTO_SRC ${CRYPTO_SRC} ${ASM_X86_64_MINGW64_SRC})
+	set_property(SOURCE ${ASM_X86_64_MINGW64_SRC} PROPERTY LANGUAGE C)
+	set_property(SOURCE ${ASM_X86_64_MINGW64_SRC} PROPERTY XCODE_EXPLICIT_FILE_TYPE "sourcecode.asm")
+endif()
+
+if((NOT HOST_ASM_ELF_X86_64) AND
+	(NOT HOST_ASM_MACOSX_X86_64) AND
+	(NOT HOST_ASM_MASM_X86_64) AND
+	(NOT HOST_ASM_MINGW64_X86_64) AND
+	(NOT HOST_ASM_ELF_ARMV4)
+)
 	set(
 		CRYPTO_SRC
 		${CRYPTO_SRC}

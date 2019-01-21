@@ -161,11 +161,7 @@ $GREP -v OPENSSL_ia32cap_P $libcrypto_src/Symbols.list | $GREP '^[A-Za-z0-9_]' >
 # generate assembly crypto algorithms
 asm_src=$libcrypto_src
 gen_asm_stdout() {
-	if [ $1 = "mingw64" ]; then
-		CC=true perl $asm_src/$2 $1 > $3.tmp
-	else
-		perl $asm_src/$2 $1 > $3.tmp
-	fi
+	CC=true perl $asm_src/$2 $1 > $3.tmp
 	[ $1 = "elf" ] && cat <<-EOF >> $3.tmp
 	#if defined(HAVE_GNU_STACK)
 	.section .note.GNU-stack,"",%progbits
@@ -174,11 +170,7 @@ gen_asm_stdout() {
 	$MV $3.tmp $3
 }
 gen_asm() {
-	if [ $1 = "mingw64" ]; then
-		CC=true perl $asm_src/$2 $1 $3.tmp
-	else
-		perl $asm_src/$2 $1 $3.tmp
-	fi
+	CC=true perl $asm_src/$2 $1 $3.tmp
 	[ $1 = "elf" ] && cat <<-EOF >> $3.tmp
 	#if defined(HAVE_GNU_STACK)
 	.section .note.GNU-stack,"",%progbits

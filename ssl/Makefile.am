@@ -48,6 +48,7 @@ libssl_la_SOURCES += t1_enc.c
 libssl_la_SOURCES += t1_hash.c
 libssl_la_SOURCES += t1_lib.c
 libssl_la_SOURCES += tls13_buffer.c
+libssl_la_SOURCES += tls13_client.c
 libssl_la_SOURCES += tls13_handshake.c
 libssl_la_SOURCES += tls13_handshake_msg.c
 libssl_la_SOURCES += tls13_key_schedule.c

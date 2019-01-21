@@ -161,7 +161,11 @@ $GREP -v OPENSSL_ia32cap_P $libcrypto_src/Symbols.list | $GREP '^[A-Za-z0-9_]' >
 # generate assembly crypto algorithms
 asm_src=$libcrypto_src
 gen_asm_stdout() {
-	perl $asm_src/$2 $1 > $3.tmp
+	if [ $1 = "mingw64" ]; then
+		CC=true perl $asm_src/$2 $1 > $3.tmp
+	else
+		perl $asm_src/$2 $1 > $3.tmp
+	fi
 	[ $1 = "elf" ] && cat <<-EOF >> $3.tmp
 	#if defined(HAVE_GNU_STACK)
 	.section .note.GNU-stack,"",%progbits
@@ -170,7 +174,11 @@ gen_asm_stdout() {
 	$MV $3.tmp $3
 }
 gen_asm() {
-	perl $asm_src/$2 $1 $3.tmp
+	if [ $1 = "mingw64" ]; then
+		CC=true perl $asm_src/$2 $1 $3.tmp
+	else
+		perl $asm_src/$2 $1 $3.tmp
+	fi
 	[ $1 = "elf" ] && cat <<-EOF >> $3.tmp
 	#if defined(HAVE_GNU_STACK)
 	.section .note.GNU-stack,"",%progbits
@@ -191,7 +199,7 @@ $CP $libcrypto_src/armv4cpuid.S crypto
 $CP $libcrypto_src/armcap.c crypto
 $CP $libcrypto_src/arm_arch.h crypto
 
-for abi in elf macosx; do
+for abi in elf macosx masm mingw64; do
 	echo generating x86_64 ASM source for $abi
 	gen_asm_stdout $abi aes/asm/aes-x86_64.pl        crypto/aes/aes-$abi-x86_64.S
 	gen_asm_stdout $abi aes/asm/vpaes-x86_64.pl      crypto/aes/vpaes-$abi-x86_64.S

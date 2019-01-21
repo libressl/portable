@@ -197,10 +197,14 @@ EXTRA_libcrypto_la_SOURCES =
 include Makefile.am.elf-arm
 include Makefile.am.elf-x86_64
 include Makefile.am.macosx-x86_64
+include Makefile.am.masm-x86_64
+include Makefile.am.mingw64-x86_64
 
 if !HOST_ASM_ELF_ARM
 if !HOST_ASM_ELF_X86_64
 if !HOST_ASM_MACOSX_X86_64
+if !HOST_ASM_MASM_X86_64
+if !HOST_ASM_MINGW64_X86_64
 libcrypto_la_SOURCES += aes/aes_cbc.c
 libcrypto_la_SOURCES += aes/aes_core.c
 libcrypto_la_SOURCES += camellia/camellia.c
@@ -208,6 +212,8 @@ libcrypto_la_SOURCES += camellia/cmll_cbc.c
 libcrypto_la_SOURCES += rc4/rc4_enc.c
 libcrypto_la_SOURCES += rc4/rc4_skey.c
 libcrypto_la_SOURCES += whrlpool/wp_block.c
+endif
+endif
 endif
 endif
 endif

@@ -480,9 +480,12 @@ if(NOT BUILD_SHARED_LIBS)
 	add_test(utf8test utf8test)
 endif()
 
-add_executable(valid_handshakes_terminate valid_handshakes_terminate.c)
-target_link_libraries(valid_handshakes_terminate ${OPENSSL_LIBS})
-add_test(valid_handshakes_terminate valid_handshakes_terminate)
+# valid_handshakes_terminate
+if(NOT BUILD_SHARED_LIBS)
+	add_executable(valid_handshakes_terminate valid_handshakes_terminate.c)
+	target_link_libraries(valid_handshakes_terminate ${OPENSSL_LIBS})
+	add_test(valid_handshakes_terminate valid_handshakes_terminate)
+endif()
 
 # verifytest
 if(NOT BUILD_SHARED_LIBS)

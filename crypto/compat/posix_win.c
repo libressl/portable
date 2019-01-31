@@ -4,6 +4,7 @@
  * BSD socket emulation code for Winsock2
  * File IO compatibility shims
  * Brent Cook <bcook@openbsd.org>
+ * Kinichiro Inoguchi <inoguchi@openbsd.org>
  */
 
 #define NO_REDEF_POSIX_FUNCTIONS
@@ -206,6 +207,12 @@ posix_setsockopt(int sockfd, int level, int optname,
 {
 	int rc = setsockopt(sockfd, level, optname, (char *)optval, optlen);
 	return rc == 0 ? 0 : wsa_errno(WSAGetLastError());
+}
+
+uid_t getuid(void)
+{
+	/* Windows fstat sets 0 as st_uid */
+	return 0;
 }
 
 #ifdef _MSC_VER

@@ -33,7 +33,6 @@ noinst_HEADERS = tls_internal.h
 
 if HOST_WIN
 libtls_la_SOURCES += compat/ftruncate.c
-libtls_la_SOURCES += compat/getuid.c
 libtls_la_SOURCES += compat/pread.c
 libtls_la_SOURCES += compat/pwrite.c
 endif

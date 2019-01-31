@@ -6,6 +6,7 @@ AC_CHECK_FUNCS([asprintf freezero memmem])
 AC_CHECK_FUNCS([readpassphrase reallocarray recallocarray])
 AC_CHECK_FUNCS([strlcat strlcpy strndup strnlen strsep strtonum])
 AC_CHECK_FUNCS([timegm _mkgmtime timespecsub])
+AC_CHECK_FUNCS([getprogname syslog syslog_r])
 AC_CACHE_CHECK([for getpagesize], ac_cv_func_getpagesize, [
 	AC_LINK_IFELSE([AC_LANG_PROGRAM([[
 // Since Android NDK v16 getpagesize is defined as inline inside unistd.h
@@ -33,6 +34,9 @@ AM_CONDITIONAL([HAVE_STRNLEN], [test "x$ac_cv_func_strnlen" = xyes])
 AM_CONDITIONAL([HAVE_STRSEP], [test "x$ac_cv_func_strsep" = xyes])
 AM_CONDITIONAL([HAVE_STRTONUM], [test "x$ac_cv_func_strtonum" = xyes])
 AM_CONDITIONAL([HAVE_TIMEGM], [test "x$ac_cv_func_timegm" = xyes])
+AM_CONDITIONAL([HAVE_GETPROGNAME], [test "x$ac_cv_func_getprogname" = xyes])
+AM_CONDITIONAL([HAVE_SYSLOG], [test "x$ac_cv_func_syslog" = xyes])
+AM_CONDITIONAL([HAVE_SYSLOG_R], [test "x$ac_cv_func_syslog_r" = xyes])
 ])
 
 AC_DEFUN([CHECK_SYSCALL_COMPAT], [

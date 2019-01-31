@@ -87,6 +87,7 @@ if HOST_WIN
 	-echo posix_write >> crypto_portable.sym
 	-echo posix_getsockopt >> crypto_portable.sym
 	-echo posix_setsockopt >> crypto_portable.sym
+	-echo getuid >> crypto_portable.sym
 	-grep -v BIO_s_log crypto_portable.sym > crypto_portable.sym.tmp
 	-mv crypto_portable.sym.tmp crypto_portable.sym
 endif
@@ -162,6 +163,15 @@ if !HAVE_GETPAGESIZE
 libcompat_la_SOURCES += compat/getpagesize.c
 endif
 
+if !HAVE_GETPROGNAME
+if HOST_LINUX
+libcompat_la_SOURCES += compat/getprogname_linux.c
+endif
+if HOST_WIN
+libcompat_la_SOURCES += compat/getprogname_windows.c
+endif
+endif
+
 if !HAVE_TIMEGM
 libcompat_la_SOURCES += compat/timegm.c
 endif
@@ -172,6 +182,10 @@ endif
 
 if !HAVE_RECALLOCARRAY
 libcompat_la_SOURCES += compat/recallocarray.c
+endif
+
+if !HAVE_SYSLOG_R
+libcompat_la_SOURCES += compat/syslog_r.c
 endif
 
 if !HAVE_TIMINGSAFE_MEMCMP

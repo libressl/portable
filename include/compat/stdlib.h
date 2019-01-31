@@ -29,6 +29,10 @@ uint32_t arc4random_uniform(uint32_t upper_bound);
 void freezero(void *ptr, size_t sz);
 #endif
 
+#ifndef HAVE_GETPROGNAME
+const char * getprogname(void);
+#endif
+
 #ifndef HAVE_REALLOCARRAY
 void *reallocarray(void *, size_t, size_t);
 #endif

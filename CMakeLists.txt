@@ -237,6 +237,21 @@ if(HAVE_GETPAGESIZE)
 	add_definitions(-DHAVE_GETPAGESIZE)
 endif()
 
+check_function_exists(getprogname HAVE_GETPROGNAME)
+if(HAVE_GETPROGNAME)
+	add_definitions(-DHAVE_GETPROGNAME)
+endif()
+
+check_function_exists(syslog_r HAVE_SYSLOG_R)
+if(HAVE_SYSLOG_R)
+	add_definitions(-DHAVE_SYSLOG_R)
+endif()
+
+check_function_exists(syslog HAVE_SYSLOG)
+if(HAVE_SYSLOG)
+	add_definitions(-DHAVE_SYSLOG)
+endif()
+
 check_symbol_exists(timespecsub sys/time.h HAVE_TIMESPECSUB)
 if(HAVE_TIMESPECSUB)
 	add_definitions(-DHAVE_TIMESPECSUB)

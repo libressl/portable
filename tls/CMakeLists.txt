@@ -18,7 +18,6 @@ if(WIN32)
 		TLS_SRC
 		${TLS_SRC}
 		compat/ftruncate.c
-		compat/getuid.c
 		compat/pread.c
 		compat/pwrite.c
 	)

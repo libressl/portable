@@ -18,6 +18,7 @@ noinst_HEADERS += compat/resolv.h
 noinst_HEADERS += compat/stdio.h
 noinst_HEADERS += compat/stdlib.h
 noinst_HEADERS += compat/string.h
+noinst_HEADERS += compat/syslog.h
 noinst_HEADERS += compat/time.h
 noinst_HEADERS += compat/unistd.h
 noinst_HEADERS += compat/win32netcompat.h

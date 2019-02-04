@@ -813,6 +813,8 @@ if(NOT HAVE_GETPROGNAME)
 		set(CRYPTO_SRC ${CRYPTO_SRC} compat/getprogname_windows.c)
 	elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
 		set(CRYPTO_SRC ${CRYPTO_SRC} compat/getprogname_linux.c)
+	else()
+		set(CRYPTO_SRC ${CRYPTO_SRC} compat/getprogname_unimpl.c)
 	endif()
 endif()
 

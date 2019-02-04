@@ -166,9 +166,12 @@ endif
 if !HAVE_GETPROGNAME
 if HOST_LINUX
 libcompat_la_SOURCES += compat/getprogname_linux.c
-endif
+else
 if HOST_WIN
 libcompat_la_SOURCES += compat/getprogname_windows.c
+else
+libcompat_la_SOURCES += compat/getprogname_unimpl.c
+endif
 endif
 endif
 

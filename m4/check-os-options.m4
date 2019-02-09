@@ -98,6 +98,7 @@ char buf[1]; getentropy(buf, 1);
 		HOST_OS=openbsd
 		HOST_ABI=elf
 		AC_DEFINE([HAVE_ATTRIBUTE__BOUNDED__], [1], [OpenBSD gcc has bounded])
+		AC_DEFINE([HAVE_ATTRIBUTE__DEAD], [1], [OpenBSD gcc has __dead])
 		;;
 	*mingw*)
 		HOST_OS=win

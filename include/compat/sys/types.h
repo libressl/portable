@@ -49,6 +49,14 @@ typedef SSIZE_T ssize_t;
 # define __bounded__(x, y, z)
 #endif
 
+#if !defined(HAVE_ATTRIBUTE__DEAD) && !defined(__dead)
+#ifdef _MSC_VER
+#define __dead      __declspec(noreturn)
+#else
+#define __dead      __attribute__((__noreturn__))
+#endif
+#endif
+
 #ifdef _WIN32
 #define __warn_references(sym,msg)
 #else

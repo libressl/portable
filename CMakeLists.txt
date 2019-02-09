@@ -49,6 +49,7 @@ endif()
 
 if(CMAKE_SYSTEM_NAME MATCHES "OpenBSD")
 	add_definitions(-DHAVE_ATTRIBUTE__BOUNDED__)
+	add_definitions(-DHAVE_ATTRIBUTE__DEAD__)
 endif()
 
 if(CMAKE_SYSTEM_NAME MATCHES "Linux")

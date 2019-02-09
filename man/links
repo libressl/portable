@@ -734,7 +734,9 @@ EVP_AEAD_CTX_init.3,EVP_AEAD_max_tag_len.3
 EVP_AEAD_CTX_init.3,EVP_AEAD_nonce_length.3
 EVP_AEAD_CTX_init.3,EVP_aead_aes_128_gcm.3
 EVP_AEAD_CTX_init.3,EVP_aead_aes_256_gcm.3
+EVP_AEAD_CTX_init.3,EVP_aead_chacha20_poly1305,.3
 EVP_AEAD_CTX_init.3,EVP_aead_chacha20_poly1305.3
+EVP_AEAD_CTX_init.3,EVP_aead_xchacha20_poly1305.3
 EVP_DigestInit.3,EVP_DigestFinal.3
 EVP_DigestInit.3,EVP_DigestFinal_ex.3
 EVP_DigestInit.3,EVP_DigestInit_ex.3
@@ -780,6 +782,8 @@ EVP_EncodeInit.3,EVP_DecodeBlock.3
 EVP_EncodeInit.3,EVP_DecodeFinal.3
 EVP_EncodeInit.3,EVP_DecodeInit.3
 EVP_EncodeInit.3,EVP_DecodeUpdate.3
+EVP_EncodeInit.3,EVP_ENCODE_CTX_free.3
+EVP_EncodeInit.3,EVP_ENCODE_CTX_new.3
 EVP_EncodeInit.3,EVP_EncodeBlock.3
 EVP_EncodeInit.3,EVP_EncodeFinal.3
 EVP_EncodeInit.3,EVP_EncodeUpdate.3
@@ -889,12 +893,16 @@ EVP_EncryptInit.3,EVP_rc4_hmac_md5.3
 EVP_OpenInit.3,EVP_OpenFinal.3
 EVP_OpenInit.3,EVP_OpenUpdate.3
 EVP_PKEY_CTX_ctrl.3,EVP_PKEY_CTX_ctrl_str.3
+EVP_PKEY_CTX_ctrl.3,EVP_PKEY_CTX_get_rsa_mgf1_md.3
+EVP_PKEY_CTX_ctrl.3,EVP_PKEY_CTX_get_rsa_padding.3
+EVP_PKEY_CTX_ctrl.3,EVP_PKEY_CTX_get_rsa_pss_saltlen.3
 EVP_PKEY_CTX_ctrl.3,EVP_PKEY_CTX_set_dh_paramgen_generator.3
 EVP_PKEY_CTX_ctrl.3,EVP_PKEY_CTX_set_dh_paramgen_prime_len.3
 EVP_PKEY_CTX_ctrl.3,EVP_PKEY_CTX_set_dsa_paramgen_bits.3
 EVP_PKEY_CTX_ctrl.3,EVP_PKEY_CTX_set_ec_paramgen_curve_nid.3
 EVP_PKEY_CTX_ctrl.3,EVP_PKEY_CTX_set_rsa_keygen_bits.3
 EVP_PKEY_CTX_ctrl.3,EVP_PKEY_CTX_set_rsa_keygen_pubexp.3
+EVP_PKEY_CTX_ctrl.3,EVP_PKEY_CTX_set_rsa_mgf1_md.3
 EVP_PKEY_CTX_ctrl.3,EVP_PKEY_CTX_set_rsa_padding.3
 EVP_PKEY_CTX_ctrl.3,EVP_PKEY_CTX_set_rsa_pss_saltlen.3
 EVP_PKEY_CTX_ctrl.3,EVP_PKEY_CTX_set_signature_md.3
@@ -950,6 +958,7 @@ EVP_PKEY_meth_new.3,EVP_PKEY_meth_set_verify.3
 EVP_PKEY_meth_new.3,EVP_PKEY_meth_set_verify_recover.3
 EVP_PKEY_meth_new.3,EVP_PKEY_meth_set_verifyctx.3
 EVP_PKEY_new.3,EVP_PKEY_free.3
+EVP_PKEY_new.3,EVP_PKEY_new_mac_key.3
 EVP_PKEY_new.3,EVP_PKEY_up_ref.3
 EVP_PKEY_print_private.3,EVP_PKEY_print_params.3
 EVP_PKEY_print_private.3,EVP_PKEY_print_public.3
@@ -1532,7 +1541,9 @@ SSL_alert_type_string.3,SSL_alert_desc_string_long.3
 SSL_alert_type_string.3,SSL_alert_type_string_long.3
 SSL_get_certificate.3,SSL_get_privatekey.3
 SSL_get_ciphers.3,SSL_CTX_get_ciphers.3
+SSL_get_ciphers.3,SSL_get1_supported_ciphers.3
 SSL_get_ciphers.3,SSL_get_cipher_list.3
+SSL_get_ciphers.3,SSL_get_client_ciphers.3
 SSL_get_client_CA_list.3,SSL_CTX_get_client_CA_list.3
 SSL_get_client_random.3,SSL_SESSION_get_master_key.3
 SSL_get_client_random.3,SSL_get_server_random.3

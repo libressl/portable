@@ -83,7 +83,8 @@ tests/client.c
 tests/init_pledge.c
 tests/server.c
 tests/util.c
-tests/valid_handshakes_terminate.c
+tests/valid_handshakes_terminate*
+tests/handshake_table*
 
 # ctags stuff
 TAGS

@@ -33,10 +33,10 @@ set(
 	ssl_srvr.c
 	ssl_stat.c
 	ssl_tlsext.c
+	ssl_transcript.c
 	ssl_txt.c
 	ssl_versions.c
 	t1_enc.c
-	t1_hash.c
 	t1_lib.c
 	tls13_buffer.c
 	tls13_client.c

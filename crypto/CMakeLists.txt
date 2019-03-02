@@ -525,6 +525,7 @@ set(
 	evp/e_rc2.c
 	evp/e_rc4.c
 	evp/e_rc4_hmac_md5.c
+	evp/e_sm4.c
 	evp/e_xcbc_d.c
 	evp/encode.c
 	evp/evp_aead.c
@@ -683,6 +684,7 @@ set(
 	sha/sha256.c
 	sha/sha512.c
 	sm3/sm3.c
+	sm4/sm4.c
 	stack/stack.c
 	ts/ts_asn1.c
 	ts/ts_conf.c

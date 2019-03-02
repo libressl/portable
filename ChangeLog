@@ -30,6 +30,8 @@ LibreSSL Portable Release Notes:
 
 2.9.0 - Development release
 
+	* Added the SM4 block cipher from the Chinese standard GB/T 32907-2016.
+
 	* Fixed warnings about clock_gettime on Windows Visual Studio builds.
 
 	* Fixed CMake builds on systems where getpagesize is defined as an

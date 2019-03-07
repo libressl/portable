@@ -372,6 +372,15 @@ TESTS += sha512test
 check_PROGRAMS += sha512test
 sha512test_SOURCES = sha512test.c
 
+# sm2test
+TESTS += sm2crypttest
+check_PROGRAMS += sm2crypttest
+sm2crypttest_SOURCES = sm2crypttest.c
+
+TESTS += sm2sigtest
+check_PROGRAMS += sm2sigtest
+sm2sigtest_SOURCES = sm2sigtest.c
+
 # sm3test
 TESTS += sm3test
 check_PROGRAMS += sm3test

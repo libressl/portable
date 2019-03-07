@@ -683,6 +683,11 @@ set(
 	sha/sha1dgst.c
 	sha/sha256.c
 	sha/sha512.c
+	sm2/sm2_crypt
+	sm2/sm2_err.c
+	sm2/sm2_pmeth.c
+	sm2/sm2_sign.c
+	sm2/sm2_za.c
 	sm3/sm3.c
 	sm4/sm4.c
 	stack/stack.c

@@ -845,6 +845,7 @@ libcrypto_la_SOURCES += sm2/sm2_err.c
 libcrypto_la_SOURCES += sm2/sm2_pmeth.c
 libcrypto_la_SOURCES += sm2/sm2_sign.c
 libcrypto_la_SOURCES += sm2/sm2_za.c
+noinst_HEADERS += sm2/sm2_locl.h
 
 # sm3
 libcrypto_la_SOURCES += sm3/sm3.c

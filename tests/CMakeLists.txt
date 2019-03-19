@@ -2,6 +2,7 @@ include_directories(
 	.
 	../crypto/modes
 	../crypto/asn1
+	../crypto/sm2
 	../ssl
 	../tls
 	../apps/openssl

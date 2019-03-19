@@ -388,6 +388,11 @@ add_executable(sm3test sm3test.c)
 target_link_libraries(sm3test ${OPENSSL_LIBS})
 add_test(sm3test sm3test)
 
+# sm4test
+add_executable(sm4test sm4test.c)
+target_link_libraries(sm4test ${OPENSSL_LIBS})
+add_test(sm4test sm4test)
+
 # ssl_versions
 if(NOT BUILD_SHARED_LIBS)
 	add_executable(ssl_versions ssl_versions.c)

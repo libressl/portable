@@ -393,6 +393,10 @@ add_executable(sm2sigtest sm2sigtest.c)
 target_link_libraries(sm2sigtest ${OPENSSL_LIBS})
 add_test(sm2sigtest sm2sigtest)
 
+add_executable(sm2evptest sm2evptest.c)
+target_link_libraries(sm2evptest ${OPENSSL_LIBS})
+add_test(sm2evptest sm2evptest)
+
 # sm3test
 add_executable(sm3test sm3test.c)
 target_link_libraries(sm3test ${OPENSSL_LIBS})

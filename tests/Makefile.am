@@ -382,6 +382,10 @@ TESTS += sm2sigtest
 check_PROGRAMS += sm2sigtest
 sm2sigtest_SOURCES = sm2sigtest.c
 
+TESTS += sm2evptest
+check_PROGRAMS += sm2evptest
+sm2evptest_SOURCES = sm2evptest.c
+
 # sm3test
 TESTS += sm3test
 check_PROGRAMS += sm3test

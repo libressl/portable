@@ -1,0 +1,63 @@
+diff -upr -X mkfile ssl/ssl_both.c ssl.plan9/ssl_both.c
+--- ssl/ssl_both.c	2019-02-16 22:08:41.000000000 +0900
++++ ssl.plan9/ssl_both.c	2019-03-14 01:27:10.000000000 +0900
+@@ -317,7 +317,7 @@ ssl3_send_change_cipher_spec(SSL *s, int
+ 	memset(&cbb, 0, sizeof(cbb));
+ 
+ 	if (S3I(s)->hs.state == a) {
+-		if (!CBB_init_fixed(&cbb, s->internal->init_buf->data,
++		if (!CBB_init_fixed(&cbb, (unsigned char*)s->internal->init_buf->data,
+ 		    s->internal->init_buf->length))
+ 			goto err;
+ 		if (!CBB_add_u8(&cbb, SSL3_MT_CCS))
+diff -upr -X mkfile ssl/ssl_cert.c ssl.plan9/ssl_cert.c
+--- ssl/ssl_cert.c	2019-02-16 22:08:41.000000000 +0900
++++ ssl.plan9/ssl_cert.c	2019-03-14 01:27:10.000000000 +0900
+@@ -133,7 +133,7 @@
+ int
+ SSL_get_ex_data_X509_STORE_CTX_idx(void)
+ {
+-	static volatile int ssl_x509_store_ctx_idx = -1;
++	static int ssl_x509_store_ctx_idx = -1;
+ 	int got_write_lock = 0;
+ 
+ 	CRYPTO_r_lock(CRYPTO_LOCK_SSL_CTX);
+diff -upr -X mkfile ssl/ssl_tlsext.c ssl.plan9/ssl_tlsext.c
+--- ssl/ssl_tlsext.c	2019-02-16 22:08:41.000000000 +0900
++++ ssl.plan9/ssl_tlsext.c	2019-03-14 01:27:10.000000000 +0900
+@@ -651,7 +651,7 @@ tlsext_sni_server_parse(SSL *s, CBS *cbs
+ 			*alert = TLS1_AD_UNRECOGNIZED_NAME;
+ 			return 0;
+ 		}
+-		if (!CBS_mem_equal(&host_name, s->session->tlsext_hostname,
++		if (!CBS_mem_equal(&host_name, (unsigned char*)s->session->tlsext_hostname,
+ 		    strlen(s->session->tlsext_hostname))) {
+ 			*alert = TLS1_AD_UNRECOGNIZED_NAME;
+ 			return 0;
+diff -upr -X mkfile ssl/tls13_key_schedule.c ssl.plan9/tls13_key_schedule.c
+--- ssl/tls13_key_schedule.c	2019-02-16 22:08:41.000000000 +0900
++++ ssl.plan9/tls13_key_schedule.c	2019-03-17 22:56:33.000000000 +0900
+@@ -186,9 +186,9 @@ tls13_hkdf_expand_label(struct tls13_sec
+ 		goto err;
+ 	if (!CBB_add_u8_length_prefixed(&cbb, &child))
+ 		goto err;
+-	if (!CBB_add_bytes(&child, tls13_plabel, strlen(tls13_plabel)))
++	if (!CBB_add_bytes(&child, (unsigned char *)tls13_plabel, strlen(tls13_plabel)))
+ 		goto err;
+-	if (!CBB_add_bytes(&child, label, strlen(label)))
++	if (!CBB_add_bytes(&child, (unsigned char *)label, strlen(label)))
+ 		goto err;
+ 	if (!CBB_add_u8_length_prefixed(&cbb, &child))
+ 		goto err;
+diff -upr -X mkfile ssl/tls13_record_layer.c ssl.plan9/tls13_record_layer.c
+--- ssl/tls13_record_layer.c	2019-03-18 01:33:08.000000000 +0900
++++ ssl.plan9/tls13_record_layer.c	2019-03-17 23:03:15.000000000 +0900
+@@ -253,7 +253,7 @@ tls13_record_layer_set_traffic_key(const
+     const EVP_MD *hash, struct tls13_secret *iv, struct tls13_secret *nonce,
+     struct tls13_secret *traffic_key)
+ {
+-	struct tls13_secret context = { .data = "", .len = 0 };
++	struct tls13_secret context = { .data = (unsigned char *)"", .len = 0 };
+ 	struct tls13_secret key = { .data = NULL, .len = 0 };
+ 	int ret = 0;
+ 

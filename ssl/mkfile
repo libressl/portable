@@ -1,0 +1,19 @@
+</sys/src/ape/config
+ROOT=..
+<../mkfile.proto
+
+CFLAGS=$CFLAGS -c\
+	-I$ROOT/crypto/asn1\
+	-I$ROOT/crypto/bn\
+	-I$ROOT/crypto/evp\
+	-I$ROOT/crypto/modes\
+
+LD=pcc -lcrypto.a
+
+CFILES=`{ls *.c}
+OFILES=${CFILES:%.c=%.$O}
+HFILES=`{ls *.h}
+
+LIB=/$objtype/lib/ape/libssl.a
+
+</sys/src/cmd/mklib

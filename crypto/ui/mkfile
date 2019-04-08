@@ -1,0 +1,15 @@
+</sys/src/ape/config
+ROOT=../..
+<$ROOT/mkfile.proto
+
+CFLAGS=$CFLAGS -c
+
+OFILES=\
+	ui_err.$O\
+	ui_lib.$O\
+	ui_openssl.$O\
+	ui_util.$O\
+
+LIB=/$objtype/lib/ape/libcrypto.a
+
+</sys/src/cmd/mklib

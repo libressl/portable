@@ -1,0 +1,77 @@
+</sys/src/ape/config
+ROOT=../..
+<../../mkfile.proto
+
+CFLAGS=$CFLAGS -B -c -DHAVE_STRCASECMP
+
+OFILES=\
+	apps.$O\
+	asn1pars.$O\
+	ca.$O\
+	ciphers.$O\
+	crl.$O\
+	crl2p7.$O\
+	dgst.$O\
+	dh.$O\
+	dhparam.$O\
+	dsa.$O\
+	dsaparam.$O\
+	ec.$O\
+	ecparam.$O\
+	enc.$O\
+	errstr.$O\
+	gendh.$O\
+	gendsa.$O\
+	genpkey.$O\
+	genrsa.$O\
+	nseq.$O\
+	ocsp.$O\
+	openssl.$O\
+	passwd.$O\
+	pkcs12.$O\
+	pkcs7.$O\
+	pkcs8.$O\
+	pkey.$O\
+	pkeyparam.$O\
+	pkeyutl.$O\
+	prime.$O\
+	rand.$O\
+	req.$O\
+	rsa.$O\
+	rsautl.$O\
+	s_cb.$O\
+	s_client.$O\
+	s_server.$O\
+	s_socket.$O\
+	s_time.$O\
+	sess_id.$O\
+	smime.$O\
+	speed.$O\
+	spkac.$O\
+	ts.$O\
+	verify.$O\
+	version.$O\
+	x509.$O\
+	certhash.$O\
+	apps_posix.$O\
+	compat/strtonum.$O\
+
+CLEANFILES=compat/strtonum.$O
+
+LIB=\
+#	/$objtype/lib/ape/libtls.a\
+	/$objtype/lib/ape/libssl.a\
+	/$objtype/lib/ape/libcrypto.a\
+
+HFILES=`{ls *.h}
+
+BIN=/$objtype/bin
+TARG=openssl
+
+</sys/src/cmd/mkone
+
+%.$O:	%.c
+	$CC $CFLAGS -o $target $stem.c
+
+dist:V:
+	#cp *.cnf *.pem xxx

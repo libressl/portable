@@ -1,0 +1,152 @@
+diff -upr -X mkfile apps/openssl/apps.c apps.plan9/openssl/apps.c
+--- apps/openssl/apps.c	2019-03-18 01:33:08.000000000 +0900
++++ apps.plan9/openssl/apps.c	2019-03-14 01:27:34.000000000 +0900
+@@ -146,6 +146,7 @@
+ #include <openssl/x509v3.h>
+ 
+ #include <openssl/rsa.h>
++#include <openssl/asn1t.h>
+ 
+ typedef struct {
+ 	const char *name;
+diff -upr -X mkfile apps/openssl/ciphers.c apps.plan9/openssl/ciphers.c
+--- apps/openssl/ciphers.c	2018-07-03 23:22:47.000000000 +0900
++++ apps.plan9/openssl/ciphers.c	2019-03-14 01:27:34.000000000 +0900
+@@ -49,14 +49,18 @@ struct option ciphers_options[] = {
+ 		.name = "v",
+ 		.desc = "Provide cipher listing",
+ 		.type = OPTION_VALUE,
+-		.opt.value = &ciphers_config.verbose,
++		.opt = {
++			.value = &ciphers_config.verbose,
++		},
+ 		.value = 1,
+ 	},
+ 	{
+ 		.name = "V",
+ 		.desc = "Provide cipher listing with cipher suite values",
+ 		.type = OPTION_VALUE,
+-		.opt.value = &ciphers_config.verbose,
++		.opt = {
++			.value = &ciphers_config.verbose,
++		},
+ 		.value = 2,
+ 	},
+ 	{ NULL },
+diff -upr -X mkfile apps/openssl/dhparam.c apps.plan9/openssl/dhparam.c
+--- apps/openssl/dhparam.c	2018-07-03 23:22:47.000000000 +0900
++++ apps.plan9/openssl/dhparam.c	2019-03-17 15:44:04.000000000 +0900
+@@ -150,14 +150,18 @@ struct option dhparam_options[] = {
+ 		.desc = "Generate DH parameters with a generator value of 2 "
+ 		    "(default)",
+ 		.type = OPTION_VALUE,
+-		.opt.value = &dhparam_config.g,
++		.opt = {
++			.value = &dhparam_config.g,
++		},
+ 		.value = 2,
+ 	},
+ 	{
+ 		.name = "5",
+ 		.desc = "Generate DH parameters with a generator value of 5",
+ 		.type = OPTION_VALUE,
+-		.opt.value = &dhparam_config.g,
++		.opt = {
++			.value = &dhparam_config.g,
++		},
+ 		.value = 5,
+ 	},
+ 	{
+diff -upr -X mkfile apps/openssl/enc.c apps.plan9/openssl/enc.c
+--- apps/openssl/enc.c	2019-03-18 01:33:08.000000000 +0900
++++ apps.plan9/openssl/enc.c	2019-03-14 01:27:34.000000000 +0900
+@@ -153,7 +153,9 @@ static struct option enc_options[] = {
+ 		.name = "d",
+ 		.desc = "Decrypt the input data",
+ 		.type = OPTION_VALUE,
+-		.opt.value = &enc_config.enc,
++		.opt = {
++			.value = &enc_config.enc,
++		},
+ 		.value = 0,
+ 	},
+ 	{
+@@ -166,7 +168,9 @@ static struct option enc_options[] = {
+ 		.name = "e",
+ 		.desc = "Encrypt the input data (default)",
+ 		.type = OPTION_VALUE,
+-		.opt.value = &enc_config.enc,
++		.opt = {
++			.value = &enc_config.enc,
++		},
+ 		.value = 1,
+ 	},
+ 	{
+@@ -229,7 +233,9 @@ static struct option enc_options[] = {
+ 	{
+ 		.name = "nosalt",
+ 		.type = OPTION_VALUE,
+-		.opt.value = &enc_config.nosalt,
++		.opt = {
++			.value = &enc_config.nosalt,
++		},
+ 		.value = 1,
+ 	},
+ 	{
+@@ -244,14 +250,18 @@ static struct option enc_options[] = {
+ 		.desc = "Print out the salt, key and IV used, then exit\n"
+ 		    "  (no encryption or decryption is performed)",
+ 		.type = OPTION_VALUE,
+-		.opt.value = &enc_config.printkey,
++		.opt = {
++			.value = &enc_config.printkey,
++		},
+ 		.value = 2,
+ 	},
+ 	{
+ 		.name = "p",
+ 		.desc = "Print out the salt, key and IV used",
+ 		.type = OPTION_VALUE,
+-		.opt.value = &enc_config.printkey,
++		.opt = {
++			.value = &enc_config.printkey,
++		},
+ 		.value = 1,
+ 	},
+ 	{
+diff -upr -X mkfile apps/openssl/s_time.c apps.plan9/openssl/s_time.c
+--- apps/openssl/s_time.c	2019-02-16 22:08:41.000000000 +0900
++++ apps.plan9/openssl/s_time.c	2019-03-14 01:27:34.000000000 +0900
+@@ -175,7 +175,9 @@ struct option s_time_options[] = {
+ 		.name = "new",
+ 		.desc = "Use a new session ID for each connection",
+ 		.type = OPTION_VALUE,
+-		.opt.value = &s_time_config.perform,
++		.opt = {
++			.value = &s_time_config.perform,
++		},
+ 		.value = 1,
+ 	},
+ 	{
+@@ -188,7 +190,9 @@ struct option s_time_options[] = {
+ 		.name = "reuse",
+ 		.desc = "Reuse the same session ID for each connection",
+ 		.type = OPTION_VALUE,
+-		.opt.value = &s_time_config.perform,
++		.opt = {
++			.value = &s_time_config.perform,
++		},
+ 		.value = 2,
+ 	},
+ 	{
+diff -upr -X mkfile apps/openssl/x509.c apps.plan9/openssl/x509.c
+--- apps/openssl/x509.c	2019-02-16 22:08:41.000000000 +0900
++++ apps.plan9/openssl/x509.c	2019-03-14 01:27:34.000000000 +0900
+@@ -65,6 +65,7 @@
+ #include "apps.h"
+ 
+ #include <openssl/asn1.h>
++#include <openssl/asn1t.h>
+ #include <openssl/bio.h>
+ #include <openssl/bn.h>
+ #include <openssl/err.h>

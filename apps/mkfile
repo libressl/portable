@@ -1,0 +1,10 @@
+DIRS=\
+	#ocspcheck\
+	#nc\
+	openssl\
+
+all clean nuke install:V: $DIRS
+	for(i in $DIRS) @{
+		cd $i
+		mk $target
+	}

@@ -1,0 +1,13 @@
+HFILES=\
+	tls.h\
+	`{ls openssl/*.h}
+
+DIR=/sys/include/ape
+
+all:VQ:
+	# do nothing
+
+install:V: ${HFILES:%.h=$DIR/%.h}
+
+$DIR/%.h: %.h
+	cp $prereq $target

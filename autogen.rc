@@ -1,3 +1,7 @@
 #!/bin/rc
 
 ./update.rc
+ape/patch -p0 <plan9/crypto.patch
+ape/patch -p0 <plan9/ssl.patch
+ape/patch -p0 <plan9/tls.patch
+ape/patch -p0 <plan9/apps.patch

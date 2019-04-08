@@ -1,0 +1,388 @@
+diff -uprN -X mkfile crypto/asn1/a_time_tm.c crypto.plan9/asn1/a_time_tm.c
+--- crypto/asn1/a_time_tm.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto.plan9/asn1/a_time_tm.c	2019-03-14 01:26:03.000000000 +0900
+@@ -246,7 +246,7 @@ ASN1_TIME_set_string_internal(ASN1_TIME 
+ 	if ((tmp = strdup(str)) == NULL)
+ 		return (0);
+ 	free(s->data);
+-	s->data = tmp;
++	s->data = (unsigned char*)tmp;
+ 	s->length = strlen(tmp);
+ 	s->type = type;
+ 
+@@ -309,7 +309,7 @@ ASN1_TIME_adj_internal(ASN1_TIME *s, tim
+ 		return (NULL);
+ 	}
+ 	free(s->data);
+-	s->data = p;
++	s->data = (unsigned char*)p;
+ 	s->length = len;
+ 	return (s);
+ }
+@@ -341,7 +341,7 @@ ASN1_TIME_check(const ASN1_TIME *t)
+ {
+ 	if (t->type != V_ASN1_GENERALIZEDTIME && t->type != V_ASN1_UTCTIME)
+ 		return (0);
+-	return (t->type == ASN1_time_parse(t->data, t->length, NULL, t->type));
++	return (t->type == ASN1_time_parse((const char*)t->data, t->length, NULL, t->type));
+ }
+ 
+ ASN1_GENERALIZEDTIME *
+@@ -355,7 +355,7 @@ ASN1_TIME_to_generalizedtime(const ASN1_
+ 		return (NULL);
+ 
+ 	memset(&tm, 0, sizeof(tm));
+-	if (t->type != ASN1_time_parse(t->data, t->length, &tm, t->type))
++	if (t->type != ASN1_time_parse((const char*)t->data, t->length, &tm, t->type))
+ 		return (NULL);
+ 	if ((str = gentime_string_from_tm(&tm)) == NULL)
+ 		return (NULL);
+@@ -370,7 +370,7 @@ ASN1_TIME_to_generalizedtime(const ASN1_
+ 		*out = tmp;
+ 
+ 	free(tmp->data);
+-	tmp->data = str;
++	tmp->data = (unsigned char*)str;
+ 	tmp->length = strlen(str);
+ 	return (tmp);
+ }
+@@ -390,7 +390,7 @@ ASN1_UTCTIME_check(const ASN1_UTCTIME *d
+ {
+ 	if (d->type != V_ASN1_UTCTIME)
+ 		return (0);
+-	return (d->type == ASN1_time_parse(d->data, d->length, NULL, d->type));
++	return (d->type == ASN1_time_parse((const char*)d->data, d->length, NULL, d->type));
+ }
+ 
+ int
+@@ -428,7 +428,7 @@ ASN1_UTCTIME_cmp_time_t(const ASN1_UTCTI
+ 	 * The danger is that users of this function will not
+ 	 * differentiate the -2 failure case from t1 < t2.
+ 	 */
+-	if (ASN1_time_parse(s->data, s->length, &tm1, V_ASN1_UTCTIME) == -1)
++	if (ASN1_time_parse((const char*)s->data, s->length, &tm1, V_ASN1_UTCTIME) == -1)
+ 		return (-2); /* XXX */
+ 
+ 	if (gmtime_r(&t2, &tm2) == NULL)
+@@ -446,7 +446,7 @@ ASN1_GENERALIZEDTIME_check(const ASN1_GE
+ {
+ 	if (d->type != V_ASN1_GENERALIZEDTIME)
+ 		return (0);
+-	return (d->type == ASN1_time_parse(d->data, d->length, NULL, d->type));
++	return (d->type == ASN1_time_parse((const char*)d->data, d->length, NULL, d->type));
+ }
+ 
+ int
+diff -uprN -X mkfile crypto/chacha/chacha-merged.c crypto.plan9/chacha/chacha-merged.c
+--- crypto/chacha/chacha-merged.c	2019-02-16 22:08:41.000000000 +0900
++++ crypto.plan9/chacha/chacha-merged.c	2019-03-14 01:26:03.000000000 +0900
+@@ -7,6 +7,7 @@ Public domain.
+ 
+ #include <sys/types.h>
+ 
++#include <stddef.h>
+ #include <stdint.h>
+ 
+ #define CHACHA_MINKEYLEN 	16
+diff -uprN -X mkfile crypto/cryptlib.c crypto.plan9/cryptlib.c
+--- crypto/cryptlib.c	2019-02-16 22:08:41.000000000 +0900
++++ crypto.plan9/cryptlib.c	2019-03-17 00:09:58.000000000 +0900
+@@ -119,6 +119,7 @@
+ #include <stdio.h>
+ #include <string.h>
+ #include <syslog.h>
++#include <sys/types.h>
+ #include <unistd.h>
+ 
+ #include <openssl/opensslconf.h>
+diff -uprN -X mkfile crypto/gost/gostr341001_pmeth.c crypto.plan9/gost/gostr341001_pmeth.c
+--- crypto/gost/gostr341001_pmeth.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto.plan9/gost/gostr341001_pmeth.c	2019-03-14 01:26:03.000000000 +0900
+@@ -603,7 +603,7 @@ pkey_gost01_ctrl(EVP_PKEY_CTX *ctx, int 
+ 		}
+ 		memcpy(ukm, p2, p1);
+ 		free(pctx->shared_ukm);
+-		pctx->shared_ukm = ukm;
++		pctx->shared_ukm = (unsigned char*)ukm;
+ 		return 1;
+ 	    }
+ 
+diff -uprN -X mkfile crypto/ocsp/ocsp_cl.c crypto.plan9/ocsp/ocsp_cl.c
+--- crypto/ocsp/ocsp_cl.c	2019-02-16 22:08:41.000000000 +0900
++++ crypto.plan9/ocsp/ocsp_cl.c	2019-03-16 23:57:18.000000000 +0900
+@@ -70,6 +70,7 @@
+ #include <openssl/pem.h>
+ #include <openssl/x509.h>
+ #include <openssl/x509v3.h>
++#include <openssl/asn1t.h>
+ 
+ /* Utility functions related to sending OCSP requests and extracting
+  * relevant information from the response.
+@@ -336,7 +337,7 @@ OCSP_check_validity(ASN1_GENERALIZEDTIME
+ 	 */
+ 
+ 	/* Check thisUpdate is valid and not more than nsec in the future */
+-	if (ASN1_time_parse(thisupd->data, thisupd->length, &tm_this,
++	if (ASN1_time_parse((const char *)thisupd->data, thisupd->length, &tm_this,
+ 	    V_ASN1_GENERALIZEDTIME) != V_ASN1_GENERALIZEDTIME) {
+ 		OCSPerror(OCSP_R_ERROR_IN_THISUPDATE_FIELD);
+ 		return 0;
+@@ -368,7 +369,7 @@ OCSP_check_validity(ASN1_GENERALIZEDTIME
+ 		return 1;
+ 
+ 	/* Check nextUpdate is valid and not more than nsec in the past */
+-	if (ASN1_time_parse(nextupd->data, nextupd->length, &tm_next,
++	if (ASN1_time_parse((const char *)nextupd->data, nextupd->length, &tm_next,
+ 	    V_ASN1_GENERALIZEDTIME) != V_ASN1_GENERALIZEDTIME) {
+ 		OCSPerror(OCSP_R_ERROR_IN_NEXTUPDATE_FIELD);
+ 		return 0;
+diff -uprN -X mkfile crypto/ocsp/ocsp_srv.c crypto.plan9/ocsp/ocsp_srv.c
+--- crypto/ocsp/ocsp_srv.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto.plan9/ocsp/ocsp_srv.c	2019-03-17 00:20:27.000000000 +0900
+@@ -64,6 +64,7 @@
+ #include <openssl/pem.h>
+ #include <openssl/x509.h>
+ #include <openssl/x509v3.h>
++#include <openssl/asn1t.h>
+ 
+ /* Utility functions related to sending OCSP responses and extracting
+  * relevant information from the request.
+diff -uprN -X mkfile crypto/ocsp/ocsp_vfy.c crypto.plan9/ocsp/ocsp_vfy.c
+--- crypto/ocsp/ocsp_vfy.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto.plan9/ocsp/ocsp_vfy.c	2019-03-17 00:25:51.000000000 +0900
+@@ -58,6 +58,7 @@
+ 
+ #include <openssl/ocsp.h>
+ #include <openssl/err.h>
++#include <openssl/asn1t.h>
+ #include <string.h>
+ 
+ static int ocsp_find_signer(X509 **psigner, OCSP_BASICRESP *bs,
+diff -uprN -X mkfile crypto/pkcs12/p12_add.c crypto.plan9/pkcs12/p12_add.c
+--- crypto/pkcs12/p12_add.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto.plan9/pkcs12/p12_add.c	2019-03-14 01:26:03.000000000 +0900
+@@ -60,6 +60,7 @@
+ 
+ #include <openssl/err.h>
+ #include <openssl/pkcs12.h>
++#include <openssl/asn1t.h>
+ 
+ /* Pack an object into an OCTET STRING and turn into a safebag */
+ 
+diff -uprN -X mkfile crypto/pkcs12/p12_p8d.c crypto.plan9/pkcs12/p12_p8d.c
+--- crypto/pkcs12/p12_p8d.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto.plan9/pkcs12/p12_p8d.c	2019-03-14 01:26:03.000000000 +0900
+@@ -59,6 +59,7 @@
+ #include <stdio.h>
+ 
+ #include <openssl/pkcs12.h>
++#include <openssl/asn1t.h>
+ 
+ PKCS8_PRIV_KEY_INFO *
+ PKCS8_decrypt(const X509_SIG *p8, const char *pass, int passlen)
+diff -uprN -X mkfile crypto/pkcs12/p12_p8e.c crypto.plan9/pkcs12/p12_p8e.c
+--- crypto/pkcs12/p12_p8e.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto.plan9/pkcs12/p12_p8e.c	2019-03-14 01:26:03.000000000 +0900
+@@ -60,6 +60,7 @@
+ 
+ #include <openssl/err.h>
+ #include <openssl/pkcs12.h>
++#include <openssl/asn1t.h>
+ 
+ X509_SIG *
+ PKCS8_encrypt(int pbe_nid, const EVP_CIPHER *cipher, const char *pass,
+diff -uprN -X mkfile crypto/pkcs12/p12_utl.c crypto.plan9/pkcs12/p12_utl.c
+--- crypto/pkcs12/p12_utl.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto.plan9/pkcs12/p12_utl.c	2019-03-14 01:26:03.000000000 +0900
+@@ -61,6 +61,7 @@
+ #include <string.h>
+ 
+ #include <openssl/pkcs12.h>
++#include <openssl/asn1t.h>
+ 
+ /* Cheap and nasty Unicode stuff */
+ 
+diff -uprN -X mkfile crypto/pkcs7/bio_pk7.c crypto.plan9/pkcs7/bio_pk7.c
+--- crypto/pkcs7/bio_pk7.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto.plan9/pkcs7/bio_pk7.c	2019-03-14 01:26:03.000000000 +0900
+@@ -53,6 +53,7 @@
+  */
+ 
+ #include <openssl/asn1.h>
++#include <openssl/asn1t.h>
+ #include <openssl/pkcs7.h>
+ #include <openssl/bio.h>
+ 
+diff -uprN -X mkfile crypto/pkcs7/pk7_doit.c crypto.plan9/pkcs7/pk7_doit.c
+--- crypto/pkcs7/pk7_doit.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto.plan9/pkcs7/pk7_doit.c	2019-03-14 01:26:03.000000000 +0900
+@@ -64,6 +64,7 @@
+ #include <openssl/objects.h>
+ #include <openssl/x509.h>
+ #include <openssl/x509v3.h>
++#include <openssl/asn1t.h>
+ 
+ static int add_attribute(STACK_OF(X509_ATTRIBUTE) **sk, int nid, int atrtype,
+     void *value);
+diff -uprN -X mkfile crypto/pkcs7/pk7_mime.c crypto.plan9/pkcs7/pk7_mime.c
+--- crypto/pkcs7/pk7_mime.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto.plan9/pkcs7/pk7_mime.c	2019-03-14 01:26:03.000000000 +0900
+@@ -57,6 +57,7 @@
+ 
+ #include <openssl/asn1.h>
+ #include <openssl/x509.h>
++#include <openssl/asn1t.h>
+ 
+ /* PKCS#7 wrappers round generalised stream and MIME routines */
+ 
+diff -uprN -X mkfile crypto/poly1305/poly1305-donna.c crypto.plan9/poly1305/poly1305-donna.c
+--- crypto/poly1305/poly1305-donna.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto.plan9/poly1305/poly1305-donna.c	2019-03-14 01:26:03.000000000 +0900
+@@ -6,6 +6,7 @@
+  */
+ 
+ #include <stddef.h>
++#include <openssl/poly1305.h>
+ 
+ static inline void poly1305_init(poly1305_context *ctx,
+     const unsigned char key[32]);
+diff -uprN -X mkfile crypto/x509/x509_vfy.c crypto.plan9/x509/x509_vfy.c
+--- crypto/x509/x509_vfy.c	2019-03-18 01:33:08.000000000 +0900
++++ crypto.plan9/x509/x509_vfy.c	2019-03-18 01:43:36.000000000 +0900
+@@ -1881,7 +1881,7 @@ X509_cmp_time_internal(const ASN1_TIME *
+ 
+ 	memset(&tm1, 0, sizeof(tm1));
+ 
+-	type = ASN1_time_parse(ctm->data, ctm->length, &tm1, ctm->type);
++	type = ASN1_time_parse((const char*)ctm->data, ctm->length, &tm1, ctm->type);
+ 	if (type == -1)
+ 		goto out; /* invalid time */
+ 
+diff -uprN -X mkfile crypto/x509/x_all.c crypto.plan9/x509/x_all.c
+--- crypto/x509/x_all.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto.plan9/x509/x_all.c	2019-03-14 01:26:03.000000000 +0900
+@@ -61,6 +61,7 @@
+ #include <openssl/opensslconf.h>
+ 
+ #include <openssl/asn1.h>
++#include <openssl/asn1t.h>
+ #include <openssl/buffer.h>
+ #include <openssl/evp.h>
+ #include <openssl/stack.h>
+diff -uprN -X mkfile crypto/x509v3/v3_alt.c crypto.plan9/x509v3/v3_alt.c
+--- crypto/x509v3/v3_alt.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto.plan9/x509v3/v3_alt.c	2019-03-14 01:26:03.000000000 +0900
+@@ -62,6 +62,7 @@
+ #include <openssl/conf.h>
+ #include <openssl/err.h>
+ #include <openssl/x509v3.h>
++#include <openssl/asn1t.h>
+ 
+ static GENERAL_NAMES *v2i_subject_alt(X509V3_EXT_METHOD *method,
+     X509V3_CTX *ctx, STACK_OF(CONF_VALUE) *nval);
+diff -uprN -X mkfile crypto/x509v3/v3_bitst.c crypto.plan9/x509v3/v3_bitst.c
+--- crypto/x509v3/v3_bitst.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto.plan9/x509v3/v3_bitst.c	2019-03-14 01:26:03.000000000 +0900
+@@ -62,6 +62,7 @@
+ #include <openssl/conf.h>
+ #include <openssl/err.h>
+ #include <openssl/x509v3.h>
++#include <openssl/asn1t.h>
+ 
+ static BIT_STRING_BITNAME ns_cert_type_table[] = {
+ 	{0, "SSL Client", "client"},
+diff -uprN -X mkfile crypto/x509v3/v3_enum.c crypto.plan9/x509v3/v3_enum.c
+--- crypto/x509v3/v3_enum.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto.plan9/x509v3/v3_enum.c	2019-03-14 01:26:03.000000000 +0900
+@@ -59,6 +59,7 @@
+ #include <stdio.h>
+ #include <string.h>
+ #include <openssl/x509v3.h>
++#include <openssl/asn1t.h>
+ 
+ static ENUMERATED_NAMES crl_reasons[] = {
+ 	{CRL_REASON_UNSPECIFIED, 	 "Unspecified", "unspecified"},
+diff -uprN -X mkfile crypto/x509v3/v3_ia5.c crypto.plan9/x509v3/v3_ia5.c
+--- crypto/x509v3/v3_ia5.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto.plan9/x509v3/v3_ia5.c	2019-03-14 01:26:03.000000000 +0900
+@@ -60,6 +60,7 @@
+ #include <string.h>
+ 
+ #include <openssl/asn1.h>
++#include <openssl/asn1t.h>
+ #include <openssl/conf.h>
+ #include <openssl/err.h>
+ #include <openssl/x509v3.h>
+diff -uprN -X mkfile crypto/x509v3/v3_int.c crypto.plan9/x509v3/v3_int.c
+--- crypto/x509v3/v3_int.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto.plan9/x509v3/v3_int.c	2019-03-14 01:26:03.000000000 +0900
+@@ -59,6 +59,7 @@
+ #include <stdio.h>
+ 
+ #include <openssl/x509v3.h>
++#include <openssl/asn1t.h>
+ 
+ const X509V3_EXT_METHOD v3_crl_num = {
+ 	.ext_nid = NID_crl_number,
+diff -uprN -X mkfile crypto/x509v3/v3_ocsp.c crypto.plan9/x509v3/v3_ocsp.c
+--- crypto/x509v3/v3_ocsp.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto.plan9/x509v3/v3_ocsp.c	2019-03-14 01:26:03.000000000 +0900
+@@ -64,6 +64,7 @@
+ #ifndef OPENSSL_NO_OCSP
+ 
+ #include <openssl/asn1.h>
++#include <openssl/asn1t.h>
+ #include <openssl/conf.h>
+ #include <openssl/err.h>
+ #include <openssl/ocsp.h>
+diff -uprN -X mkfile crypto/x509v3/v3_pci.c crypto.plan9/x509v3/v3_pci.c
+--- crypto/x509v3/v3_pci.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto.plan9/x509v3/v3_pci.c	2019-03-14 01:26:03.000000000 +0900
+@@ -40,6 +40,7 @@
+ #include <openssl/conf.h>
+ #include <openssl/err.h>
+ #include <openssl/x509v3.h>
++#include <openssl/asn1t.h>
+ 
+ static int i2r_pci(X509V3_EXT_METHOD *method, PROXY_CERT_INFO_EXTENSION *ext,
+     BIO *out, int indent);
+diff -uprN -X mkfile crypto/x509v3/v3_skey.c crypto.plan9/x509v3/v3_skey.c
+--- crypto/x509v3/v3_skey.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto.plan9/x509v3/v3_skey.c	2019-03-14 01:26:03.000000000 +0900
+@@ -60,6 +60,7 @@
+ #include <string.h>
+ 
+ #include <openssl/err.h>
++#include <openssl/asn1t.h>
+ #include <openssl/x509v3.h>
+ 
+ static ASN1_OCTET_STRING *s2i_skey_id(X509V3_EXT_METHOD *method,
+diff -uprN -X mkfile crypto/x509v3/v3_utl.c crypto.plan9/x509v3/v3_utl.c
+--- crypto/x509v3/v3_utl.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto.plan9/x509v3/v3_utl.c	2019-03-14 01:26:03.000000000 +0900
+@@ -61,6 +61,7 @@
+ #include <stdio.h>
+ #include <string.h>
+ 
++#include <openssl/asn1t.h>
+ #include <openssl/bn.h>
+ #include <openssl/conf.h>
+ #include <openssl/err.h>
+@@ -682,7 +683,7 @@ static int equal_nocase(const unsigned c
+ 	skip_prefix(&pattern, &pattern_len, subject, subject_len, flags);
+ 	if (pattern_len != subject_len)
+ 		return 0;
+-	return (strncasecmp(pattern, subject, pattern_len) == 0);
++	return (strncasecmp((char *)pattern, (char *)subject, pattern_len) == 0);
+ }
+ 
+ /* Compare using strncmp. */
+@@ -697,7 +698,7 @@ static int equal_case(const unsigned cha
+ 	skip_prefix(&pattern, &pattern_len, subject, subject_len, flags);
+ 	if (pattern_len != subject_len)
+ 		return 0;
+-	return (strncmp(pattern, subject, pattern_len) == 0);
++	return (strncmp((char *)pattern, (char *)subject, pattern_len) == 0);
+ }
+ 
+ /*

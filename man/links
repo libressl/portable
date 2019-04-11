@@ -799,6 +799,7 @@ EVP_EncodeInit.3,EVP_EncodeUpdate.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_block_size.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_cipher.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_cleanup.3
+EVP_EncryptInit.3,EVP_CIPHER_CTX_clear_flags.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_ctrl.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_flags.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_free.3
@@ -813,9 +814,11 @@ EVP_EncryptInit.3,EVP_CIPHER_CTX_nid.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_rand_key.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_reset.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_set_app_data.3
+EVP_EncryptInit.3,EVP_CIPHER_CTX_set_flags.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_set_iv.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_set_key_length.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_set_padding.3
+EVP_EncryptInit.3,EVP_CIPHER_CTX_test_flags.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_type.3
 EVP_EncryptInit.3,EVP_CIPHER_asn1_to_param.3
 EVP_EncryptInit.3,EVP_CIPHER_block_size.3

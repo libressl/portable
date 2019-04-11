@@ -151,3 +151,54 @@ into other projects or build by itself.
 |  ENABLE_NC | OFF | Enable installing TLS-enabled nc(1) |
 |  OPENSSLDIR | Blank | Set the default openssl directory.  Can be specified from command line using <br>```-DOPENSSLDIR=<dirname>``` |
 
+# Using LibreSSL #
+
+## CMake ##
+
+Make a new folder in your project root (where your main CMakeLists.txt file is located) called CMake. Copy the FindLibreSSL.cmake file to that folder, and add the following line to your main CMakeLists.txt:
+
+```cmake
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMake;${CMAKE_MODULE_PATH}")
+```
+
+After your **add_executable** or **add_library** line in your CMakeLists.txt file add the following:
+
+```cmake
+find_package(LibreSSL REQUIRED)
+```
+
+It will tell CMake to find LibreSSL and if found will let you use the following 3 interfaces in your CMakeLists.txt file:
+
+* LibreSSL::Crypto
+* LibreSSL::SSL
+* LibreSSL::TLS
+
+If you for example want to use the LibreSSL TLS library in your test program, include it like so (SSL and Cryto are required by TLS and included automatically too):
+
+```cmake
+target_link_libraries(test LibreSSL::TLS)
+```
+
+Full example:
+
+```cmake
+cmake_minimum_required(VERSION 3.10.0)
+
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMake;${CMAKE_MODULE_PATH}")
+
+project(test)
+
+add_executable(test Main.cpp)
+
+find_package(LibreSSL REQUIRED)
+
+target_link_libraries(test LibreSSL::TLS)
+```
+
+#### Linux ####
+
+Following the guide in the sections above to compile LibreSSL using make and running "sudo make install" will install LibreSSL to the /usr/local/ folder, and will found automatically by find_package. If your system installs it to another location or you have placed them yourself in a different location, you can set the CMake variable LIBRESSL_ROOT_DIR to the correct path, to help CMake find the library.
+
+#### Windows ####
+
+Placing the library files in C:/Program Files/LibreSSL/lib and the include files in C:/Program Files/LibreSSL/include should let CMake find them automatically, but it is recommended that you use CMake-GUI to set the paths. It is more convenient as you can have the files in any folder you choose.

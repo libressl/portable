@@ -114,7 +114,7 @@ char buf[1]; getentropy(buf, 1);
 		HOST_OS=solaris
 		HOST_ABI=elf
 		CPPFLAGS="$CPPFLAGS -D__EXTENSIONS__ -D_XOPEN_SOURCE=600 -DBSD_COMP"
-		AC_SUBST([PLATFORM_LDADD], ['-lnsl -lsocket'])
+		AC_SUBST([PLATFORM_LDADD], ['-ldl -lnsl -lsocket'])
 		;;
 	*) ;;
 esac

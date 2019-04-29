@@ -28,7 +28,32 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.9.1 - Stable release
+
+	* Added support for XChaCha20 and XChaCha20-Poly1305.
+
+	* Added support for AES key wrap constructions via the EVP interface.
+
+	* Partial port of the OpenSSL EC_KEY_METHOD API for use by OpenSSH.
+
+	* Added pbkdf2 key derivation support to openssl(1)
+
+	* Removed SHA224 based handshake signatures from consideration for use in a TLS 1.2 handshake.
+
+	* Changed the default digest type of openssl(1) enc to to sha256.
+
+	* Changed the default digest type of openssl(1) dgst to sha256.
+
+	* Changed the default digest type of openssl(1) x509 -fingerprint to sha256.
+
+	* Changed the default digest type of openssl(1) crl -fingerprint to sha256.
+
+	* Improved Windows, Android, and ARM compatibility, including assembly
+	  optimizations on Mingw-w64 targets.
+
 2.9.0 - Development release
+
+	* Added the SM4 block cipher from the Chinese standard GB/T 32907-2016.
 
 	* Fixed warnings about clock_gettime on Windows Visual Studio builds.
 
@@ -45,7 +70,7 @@ LibreSSL Portable Release Notes:
 	* Added extensive interoperability tests between LibreSSL and OpenSSL
 	  1.0 and 1.1.
 
-	* Added additional wycheproof tests and related bug fixes.
+	* Added additional Wycheproof tests and related bug fixes.
 
 	* Simplified sigalgs option processing and handshake signing algorithm
 

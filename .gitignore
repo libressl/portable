@@ -256,6 +256,8 @@ include/openssl/*.h
 /crypto/sha/*
 !/crypto/sm3
 /crypto/sm3/*
+!/crypto/sm4
+/crypto/sm4/*
 !/crypto/stack
 /crypto/stack/*
 !/crypto/ts

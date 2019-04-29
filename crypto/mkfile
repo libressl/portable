@@ -66,6 +66,7 @@ DIRS=\
 	rsa\
 	sha\
 	sm3\
+	sm4\
 	stack\
 	ts\
 	txt_db\

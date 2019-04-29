@@ -1,6 +1,6 @@
-diff -uprN -X mkfile crypto/asn1/a_time_tm.c crypto.plan9/asn1/a_time_tm.c
---- crypto/asn1/a_time_tm.c	2018-07-03 23:22:46.000000000 +0900
-+++ crypto.plan9/asn1/a_time_tm.c	2019-03-14 01:26:03.000000000 +0900
+diff -uprN -X mkfile crypto.orig/asn1/a_time_tm.c crypto/asn1/a_time_tm.c
+--- crypto.orig/asn1/a_time_tm.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto/asn1/a_time_tm.c	2019-04-29 12:55:01.000000000 +0900
 @@ -246,7 +246,7 @@ ASN1_TIME_set_string_internal(ASN1_TIME 
  	if ((tmp = strdup(str)) == NULL)
  		return (0);
@@ -73,9 +73,9 @@ diff -uprN -X mkfile crypto/asn1/a_time_tm.c crypto.plan9/asn1/a_time_tm.c
  }
  
  int
-diff -uprN -X mkfile crypto/chacha/chacha-merged.c crypto.plan9/chacha/chacha-merged.c
---- crypto/chacha/chacha-merged.c	2019-02-16 22:08:41.000000000 +0900
-+++ crypto.plan9/chacha/chacha-merged.c	2019-03-14 01:26:03.000000000 +0900
+diff -uprN -X mkfile crypto.orig/chacha/chacha-merged.c crypto/chacha/chacha-merged.c
+--- crypto.orig/chacha/chacha-merged.c	2019-02-16 22:08:41.000000000 +0900
++++ crypto/chacha/chacha-merged.c	2019-04-29 12:55:01.000000000 +0900
 @@ -7,6 +7,7 @@ Public domain.
  
  #include <sys/types.h>
@@ -84,9 +84,9 @@ diff -uprN -X mkfile crypto/chacha/chacha-merged.c crypto.plan9/chacha/chacha-me
  #include <stdint.h>
  
  #define CHACHA_MINKEYLEN 	16
-diff -uprN -X mkfile crypto/cryptlib.c crypto.plan9/cryptlib.c
---- crypto/cryptlib.c	2019-02-16 22:08:41.000000000 +0900
-+++ crypto.plan9/cryptlib.c	2019-03-17 00:09:58.000000000 +0900
+diff -uprN -X mkfile crypto.orig/cryptlib.c crypto/cryptlib.c
+--- crypto.orig/cryptlib.c	2019-02-16 22:08:41.000000000 +0900
++++ crypto/cryptlib.c	2019-04-29 12:55:01.000000000 +0900
 @@ -119,6 +119,7 @@
  #include <stdio.h>
  #include <string.h>
@@ -95,9 +95,21 @@ diff -uprN -X mkfile crypto/cryptlib.c crypto.plan9/cryptlib.c
  #include <unistd.h>
  
  #include <openssl/opensslconf.h>
-diff -uprN -X mkfile crypto/gost/gostr341001_pmeth.c crypto.plan9/gost/gostr341001_pmeth.c
---- crypto/gost/gostr341001_pmeth.c	2018-07-03 23:22:46.000000000 +0900
-+++ crypto.plan9/gost/gostr341001_pmeth.c	2019-03-14 01:26:03.000000000 +0900
+diff -uprN -X mkfile crypto.orig/evp/e_sm4.c crypto/evp/e_sm4.c
+--- crypto.orig/evp/e_sm4.c	2019-04-29 15:06:40.000000000 +0900
++++ crypto/evp/e_sm4.c	2019-04-29 15:11:37.000000000 +0900
+@@ -84,7 +84,7 @@ sm4_ctr_cipher(EVP_CIPHER_CTX *ctx, unsi
+ 	EVP_SM4_KEY *key = EVP_C_DATA(EVP_SM4_KEY, ctx);
+ 
+ 	CRYPTO_ctr128_encrypt(in, out, len, &key->ks, ctx->iv, ctx->buf,
+-	    &ctx->num, (block128_f)SM4_encrypt);
++	    (unsigned int *)&ctx->num, (block128_f)SM4_encrypt);
+ 	return 1;
+ }
+ 
+diff -uprN -X mkfile crypto.orig/gost/gostr341001_pmeth.c crypto/gost/gostr341001_pmeth.c
+--- crypto.orig/gost/gostr341001_pmeth.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto/gost/gostr341001_pmeth.c	2019-04-29 12:55:01.000000000 +0900
 @@ -603,7 +603,7 @@ pkey_gost01_ctrl(EVP_PKEY_CTX *ctx, int 
  		}
  		memcpy(ukm, p2, p1);
@@ -107,9 +119,10 @@ diff -uprN -X mkfile crypto/gost/gostr341001_pmeth.c crypto.plan9/gost/gostr3410
  		return 1;
  	    }
  
-diff -uprN -X mkfile crypto/ocsp/ocsp_cl.c crypto.plan9/ocsp/ocsp_cl.c
---- crypto/ocsp/ocsp_cl.c	2019-02-16 22:08:41.000000000 +0900
-+++ crypto.plan9/ocsp/ocsp_cl.c	2019-03-16 23:57:18.000000000 +0900
+Binary files crypto.orig/modes/.ctr128.c.swp and crypto/modes/.ctr128.c.swp differ
+diff -uprN -X mkfile crypto.orig/ocsp/ocsp_cl.c crypto/ocsp/ocsp_cl.c
+--- crypto.orig/ocsp/ocsp_cl.c	2019-02-16 22:08:41.000000000 +0900
++++ crypto/ocsp/ocsp_cl.c	2019-04-29 12:55:01.000000000 +0900
 @@ -70,6 +70,7 @@
  #include <openssl/pem.h>
  #include <openssl/x509.h>
@@ -136,9 +149,9 @@ diff -uprN -X mkfile crypto/ocsp/ocsp_cl.c crypto.plan9/ocsp/ocsp_cl.c
  	    V_ASN1_GENERALIZEDTIME) != V_ASN1_GENERALIZEDTIME) {
  		OCSPerror(OCSP_R_ERROR_IN_NEXTUPDATE_FIELD);
  		return 0;
-diff -uprN -X mkfile crypto/ocsp/ocsp_srv.c crypto.plan9/ocsp/ocsp_srv.c
---- crypto/ocsp/ocsp_srv.c	2018-07-03 23:22:46.000000000 +0900
-+++ crypto.plan9/ocsp/ocsp_srv.c	2019-03-17 00:20:27.000000000 +0900
+diff -uprN -X mkfile crypto.orig/ocsp/ocsp_srv.c crypto/ocsp/ocsp_srv.c
+--- crypto.orig/ocsp/ocsp_srv.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto/ocsp/ocsp_srv.c	2019-04-29 12:55:01.000000000 +0900
 @@ -64,6 +64,7 @@
  #include <openssl/pem.h>
  #include <openssl/x509.h>
@@ -147,9 +160,9 @@ diff -uprN -X mkfile crypto/ocsp/ocsp_srv.c crypto.plan9/ocsp/ocsp_srv.c
  
  /* Utility functions related to sending OCSP responses and extracting
   * relevant information from the request.
-diff -uprN -X mkfile crypto/ocsp/ocsp_vfy.c crypto.plan9/ocsp/ocsp_vfy.c
---- crypto/ocsp/ocsp_vfy.c	2018-07-03 23:22:46.000000000 +0900
-+++ crypto.plan9/ocsp/ocsp_vfy.c	2019-03-17 00:25:51.000000000 +0900
+diff -uprN -X mkfile crypto.orig/ocsp/ocsp_vfy.c crypto/ocsp/ocsp_vfy.c
+--- crypto.orig/ocsp/ocsp_vfy.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto/ocsp/ocsp_vfy.c	2019-04-29 12:55:01.000000000 +0900
 @@ -58,6 +58,7 @@
  
  #include <openssl/ocsp.h>
@@ -158,9 +171,9 @@ diff -uprN -X mkfile crypto/ocsp/ocsp_vfy.c crypto.plan9/ocsp/ocsp_vfy.c
  #include <string.h>
  
  static int ocsp_find_signer(X509 **psigner, OCSP_BASICRESP *bs,
-diff -uprN -X mkfile crypto/pkcs12/p12_add.c crypto.plan9/pkcs12/p12_add.c
---- crypto/pkcs12/p12_add.c	2018-07-03 23:22:46.000000000 +0900
-+++ crypto.plan9/pkcs12/p12_add.c	2019-03-14 01:26:03.000000000 +0900
+diff -uprN -X mkfile crypto.orig/pkcs12/p12_add.c crypto/pkcs12/p12_add.c
+--- crypto.orig/pkcs12/p12_add.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto/pkcs12/p12_add.c	2019-04-29 12:55:01.000000000 +0900
 @@ -60,6 +60,7 @@
  
  #include <openssl/err.h>
@@ -169,9 +182,9 @@ diff -uprN -X mkfile crypto/pkcs12/p12_add.c crypto.plan9/pkcs12/p12_add.c
  
  /* Pack an object into an OCTET STRING and turn into a safebag */
  
-diff -uprN -X mkfile crypto/pkcs12/p12_p8d.c crypto.plan9/pkcs12/p12_p8d.c
---- crypto/pkcs12/p12_p8d.c	2018-07-03 23:22:46.000000000 +0900
-+++ crypto.plan9/pkcs12/p12_p8d.c	2019-03-14 01:26:03.000000000 +0900
+diff -uprN -X mkfile crypto.orig/pkcs12/p12_p8d.c crypto/pkcs12/p12_p8d.c
+--- crypto.orig/pkcs12/p12_p8d.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto/pkcs12/p12_p8d.c	2019-04-29 12:55:01.000000000 +0900
 @@ -59,6 +59,7 @@
  #include <stdio.h>
  
@@ -180,9 +193,9 @@ diff -uprN -X mkfile crypto/pkcs12/p12_p8d.c crypto.plan9/pkcs12/p12_p8d.c
  
  PKCS8_PRIV_KEY_INFO *
  PKCS8_decrypt(const X509_SIG *p8, const char *pass, int passlen)
-diff -uprN -X mkfile crypto/pkcs12/p12_p8e.c crypto.plan9/pkcs12/p12_p8e.c
---- crypto/pkcs12/p12_p8e.c	2018-07-03 23:22:46.000000000 +0900
-+++ crypto.plan9/pkcs12/p12_p8e.c	2019-03-14 01:26:03.000000000 +0900
+diff -uprN -X mkfile crypto.orig/pkcs12/p12_p8e.c crypto/pkcs12/p12_p8e.c
+--- crypto.orig/pkcs12/p12_p8e.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto/pkcs12/p12_p8e.c	2019-04-29 12:55:01.000000000 +0900
 @@ -60,6 +60,7 @@
  
  #include <openssl/err.h>
@@ -191,9 +204,9 @@ diff -uprN -X mkfile crypto/pkcs12/p12_p8e.c crypto.plan9/pkcs12/p12_p8e.c
  
  X509_SIG *
  PKCS8_encrypt(int pbe_nid, const EVP_CIPHER *cipher, const char *pass,
-diff -uprN -X mkfile crypto/pkcs12/p12_utl.c crypto.plan9/pkcs12/p12_utl.c
---- crypto/pkcs12/p12_utl.c	2018-07-03 23:22:46.000000000 +0900
-+++ crypto.plan9/pkcs12/p12_utl.c	2019-03-14 01:26:03.000000000 +0900
+diff -uprN -X mkfile crypto.orig/pkcs12/p12_utl.c crypto/pkcs12/p12_utl.c
+--- crypto.orig/pkcs12/p12_utl.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto/pkcs12/p12_utl.c	2019-04-29 12:55:01.000000000 +0900
 @@ -61,6 +61,7 @@
  #include <string.h>
  
@@ -202,9 +215,9 @@ diff -uprN -X mkfile crypto/pkcs12/p12_utl.c crypto.plan9/pkcs12/p12_utl.c
  
  /* Cheap and nasty Unicode stuff */
  
-diff -uprN -X mkfile crypto/pkcs7/bio_pk7.c crypto.plan9/pkcs7/bio_pk7.c
---- crypto/pkcs7/bio_pk7.c	2018-07-03 23:22:46.000000000 +0900
-+++ crypto.plan9/pkcs7/bio_pk7.c	2019-03-14 01:26:03.000000000 +0900
+diff -uprN -X mkfile crypto.orig/pkcs7/bio_pk7.c crypto/pkcs7/bio_pk7.c
+--- crypto.orig/pkcs7/bio_pk7.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto/pkcs7/bio_pk7.c	2019-04-29 12:55:01.000000000 +0900
 @@ -53,6 +53,7 @@
   */
  
@@ -213,9 +226,9 @@ diff -uprN -X mkfile crypto/pkcs7/bio_pk7.c crypto.plan9/pkcs7/bio_pk7.c
  #include <openssl/pkcs7.h>
  #include <openssl/bio.h>
  
-diff -uprN -X mkfile crypto/pkcs7/pk7_doit.c crypto.plan9/pkcs7/pk7_doit.c
---- crypto/pkcs7/pk7_doit.c	2018-07-03 23:22:46.000000000 +0900
-+++ crypto.plan9/pkcs7/pk7_doit.c	2019-03-14 01:26:03.000000000 +0900
+diff -uprN -X mkfile crypto.orig/pkcs7/pk7_doit.c crypto/pkcs7/pk7_doit.c
+--- crypto.orig/pkcs7/pk7_doit.c	2019-04-29 12:49:57.000000000 +0900
++++ crypto/pkcs7/pk7_doit.c	2019-04-29 12:55:01.000000000 +0900
 @@ -64,6 +64,7 @@
  #include <openssl/objects.h>
  #include <openssl/x509.h>
@@ -224,9 +237,9 @@ diff -uprN -X mkfile crypto/pkcs7/pk7_doit.c crypto.plan9/pkcs7/pk7_doit.c
  
  static int add_attribute(STACK_OF(X509_ATTRIBUTE) **sk, int nid, int atrtype,
      void *value);
-diff -uprN -X mkfile crypto/pkcs7/pk7_mime.c crypto.plan9/pkcs7/pk7_mime.c
---- crypto/pkcs7/pk7_mime.c	2018-07-03 23:22:46.000000000 +0900
-+++ crypto.plan9/pkcs7/pk7_mime.c	2019-03-14 01:26:03.000000000 +0900
+diff -uprN -X mkfile crypto.orig/pkcs7/pk7_mime.c crypto/pkcs7/pk7_mime.c
+--- crypto.orig/pkcs7/pk7_mime.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto/pkcs7/pk7_mime.c	2019-04-29 12:55:01.000000000 +0900
 @@ -57,6 +57,7 @@
  
  #include <openssl/asn1.h>
@@ -235,9 +248,9 @@ diff -uprN -X mkfile crypto/pkcs7/pk7_mime.c crypto.plan9/pkcs7/pk7_mime.c
  
  /* PKCS#7 wrappers round generalised stream and MIME routines */
  
-diff -uprN -X mkfile crypto/poly1305/poly1305-donna.c crypto.plan9/poly1305/poly1305-donna.c
---- crypto/poly1305/poly1305-donna.c	2018-07-03 23:22:46.000000000 +0900
-+++ crypto.plan9/poly1305/poly1305-donna.c	2019-03-14 01:26:03.000000000 +0900
+diff -uprN -X mkfile crypto.orig/poly1305/poly1305-donna.c crypto/poly1305/poly1305-donna.c
+--- crypto.orig/poly1305/poly1305-donna.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto/poly1305/poly1305-donna.c	2019-04-29 12:55:01.000000000 +0900
 @@ -6,6 +6,7 @@
   */
  
@@ -246,9 +259,9 @@ diff -uprN -X mkfile crypto/poly1305/poly1305-donna.c crypto.plan9/poly1305/poly
  
  static inline void poly1305_init(poly1305_context *ctx,
      const unsigned char key[32]);
-diff -uprN -X mkfile crypto/x509/x509_vfy.c crypto.plan9/x509/x509_vfy.c
---- crypto/x509/x509_vfy.c	2019-03-18 01:33:08.000000000 +0900
-+++ crypto.plan9/x509/x509_vfy.c	2019-03-18 01:43:36.000000000 +0900
+diff -uprN -X mkfile crypto.orig/x509/x509_vfy.c crypto/x509/x509_vfy.c
+--- crypto.orig/x509/x509_vfy.c	2019-03-18 01:33:08.000000000 +0900
++++ crypto/x509/x509_vfy.c	2019-04-29 12:55:01.000000000 +0900
 @@ -1881,7 +1881,7 @@ X509_cmp_time_internal(const ASN1_TIME *
  
  	memset(&tm1, 0, sizeof(tm1));
@@ -258,9 +271,9 @@ diff -uprN -X mkfile crypto/x509/x509_vfy.c crypto.plan9/x509/x509_vfy.c
  	if (type == -1)
  		goto out; /* invalid time */
  
-diff -uprN -X mkfile crypto/x509/x_all.c crypto.plan9/x509/x_all.c
---- crypto/x509/x_all.c	2018-07-03 23:22:46.000000000 +0900
-+++ crypto.plan9/x509/x_all.c	2019-03-14 01:26:03.000000000 +0900
+diff -uprN -X mkfile crypto.orig/x509/x_all.c crypto/x509/x_all.c
+--- crypto.orig/x509/x_all.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto/x509/x_all.c	2019-04-29 12:55:01.000000000 +0900
 @@ -61,6 +61,7 @@
  #include <openssl/opensslconf.h>
  
@@ -269,9 +282,9 @@ diff -uprN -X mkfile crypto/x509/x_all.c crypto.plan9/x509/x_all.c
  #include <openssl/buffer.h>
  #include <openssl/evp.h>
  #include <openssl/stack.h>
-diff -uprN -X mkfile crypto/x509v3/v3_alt.c crypto.plan9/x509v3/v3_alt.c
---- crypto/x509v3/v3_alt.c	2018-07-03 23:22:46.000000000 +0900
-+++ crypto.plan9/x509v3/v3_alt.c	2019-03-14 01:26:03.000000000 +0900
+diff -uprN -X mkfile crypto.orig/x509v3/v3_alt.c crypto/x509v3/v3_alt.c
+--- crypto.orig/x509v3/v3_alt.c	2019-04-29 12:49:57.000000000 +0900
++++ crypto/x509v3/v3_alt.c	2019-04-29 12:55:01.000000000 +0900
 @@ -62,6 +62,7 @@
  #include <openssl/conf.h>
  #include <openssl/err.h>
@@ -280,9 +293,9 @@ diff -uprN -X mkfile crypto/x509v3/v3_alt.c crypto.plan9/x509v3/v3_alt.c
  
  static GENERAL_NAMES *v2i_subject_alt(X509V3_EXT_METHOD *method,
      X509V3_CTX *ctx, STACK_OF(CONF_VALUE) *nval);
-diff -uprN -X mkfile crypto/x509v3/v3_bitst.c crypto.plan9/x509v3/v3_bitst.c
---- crypto/x509v3/v3_bitst.c	2018-07-03 23:22:46.000000000 +0900
-+++ crypto.plan9/x509v3/v3_bitst.c	2019-03-14 01:26:03.000000000 +0900
+diff -uprN -X mkfile crypto.orig/x509v3/v3_bitst.c crypto/x509v3/v3_bitst.c
+--- crypto.orig/x509v3/v3_bitst.c	2019-04-29 12:49:57.000000000 +0900
++++ crypto/x509v3/v3_bitst.c	2019-04-29 12:55:01.000000000 +0900
 @@ -62,6 +62,7 @@
  #include <openssl/conf.h>
  #include <openssl/err.h>
@@ -291,9 +304,9 @@ diff -uprN -X mkfile crypto/x509v3/v3_bitst.c crypto.plan9/x509v3/v3_bitst.c
  
  static BIT_STRING_BITNAME ns_cert_type_table[] = {
  	{0, "SSL Client", "client"},
-diff -uprN -X mkfile crypto/x509v3/v3_enum.c crypto.plan9/x509v3/v3_enum.c
---- crypto/x509v3/v3_enum.c	2018-07-03 23:22:46.000000000 +0900
-+++ crypto.plan9/x509v3/v3_enum.c	2019-03-14 01:26:03.000000000 +0900
+diff -uprN -X mkfile crypto.orig/x509v3/v3_enum.c crypto/x509v3/v3_enum.c
+--- crypto.orig/x509v3/v3_enum.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto/x509v3/v3_enum.c	2019-04-29 12:55:01.000000000 +0900
 @@ -59,6 +59,7 @@
  #include <stdio.h>
  #include <string.h>
@@ -302,9 +315,9 @@ diff -uprN -X mkfile crypto/x509v3/v3_enum.c crypto.plan9/x509v3/v3_enum.c
  
  static ENUMERATED_NAMES crl_reasons[] = {
  	{CRL_REASON_UNSPECIFIED, 	 "Unspecified", "unspecified"},
-diff -uprN -X mkfile crypto/x509v3/v3_ia5.c crypto.plan9/x509v3/v3_ia5.c
---- crypto/x509v3/v3_ia5.c	2018-07-03 23:22:46.000000000 +0900
-+++ crypto.plan9/x509v3/v3_ia5.c	2019-03-14 01:26:03.000000000 +0900
+diff -uprN -X mkfile crypto.orig/x509v3/v3_ia5.c crypto/x509v3/v3_ia5.c
+--- crypto.orig/x509v3/v3_ia5.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto/x509v3/v3_ia5.c	2019-04-29 12:55:01.000000000 +0900
 @@ -60,6 +60,7 @@
  #include <string.h>
  
@@ -313,9 +326,9 @@ diff -uprN -X mkfile crypto/x509v3/v3_ia5.c crypto.plan9/x509v3/v3_ia5.c
  #include <openssl/conf.h>
  #include <openssl/err.h>
  #include <openssl/x509v3.h>
-diff -uprN -X mkfile crypto/x509v3/v3_int.c crypto.plan9/x509v3/v3_int.c
---- crypto/x509v3/v3_int.c	2018-07-03 23:22:46.000000000 +0900
-+++ crypto.plan9/x509v3/v3_int.c	2019-03-14 01:26:03.000000000 +0900
+diff -uprN -X mkfile crypto.orig/x509v3/v3_int.c crypto/x509v3/v3_int.c
+--- crypto.orig/x509v3/v3_int.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto/x509v3/v3_int.c	2019-04-29 12:55:01.000000000 +0900
 @@ -59,6 +59,7 @@
  #include <stdio.h>
  
@@ -324,9 +337,9 @@ diff -uprN -X mkfile crypto/x509v3/v3_int.c crypto.plan9/x509v3/v3_int.c
  
  const X509V3_EXT_METHOD v3_crl_num = {
  	.ext_nid = NID_crl_number,
-diff -uprN -X mkfile crypto/x509v3/v3_ocsp.c crypto.plan9/x509v3/v3_ocsp.c
---- crypto/x509v3/v3_ocsp.c	2018-07-03 23:22:46.000000000 +0900
-+++ crypto.plan9/x509v3/v3_ocsp.c	2019-03-14 01:26:03.000000000 +0900
+diff -uprN -X mkfile crypto.orig/x509v3/v3_ocsp.c crypto/x509v3/v3_ocsp.c
+--- crypto.orig/x509v3/v3_ocsp.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto/x509v3/v3_ocsp.c	2019-04-29 12:55:01.000000000 +0900
 @@ -64,6 +64,7 @@
  #ifndef OPENSSL_NO_OCSP
  
@@ -335,9 +348,9 @@ diff -uprN -X mkfile crypto/x509v3/v3_ocsp.c crypto.plan9/x509v3/v3_ocsp.c
  #include <openssl/conf.h>
  #include <openssl/err.h>
  #include <openssl/ocsp.h>
-diff -uprN -X mkfile crypto/x509v3/v3_pci.c crypto.plan9/x509v3/v3_pci.c
---- crypto/x509v3/v3_pci.c	2018-07-03 23:22:46.000000000 +0900
-+++ crypto.plan9/x509v3/v3_pci.c	2019-03-14 01:26:03.000000000 +0900
+diff -uprN -X mkfile crypto.orig/x509v3/v3_pci.c crypto/x509v3/v3_pci.c
+--- crypto.orig/x509v3/v3_pci.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto/x509v3/v3_pci.c	2019-04-29 12:55:01.000000000 +0900
 @@ -40,6 +40,7 @@
  #include <openssl/conf.h>
  #include <openssl/err.h>
@@ -346,9 +359,9 @@ diff -uprN -X mkfile crypto/x509v3/v3_pci.c crypto.plan9/x509v3/v3_pci.c
  
  static int i2r_pci(X509V3_EXT_METHOD *method, PROXY_CERT_INFO_EXTENSION *ext,
      BIO *out, int indent);
-diff -uprN -X mkfile crypto/x509v3/v3_skey.c crypto.plan9/x509v3/v3_skey.c
---- crypto/x509v3/v3_skey.c	2018-07-03 23:22:46.000000000 +0900
-+++ crypto.plan9/x509v3/v3_skey.c	2019-03-14 01:26:03.000000000 +0900
+diff -uprN -X mkfile crypto.orig/x509v3/v3_skey.c crypto/x509v3/v3_skey.c
+--- crypto.orig/x509v3/v3_skey.c	2018-07-03 23:22:46.000000000 +0900
++++ crypto/x509v3/v3_skey.c	2019-04-29 12:55:01.000000000 +0900
 @@ -60,6 +60,7 @@
  #include <string.h>
  
@@ -357,9 +370,9 @@ diff -uprN -X mkfile crypto/x509v3/v3_skey.c crypto.plan9/x509v3/v3_skey.c
  #include <openssl/x509v3.h>
  
  static ASN1_OCTET_STRING *s2i_skey_id(X509V3_EXT_METHOD *method,
-diff -uprN -X mkfile crypto/x509v3/v3_utl.c crypto.plan9/x509v3/v3_utl.c
---- crypto/x509v3/v3_utl.c	2018-07-03 23:22:46.000000000 +0900
-+++ crypto.plan9/x509v3/v3_utl.c	2019-03-14 01:26:03.000000000 +0900
+diff -uprN -X mkfile crypto.orig/x509v3/v3_utl.c crypto/x509v3/v3_utl.c
+--- crypto.orig/x509v3/v3_utl.c	2019-04-29 12:49:57.000000000 +0900
++++ crypto/x509v3/v3_utl.c	2019-04-29 12:55:01.000000000 +0900
 @@ -61,6 +61,7 @@
  #include <stdio.h>
  #include <string.h>
@@ -368,7 +381,7 @@ diff -uprN -X mkfile crypto/x509v3/v3_utl.c crypto.plan9/x509v3/v3_utl.c
  #include <openssl/bn.h>
  #include <openssl/conf.h>
  #include <openssl/err.h>
-@@ -682,7 +683,7 @@ static int equal_nocase(const unsigned c
+@@ -720,7 +721,7 @@ equal_nocase(const unsigned char *patter
  	skip_prefix(&pattern, &pattern_len, subject, subject_len, flags);
  	if (pattern_len != subject_len)
  		return 0;
@@ -377,7 +390,7 @@ diff -uprN -X mkfile crypto/x509v3/v3_utl.c crypto.plan9/x509v3/v3_utl.c
  }
  
  /* Compare using strncmp. */
-@@ -697,7 +698,7 @@ static int equal_case(const unsigned cha
+@@ -735,7 +736,7 @@ equal_case(const unsigned char *pattern,
  	skip_prefix(&pattern, &pattern_len, subject, subject_len, flags);
  	if (pattern_len != subject_len)
  		return 0;

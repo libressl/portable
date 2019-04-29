@@ -1,7 +1,33 @@
-diff -uprN -X mkfile tls/tls.c tls.plan9/tls.c
---- tls/tls.c	2019-02-16 22:08:41.000000000 +0900
-+++ tls.plan9/tls.c	2019-03-14 01:27:17.000000000 +0900
-@@ -421,7 +421,7 @@ tls_configure_ssl(struct tls *ctx, SSL_C
+diff -uprN -X mkfile tls.orig/tls.c tls/tls.c
+--- tls.orig/tls.c	2019-04-29 12:49:58.000000000 +0900
++++ tls/tls.c	2019-04-29 14:28:00.000000000 +0900
+@@ -274,8 +274,10 @@ tls_configure(struct tls *ctx, struct tl
+ int
+ tls_cert_hash(X509 *cert, char **hash)
+ {
+-	char d[EVP_MAX_MD_SIZE], *dhex = NULL;
+-	int dlen, rv = -1;
++	unsigned char d[EVP_MAX_MD_SIZE];
++	char *dhex = NULL;
++	int rv = -1;
++	unsigned int dlen;
+ 
+ 	free(*hash);
+ 	*hash = NULL;
+@@ -301,8 +303,10 @@ tls_cert_hash(X509 *cert, char **hash)
+ int
+ tls_cert_pubkey_hash(X509 *cert, char **hash)
+ {
+-	char d[EVP_MAX_MD_SIZE], *dhex = NULL;
+-	int dlen, rv = -1;
++	unsigned char d[EVP_MAX_MD_SIZE];
++	char *dhex = NULL;
++	int rv = -1;
++	unsigned int dlen;
+ 
+ 	free(*hash);
+ 	*hash = NULL;
+@@ -423,7 +427,7 @@ tls_configure_ssl(struct tls *ctx, SSL_C
  		SSL_CTX_set_options(ssl_ctx, SSL_OP_NO_TLSv1_2);
  
  	if (ctx->config->alpn != NULL) {
@@ -10,9 +36,9 @@ diff -uprN -X mkfile tls/tls.c tls.plan9/tls.c
  		    ctx->config->alpn_len) != 0) {
  			tls_set_errorx(ctx, "failed to set alpn");
  			goto err;
-diff -uprN -X mkfile tls/tls_conninfo.c tls.plan9/tls_conninfo.c
---- tls/tls_conninfo.c	2018-07-03 23:22:47.000000000 +0900
-+++ tls.plan9/tls_conninfo.c	2019-03-14 01:27:17.000000000 +0900
+diff -uprN -X mkfile tls.orig/tls_conninfo.c tls/tls_conninfo.c
+--- tls.orig/tls_conninfo.c	2018-07-03 23:22:47.000000000 +0900
++++ tls/tls_conninfo.c	2019-04-29 12:55:11.000000000 +0900
 @@ -119,9 +119,9 @@ tls_get_peer_cert_times(struct tls *ctx,
  		goto err;
  	if ((after = X509_get_notAfter(ctx->ssl_peer_cert)) == NULL)
@@ -25,9 +51,9 @@ diff -uprN -X mkfile tls/tls_conninfo.c tls.plan9/tls_conninfo.c
  		goto err;
  	if (!ASN1_time_tm_clamp_notafter(&after_tm))
  		goto err;
-diff -uprN -X mkfile tls/tls_ocsp.c tls.plan9/tls_ocsp.c
---- tls/tls_ocsp.c	2018-07-03 23:22:47.000000000 +0900
-+++ tls.plan9/tls_ocsp.c	2019-03-14 01:27:17.000000000 +0900
+diff -uprN -X mkfile tls.orig/tls_ocsp.c tls/tls_ocsp.c
+--- tls.orig/tls_ocsp.c	2018-07-03 23:22:47.000000000 +0900
++++ tls/tls_ocsp.c	2019-04-29 12:55:11.000000000 +0900
 @@ -61,7 +61,7 @@ tls_ocsp_asn1_parse_time(struct tls *ctx
  	if (gt == NULL)
  		return -1;
@@ -37,9 +63,9 @@ diff -uprN -X mkfile tls/tls_ocsp.c tls.plan9/tls_ocsp.c
  		V_ASN1_GENERALIZEDTIME) == -1)
  		return -1;
  	if ((*gt_time = timegm(&tm)) == -1)
-diff -uprN -X mkfile tls/tls_server.c tls.plan9/tls_server.c
---- tls/tls_server.c	2018-07-03 23:22:47.000000000 +0900
-+++ tls.plan9/tls_server.c	2019-03-14 01:27:17.000000000 +0900
+diff -uprN -X mkfile tls.orig/tls_server.c tls/tls_server.c
+--- tls.orig/tls_server.c	2018-07-03 23:22:47.000000000 +0900
++++ tls/tls_server.c	2019-04-29 12:55:11.000000000 +0900
 @@ -67,7 +67,7 @@ tls_server_alpn_cb(SSL *ssl, const unsig
  	struct tls *ctx = arg;
  
@@ -49,9 +75,9 @@ diff -uprN -X mkfile tls/tls_server.c tls.plan9/tls_server.c
  	    OPENSSL_NPN_NEGOTIATED)
  		return (SSL_TLSEXT_ERR_OK);
  
-diff -uprN -X mkfile tls/tls_verify.c tls.plan9/tls_verify.c
---- tls/tls_verify.c	2018-07-03 23:22:47.000000000 +0900
-+++ tls.plan9/tls_verify.c	2019-03-14 01:27:17.000000000 +0900
+diff -uprN -X mkfile tls.orig/tls_verify.c tls/tls_verify.c
+--- tls.orig/tls_verify.c	2018-07-03 23:22:47.000000000 +0900
++++ tls/tls_verify.c	2019-04-29 12:55:11.000000000 +0900
 @@ -134,7 +134,7 @@ tls_check_subject_altname(struct tls *ct
  				data = ASN1_STRING_data(altname->d.dNSName);
  				len = ASN1_STRING_length(altname->d.dNSName);

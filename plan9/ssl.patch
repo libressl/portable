@@ -1,6 +1,6 @@
-diff -upr -X mkfile ssl/ssl_both.c ssl.plan9/ssl_both.c
---- ssl/ssl_both.c	2019-02-16 22:08:41.000000000 +0900
-+++ ssl.plan9/ssl_both.c	2019-03-14 01:27:10.000000000 +0900
+diff -uprN -X mkfile ssl.orig/ssl_both.c ssl/ssl_both.c
+--- ssl.orig/ssl_both.c	2019-04-29 12:49:57.000000000 +0900
++++ ssl/ssl_both.c	2019-04-29 12:55:07.000000000 +0900
 @@ -317,7 +317,7 @@ ssl3_send_change_cipher_spec(SSL *s, int
  	memset(&cbb, 0, sizeof(cbb));
  
@@ -10,9 +10,9 @@ diff -upr -X mkfile ssl/ssl_both.c ssl.plan9/ssl_both.c
  		    s->internal->init_buf->length))
  			goto err;
  		if (!CBB_add_u8(&cbb, SSL3_MT_CCS))
-diff -upr -X mkfile ssl/ssl_cert.c ssl.plan9/ssl_cert.c
---- ssl/ssl_cert.c	2019-02-16 22:08:41.000000000 +0900
-+++ ssl.plan9/ssl_cert.c	2019-03-14 01:27:10.000000000 +0900
+diff -uprN -X mkfile ssl.orig/ssl_cert.c ssl/ssl_cert.c
+--- ssl.orig/ssl_cert.c	2019-04-29 12:49:57.000000000 +0900
++++ ssl/ssl_cert.c	2019-04-29 12:55:07.000000000 +0900
 @@ -133,7 +133,7 @@
  int
  SSL_get_ex_data_X509_STORE_CTX_idx(void)
@@ -22,10 +22,10 @@ diff -upr -X mkfile ssl/ssl_cert.c ssl.plan9/ssl_cert.c
  	int got_write_lock = 0;
  
  	CRYPTO_r_lock(CRYPTO_LOCK_SSL_CTX);
-diff -upr -X mkfile ssl/ssl_tlsext.c ssl.plan9/ssl_tlsext.c
---- ssl/ssl_tlsext.c	2019-02-16 22:08:41.000000000 +0900
-+++ ssl.plan9/ssl_tlsext.c	2019-03-14 01:27:10.000000000 +0900
-@@ -651,7 +651,7 @@ tlsext_sni_server_parse(SSL *s, CBS *cbs
+diff -uprN -X mkfile ssl.orig/ssl_tlsext.c ssl/ssl_tlsext.c
+--- ssl.orig/ssl_tlsext.c	2019-04-29 12:49:57.000000000 +0900
++++ ssl/ssl_tlsext.c	2019-04-29 12:55:07.000000000 +0900
+@@ -648,7 +648,7 @@ tlsext_sni_server_parse(SSL *s, CBS *cbs
  			*alert = TLS1_AD_UNRECOGNIZED_NAME;
  			return 0;
  		}
@@ -34,9 +34,72 @@ diff -upr -X mkfile ssl/ssl_tlsext.c ssl.plan9/ssl_tlsext.c
  		    strlen(s->session->tlsext_hostname))) {
  			*alert = TLS1_AD_UNRECOGNIZED_NAME;
  			return 0;
-diff -upr -X mkfile ssl/tls13_key_schedule.c ssl.plan9/tls13_key_schedule.c
---- ssl/tls13_key_schedule.c	2019-02-16 22:08:41.000000000 +0900
-+++ ssl.plan9/tls13_key_schedule.c	2019-03-17 22:56:33.000000000 +0900
+diff -uprN -X mkfile ssl.orig/ssl_transcript.c ssl/ssl_transcript.c
+--- ssl.orig/ssl_transcript.c	2019-03-18 01:33:08.000000000 +0900
++++ ssl/ssl_transcript.c	2019-04-29 14:04:24.000000000 +0900
+@@ -176,7 +176,7 @@ tls1_transcript_data(SSL *s, const unsig
+ 	if (S3I(s)->handshake_transcript == NULL)
+ 		return 0;
+ 
+-	*data = S3I(s)->handshake_transcript->data;
++	*data = (const unsigned char*)S3I(s)->handshake_transcript->data;
+ 	*len = S3I(s)->handshake_transcript->length;
+ 
+ 	return 1;
+diff -uprN -X mkfile ssl.orig/t1_lib.c ssl/t1_lib.c
+--- ssl.orig/t1_lib.c	2019-04-29 12:49:57.000000000 +0900
++++ ssl/t1_lib.c	2019-04-29 14:07:47.000000000 +0900
+@@ -972,7 +972,7 @@ tls_decrypt_ticket(SSL *s, CBS *session_
+ 	if (HMAC_Update(hctx, CBS_data(&ticket_encdata),
+ 	    CBS_len(&ticket_encdata)) <= 0)
+ 		goto err;
+-	if (HMAC_Final(hctx, hmac, &hlen) <= 0)
++	if (HMAC_Final(hctx, hmac, (unsigned int*)&hlen) <= 0)
+ 		goto err;
+ 
+ 	if (!CBS_mem_equal(&ticket_hmac, hmac, hlen))
+diff -uprN -X mkfile ssl.orig/tls13_client.c ssl/tls13_client.c
+--- ssl.orig/tls13_client.c	2019-04-29 12:49:57.000000000 +0900
++++ ssl/tls13_client.c	2019-04-29 14:12:59.000000000 +0900
+@@ -115,7 +115,7 @@ tls13_use_legacy_client(struct tls13_ctx
+ 	if (!BUF_MEM_grow_clean(s->internal->init_buf, CBS_len(&cbs) + 4))
+ 		goto err;
+ 
+-	if (!CBS_write_bytes(&cbs, s->internal->init_buf->data + 4,
++	if (!CBS_write_bytes(&cbs, (uint8_t *)s->internal->init_buf->data + 4,
+ 	    s->internal->init_buf->length - 4, NULL))
+ 		goto err;
+ 
+@@ -585,7 +585,7 @@ tls13_server_certificate_verify_recv(str
+ 	if (!CBB_add_bytes(&cbb, cert_verify_pad, sizeof(cert_verify_pad)))
+ 		goto err;
+ 	if (!CBB_add_bytes(&cbb, server_cert_verify_context,
+-	    strlen(server_cert_verify_context)))
++	    strlen((const char *)server_cert_verify_context)))
+ 		goto err;
+ 	if (!CBB_add_u8(&cbb, 0))
+ 		goto err;
+@@ -637,7 +637,7 @@ int
+ tls13_server_finished_recv(struct tls13_ctx *ctx)
+ {
+ 	struct tls13_secrets *secrets = ctx->hs->secrets;
+-	struct tls13_secret context = { .data = "", .len = 0 };
++	struct tls13_secret context = { .data = (unsigned char *)"", .len = 0 };
+ 	struct tls13_secret finished_key;
+ 	uint8_t transcript_hash[EVP_MAX_MD_SIZE];
+ 	size_t transcript_hash_len;
+@@ -718,7 +718,7 @@ int
+ tls13_client_finished_send(struct tls13_ctx *ctx)
+ {
+ 	struct tls13_secrets *secrets = ctx->hs->secrets;
+-	struct tls13_secret context = { .data = "", .len = 0 };
++	struct tls13_secret context = { .data = (unsigned char *)"", .len = 0 };
+ 	struct tls13_secret finished_key;
+ 	uint8_t transcript_hash[EVP_MAX_MD_SIZE];
+ 	size_t transcript_hash_len;
+diff -uprN -X mkfile ssl.orig/tls13_key_schedule.c ssl/tls13_key_schedule.c
+--- ssl.orig/tls13_key_schedule.c	2019-02-16 22:08:41.000000000 +0900
++++ ssl/tls13_key_schedule.c	2019-04-29 12:55:07.000000000 +0900
 @@ -186,9 +186,9 @@ tls13_hkdf_expand_label(struct tls13_sec
  		goto err;
  	if (!CBB_add_u8_length_prefixed(&cbb, &child))
@@ -49,9 +112,9 @@ diff -upr -X mkfile ssl/tls13_key_schedule.c ssl.plan9/tls13_key_schedule.c
  		goto err;
  	if (!CBB_add_u8_length_prefixed(&cbb, &child))
  		goto err;
-diff -upr -X mkfile ssl/tls13_record_layer.c ssl.plan9/tls13_record_layer.c
---- ssl/tls13_record_layer.c	2019-03-18 01:33:08.000000000 +0900
-+++ ssl.plan9/tls13_record_layer.c	2019-03-17 23:03:15.000000000 +0900
+diff -uprN -X mkfile ssl.orig/tls13_record_layer.c ssl/tls13_record_layer.c
+--- ssl.orig/tls13_record_layer.c	2019-04-29 12:49:57.000000000 +0900
++++ ssl/tls13_record_layer.c	2019-04-29 12:55:07.000000000 +0900
 @@ -253,7 +253,7 @@ tls13_record_layer_set_traffic_key(const
      const EVP_MD *hash, struct tls13_secret *iv, struct tls13_secret *nonce,
      struct tls13_secret *traffic_key)

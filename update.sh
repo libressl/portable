@@ -167,7 +167,11 @@ gen_asm_stdout() {
 	.section .note.GNU-stack,"",%progbits
 	#endif
 	EOF
-	$MV $3.tmp $3
+	if [ $1 = "masm" ]; then
+		cpp -I./crypto $3.tmp > $3
+	else
+		$MV $3.tmp $3
+	fi
 }
 gen_asm() {
 	CC=true perl $asm_src/$2 $1 $3.tmp
@@ -176,7 +180,11 @@ gen_asm() {
 	.section .note.GNU-stack,"",%progbits
 	#endif
 	EOF
-	$MV $3.tmp $3
+	if [ $1 = "masm" ]; then
+		cpp -I./crypto $3.tmp > $3
+	else
+		$MV $3.tmp $3
+	fi
 }
 
 echo generating arm ASM source for elf

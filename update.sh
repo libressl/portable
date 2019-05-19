@@ -168,7 +168,12 @@ gen_asm_stdout() {
 	#endif
 	EOF
 	if [ $1 = "masm" ]; then
-		cpp -I./crypto $3.tmp > $3
+		cpp -I./crypto $3.tmp				\
+			| sed -e 's/^#/;/'			\
+			| sed -e 's/|/OR/g'			\
+			| sed -e 's/~/NOT/g'			\
+			| sed -e 's/1 << \([0-9]*\)/1 SHL \1/g'	\
+			> $3
 	else
 		$MV $3.tmp $3
 	fi
@@ -181,7 +186,12 @@ gen_asm() {
 	#endif
 	EOF
 	if [ $1 = "masm" ]; then
-		cpp -I./crypto $3.tmp > $3
+		cpp -I./crypto $3.tmp				\
+			| sed -e 's/^#/;/'			\
+			| sed -e 's/|/OR/g'			\
+			| sed -e 's/~/NOT/g'			\
+			| sed -e 's/1 << \([0-9]*\)/1 SHL \1/g'	\
+			> $3
 	else
 		$MV $3.tmp $3
 	fi

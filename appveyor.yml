@@ -34,7 +34,7 @@ before_build:
   - bash autogen.sh
   - mkdir build
   - cd build
-  - cmake .. -G "%GENERATOR%" -DBUILD_SHARED_LIBS=%SHARED_LIBS%
+  - cmake .. -G "%GENERATOR%" -DBUILD_SHARED_LIBS=%SHARED_LIBS% -DCMAKE_INSTALL_PREFIX=../local
 
 build_script:
   - cmake --build . --config %CONFIG%

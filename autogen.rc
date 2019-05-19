@@ -1,7 +1,12 @@
 #!/bin/rc
 
+rfork ne
+
 ./update.rc
 ape/patch -p0 <plan9/crypto.patch
 ape/patch -p0 <plan9/ssl.patch
 ape/patch -p0 <plan9/tls.patch
 ape/patch -p0 <plan9/apps.patch
+
+bind -a /$cputype/bin/ape /bin
+./gen-mkfiles-all.sh

@@ -26,9 +26,7 @@ getprogname(void)
 #if defined(__ANDROID_API__) && __ANDROID_API__ < 21
 	extern const char *__progname;
 	return __progname;
-#elif defined(__GLIBC__)
-	return program_invocation_short_name;
 #else
-#error "Cannot emulate getprogname"
+	return program_invocation_short_name;
 #endif
 }

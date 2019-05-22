@@ -12,8 +12,6 @@ getprogname(void)
 	 * Since Android is using portions of OpenBSD libc, it should have
 	 * a symbol called __progname [1].
 	 *
-	 * Regarding program_invocation_short_name, it is a GNU libc ext [2] and
-	 * so make it conditional to __GLIBC__ [3].
 	 *
 	 * .. [0] https://github.com/aosp-mirror/platform_bionic/blob/1eb6d3/libc/include/stdlib.h#L160
 	 *

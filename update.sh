@@ -64,9 +64,22 @@ do_cp_libc() {
 CP_LIBC='do_cp_libc'
 
 CP='cp -p'
+LS='ls -1'
 GREP='grep'
 if [ -x /opt/csw/bin/ggrep ]; then
 	GREP='/opt/csw/bin/ggrep'
+fi
+find_c_src() {
+	find $1 -name '*.c'
+}
+if [ `uname` = Plan9 ]; then
+	CP='cp'
+	LS='ls'
+	find_c_src() {
+		du -a $1 |
+		sed 's/^[   ]*[0-9][0-9]*[  ]*//' |
+		$GREP '\.c$'
+	}
 fi
 
 $CP $libssl_src/LICENSE COPYING
@@ -138,7 +151,7 @@ copy_hdrs $libcrypto_src "stack/stack.h lhash/lhash.h stack/safestack.h
 copy_hdrs $libssl_src "srtp.h ssl.h ssl2.h ssl3.h ssl23.h tls1.h dtls1.h"
 
 $CP $libcrypto_src/opensslv.h include/openssl
-awk '/LIBRESSL_VERSION_TEXT/ {print $4}' < include/openssl/opensslv.h | cut -d\" -f1 > VERSION
+awk '/LIBRESSL_VERSION_TEXT/ {print $4}' < include/openssl/opensslv.h | awk -F\" '{ print $1 }' > VERSION
 echo "LibreSSL version `cat VERSION`"
 
 # copy libcrypto source
@@ -178,6 +191,11 @@ gen_asm() {
 	EOF
 	$MV $3.tmp $3
 }
+if [ `uname` = Plan9 ]; then
+	# Plan 9 don't assemble .S files; always compile C sources.
+	gen_asm(){ true; }
+	gen_asm_stdout(){ true; }
+fi
 
 echo generating arm ASM source for elf
 gen_asm_stdout elf aes/asm/aes-armv4.pl crypto/aes/aes-elf-armv4.S
@@ -280,7 +298,7 @@ $GREP '^[A-Za-z0-9_]' < $libssl_src/Symbols.list > ssl/ssl.sym
 
 # copy libcrypto tests
 echo "copying tests"
-for i in `find $libcrypto_regress -name '*.c'`; do
+for i in `find_c_src $libcrypto_regress`; do
 	 $CP "$i" tests
 done
 $CP $libcrypto_regress/evp/evptests.txt tests
@@ -301,7 +319,7 @@ $CP $libc_regress/timingsafe/timingsafe.c tests
 
 # copy libssl tests
 $CP $libssl_regress/ssl/testssl tests
-for i in `find $libssl_regress -name '*.c'`; do
+for i in `find_c_src $libssl_regress`; do
 	 $CP "$i" tests
 done
 $CP $libssl_regress/unit/tests.h tests
@@ -310,7 +328,7 @@ $CP $libssl_regress/certs/server.pem tests
 $CP $libssl_regress/pqueue/expected.txt tests/pq_expected.txt
 
 # copy libtls tests
-for i in `find $libtls_regress -name '*.c'`; do
+for i in `find_c_src $libtls_regress`; do
 	 $CP "$i" tests
 done
 
@@ -319,7 +337,7 @@ chmod 755 tests/testssl
 # add headers
 (cd include/openssl
 	$CP Makefile.am.tpl Makefile.am
-	for i in `ls -1 *.h|sort`; do
+	for i in `$LS *.h|sort`; do
 		echo "opensslinclude_HEADERS += $i" >> Makefile.am
 	done
 )
@@ -353,6 +371,11 @@ fi
 for i in patches/*.patch; do
     $PATCH -p0 < $i
 done
+if [ `uname` = Plan9 ]; then
+    for i in plan9/*.patch; do
+        $PATCH -p0 < $i
+    done
+fi
 
 # copy manpages
 echo "copying manpages"
@@ -361,25 +384,25 @@ echo dist_man3_MANS = >> man/Makefile.am
 echo dist_man5_MANS = >> man/Makefile.am
 
 (cd man
-	for i in `ls -1 $libssl_src/man/*.3 | sort`; do
+	for i in `$LS $libssl_src/man/*.3 | sort`; do
 		NAME=`basename "$i"`
 		$CP $i .
 		echo "dist_man3_MANS += $NAME" >> Makefile.am
 	done
 
-	for i in `ls -1 $libcrypto_src/man/*.3 | sort`; do
+	for i in `$LS $libcrypto_src/man/*.3 | sort`; do
 		NAME=`basename "$i"`
 		$CP $i .
 		echo "dist_man3_MANS += $NAME" >> Makefile.am
 	done
 
-	for i in `ls -1 $libtls_src/man/*.3 | sort`; do
+	for i in `$LS $libtls_src/man/*.3 | sort`; do
 		NAME=`basename "$i"`
 		$CP $i .
 		echo "dist_man3_MANS += $NAME" >> Makefile.am
 	done
 
-	for i in `ls -1 $libcrypto_src/man/*.5 | sort`; do
+	for i in `$LS $libcrypto_src/man/*.5 | sort`; do
 		NAME=`basename "$i"`
 		$CP $i .
 		echo "dist_man5_MANS += $NAME" >> Makefile.am

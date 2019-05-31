@@ -1,16 +1,12 @@
 #!/bin/sh
 # usage: gen-mkfiles.sh {lib|bin|include} Makefile.am
+#
+# On Plan 9, You must bind /$cputype/bin/ape onto /bin before running this code.
 set -e
 
 if [ $# -ne 3 -a $# -ne 2 ]; then
 	echo "usage: $0 {lib|bin|include} Makefile.am" >&2
 	exit 2
-fi
-
-# Plan 9 don't have dirname(1), instead use basename -d
-if ! type dirname >/dev/null 2>&1
-then
-	dirname() { basename -d "$@"; }
 fi
 
 target=$1

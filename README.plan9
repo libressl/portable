@@ -1,0 +1,32 @@
+# Building
+
+**This is very early version.**
+
+Before building LibreSSL, You must install latest 9legacy stable patches, and
+two pull-requests for 0intro/plan9-contrib.
+
+* https://github.com/0intro/plan9-contrib/pull/6
+* https://github.com/0intro/plan9-contrib/pull/7
+
+Next, you should install perl too.
+
+* https://9p.io/wiki/plan9/Contrib_index/index.html
+
+Then, to configure and build LibreSSL, use the following build steps:
+
+ ./autogen.rc
+ NPROC=1 mk
+ mk install
+
+# Development
+
+If you catch any problem, you can update patches in plan9 directory.
+For example, to merge a changes for crypto/cpt_err.c into crypto.patch:
+
+ ./autogen.rc
+ mkdir crypto.orig
+ dircp crypto crypto.orig
+
+Feel free edit crypto/cpt_err.c, then update a patch:
+
+ ape/diff -uprN -X mkfile crypto.orig crypto >plan9/crypto.patch

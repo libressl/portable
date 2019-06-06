@@ -158,6 +158,15 @@ $CP crypto/compat/ui_openssl_win.c crypto/ui
 # add the libcrypto symbol export list
 $GREP -v OPENSSL_ia32cap_P $libcrypto_src/Symbols.list | $GREP '^[A-Za-z0-9_]' > crypto/crypto.sym
 
+fixup_masm() {
+	cpp -I./crypto $1     \
+		| sed -e 's/^#/;/'    \
+		| sed -e 's/|/OR/g'   \
+		| sed -e 's/~/NOT/g'  \
+		| sed -e 's/1 << \([0-9]*\)/1 SHL \1/g' \
+		> $2
+}
+
 # generate assembly crypto algorithms
 asm_src=$libcrypto_src
 gen_asm_stdout() {
@@ -168,12 +177,7 @@ gen_asm_stdout() {
 	#endif
 	EOF
 	if [ $1 = "masm" ]; then
-		cpp -I./crypto $3.tmp				\
-			| sed -e 's/^#/;/'			\
-			| sed -e 's/|/OR/g'			\
-			| sed -e 's/~/NOT/g'			\
-			| sed -e 's/1 << \([0-9]*\)/1 SHL \1/g'	\
-			> $3
+		fixup_masm $3.tmp $3
 	else
 		$MV $3.tmp $3
 	fi
@@ -186,12 +190,7 @@ gen_asm() {
 	#endif
 	EOF
 	if [ $1 = "masm" ]; then
-		cpp -I./crypto $3.tmp				\
-			| sed -e 's/^#/;/'			\
-			| sed -e 's/|/OR/g'			\
-			| sed -e 's/~/NOT/g'			\
-			| sed -e 's/1 << \([0-9]*\)/1 SHL \1/g'	\
-			> $3
+		fixup_masm $3.tmp $3
 	else
 		$MV $3.tmp $3
 	fi

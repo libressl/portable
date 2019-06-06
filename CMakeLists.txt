@@ -290,9 +290,6 @@ if(ENABLE_ASM)
 	elseif(APPLE AND "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64")
 		set(HOST_ASM_MACOSX_X86_64 true)
 	elseif(MSVC AND "${CMAKE_GENERATOR}" MATCHES "Win64")
-		# XXX Disabled for now, CMake's MASM support seems to either never
-		# build supply ASM or build it with the C compiler in a mode where it
-		# does not parse correctly. It might be easier to get NASM support working.
 		set(HOST_ASM_MASM_X86_64 true)
 		ENABLE_LANGUAGE(ASM_MASM)
 	elseif(CMAKE_SYSTEM_NAME MATCHES "MINGW" AND "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64")

@@ -930,9 +930,9 @@ else()
 endif()
 
 if(NOT "${OPENSSLDIR}" STREQUAL "")
-	add_definitions(-DOPENSSLDIR=\"${OPENSSLDIR}\")
+	add_definitions(-DOPENSSLDIR=${OPENSSLDIR})
 else()
-	add_definitions(-DOPENSSLDIR=\"${CMAKE_INSTALL_PREFIX}/etc/ssl\")
+	add_definitions(-DOPENSSLDIR=${CMAKE_INSTALL_PREFIX}/etc/ssl)
 endif()
 
 file(READ ${CMAKE_CURRENT_SOURCE_DIR}/crypto.sym SYMS)

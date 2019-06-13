@@ -57,6 +57,7 @@ tests/asn1evp*
 tests/asn1time*
 tests/bnaddsub*
 tests/bn_rand_interval*
+tests/bn_to_string*
 tests/cipher*
 tests/explicit_bzero*
 tests/freenull*

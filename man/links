@@ -699,7 +699,6 @@ ERR_get_error.3,ERR_peek_last_error.3
 ERR_get_error.3,ERR_peek_last_error_line.3
 ERR_get_error.3,ERR_peek_last_error_line_data.3
 ERR_load_crypto_strings.3,ERR_free_strings.3
-ERR_load_crypto_strings.3,ERR_load_BN_strings.3
 ERR_load_crypto_strings.3,SSL_load_error_strings.3
 ERR_load_strings.3,ERR_PACK.3
 ERR_load_strings.3,ERR_get_next_error_library.3

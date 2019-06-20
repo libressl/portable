@@ -72,6 +72,8 @@ fi
 find_c_src() {
 	find $1 -name '*.c'
 }
+OBJECTS='perl objects.pl'
+OBJ_DAT='perl obj_dat.pl'
 if [ `uname` = Plan9 ]; then
 	CP='cp'
 	LS='ls'
@@ -80,6 +82,8 @@ if [ `uname` = Plan9 ]; then
 		sed 's/^[   ]*[0-9][0-9]*[  ]*//' |
 		$GREP '\.c$'
 	}
+	OBJECTS='awk -f ../../../../../plan9/objects.awk'
+	OBJ_DAT='awk -f ../../../../../plan9/obj_dat.awk'
 fi
 
 $CP $libssl_src/LICENSE COPYING
@@ -122,8 +126,8 @@ $CP crypto/compat/arc4random*.h \
 	libtls-standalone/compat
 
 (cd $libcrypto_src/objects/;
-	perl objects.pl objects.txt obj_mac.num obj_mac.h;
-	perl obj_dat.pl obj_mac.h obj_dat.h )
+	$OBJECTS objects.txt obj_mac.num obj_mac.h;
+	$OBJ_DAT obj_mac.h obj_dat.h )
 mkdir -p include/openssl crypto/objects
 $MV $libcrypto_src/objects/obj_mac.h ./include/openssl/obj_mac.h
 $MV $libcrypto_src/objects/obj_dat.h ./crypto/objects/obj_dat.h

@@ -8,10 +8,6 @@ two pull-requests for 0intro/plan9-contrib.
 * https://github.com/0intro/plan9-contrib/pull/6
 * https://github.com/0intro/plan9-contrib/pull/7
 
-Next, you should install perl too.
-
-* https://9p.io/wiki/plan9/Contrib_index/index.html
-
 Then, to configure and build LibreSSL, use the following build steps:
 
  ./autogen.rc

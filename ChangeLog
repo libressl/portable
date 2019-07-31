@@ -28,6 +28,13 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+2.9.2 - Bug fixes
+
+	* Fixed portable builds with older versions of MacOS,
+	  Android targets < API 21, and Solaris 10
+
+	* Fixed SRTP profile advertisement for DTLS servers.
+
 2.9.1 - Stable release
 
 	* Added support for XChaCha20 and XChaCha20-Poly1305.

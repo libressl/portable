@@ -175,6 +175,15 @@ $CP crypto/compat/ui_openssl_win.c crypto/ui
 # add the libcrypto symbol export list
 $GREP -v OPENSSL_ia32cap_P $libcrypto_src/Symbols.list | $GREP '^[A-Za-z0-9_]' > crypto/crypto.sym
 
+fixup_masm() {
+	cpp -I./crypto $1     \
+		| sed -e 's/^#/;/'    \
+		| sed -e 's/|/OR/g'   \
+		| sed -e 's/~/NOT/g'  \
+		| sed -e 's/1 << \([0-9]*\)/1 SHL \1/g' \
+		> $2
+}
+
 # generate assembly crypto algorithms
 asm_src=$libcrypto_src
 gen_asm_stdout() {
@@ -184,7 +193,11 @@ gen_asm_stdout() {
 	.section .note.GNU-stack,"",%progbits
 	#endif
 	EOF
-	$MV $3.tmp $3
+	if [ $1 = "masm" ]; then
+		fixup_masm $3.tmp $3
+	else
+		$MV $3.tmp $3
+	fi
 }
 gen_asm() {
 	CC=true perl $asm_src/$2 $1 $3.tmp
@@ -193,7 +206,11 @@ gen_asm() {
 	.section .note.GNU-stack,"",%progbits
 	#endif
 	EOF
-	$MV $3.tmp $3
+	if [ $1 = "masm" ]; then
+		fixup_masm $3.tmp $3
+	else
+		$MV $3.tmp $3
+	fi
 }
 if [ `uname` = Plan9 ]; then
 	# Plan 9 don't assemble .S files; always compile C sources.

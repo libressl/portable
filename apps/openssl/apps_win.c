@@ -70,3 +70,69 @@ destroy_ui(void)
 		ui_method = NULL;
 	}
 }
+
+static void (*speed_alarm_handler)(int);
+static HANDLE speed_thread;
+static unsigned int speed_lapse;
+static volatile unsigned int speed_schlock;
+
+void
+speed_signal(int sigcatch, void (*func)(int sigraised))
+{
+	speed_alarm_handler = func;
+}
+
+static DWORD WINAPI
+speed_timer(VOID * arg)
+{
+	speed_schlock = 1;
+	Sleep(speed_lapse);
+	(*speed_alarm_handler)(0);
+	return (0);
+}
+
+unsigned int
+speed_alarm(unsigned int seconds)
+{
+	DWORD err;
+
+	speed_lapse = seconds * 1000;
+	speed_schlock = 0;
+
+	speed_thread = CreateThread(NULL, 4096, speed_timer, NULL, 0, NULL);
+	if (speed_thread == NULL) {
+		err = GetLastError();
+		BIO_printf(bio_err, "CreateThread failed (%lu)", err);
+		ExitProcess(err);
+	}
+
+	while (!speed_schlock)
+		Sleep(0);
+
+	return (seconds);
+}
+
+void
+speed_alarm_free(int run)
+{
+	DWORD err;
+
+	if (run) {
+		if (TerminateThread(speed_thread, 0) == 0) {
+			err = GetLastError();
+			BIO_printf(bio_err, "TerminateThread failed (%lu)",
+			    err);
+			ExitProcess(err);
+		}
+	}
+
+	if (CloseHandle(speed_thread) == 0) {
+		err = GetLastError();
+		BIO_printf(bio_err, "CloseHandle failed (%lu)", err);
+		ExitProcess(err);
+	}
+
+	speed_thread = NULL;
+	speed_lapse = 0;
+	speed_schlock = 0;
+}

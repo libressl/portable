@@ -1,5 +1,5 @@
---- apps/nc/netcat.c.orig	Fri Jan 18 15:41:52 2019
-+++ apps/nc/netcat.c	Sat Jan 19 22:19:23 2019
+--- apps/nc/netcat.c.orig	Tue Mar 19 05:24:51 2019
++++ apps/nc/netcat.c	Tue May  7 02:07:40 2019
 @@ -93,9 +93,13 @@
  int	Dflag;					/* sodebug */
  int	Iflag;					/* TCP receive buffer size */
@@ -100,7 +100,7 @@
  
  		set_common_sockopts(s, res->ai_family);
  
-@@ -1494,11 +1514,13 @@
+@@ -1498,11 +1518,13 @@
  {
  	int x = 1;
  
@@ -114,7 +114,7 @@
  	if (Dflag) {
  		if (setsockopt(s, SOL_SOCKET, SO_DEBUG,
  			&x, sizeof(x)) == -1)
-@@ -1509,9 +1531,16 @@
+@@ -1513,9 +1535,16 @@
  		    IP_TOS, &Tflag, sizeof(Tflag)) == -1)
  			err(1, "set IP ToS");
  
@@ -131,7 +131,7 @@
  	}
  	if (Iflag) {
  		if (setsockopt(s, SOL_SOCKET, SO_RCVBUF,
-@@ -1535,13 +1564,17 @@
+@@ -1539,13 +1568,17 @@
  	}
  
  	if (minttl != -1) {
@@ -150,7 +150,7 @@
  	}
  }
  
-@@ -1763,14 +1796,22 @@
+@@ -1767,14 +1800,22 @@
  	\t-P proxyuser\tUsername for proxy authentication\n\
  	\t-p port\t	Specify local port for remote connects\n\
  	\t-R CAfile	CA bundle\n\

@@ -28,6 +28,29 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.0.0 - Development release
+
+	* Completed the port of RSA_METHOD accessors from the OpenSSL 1.1 API.
+
+	* Documented undescribed options and removed unfunctional options
+	  description in openssl(1) manual.
+
+	* A plethora of small fixes due to regular oss-fuzz testing.
+
+	* Various side channels in DSA and ECDSA were addressed.  These are some of
+	  the many issues found in an extensive systematic analysis of bignum usage
+	  by Samuel Weiser, David Schrammel et al.
+
+	* Enabled openssl(1) speed subcommand on Windows platform.
+
+	* Enabled performance optimizations when building with Visual Studio on Windows.
+
+	* Fixed incorrect carry operation in 512 addition for Streebog.
+
+	* Fixed -modulus option with openssl(1) dsa subcommand.
+
+	* Fixed PVK format output issue with openssl(1) dsa and rsa subcommand.
+
 2.9.2 - Bug fixes
 
 	* Fixed portable builds with older versions of MacOS,

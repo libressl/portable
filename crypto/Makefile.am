@@ -556,7 +556,6 @@ libcrypto_la_SOURCES += ec/ecp_smpl.c
 noinst_HEADERS += ec/ec_lcl.h
 
 # ecdh
-libcrypto_la_SOURCES += ecdh/ecdh.h
 libcrypto_la_SOURCES += ecdh/ecdh_kdf.c
 libcrypto_la_SOURCES += ecdh/ech_err.c
 libcrypto_la_SOURCES += ecdh/ech_key.c

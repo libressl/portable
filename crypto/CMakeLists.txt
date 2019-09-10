@@ -468,6 +468,7 @@ set(
 	ec/ecp_nist.c
 	ec/ecp_oct.c
 	ec/ecp_smpl.c
+	ecdh/ecdh_kdf.c
 	ecdh/ech_err.c
 	ecdh/ech_key.c
 	ecdh/ech_lib.c
@@ -959,6 +960,7 @@ target_include_directories(crypto
 		bn
 		dsa
 		ec
+		ecdh
 		ecdsa
 		evp
 		modes

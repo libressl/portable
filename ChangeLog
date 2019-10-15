@@ -28,6 +28,21 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.0.2 - Stable release
+
+	* Use a valid curve when constructing an EC_KEY that looks like X25519.
+	  The recent EC group cofactor change results in stricter validation,
+	  which causes the EC_GROUP_set_generator() call to fail.
+	  Issue reported and fix tested by rsadowski@
+
+	* Fixed a padding oracle in PKCS7_dataDecode and CMS_decrypt_set1_pkey.
+	  (Note that the CMS code is currently disabled)
+	  Port of Edlinger's Fix for CVE-2019-1563 from OpenSSL 1.1.1 (old license) 
+
+	* Avoid a path traversal bug in s_server on Windows when run with the -WWW
+	  or -HTTP options, due to incomplete path check logic.
+	  Issue reported and fix tested by Jobert Abma
+
 3.0.1 - Development release
 
 	* Ported Billy Brumley's fix for CVE-2019-1547 in OpenSSL 1.1.1. If a NULL

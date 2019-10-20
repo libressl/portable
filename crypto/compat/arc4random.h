@@ -15,6 +15,9 @@
 #elif defined(__linux__)
 #include "arc4random_linux.h"
 
+#elif defined(__midipix__)
+#include "arc4random_linux.h"
+
 #elif defined(__NetBSD__)
 #include "arc4random_netbsd.h"
 

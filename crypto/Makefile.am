@@ -443,9 +443,26 @@ EXTRA_libcrypto_la_SOURCES += chacha/chacha-merged.c
 libcrypto_la_SOURCES += chacha/chacha.c
 
 # cmac
-libcrypto_la_SOURCES += cmac/cm_ameth.c
-libcrypto_la_SOURCES += cmac/cm_pmeth.c
-libcrypto_la_SOURCES += cmac/cmac.c
+libcrypto_la_SOURCES += cms/cmac/cm_ameth.c
+libcrypto_la_SOURCES += cms/cmac/cm_pmeth.c
+libcrypto_la_SOURCES += cms/cmac/cmac.c
+
+# cms
+libcrypto_la_SOURCES += cms/cms_asn1.c
+libcrypto_la_SOURCES += cms/cms_att.c
+libcrypto_la_SOURCES += cms/cms_cd.c
+libcrypto_la_SOURCES += cms/cms_dd.c
+libcrypto_la_SOURCES += cms/cms_enc.c
+libcrypto_la_SOURCES += cms/cms_env.c
+libcrypto_la_SOURCES += cms/cms_err.c
+libcrypto_la_SOURCES += cms/cms_ess.c
+libcrypto_la_SOURCES += cms/cms_io.c
+libcrypto_la_SOURCES += cms/cms_kari.c
+libcrypto_la_SOURCES += cms/cms_lib.c
+libcrypto_la_SOURCES += cms/cms_pwri.c
+libcrypto_la_SOURCES += cms/cms_sd.c
+libcrypto_la_SOURCES += cms/cms_smime.c
+noinst_HEADERS += cms/cms_lcl.h
 
 # comp
 libcrypto_la_SOURCES += comp/c_rle.c

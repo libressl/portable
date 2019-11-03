@@ -443,9 +443,9 @@ EXTRA_libcrypto_la_SOURCES += chacha/chacha-merged.c
 libcrypto_la_SOURCES += chacha/chacha.c
 
 # cmac
-libcrypto_la_SOURCES += cms/cmac/cm_ameth.c
-libcrypto_la_SOURCES += cms/cmac/cm_pmeth.c
-libcrypto_la_SOURCES += cms/cmac/cmac.c
+libcrypto_la_SOURCES += cmac/cm_ameth.c
+libcrypto_la_SOURCES += cmac/cm_pmeth.c
+libcrypto_la_SOURCES += cmac/cmac.c
 
 # cms
 libcrypto_la_SOURCES += cms/cms_asn1.c

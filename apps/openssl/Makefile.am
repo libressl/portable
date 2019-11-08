@@ -14,6 +14,7 @@ openssl_SOURCES += ca.c
 openssl_SOURCES += ciphers.c
 openssl_SOURCES += crl.c
 openssl_SOURCES += crl2p7.c
+openssl_SOURCES += cms.c
 openssl_SOURCES += dgst.c
 openssl_SOURCES += dh.c
 openssl_SOURCES += dhparam.c

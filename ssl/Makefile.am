@@ -55,6 +55,7 @@ libssl_la_SOURCES += tls13_key_schedule.c
 libssl_la_SOURCES += tls13_lib.c
 libssl_la_SOURCES += tls13_record.c
 libssl_la_SOURCES += tls13_record_layer.c
+libssl_la_SOURCES += tls13_server.c
 
 noinst_HEADERS = bytestring.h
 noinst_HEADERS += srtp.h

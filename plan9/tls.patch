@@ -1,6 +1,6 @@
 diff -uprN -X mkfile tls.orig/tls.c tls/tls.c
---- tls.orig/tls.c	2019-04-29 12:49:58.000000000 +0900
-+++ tls/tls.c	2019-04-29 14:28:00.000000000 +0900
+--- tls.orig/tls.c	Fri Jan  3 17:32:22 2020
++++ tls/tls.c	Fri Jan  3 14:16:17 2020
 @@ -274,8 +274,10 @@ tls_configure(struct tls *ctx, struct tl
  int
  tls_cert_hash(X509 *cert, char **hash)
@@ -37,8 +37,8 @@ diff -uprN -X mkfile tls.orig/tls.c tls/tls.c
  			tls_set_errorx(ctx, "failed to set alpn");
  			goto err;
 diff -uprN -X mkfile tls.orig/tls_conninfo.c tls/tls_conninfo.c
---- tls.orig/tls_conninfo.c	2018-07-03 23:22:47.000000000 +0900
-+++ tls/tls_conninfo.c	2019-04-29 12:55:11.000000000 +0900
+--- tls.orig/tls_conninfo.c	Fri Jan  3 17:32:22 2020
++++ tls/tls_conninfo.c	Fri Jan  3 14:16:17 2020
 @@ -119,9 +119,9 @@ tls_get_peer_cert_times(struct tls *ctx,
  		goto err;
  	if ((after = X509_get_notAfter(ctx->ssl_peer_cert)) == NULL)
@@ -52,9 +52,9 @@ diff -uprN -X mkfile tls.orig/tls_conninfo.c tls/tls_conninfo.c
  	if (!ASN1_time_tm_clamp_notafter(&after_tm))
  		goto err;
 diff -uprN -X mkfile tls.orig/tls_ocsp.c tls/tls_ocsp.c
---- tls.orig/tls_ocsp.c	2018-07-03 23:22:47.000000000 +0900
-+++ tls/tls_ocsp.c	2019-04-29 12:55:11.000000000 +0900
-@@ -61,7 +61,7 @@ tls_ocsp_asn1_parse_time(struct tls *ctx
+--- tls.orig/tls_ocsp.c	Fri Jan  3 17:32:22 2020
++++ tls/tls_ocsp.c	Fri Jan  3 14:16:18 2020
+@@ -62,7 +62,7 @@ tls_ocsp_asn1_parse_time(struct tls *ctx
  	if (gt == NULL)
  		return -1;
  	/* RFC 6960 specifies that all times in OCSP must be GENERALIZEDTIME */
@@ -64,9 +64,9 @@ diff -uprN -X mkfile tls.orig/tls_ocsp.c tls/tls_ocsp.c
  		return -1;
  	if ((*gt_time = timegm(&tm)) == -1)
 diff -uprN -X mkfile tls.orig/tls_server.c tls/tls_server.c
---- tls.orig/tls_server.c	2018-07-03 23:22:47.000000000 +0900
-+++ tls/tls_server.c	2019-04-29 12:55:11.000000000 +0900
-@@ -67,7 +67,7 @@ tls_server_alpn_cb(SSL *ssl, const unsig
+--- tls.orig/tls_server.c	Fri Jan  3 17:32:22 2020
++++ tls/tls_server.c	Fri Jan  3 14:16:18 2020
+@@ -69,7 +69,7 @@ tls_server_alpn_cb(SSL *ssl, const unsig
  	struct tls *ctx = arg;
  
  	if (SSL_select_next_proto((unsigned char**)out, outlen,
@@ -76,8 +76,8 @@ diff -uprN -X mkfile tls.orig/tls_server.c tls/tls_server.c
  		return (SSL_TLSEXT_ERR_OK);
  
 diff -uprN -X mkfile tls.orig/tls_verify.c tls/tls_verify.c
---- tls.orig/tls_verify.c	2018-07-03 23:22:47.000000000 +0900
-+++ tls/tls_verify.c	2019-04-29 12:55:11.000000000 +0900
+--- tls.orig/tls_verify.c	Fri Jan  3 17:32:22 2020
++++ tls/tls_verify.c	Fri Jan  3 14:16:18 2020
 @@ -134,7 +134,7 @@ tls_check_subject_altname(struct tls *ct
  				data = ASN1_STRING_data(altname->d.dNSName);
  				len = ASN1_STRING_length(altname->d.dNSName);

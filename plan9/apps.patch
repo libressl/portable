@@ -1,6 +1,6 @@
 diff -uprN -X mkfile apps.orig/openssl/apps.c apps/openssl/apps.c
---- apps.orig/openssl/apps.c	2019-03-18 01:33:08.000000000 +0900
-+++ apps/openssl/apps.c	2019-04-29 12:55:15.000000000 +0900
+--- apps.orig/openssl/apps.c	Fri Jan  3 17:32:25 2020
++++ apps/openssl/apps.c	Fri Jan  3 14:16:08 2020
 @@ -146,6 +146,7 @@
  #include <openssl/x509v3.h>
  
@@ -10,9 +10,9 @@ diff -uprN -X mkfile apps.orig/openssl/apps.c apps/openssl/apps.c
  typedef struct {
  	const char *name;
 diff -uprN -X mkfile apps.orig/openssl/ciphers.c apps/openssl/ciphers.c
---- apps.orig/openssl/ciphers.c	2018-07-03 23:22:47.000000000 +0900
-+++ apps/openssl/ciphers.c	2019-04-29 12:55:15.000000000 +0900
-@@ -49,14 +49,18 @@ struct option ciphers_options[] = {
+--- apps.orig/openssl/ciphers.c	Fri Jan  3 17:32:25 2020
++++ apps/openssl/ciphers.c	Fri Jan  3 14:16:09 2020
+@@ -49,14 +49,18 @@ static const struct option ciphers_optio
  		.name = "v",
  		.desc = "Provide cipher listing",
  		.type = OPTION_VALUE,
@@ -33,10 +33,57 @@ diff -uprN -X mkfile apps.orig/openssl/ciphers.c apps/openssl/ciphers.c
  		.value = 2,
  	},
  	{ NULL },
+diff -uprN -X mkfile apps.orig/openssl/cms.c apps/openssl/cms.c
+--- apps.orig/openssl/cms.c	Fri Jan  3 17:32:25 2020
++++ apps/openssl/cms.c	Fri Jan  3 16:54:40 2020
+@@ -832,7 +832,7 @@ cms_main(int argc, char **argv)
+ 			secret_keyid = NULL;
+ 		}
+ 		if (pwri_pass) {
+-			pwri_tmp = strdup(pwri_pass);
++			pwri_tmp = (unsigned char*)strdup((char*)pwri_pass);
+ 			if (!pwri_tmp)
+ 				goto end;
+ 			if (!CMS_add0_recipient_password(cms, -1, NID_undef,
+diff -uprN -X mkfile apps.orig/openssl/dgst.c apps/openssl/dgst.c
+--- apps.orig/openssl/dgst.c	Fri Jan  3 17:32:25 2020
++++ apps/openssl/dgst.c	Fri Jan  3 16:58:51 2020
+@@ -175,14 +175,18 @@ static const struct option dgst_options[
+ 		.name = "binary",
+ 		.desc = "Output the digest or signature in binary form",
+ 		.type = OPTION_VALUE,
+-		.opt.value = &dgst_config.out_bin,
++		.opt = {
++			.value = &dgst_config.out_bin,
++		},
+ 		.value = 1,
+ 	},
+ 	{
+ 		.name = "c",
+ 		.desc = "Print the digest in two-digit groups separated by colons",
+ 		.type = OPTION_VALUE,
+-		.opt.value = &dgst_config.separator,
++		.opt = {
++			.value = &dgst_config.separator,
++		},
+ 		.value = 1,
+ 	},
+ 	{
+@@ -251,7 +255,9 @@ static const struct option dgst_options[
+ 		.name = "r",
+ 		.desc = "Output the digest in coreutils format",
+ 		.type = OPTION_VALUE,
+-		.opt.value = &dgst_config.separator,
++		.opt = {
++			.value = &dgst_config.separator,
++		},
+ 		.value = 2,
+ 	},
+ 	{
 diff -uprN -X mkfile apps.orig/openssl/dhparam.c apps/openssl/dhparam.c
---- apps.orig/openssl/dhparam.c	2018-07-03 23:22:47.000000000 +0900
-+++ apps/openssl/dhparam.c	2019-04-29 12:55:15.000000000 +0900
-@@ -150,14 +150,18 @@ struct option dhparam_options[] = {
+--- apps.orig/openssl/dhparam.c	Fri Jan  3 17:32:25 2020
++++ apps/openssl/dhparam.c	Fri Jan  3 14:16:09 2020
+@@ -150,14 +150,18 @@ static const struct option dhparam_optio
  		.desc = "Generate DH parameters with a generator value of 2 "
  		    "(default)",
  		.type = OPTION_VALUE,
@@ -58,9 +105,9 @@ diff -uprN -X mkfile apps.orig/openssl/dhparam.c apps/openssl/dhparam.c
  	},
  	{
 diff -uprN -X mkfile apps.orig/openssl/enc.c apps/openssl/enc.c
---- apps.orig/openssl/enc.c	2019-04-29 12:49:58.000000000 +0900
-+++ apps/openssl/enc.c	2019-04-29 12:55:15.000000000 +0900
-@@ -153,7 +153,9 @@ static struct option enc_options[] = {
+--- apps.orig/openssl/enc.c	Fri Jan  3 17:32:25 2020
++++ apps/openssl/enc.c	Fri Jan  3 14:16:09 2020
+@@ -153,7 +153,9 @@ static const struct option enc_options[]
  		.name = "d",
  		.desc = "Decrypt the input data",
  		.type = OPTION_VALUE,
@@ -71,7 +118,7 @@ diff -uprN -X mkfile apps.orig/openssl/enc.c apps/openssl/enc.c
  		.value = 0,
  	},
  	{
-@@ -166,7 +168,9 @@ static struct option enc_options[] = {
+@@ -166,7 +168,9 @@ static const struct option enc_options[]
  		.name = "e",
  		.desc = "Encrypt the input data (default)",
  		.type = OPTION_VALUE,
@@ -82,7 +129,7 @@ diff -uprN -X mkfile apps.orig/openssl/enc.c apps/openssl/enc.c
  		.value = 1,
  	},
  	{
-@@ -229,7 +233,9 @@ static struct option enc_options[] = {
+@@ -229,7 +233,9 @@ static const struct option enc_options[]
  	{
  		.name = "nosalt",
  		.type = OPTION_VALUE,
@@ -93,7 +140,7 @@ diff -uprN -X mkfile apps.orig/openssl/enc.c apps/openssl/enc.c
  		.value = 1,
  	},
  	{
-@@ -244,14 +250,18 @@ static struct option enc_options[] = {
+@@ -244,14 +250,18 @@ static const struct option enc_options[]
  		.desc = "Print out the salt, key and IV used, then exit\n"
  		    "  (no encryption or decryption is performed)",
  		.type = OPTION_VALUE,
@@ -114,10 +161,153 @@ diff -uprN -X mkfile apps.orig/openssl/enc.c apps/openssl/enc.c
  		.value = 1,
  	},
  	{
+diff -uprN -X mkfile apps.orig/openssl/pkcs12.c apps/openssl/pkcs12.c
+--- apps.orig/openssl/pkcs12.c	Fri Jan  3 17:32:25 2020
++++ apps/openssl/pkcs12.c	Fri Jan  3 17:06:37 2020
+@@ -269,7 +269,9 @@ static const struct option pkcs12_option
+ 		.name = "cacerts",
+ 		.desc = "Only output CA certificates",
+ 		.type = OPTION_VALUE_OR,
+-		.opt.value = &pkcs12_config.options,
++		.opt = {
++			.value = &pkcs12_config.options,
++		},
+ 		.value = CACERTS,
+ 	},
+ 	{
+@@ -317,7 +319,9 @@ static const struct option pkcs12_option
+ 		.name = "clcerts",
+ 		.desc = "Only output client certificates",
+ 		.type = OPTION_VALUE_OR,
+-		.opt.value = &pkcs12_config.options,
++		.opt = {
++			.value = &pkcs12_config.options,
++		},
+ 		.value = CLCERTS,
+ 	},
+ 	{
+@@ -331,7 +335,9 @@ static const struct option pkcs12_option
+ 		.name = "descert",
+ 		.desc = "Encrypt PKCS#12 certificates with triple DES (default RC2-40)",
+ 		.type = OPTION_VALUE,
+-		.opt.value = &pkcs12_config.cert_pbe,
++		.opt = {
++			.value = &pkcs12_config.cert_pbe,
++		},
+ 		.value = NID_pbe_WithSHA1And3_Key_TripleDES_CBC,
+ 	},
+ 	{
+@@ -351,7 +357,9 @@ static const struct option pkcs12_option
+ 		.name = "info",
+ 		.desc = "Give info about PKCS#12 structure",
+ 		.type = OPTION_VALUE_OR,
+-		.opt.value = &pkcs12_config.options,
++		.opt = {
++			.value = &pkcs12_config.options,
++		},
+ 		.value = INFO,
+ 	},
+ 	{
+@@ -365,7 +373,9 @@ static const struct option pkcs12_option
+ 		.name = "keyex",
+ 		.desc = "Set MS key exchange type",
+ 		.type = OPTION_VALUE,
+-		.opt.value = &pkcs12_config.keytype,
++		.opt = {
++			.value = &pkcs12_config.keytype,
++		},
+ 		.value = KEY_EX,
+ 	},
+ 	{
+@@ -379,7 +389,9 @@ static const struct option pkcs12_option
+ 		.name = "keysig",
+ 		.desc = "Set MS key signature type",
+ 		.type = OPTION_VALUE,
+-		.opt.value = &pkcs12_config.keytype,
++		.opt = {
++			.value = &pkcs12_config.keytype,
++		},
+ 		.value = KEY_SIG,
+ 	},
+ 	{
+@@ -399,7 +411,9 @@ static const struct option pkcs12_option
+ 		.name = "maciter",
+ 		.desc = "Use MAC iteration",
+ 		.type = OPTION_VALUE,
+-		.opt.value = &pkcs12_config.maciter,
++		.opt = {
++			.value = &pkcs12_config.maciter,
++		},
+ 		.value = PKCS12_DEFAULT_ITER,
+ 	},
+ 	{
+@@ -413,7 +427,9 @@ static const struct option pkcs12_option
+ 		.name = "nocerts",
+ 		.desc = "Don't output certificates",
+ 		.type = OPTION_VALUE_OR,
+-		.opt.value = &pkcs12_config.options,
++		.opt = {
++			.value = &pkcs12_config.options,
++		},
+ 		.value = NOCERTS,
+ 	},
+ 	{
+@@ -426,28 +442,36 @@ static const struct option pkcs12_option
+ 		.name = "noiter",
+ 		.desc = "Don't use encryption iteration",
+ 		.type = OPTION_VALUE,
+-		.opt.value = &pkcs12_config.iter,
++		.opt = {
++			.value = &pkcs12_config.iter,
++		},
+ 		.value = 1,
+ 	},
+ 	{
+ 		.name = "nokeys",
+ 		.desc = "Don't output private keys",
+ 		.type = OPTION_VALUE_OR,
+-		.opt.value = &pkcs12_config.options,
++		.opt = {
++			.value = &pkcs12_config.options,
++		},
+ 		.value = NOKEYS,
+ 	},
+ 	{
+ 		.name = "nomac",
+ 		.desc = "Don't generate MAC",
+ 		.type = OPTION_VALUE,
+-		.opt.value = &pkcs12_config.maciter,
++		.opt = {
++			.value = &pkcs12_config.maciter,
++		},
+ 		.value = -1,
+ 	},
+ 	{
+ 		.name = "nomaciter",
+ 		.desc = "Don't use MAC iteration",
+ 		.type = OPTION_VALUE,
+-		.opt.value = &pkcs12_config.maciter,
++		.opt = {
++			.value = &pkcs12_config.maciter,
++		},
+ 		.value = 1,
+ 	},
+ 	{
+@@ -461,7 +485,9 @@ static const struct option pkcs12_option
+ 		.name = "noout",
+ 		.desc = "Don't output anything, just verify",
+ 		.type = OPTION_VALUE_OR,
+-		.opt.value = &pkcs12_config.options,
++		.opt = {
++			.value = &pkcs12_config.options,
++		},
+ 		.value = (NOKEYS | NOCERTS),
+ 	},
+ 	{
 diff -uprN -X mkfile apps.orig/openssl/s_time.c apps/openssl/s_time.c
---- apps.orig/openssl/s_time.c	2019-02-16 22:08:41.000000000 +0900
-+++ apps/openssl/s_time.c	2019-04-29 12:55:15.000000000 +0900
-@@ -175,7 +175,9 @@ struct option s_time_options[] = {
+--- apps.orig/openssl/s_time.c	Fri Jan  3 17:32:26 2020
++++ apps/openssl/s_time.c	Fri Jan  3 14:16:09 2020
+@@ -175,7 +175,9 @@ static const struct option s_time_option
  		.name = "new",
  		.desc = "Use a new session ID for each connection",
  		.type = OPTION_VALUE,
@@ -128,7 +318,7 @@ diff -uprN -X mkfile apps.orig/openssl/s_time.c apps/openssl/s_time.c
  		.value = 1,
  	},
  	{
-@@ -188,7 +190,9 @@ struct option s_time_options[] = {
+@@ -188,7 +190,9 @@ static const struct option s_time_option
  		.name = "reuse",
  		.desc = "Reuse the same session ID for each connection",
  		.type = OPTION_VALUE,
@@ -140,8 +330,8 @@ diff -uprN -X mkfile apps.orig/openssl/s_time.c apps/openssl/s_time.c
  	},
  	{
 diff -uprN -X mkfile apps.orig/openssl/x509.c apps/openssl/x509.c
---- apps.orig/openssl/x509.c	2019-02-16 22:08:41.000000000 +0900
-+++ apps/openssl/x509.c	2019-04-29 12:55:15.000000000 +0900
+--- apps.orig/openssl/x509.c	Fri Jan  3 17:32:26 2020
++++ apps/openssl/x509.c	Fri Jan  3 14:16:09 2020
 @@ -65,6 +65,7 @@
  #include "apps.h"
  

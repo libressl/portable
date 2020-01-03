@@ -13,9 +13,9 @@ libtls_la_LIBADD += $(PLATFORM_LDADD)
 
 libtls_la_CPPFLAGS = $(AM_CPPFLAGS)
 if OPENSSLDIR_DEFINED
-libtls_la_CPPFLAGS += -D_PATH_SSL_CA_FILE=\"@OPENSSLDIR@/cert.pem\"
+libtls_la_CPPFLAGS += -DTLS_DEFAULT_CA_FILE=\"@OPENSSLDIR@/cert.pem\"
 else
-libtls_la_CPPFLAGS += -D_PATH_SSL_CA_FILE=\"$(sysconfdir)/ssl/cert.pem\"
+libtls_la_CPPFLAGS += -DTLS_DEFAULT_CA_FILE=\"$(sysconfdir)/ssl/cert.pem\"
 endif
 
 libtls_la_SOURCES = tls.c

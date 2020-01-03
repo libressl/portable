@@ -3,6 +3,7 @@ include $(top_srcdir)/Makefile.am.common
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/asn1
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/bn
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/ec
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/ecdh
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/ecdsa
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/evp
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/modes
@@ -446,6 +447,23 @@ libcrypto_la_SOURCES += cmac/cm_ameth.c
 libcrypto_la_SOURCES += cmac/cm_pmeth.c
 libcrypto_la_SOURCES += cmac/cmac.c
 
+# cms
+libcrypto_la_SOURCES += cms/cms_asn1.c
+libcrypto_la_SOURCES += cms/cms_att.c
+libcrypto_la_SOURCES += cms/cms_cd.c
+libcrypto_la_SOURCES += cms/cms_dd.c
+libcrypto_la_SOURCES += cms/cms_enc.c
+libcrypto_la_SOURCES += cms/cms_env.c
+libcrypto_la_SOURCES += cms/cms_err.c
+libcrypto_la_SOURCES += cms/cms_ess.c
+libcrypto_la_SOURCES += cms/cms_io.c
+libcrypto_la_SOURCES += cms/cms_kari.c
+libcrypto_la_SOURCES += cms/cms_lib.c
+libcrypto_la_SOURCES += cms/cms_pwri.c
+libcrypto_la_SOURCES += cms/cms_sd.c
+libcrypto_la_SOURCES += cms/cms_smime.c
+noinst_HEADERS += cms/cms_lcl.h
+
 # comp
 libcrypto_la_SOURCES += comp/c_rle.c
 libcrypto_la_SOURCES += comp/c_zlib.c
@@ -555,6 +573,7 @@ libcrypto_la_SOURCES += ec/ecp_smpl.c
 noinst_HEADERS += ec/ec_lcl.h
 
 # ecdh
+libcrypto_la_SOURCES += ecdh/ecdh_kdf.c
 libcrypto_la_SOURCES += ecdh/ech_err.c
 libcrypto_la_SOURCES += ecdh/ech_key.c
 libcrypto_la_SOURCES += ecdh/ech_lib.c

@@ -384,6 +384,21 @@ set(
 	cmac/cm_ameth.c
 	cmac/cm_pmeth.c
 	cmac/cmac.c
+	cms/cms_asn1.c
+	cms/cms_att.c
+	cms/cms_cd.c
+	cms/cms_dd.c
+	cms/cms_enc.c
+	cms/cms_env.c
+	cms/cms_err.c
+	cms/cms_ess.c
+	cms/cms_io.c
+	cms/cms_kari.c
+	cms/cms_lcl.h
+	cms/cms_lib.c
+	cms/cms_pwri.c
+	cms/cms_sd.c
+	cms/cms_smime.c
 	comp/c_rle.c
 	comp/c_zlib.c
 	comp/comp_err.c
@@ -468,6 +483,7 @@ set(
 	ec/ecp_nist.c
 	ec/ecp_oct.c
 	ec/ecp_smpl.c
+	ecdh/ecdh_kdf.c
 	ecdh/ech_err.c
 	ecdh/ech_key.c
 	ecdh/ech_lib.c
@@ -959,6 +975,7 @@ target_include_directories(crypto
 		bn
 		dsa
 		ec
+		ecdh
 		ecdsa
 		evp
 		modes

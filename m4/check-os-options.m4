@@ -80,6 +80,10 @@ char buf[1]; getentropy(buf, 1);
 		HOST_ABI=elf
 		CPPFLAGS="$CPPFLAGS -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
 		;;
+	*midipix*)
+		HOST_OS=midipix
+		CPPFLAGS="$CPPFLAGS -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
+		;;
 	*netbsd*)
 		HOST_OS=netbsd
 		HOST_ABI=elf
@@ -130,6 +134,7 @@ AM_CONDITIONAL([HOST_DARWIN],  [test x$HOST_OS = xdarwin])
 AM_CONDITIONAL([HOST_FREEBSD], [test x$HOST_OS = xfreebsd])
 AM_CONDITIONAL([HOST_HPUX],    [test x$HOST_OS = xhpux])
 AM_CONDITIONAL([HOST_LINUX],   [test x$HOST_OS = xlinux])
+AM_CONDITIONAL([HOST_MIDIPIX], [test x$HOST_OS = xmidipix])
 AM_CONDITIONAL([HOST_NETBSD],  [test x$HOST_OS = xnetbsd])
 AM_CONDITIONAL([HOST_OPENBSD], [test x$HOST_OS = xopenbsd])
 AM_CONDITIONAL([HOST_SOLARIS], [test x$HOST_OS = xsolaris])

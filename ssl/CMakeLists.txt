@@ -46,6 +46,7 @@ set(
 	tls13_lib.c
 	tls13_record.c
 	tls13_record_layer.c
+	tls13_server.c
 )
 
 add_library(ssl ${SSL_SRC})

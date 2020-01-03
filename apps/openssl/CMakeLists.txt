@@ -6,6 +6,7 @@ set(
 	ciphers.c
 	crl.c
 	crl2p7.c
+	cms.c
 	dgst.c
 	dh.c
 	dhparam.c

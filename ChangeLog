@@ -28,6 +28,61 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.0.2 - Stable release
+
+	* Use a valid curve when constructing an EC_KEY that looks like X25519.
+	  The recent EC group cofactor change results in stricter validation,
+	  which causes the EC_GROUP_set_generator() call to fail.
+	  Issue reported and fix tested by rsadowski@
+
+	* Fixed a padding oracle in PKCS7_dataDecode and CMS_decrypt_set1_pkey.
+	  (Note that the CMS code is currently disabled)
+	  Port of Edlinger's Fix for CVE-2019-1563 from OpenSSL 1.1.1 (old license) 
+
+	* Avoid a path traversal bug in s_server on Windows when run with the -WWW
+	  or -HTTP options, due to incomplete path check logic.
+	  Issue reported and fix tested by Jobert Abma
+
+3.0.1 - Development release
+
+	* Ported Billy Brumley's fix for CVE-2019-1547 in OpenSSL 1.1.1. If a NULL
+	  or zero cofactor is passed to EC_GROUP_set_generator(), try to compute
+	  it using Hasse's bound. This works as long as the cofactor is small
+	  enough.
+
+	* Fixed a memory leak in error paths for eckey_type2param().
+
+	* Initial work on supporting Cryptographic Message Syntax (CMS) in
+	  libcrypto (not enabled).
+
+	* Various manual page improvements and additions.
+
+	* Added a CMake check for an existing uninstall target, facilitating
+	  embedding LibreSSL in larger CMake projects, from Matthew Albrecht.
+
+3.0.0 - Development release
+
+	* Completed the port of RSA_METHOD accessors from the OpenSSL 1.1 API.
+
+	* Documented undescribed options and removed unfunctional options
+	  description in openssl(1) manual.
+
+	* A plethora of small fixes due to regular oss-fuzz testing.
+
+	* Various side channels in DSA and ECDSA were addressed.  These are some of
+	  the many issues found in an extensive systematic analysis of bignum usage
+	  by Samuel Weiser, David Schrammel et al.
+
+	* Enabled openssl(1) speed subcommand on Windows platform.
+
+	* Enabled performance optimizations when building with Visual Studio on Windows.
+
+	* Fixed incorrect carry operation in 512 addition for Streebog.
+
+	* Fixed -modulus option with openssl(1) dsa subcommand.
+
+	* Fixed PVK format output issue with openssl(1) dsa and rsa subcommand.
+
 2.9.2 - Bug fixes
 
 	* Fixed portable builds with older versions of MacOS,

@@ -7,7 +7,7 @@ EXTRA_DIST += CMakeLists.txt
 EXTRA_DIST += ssl.sym
 
 libssl_la_LDFLAGS = -version-info @LIBSSL_VERSION@ -no-undefined -export-symbols $(top_srcdir)/ssl/ssl.sym
-libssl_la_LIBADD = $(abs_top_builddir)/crypto/libcrypto.la
+libssl_la_LIBADD = $(abs_top_builddir)/crypto/libcrypto.la $(PLATFORM_LDADD)
 
 libssl_la_SOURCES = bio_ssl.c
 libssl_la_SOURCES += bs_ber.c
@@ -55,6 +55,7 @@ libssl_la_SOURCES += tls13_key_schedule.c
 libssl_la_SOURCES += tls13_lib.c
 libssl_la_SOURCES += tls13_record.c
 libssl_la_SOURCES += tls13_record_layer.c
+libssl_la_SOURCES += tls13_server.c
 
 noinst_HEADERS = bytestring.h
 noinst_HEADERS += srtp.h

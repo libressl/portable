@@ -135,6 +135,11 @@ TESTS += clienttest
 check_PROGRAMS += clienttest
 clienttest_SOURCES = clienttest.c
 
+# cmstest
+TESTS += cmstest
+check_PROGRAMS += cmstest
+cmstest_SOURCES = cmstest.c
+
 # configtest
 TESTS += configtest
 check_PROGRAMS += configtest

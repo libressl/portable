@@ -21,7 +21,7 @@
 #define BYTE_ORDER BIG_ENDIAN
 #endif
 
-#elif defined(__linux__)
+#elif defined(__linux__) || defined(__midipix__)
 #include <endian.h>
 
 #elif defined(__sun) || defined(_AIX) || defined(__hpux)

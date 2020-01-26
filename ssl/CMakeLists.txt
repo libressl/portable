@@ -40,6 +40,7 @@ set(
 	t1_lib.c
 	tls13_buffer.c
 	tls13_client.c
+	tls13_error.c
 	tls13_handshake.c
 	tls13_handshake_msg.c
 	tls13_key_schedule.c

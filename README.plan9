@@ -1,6 +1,13 @@
-# Building
+# Building LibreSSL #
 
 **This is very early version.**
+
+## Prerequisites when building from a Git checkout ##
+
+1. Ensure you have the following packages installed: git
+2. Run `./autogen.rc` to prepare the source tree for building.
+
+## Steps that apply to all builds ##
 
 Before building LibreSSL, You must install latest 9legacy stable patches, and
 two pull-requests for 0intro/plan9-contrib.
@@ -8,11 +15,20 @@ two pull-requests for 0intro/plan9-contrib.
 * https://github.com/0intro/plan9-contrib/pull/6
 * https://github.com/0intro/plan9-contrib/pull/7
 
-Then, to configure and build LibreSSL, use the following build steps:
+Once you have a source tree, either by downloaded using git and having
+run the `autogen.sh` script above, or by downloading a release distribution from
+an OpenBSD mirror, run these commands to build and install the package on most
+systems:
 
- ./autogen.rc
- NPROC=1 mk
- mk install
+```sh
+./gen-mkfile.sh lib crypto/Makefile.am
+./gen-mkfile.sh lib ssl/Makefile.am
+./gen-mkfile.sh lib tls/Makefile.am
+./gen-mkfile.sh bin apps/openssl/Makefile.am
+./gen-mkfile.sh include include/Makefile.am
+mk
+mk install
+```
 
 # Development
 

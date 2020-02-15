@@ -23,6 +23,7 @@ set(
 	ssl_clnt.c
 	ssl_err.c
 	ssl_init.c
+	ssl_kex.c
 	ssl_lib.c
 	ssl_methods.c
 	ssl_packet.c
@@ -44,6 +45,8 @@ set(
 	tls13_handshake.c
 	tls13_handshake_msg.c
 	tls13_key_schedule.c
+	tls13_key_share.c
+	tls13_legacy.c
 	tls13_lib.c
 	tls13_record.c
 	tls13_record_layer.c

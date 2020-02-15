@@ -1544,6 +1544,7 @@ SSL_CTX_add1_chain_cert.3,SSL_set0_chain.3
 SSL_CTX_add1_chain_cert.3,SSL_set1_chain.3
 SSL_CTX_add_extra_chain_cert.3,SSL_CTX_clear_extra_chain_certs.3
 SSL_CTX_add_extra_chain_cert.3,SSL_CTX_get_extra_chain_certs.3
+SSL_CTX_add_extra_chain_cert.3,SSL_CTX_get_extra_chain_certs_only.3
 SSL_CTX_add_session.3,SSL_CTX_remove_session.3
 SSL_CTX_ctrl.3,SSL_CTX_callback_ctrl.3
 SSL_CTX_ctrl.3,SSL_callback_ctrl.3
@@ -1964,6 +1965,7 @@ X509_STORE_CTX_new.3,X509_STORE_CTX_set0_untrusted.3
 X509_STORE_CTX_new.3,X509_STORE_CTX_set_cert.3
 X509_STORE_CTX_new.3,X509_STORE_CTX_set_chain.3
 X509_STORE_CTX_new.3,X509_STORE_CTX_set_default.3
+X509_STORE_CTX_new.3,X509_STORE_CTX_set_flags.3
 X509_STORE_CTX_new.3,X509_STORE_CTX_trusted_stack.3
 X509_STORE_load_locations.3,X509_STORE_set_default_paths.3
 X509_STORE_new.3,X509_STORE_free.3

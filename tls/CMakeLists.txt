@@ -37,18 +37,16 @@ target_include_directories(tls
 	PUBLIC
 		../include)
 
-if (BUILD_SHARED_LIBS)
-	export_symbol(tls ${CMAKE_CURRENT_SOURCE_DIR}/tls.sym)
-	target_link_libraries(tls ssl crypto ${PLATFORM_LIBS})
-	if (WIN32)
-		set(TLS_POSTFIX -${TLS_MAJOR_VERSION})
-	endif()
-	set_target_properties(tls PROPERTIES
-		OUTPUT_NAME tls${TLS_POSTFIX}
-		ARCHIVE_OUTPUT_NAME tls${TLS_POSTFIX})
-	set_target_properties(tls PROPERTIES VERSION ${TLS_VERSION}
-		SOVERSION ${TLS_MAJOR_VERSION})
+export_symbol(tls ${CMAKE_CURRENT_SOURCE_DIR}/tls.sym)
+target_link_libraries(tls ssl crypto ${PLATFORM_LIBS})
+if (WIN32)
+	set(TLS_POSTFIX -${TLS_MAJOR_VERSION})
 endif()
+set_target_properties(tls PROPERTIES
+	OUTPUT_NAME tls${TLS_POSTFIX}
+	ARCHIVE_OUTPUT_NAME tls${TLS_POSTFIX})
+set_target_properties(tls PROPERTIES VERSION ${TLS_VERSION}
+	SOVERSION ${TLS_MAJOR_VERSION})
 
 if(ENABLE_LIBRESSL_INSTALL)
 	install(

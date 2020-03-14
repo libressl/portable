@@ -129,9 +129,10 @@ target_link_libraries(cipherstest ${OPENSSL_LIBS})
 add_test(cipherstest cipherstest)
 
 # clienttest
-add_executable(clienttest clienttest.c)
-target_link_libraries(clienttest ${OPENSSL_LIBS})
-add_test(clienttest clienttest)
+# disabled
+#add_executable(clienttest clienttest.c)
+#target_link_libraries(clienttest ${OPENSSL_LIBS})
+#add_test(clienttest clienttest)
 
 # cmstest
 add_executable(cmstest cmstest.c)

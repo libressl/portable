@@ -15,7 +15,6 @@ libssl_la_SOURCES += bs_cbb.c
 libssl_la_SOURCES += bs_cbs.c
 libssl_la_SOURCES += d1_both.c
 libssl_la_SOURCES += d1_clnt.c
-libssl_la_SOURCES += d1_enc.c
 libssl_la_SOURCES += d1_lib.c
 libssl_la_SOURCES += d1_pkt.c
 libssl_la_SOURCES += d1_srtp.c

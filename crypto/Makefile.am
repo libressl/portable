@@ -697,7 +697,6 @@ libcrypto_la_SOURCES += gost/gostr341001_params.c
 libcrypto_la_SOURCES += gost/gostr341001_pmeth.c
 libcrypto_la_SOURCES += gost/gostr341194.c
 libcrypto_la_SOURCES += gost/streebog.c
-noinst_HEADERS += gost/gost.h
 noinst_HEADERS += gost/gost_asn1.h
 noinst_HEADERS += gost/gost_locl.h
 

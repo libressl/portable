@@ -82,8 +82,8 @@ matrix:
           - extra-google-m2repository
           - extra-android-m2repository
     - language: android
-      name: "Android 9.x"
-      env: ARCH=android MIN_NAL=28 MAX_NAL=28
+      name: "Android 9.x 10.x"
+      env: ARCH=android MIN_NAL=28 MAX_NAL=29
       dist: trusty
       sudo: required
       android:

@@ -28,6 +28,26 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.1.0 - Development release
+
+	* Enabled initial TLSv1.3 support 
+
+	* Improved compatibility with backported functionality and documentation
+	  from OpenSSL 1.1.1.
+
+	* Added RSA-PSS and RSA-OAEP methods from OpenSSL 1.1.1
+		
+	* Enabled Cryptographic Message Syntax (CMS) support
+	
+	* Added many new additional crypto test vectors
+	
+	* Adjusted EVP_chacha20()'s behavior to match OpenSSL's semantics
+	
+	* More code cleanups, fixes, and improvements of memory handling and
+	  protocol parsing
+
+	* Default CA bundle location is now configurable in portable builds
+
 3.0.2 - Stable release
 
 	* Use a valid curve when constructing an EC_KEY that looks like X25519.

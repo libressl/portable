@@ -48,6 +48,10 @@ LibreSSL Portable Release Notes:
 
 	* Default CA bundle location is now configurable in portable builds
 
+	* Added cms subcommand to openssl(1)
+
+	* Added -addext option to openssl(1) req subcommand
+
 3.0.2 - Stable release
 
 	* Use a valid curve when constructing an EC_KEY that looks like X25519.

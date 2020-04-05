@@ -30,19 +30,21 @@ LibreSSL Portable Release Notes:
 
 3.1.0 - Development release
 
-	* Enabled initial TLSv1.3 support 
+	* Added new TLS 1.3 implementation with new state machine and record layer
+	implementations. Enabled client side TLS 1.3 by default. Server side will
+	be enabled in a future release.
 
 	* Improved compatibility with backported functionality and documentation
 	  from OpenSSL 1.1.1.
 
 	* Added RSA-PSS and RSA-OAEP methods from OpenSSL 1.1.1
-		
+
 	* Enabled Cryptographic Message Syntax (CMS) support
-	
+
 	* Added many new additional crypto test vectors
-	
+
 	* Adjusted EVP_chacha20()'s behavior to match OpenSSL's semantics
-	
+
 	* More code cleanups, fixes, and improvements of memory handling and
 	  protocol parsing
 

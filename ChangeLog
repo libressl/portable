@@ -30,29 +30,31 @@ LibreSSL Portable Release Notes:
 
 3.1.0 - Development release
 
-	* Added new TLS 1.3 implementation with new state machine and record layer
-	implementations. Enabled client side TLS 1.3 by default. Server side will
-	be enabled in a future release.
+	* Completed initial TLS 1.3 implementation with a completely new state
+	  machine and record layer. TLS 1.3 is now enabled by default for the
+	  client side, with the server side to be enabled in a future release.
+	  Note that the OpenSSL TLS 1.3 API is not yet visible/available.
 
-	* Improved compatibility with backported functionality and documentation
+	* Many more code cleanups, fixes, and improvements to memory handling
+	  and protocol parsing.
+
+	* Added RSA-PSS and RSA-OAEP methods from OpenSSL 1.1.1.
+
+	* Ported Cryptographic Message Syntax (CMS) implementation from OpenSSL
+	  1.1.1 and enabled by default.
+
+	* Improved compatibility by backporting functionality and documentation
 	  from OpenSSL 1.1.1.
 
-	* Added RSA-PSS and RSA-OAEP methods from OpenSSL 1.1.1
+	* Added many new additional crypto test vectors.
 
-	* Enabled Cryptographic Message Syntax (CMS) support
+	* Adjusted EVP_chacha20()'s behavior to match OpenSSL's semantics.
 
-	* Added many new additional crypto test vectors
+	* Default CA bundle location is now configurable in portable builds.
 
-	* Adjusted EVP_chacha20()'s behavior to match OpenSSL's semantics
+	* Added cms subcommand to openssl(1).
 
-	* More code cleanups, fixes, and improvements of memory handling and
-	  protocol parsing
-
-	* Default CA bundle location is now configurable in portable builds
-
-	* Added cms subcommand to openssl(1)
-
-	* Added -addext option to openssl(1) req subcommand
+	* Added -addext option to openssl(1) req subcommand.
 
 3.0.2 - Stable release
 

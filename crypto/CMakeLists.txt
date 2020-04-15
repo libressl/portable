@@ -808,7 +808,6 @@ if(WIN32)
 	set(EXTRA_EXPORT ${EXTRA_EXPORT} posix_write)
 	set(EXTRA_EXPORT ${EXTRA_EXPORT} posix_getsockopt)
 	set(EXTRA_EXPORT ${EXTRA_EXPORT} posix_setsockopt)
-	set(EXTRA_EXPORT ${EXTRA_EXPORT} sleep)
 endif()
 
 if(NOT HAVE_ASPRINTF)

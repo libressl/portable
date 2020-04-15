@@ -242,10 +242,4 @@ int gettimeofday(struct timeval * tp, struct timezone * tzp)
 	return 0;
 }
 
-unsigned int sleep(unsigned int seconds)
-{
-	Sleep(seconds * 1000);
-	return seconds;
-}
-
 #endif

@@ -352,6 +352,13 @@ if(NOT BUILD_SHARED_LIBS)
 	add_test(recordtest recordtest)
 endif()
 
+# record_layer_test
+if(NOT BUILD_SHARED_LIBS)
+	add_executable(record_layer_test record_layer_test.c)
+	target_link_libraries(record_layer_test ${OPENSSL_LIBS})
+	add_test(record_layer_test record_layer_test)
+endif()
+
 # rfc5280time
 add_executable(rfc5280time rfc5280time.c)
 target_link_libraries(rfc5280time ${OPENSSL_LIBS})

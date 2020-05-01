@@ -1,4 +1,8 @@
+if(MSVC)
 cmake_minimum_required (VERSION 3.16.4)
+else()
+cmake_minimum_required (VERSION 3.0)
+endif()
 include(CheckFunctionExists)
 include(CheckSymbolExists)
 include(CheckLibraryExists)
@@ -38,7 +42,7 @@ option(ENABLE_NC "Enable installing TLS-enabled nc(1)" OFF)
 set(OPENSSLDIR ${OPENSSLDIR} CACHE PATH "Set the default openssl directory" FORCE)
 
 option(USE_STATIC_MSVC_RUNTIMES "Use /MT instead of /MD in MSVC" OFF)
-if( USE_STATIC_MSVC_RUNTIMES )
+if(USE_STATIC_MSVC_RUNTIMES)
     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 endif()
 

@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.15.7)
+cmake_minimum_required (VERSION 3.16.4)
 include(CheckFunctionExists)
 include(CheckSymbolExists)
 include(CheckLibraryExists)

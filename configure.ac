@@ -66,6 +66,10 @@ AC_ARG_ENABLE([extratests],
 	AS_HELP_STRING([--enable-extratests], [Enable extra tests that may be unreliable on some platforms]))
 AM_CONDITIONAL([ENABLE_EXTRATESTS], [test "x$enable_extratests" = xyes])
 
+AC_ARG_ENABLE([tests],
+	AS_HELP_STRING([--enable-tests], [Enable tests]))
+AM_CONDITIONAL([ENABLE_TESTS], [test "x$enable_tests" = xyes])
+
 # Add CPU-specific alignment flags
 old_cflags=$CFLAGS
 CFLAGS="$CFLAGS -I$srcdir/include"

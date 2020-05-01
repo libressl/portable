@@ -342,6 +342,11 @@ TESTS += recordtest
 check_PROGRAMS += recordtest
 recordtest_SOURCES = recordtest.c
 
+# record_layer_test
+TESTS += record_layer_test
+check_PROGRAMS += record_layer_test
+record_layer_test_SOURCES = record_layer_test.c
+
 # rfc5280time
 check_PROGRAMS += rfc5280time
 rfc5280time_SOURCES = rfc5280time.c

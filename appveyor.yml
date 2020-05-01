@@ -7,12 +7,22 @@ environment:
   matrix:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       GENERATOR: Visual Studio 16 2019
-      ARCHITECTURE: Win64
+      ARCHITECTURE: Win32
       CONFIG: Release
       SHARED_LIBS: ON
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       GENERATOR: Visual Studio 16 2019
-      ARCHITECTURE: Win64
+      ARCHITECTURE: Win32
+      CONFIG: Release
+      SHARED_LIBS: OFF
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      GENERATOR: Visual Studio 16 2019
+      ARCHITECTURE: x64
+      CONFIG: Release
+      SHARED_LIBS: ON
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      GENERATOR: Visual Studio 16 2019
+      ARCHITECTURE: x64
       CONFIG: Release
       SHARED_LIBS: OFF
 

@@ -1,25 +1,28 @@
 image:
-  - Visual Studio 2015
-  #- Visual Studio 2017
+  - Visual Studio 2019
 
 environment:
   PATH: C:\msys64\usr\bin;C:\msys64\mingw64\bin;C:\Windows\System32;C:\Windows;%PATH%
 
   matrix:
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      GENERATOR: Visual Studio 14 2015 Win64
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      GENERATOR: Visual Studio 16 2019
+      ARCHITECTURE: Win32
       CONFIG: Release
       SHARED_LIBS: ON
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      GENERATOR: Visual Studio 14 2015
-      CONFIG: Release
-      SHARED_LIBS: ON
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      GENERATOR: Visual Studio 14 2015 Win64
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      GENERATOR: Visual Studio 16 2019
+      ARCHITECTURE: Win32
       CONFIG: Release
       SHARED_LIBS: OFF
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      GENERATOR: Visual Studio 14 2015
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      GENERATOR: Visual Studio 16 2019
+      ARCHITECTURE: x64
+      CONFIG: Release
+      SHARED_LIBS: ON
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      GENERATOR: Visual Studio 16 2019
+      ARCHITECTURE: x64
       CONFIG: Release
       SHARED_LIBS: OFF
 
@@ -34,7 +37,7 @@ before_build:
   - bash autogen.sh
   - mkdir build
   - cd build
-  - cmake .. -G "%GENERATOR%" -DBUILD_SHARED_LIBS=%SHARED_LIBS% -DCMAKE_INSTALL_PREFIX=../local
+  - cmake .. -G "%GENERATOR%" -A "%ARCHITECTURE%" -DBUILD_SHARED_LIBS=%SHARED_LIBS% -DCMAKE_INSTALL_PREFIX=../local
 
 build_script:
   - cmake --build . --config %CONFIG%

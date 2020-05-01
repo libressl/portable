@@ -67,12 +67,11 @@ AC_ARG_ENABLE([extratests],
 AM_CONDITIONAL([ENABLE_EXTRATESTS], [test "x$enable_extratests" = xyes])
 
 AC_ARG_ENABLE([tests],
-       [AS_HELP_STRING([--disable-tests], [Enable tests (default: yes)])],
-       [if test "x$enable-tests" = "xyes"; then
-		have_tests="yes"
-	 else
-		have_tests="no"
-	 fi],
+       [AS_HELP_STRING([--disable-tests], [Disable tests @<:@default=yes@:>@])],
+       [
+        if ! test "x${enable_tests}" = "xyes"; then
+		enable_tests="no"
+	fi],
        [have_tests="yes"])
 AM_CONDITIONAL([ENABLE_TESTS], [test "x$have_tests" = xyes])
 

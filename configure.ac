@@ -72,8 +72,8 @@ AC_ARG_ENABLE([tests],
         if ! test "x${enable_tests}" = "xyes"; then
 		enable_tests="no"
 	fi],
-       [have_tests="yes"])
-AM_CONDITIONAL([ENABLE_TESTS], [test "x$have_tests" = xyes])
+       [enable_tests="yes"])
+AM_CONDITIONAL([ENABLE_TESTS], [test "x$enable_tests" = xyes])
 
 # Add CPU-specific alignment flags
 old_cflags=$CFLAGS

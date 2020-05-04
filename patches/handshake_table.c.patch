@@ -1,0 +1,18 @@
+--- tests/handshake_table.c.orig	Mon May  4 23:28:43 2020
++++ tests/handshake_table.c	Mon May  4 23:29:50 2020
+@@ -477,6 +477,7 @@
+ 	unsigned int	depth = 0;
+ 	int		ch, graphviz = 0, print = 0;
+ 
++#ifndef _MSC_VER
+ 	while ((ch = getopt(argc, argv, "Cg")) != -1) {
+ 		switch (ch) {
+ 		case 'C':
+@@ -494,6 +495,7 @@
+ 
+ 	if (argc != 0)
+ 		usage();
++#endif
+ 
+ 	if (graphviz && print)
+ 		usage();

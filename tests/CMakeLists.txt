@@ -226,7 +226,7 @@ target_link_libraries(gost2814789t ${OPENSSL_LIBS})
 add_test(gost2814789t gost2814789t)
 
 # handshake_table
-if(NOT BUILD_SHARED_LIBS AND NOT MSVC)
+if(NOT BUILD_SHARED_LIBS)
 	add_executable(handshake_table handshake_table.c)
 	target_link_libraries(handshake_table ${OPENSSL_LIBS})
 	add_test(handshake_table handshake_table)

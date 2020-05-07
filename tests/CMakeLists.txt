@@ -225,6 +225,13 @@ add_executable(gost2814789t gost2814789t.c)
 target_link_libraries(gost2814789t ${OPENSSL_LIBS})
 add_test(gost2814789t gost2814789t)
 
+# handshake_table
+if(NOT BUILD_SHARED_LIBS)
+	add_executable(handshake_table handshake_table.c)
+	target_link_libraries(handshake_table ${OPENSSL_LIBS})
+	add_test(handshake_table handshake_table)
+endif()
+
 # hkdf_test
 add_executable(hkdf_test hkdf_test.c)
 target_link_libraries(hkdf_test ${OPENSSL_LIBS})

@@ -228,7 +228,8 @@ check_PROGRAMS += gost2814789t
 gost2814789t_SOURCES = gost2814789t.c
 
 # handshake_table
-noinst_PROGRAMS = handshake_table
+TESTS += handshake_table
+check_PROGRAMS += handshake_table
 handshake_table_SOURCES = handshake_table.c
 
 # hkdf_test

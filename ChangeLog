@@ -30,28 +30,30 @@ LibreSSL Portable Release Notes:
 
 3.1.1 - Stable release
 
-	* Improved SSL_CTX_set_cipher_list(3) and SSL_set_cipher_list(3) to
-	  include TLSv1.3 cipher suites even if cipher string does not
-	  indicate it.
+	* Improved cipher suite handling to automatically include TLSv1.3
+	  cipher suites when they are not explicitly referred to in the
+	  cipher string.
 
-	* Improved to handle TLSv1.3 HelloRetryRequest.
+	* Improved handling of TLSv1.3 HelloRetryRequests, simplifying
+	  state transitions and ensuring that the legacy session identifer
+	  retains the same value across the handshake.
 
 	* Provided TLSv1.3 cipher suite aliases to match the names used
 	  in RFC 8446.
 
-	* Improved to allow using any of the groups in our NID list to
-	  generate a client key share.
+	* Improved TLSv1.3 client key share handling to allow the use of
+	  any groups in our configured NID list.
 
 	* Fixed printing the serialNumber with X509_print_ex() fall back to
 	  the colon separated hex bytes in case greater than int value.
 
-	* Fixed to disallow setting the AES-GCM IV length to zero.
+	* Fix to disallow setting the AES-GCM IV length to zero.
 
 	* Added -groups option to openssl(1) s_server subcommand.
 
-	* Fixed to show TLSv1.3 extension type with openssl(1) -tlsextdebug.
+	* Fix to show TLSv1.3 extension types with openssl(1) -tlsextdebug.
 
-	* Improved portable builds to support for use of static MSVC runtimes.
+	* Improved portable builds to support the use of static MSVC runtimes.
 
 	* Fixed portable builds to avoid exporting a sleep() symbol.
 

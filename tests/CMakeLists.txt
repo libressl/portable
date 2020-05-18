@@ -386,14 +386,16 @@ target_link_libraries(rsa_test ${OPENSSL_LIBS})
 add_test(rsa_test rsa_test)
 
 # servertest
-add_executable(servertest servertest.c)
-target_link_libraries(servertest ${OPENSSL_LIBS})
-if(NOT MSVC)
-	add_test(NAME servertest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/servertest.sh)
-else()
-	add_test(NAME servertest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/servertest.bat $<TARGET_FILE:servertest>)
+if(NOT BUILD_SHARED_LIBS)
+	add_executable(servertest servertest.c)
+	target_link_libraries(servertest ${OPENSSL_LIBS})
+	if(NOT MSVC)
+		add_test(NAME servertest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/servertest.sh)
+	else()
+		add_test(NAME servertest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/servertest.bat $<TARGET_FILE:servertest>)
+	endif()
+	set_tests_properties(servertest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 endif()
-set_tests_properties(servertest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 
 # sha1test
 add_executable(sha1test sha1test.c)

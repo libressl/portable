@@ -1,9 +1,12 @@
 if(MSVC)
-cmake_minimum_required (VERSION 3.16.4)
-cmake_policy(SET CMP0091 NEW)
+	cmake_minimum_required (VERSION 3.16.4)
+	cmake_policy(SET CMP0091 NEW)
 else()
-cmake_minimum_required (VERSION 3.0)
+	cmake_minimum_required (VERSION 3.0)
 endif()
+
+project (LibreSSL C ASM)
+
 include(CheckFunctionExists)
 include(CheckSymbolExists)
 include(CheckLibraryExists)
@@ -13,8 +16,6 @@ include(CheckTypeSize)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}" ${CMAKE_MODULE_PATH})
 include(cmake_export_symbol)
 include(GNUInstallDirs)
-
-project (LibreSSL C ASM)
 
 enable_testing()
 

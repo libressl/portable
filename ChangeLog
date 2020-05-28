@@ -28,6 +28,23 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.2.0 - Development release
+
+	* Support sending dummy change_cipher_spec records for middlebox
+	  compatibility.
+
+	* Added a test harness to run tlsfuzzer's test scripts against
+	  the TLSv1.3 server.  These test scripts exhibited numerous
+	  corner cases that were dealt with incorrectly. Fixed several
+	  instances of missing or incorrect alerts.
+
+	* The client must advertise exactly the "null" compression method
+	  in its legacy_compression_field, nothing else.
+
+	* Incorrect use of sockaddr instead of sockaddr_storage in the
+	  s_client could lead to using 14 bytes of stack garbage instead
+	  of an IPv6 address in DTLS mode.
+
 3.1.2 - Bug fix
 
 	* A TLS client with peer verification disabled may crash when

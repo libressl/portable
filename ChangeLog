@@ -31,20 +31,20 @@ LibreSSL Portable Release Notes:
 3.2.0 - Development release
 
 	* Improve length checks in record layer and provide appropritate
-	alerts for for violations of record layer limits.
+	  alerts for for violations of record layer limits.
 
 	* Enforce in the server that SNI hostnames be correctly formed as
-	per RFC 6066 and RFC 5890, responding with illegal paramerter for
-	a nonconformant host name.
+	  per RFC 6066 and RFC 5890, responding with illegal parameter for
+	  a nonconformant host name.
 
 	* Modify openssl(1) to clear SSL_MODE_AUTO_RETRY appropriately in
-	various commands.
+	  various commands.
 
 	* Modify io behavior so that SSL_MODE_AUTO_RETRY is the default
-	similar to new OpenSSL releases.
+	  similar to new OpenSSL releases.
 
 	* Support SSL_MODE_AUTO_RETRY in TLS 1.3 to allow the automatic
-	retry of handshake messages.
+	  retry of handshake messages.
 
 	* Add tlsfuzzer based regression tests.
 
@@ -52,33 +52,28 @@ LibreSSL Portable Release Notes:
 	  to send ocsp staples for leaf certificates.
 
 	* Send correct alerts when handling failed key share extensions
-	on the TLS 1.3 server.
+	  on the TLS 1.3 server.
 
 	* Various compatibility fixes for TLS 1.3 to 1.2 fallback for
-	switching from the new to legacy stacks.
+	  switching from the new to legacy stacks.
 
 	* Support TLS 1.3 options in the openssl(1) command.
 
 	* Enable TLS 1.3 server side in addition to client by default.
-	with this change tls13 is handled entirely on the new stack
-	and state machine, with fallback to the legacy stack and
-	state machine for older versions.
+	  with this change tls13 is handled entirely on the new stack
+	  and state machine, with fallback to the legacy stack and
+	  state machine for older versions.
 
 	* Many alert cleanups in TLS 1.3 to provide expected alerts
-	in failure conditions.
+	  in failure conditions.
 
 	* Modify "openssl x509" to display invalid certificate times as
-	invalid, and correctly deal with the failing return case from
-	x509_time_cmp so that a certificate with an invalid NotAfter does
-	not appear valid.
+	  invalid, and correctly deal with the failing return case from
+	  x509_time_cmp so that a certificate with an invalid NotAfter does
+	  not appear valid.
 
 	* Support sending dummy change_cipher_spec records for middlebox
 	  compatibility.
-
-	* Added a test harness to run tlsfuzzer's test scripts against
-	  the TLSv1.3 server.  These test scripts exhibited numerous
-	  corner cases that were dealt with incorrectly. Fixed several
-	  instances of missing or incorrect alerts.
 
 	* Ensure only PSS may be used with RSA in tls 1.3
 

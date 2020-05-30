@@ -80,7 +80,7 @@ LibreSSL Portable Release Notes:
 	* The client must advertise exactly the "null" compression method
 	  in its legacy_compression_methods, nothing else.
 
-	* Incorrect use of sockaddr instead of sockaddr_storage in the
+	* Incorrect use of sockaddr instead of sockaddr_storage in openssl(1)
 	  s_client could lead to using 14 bytes of stack garbage instead
  	  of an IPv6 address in DTLS mode.
 

@@ -30,8 +30,8 @@ LibreSSL Portable Release Notes:
 
 3.2.0 - Development release
 
-	* Improve length checks in record layer and provide appropritate
-	  alerts for for violations of record layer limits.
+	* Improve length checks in record layer and provide appropriate
+	  alerts for violations of record layer limits.
 
 	* Enforce in the server that SNI hostnames be correctly formed as
 	  per RFC 6066 and RFC 5890, responding with illegal parameter for
@@ -48,8 +48,8 @@ LibreSSL Portable Release Notes:
 
 	* Add tlsfuzzer based regression tests.
 
-	* Support sending certificate status replies from the tls13 server
-	  to send ocsp staples for leaf certificates.
+	* Support sending certificate status replies from the TLS 1.3 server
+	  to send OCSP staples for leaf certificates.
 
 	* Send correct alerts when handling failed key share extensions
 	  on the TLS 1.3 server.
@@ -60,7 +60,7 @@ LibreSSL Portable Release Notes:
 	* Support TLS 1.3 options in the openssl(1) command.
 
 	* Enable TLS 1.3 server side in addition to client by default.
-	  with this change tls13 is handled entirely on the new stack
+	  With this change TLS 1.3 is handled entirely on the new stack
 	  and state machine, with fallback to the legacy stack and
 	  state machine for older versions.
 
@@ -69,27 +69,23 @@ LibreSSL Portable Release Notes:
 
 	* Modify "openssl x509" to display invalid certificate times as
 	  invalid, and correctly deal with the failing return case from
-	  x509_time_cmp so that a certificate with an invalid NotAfter does
+	  X509_cmp_time so that a certificate with an invalid NotAfter does
 	  not appear valid.
 
 	* Support sending dummy change_cipher_spec records for middlebox
 	  compatibility.
 
-	* Ensure only PSS may be used with RSA in tls 1.3
+	* Ensure only PSS may be used with RSA in TLS 1.3.
 
 	* The client must advertise exactly the "null" compression method
-	  in its legacy_compression_field, nothing else.
+	  in its legacy_compression_methods, nothing else.
 
 	* Incorrect use of sockaddr instead of sockaddr_storage in the
 	  s_client could lead to using 14 bytes of stack garbage instead
  	  of an IPv6 address in DTLS mode.
 
- 	* Support sending certificate status from the tls13 client to retrieve
-	  ocsp staples for leaf certificates.
-
-	* Support sending certificate status requests from the tls13
-	  client to retrieve ocsp staples for leaf certificates.
-
+	* Support sending certificate status requests from the TLS 1.3
+	  client to retrieve OCSP staples for leaf certificates.
 
 3.1.2 - Bug fix
 

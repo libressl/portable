@@ -84,7 +84,7 @@ LibreSSL Portable Release Notes:
 	* Ensure that TLS 1.3 clients advertise exactly the "null" compression
 	  method in its legacy_compression_methods.
 
-	* Correct use of sockaddr instead of sockaddr_storage in openssl(1)
+	* Correct use of sockaddr_storage instead of sockaddr in openssl(1)
 	  s_client, which could lead to using 14 bytes of stack garbage instead
  	  of an IPv6 address in DTLS mode.
 

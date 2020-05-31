@@ -88,6 +88,8 @@ LibreSSL Portable Release Notes:
 	  s_client, which could lead to using 14 bytes of stack garbage instead
  	  of an IPv6 address in DTLS mode.
 
+	* Use non-expired certificates first when building a certificate chain.
+
 3.1.2 - Bug fix
 
 	* A TLS client with peer verification disabled may crash when

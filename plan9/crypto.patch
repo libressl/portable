@@ -1,6 +1,6 @@
 diff -uprN -X mkfile crypto.orig/asn1/a_time_tm.c crypto/asn1/a_time_tm.c
---- crypto.orig/asn1/a_time_tm.c	Fri Jan  3 17:31:54 2020
-+++ crypto/asn1/a_time_tm.c	Fri Jan  3 14:16:09 2020
+--- crypto.orig/asn1/a_time_tm.c	Sun May 31 21:08:00 2020
++++ crypto/asn1/a_time_tm.c	Sun May 31 19:27:31 2020
 @@ -246,7 +246,7 @@ ASN1_TIME_set_string_internal(ASN1_TIME 
  	if ((tmp = strdup(str)) == NULL)
  		return (0);
@@ -74,8 +74,8 @@ diff -uprN -X mkfile crypto.orig/asn1/a_time_tm.c crypto/asn1/a_time_tm.c
  
  int
 diff -uprN -X mkfile crypto.orig/chacha/chacha-merged.c crypto/chacha/chacha-merged.c
---- crypto.orig/chacha/chacha-merged.c	Fri Jan  3 17:32:01 2020
-+++ crypto/chacha/chacha-merged.c	Fri Jan  3 14:16:10 2020
+--- crypto.orig/chacha/chacha-merged.c	Sun May 31 21:08:04 2020
++++ crypto/chacha/chacha-merged.c	Sun May 31 19:27:31 2020
 @@ -7,6 +7,7 @@ Public domain.
  
  #include <sys/types.h>
@@ -85,8 +85,8 @@ diff -uprN -X mkfile crypto.orig/chacha/chacha-merged.c crypto/chacha/chacha-mer
  
  #define CHACHA_MINKEYLEN 	16
 diff -uprN -X mkfile crypto.orig/cryptlib.c crypto/cryptlib.c
---- crypto.orig/cryptlib.c	Fri Jan  3 17:31:53 2020
-+++ crypto/cryptlib.c	Fri Jan  3 14:16:10 2020
+--- crypto.orig/cryptlib.c	Sun May 31 21:07:59 2020
++++ crypto/cryptlib.c	Sun May 31 19:27:31 2020
 @@ -119,6 +119,7 @@
  #include <stdio.h>
  #include <string.h>
@@ -96,8 +96,8 @@ diff -uprN -X mkfile crypto.orig/cryptlib.c crypto/cryptlib.c
  
  #include <openssl/opensslconf.h>
 diff -uprN -X mkfile crypto.orig/evp/e_sm4.c crypto/evp/e_sm4.c
---- crypto.orig/evp/e_sm4.c	Fri Jan  3 17:32:09 2020
-+++ crypto/evp/e_sm4.c	Fri Jan  3 14:16:10 2020
+--- crypto.orig/evp/e_sm4.c	Sun May 31 21:08:09 2020
++++ crypto/evp/e_sm4.c	Sun May 31 19:27:31 2020
 @@ -84,7 +84,7 @@ sm4_ctr_cipher(EVP_CIPHER_CTX *ctx, unsi
  	EVP_SM4_KEY *key = EVP_C_DATA(EVP_SM4_KEY, ctx);
  
@@ -108,8 +108,8 @@ diff -uprN -X mkfile crypto.orig/evp/e_sm4.c crypto/evp/e_sm4.c
  }
  
 diff -uprN -X mkfile crypto.orig/gost/gostr341001_pmeth.c crypto/gost/gostr341001_pmeth.c
---- crypto.orig/gost/gostr341001_pmeth.c	Fri Jan  3 17:32:11 2020
-+++ crypto/gost/gostr341001_pmeth.c	Fri Jan  3 14:16:10 2020
+--- crypto.orig/gost/gostr341001_pmeth.c	Sun May 31 21:08:11 2020
++++ crypto/gost/gostr341001_pmeth.c	Sun May 31 19:27:31 2020
 @@ -603,7 +603,7 @@ pkey_gost01_ctrl(EVP_PKEY_CTX *ctx, int 
  		}
  		memcpy(ukm, p2, p1);
@@ -120,8 +120,8 @@ diff -uprN -X mkfile crypto.orig/gost/gostr341001_pmeth.c crypto/gost/gostr34100
  	    }
  
 diff -uprN -X mkfile crypto.orig/ocsp/ocsp_cl.c crypto/ocsp/ocsp_cl.c
---- crypto.orig/ocsp/ocsp_cl.c	Fri Jan  3 17:32:12 2020
-+++ crypto/ocsp/ocsp_cl.c	Fri Jan  3 14:16:10 2020
+--- crypto.orig/ocsp/ocsp_cl.c	Sun May 31 21:08:12 2020
++++ crypto/ocsp/ocsp_cl.c	Sun May 31 19:27:31 2020
 @@ -70,6 +70,7 @@
  #include <openssl/pem.h>
  #include <openssl/x509.h>
@@ -149,8 +149,8 @@ diff -uprN -X mkfile crypto.orig/ocsp/ocsp_cl.c crypto/ocsp/ocsp_cl.c
  		OCSPerror(OCSP_R_ERROR_IN_NEXTUPDATE_FIELD);
  		return 0;
 diff -uprN -X mkfile crypto.orig/ocsp/ocsp_srv.c crypto/ocsp/ocsp_srv.c
---- crypto.orig/ocsp/ocsp_srv.c	Fri Jan  3 17:32:13 2020
-+++ crypto/ocsp/ocsp_srv.c	Fri Jan  3 14:16:10 2020
+--- crypto.orig/ocsp/ocsp_srv.c	Sun May 31 21:08:12 2020
++++ crypto/ocsp/ocsp_srv.c	Sun May 31 19:27:31 2020
 @@ -64,6 +64,7 @@
  #include <openssl/pem.h>
  #include <openssl/x509.h>
@@ -160,8 +160,8 @@ diff -uprN -X mkfile crypto.orig/ocsp/ocsp_srv.c crypto/ocsp/ocsp_srv.c
  /* Utility functions related to sending OCSP responses and extracting
   * relevant information from the request.
 diff -uprN -X mkfile crypto.orig/ocsp/ocsp_vfy.c crypto/ocsp/ocsp_vfy.c
---- crypto.orig/ocsp/ocsp_vfy.c	Fri Jan  3 17:32:13 2020
-+++ crypto/ocsp/ocsp_vfy.c	Fri Jan  3 14:16:10 2020
+--- crypto.orig/ocsp/ocsp_vfy.c	Sun May 31 21:08:12 2020
++++ crypto/ocsp/ocsp_vfy.c	Sun May 31 19:27:32 2020
 @@ -58,6 +58,7 @@
  
  #include <openssl/ocsp.h>
@@ -171,8 +171,8 @@ diff -uprN -X mkfile crypto.orig/ocsp/ocsp_vfy.c crypto/ocsp/ocsp_vfy.c
  
  static int ocsp_find_signer(X509 **psigner, OCSP_BASICRESP *bs,
 diff -uprN -X mkfile crypto.orig/pkcs12/p12_add.c crypto/pkcs12/p12_add.c
---- crypto.orig/pkcs12/p12_add.c	Fri Jan  3 17:32:13 2020
-+++ crypto/pkcs12/p12_add.c	Fri Jan  3 14:16:10 2020
+--- crypto.orig/pkcs12/p12_add.c	Sun May 31 21:08:13 2020
++++ crypto/pkcs12/p12_add.c	Sun May 31 19:27:32 2020
 @@ -60,6 +60,7 @@
  
  #include <openssl/err.h>
@@ -182,8 +182,8 @@ diff -uprN -X mkfile crypto.orig/pkcs12/p12_add.c crypto/pkcs12/p12_add.c
  /* Pack an object into an OCTET STRING and turn into a safebag */
  
 diff -uprN -X mkfile crypto.orig/pkcs12/p12_p8d.c crypto/pkcs12/p12_p8d.c
---- crypto.orig/pkcs12/p12_p8d.c	Fri Jan  3 17:32:13 2020
-+++ crypto/pkcs12/p12_p8d.c	Fri Jan  3 14:16:10 2020
+--- crypto.orig/pkcs12/p12_p8d.c	Sun May 31 21:08:13 2020
++++ crypto/pkcs12/p12_p8d.c	Sun May 31 19:27:32 2020
 @@ -59,6 +59,7 @@
  #include <stdio.h>
  
@@ -193,8 +193,8 @@ diff -uprN -X mkfile crypto.orig/pkcs12/p12_p8d.c crypto/pkcs12/p12_p8d.c
  PKCS8_PRIV_KEY_INFO *
  PKCS8_decrypt(const X509_SIG *p8, const char *pass, int passlen)
 diff -uprN -X mkfile crypto.orig/pkcs12/p12_p8e.c crypto/pkcs12/p12_p8e.c
---- crypto.orig/pkcs12/p12_p8e.c	Fri Jan  3 17:32:13 2020
-+++ crypto/pkcs12/p12_p8e.c	Fri Jan  3 14:16:10 2020
+--- crypto.orig/pkcs12/p12_p8e.c	Sun May 31 21:08:13 2020
++++ crypto/pkcs12/p12_p8e.c	Sun May 31 19:27:32 2020
 @@ -60,6 +60,7 @@
  
  #include <openssl/err.h>
@@ -204,8 +204,8 @@ diff -uprN -X mkfile crypto.orig/pkcs12/p12_p8e.c crypto/pkcs12/p12_p8e.c
  X509_SIG *
  PKCS8_encrypt(int pbe_nid, const EVP_CIPHER *cipher, const char *pass,
 diff -uprN -X mkfile crypto.orig/pkcs12/p12_utl.c crypto/pkcs12/p12_utl.c
---- crypto.orig/pkcs12/p12_utl.c	Fri Jan  3 17:32:14 2020
-+++ crypto/pkcs12/p12_utl.c	Fri Jan  3 14:16:10 2020
+--- crypto.orig/pkcs12/p12_utl.c	Sun May 31 21:08:13 2020
++++ crypto/pkcs12/p12_utl.c	Sun May 31 19:27:32 2020
 @@ -61,6 +61,7 @@
  #include <string.h>
  
@@ -215,8 +215,8 @@ diff -uprN -X mkfile crypto.orig/pkcs12/p12_utl.c crypto/pkcs12/p12_utl.c
  /* Cheap and nasty Unicode stuff */
  
 diff -uprN -X mkfile crypto.orig/pkcs7/bio_pk7.c crypto/pkcs7/bio_pk7.c
---- crypto.orig/pkcs7/bio_pk7.c	Fri Jan  3 17:32:14 2020
-+++ crypto/pkcs7/bio_pk7.c	Fri Jan  3 14:16:11 2020
+--- crypto.orig/pkcs7/bio_pk7.c	Sun May 31 21:08:13 2020
++++ crypto/pkcs7/bio_pk7.c	Sun May 31 19:27:32 2020
 @@ -53,6 +53,7 @@
   */
  
@@ -226,8 +226,8 @@ diff -uprN -X mkfile crypto.orig/pkcs7/bio_pk7.c crypto/pkcs7/bio_pk7.c
  #include <openssl/bio.h>
  
 diff -uprN -X mkfile crypto.orig/pkcs7/pk7_doit.c crypto/pkcs7/pk7_doit.c
---- crypto.orig/pkcs7/pk7_doit.c	Fri Jan  3 17:32:14 2020
-+++ crypto/pkcs7/pk7_doit.c	Fri Jan  3 14:16:11 2020
+--- crypto.orig/pkcs7/pk7_doit.c	Sun May 31 21:08:13 2020
++++ crypto/pkcs7/pk7_doit.c	Sun May 31 19:27:32 2020
 @@ -64,6 +64,7 @@
  #include <openssl/objects.h>
  #include <openssl/x509.h>
@@ -237,8 +237,8 @@ diff -uprN -X mkfile crypto.orig/pkcs7/pk7_doit.c crypto/pkcs7/pk7_doit.c
  static int add_attribute(STACK_OF(X509_ATTRIBUTE) **sk, int nid, int atrtype,
      void *value);
 diff -uprN -X mkfile crypto.orig/pkcs7/pk7_mime.c crypto/pkcs7/pk7_mime.c
---- crypto.orig/pkcs7/pk7_mime.c	Fri Jan  3 17:32:14 2020
-+++ crypto/pkcs7/pk7_mime.c	Fri Jan  3 14:16:12 2020
+--- crypto.orig/pkcs7/pk7_mime.c	Sun May 31 21:08:13 2020
++++ crypto/pkcs7/pk7_mime.c	Sun May 31 19:27:32 2020
 @@ -57,6 +57,7 @@
  
  #include <openssl/asn1.h>
@@ -248,8 +248,8 @@ diff -uprN -X mkfile crypto.orig/pkcs7/pk7_mime.c crypto/pkcs7/pk7_mime.c
  /* PKCS#7 wrappers round generalised stream and MIME routines */
  
 diff -uprN -X mkfile crypto.orig/poly1305/poly1305-donna.c crypto/poly1305/poly1305-donna.c
---- crypto.orig/poly1305/poly1305-donna.c	Fri Jan  3 17:32:14 2020
-+++ crypto/poly1305/poly1305-donna.c	Fri Jan  3 14:16:13 2020
+--- crypto.orig/poly1305/poly1305-donna.c	Sun May 31 21:08:13 2020
++++ crypto/poly1305/poly1305-donna.c	Sun May 31 19:27:32 2020
 @@ -6,6 +6,7 @@
   */
  
@@ -259,8 +259,8 @@ diff -uprN -X mkfile crypto.orig/poly1305/poly1305-donna.c crypto/poly1305/poly1
  static inline void poly1305_init(poly1305_context *ctx,
      const unsigned char key[32]);
 diff -uprN -X mkfile crypto.orig/x509/x509_vfy.c crypto/x509/x509_vfy.c
---- crypto.orig/x509/x509_vfy.c	Fri Jan  3 17:32:17 2020
-+++ crypto/x509/x509_vfy.c	Fri Jan  3 14:16:13 2020
+--- crypto.orig/x509/x509_vfy.c	Sun May 31 21:08:16 2020
++++ crypto/x509/x509_vfy.c	Sun May 31 19:27:32 2020
 @@ -1881,7 +1881,7 @@ X509_cmp_time_internal(const ASN1_TIME *
  
  	memset(&tm1, 0, sizeof(tm1));
@@ -271,8 +271,8 @@ diff -uprN -X mkfile crypto.orig/x509/x509_vfy.c crypto/x509/x509_vfy.c
  		goto out; /* invalid time */
  
 diff -uprN -X mkfile crypto.orig/x509/x_all.c crypto/x509/x_all.c
---- crypto.orig/x509/x_all.c	Fri Jan  3 17:32:18 2020
-+++ crypto/x509/x_all.c	Fri Jan  3 14:16:13 2020
+--- crypto.orig/x509/x_all.c	Sun May 31 21:08:16 2020
++++ crypto/x509/x_all.c	Sun May 31 19:27:32 2020
 @@ -61,6 +61,7 @@
  #include <openssl/opensslconf.h>
  
@@ -282,8 +282,8 @@ diff -uprN -X mkfile crypto.orig/x509/x_all.c crypto/x509/x_all.c
  #include <openssl/evp.h>
  #include <openssl/stack.h>
 diff -uprN -X mkfile crypto.orig/x509v3/v3_alt.c crypto/x509v3/v3_alt.c
---- crypto.orig/x509v3/v3_alt.c	Fri Jan  3 17:32:18 2020
-+++ crypto/x509v3/v3_alt.c	Fri Jan  3 14:16:13 2020
+--- crypto.orig/x509v3/v3_alt.c	Sun May 31 21:08:16 2020
++++ crypto/x509v3/v3_alt.c	Sun May 31 19:27:32 2020
 @@ -62,6 +62,7 @@
  #include <openssl/conf.h>
  #include <openssl/err.h>
@@ -293,8 +293,8 @@ diff -uprN -X mkfile crypto.orig/x509v3/v3_alt.c crypto/x509v3/v3_alt.c
  static GENERAL_NAMES *v2i_subject_alt(X509V3_EXT_METHOD *method,
      X509V3_CTX *ctx, STACK_OF(CONF_VALUE) *nval);
 diff -uprN -X mkfile crypto.orig/x509v3/v3_bitst.c crypto/x509v3/v3_bitst.c
---- crypto.orig/x509v3/v3_bitst.c	Fri Jan  3 17:32:18 2020
-+++ crypto/x509v3/v3_bitst.c	Fri Jan  3 14:16:14 2020
+--- crypto.orig/x509v3/v3_bitst.c	Sun May 31 21:08:16 2020
++++ crypto/x509v3/v3_bitst.c	Sun May 31 19:27:33 2020
 @@ -62,6 +62,7 @@
  #include <openssl/conf.h>
  #include <openssl/err.h>
@@ -304,8 +304,8 @@ diff -uprN -X mkfile crypto.orig/x509v3/v3_bitst.c crypto/x509v3/v3_bitst.c
  static BIT_STRING_BITNAME ns_cert_type_table[] = {
  	{0, "SSL Client", "client"},
 diff -uprN -X mkfile crypto.orig/x509v3/v3_enum.c crypto/x509v3/v3_enum.c
---- crypto.orig/x509v3/v3_enum.c	Fri Jan  3 17:32:18 2020
-+++ crypto/x509v3/v3_enum.c	Fri Jan  3 14:16:14 2020
+--- crypto.orig/x509v3/v3_enum.c	Sun May 31 21:08:16 2020
++++ crypto/x509v3/v3_enum.c	Sun May 31 19:27:33 2020
 @@ -59,6 +59,7 @@
  #include <stdio.h>
  #include <string.h>
@@ -315,8 +315,8 @@ diff -uprN -X mkfile crypto.orig/x509v3/v3_enum.c crypto/x509v3/v3_enum.c
  static ENUMERATED_NAMES crl_reasons[] = {
  	{CRL_REASON_UNSPECIFIED, 	 "Unspecified", "unspecified"},
 diff -uprN -X mkfile crypto.orig/x509v3/v3_ia5.c crypto/x509v3/v3_ia5.c
---- crypto.orig/x509v3/v3_ia5.c	Fri Jan  3 17:32:18 2020
-+++ crypto/x509v3/v3_ia5.c	Fri Jan  3 14:16:14 2020
+--- crypto.orig/x509v3/v3_ia5.c	Sun May 31 21:08:17 2020
++++ crypto/x509v3/v3_ia5.c	Sun May 31 19:27:33 2020
 @@ -60,6 +60,7 @@
  #include <string.h>
  
@@ -326,8 +326,8 @@ diff -uprN -X mkfile crypto.orig/x509v3/v3_ia5.c crypto/x509v3/v3_ia5.c
  #include <openssl/err.h>
  #include <openssl/x509v3.h>
 diff -uprN -X mkfile crypto.orig/x509v3/v3_int.c crypto/x509v3/v3_int.c
---- crypto.orig/x509v3/v3_int.c	Fri Jan  3 17:32:18 2020
-+++ crypto/x509v3/v3_int.c	Fri Jan  3 14:16:14 2020
+--- crypto.orig/x509v3/v3_int.c	Sun May 31 21:08:17 2020
++++ crypto/x509v3/v3_int.c	Sun May 31 19:27:33 2020
 @@ -59,6 +59,7 @@
  #include <stdio.h>
  
@@ -337,8 +337,8 @@ diff -uprN -X mkfile crypto.orig/x509v3/v3_int.c crypto/x509v3/v3_int.c
  const X509V3_EXT_METHOD v3_crl_num = {
  	.ext_nid = NID_crl_number,
 diff -uprN -X mkfile crypto.orig/x509v3/v3_ocsp.c crypto/x509v3/v3_ocsp.c
---- crypto.orig/x509v3/v3_ocsp.c	Fri Jan  3 17:32:18 2020
-+++ crypto/x509v3/v3_ocsp.c	Fri Jan  3 14:16:14 2020
+--- crypto.orig/x509v3/v3_ocsp.c	Sun May 31 21:08:17 2020
++++ crypto/x509v3/v3_ocsp.c	Sun May 31 19:27:33 2020
 @@ -64,6 +64,7 @@
  #ifndef OPENSSL_NO_OCSP
  
@@ -348,8 +348,8 @@ diff -uprN -X mkfile crypto.orig/x509v3/v3_ocsp.c crypto/x509v3/v3_ocsp.c
  #include <openssl/err.h>
  #include <openssl/ocsp.h>
 diff -uprN -X mkfile crypto.orig/x509v3/v3_pci.c crypto/x509v3/v3_pci.c
---- crypto.orig/x509v3/v3_pci.c	Fri Jan  3 17:32:18 2020
-+++ crypto/x509v3/v3_pci.c	Fri Jan  3 14:16:14 2020
+--- crypto.orig/x509v3/v3_pci.c	Sun May 31 21:08:17 2020
++++ crypto/x509v3/v3_pci.c	Sun May 31 19:27:33 2020
 @@ -40,6 +40,7 @@
  #include <openssl/conf.h>
  #include <openssl/err.h>
@@ -359,8 +359,8 @@ diff -uprN -X mkfile crypto.orig/x509v3/v3_pci.c crypto/x509v3/v3_pci.c
  static int i2r_pci(X509V3_EXT_METHOD *method, PROXY_CERT_INFO_EXTENSION *ext,
      BIO *out, int indent);
 diff -uprN -X mkfile crypto.orig/x509v3/v3_skey.c crypto/x509v3/v3_skey.c
---- crypto.orig/x509v3/v3_skey.c	Fri Jan  3 17:32:19 2020
-+++ crypto/x509v3/v3_skey.c	Fri Jan  3 14:16:14 2020
+--- crypto.orig/x509v3/v3_skey.c	Sun May 31 21:08:17 2020
++++ crypto/x509v3/v3_skey.c	Sun May 31 19:27:33 2020
 @@ -60,6 +60,7 @@
  #include <string.h>
  
@@ -370,8 +370,8 @@ diff -uprN -X mkfile crypto.orig/x509v3/v3_skey.c crypto/x509v3/v3_skey.c
  
  static ASN1_OCTET_STRING *s2i_skey_id(X509V3_EXT_METHOD *method,
 diff -uprN -X mkfile crypto.orig/x509v3/v3_utl.c crypto/x509v3/v3_utl.c
---- crypto.orig/x509v3/v3_utl.c	Fri Jan  3 17:32:19 2020
-+++ crypto/x509v3/v3_utl.c	Fri Jan  3 14:16:14 2020
+--- crypto.orig/x509v3/v3_utl.c	Sun May 31 21:08:17 2020
++++ crypto/x509v3/v3_utl.c	Sun May 31 19:27:33 2020
 @@ -61,6 +61,7 @@
  #include <stdio.h>
  #include <string.h>

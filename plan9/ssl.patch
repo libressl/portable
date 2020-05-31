@@ -1,6 +1,6 @@
 diff -uprN -X mkfile ssl.orig/ssl_both.c ssl/ssl_both.c
---- ssl.orig/ssl_both.c	Fri Jan  3 17:32:27 2020
-+++ ssl/ssl_both.c	Fri Jan  3 14:16:14 2020
+--- ssl.orig/ssl_both.c	Sun May 31 21:08:22 2020
++++ ssl/ssl_both.c	Sun May 31 19:27:33 2020
 @@ -317,7 +317,7 @@ ssl3_send_change_cipher_spec(SSL *s, int
  	memset(&cbb, 0, sizeof(cbb));
  
@@ -11,8 +11,8 @@ diff -uprN -X mkfile ssl.orig/ssl_both.c ssl/ssl_both.c
  			goto err;
  		if (!CBB_add_u8(&cbb, SSL3_MT_CCS))
 diff -uprN -X mkfile ssl.orig/ssl_cert.c ssl/ssl_cert.c
---- ssl.orig/ssl_cert.c	Fri Jan  3 17:32:27 2020
-+++ ssl/ssl_cert.c	Fri Jan  3 14:16:14 2020
+--- ssl.orig/ssl_cert.c	Sun May 31 21:08:22 2020
++++ ssl/ssl_cert.c	Sun May 31 19:27:33 2020
 @@ -133,7 +133,7 @@
  int
  SSL_get_ex_data_X509_STORE_CTX_idx(void)
@@ -23,20 +23,20 @@ diff -uprN -X mkfile ssl.orig/ssl_cert.c ssl/ssl_cert.c
  
  	CRYPTO_r_lock(CRYPTO_LOCK_SSL_CTX);
 diff -uprN -X mkfile ssl.orig/ssl_tlsext.c ssl/ssl_tlsext.c
---- ssl.orig/ssl_tlsext.c	Fri Jan  3 17:32:27 2020
-+++ ssl/ssl_tlsext.c	Fri Jan  3 14:16:15 2020
-@@ -648,7 +648,7 @@ tlsext_sni_server_parse(SSL *s, CBS *cbs
+--- ssl.orig/ssl_tlsext.c	Sun May 31 21:08:23 2020
++++ ssl/ssl_tlsext.c	Sun May 31 19:27:34 2020
+@@ -764,7 +764,7 @@ tlsext_sni_server_parse(SSL *s, CBS *cbs
  			*alert = TLS1_AD_UNRECOGNIZED_NAME;
- 			return 0;
+ 			goto err;
  		}
 -		if (!CBS_mem_equal(&host_name, s->session->tlsext_hostname,
 +		if (!CBS_mem_equal(&host_name, (unsigned char*)s->session->tlsext_hostname,
  		    strlen(s->session->tlsext_hostname))) {
  			*alert = TLS1_AD_UNRECOGNIZED_NAME;
- 			return 0;
+ 			goto err;
 diff -uprN -X mkfile ssl.orig/ssl_transcript.c ssl/ssl_transcript.c
---- ssl.orig/ssl_transcript.c	Fri Jan  3 17:32:27 2020
-+++ ssl/ssl_transcript.c	Fri Jan  3 14:16:15 2020
+--- ssl.orig/ssl_transcript.c	Sun May 31 21:08:23 2020
++++ ssl/ssl_transcript.c	Sun May 31 19:27:34 2020
 @@ -176,7 +176,7 @@ tls1_transcript_data(SSL *s, const unsig
  	if (S3I(s)->handshake_transcript == NULL)
  		return 0;
@@ -47,9 +47,9 @@ diff -uprN -X mkfile ssl.orig/ssl_transcript.c ssl/ssl_transcript.c
  
  	return 1;
 diff -uprN -X mkfile ssl.orig/t1_lib.c ssl/t1_lib.c
---- ssl.orig/t1_lib.c	Fri Jan  3 17:32:27 2020
-+++ ssl/t1_lib.c	Fri Jan  3 14:16:15 2020
-@@ -972,7 +972,7 @@ tls_decrypt_ticket(SSL *s, CBS *session_
+--- ssl.orig/t1_lib.c	Sun May 31 21:08:23 2020
++++ ssl/t1_lib.c	Sun May 31 19:27:34 2020
+@@ -964,7 +964,7 @@ tls_decrypt_ticket(SSL *s, CBS *session_
  	if (HMAC_Update(hctx, CBS_data(&ticket_encdata),
  	    CBS_len(&ticket_encdata)) <= 0)
  		goto err;
@@ -59,28 +59,19 @@ diff -uprN -X mkfile ssl.orig/t1_lib.c ssl/t1_lib.c
  
  	if (!CBS_mem_equal(&ticket_hmac, hmac, hlen))
 diff -uprN -X mkfile ssl.orig/tls13_client.c ssl/tls13_client.c
---- ssl.orig/tls13_client.c	Fri Jan  3 17:32:27 2020
-+++ ssl/tls13_client.c	Fri Jan  3 14:16:17 2020
-@@ -121,7 +121,7 @@ tls13_use_legacy_client(struct tls13_ctx
- 	if (!BUF_MEM_grow_clean(s->internal->init_buf, CBS_len(&cbs) + 4))
+--- ssl.orig/tls13_client.c	Sun May 31 21:08:23 2020
++++ ssl/tls13_client.c	Sun May 31 19:54:27 2020
+@@ -692,7 +692,7 @@ tls13_server_certificate_verify_recv(str
+ 	    sizeof(tls13_cert_verify_pad)))
  		goto err;
- 
--	if (!CBS_write_bytes(&cbs, s->internal->init_buf->data + 4,
-+	if (!CBS_write_bytes(&cbs, (uint8_t *)s->internal->init_buf->data + 4,
- 	    s->internal->init_buf->length - 4, NULL))
- 		goto err;
- 
-@@ -591,7 +591,7 @@ tls13_server_certificate_verify_recv(str
- 	if (!CBB_add_bytes(&cbb, cert_verify_pad, sizeof(cert_verify_pad)))
- 		goto err;
- 	if (!CBB_add_bytes(&cbb, server_cert_verify_context,
--	    strlen(server_cert_verify_context)))
-+	    strlen((const char *)server_cert_verify_context)))
+ 	if (!CBB_add_bytes(&cbb, tls13_cert_server_verify_context,
+-	    strlen(tls13_cert_server_verify_context)))
++	    strlen((const char *)tls13_cert_server_verify_context)))
  		goto err;
  	if (!CBB_add_u8(&cbb, 0))
  		goto err;
-@@ -643,7 +643,7 @@ int
- tls13_server_finished_recv(struct tls13_ctx *ctx)
+@@ -748,7 +748,7 @@ int
+ tls13_server_finished_recv(struct tls13_ctx *ctx, CBS *cbs)
  {
  	struct tls13_secrets *secrets = ctx->hs->secrets;
 -	struct tls13_secret context = { .data = "", .len = 0 };
@@ -88,8 +79,17 @@ diff -uprN -X mkfile ssl.orig/tls13_client.c ssl/tls13_client.c
  	struct tls13_secret finished_key;
  	uint8_t transcript_hash[EVP_MAX_MD_SIZE];
  	size_t transcript_hash_len;
-@@ -724,7 +724,7 @@ int
- tls13_client_finished_send(struct tls13_ctx *ctx)
+@@ -901,7 +901,7 @@ tls13_client_certificate_verify_send(str
+ 	    sizeof(tls13_cert_verify_pad)))
+ 		goto err;
+ 	if (!CBB_add_bytes(&sig_cbb, tls13_cert_client_verify_context,
+-	    strlen(tls13_cert_client_verify_context)))
++	    strlen((const char *)tls13_cert_client_verify_context)))
+ 		goto err;
+ 	if (!CBB_add_u8(&sig_cbb, 0))
+ 		goto err;
+@@ -964,7 +964,7 @@ int
+ tls13_client_finished_send(struct tls13_ctx *ctx, CBB *cbb)
  {
  	struct tls13_secrets *secrets = ctx->hs->secrets;
 -	struct tls13_secret context = { .data = "", .len = 0 };
@@ -98,8 +98,8 @@ diff -uprN -X mkfile ssl.orig/tls13_client.c ssl/tls13_client.c
  	uint8_t transcript_hash[EVP_MAX_MD_SIZE];
  	size_t transcript_hash_len;
 diff -uprN -X mkfile ssl.orig/tls13_key_schedule.c ssl/tls13_key_schedule.c
---- ssl.orig/tls13_key_schedule.c	Fri Jan  3 17:32:27 2020
-+++ ssl/tls13_key_schedule.c	Fri Jan  3 16:49:12 2020
+--- ssl.orig/tls13_key_schedule.c	Sun May 31 21:08:23 2020
++++ ssl/tls13_key_schedule.c	Sun May 31 19:27:35 2020
 @@ -186,9 +186,9 @@ tls13_hkdf_expand_label(struct tls13_sec
  		goto err;
  	if (!CBB_add_u8_length_prefixed(&cbb, &child))
@@ -130,10 +130,31 @@ diff -uprN -X mkfile ssl.orig/tls13_key_schedule.c ssl/tls13_key_schedule.c
  
  	if (!secrets->init_done || !secrets->early_done ||
  	    !secrets->handshake_done || !secrets->schedule_done)
+diff -uprN -X mkfile ssl.orig/tls13_legacy.c ssl/tls13_legacy.c
+--- ssl.orig/tls13_legacy.c	Sun May 31 21:08:23 2020
++++ ssl/tls13_legacy.c	Sun May 31 19:56:01 2020
+@@ -322,7 +322,7 @@ tls13_use_legacy_client(struct tls13_ctx
+ 
+ 	/* Stash the current handshake message. */
+ 	tls13_handshake_msg_data(ctx->hs_msg, &cbs);
+-	if (!CBS_write_bytes(&cbs, s->internal->init_buf->data,
++	if (!CBS_write_bytes(&cbs, (uint8_t *)s->internal->init_buf->data,
+ 	    s->internal->init_buf->length, NULL))
+ 		goto err;
+ 
+@@ -379,7 +379,7 @@ tls13_use_legacy_server(struct tls13_ctx
+ 
+ 	/* Stash the current handshake message. */
+ 	tls13_handshake_msg_data(ctx->hs_msg, &cbs);
+-	if (!CBS_write_bytes(&cbs, s->internal->init_buf->data,
++	if (!CBS_write_bytes(&cbs, (uint8_t *)s->internal->init_buf->data,
+ 	    s->internal->init_buf->length, NULL))
+ 		goto err;
+ 
 diff -uprN -X mkfile ssl.orig/tls13_record_layer.c ssl/tls13_record_layer.c
---- ssl.orig/tls13_record_layer.c	Fri Jan  3 17:32:27 2020
-+++ ssl/tls13_record_layer.c	Fri Jan  3 14:16:17 2020
-@@ -377,7 +377,7 @@ tls13_record_layer_set_traffic_key(const
+--- ssl.orig/tls13_record_layer.c	Sun May 31 21:08:23 2020
++++ ssl/tls13_record_layer.c	Sun May 31 19:27:35 2020
+@@ -428,7 +428,7 @@ tls13_record_layer_set_traffic_key(const
      const EVP_MD *hash, struct tls13_secret *iv, struct tls13_secret *nonce,
      struct tls13_secret *traffic_key)
  {
@@ -142,3 +163,51 @@ diff -uprN -X mkfile ssl.orig/tls13_record_layer.c ssl/tls13_record_layer.c
  	struct tls13_secret key = { .data = NULL, .len = 0 };
  	int ret = 0;
  
+diff -uprN -X mkfile ssl.orig/tls13_server.c ssl/tls13_server.c
+--- ssl.orig/tls13_server.c	Sun May 31 21:08:23 2020
++++ ssl/tls13_server.c	Sun May 31 19:58:09 2020
+@@ -597,7 +597,7 @@ tls13_server_certificate_verify_send(str
+ 	    sizeof(tls13_cert_verify_pad)))
+ 		goto err;
+ 	if (!CBB_add_bytes(&sig_cbb, tls13_cert_server_verify_context,
+-	    strlen(tls13_cert_server_verify_context)))
++	    strlen((const char *)tls13_cert_server_verify_context)))
+ 		goto err;
+ 	if (!CBB_add_u8(&sig_cbb, 0))
+ 		goto err;
+@@ -654,7 +654,7 @@ int
+ tls13_server_finished_send(struct tls13_ctx *ctx, CBB *cbb)
+ {
+ 	struct tls13_secrets *secrets = ctx->hs->secrets;
+-	struct tls13_secret context = { .data = "", .len = 0 };
++	struct tls13_secret context = { .data = (unsigned char *)"", .len = 0 };
+ 	struct tls13_secret finished_key;
+ 	uint8_t transcript_hash[EVP_MAX_MD_SIZE];
+ 	size_t transcript_hash_len;
+@@ -705,7 +705,7 @@ int
+ tls13_server_finished_sent(struct tls13_ctx *ctx)
+ {
+ 	struct tls13_secrets *secrets = ctx->hs->secrets;
+-	struct tls13_secret context = { .data = "", .len = 0 };
++	struct tls13_secret context = { .data = (unsigned char *)"", .len = 0 };
+ 
+ 	/*
+ 	 * Derive application traffic keys.
+@@ -853,7 +853,7 @@ tls13_client_certificate_verify_recv(str
+ 	    sizeof(tls13_cert_verify_pad)))
+ 		goto err;
+ 	if (!CBB_add_bytes(&cbb, tls13_cert_client_verify_context,
+-	    strlen(tls13_cert_client_verify_context)))
++	    strlen((const char *)tls13_cert_client_verify_context)))
+ 		goto err;
+ 	if (!CBB_add_u8(&cbb, 0))
+ 		goto err;
+@@ -916,7 +916,7 @@ int
+ tls13_client_finished_recv(struct tls13_ctx *ctx, CBS *cbs)
+ {
+ 	struct tls13_secrets *secrets = ctx->hs->secrets;
+-	struct tls13_secret context = { .data = "", .len = 0 };
++	struct tls13_secret context = { .data = (unsigned char *)"", .len = 0 };
+ 	struct tls13_secret finished_key;
+ 	uint8_t *verify_data = NULL;
+ 	size_t verify_data_len;

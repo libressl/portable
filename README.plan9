@@ -35,9 +35,11 @@ mk install
 If you catch any problem, you can update patches in plan9 directory.
 For example, to merge a changes for crypto/cpt_err.c into crypto.patch:
 
- ./autogen.rc
- mkdir crypto.orig
- dircp crypto crypto.orig
+ git clean -xf
+ IGNOREPLAN9PATCHES=1 ./autogen.rc
+ mkdir (crypto ssl tls apps)^.orig
+ for(i in crypto ssl tls apps)
+       dircp $i $i.orig
 
 Feel free edit crypto/cpt_err.c, then update a patch:
 

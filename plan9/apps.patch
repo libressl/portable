@@ -1,6 +1,6 @@
 diff -uprN -X mkfile apps.orig/openssl/apps.c apps/openssl/apps.c
---- apps.orig/openssl/apps.c	Fri Jan  3 17:32:25 2020
-+++ apps/openssl/apps.c	Fri Jan  3 14:16:08 2020
+--- apps.orig/openssl/apps.c	Sun May 31 21:08:21 2020
++++ apps/openssl/apps.c	Sun May 31 19:27:30 2020
 @@ -146,6 +146,7 @@
  #include <openssl/x509v3.h>
  
@@ -10,8 +10,8 @@ diff -uprN -X mkfile apps.orig/openssl/apps.c apps/openssl/apps.c
  typedef struct {
  	const char *name;
 diff -uprN -X mkfile apps.orig/openssl/ciphers.c apps/openssl/ciphers.c
---- apps.orig/openssl/ciphers.c	Fri Jan  3 17:32:25 2020
-+++ apps/openssl/ciphers.c	Fri Jan  3 14:16:09 2020
+--- apps.orig/openssl/ciphers.c	Sun May 31 21:08:21 2020
++++ apps/openssl/ciphers.c	Sun May 31 19:27:30 2020
 @@ -49,14 +49,18 @@ static const struct option ciphers_optio
  		.name = "v",
  		.desc = "Provide cipher listing",
@@ -34,9 +34,9 @@ diff -uprN -X mkfile apps.orig/openssl/ciphers.c apps/openssl/ciphers.c
  	},
  	{ NULL },
 diff -uprN -X mkfile apps.orig/openssl/cms.c apps/openssl/cms.c
---- apps.orig/openssl/cms.c	Fri Jan  3 17:32:25 2020
-+++ apps/openssl/cms.c	Fri Jan  3 16:54:40 2020
-@@ -832,7 +832,7 @@ cms_main(int argc, char **argv)
+--- apps.orig/openssl/cms.c	Sun May 31 21:08:21 2020
++++ apps/openssl/cms.c	Sun May 31 19:27:30 2020
+@@ -834,7 +834,7 @@ cms_main(int argc, char **argv)
  			secret_keyid = NULL;
  		}
  		if (pwri_pass) {
@@ -46,8 +46,8 @@ diff -uprN -X mkfile apps.orig/openssl/cms.c apps/openssl/cms.c
  				goto end;
  			if (!CMS_add0_recipient_password(cms, -1, NID_undef,
 diff -uprN -X mkfile apps.orig/openssl/dgst.c apps/openssl/dgst.c
---- apps.orig/openssl/dgst.c	Fri Jan  3 17:32:25 2020
-+++ apps/openssl/dgst.c	Fri Jan  3 16:58:51 2020
+--- apps.orig/openssl/dgst.c	Sun May 31 21:08:21 2020
++++ apps/openssl/dgst.c	Sun May 31 19:27:30 2020
 @@ -175,14 +175,18 @@ static const struct option dgst_options[
  		.name = "binary",
  		.desc = "Output the digest or signature in binary form",
@@ -81,8 +81,8 @@ diff -uprN -X mkfile apps.orig/openssl/dgst.c apps/openssl/dgst.c
  	},
  	{
 diff -uprN -X mkfile apps.orig/openssl/dhparam.c apps/openssl/dhparam.c
---- apps.orig/openssl/dhparam.c	Fri Jan  3 17:32:25 2020
-+++ apps/openssl/dhparam.c	Fri Jan  3 14:16:09 2020
+--- apps.orig/openssl/dhparam.c	Sun May 31 21:08:21 2020
++++ apps/openssl/dhparam.c	Sun May 31 19:27:30 2020
 @@ -150,14 +150,18 @@ static const struct option dhparam_optio
  		.desc = "Generate DH parameters with a generator value of 2 "
  		    "(default)",
@@ -105,8 +105,8 @@ diff -uprN -X mkfile apps.orig/openssl/dhparam.c apps/openssl/dhparam.c
  	},
  	{
 diff -uprN -X mkfile apps.orig/openssl/enc.c apps/openssl/enc.c
---- apps.orig/openssl/enc.c	Fri Jan  3 17:32:25 2020
-+++ apps/openssl/enc.c	Fri Jan  3 14:16:09 2020
+--- apps.orig/openssl/enc.c	Sun May 31 21:08:21 2020
++++ apps/openssl/enc.c	Sun May 31 19:27:30 2020
 @@ -153,7 +153,9 @@ static const struct option enc_options[]
  		.name = "d",
  		.desc = "Decrypt the input data",
@@ -162,8 +162,8 @@ diff -uprN -X mkfile apps.orig/openssl/enc.c apps/openssl/enc.c
  	},
  	{
 diff -uprN -X mkfile apps.orig/openssl/pkcs12.c apps/openssl/pkcs12.c
---- apps.orig/openssl/pkcs12.c	Fri Jan  3 17:32:25 2020
-+++ apps/openssl/pkcs12.c	Fri Jan  3 17:06:37 2020
+--- apps.orig/openssl/pkcs12.c	Sun May 31 21:08:21 2020
++++ apps/openssl/pkcs12.c	Sun May 31 19:27:31 2020
 @@ -269,7 +269,9 @@ static const struct option pkcs12_option
  		.name = "cacerts",
  		.desc = "Only output CA certificates",
@@ -305,8 +305,8 @@ diff -uprN -X mkfile apps.orig/openssl/pkcs12.c apps/openssl/pkcs12.c
  	},
  	{
 diff -uprN -X mkfile apps.orig/openssl/s_time.c apps/openssl/s_time.c
---- apps.orig/openssl/s_time.c	Fri Jan  3 17:32:26 2020
-+++ apps/openssl/s_time.c	Fri Jan  3 14:16:09 2020
+--- apps.orig/openssl/s_time.c	Sun May 31 21:08:22 2020
++++ apps/openssl/s_time.c	Sun May 31 19:27:31 2020
 @@ -175,7 +175,9 @@ static const struct option s_time_option
  		.name = "new",
  		.desc = "Use a new session ID for each connection",
@@ -330,8 +330,8 @@ diff -uprN -X mkfile apps.orig/openssl/s_time.c apps/openssl/s_time.c
  	},
  	{
 diff -uprN -X mkfile apps.orig/openssl/x509.c apps/openssl/x509.c
---- apps.orig/openssl/x509.c	Fri Jan  3 17:32:26 2020
-+++ apps/openssl/x509.c	Fri Jan  3 14:16:09 2020
+--- apps.orig/openssl/x509.c	Sun May 31 21:08:22 2020
++++ apps/openssl/x509.c	Sun May 31 20:33:49 2020
 @@ -65,6 +65,7 @@
  #include "apps.h"
  
@@ -340,3 +340,21 @@ diff -uprN -X mkfile apps.orig/openssl/x509.c apps/openssl/x509.c
  #include <openssl/bio.h>
  #include <openssl/bn.h>
  #include <openssl/err.h>
+@@ -776,7 +777,7 @@ x509_main(int argc, char **argv)
+ 			} else if (startdate == i) {
+ 				ASN1_TIME *nB = X509_get_notBefore(x);
+ 				BIO_puts(STDout, "notBefore=");
+-				if (ASN1_time_parse(nB->data, nB->length, NULL, 0) == -1)
++				if (ASN1_time_parse((const char *)nB->data, nB->length, NULL, 0) == -1)
+ 					BIO_puts(STDout, "INVALID RFC5280 TIME");
+ 				else
+ 					ASN1_TIME_print(STDout, nB);
+@@ -784,7 +785,7 @@ x509_main(int argc, char **argv)
+ 			} else if (enddate == i) {
+ 				ASN1_TIME *nA = X509_get_notAfter(x);
+ 				BIO_puts(STDout, "notAfter=");
+-				if (ASN1_time_parse(nA->data, nA->length, NULL, 0) == -1)
++				if (ASN1_time_parse((const char *)nA->data, nA->length, NULL, 0) == -1)
+ 					BIO_puts(STDout, "INVALID RFC5280 TIME");
+ 				else
+ 					ASN1_TIME_print(STDout, nA);

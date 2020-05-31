@@ -392,7 +392,7 @@ fi
 for i in patches/*.patch; do
     $PATCH -p0 < $i
 done
-if [ `uname` = Plan9 ]; then
+if [ `uname` = Plan9 -a -z "$IGNOREPLAN9PATCHES" ]; then
     for i in plan9/*.patch; do
         $PATCH -p0 < $i
     done

@@ -30,26 +30,35 @@ LibreSSL Portable Release Notes:
 
 3.2.0 - Development release
 
-	* Improve length checks in record layer and provide appropriate
-	  alerts for violations of record layer limits.
+	* Enable TLS 1.3 server side in addition to client by default.
+	  With this change TLS 1.3 is handled entirely on the new stack
+	  and state machine, with fallback to the legacy stack and
+	  state machine for older versions. Note that the OpenSSL TLS 1.3
+	  API is not yet visible/available.
 
-	* Enforce in the server that SNI hostnames be correctly formed as
-	  per RFC 6066 and RFC 5890, responding with illegal parameter for
-	  a nonconformant host name.
+	* Improve length checks in the TLS 1.3 record layer and provide
+	  appropriate alerts for violations of record layer limits.
 
-	* Modify openssl(1) to clear SSL_MODE_AUTO_RETRY appropriately in
-	  various commands.
-
-	* Modify io behavior so that SSL_MODE_AUTO_RETRY is the default
-	  similar to new OpenSSL releases.
+	* Enforce that SNI hostnames received by the TLS server are correctly
+	  formed as per RFC 5890 and RFC 6066, responding with illegal parameter
+	  for a nonconformant host name.
 
 	* Support SSL_MODE_AUTO_RETRY in TLS 1.3 to allow the automatic
 	  retry of handshake messages.
 
+	* Modify I/O behavior so that SSL_MODE_AUTO_RETRY is the default
+	  similar to new OpenSSL releases.
+
+	* Modify openssl(1) to clear SSL_MODE_AUTO_RETRY appropriately in
+	  various commands.
+
 	* Add tlsfuzzer based regression tests.
 
+	* Support sending certificate status requests from the TLS 1.3
+	  client to request OCSP staples for leaf certificates.
+
 	* Support sending certificate status replies from the TLS 1.3 server
-	  to send OCSP staples for leaf certificates.
+	  in order to send OCSP staples for leaf certificates.
 
 	* Send correct alerts when handling failed key share extensions
 	  on the TLS 1.3 server.
@@ -59,33 +68,25 @@ LibreSSL Portable Release Notes:
 
 	* Support TLS 1.3 options in the openssl(1) command.
 
-	* Enable TLS 1.3 server side in addition to client by default.
-	  With this change TLS 1.3 is handled entirely on the new stack
-	  and state machine, with fallback to the legacy stack and
-	  state machine for older versions.
-
-	* Many alert cleanups in TLS 1.3 to provide expected alerts
-	  in failure conditions.
+	* Many alert cleanups in TLS 1.3 to provide expected alerts in failure
+	  conditions.
 
 	* Modify "openssl x509" to display invalid certificate times as
 	  invalid, and correctly deal with the failing return case from
 	  X509_cmp_time so that a certificate with an invalid NotAfter does
 	  not appear valid.
 
-	* Support sending dummy change_cipher_spec records for middlebox
+	* Support sending dummy change_cipher_spec records for TLS 1.3 middlebox
 	  compatibility.
 
-	* Ensure only PSS may be used with RSA in TLS 1.3.
+	* Ensure only PSS signatures are used with RSA in TLS 1.3.
 
-	* The client must advertise exactly the "null" compression method
-	  in its legacy_compression_methods, nothing else.
+	* Ensure that TLS 1.3 clients advertise exactly the "null" compression
+	  method in its legacy_compression_methods.
 
-	* Incorrect use of sockaddr instead of sockaddr_storage in openssl(1)
-	  s_client could lead to using 14 bytes of stack garbage instead
+	* Correct use of sockaddr instead of sockaddr_storage in openssl(1)
+	  s_client, which could lead to using 14 bytes of stack garbage instead
  	  of an IPv6 address in DTLS mode.
-
-	* Support sending certificate status requests from the TLS 1.3
-	  client to retrieve OCSP staples for leaf certificates.
 
 3.1.2 - Bug fix
 

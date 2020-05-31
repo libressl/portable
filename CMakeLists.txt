@@ -1,4 +1,12 @@
-cmake_minimum_required (VERSION 3.0)
+if(MSVC)
+	cmake_minimum_required (VERSION 3.16.4)
+	cmake_policy(SET CMP0091 NEW)
+else()
+	cmake_minimum_required (VERSION 3.0)
+endif()
+
+project (LibreSSL C ASM)
+
 include(CheckFunctionExists)
 include(CheckSymbolExists)
 include(CheckLibraryExists)
@@ -8,8 +16,6 @@ include(CheckTypeSize)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}" ${CMAKE_MODULE_PATH})
 include(cmake_export_symbol)
 include(GNUInstallDirs)
-
-project (LibreSSL C ASM)
 
 enable_testing()
 
@@ -35,6 +41,11 @@ option(ENABLE_ASM "Enable assembly" ON)
 option(ENABLE_EXTRATESTS "Enable extra tests that may be unreliable on some platforms" OFF)
 option(ENABLE_NC "Enable installing TLS-enabled nc(1)" OFF)
 set(OPENSSLDIR ${OPENSSLDIR} CACHE PATH "Set the default openssl directory" FORCE)
+
+option(USE_STATIC_MSVC_RUNTIMES "Use /MT instead of /MD in MSVC" OFF)
+if(USE_STATIC_MSVC_RUNTIMES)
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+endif()
 
 if(NOT LIBRESSL_SKIP_INSTALL)
 	set( ENABLE_LIBRESSL_INSTALL ON )
@@ -289,7 +300,7 @@ if(ENABLE_ASM)
 		endif()
 	elseif(APPLE AND "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64")
 		set(HOST_ASM_MACOSX_X86_64 true)
-	elseif(MSVC AND "${CMAKE_GENERATOR}" MATCHES "Win64")
+	elseif(MSVC AND ("${CMAKE_GENERATOR}" MATCHES "Win64" OR "${CMAKE_GENERATOR_PLATFORM}" STREQUAL "x64"))
 		set(HOST_ASM_MASM_X86_64 true)
 		ENABLE_LANGUAGE(ASM_MASM)
 	elseif(CMAKE_SYSTEM_NAME MATCHES "MINGW" AND "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64")

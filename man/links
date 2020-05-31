@@ -1223,6 +1223,7 @@ OPENSSL_VERSION_NUMBER.3,OpenSSL_version_num.3
 OPENSSL_VERSION_NUMBER.3,SSLeay.3
 OPENSSL_VERSION_NUMBER.3,SSLeay_version.3
 OPENSSL_config.3,OPENSSL_no_config.3
+OPENSSL_init_crypto.3,OPENSSL_init.3
 OPENSSL_load_builtin_modules.3,ASN1_add_oid_module.3
 OPENSSL_load_builtin_modules.3,ENGINE_add_conf_module.3
 OPENSSL_malloc.3,CRYPTO_free.3
@@ -1380,6 +1381,8 @@ PKCS7_new.3,PKCS7_SIGNER_INFO_new.3
 PKCS7_new.3,PKCS7_SIGN_ENVELOPE_free.3
 PKCS7_new.3,PKCS7_SIGN_ENVELOPE_new.3
 PKCS7_new.3,PKCS7_free.3
+PKCS7_set_content.3,PKCS7_content_new.3
+PKCS7_set_type.3,PKCS7_set0_type_other.3
 PKCS7_verify.3,PKCS7_get0_signers.3
 PKCS8_PRIV_KEY_INFO_new.3,PKCS8_PRIV_KEY_INFO_free.3
 PKEY_USAGE_PERIOD_new.3,PKEY_USAGE_PERIOD_free.3
@@ -1544,6 +1547,7 @@ SSL_CTX_add1_chain_cert.3,SSL_set0_chain.3
 SSL_CTX_add1_chain_cert.3,SSL_set1_chain.3
 SSL_CTX_add_extra_chain_cert.3,SSL_CTX_clear_extra_chain_certs.3
 SSL_CTX_add_extra_chain_cert.3,SSL_CTX_get_extra_chain_certs.3
+SSL_CTX_add_extra_chain_cert.3,SSL_CTX_get_extra_chain_certs_only.3
 SSL_CTX_add_session.3,SSL_CTX_remove_session.3
 SSL_CTX_ctrl.3,SSL_CTX_callback_ctrl.3
 SSL_CTX_ctrl.3,SSL_callback_ctrl.3
@@ -1964,6 +1968,7 @@ X509_STORE_CTX_new.3,X509_STORE_CTX_set0_untrusted.3
 X509_STORE_CTX_new.3,X509_STORE_CTX_set_cert.3
 X509_STORE_CTX_new.3,X509_STORE_CTX_set_chain.3
 X509_STORE_CTX_new.3,X509_STORE_CTX_set_default.3
+X509_STORE_CTX_new.3,X509_STORE_CTX_set_flags.3
 X509_STORE_CTX_new.3,X509_STORE_CTX_trusted_stack.3
 X509_STORE_load_locations.3,X509_STORE_set_default_paths.3
 X509_STORE_new.3,X509_STORE_free.3

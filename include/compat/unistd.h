@@ -37,7 +37,14 @@ ssize_t pwrite(int d, const void *buf, size_t nbytes, off_t offset);
 
 #define access _access
 
-unsigned int sleep(unsigned int seconds);
+#ifdef _MSC_VER
+#include <windows.h>
+static inline unsigned int sleep(unsigned int seconds)
+{
+       Sleep(seconds * 1000);
+       return seconds;
+}
+#endif
 
 int ftruncate(int fd, off_t length);
 uid_t getuid(void);

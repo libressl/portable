@@ -808,7 +808,6 @@ if(WIN32)
 	set(EXTRA_EXPORT ${EXTRA_EXPORT} posix_write)
 	set(EXTRA_EXPORT ${EXTRA_EXPORT} posix_getsockopt)
 	set(EXTRA_EXPORT ${EXTRA_EXPORT} posix_setsockopt)
-	set(EXTRA_EXPORT ${EXTRA_EXPORT} sleep)
 endif()
 
 if(NOT HAVE_ASPRINTF)
@@ -937,7 +936,8 @@ if(NOT ENABLE_ASM)
 	add_definitions(-DOPENSSL_NO_ASM)
 else()
 	if(MSVC)
-		if(NOT "${CMAKE_GENERATOR}" MATCHES "Win64")
+		if((NOT "${CMAKE_GENERATOR}" MATCHES "Win64") AND
+		   (NOT "${CMAKE_GENERATOR_PLATFORM}" STREQUAL "x64"))
 			add_definitions(-DOPENSSL_NO_ASM)
 		endif()
 	elseif(WIN32)
@@ -983,18 +983,16 @@ target_include_directories(crypto
 	PUBLIC
 		../include)
 
-if (BUILD_SHARED_LIBS)
-	export_symbol(crypto ${CMAKE_CURRENT_BINARY_DIR}/crypto_p.sym)
-	target_link_libraries(crypto ${PLATFORM_LIBS})
-	if (WIN32)
-		set(CRYPTO_POSTFIX -${CRYPTO_MAJOR_VERSION})
-	endif()
-	set_target_properties(crypto PROPERTIES
-		OUTPUT_NAME crypto${CRYPTO_POSTFIX}
-		ARCHIVE_OUTPUT_NAME crypto${CRYPTO_POSTFIX})
-	set_target_properties(crypto PROPERTIES VERSION
-		${CRYPTO_VERSION} SOVERSION ${CRYPTO_MAJOR_VERSION})
+export_symbol(crypto ${CMAKE_CURRENT_BINARY_DIR}/crypto_p.sym)
+target_link_libraries(crypto ${PLATFORM_LIBS})
+if (WIN32)
+	set(CRYPTO_POSTFIX -${CRYPTO_MAJOR_VERSION})
 endif()
+set_target_properties(crypto PROPERTIES
+	OUTPUT_NAME crypto${CRYPTO_POSTFIX}
+	ARCHIVE_OUTPUT_NAME crypto${CRYPTO_POSTFIX})
+set_target_properties(crypto PROPERTIES VERSION
+	${CRYPTO_VERSION} SOVERSION ${CRYPTO_MAJOR_VERSION})
 
 if(ENABLE_LIBRESSL_INSTALL)
 	install(

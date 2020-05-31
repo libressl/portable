@@ -131,9 +131,10 @@ check_PROGRAMS += cipherstest
 cipherstest_SOURCES = cipherstest.c
 
 # clienttest
-TESTS += clienttest
-check_PROGRAMS += clienttest
-clienttest_SOURCES = clienttest.c
+# disabled
+#TESTS += clienttest
+#check_PROGRAMS += clienttest
+#clienttest_SOURCES = clienttest.c
 
 # cmstest
 TESTS += cmstest
@@ -227,7 +228,8 @@ check_PROGRAMS += gost2814789t
 gost2814789t_SOURCES = gost2814789t.c
 
 # handshake_table
-noinst_PROGRAMS = handshake_table
+TESTS += handshake_table
+check_PROGRAMS += handshake_table
 handshake_table_SOURCES = handshake_table.c
 
 # hkdf_test
@@ -340,6 +342,11 @@ rc4test_SOURCES = rc4test.c
 TESTS += recordtest
 check_PROGRAMS += recordtest
 recordtest_SOURCES = recordtest.c
+
+# record_layer_test
+TESTS += record_layer_test
+check_PROGRAMS += record_layer_test
+record_layer_test_SOURCES = record_layer_test.c
 
 # rfc5280time
 check_PROGRAMS += rfc5280time

@@ -28,6 +28,131 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.2.0 - Development release
+
+	* Improve length checks in record layer and provide appropritate
+	  alerts for for violations of record layer limits.
+
+	* Enforce in the server that SNI hostnames be correctly formed as
+	  per RFC 6066 and RFC 5890, responding with illegal parameter for
+	  a nonconformant host name.
+
+	* Modify openssl(1) to clear SSL_MODE_AUTO_RETRY appropriately in
+	  various commands.
+
+	* Modify io behavior so that SSL_MODE_AUTO_RETRY is the default
+	  similar to new OpenSSL releases.
+
+	* Support SSL_MODE_AUTO_RETRY in TLS 1.3 to allow the automatic
+	  retry of handshake messages.
+
+	* Add tlsfuzzer based regression tests.
+
+	* Support sending certificate status replies from the tls13 server
+	  to send ocsp staples for leaf certificates.
+
+	* Send correct alerts when handling failed key share extensions
+	  on the TLS 1.3 server.
+
+	* Various compatibility fixes for TLS 1.3 to 1.2 fallback for
+	  switching from the new to legacy stacks.
+
+	* Support TLS 1.3 options in the openssl(1) command.
+
+	* Enable TLS 1.3 server side in addition to client by default.
+	  with this change tls13 is handled entirely on the new stack
+	  and state machine, with fallback to the legacy stack and
+	  state machine for older versions.
+
+	* Many alert cleanups in TLS 1.3 to provide expected alerts
+	  in failure conditions.
+
+	* Modify "openssl x509" to display invalid certificate times as
+	  invalid, and correctly deal with the failing return case from
+	  x509_time_cmp so that a certificate with an invalid NotAfter does
+	  not appear valid.
+
+	* Support sending dummy change_cipher_spec records for middlebox
+	  compatibility.
+
+	* Ensure only PSS may be used with RSA in tls 1.3
+
+	* The client must advertise exactly the "null" compression method
+	  in its legacy_compression_field, nothing else.
+
+	* Incorrect use of sockaddr instead of sockaddr_storage in the
+	  s_client could lead to using 14 bytes of stack garbage instead
+ 	  of an IPv6 address in DTLS mode.
+
+ 	* Support sending certificate status from the tls13 client to retrieve
+	  ocsp staples for leaf certificates.
+
+	* Support sending certificate status requests from the tls13
+	  client to retrieve ocsp staples for leaf certificates.
+
+
+3.1.2 - Bug fix
+
+	* A TLS client with peer verification disabled may crash when
+	  contacting a server that sends an empty certificate list.
+
+3.1.1 - Stable release
+
+	* Improved cipher suite handling to automatically include TLSv1.3
+	  cipher suites when they are not explicitly referred to in the
+	  cipher string.
+
+	* Improved handling of TLSv1.3 HelloRetryRequests, simplifying
+	  state transitions and ensuring that the legacy session identifer
+	  retains the same value across the handshake.
+
+	* Provided TLSv1.3 cipher suite aliases to match the names used
+	  in RFC 8446.
+
+	* Improved TLSv1.3 client key share handling to allow the use of
+	  any groups in our configured NID list.
+
+	* Fixed printing the serialNumber with X509_print_ex() fall back to
+	  the colon separated hex bytes in case greater than int value.
+
+	* Fix to disallow setting the AES-GCM IV length to zero.
+
+	* Added -groups option to openssl(1) s_server subcommand.
+
+	* Fix to show TLSv1.3 extension types with openssl(1) -tlsextdebug.
+
+	* Improved portable builds to support the use of static MSVC runtimes.
+
+	* Fixed portable builds to avoid exporting a sleep() symbol.
+
+3.1.0 - Development release
+
+	* Completed initial TLS 1.3 implementation with a completely new state
+	  machine and record layer. TLS 1.3 is now enabled by default for the
+	  client side, with the server side to be enabled in a future release.
+	  Note that the OpenSSL TLS 1.3 API is not yet visible/available.
+
+	* Many more code cleanups, fixes, and improvements to memory handling
+	  and protocol parsing.
+
+	* Added RSA-PSS and RSA-OAEP methods from OpenSSL 1.1.1.
+
+	* Ported Cryptographic Message Syntax (CMS) implementation from OpenSSL
+	  1.1.1 and enabled by default.
+
+	* Improved compatibility by backporting functionality and documentation
+	  from OpenSSL 1.1.1.
+
+	* Added many new additional crypto test vectors.
+
+	* Adjusted EVP_chacha20()'s behavior to match OpenSSL's semantics.
+
+	* Default CA bundle location is now configurable in portable builds.
+
+	* Added cms subcommand to openssl(1).
+
+	* Added -addext option to openssl(1) req subcommand.
+
 3.0.2 - Stable release
 
 	* Use a valid curve when constructing an EC_KEY that looks like X25519.

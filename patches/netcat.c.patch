@@ -1,5 +1,5 @@
---- apps/nc/netcat.c.orig	Mon Nov 18 01:13:56 2019
-+++ apps/nc/netcat.c	Sat Nov 30 03:29:50 2019
+--- apps/nc/netcat.c.orig	Sat Feb 15 11:04:42 2020
++++ apps/nc/netcat.c	Sat Feb 15 11:24:38 2020
 @@ -93,9 +93,13 @@
  int	Dflag;					/* sodebug */
  int	Iflag;					/* TCP receive buffer size */
@@ -53,7 +53,7 @@
  
  	/* Cruft to make sure options are clean, and used properly. */
  	if (argc == 1 && family == AF_UNIX) {
-@@ -926,7 +936,10 @@
+@@ -947,7 +957,10 @@
      char *ipaddr)
  {
  	struct addrinfo *res, *res0;
@@ -65,7 +65,7 @@
  
  	if ((error = getaddrinfo(host, port, &hints, &res0)))
  		errx(1, "getaddrinfo for host \"%s\" port %s: %s", host,
-@@ -941,8 +954,10 @@
+@@ -962,8 +975,10 @@
  		if (sflag || pflag) {
  			struct addrinfo ahints, *ares;
  
@@ -76,7 +76,7 @@
  			memset(&ahints, 0, sizeof(struct addrinfo));
  			ahints.ai_family = res->ai_family;
  			ahints.ai_socktype = uflag ? SOCK_DGRAM : SOCK_STREAM;
-@@ -1034,7 +1049,10 @@
+@@ -1055,7 +1070,10 @@
  local_listen(const char *host, const char *port, struct addrinfo hints)
  {
  	struct addrinfo *res, *res0;
@@ -88,7 +88,7 @@
  	int error;
  
  	/* Allow nodename to be null. */
-@@ -1055,9 +1073,11 @@
+@@ -1076,9 +1094,11 @@
  		    res->ai_protocol)) == -1)
  			continue;
  
@@ -100,7 +100,7 @@
  
  		set_common_sockopts(s, res->ai_family);
  
-@@ -1555,11 +1575,13 @@
+@@ -1548,11 +1568,13 @@
  {
  	int x = 1;
  
@@ -114,7 +114,7 @@
  	if (Dflag) {
  		if (setsockopt(s, SOL_SOCKET, SO_DEBUG,
  			&x, sizeof(x)) == -1)
-@@ -1570,9 +1592,16 @@
+@@ -1563,9 +1585,16 @@
  		    IP_TOS, &Tflag, sizeof(Tflag)) == -1)
  			err(1, "set IP ToS");
  
@@ -131,7 +131,7 @@
  	}
  	if (Iflag) {
  		if (setsockopt(s, SOL_SOCKET, SO_RCVBUF,
-@@ -1596,13 +1625,17 @@
+@@ -1589,13 +1618,17 @@
  	}
  
  	if (minttl != -1) {
@@ -150,30 +150,29 @@
  	}
  }
  
-@@ -1824,14 +1857,22 @@
+@@ -1820,15 +1853,19 @@
  	\t-P proxyuser\tUsername for proxy authentication\n\
  	\t-p port\t	Specify local port for remote connects\n\
  	\t-R CAfile	CA bundle\n\
 -	\t-r		Randomize remote ports\n\
 -	\t-S		Enable the TCP MD5 signature option\n\
+-	\t-s sourceaddr	Local source address\n\
 +	\t-r		Randomize remote ports\n"
 +#ifdef TCP_MD5SIG
-+	"\
-+	\t-S		Enable the TCP MD5 signature option\n"
++	"\t-S		Enable the TCP MD5 signature option\n"
 +#endif
-+	"\
- 	\t-s source	Local source address\n\
++	"\t-s sourceaddr	Local source address\n\
  	\t-T keyword	TOS value or TLS options\n\
  	\t-t		Answer TELNET negotiation\n\
  	\t-U		Use UNIX domain socket\n\
 -	\t-u		UDP mode\n\
 -	\t-V rtable	Specify alternate routing table\n\
+-	\t-v		Verbose\n\
 +	\t-u		UDP mode\n"
 +#ifdef SO_RTABLE
-+	"\
-+	\t-V rtable	Specify alternate routing table\n"
++	"\t-V rtable	Specify alternate routing table\n"
 +#endif
-+	"\
- 	\t-v		Verbose\n\
++	"\t-v		Verbose\n\
  	\t-W recvlimit	Terminate after receiving a number of packets\n\
  	\t-w timeout	Timeout for connects and final net reads\n\
+ 	\t-X proto	Proxy protocol: \"4\", \"5\" (SOCKS) or \"connect\"\n\

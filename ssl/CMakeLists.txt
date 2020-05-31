@@ -6,7 +6,6 @@ set(
 	bs_cbs.c
 	d1_both.c
 	d1_clnt.c
-	d1_enc.c
 	d1_lib.c
 	d1_pkt.c
 	d1_srtp.c
@@ -23,6 +22,7 @@ set(
 	ssl_clnt.c
 	ssl_err.c
 	ssl_init.c
+	ssl_kex.c
 	ssl_lib.c
 	ssl_methods.c
 	ssl_packet.c
@@ -44,6 +44,8 @@ set(
 	tls13_handshake.c
 	tls13_handshake_msg.c
 	tls13_key_schedule.c
+	tls13_key_share.c
+	tls13_legacy.c
 	tls13_lib.c
 	tls13_record.c
 	tls13_record_layer.c
@@ -58,18 +60,16 @@ target_include_directories(ssl
 	PUBLIC
 		../include)
 
-if (BUILD_SHARED_LIBS)
-	export_symbol(ssl ${CMAKE_CURRENT_SOURCE_DIR}/ssl.sym)
-	target_link_libraries(ssl crypto ${PLATFORM_LIBS})
-	if (WIN32)
-		set(SSL_POSTFIX -${SSL_MAJOR_VERSION})
-	endif()
-	set_target_properties(ssl PROPERTIES
-		OUTPUT_NAME ssl${SSL_POSTFIX}
-		ARCHIVE_OUTPUT_NAME ssl${SSL_POSTFIX})
-	set_target_properties(ssl PROPERTIES VERSION ${SSL_VERSION}
-		SOVERSION ${SSL_MAJOR_VERSION})
+export_symbol(ssl ${CMAKE_CURRENT_SOURCE_DIR}/ssl.sym)
+target_link_libraries(ssl crypto ${PLATFORM_LIBS})
+if (WIN32)
+	set(SSL_POSTFIX -${SSL_MAJOR_VERSION})
 endif()
+set_target_properties(ssl PROPERTIES
+	OUTPUT_NAME ssl${SSL_POSTFIX}
+	ARCHIVE_OUTPUT_NAME ssl${SSL_POSTFIX})
+set_target_properties(ssl PROPERTIES VERSION ${SSL_VERSION}
+	SOVERSION ${SSL_MAJOR_VERSION})
 
 if(ENABLE_LIBRESSL_INSTALL)
 	install(

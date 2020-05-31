@@ -129,9 +129,10 @@ target_link_libraries(cipherstest ${OPENSSL_LIBS})
 add_test(cipherstest cipherstest)
 
 # clienttest
-add_executable(clienttest clienttest.c)
-target_link_libraries(clienttest ${OPENSSL_LIBS})
-add_test(clienttest clienttest)
+# disabled
+#add_executable(clienttest clienttest.c)
+#target_link_libraries(clienttest ${OPENSSL_LIBS})
+#add_test(clienttest clienttest)
 
 # cmstest
 add_executable(cmstest cmstest.c)
@@ -223,6 +224,13 @@ add_test(gcm128test gcm128test)
 add_executable(gost2814789t gost2814789t.c)
 target_link_libraries(gost2814789t ${OPENSSL_LIBS})
 add_test(gost2814789t gost2814789t)
+
+# handshake_table
+if(NOT BUILD_SHARED_LIBS)
+	add_executable(handshake_table handshake_table.c)
+	target_link_libraries(handshake_table ${OPENSSL_LIBS})
+	add_test(handshake_table handshake_table)
+endif()
 
 # hkdf_test
 add_executable(hkdf_test hkdf_test.c)
@@ -351,6 +359,13 @@ if(NOT BUILD_SHARED_LIBS)
 	add_test(recordtest recordtest)
 endif()
 
+# record_layer_test
+if(NOT BUILD_SHARED_LIBS)
+	add_executable(record_layer_test record_layer_test.c)
+	target_link_libraries(record_layer_test ${OPENSSL_LIBS})
+	add_test(record_layer_test record_layer_test)
+endif()
+
 # rfc5280time
 add_executable(rfc5280time rfc5280time.c)
 target_link_libraries(rfc5280time ${OPENSSL_LIBS})
@@ -371,14 +386,16 @@ target_link_libraries(rsa_test ${OPENSSL_LIBS})
 add_test(rsa_test rsa_test)
 
 # servertest
-add_executable(servertest servertest.c)
-target_link_libraries(servertest ${OPENSSL_LIBS})
-if(NOT MSVC)
-	add_test(NAME servertest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/servertest.sh)
-else()
-	add_test(NAME servertest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/servertest.bat $<TARGET_FILE:servertest>)
+if(NOT BUILD_SHARED_LIBS)
+	add_executable(servertest servertest.c)
+	target_link_libraries(servertest ${OPENSSL_LIBS})
+	if(NOT MSVC)
+		add_test(NAME servertest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/servertest.sh)
+	else()
+		add_test(NAME servertest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/servertest.bat $<TARGET_FILE:servertest>)
+	endif()
+	set_tests_properties(servertest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 endif()
-set_tests_properties(servertest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 
 # sha1test
 add_executable(sha1test sha1test.c)

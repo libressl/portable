@@ -28,6 +28,12 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.2.1 - Development release
+
+	* Enforce in the TLS 1.3 server that ClientHello messages
+	following a HelloRetryRequest must match the original ClientHello
+	as per RFC 8446 section 4.1.2
+
 3.2.0 - Development release
 
 	* Enable TLS 1.3 server side in addition to client by default.

@@ -137,7 +137,11 @@ copy_hdrs $libcrypto_src "stack/stack.h lhash/lhash.h stack/safestack.h
 
 copy_hdrs $libssl_src "srtp.h ssl.h ssl2.h ssl3.h ssl23.h tls1.h dtls1.h"
 
-$CP $libcrypto_src/opensslv.h include/openssl
+# override upstream opensslv.h if a local version exists
+if [ ! -f include/openssl/opensslv.h ]; then
+	$CP $libcrypto_src/opensslv.h include/openssl
+fi
+
 awk '/LIBRESSL_VERSION_TEXT/ {print $4}' < include/openssl/opensslv.h | cut -d\" -f1 > VERSION
 echo "LibreSSL version `cat VERSION`"
 

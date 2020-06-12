@@ -28,6 +28,11 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.1.3 - Bug fix
+
+	* libcrypto may fail to build a valid certificate chain due to
+	  expired untrusted issuer certificates.
+
 3.1.2 - Bug fix
 
 	* A TLS client with peer verification disabled may crash when

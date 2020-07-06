@@ -1,5 +1,5 @@
---- tests/tlsexttest.c.orig	Tue May 12 20:06:02 2020
-+++ tests/tlsexttest.c	Tue May 12 20:15:28 2020
+--- tests/tlsexttest.c.orig	Mon Jul  6 03:17:51 2020
++++ tests/tlsexttest.c	Mon Jul  6 03:45:00 2020
 @@ -1657,7 +1657,9 @@
  };
  
@@ -36,7 +36,7 @@
  
 -	CBS_init(&cbs, tlsext_sni_server, sizeof(tlsext_sni_server));
 +	CBS_init(&cbs, tlsext_sni_server, sizeof_tlsext_sni_server);
- 	if (!tlsext_sni_client_parse(ssl, &cbs, &alert)) {
+ 	if (!tlsext_sni_client_parse(ssl, SSL_TLSEXT_MSG_SH, &cbs, &alert)) {
  		FAIL("failed to parse server SNI\n");
  		goto err;
 @@ -2722,7 +2724,10 @@

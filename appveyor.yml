@@ -44,3 +44,12 @@ build_script:
 
 test_script:
   - ctest -C %CONFIG% --timeout 150 --output-on-failure
+
+on_failure:
+  - 7z a Testing.zip Testing
+  - appveyor PushArtifact Testing.zip
+
+artifacts:
+  - path: build\Testing
+    name: Testing
+    type: zip

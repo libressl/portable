@@ -11,7 +11,10 @@ set extra=%6
 
 %openssl% version & if !errorlevel! neq 0 exit /b 1
 
-for /f "usebackq" %%s in (`%openssl% x509 -in %cert% -text -noout ^| find /c "DSA Public Key"`) do set lines=%%s
+set lines=0
+for /f "usebackq" %%s in (`%openssl% x509 -in %cert% -text -noout ^| find "DSA Public Key"`) do (
+  set /a lines=%lines%+1
+)
 if %lines% gtr 0 (
   set dsa_cert=YES
 ) else (

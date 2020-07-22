@@ -76,7 +76,6 @@ AC_ARG_ENABLE([tests],
 AM_CONDITIONAL([ENABLE_TESTS], [test "x$enable_tests" = xyes])
 
 AS_CASE([$host_cpu],
-	[*sparc*], [CPPFLAGS="$CPPFLAGS -D__STRICT_ALIGNMENT"],
 	[*arm*], [host_cpu=arm],
 	[*amd64*], [host_cpu=x86_64 HOSTARCH=intel],
 	[i?86], [HOSTARCH=intel],

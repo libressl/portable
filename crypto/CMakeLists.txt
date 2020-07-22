@@ -394,7 +394,6 @@ set(
 	cms/cms_ess.c
 	cms/cms_io.c
 	cms/cms_kari.c
-	cms/cms_lcl.h
 	cms/cms_lib.c
 	cms/cms_pwri.c
 	cms/cms_sd.c

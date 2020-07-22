@@ -60,7 +60,7 @@ for %%p in ( SSLv3,TLSv1.2 ) do (
   echo "Testing ciphersuites for %%p"
   for /f "usebackq" %%c in (`%openssl% ciphers -v "%%p+aRSA" ^| find "%%p"`) do (
     echo "Testing %%c"
-    %ssltest% -cipher %%c
+    %ssltest% -cipher %%c -tls1_2
     if !errorlevel! neq 0 (
       echo "Failed %%c"
       exit /b 1

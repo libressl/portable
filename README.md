@@ -26,7 +26,7 @@ the LibreSSL portable project attempts to provide working alternatives for
 other operating systems, and assists with improving OS-native implementations
 where possible.
 
-At the time of this writing, LibreSSL is know to build and work on:
+At the time of this writing, LibreSSL is known to build and work on:
 
 * Linux (kernel 3.17 or later recommended)
 * FreeBSD (tested with 9.2 and later)

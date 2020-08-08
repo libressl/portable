@@ -28,6 +28,31 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.1.4 - Interoperability and bug fixes for the TLSv1.3 client:
+
+	* Improve client certificate selection to allow EC certificates
+	  instead of only RSA certificates.
+
+	* Do not error out if a TLSv1.3 server requests an OCSP response as
+	  part of a certificate request.
+
+	* Fix SSL_shutdown behavior to match the legacy stack.  The previous
+	  behaviour could cause a hang.
+
+	* Fix a memory leak and add a missing error check in the handling of
+	  the key update message.
+
+	* Fix a memory leak in tls13_record_layer_set_traffic_key.
+
+	* Avoid calling freezero with a negative size if a server sends a
+	  malformed plaintext of all zeroes.
+
+	* Ensure that only PSS may be used with RSA in TLSv1.3 in order
+	  to avoid using PKCS1-based signatures.
+
+	* Add the P-521 curve to the list of curves supported by default
+	  in the client.
+
 3.1.3 - Bug fix
 
 	* libcrypto may fail to build a valid certificate chain due to

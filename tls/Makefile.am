@@ -7,9 +7,9 @@ EXTRA_DIST += CMakeLists.txt
 EXTRA_DIST += tls.sym
 
 libtls_la_LDFLAGS = -version-info @LIBTLS_VERSION@ -no-undefined -export-symbols $(top_srcdir)/tls/tls.sym
-libtls_la_LIBADD = $(abs_top_builddir)/ssl/libssl.la
-libtls_la_LIBADD += $(abs_top_builddir)/crypto/libcrypto.la
-libtls_la_LIBADD += $(PLATFORM_LDADD)
+libtls_la_LDFLAGS += $(abs_top_builddir)/ssl/.libs/libssl.a
+libtls_la_LDFLAGS += $(abs_top_builddir)/crypto/.libs/libcrypto.a
+libtls_la_LIBADD = $(PLATFORM_LDADD)
 
 libtls_la_CPPFLAGS = $(AM_CPPFLAGS)
 if OPENSSLDIR_DEFINED

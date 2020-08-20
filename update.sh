@@ -46,7 +46,6 @@ echo $libssl_version > ssl/VERSION
 libtls_version=$major:$minor:0
 echo "libtls version $libtls_version"
 echo $libtls_version > tls/VERSION
-echo $major.$minor.0 > libtls-standalone/VERSION
 
 do_mv() {
 	if ! cmp -s "$1" "$2"
@@ -76,9 +75,8 @@ $CP $libcrypto_src/opensslfeatures.h include/openssl
 $CP $libssl_src/pqueue.h include
 
 $CP $libtls_src/tls.h include
-$CP $libtls_src/tls.h libtls-standalone/include
 
-for i in crypto/compat libtls-standalone/compat; do
+for i in crypto/compat; do
 	for j in $libc_src/crypt/arc4random.c \
 	    $libc_src/crypt/arc4random_uniform.c \
 	    $libc_src/crypt/chacha_private.h \
@@ -98,15 +96,6 @@ for i in crypto/compat libtls-standalone/compat; do
 		$CP_LIBC $j $i
 	done
 done
-
-$CP include/compat/stdlib.h \
-	include/compat/string.h \
-	include/compat/unistd.h \
-	libtls-standalone/include
-
-$CP crypto/compat/arc4random*.h \
-	crypto/compat/bsd-asprintf.c \
-	libtls-standalone/compat
 
 (cd $libcrypto_src/objects/;
 	perl objects.pl objects.txt obj_mac.num obj_mac.h;
@@ -243,18 +232,10 @@ rm -f tls/*.c tls/*.h libtls/src/*.c libtls/src/*.h
 for i in `awk '/SOURCES|HEADERS/ { print $3 }' tls/Makefile.am` ; do
 	if [ -e $libtls_src/$i ]; then
 		$CP $libtls_src/$i tls
-		$CP $libtls_src/$i libtls-standalone/src
 	fi
 done
 # add the libtls symbol export list
 $GREP '^[A-Za-z0-9_]' < $libtls_src/Symbols.list > tls/tls.sym
-
-mkdir -p libtls-standalone/m4
-$CP m4/check*.m4 \
-	m4/disable*.m4 \
-	libtls-standalone/m4
-sed -e "s/compat\///" crypto/Makefile.am.arc4random > \
-	libtls-standalone/compat/Makefile.am.arc4random
 
 # copy nc(1) source
 echo "copying nc(1) source"

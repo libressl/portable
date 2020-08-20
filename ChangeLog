@@ -30,9 +30,105 @@ LibreSSL Portable Release Notes:
 
 3.2.1 - Development release
 
-	* Enforce in the TLS 1.3 server that ClientHello messages
-	following a HelloRetryRequest must match the original ClientHello
-	as per RFC 8446 section 4.1.2
+	* Propagate alerts from the read half of the record layer to I/O
+	  functions.
+
+	* Send a record overflow alert for messages having overlong plaintext
+	  or inner plaintext.
+
+	* Send an illegal parameter alert if a client sends invalid DH key
+	  shares.
+
+	* Document PKCS7_final(3), PKCS7_add_attribute(3).
+
+	* Collapse x509v3 directory into x509.
+
+	* Improve client certificate selection to allow EC certificates
+	  instead of only RSA certificates.
+
+	* Fail on receiving an invalid NID in X509_ATTRIBUTE_create() instead
+	  of constructing a broken objects that may cause NULL pointer accesses.
+
+	* Add support for additional GOST curves from RFC 7836 and
+	  draft-deremin-rfc4491-bis.
+
+	* Add OIDs for HMAC using the Streebog hash function.
+
+	* Allow GOST R 34.11-2012 in PBE/PBKDF2/PKCS#5.
+
+	* Enable GOST_SIG_FORMAT_RS_LE when verifying certificate signatures.
+
+	* Handle GOST in ssl_cert_dup().
+
+	* Stop sending GOST R 34.10-94 as a CertificateType.
+
+	* Use IANA allocated GOST ClientCertificateTypes.
+
+	* Add a custom copy handler for AES keywrap to fix a use-after-free.
+
+	* Enforce in the TLSv1.3 server that that ClientHello messages after
+	  a HelloRetryRequest match the original ClientHello as per RFC 8446
+	  section 4.1.2
+
+	* Document more PKCS7 attribute functions.
+
+	* Document PKCS7_get_signer_info(3).
+
+	* Document PEM_ASN1_read(3) and PEM_ASN1_read_bio(3).
+
+	* Document PEM_def_callback(3).
+
+	* Document EVP_read_pw_string_min(3).
+
+	* Merge documetnation of X509_get0_serialNumber from OpenSSL 1.1.1.
+
+	* Document error handling of X509_PUBKEY_get0(3) and X509_PUBKEY_get(3)
+
+	* Document X509_get0_pubkey_bitstr(3).
+
+	* Fix an off-by-one in the CBS padding removal. From BoringSSL.
+
+	* Enforce restrictions on extensions present in the ClientHello as per
+	  RFC 8446, section 9.2.
+
+	* Add new CMAC_Init(3) and ChaCha(3) manual pages.
+
+	* Fix SSL_shutdown behavior to match the legacy stack.  The previous
+	  behaviour could cause a hang.
+
+	* Add initial support for PowerPC64.
+
+	* Make the message type available in the internal tls extensions API
+	  functions.
+
+	* Enable TLSv1.3 for the generic TLS_method().
+
+	* Convert openssl s_client option handling.
+
+	* Fix a longstanding bug in PEM_X509_INFO_read_bio(3) that could cause
+	  use-after-free and double-free issues in calling programs.
+
+	* Document PEM_X509_INFO_read(3) and PEM_X509_INFO_read_bio(3).
+
+	* Handle SSL_MODE_AUTO_RETRY being changed during a TLSv1.3 session.
+
+	* Convert openssl(1) s_server to new option handling.
+
+	* Add minimal info callback support for TLSv1.3.
+
+	* Refactor, clean up and simplify some SSL3/DTLS1 record writing code.
+
+	* Correctly handle server requests for an OCSP response.
+
+	* Add the P-521 curve to the list of curves supported by default
+	  in the client.
+
+	* Convert openssl(1) req option handling
+
+	* Avoid calling freezero with a negative size if a server sends a
+	  malformed plaintext of all zeroes.
+
+	* Send an unexpected message alert if no valid content type is found.
 
 3.2.0 - Development release
 

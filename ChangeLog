@@ -80,7 +80,7 @@ LibreSSL Portable Release Notes:
 
 	* Document EVP_read_pw_string_min(3).
 
-	* Merge documetnation of X509_get0_serialNumber from OpenSSL 1.1.1.
+	* Merge documentation of X509_get0_serialNumber from OpenSSL 1.1.1.
 
 	* Document error handling of X509_PUBKEY_get0(3) and X509_PUBKEY_get(3)
 
@@ -94,16 +94,20 @@ LibreSSL Portable Release Notes:
 	* Add new CMAC_Init(3) and ChaCha(3) manual pages.
 
 	* Fix SSL_shutdown behavior to match the legacy stack.  The previous
-	  behaviour could cause a hang.
+	  behavior could cause a hang.
 
 	* Add initial support for PowerPC64.
 
-	* Make the message type available in the internal tls extensions API
+	* Make the message type available in the internal TLS extensions API
 	  functions.
 
 	* Enable TLSv1.3 for the generic TLS_method().
 
-	* Convert openssl s_client option handling.
+	* Convert openssl(1) s_client option handling.
+
+	* Document openssl(1) certhash.
+
+	* Convert openssl(1) verify option handling.
 
 	* Fix a longstanding bug in PEM_X509_INFO_read_bio(3) that could cause
 	  use-after-free and double-free issues in calling programs.

@@ -30,20 +30,20 @@ LibreSSL Portable Release Notes:
 
 3.2.1 - Development release
 
-	* Propagate alerts from the read half of the record layer to I/O
+	* Propagate alerts from the read half of the TLSv1.3 record layer to I/O
 	  functions.
 
-	* Send a record overflow alert for messages having overlong plaintext
-	  or inner plaintext.
+	* Send a record overflow alert for TLSv1.3 messages having overlong
+	  plaintext or inner plaintext.
 
-	* Send an illegal parameter alert if a client sends invalid DH key
-	  shares.
+	* Send an illegal parameter alert if a client sends an invalid DH key
+	  share.
 
 	* Document PKCS7_final(3), PKCS7_add_attribute(3).
 
 	* Collapse x509v3 directory into x509.
 
-	* Improve client certificate selection to allow EC certificates
+	* Improve TLSv1.3 client certificate selection to allow EC certificates
 	  instead of only RSA certificates.
 
 	* Fail on receiving an invalid NID in X509_ATTRIBUTE_create() instead
@@ -96,7 +96,7 @@ LibreSSL Portable Release Notes:
 	* Fix SSL_shutdown behavior to match the legacy stack.  The previous
 	  behavior could cause a hang.
 
-	* Add initial support for PowerPC64.
+	* Add initial support for openbsd/powerpc64.
 
 	* Make the message type available in the internal TLS extensions API
 	  functions.
@@ -116,7 +116,7 @@ LibreSSL Portable Release Notes:
 
 	* Handle SSL_MODE_AUTO_RETRY being changed during a TLSv1.3 session.
 
-	* Convert openssl(1) s_server to new option handling.
+	* Convert openssl(1) s_server option handling.
 
 	* Add minimal info callback support for TLSv1.3.
 
@@ -127,12 +127,13 @@ LibreSSL Portable Release Notes:
 	* Add the P-521 curve to the list of curves supported by default
 	  in the client.
 
-	* Convert openssl(1) req option handling
+	* Convert openssl(1) req option handling.
 
 	* Avoid calling freezero with a negative size if a server sends a
 	  malformed plaintext of all zeroes.
 
-	* Send an unexpected message alert if no valid content type is found.
+	* Send an unexpected message alert if no valid content type is found
+	  in a TLSv1.3 record.
 
 3.2.0 - Development release
 

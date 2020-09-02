@@ -38,6 +38,7 @@ set(
 	ssl_versions.c
 	t1_enc.c
 	t1_lib.c
+	tls12_record_layer.c
 	tls13_buffer.c
 	tls13_client.c
 	tls13_error.c

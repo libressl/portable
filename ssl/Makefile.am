@@ -47,6 +47,7 @@ libssl_la_SOURCES += ssl_txt.c
 libssl_la_SOURCES += ssl_versions.c
 libssl_la_SOURCES += t1_enc.c
 libssl_la_SOURCES += t1_lib.c
+libssl_la_SOURCES += tls12_record_layer.c
 libssl_la_SOURCES += tls13_buffer.c
 libssl_la_SOURCES += tls13_client.c
 libssl_la_SOURCES += tls13_error.c

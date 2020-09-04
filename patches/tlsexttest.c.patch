@@ -1,6 +1,6 @@
---- tests/tlsexttest.c.orig	Mon Jul  6 03:17:51 2020
-+++ tests/tlsexttest.c	Mon Jul  6 03:45:00 2020
-@@ -1657,7 +1657,9 @@
+--- tests/tlsexttest.c.orig	Sat Aug 22 18:51:52 2020
++++ tests/tlsexttest.c	Fri Sep  4 04:04:26 2020
+@@ -1658,7 +1658,9 @@
  };
  
  static unsigned char tlsext_sni_server[] = {
@@ -10,7 +10,7 @@
  
  static int
  test_tlsext_sni_client(void)
-@@ -1820,9 +1822,9 @@
+@@ -1821,9 +1823,9 @@
  	if (!CBB_finish(&cbb, &data, &dlen))
  		errx(1, "failed to finish CBB");
  
@@ -22,7 +22,7 @@
  		goto err;
  	}
  
-@@ -1831,14 +1833,14 @@
+@@ -1832,14 +1834,14 @@
  		fprintf(stderr, "received:\n");
  		hexdump(data, dlen);
  		fprintf(stderr, "test data:\n");
@@ -39,8 +39,8 @@
  	if (!tlsext_sni_client_parse(ssl, SSL_TLSEXT_MSG_SH, &cbs, &alert)) {
  		FAIL("failed to parse server SNI\n");
  		goto err;
-@@ -2722,7 +2724,10 @@
- 	0x02, 0x01, 0x02, 0x03,
+@@ -2723,7 +2725,10 @@
+ 	0x04, 0x03, 0x02, 0x01, 0x02, 0x03,
  };
  
 -unsigned char tlsext_clienthello_disabled[] = {};
@@ -51,7 +51,7 @@
  
  static int
  test_tlsext_clienthello_build(void)
-@@ -2787,18 +2792,18 @@
+@@ -2788,18 +2793,18 @@
  	if (!CBB_finish(&cbb, &data, &dlen))
  		errx(1, "failed to finish CBB");
  

@@ -2,6 +2,7 @@ include $(top_srcdir)/Makefile.am.common
 
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/modes
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/asn1
+AM_CPPFLAGS += -I $(top_srcdir)/crypto/sm2
 AM_CPPFLAGS += -I $(top_srcdir)/ssl
 AM_CPPFLAGS += -I $(top_srcdir)/tls
 AM_CPPFLAGS += -I $(top_srcdir)/apps/openssl
@@ -388,6 +389,19 @@ sha256test_SOURCES = sha256test.c
 TESTS += sha512test
 check_PROGRAMS += sha512test
 sha512test_SOURCES = sha512test.c
+
+# sm2test
+TESTS += sm2crypttest
+check_PROGRAMS += sm2crypttest
+sm2crypttest_SOURCES = sm2crypttest.c
+
+TESTS += sm2sigtest
+check_PROGRAMS += sm2sigtest
+sm2sigtest_SOURCES = sm2sigtest.c
+
+TESTS += sm2evptest
+check_PROGRAMS += sm2evptest
+sm2evptest_SOURCES = sm2evptest.c
 
 # sm3test
 TESTS += sm3test

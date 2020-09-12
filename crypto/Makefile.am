@@ -858,6 +858,14 @@ libcrypto_la_SOURCES += sha/sha256.c
 libcrypto_la_SOURCES += sha/sha512.c
 noinst_HEADERS += sha/sha_locl.h
 
+# sm2
+libcrypto_la_SOURCES += sm2/sm2_crypt.c
+libcrypto_la_SOURCES += sm2/sm2_err.c
+libcrypto_la_SOURCES += sm2/sm2_pmeth.c
+libcrypto_la_SOURCES += sm2/sm2_sign.c
+libcrypto_la_SOURCES += sm2/sm2_za.c
+noinst_HEADERS += sm2/sm2_locl.h
+
 # sm3
 libcrypto_la_SOURCES += sm3/sm3.c
 noinst_HEADERS += sm3/sm3_locl.h

@@ -2,6 +2,7 @@ include_directories(
 	.
 	../crypto/modes
 	../crypto/asn1
+	../crypto/sm2
 	../ssl
 	../tls
 	../apps/openssl
@@ -411,6 +412,19 @@ add_test(sha256test sha256test)
 add_executable(sha512test sha512test.c)
 target_link_libraries(sha512test ${OPENSSL_LIBS})
 add_test(sha512test sha512test)
+
+# sm2test
+add_executable(sm2crypttest sm2crypttest.c)
+target_link_libraries(sm2crypttest ${OPENSSL_LIBS})
+add_test(sm2crypttest sm2crypttest)
+
+add_executable(sm2sigtest sm2sigtest.c)
+target_link_libraries(sm2sigtest ${OPENSSL_LIBS})
+add_test(sm2sigtest sm2sigtest)
+
+add_executable(sm2evptest sm2evptest.c)
+target_link_libraries(sm2evptest ${OPENSSL_LIBS})
+add_test(sm2evptest sm2evptest)
 
 # sm3test
 add_executable(sm3test sm3test.c)

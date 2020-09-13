@@ -953,6 +953,7 @@ libcrypto_la_SOURCES += x509/x509_trs.c
 libcrypto_la_SOURCES += x509/x509_txt.c
 libcrypto_la_SOURCES += x509/x509_utl.c
 libcrypto_la_SOURCES += x509/x509_v3.c
+libcrypto_la_SOURCES += x509/x509_verify.c
 libcrypto_la_SOURCES += x509/x509_vfy.c
 libcrypto_la_SOURCES += x509/x509_vpm.c
 libcrypto_la_SOURCES += x509/x509cset.c

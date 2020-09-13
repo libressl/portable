@@ -2,6 +2,7 @@ include_directories(
 	.
 	../crypto/modes
 	../crypto/asn1
+	../crypto/x509
 	../ssl
 	../tls
 	../apps/openssl
@@ -143,6 +144,13 @@ add_test(cmstest cmstest)
 add_executable(configtest configtest.c)
 target_link_libraries(configtest ${OPENSSL_LIBS})
 add_test(configtest configtest)
+
+# constraints
+if(NOT BUILD_SHARED_LIBS)
+	add_executable(constraints constraints.c)
+	target_link_libraries(constraints ${OPENSSL_LIBS})
+	add_test(constraints constraints)
+endif()
 
 # cts128test
 add_executable(cts128test cts128test.c)

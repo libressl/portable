@@ -16,6 +16,11 @@
 #define PTHREAD_ONCE_INIT   { INIT_ONCE_STATIC_INIT }
 
 /*
+ * Static mutex initialization values.
+ */
+#define PTHREAD_MUTEX_INITIALIZER	{ 0, 0, 0, 0, 0, 0 }
+
+/*
  * Once definitions.
  */
 struct pthread_once {

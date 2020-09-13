@@ -747,6 +747,7 @@ set(
 	x509/x509_ia5.c
 	x509/x509_info.c
 	x509/x509_int.c
+	x509/x509_issuer_cache.c
 	x509/x509_lib.c
 	x509/x509_lu.c
 	x509/x509_ncons.c

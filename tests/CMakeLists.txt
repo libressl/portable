@@ -124,10 +124,12 @@ if(NOT BUILD_SHARED_LIBS)
 	add_test(cipher_list cipher_list)
 endif()
 
-# cipherstest
-add_executable(cipherstest cipherstest.c)
-target_link_libraries(cipherstest ${OPENSSL_LIBS})
-add_test(cipherstest cipherstest)
+if(NOT BUILD_SHARED_LIBS)
+	# cipherstest
+	add_executable(cipherstest cipherstest.c)
+	target_link_libraries(cipherstest ${OPENSSL_LIBS})
+	add_test(cipherstest cipherstest)
+endif()
 
 # clienttest
 # disabled

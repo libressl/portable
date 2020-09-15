@@ -59,6 +59,7 @@ tests/bnaddsub*
 tests/bn_rand_interval*
 tests/bn_to_string*
 tests/cipher*
+tests/constraints*
 tests/explicit_bzero*
 tests/freenull*
 tests/gost2814789t*
@@ -77,6 +78,9 @@ tests/*.pem
 tests/testssl
 tests/*.txt
 tests/compat/*.c
+tests/verify*
+tests/x509_info*
+tests/x509attribute*
 tests/x509name*
 !tests/optionstest.c
 !tests/*.test

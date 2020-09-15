@@ -548,6 +548,11 @@ add_executable(x509attribute x509attribute.c)
 target_link_libraries(x509attribute ${OPENSSL_LIBS})
 add_test(x509attribute x509attribute)
 
+# x509_info
+add_executable(x509_info x509_info.c)
+target_link_libraries(x509_info ${OPENSSL_LIBS})
+add_test(x509_info x509_info)
+
 # x509name
 add_executable(x509name x509name.c)
 target_link_libraries(x509name ${OPENSSL_LIBS})

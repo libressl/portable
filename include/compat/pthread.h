@@ -8,6 +8,8 @@
 
 #ifdef _WIN32
 
+#include <malloc.h>
+#include <stdlib.h>
 #include <windows.h>
 
 /*
@@ -18,7 +20,7 @@
 /*
  * Static mutex initialization values.
  */
-#define PTHREAD_MUTEX_INITIALIZER	{ 0, 0, 0, 0, 0, 0 }
+#define PTHREAD_MUTEX_INITIALIZER	{ .lock = NULL }
 
 /*
  * Once definitions.
@@ -60,27 +62,43 @@ pthread_equal(pthread_t t1, pthread_t t2)
 	return t1 == t2;
 }
 
-typedef CRITICAL_SECTION pthread_mutex_t;
+struct pthread_mutex {
+	volatile LPCRITICAL_SECTION lock;
+};
+typedef struct pthread_mutex pthread_mutex_t;
 typedef void pthread_mutexattr_t;
 
 static inline int
 pthread_mutex_init(pthread_mutex_t *mutex, const pthread_mutexattr_t *attr)
 {
-	InitializeCriticalSection(mutex);
+	if ((mutex->lock = malloc(sizeof(CRITICAL_SECTION))) == NULL)
+		exit(ENOMEM);
+	InitializeCriticalSection(mutex->lock);
 	return 0;
 }
 
 static inline int
 pthread_mutex_lock(pthread_mutex_t *mutex)
 {
-	EnterCriticalSection(mutex);
+	if (mutex->lock == NULL) {
+		LPCRITICAL_SECTION lcs;
+
+		if ((lcs = malloc(sizeof(CRITICAL_SECTION))) == NULL)
+			exit(ENOMEM);
+		InitializeCriticalSection(lcs);
+		if (InterlockedCompareExchangePointer((PVOID*)&mutex->lock, (PVOID)lcs, NULL) != NULL) {
+			DeleteCriticalSection(lcs);
+			free(lcs);
+		}
+	}
+	EnterCriticalSection(mutex->lock);
 	return 0;
 }
 
 static inline int
 pthread_mutex_unlock(pthread_mutex_t *mutex)
 {
-	LeaveCriticalSection(mutex);
+	LeaveCriticalSection(mutex->lock);
 	return 0;
 }
 

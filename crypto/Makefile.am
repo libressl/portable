@@ -20,6 +20,7 @@ EXTRA_DIST += compat/strcasecmp.c
 
 BUILT_SOURCES = crypto_portable.sym
 CLEANFILES = crypto_portable.sym
+CLEANFILES += libcrypto_la_objects.mk
 
 crypto_portable.sym: crypto.sym  Makefile
 	-echo "generating crypto_portable.sym ..."
@@ -93,8 +94,20 @@ if HOST_WIN
 	-mv crypto_portable.sym.tmp crypto_portable.sym
 endif
 
+libcrypto_la_objects.mk: Makefile
+	@echo "libcrypto_la_objects= $(libcrypto_la_OBJECTS)" \
+	  | sed 's/  */ $$\(abs_top_builddir\)\/crypto\//g' \
+	  > libcrypto_la_objects.mk
+	@echo "libcompat_la_objects= $(libcompat_la_OBJECTS)" \
+	  | sed 's/  */ $$\(abs_top_builddir\)\/crypto\//g' \
+	  >> libcrypto_la_objects.mk
+	@echo "libcompatnoopt_la_objects= $(libcompatnoopt_la_OBJECTS)" \
+	  | sed 's/  */ $$\(abs_top_builddir\)\/crypto\//g' \
+	  >> libcrypto_la_objects.mk
+
 libcrypto_la_LDFLAGS = -version-info @LIBCRYPTO_VERSION@ -no-undefined -export-symbols crypto_portable.sym
 EXTRA_libcrypto_la_DEPENDENCIES = crypto_portable.sym
+EXTRA_libcrypto_la_DEPENDENCIES += libcrypto_la_objects.mk
 libcrypto_la_LIBADD = libcompat.la
 if !HAVE_EXPLICIT_BZERO
 libcrypto_la_LIBADD += libcompatnoopt.la

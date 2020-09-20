@@ -12,7 +12,7 @@ endif
 EXTRA_DIST = nc.1
 EXTRA_DIST += CMakeLists.txt
 
-nc_LDFLAGS = $(abs_top_builddir)/crypto/.libs/libcompat.a
+nc_LDFLAGS = $(abs_top_builddir)/crypto/.libs/libcrypto.a
 
 nc_LDADD = $(abs_top_builddir)/tls/libtls.la
 nc_LDADD += $(PLATFORM_LDADD) $(PROG_LDADD)

@@ -28,6 +28,194 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.2.2 - Stable release
+
+	* Simplify handling of allocation handling in SSL_new().
+
+	* Use SSL3_SEQUENCE_SIZE for last_write_sequence[].
+
+	* Use 0 instead of 0x00 in memset() calls in DTLS code.
+
+	* Increment the epoch in the same place for both read and write.
+
+	* Send an unexpected message alert if no valid content type is found.
+
+	* Define OPENSSL_NO_SSL_TRACE in opensslfeatures.h.
+
+	* Start replacing the existing TLSv1.2 record layer.
+
+	* Send alert on ssl_get_prev_session() failure.
+
+	* Simplify return codes for tls1_process_ticket() and
+	  tls_decrypt_ticket().
+
+	* Simplify tls_decrypt_ticket() exit path.
+
+	* Copy the session ide directly in ssl_get_prev_session() instead of
+	  handing it through several functions for copying.
+
+	* Split session retrieval out of ssl_get_prev_session().
+
+	* Zero out variable on the stack to avoid leaving garbage in the tail
+	  of short session ids.
+
+	* Remove unnecessary zeroing after recallocarray() in
+	  ASN1_BIT_STRING_set_bit().
+
+	* Rewrite X509_INFO_{new,free}() more idiomatically.
+
+	* Import commented versions of the latest OPENSSL_NO_* flags from
+	  OpenSSL 1.1.1g.
+
+	* Document return value from EC_KEY_get0_public_key(3).
+
+	* Set alpn_selected_len = 0 whenever alpn_selected is NULL.
+
+	* Add option type OPTION_UL_VALUE_OR to openssl(1) option parser.
+
+	* Convert openssl(1) ocsp option handling.
+
+	* Major style cleanup in ocsp.c.
+
+	* Assorted ciphers related cleanup in ssl_lib.c.
+
+	* Add issuer cache in preparation for changes to the validation code.
+
+	* Replace some SSL_AD_* with TLS13_ALERT_* defines in the new TLSv1.3
+	  code.
+
+	* Rename ssl_cipher_is_permitted() to the more accurate and specific
+	  ssl_cipher_allowed_in_version_range().
+
+	* Simplify SSL_get_ciphers().
+
+	* Remove cipher_list_by_id.
+
+	* Add a new implementation of X509 name constraints with regrssion
+	  tests.
+
+	* Fix and re-enable cert and cipher interop tests.
+
+	* Include machine/endian.h gost2814789.c in order to pick up the
+	  __STRICT_ALIGNMENT define.
+
+	* Enable the new X509 name constraints verification.
+
+	* Avoid an out-of-bounds write in BN_rand().
+
+	* Simplify tls1_set_ec_id().
+
+	* Use uint16_t for curve_id.
+
+	* Improve the handling of BIO_read()/BIO_write() failures in the
+	  TLSv1.3 stack.
+
+	* Add a new certificate chain validator.
+
+	  The new validator finds multiple validated chains to handle the
+	  modern PKI cases which may frequently have multiple paths via
+	  different intermediates to different roots. It is loosely based on
+	  golang's x509 validator.
+
+	  This includes integration so that the new validator can be used via
+	  X509_verify_cert() as well as a new API x509_verify() which will
+	  return multiple chains (similar to go).
+
+	  The new public API is not yet exposed, and will be finalized and
+	  exposed with a man page and a library minor bump later.
+
+	* Implement SSL_{CTX_,}set_ciphersuites() and add regress. This is not
+	  yet public API and will be enabled in a future release.
+
+	* Enable the use of the new X509 chain validator by default.
+
+	* Fix double frees and a NULL dereference introduced on review of the
+	  new validator.
+
+	* Remove various unused variables in the X509 code.
+
+	* Fix memory leaks in x509_constraints_chain() and
+	  X509V3_ext_add_alias().
+
+	* Add initial manual page for the x509_verify() chain validator which
+	  will be installed once the new API is publically exposed.
+
+	* Avoid NULL deref in SSL_{,CTX_}set_ciphersuites().
+
+	* Clean up and simplify SSL_set_session().
+
+	* Move state initialization from SSL_clear() to ssl3_clear() to ensure
+	  that it gets correctly reinitialized accross a SSL_set_ssl_method()
+	  call.
+
+	* Test the botan TLS client with LibreSSL, OpenSSL 1.0.2 and 1.1.1
+	  servers.
+
+	* Mop up the get_ssl_method function pointer.
+
+	* Clean up and simplify SSL_set_ssl_method().
+
+	* Deduplicate the time validation code between the legacy and the new
+	  verifcation code.
+
+	* Set error_depth and current_cert to avoid problems in legacy
+	  callbacks that don't do proper error checking.
+
+	* Correct a failure case in tls12_record_layer_esal_record_protected().
+
+	* Do not destroy an existing cipher list when ssl_parse_ciphersuites()
+	  fails to match the behavior of ssl_create_cipher_list() and
+	  SSL_set_ciphersuites() of OpenSSL.
+
+	* Split the tls12_record_layer_write_mac() for future reuse on the
+	  read side.
+
+	* Dedup code in X509_verify_ctx_new_from_xsc().
+
+	* Make check in x509_verify_ctx_set_max_signatures() consistent with
+	  others.
+
+	* Avoid memset() before memcpy() for CBS_add_bytes().
+
+	* Make SSL_CTX_get_ciphers(NULL) return NULL rather than crash.
+
+	* Simplify SSL method lookups.
+
+	* Prepare to provide most of the TLSv1.3-related OpenSSL 1.1.1 API.
+	  This will be finished in an upcoming release.
+
+	* Fix an overflow in the CN subject line parsing.
+
+	* Correctly handle ssl_cert_dup() failure in SSL_set_SSL_CTX().
+
+	* Fix memory leaks in x509_constraints_extract_names().
+
+	* Correct a 1 byte read overflow in x509_constraints_uri().
+
+	* Ensure the chain is set on the X509_STORE_CTX before triggering
+	  callback.
+
+	* Release read and write buffers using freezero()
+
+	* Simplify the cleanup of init_buf via an ssl3_release_init_buffer()
+	  function.
+
+	* Fix numerous leaks in the UI_dup_* functions.
+
+	* Simplify and tidy up hte code in ui_lib.c.
+
+	* Refactor dtls1_clear_queues() to make it NULL safe.
+
+	* Have dtls1_hm_fragment_new() call dtls1_hm_fragment_free() on
+	  failure.
+
+	* Have dtls1_new() call dtls1_free() on failure.
+
+	* Call dtls1_hm_fragment_free() from dtls1_drain_fragments() to fix
+	  potential memory leaks.
+
+	* Ensure that leaf is set up on X509_STORE_CTX before verification.
+
 3.2.1 - Development release
 
 	* Propagate alerts from the read half of the TLSv1.3 record layer to I/O

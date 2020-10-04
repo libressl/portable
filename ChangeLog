@@ -30,16 +30,6 @@ LibreSSL Portable Release Notes:
 
 3.2.2 - Stable release
 
-	* Simplify handling of allocation handling in SSL_new().
-
-	* Use SSL3_SEQUENCE_SIZE for last_write_sequence[].
-
-	* Use 0 instead of 0x00 in memset() calls in DTLS code.
-
-	* Increment the epoch in the same place for both read and write.
-
-	* Send an unexpected message alert if no valid content type is found.
-
 	* Define OPENSSL_NO_SSL_TRACE in opensslfeatures.h.
 
 	* Start replacing the existing TLSv1.2 record layer.

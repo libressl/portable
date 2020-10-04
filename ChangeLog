@@ -51,7 +51,7 @@ LibreSSL Portable Release Notes:
 
 	* Simplify tls_decrypt_ticket() exit path.
 
-	* Copy the session ide directly in ssl_get_prev_session() instead of
+	* Copy the session id directly in ssl_get_prev_session() instead of
 	  handing it through several functions for copying.
 
 	* Split session retrieval out of ssl_get_prev_session().
@@ -91,7 +91,7 @@ LibreSSL Portable Release Notes:
 
 	* Remove cipher_list_by_id.
 
-	* Add a new implementation of X509 name constraints with regrssion
+	* Add a new implementation of X509 name constraints with regression
 	  tests.
 
 	* Fix and re-enable cert and cipher interop tests.
@@ -115,7 +115,7 @@ LibreSSL Portable Release Notes:
 	  The new validator finds multiple validated chains to handle the
 	  modern PKI cases which may frequently have multiple paths via
 	  different intermediates to different roots. It is loosely based on
-	  golang's x509 validator.
+	  golang's X509 validator.
 
 	  This includes integration so that the new validator can be used via
 	  X509_verify_cert() as well as a new API x509_verify() which will
@@ -145,10 +145,10 @@ LibreSSL Portable Release Notes:
 	* Clean up and simplify SSL_set_session().
 
 	* Move state initialization from SSL_clear() to ssl3_clear() to ensure
-	  that it gets correctly reinitialized accross a SSL_set_ssl_method()
+	  that it gets correctly reinitialized across a SSL_set_ssl_method()
 	  call.
 
-	* Test the botan TLS client with LibreSSL, OpenSSL 1.0.2 and 1.1.1
+	* Test the Botan TLS client with LibreSSL, OpenSSL 1.0.2 and 1.1.1
 	  servers.
 
 	* Mop up the get_ssl_method function pointer.
@@ -156,12 +156,12 @@ LibreSSL Portable Release Notes:
 	* Clean up and simplify SSL_set_ssl_method().
 
 	* Deduplicate the time validation code between the legacy and the new
-	  verifcation code.
+	  verification code.
 
 	* Set error_depth and current_cert to avoid problems in legacy
 	  callbacks that don't do proper error checking.
 
-	* Correct a failure case in tls12_record_layer_esal_record_protected().
+	* Correct a failure case in tls12_record_layer_seal_record_protected().
 
 	* Do not destroy an existing cipher list when ssl_parse_ciphersuites()
 	  fails to match the behavior of ssl_create_cipher_list() and
@@ -170,7 +170,7 @@ LibreSSL Portable Release Notes:
 	* Split the tls12_record_layer_write_mac() for future reuse on the
 	  read side.
 
-	* Dedup code in X509_verify_ctx_new_from_xsc().
+	* Dedup code in x509_verify_ctx_new_from_xsc().
 
 	* Make check in x509_verify_ctx_set_max_signatures() consistent with
 	  others.

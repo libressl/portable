@@ -206,6 +206,14 @@ LibreSSL Portable Release Notes:
 
 	* Ensure that leaf is set up on X509_STORE_CTX before verification.
 
+	* Import document SSL_set1_host(3).
+
+	* Document SSL_set_SSL_CTX(3).
+
+	* Make pthread_mutex static initialisation work on Windows.
+
+	* Get __STRICT_ALIGNMENT from machine/endian.h with portable build.
+
 3.2.1 - Development release
 
 	* Propagate alerts from the read half of the TLSv1.3 record layer to I/O

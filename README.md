@@ -134,7 +134,7 @@ directory and run:
  cmake -G"Visual Studio 12 2013" ..
 ```
 
-Replace "Visual Studion 12 2013" with whatever version of Visual Studio you
+Replace "Visual Studio 12 2013" with whatever version of Visual Studio you
 have installed. This will generate a LibreSSL.sln file that you can incorporate
 into other projects or build by itself.
 

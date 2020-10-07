@@ -30,18 +30,11 @@ LibreSSL Portable Release Notes:
 
 3.2.2 - Stable release
 
-	* Improve the handling of BIO_read()/BIO_write() failures in the
-	  TLSv1.3 stack.
+	* This is the first stable release with the new TLSv1.3 implementation
+	  enabled for both server and client. The OpenSSL TLSv1.3 API is not
+	  yet available and will be provided in an upcoming release.
 
-	* Prepare to provide most of the TLSv1.3-related OpenSSL 1.1.1 API.
-	  This will be finished in an upcoming release.
-
-	* Implement SSL_{CTX_,}set_ciphersuites() and add regress. This is not
-	  yet public API and will be enabled in a future release.
-
-	* Start replacing the existing TLSv1.2 record layer.
-
-	* Add a new X509 certificate chain validator.
+	* This release also adds a new X509 certificate chain validator
 
 	  The new validator finds multiple validated chains to handle the
 	  modern PKI cases which may frequently have multiple paths via
@@ -53,7 +46,18 @@ LibreSSL Portable Release Notes:
 	  return multiple chains (similar to go).
 
 	  The new public API is not yet exposed, and will be finalized and
-	  exposed with a man page and a library minor bump later.
+	  enabled later.
+
+	* Improve the handling of BIO_read()/BIO_write() failures in the
+	  TLSv1.3 stack.
+
+	* Prepare to provide most of the TLSv1.3-related OpenSSL 1.1.1 API.
+	  This will be finished in an upcoming release.
+
+	* Implement SSL_{CTX_,}set_ciphersuites() and add regress. This is not
+	  yet public API and will be enabled in a future release.
+
+	* Start replacing the existing TLSv1.2 record layer.
 
 	* Define OPENSSL_NO_SSL_TRACE in opensslfeatures.h.
 
@@ -70,7 +74,7 @@ LibreSSL Portable Release Notes:
 
 	* Avoid an out-of-bounds write in BN_rand().
 
-	* Fix numerous leaks in the UI_dup_* functions and simplify and tidy up
+	* Fix numerous leaks in the UI_dup_* functions. Simplify and tidy up
 	  the code in ui_lib.c.
 
 	* Avoid potential segmentation fault with SSL_get0_alpn_selected
@@ -110,6 +114,8 @@ LibreSSL Portable Release Notes:
 
 	* Add initial manual page for the x509_verify() chain validator which
 	  will be installed once the new API is publically exposed.
+
+	* Greatly expanded test coverage by the tlsfuzzer test scripts.
 
 	* Test the Botan TLS client with LibreSSL, OpenSSL 1.0.2 and 1.1.1
 	  servers.

@@ -6,6 +6,15 @@ EXTRA_DIST = VERSION
 EXTRA_DIST += CMakeLists.txt
 EXTRA_DIST += ssl.sym
 
+CLEANFILES = libssl_la_objects.mk
+
+EXTRA_libssl_la_DEPENDENCIES = libssl_la_objects.mk
+
+libssl_la_objects.mk: Makefile
+	@echo "libssl_la_objects= $(libssl_la_OBJECTS)" \
+	  | sed 's/  */ $$\(abs_top_builddir\)\/ssl\//g' \
+	  > libssl_la_objects.mk
+
 libssl_la_LDFLAGS = -version-info @LIBSSL_VERSION@ -no-undefined -export-symbols $(top_srcdir)/ssl/ssl.sym
 libssl_la_LIBADD = $(abs_top_builddir)/crypto/libcrypto.la $(PLATFORM_LDADD)
 

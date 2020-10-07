@@ -1,5 +1,8 @@
 include $(top_srcdir)/Makefile.am.common
 
+-include $(abs_top_builddir)/crypto/libcrypto_la_objects.mk
+-include $(abs_top_builddir)/ssl/libssl_la_objects.mk
+
 lib_LTLIBRARIES = libtls.la
 
 EXTRA_DIST = VERSION
@@ -7,8 +10,10 @@ EXTRA_DIST += CMakeLists.txt
 EXTRA_DIST += tls.sym
 
 libtls_la_LDFLAGS = -version-info @LIBTLS_VERSION@ -no-undefined -export-symbols $(top_srcdir)/tls/tls.sym
-libtls_la_LIBADD = $(abs_top_builddir)/ssl/libssl.la
-libtls_la_LIBADD += $(abs_top_builddir)/crypto/libcrypto.la
+libtls_la_LIBADD = $(libcrypto_la_objects)
+libtls_la_LIBADD += $(libcompat_la_objects)
+libtls_la_LIBADD += $(libcompatnoopt_la_objects)
+libtls_la_LIBADD += $(libssl_la_objects)
 libtls_la_LIBADD += $(PLATFORM_LDADD)
 
 libtls_la_CPPFLAGS = $(AM_CPPFLAGS)

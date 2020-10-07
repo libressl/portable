@@ -34,28 +34,11 @@ LibreSSL Portable Release Notes:
 	  enabled for both server and client. The OpenSSL TLSv1.3 API is not
 	  yet available and will be provided in an upcoming release.
 
-	* This release also adds a new X509 certificate chain validator
-
-	  The new validator finds multiple validated chains to handle the
-	  modern PKI cases which may frequently have multiple paths via
-	  different intermediates to different roots. It is loosely based on
-	  golang's X509 validator.
-
-	  This includes integration so that the new validator can be used via
-	  X509_verify_cert() as well as a new API x509_verify() which will
-	  return multiple chains (similar to go).
-
-	  The new public API is not yet exposed, and will be finalized and
-	  enabled later.
+	* New X509 certificate chain validator loosely based on Go's X509
+	  validator.
 
 	* Improve the handling of BIO_read()/BIO_write() failures in the
 	  TLSv1.3 stack.
-
-	* Prepare to provide most of the TLSv1.3-related OpenSSL 1.1.1 API.
-	  This will be finished in an upcoming release.
-
-	* Implement SSL_{CTX_,}set_ciphersuites() and add regress. This is not
-	  yet public API and will be enabled in a future release.
 
 	* Start replacing the existing TLSv1.2 record layer.
 
@@ -111,9 +94,6 @@ LibreSSL Portable Release Notes:
 	* Document SSL_set1_host(3), SSL_set_SSL_CTX(3).
 
 	* Document return value from EC_KEY_get0_public_key(3).
-
-	* Add initial manual page for the x509_verify() chain validator which
-	  will be installed once the new API is publically exposed.
 
 	* Greatly expanded test coverage by the tlsfuzzer test scripts.
 

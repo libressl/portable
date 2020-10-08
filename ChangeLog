@@ -30,12 +30,17 @@ LibreSSL Portable Release Notes:
 
 3.2.2 - Stable release
 
-	* This is the first stable release with the new TLSv1.3 implementation
-	  enabled for both server and client. The OpenSSL TLSv1.3 API is not
-	  yet available and will be provided in an upcoming release.
+	* This is the first stable release with the new TLSv1.3
+	  implementation enabled by default for both server and client. The
+ 	  OpenSSL 1.1 TLSv1.3 API is not yet available and will be provided
+	  in an upcoming release.
 
-	* New X509 certificate chain validator loosely based on Go's X509
-	  validator.
+	* New X509 certificate chain validator that correctly handles
+	  multiple paths through intermediate certificates. Loosely based on
+	  Go's X509 validator.
+
+	* New name constraints verification implementation which passes the
+	  bettertls.com certificate validation check suite.
 
 	* Improve the handling of BIO_read()/BIO_write() failures in the
 	  TLSv1.3 stack.
@@ -93,6 +98,8 @@ LibreSSL Portable Release Notes:
 	* Document return value from EC_KEY_get0_public_key(3).
 
 	* Greatly expanded test coverage via the tlsfuzzer test scripts.
+
+	* Expanded test coverage via the bettertls certificate test suite.
 
 	* Test interoperability with the Botan TLS client.
 

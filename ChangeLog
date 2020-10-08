@@ -49,7 +49,7 @@ LibreSSL Portable Release Notes:
 	* Send alert on ssl_get_prev_session() failure.
 
 	* Zero out variable on the stack to avoid leaving garbage in the tail
-	  of short session ids.
+	  of short session IDs.
 
 	* Move state initialization from SSL_clear() to ssl3_clear() to ensure
 	  that it gets correctly reinitialized across a SSL_set_ssl_method()
@@ -60,8 +60,8 @@ LibreSSL Portable Release Notes:
 	* Fix numerous leaks in the UI_dup_* functions. Simplify and tidy up
 	  the code in ui_lib.c.
 
-	* Avoid potential segmentation fault with SSL_get0_alpn_selected
-	  by setting alpn_selected_len = 0 whenever alpn_selected is NULL.
+	* Correctly track selected ALPN length to avoid a potential segmentation
+	  fault with SSL_get0_alpn_selected() when alpn_selected is NULL.
 
 	* Include machine/endian.h gost2814789.c in order to pick up the
 	  __STRICT_ALIGNMENT define.
@@ -76,13 +76,10 @@ LibreSSL Portable Release Notes:
 	* Refactor dtls1_new(), dtls1_hm_fragment_new(),
 	  dtls1_drain_fragments(), dtls1_clear_queues().
 
-	* Replace some SSL_AD_* with TLS13_ALERT_* defines in the new TLSv1.3
-	  code.
-
-	* Copy the session id directly in ssl_get_prev_session() instead of
+	* Copy the session ID directly in ssl_get_prev_session() instead of
 	  handing it through several functions for copying.
 
-	* Avoid memset() before memcpy() for CBS_add_bytes().
+	* Avoid memset() before memcpy() in CBS_add_bytes().
 
 	* Rewrite X509_INFO_{new,free}() more idiomatically.
 
@@ -95,10 +92,9 @@ LibreSSL Portable Release Notes:
 
 	* Document return value from EC_KEY_get0_public_key(3).
 
-	* Greatly expanded test coverage by the tlsfuzzer test scripts.
+	* Greatly expanded test coverage via the tlsfuzzer test scripts.
 
-	* Test the Botan TLS client with LibreSSL, OpenSSL 1.0.2 and 1.1.1
-	  servers.
+	* Test interoperability with the Botan TLS client.
 
 	* Make pthread_mutex static initialisation work on Windows.
 

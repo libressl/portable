@@ -32,7 +32,7 @@ LibreSSL Portable Release Notes:
 
 	* This is the first stable release with the new TLSv1.3
 	  implementation enabled by default for both server and client. The
- 	  OpenSSL 1.1 TLSv1.3 API is not yet available and will be provided
+	  OpenSSL 1.1 TLSv1.3 API is not yet available and will be provided
 	  in an upcoming release.
 
 	* New X509 certificate chain validator that correctly handles

@@ -31,7 +31,7 @@ LibreSSL Portable Release Notes:
 3.2.2 - Stable release
 
 	* This is the first stable release with the new TLSv1.3
-	  implementation enabled by default for both server and client. The
+	  implementation enabled by default for both client and server. The
 	  OpenSSL 1.1 TLSv1.3 API is not yet available and will be provided
 	  in an upcoming release.
 

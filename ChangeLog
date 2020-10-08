@@ -158,7 +158,7 @@ LibreSSL Portable Release Notes:
 
 	* Document X509_get0_pubkey_bitstr(3).
 
-	* Fix an off-by-one in the CBS padding removal. From BoringSSL.
+	* Fix an off-by-one in the CBC padding removal. From BoringSSL.
 
 	* Enforce restrictions on extensions present in the ClientHello as per
 	  RFC 8446, section 9.2.

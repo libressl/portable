@@ -84,6 +84,9 @@ LibreSSL Portable Release Notes:
 	* Copy the session ID directly in ssl_get_prev_session() instead of
 	  handing it through several functions for copying.
 
+	* Clean up and refactor ssl_get_prev_session(); simplify
+	  tls_decrypt_ticket() and tls1_process_ticket() exit paths.
+
 	* Avoid memset() before memcpy() in CBS_add_bytes().
 
 	* Rewrite X509_INFO_{new,free}() more idiomatically.

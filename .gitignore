@@ -141,6 +141,7 @@ include/openssl/*.h
 /apps/ocspcheck/ocspcheck*
 /apps/ocspcheck/compat/memmem.c
 /apps/ocspcheck/compat/inet_ntop.c
+/apps/ocspcheck/compat/strtonum.c
 
 /apps/nc/*.h
 /apps/nc/*.c

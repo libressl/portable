@@ -19,3 +19,7 @@ noinst_HEADERS = http.h
 if !HAVE_MEMMEM
 ocspcheck_SOURCES += compat/memmem.c
 endif
+
+if !HAVE_STRTONUM
+ocspcheck_SOURCES += compat/strtonum.c
+endif

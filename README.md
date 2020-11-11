@@ -37,9 +37,9 @@ At the time of this writing, LibreSSL is known to build and work on:
 * AIX (5.3 and later)
 
 LibreSSL also supports the following Windows environments:
-* Microsoft Windows (Vista or higher, x86 and x64)
+* Microsoft Windows (Windows 7 / Windows Server 2008r2 or later, x86 and x64)
 * Wine (32-bit and 64-bit)
-* Builds with Mingw-w64, Cygwin, and Visual Studio
+* Mingw-w64, Cygwin, and Visual Studio
 
 Official release tarballs are available at your friendly neighborhood
 OpenBSD mirror in directory

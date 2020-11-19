@@ -40,12 +40,11 @@ LibreSSL Portable Release Notes:
 
 	* Replace DTLSv1_enc_data() with TLSv1_1_enc_data().
 
-	* Merge d1_{clnt,srvr}.c into ssl_{clnt,srver}.c.
+	* Merge d1_{clnt,srvr}.c into ssl_{clnt,srvr}.c.
 
-	* Fix switching from the TLSv1.3 stack to the legacy stack after
-	  the record rewrite by including a TLS record header for the case
-	  that there is more than one handshake message in the TLS plaintext
-	  record.
+	* When switching from the TLSv1.3 stack to the legacy stack include
+	  a TLS record header. This is necessary if there is more than one
+	  handshake message in the TLS plaintext record.
 
 	* Set SO_REUSEADDR on the server socket in the openssl(1) ocsp
 	  command.

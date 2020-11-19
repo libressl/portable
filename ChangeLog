@@ -28,6 +28,104 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.3.0 - Development release
+
+	* Make openssl(1) s_server ignore -4 and -6 for compatibility with
+	  OpenSSL.
+
+	* Further cleanup of the DTLS record handling.
+
+	* Continue the replacement of the TLSv1.2 record layer by
+	  reimplementing the read side of the TLSv1.2 record handling.
+
+	* Replace DTLSv1_enc_data() with TLSv1_1_enc_data().
+
+	* Merge d1_{clnt,srvr}.c into ssl_{clnt,srver}.c.
+
+	* Fix switching from the TLSv1.3 stack to the legacy stack after
+	  the record rewrite by including a TLS record header for the case
+	  that there is more than one handshake message in the TLS plaintext
+	  record.
+
+	* Set SO_REUSEADDR on the server socket in the openssl(1) ocsp
+	  command.
+
+	* Fix resource handling on error in OCSP_request_add0_id().
+
+	* Add const to ssl_ciphers and tls1[23]_sigalgs* to push them into
+	  .data.rel.ro and .rodata, respectively.
+
+	* Add a const qualifier to srtp_known_profiles.
+
+	* Simplify TLS method by removing the client and server specific
+	  methods internally.
+
+	* Avoid casting away const in ssl_ctx_make_profiles().
+
+	* Make sure there is enough room for stashing the handshake message
+	  when switching to the legacy TLS stack.
+
+	* Avoid explicitly conditioning an assert on DTLS1_VERSION to make
+	  the assert work for newer DTLS versions.
+
+	* Merge SSL_ENC_METHOD into SSL_METHOD_INTERNAL.
+
+	* Send a host header with OCSP queries to make openssl(1) ocsp
+	  work with some widely used OCSP responders.
+
+	* Fix a memory leak in the openssl(1) s_client.
+
+	* Add a flag to mark DTLS methods as DTLS to have an easy way to
+	  recognize DTLS methods that avoids inspecting the version number.
+
+	* Implement SSL_is_dtls() and use it internally in place of the
+	  SSL_IS_DTLS macro.
+
+	* Unbreak DTLS retransmissions for flights that include a CCS.
+
+	* Add ability to ocspcheck(8) to parse a port in the specified
+	  OCSP URL.
+
+	* Refactor and clean up ocspcheck(8) and add regression tests.
+
+	* If x509_verify() fails, ensure that the error is set on both
+	  the x509_verify_ctx() and its store context to make some failures
+	  visible from SSL_get_verify_result().
+
+	* Use the X509_STORE_CTX get_issuer() callback from the new X.509
+	  verifier to fix hashed certificate directories.
+
+	* Only check BIO_should_read() on read and BIO_should_write() on
+	  write.  Previously, BIO_should_write() was also checked after read
+	  and BIO_should_read() after write which could cause stalls in
+	  software that uses the same BIO for read and write.
+
+	* In openssl(1) verify, also check for error on the store context
+	  since the return value of X509_verify_cert() is unreliable in
+	  presence of a callback that returns 1 too often.
+
+	* Implement auto chain for the TLSv1.3 server since some software
+	  relies on this.
+
+	* Handle additional certificate error cases in the new X.509 verifier.
+	  Keep track of the errors encountered if a verify callback tells the
+	  verifier to continue and report them back via the error on the store
+	  context. This mimicks the behavior of the old verifier that would
+	  persist the first error encountered while building the chain.
+
+	* Report specific failures for "self signed certificates" in a way
+	  compatible with the old verifier since software relies on the
+	  error code.
+
+	* Implement key exporter for TLSv1.3.
+
+	* Plug a large memory leak in the new verifier caused by calling
+	  X509_policy_check() repeatedly instead.
+
+	* Avoid leaking memory in x509_verify_chain_dup().
+
+	* Various documentation improvements, particularly around TLS methods.
+
 3.2.2 - Stable release
 
 	* This is the first stable release with the new TLSv1.3

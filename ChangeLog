@@ -103,13 +103,17 @@ LibreSSL Portable Release Notes:
 	  since the return value of X509_verify_cert() is unreliable in
 	  presence of a callback that returns 1 too often.
 
+	* Update getentropy on Windows to use Cryptography Next Generation
+	  (CNG). wincrypt is deprecated and no longer works with newer Windows
+	  environments, such as in Windows Store apps.
+
 	* Implement auto chain for the TLSv1.3 server since some software
 	  relies on this.
 
 	* Handle additional certificate error cases in the new X.509 verifier.
 	  Keep track of the errors encountered if a verify callback tells the
 	  verifier to continue and report them back via the error on the store
-	  context. This mimicks the behavior of the old verifier that would
+	  context. This mimics the behavior of the old verifier that would
 	  persist the first error encountered while building the chain.
 
 	* Report specific failures for "self signed certificates" in a way

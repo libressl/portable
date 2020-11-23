@@ -968,7 +968,23 @@ if(EXTRA_EXPORT)
 	endforeach()
 endif()
 
-add_library(crypto ${CRYPTO_SRC})
+add_library(crypto_obj OBJECT ${CRYPTO_SRC})
+target_include_directories(crypto_obj
+	PRIVATE
+		.
+		asn1
+		bn
+		dsa
+		ec
+		ecdh
+		ecdsa
+		evp
+		modes
+		../include/compat
+	PUBLIC
+		../include)
+
+add_library(crypto $<TARGET_OBJECTS:crypto_obj>)
 target_include_directories(crypto
 	PRIVATE
 		.

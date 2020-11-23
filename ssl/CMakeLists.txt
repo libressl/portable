@@ -52,7 +52,15 @@ set(
 	tls13_server.c
 )
 
-add_library(ssl ${SSL_SRC})
+add_library(ssl_obj OBJECT ${SSL_SRC})
+target_include_directories(ssl_obj
+	PRIVATE
+		.
+		../include/compat
+	PUBLIC
+		../include)
+
+add_library(ssl $<TARGET_OBJECTS:ssl_obj>)
 target_include_directories(ssl
 	PRIVATE
 		.

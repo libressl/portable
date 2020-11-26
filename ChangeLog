@@ -123,7 +123,7 @@ LibreSSL Portable Release Notes:
 	* Implement key exporter for TLSv1.3.
 
 	* Plug a large memory leak in the new verifier caused by calling
-	  X509_policy_check() repeatedly instead.
+	  X509_policy_check() repeatedly.
 
 	* Avoid leaking memory in x509_verify_chain_dup().
 

@@ -28,6 +28,11 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.2.3 - Security fix
+
+	* Malformed ASN.1 in a certificate revocation list or a timestamp
+	  response token can lead to a NULL pointer dereference.
+
 3.2.2 - Stable release
 
 	* This is the first stable release with the new TLSv1.3

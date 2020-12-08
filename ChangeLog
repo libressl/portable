@@ -28,6 +28,11 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.3.1 - Security fix
+
+	* Malformed ASN.1 in a certificate revocation list or a timestamp
+	  response token can lead to a NULL pointer dereference.
+
 3.3.0 - Development release
 
 	* Make openssl(1) s_server ignore -4 and -6 for compatibility with
@@ -128,6 +133,11 @@ LibreSSL Portable Release Notes:
 	* Avoid leaking memory in x509_verify_chain_dup().
 
 	* Various documentation improvements, particularly around TLS methods.
+
+3.2.3 - Security fix
+
+	* Malformed ASN.1 in a certificate revocation list or a timestamp
+	  response token can lead to a NULL pointer dereference.
 
 3.2.2 - Stable release
 
@@ -379,6 +389,11 @@ LibreSSL Portable Release Notes:
  	  of an IPv6 address in DTLS mode.
 
 	* Use non-expired certificates first when building a certificate chain.
+
+3.1.5 - Security fix
+
+	* Malformed ASN.1 in a certificate revocation list or a timestamp
+	  response token can lead to a NULL pointer dereference.
 
 3.1.4 - Interoperability and bug fixes for the TLSv1.3 client:
 

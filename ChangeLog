@@ -33,6 +33,18 @@ LibreSSL Portable Release Notes:
 	* Malformed ASN.1 in a certificate revocation list or a timestamp
 	  response token can lead to a NULL pointer dereference.
 
+	Bug fixes
+
+	* Move point-on-curve check to set_affine_coordinates to avoid
+	  verifying ECDSA signatures with unchecked public keys.
+
+	* Fix SSL_is_server() to behave as documented by re-introducing the
+	  client-specific methods.
+
+	* Avoid undefined behavior due to memcpy(NULL, NULL, 0).
+
+	* Mark a few more internal static tables const.
+
 3.3.0 - Development release
 
 	* Make openssl(1) s_server ignore -4 and -6 for compatibility with

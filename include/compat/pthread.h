@@ -102,6 +102,13 @@ pthread_mutex_unlock(pthread_mutex_t *mutex)
 	return 0;
 }
 
+static inline int
+pthread_mutex_destroy(pthread_mutex_t *mutex)
+{
+	DeleteCriticalSection(mutex->lock);
+	return 0;
+}
+
 #else
 #include_next <pthread.h>
 #endif

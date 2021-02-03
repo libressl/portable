@@ -405,6 +405,11 @@ TESTS += sm4test
 check_PROGRAMS += sm4test
 sm4test_SOURCES = sm4test.c
 
+# ssl_methods
+TESTS += ssl_methods
+check_PROGRAMS += ssl_methods
+ssl_methods_SOURCES = ssl_methods.c
+
 # ssl_versions
 TESTS += ssl_versions
 check_PROGRAMS += ssl_versions

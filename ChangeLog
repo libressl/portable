@@ -32,7 +32,7 @@ LibreSSL Portable Release Notes:
 
 	* Switch back to certificate verification code from LibreSSL 3.1.x. The
 	  new verifier is not bug compatible with the old verifier causing issues
-	  expecting behavior of the old verifier.
+	  with applications expecting behavior of the old verifier.
 
 	* Unbreak DTLS retransmissions for flights that include a CCS
 
@@ -40,7 +40,7 @@ LibreSSL Portable Release Notes:
 
 	* Implement autochain for the TLSv1.3 server
 
-	* Use the legacy verifier for AUTO_CHAIN
+	* Use the legacy verifier for autochain
 
 	* Implement exporter for TLSv1.3
 

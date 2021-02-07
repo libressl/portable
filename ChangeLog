@@ -28,6 +28,28 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.2.4 - Bug and interoperability fixes
+
+	* Switch back to certificate verification code from LibreSSL 3.1.x. The
+	  new verifier is not bug compatible with the old verifier causing issues
+	  expecting behavior of the old verifier.
+
+	* Unbreak DTLS retransmissions for flights that include a CCS
+
+	* Only check BIO_should_read() on read and BIO_should_write() on write
+
+	* Implement autochain for the TLSv1.3 server
+
+	* Use the legacy verifier for AUTO_CHAIN
+
+	* Implement exporter for TLSv1.3
+
+	* Free alert_data and phh_data in tls13_record_layer_free()
+
+	* Plug leak in x509_verify_chain_dup()
+
+	* Free the policy tree in x509_vfy_check_policy()
+
 3.2.3 - Security fix
 
 	* Malformed ASN.1 in a certificate revocation list or a timestamp

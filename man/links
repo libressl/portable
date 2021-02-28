@@ -1771,6 +1771,7 @@ SSL_get_ex_new_index.3,SSL_get_ex_data.3
 SSL_get_ex_new_index.3,SSL_set_ex_data.3
 SSL_get_fd.3,SSL_get_rfd.3
 SSL_get_fd.3,SSL_get_wfd.3
+SSL_get_finished.3,SSL_get_peer_finished.3
 SSL_get_rbio.3,SSL_get_wbio.3
 SSL_get_session.3,SSL_get0_session.3
 SSL_get_session.3,SSL_get1_session.3

@@ -106,6 +106,7 @@ static inline int
 pthread_mutex_destroy(pthread_mutex_t *mutex)
 {
 	DeleteCriticalSection(mutex->lock);
+	free(mutex->lock);
 	return 0;
 }
 

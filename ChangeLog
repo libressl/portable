@@ -28,6 +28,10 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.2.5 - Bug fix
+
+	* A TLS client using session resumption may cause a use-after-free.
+
 3.2.4 - Bug and interoperability fixes
 
 	* Switch back to certificate verification code from LibreSSL 3.1.x. The

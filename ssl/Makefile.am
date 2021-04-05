@@ -1,6 +1,10 @@
 include $(top_srcdir)/Makefile.am.common
 
+if ENABLE_LIBTLS_ONLY
+noinst_LTLIBRARIES = libssl.la
+else
 lib_LTLIBRARIES = libssl.la
+endif
 
 EXTRA_DIST = VERSION
 EXTRA_DIST += CMakeLists.txt

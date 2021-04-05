@@ -368,6 +368,17 @@ if(NOT MSVC)
 		DESTINATION ${CMAKE_INSTALL_LIBDIR})
 endif()
 
+if(NOT "${OPENSSLDIR}" STREQUAL "")
+	set(CONF_DIR "${OPENSSLDIR}")
+else()
+	set(CONF_DIR "${CMAKE_INSTALL_PREFIX}/etc/ssl")
+endif()
+
+if(ENABLE_LIBRESSL_INSTALL)
+	install(FILES cert.pem openssl.cnf x509v3.cnf DESTINATION ${CONF_DIR})
+	install(DIRECTORY DESTINATION ${CONF_DIR}/certs)
+endif(ENABLE_LIBRESSL_INSTALL)
+
 if(NOT TARGET uninstall)
 	configure_file(
 		"${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"

@@ -9,7 +9,13 @@ AM_CPPFLAGS += -I$(top_srcdir)/crypto/evp
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/modes
 AM_CPPFLAGS += -I$(top_srcdir)/crypto
 
+noinst_LTLIBRARIES = libcompat.la
+
+if ENABLE_LIBTLS_ONLY
+noinst_LTLIBRARIES += libcrypto.la
+else
 lib_LTLIBRARIES = libcrypto.la
+endif
 
 EXTRA_DIST = VERSION
 EXTRA_DIST += CMakeLists.txt
@@ -125,8 +131,6 @@ libcrypto_la_CPPFLAGS += -DOPENSSLDIR=\"@OPENSSLDIR@\"
 else
 libcrypto_la_CPPFLAGS += -DOPENSSLDIR=\"$(sysconfdir)/ssl\"
 endif
-
-noinst_LTLIBRARIES = libcompat.la
 
 # compatibility functions that need to be built without optimizations
 if !HAVE_EXPLICIT_BZERO

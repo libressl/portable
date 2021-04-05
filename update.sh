@@ -265,9 +265,9 @@ done
 echo "copying openssl(1) source"
 $CP $bin_src/openssl/openssl.1 apps/openssl
 $CP_LIBC $libc_src/stdlib/strtonum.c apps/openssl/compat
-$CP $libcrypto_src/cert.pem apps/openssl
-$CP $libcrypto_src/openssl.cnf apps/openssl
-$CP $libcrypto_src/x509v3.cnf apps/openssl
+$CP $libcrypto_src/cert.pem .
+$CP $libcrypto_src/openssl.cnf .
+$CP $libcrypto_src/x509v3.cnf .
 for i in `awk '/SOURCES|HEADERS|MANS/ { print $3 }' apps/openssl/Makefile.am` ; do
 	if [ -e $bin_src/openssl/$i ]; then
 		$CP $bin_src/openssl/$i apps/openssl
@@ -327,6 +327,7 @@ chmod 755 tests/testssl
 	for i in `ls -1 *.h|sort`; do
 		echo "opensslinclude_HEADERS += $i" >> Makefile.am
 	done
+	echo endif >> Makefile.am
 )
 
 add_man_links() {
@@ -362,9 +363,9 @@ done
 # copy manpages
 echo "copying manpages"
 echo EXTRA_DIST = CMakeLists.txt > man/Makefile.am
+echo "if !ENABLE_LIBTLS_ONLY" >> man/Makefile.am
 echo dist_man3_MANS = >> man/Makefile.am
 echo dist_man5_MANS = >> man/Makefile.am
-
 (cd man
 	for i in `ls -1 $libssl_src/man/*.3 | sort`; do
 		NAME=`basename "$i"`
@@ -391,3 +392,4 @@ echo dist_man5_MANS = >> man/Makefile.am
 	done
 )
 add_man_links . man/Makefile.am
+echo endif >> man/Makefile.am

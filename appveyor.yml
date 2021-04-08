@@ -30,8 +30,7 @@ init:
   # update mysy2
   - C:\msys64\usr\bin\bash -lc "pacman --needed --noconfirm -Sy pacman-mirrors"
   - C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Syu"
-  - C:\msys64\usr\bin\bash -lc "pacman --noconfirm -S autoconf perl"
-  - C:\msys64\usr\bin\bash -lc "pacman --noconfirm -S git"
+  - C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Sy autoconf perl git"
 
 before_build:
   - bash autogen.sh

@@ -1,5 +1,5 @@
---- tests/tlsexttest.c.orig	Sat Aug 22 18:51:52 2020
-+++ tests/tlsexttest.c	Fri Sep  4 04:04:26 2020
+--- tests/tlsexttest.c.orig	Mon Apr  5 01:40:26 2021
++++ tests/tlsexttest.c	Thu Apr  8 04:17:13 2021
 @@ -1658,7 +1658,9 @@
  };
  
@@ -51,7 +51,7 @@
  
  static int
  test_tlsext_clienthello_build(void)
-@@ -2788,18 +2793,18 @@
+@@ -2791,18 +2796,18 @@
  	if (!CBB_finish(&cbb, &data, &dlen))
  		errx(1, "failed to finish CBB");
  

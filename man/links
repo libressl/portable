@@ -1001,6 +1001,7 @@ EVP_PKEY_meth_new.3,EVP_PKEY_meth_set_verify.3
 EVP_PKEY_meth_new.3,EVP_PKEY_meth_set_verify_recover.3
 EVP_PKEY_meth_new.3,EVP_PKEY_meth_set_verifyctx.3
 EVP_PKEY_new.3,EVP_PKEY_free.3
+EVP_PKEY_new.3,EVP_PKEY_new_CMAC_key.3
 EVP_PKEY_new.3,EVP_PKEY_new_mac_key.3
 EVP_PKEY_new.3,EVP_PKEY_up_ref.3
 EVP_PKEY_print_private.3,EVP_PKEY_print_params.3
@@ -1737,6 +1738,7 @@ SSL_CTX_use_certificate.3,SSL_use_RSAPrivateKey_ASN1.3
 SSL_CTX_use_certificate.3,SSL_use_RSAPrivateKey_file.3
 SSL_CTX_use_certificate.3,SSL_use_certificate.3
 SSL_CTX_use_certificate.3,SSL_use_certificate_ASN1.3
+SSL_CTX_use_certificate.3,SSL_use_certificate_chain_file.3
 SSL_CTX_use_certificate.3,SSL_use_certificate_file.3
 SSL_SESSION_free.3,SSL_SESSION_up_ref.3
 SSL_SESSION_get_ex_new_index.3,SSL_SESSION_get_ex_data.3
@@ -1801,6 +1803,8 @@ SSL_read_early_data.3,SSL_write_early_data.3
 SSL_renegotiate.3,SSL_renegotiate_abbreviated.3
 SSL_renegotiate.3,SSL_renegotiate_pending.3
 SSL_rstate_string.3,SSL_rstate_string_long.3
+SSL_set1_host.3,SSL_get0_peername.3
+SSL_set1_host.3,SSL_set_hostflags.3
 SSL_set1_param.3,SSL_CTX_get0_param.3
 SSL_set1_param.3,SSL_CTX_set1_param.3
 SSL_set1_param.3,SSL_get0_param.3

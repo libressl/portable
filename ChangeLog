@@ -28,6 +28,301 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.3.2 - Development release
+
+	* This release adds support for DTLSv1.2 and continued the record layer
+	  rewrite for the legacy stack. Numerous bugs and interoperability
+	  issues were fixed in the new verifier. The OpenSSL 1.1 TLSv1.3 API
+	  is not yet available.
+
+	* Switch finish{,_peer}_md_len from an int to a size_t.
+
+	* Fix SSL_get{,_peer}_finished() with TLSv1.3.
+
+	* Use EVP_MD_MAX_MD_SIZE instead of 2 * EVP_MD_MAX_MD_SIZE as size
+	  for cert_verify_md[], finish_md[] and peer_finish_md[]. The factor 2
+	  was a historical artefact.
+
+	* Corrected the return value type from ERR_peek_error() to a long.
+
+	* Avoid use of uninitialized in ASN1_time_parse which could happen
+	  on parsing UTCTime if the caller didn't clear the passed struct tm.
+
+	* Destroy mutex in a tls_config object on tls_config_free().
+
+	* Free alert_data and phh_data in tls13_record_layer_free()
+	  these could leak if SSL_shutdown() or tls_close() were called
+	  after closing the underlying socket().
+
+	* Free struct members in their natural order for reviewability.
+
+	* Gracefully handle root certificates being both trusted and
+	  untrusted.
+
+	* Handle X509_V_ERR_UNABLE_TO_VERIFY_LEAF_SIGNATURE in the new
+	  verifier.
+
+	* Use the legacy verifier when building auto chains.
+
+	* Use consistent namesin tls13_{client,server}_finished_{recv,send}().
+
+	* Add tls13_secret_{init,cleanup}() and use them throughout the
+	  TLSv1.3 code base.
+
+	* Move the read MAC key into the TLSv1.2 record layer.
+
+	* Make tls12_record_layer_free() NULL safe.
+
+	* Search the intermediates only after searching the root certs in the
+	  new verifier to avoid problems with the legacy callback.
+
+	* Bail out early after finding a single chain in the new verifier if
+	  we have been called from the legacy verifier API.
+
+	* Set (invalid and likely incomplete) chain on the xsc on chain build
+	  failure prior to calling the callback. This is required by things
+	  like auto chain.
+
+	* Align SSL_get_shared_ciphers() with OpenSSL. This takes into account
+	  that it never returned server ciphers, so now it will fail when
+	  called from the client side.
+
+	* Added support for SSL_get_shared_ciphers() to TLSv1.3.
+
+	* Split the record protection from the TLSv1.2 record layer.
+
+	* Clean up sequence number handling in the new TLSv1.2 record layer.
+
+	* Clean up sequence number handling in DTLS.
+
+	* Clean up dtls1_reset_seq_numbers().
+
+	* Factor out code for explicit IV length, block size and MAC length.
+
+	* Provide record layer overhead for DTLS.
+
+	* Provide functions to determine if TLSv1.2 record protection is
+	  engaged.
+
+	* Add code to handle change of cipehr state in the new TLSv1.2 record
+	  layer.
+
+	* Mop up unused dtls1_build_sequence_numbers() function.
+
+	* Allow setting a keypair on a tls context without specifying the
+	  private key and fake it internally in libtls. This removes the need
+	  for privsep engines like relayd to use bogus keys.
+
+	* Skip the private key check for fake private keys.
+
+	* Move the private key setup to a helper function with proper error
+	  checking.
+
+	* Change the internal tls_configure_ssl_keypair() function to
+	  return -1 instead of 1 on failure.
+
+	* Move sequence numbers into the new TLSv1.2 record layer.
+
+	* Move AEAD handling into the new TLSv1.2 record layer.
+
+	* Remove direct assignment of aead_ctx to avoid a leak.
+
+	* Added a number of RPKI OIDs from RFC 6482, 6484, 6493, 8182, 8360,
+	  draft-ietf-sidrops-rpki-rta, and draft-ietf-opsawg-finding-geofeeds.
+
+	* Fail early in legacy exporter if the master secret is not available
+	  to avoid a segfault if it is called if the handshake is not
+	  completed.
+
+	* Factor out legacy stack version checks.
+
+	* Correct handshake MAC/PRF for various TLSv1.2 cipher suites which
+	  were originally added with the default handshake MAC and PRF rather
+	  than hte SHA256 handshake MAC and PRF.
+
+	* Absorb ssl3_get_algorithm2() into ssl_get_handshake_evp_md().
+
+	* Use dtls1_record_retrieve_buffered_record() to load buffered
+	  application data.
+
+	* Enforce read ahead with DTLS.
+
+	* Remove bogus DTLS checks to disable ECC and OCSP.
+
+	* Sync cert.pem with Mozilla NSS root CAs except "GeoTrust Global CA".
+
+	* Only print the certificate file once on verification failure.
+
+	* Pull in fix for EVP_CipherUpdate() overflow from OpenSSL.
+
+	* Clean up and simplify dtls1_get_cipher().
+
+	* Group HelloVerifyRequest decoding and add missing check for trailing
+	  data.
+
+	* Revise HelloVerifyRequest handling for DTLSv1.2.
+
+	* Handle DTLS1_2_VERSION in various places.
+
+	* Add DTLSv1.2 methods.
+
+	* Make SSL{_CTX,}_get_{min,max}_proto_version() return a version of
+	  zero if the minimum or maximum has been set to zero to match
+	  OpenSSL's behavior.
+
+	* Rename the "truncated" label into "decode_err" and "f_err" into
+	  "fatal_err".
+
+	* Factor out and change some of the legacy client version code.
+
+	* Simplify version checks in the TLSv1.3 client. Ensure that the
+	  server announced TLSv1.3 and nothing higher and check that the
+	  legacy_version is set to TLSv1.2 as required by RFC 8446.
+
+	* Fix an off-by-one in x509_verify_set_xsc_chain() to make sure that
+	  the new validator checks for EXFLAG_CRITICAL in
+	  x509_vfy_check_chain_extension() for all untrusted certs in the
+	  chain. Take into account that the root is not necessarily trusted.
+
+	* Avoid passing last and depth to x509_verify_cert_error() on ENOMEM
+
+	* Rename depth to num_untrusted.
+
+	* Only use TLS versions internally rather than both TLS and DTLS
+	  versions since the latter are the one's complement of the human
+	  readable version numbers, which means that newer versions decrease
+	  in values.
+
+	* Fix two bugs in the legacy verifier due to incorrect refactoring of
+	  X509_verify_cert() for the new verifier: a return value was treated
+	  as Boolean when it wasn't and thus it was not enough to decide
+	  whether validation should carry on or not.
+
+	* Identify DTLS based on the version major value.
+
+	* Move handling of cipher/hash based cipher suites into the new record
+	  layer.
+
+	* Add tls12_record_protection_unused() and call it from CCS functions.
+
+	* Move key/IV length checks closer to usage sites. Also add explicit
+	  checks against EVP_CIPHER_{iv,key}_length().
+
+	* Replace two handrolled tls12_record_protection_engaged().
+
+	* Improve internal version handling: add handshake fields for our
+	  minimum version, our maximum version and the TLS version negotiated
+	  during the handshake. Convert most of the internal code to use these
+	  version fields.
+
+	* Guard against future internal use of TLS1_get_{client,}_version()
+	  macros.
+
+	* Remove the internal ssl_downgrade_max_version() which is no longer
+	  needed.
+
+	* Fix checks for memory caps of constraints names. There are internal
+	  caps on the number of name constraints and other names that the new
+	  name constraints code allocates per cert chain. These checks were
+	  checked too late, making these caps only partially effective.
+
+	* Use EXFLAG_INVALID to handle out of memory and parse errors in
+	  x509v3_cache_extensions().
+
+	* Add support for DTLSv1.2 version handling.
+
+	* Enable DTLSv1.2 support.
+
+	* Add DTLSv1.2 support to openssl s_client/s_server.
+
+	* Remove no longer needed read ahead workarounds in the s_client and
+	  s_server.
+
+	* Fix a copy-paste error a skid was confused with an akid when
+	  checking for EXFLAG_INVALID. This broke OCSP validation with
+	  certain mirrors.
+
+	* Made supported protocols and list of DHE more prominent in
+	  tls_config_set_protocols.3. Various mdoc improvements for that
+	  manual.
+
+	* Avoid a use-after-scope in tls13_cert_add()
+
+	* Split TLSv1.3 record protection from record layer.
+
+	* Move the TLSv1.3 handshake struct inside the shared handshake
+	  struct.
+
+	* Fully initialize rrec in tls12_record_layer_open_record_protected()
+	  to avoid confusing certain static analyzers.
+
+	* Use tls_set_errorx() on OCSP_basic_verify() failure since the latter
+	  does not set errno.
+
+	* Convert openssl(1) x509 to new option handling and do the usual
+	  clean up that goeas along with it.
+
+	* Add SSL_HANDSHAKE_TLS12 for TLSv1.2 specific handshake data.
+
+	* Rename new_cipher to cipher to align naming with keyblock or other
+	  parts of the handshake data.
+
+	* Avoid mangled output in BIO_debug_callback().
+
+	* Fix client side renegotiation by replacing use of s->internal-type
+	  with s->server.
+
+	* Avoid a symbol collision with SSL_is_dtls() between libssl and
+	  openssl(1) in static builds.
+
+	* Move the TLSv1.2 record number increment into the new record layer.
+
+	* Move finished and peer finished into the handshake struct.
+
+	* Avoid transcript initialization when sending a TLS HelloRequest
+	  to fix server side renegotiation.
+
+	* Remove pointless assignment in SSL_get0_alpn_selected().
+
+	* Provide EVP_PKEY_new_CMAC_KEY(3).
+
+	* Add missing prototype for d2i_DSAPrivateKey_fp(3) to x509.h.
+
+	* Show DTLSv1.2 message with openssl(1) s_server and s_client.
+
+	* Avoid leaking param->name in x509_verify_param_zero().
+
+	* Avoid a leak in an error path in openssl x509.
+
+	* Add some error checking to openssl x509.
+
+	* When sending an alert in TLSv1.3, only set its error code when no
+	  other error was set previously. Certain clients rely on specific
+	  SSL_R_ error codes to determine that they deal with a self signed
+	  cert.
+
+	* Provide SSL_use_certificate_chain_file(3).
+
+	* Provide SSL_set_hostflags(3) and SSL_get0_peername(3).
+
+	* Provide various DTLSv1.2 specific functions and defines.
+
+	* Remove workarounds for SSL_is_dtls() in openssl(1).
+
+	* Document meaning of '*' in the genrsa output.
+
+	* Updated documentation for SSL_get_shared_ciphers(3).
+
+	* Add documentation for SSL_get_finished(3).
+
+	* Document EVP_PKEY_new_CMAC_key(3)
+
+	* Document SSL_use_certificate_chain_file(3).
+
+	* Document SSL_set_hostflags(3) and SSL_get0_peername(3).
+
+	* Update SSL_get_version.3 manualf or DTLSv.1.2 support.
+
 3.3.1 - Security fix
 
 	* Malformed ASN.1 in a certificate revocation list or a timestamp

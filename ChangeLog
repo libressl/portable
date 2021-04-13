@@ -30,10 +30,10 @@ LibreSSL Portable Release Notes:
 
 3.3.2 - Development release
 
-	* This release adds support for DTLSv1.2 and continued the record layer
-	  rewrite for the legacy stack. Numerous bugs and interoperability
-	  issues were fixed in the new verifier. The OpenSSL 1.1 TLSv1.3 API
-	  is not yet available.
+	* This release adds support for DTLSv1.2 and continues the rewrite
+	  of the record layer for the legacy stack. Numerous bugs and
+	  interoperability issues were fixed in the new verifier. The
+	  OpenSSL 1.1 TLSv1.3 API is not yet available.
 
 	* Switch finish{,_peer}_md_len from an int to a size_t.
 
@@ -54,7 +54,8 @@ LibreSSL Portable Release Notes:
 	  these could leak if SSL_shutdown() or tls_close() were called
 	  after closing the underlying socket().
 
-	* Free struct members in their natural order for reviewability.
+	* Free struct members in tls13_record_layer_free() in their natural
+	  order for reviewability.
 
 	* Gracefully handle root certificates being both trusted and
 	  untrusted.
@@ -64,7 +65,7 @@ LibreSSL Portable Release Notes:
 
 	* Use the legacy verifier when building auto chains.
 
-	* Use consistent namesin tls13_{client,server}_finished_{recv,send}().
+	* Use consistent names in tls13_{client,server}_finished_{recv,send}().
 
 	* Add tls13_secret_{init,cleanup}() and use them throughout the
 	  TLSv1.3 code base.
@@ -97,26 +98,27 @@ LibreSSL Portable Release Notes:
 
 	* Clean up dtls1_reset_seq_numbers().
 
-	* Factor out code for explicit IV length, block size and MAC length.
+	* Factor out code for explicit IV length, block size and MAC length
+	  from tls12_record_layer_open_record_protected_cipher().
 
 	* Provide record layer overhead for DTLS.
 
 	* Provide functions to determine if TLSv1.2 record protection is
 	  engaged.
 
-	* Add code to handle change of cipehr state in the new TLSv1.2 record
+	* Add code to handle change of cipher state in the new TLSv1.2 record
 	  layer.
 
 	* Mop up unused dtls1_build_sequence_numbers() function.
 
 	* Allow setting a keypair on a tls context without specifying the
-	  private key and fake it internally in libtls. This removes the need
-	  for privsep engines like relayd to use bogus keys.
+	  private key, and fake it internally in libtls. This removes the
+	  need for privsep engines like relayd to use bogus keys.
 
 	* Skip the private key check for fake private keys.
 
-	* Move the private key setup to a helper function with proper error
-	  checking.
+	* Move the private key setup from tls_configure_ssl_keypair() to a
+	  helper function with proper error checking.
 
 	* Change the internal tls_configure_ssl_keypair() function to
 	  return -1 instead of 1 on failure.
@@ -138,7 +140,7 @@ LibreSSL Portable Release Notes:
 
 	* Correct handshake MAC/PRF for various TLSv1.2 cipher suites which
 	  were originally added with the default handshake MAC and PRF rather
-	  than hte SHA256 handshake MAC and PRF.
+	  than the SHA256 handshake MAC and PRF.
 
 	* Absorb ssl3_get_algorithm2() into ssl_get_handshake_evp_md().
 
@@ -170,8 +172,8 @@ LibreSSL Portable Release Notes:
 	  zero if the minimum or maximum has been set to zero to match
 	  OpenSSL's behavior.
 
-	* Rename the "truncated" label into "decode_err" and "f_err" into
-	  "fatal_err".
+	* Rename the "truncated" label into "decode_err" and the "f_err"
+	  label into "fatal_err".
 
 	* Factor out and change some of the legacy client version code.
 
@@ -321,7 +323,7 @@ LibreSSL Portable Release Notes:
 
 	* Document SSL_set_hostflags(3) and SSL_get0_peername(3).
 
-	* Update SSL_get_version.3 manualf or DTLSv.1.2 support.
+	* Update SSL_get_version.3 manual for DTLSv.1.2 support.
 
 3.3.1 - Security fix
 

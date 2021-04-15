@@ -130,7 +130,7 @@ LibreSSL Portable Release Notes:
 
 	* Remove direct assignment of aead_ctx to avoid a leak.
 
-	* Added a number of RPKI OIDs from RFC 6482, 6484, 6493, 8182, 8360,
+	* Add a number of RPKI OIDs from RFC 6482, 6484, 6493, 8182, 8360,
 	  draft-ietf-sidrops-rpki-rta, and draft-ietf-opsawg-finding-geofeeds.
 
 	* Fail early in legacy exporter if the master secret is not available
@@ -226,8 +226,8 @@ LibreSSL Portable Release Notes:
 
 	* Fix checks for memory caps of constraints names. There are internal
 	  caps on the number of name constraints and other names, that the new
-	  name constraints code allocates per cert chain. These checks were
-	  checked too late, making these limits only partially effective.
+	  name constraints code allocates per cert chain. These limits were
+	  checked too late, making them only partially effective.
 
 	* Use EXFLAG_INVALID to handle out of memory and parse errors in
 	  x509v3_cache_extensions().
@@ -245,7 +245,7 @@ LibreSSL Portable Release Notes:
 	  checking for EXFLAG_INVALID. This broke OCSP validation with
 	  certain mirrors.
 
-	* Made supported protocols and options for DHE params more prominent
+	* Make supported protocols and options for DHE params more prominent
 	  in tls_config_set_protocols.3.
 
 	* Avoid a use-after-scope in tls13_cert_add().
@@ -262,7 +262,7 @@ LibreSSL Portable Release Notes:
 	  does not set errno.
 
 	* Convert openssl(1) x509 to new option handling and do the usual
-	  clean up that goeas along with it.
+	  clean up that goes along with it.
 
 	* Add SSL_HANDSHAKE_TLS12 for TLSv1.2 specific handshake data.
 

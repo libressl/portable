@@ -37,18 +37,19 @@ LibreSSL Portable Release Notes:
 
 	* Switch finish{,_peer}_md_len from an int to a size_t.
 
-	* Fix SSL_get{,_peer}_finished() with TLSv1.3.
+	* Make SSL_get{,_peer}_finished() work when used with TLSv1.3.
 
 	* Use EVP_MD_MAX_MD_SIZE instead of 2 * EVP_MD_MAX_MD_SIZE as size
 	  for cert_verify_md[], finish_md[] and peer_finish_md[]. The factor 2
 	  was a historical artefact.
 
-	* Corrected the return value type from ERR_peek_error() to a long.
+	* Correct the return value type from ERR_peek_error() to a long.
 
-	* Avoid use of uninitialized in ASN1_time_parse which could happen
-	  on parsing UTCTime if the caller didn't clear the passed struct tm.
+	* Avoid use of uninitialized in ASN1_time_parse() which could happen
+	  on parsing UTCTime if the caller did not initialise the passed
+	  struct tm.
 
-	* Destroy mutex in a tls_config object on tls_config_free().
+	* Destroy the mutex in a tls_config object on tls_config_free().
 
 	* Free alert_data and phh_data in tls13_record_layer_free()
 	  these could leak if SSL_shutdown() or tls_close() were called
@@ -63,7 +64,7 @@ LibreSSL Portable Release Notes:
 	* Handle X509_V_ERR_UNABLE_TO_VERIFY_LEAF_SIGNATURE in the new
 	  verifier.
 
-	* Use the legacy verifier when building auto chains.
+	* Use the legacy verifier when building auto chains for TLS.
 
 	* Use consistent names in tls13_{client,server}_finished_{recv,send}().
 
@@ -77,18 +78,18 @@ LibreSSL Portable Release Notes:
 	* Search the intermediates only after searching the root certs in the
 	  new verifier to avoid problems with the legacy callback.
 
-	* Bail out early after finding a single chain in the new verifier if
-	  we have been called from the legacy verifier API.
+	* Bail out early after finding a single chain in the new verifier, if
+	  we have been called via the legacy verifier API.
 
 	* Set (invalid and likely incomplete) chain on the xsc on chain build
-	  failure prior to calling the callback. This is required by things
-	  like auto chain.
+	  failure prior to calling the callback. This is required by various
+	  callers, including auto chain.
 
 	* Align SSL_get_shared_ciphers() with OpenSSL. This takes into account
 	  that it never returned server ciphers, so now it will fail when
 	  called from the client side.
 
-	* Added support for SSL_get_shared_ciphers() to TLSv1.3.
+	* Add support for SSL_get_shared_ciphers() with TLSv1.3.
 
 	* Split the record protection from the TLSv1.2 record layer.
 
@@ -109,7 +110,7 @@ LibreSSL Portable Release Notes:
 	* Add code to handle change of cipher state in the new TLSv1.2 record
 	  layer.
 
-	* Mop up unused dtls1_build_sequence_numbers() function.
+	* Mop up now unused dtls1_build_sequence_numbers() function.
 
 	* Allow setting a keypair on a tls context without specifying the
 	  private key, and fake it internally in libtls. This removes the
@@ -133,7 +134,7 @@ LibreSSL Portable Release Notes:
 	  draft-ietf-sidrops-rpki-rta, and draft-ietf-opsawg-finding-geofeeds.
 
 	* Fail early in legacy exporter if the master secret is not available
-	  to avoid a segfault if it is called if the handshake is not
+	  to avoid a segfault if it is called when the handshake is not
 	  completed.
 
 	* Factor out legacy stack version checks.
@@ -149,7 +150,7 @@ LibreSSL Portable Release Notes:
 
 	* Enforce read ahead with DTLS.
 
-	* Remove bogus DTLS checks to disable ECC and OCSP.
+	* Remove bogus DTLS checks that disabled ECC and OCSP.
 
 	* Sync cert.pem with Mozilla NSS root CAs except "GeoTrust Global CA".
 
@@ -186,18 +187,18 @@ LibreSSL Portable Release Notes:
 	  x509_vfy_check_chain_extension() for all untrusted certs in the
 	  chain. Take into account that the root is not necessarily trusted.
 
-	* Avoid passing last and depth to x509_verify_cert_error() on ENOMEM
+	* Avoid passing last and depth to x509_verify_cert_error() on ENOMEM.
 
 	* Rename depth to num_untrusted.
 
 	* Only use TLS versions internally rather than both TLS and DTLS
 	  versions since the latter are the one's complement of the human
 	  readable version numbers, which means that newer versions decrease
-	  in values.
+	  in value.
 
-	* Fix two bugs in the legacy verifier due to incorrect refactoring of
-	  X509_verify_cert() for the new verifier: a return value was treated
-	  as Boolean when it wasn't and thus it was not enough to decide
+	* Fix two bugs in the legacy verifier that resulted from refactoring
+	  of X509_verify_cert() for the new verifier: a return value was
+	  incorrectly treated as boolean, making it insufficient to decide
 	  whether validation should carry on or not.
 
 	* Identify DTLS based on the version major value.
@@ -220,13 +221,13 @@ LibreSSL Portable Release Notes:
 	* Guard against future internal use of TLS1_get_{client,}_version()
 	  macros.
 
-	* Remove the internal ssl_downgrade_max_version() which is no longer
-	  needed.
+	* Remove the internal ssl_downgrade_max_version() function which is no
+	  longer needed.
 
 	* Fix checks for memory caps of constraints names. There are internal
-	  caps on the number of name constraints and other names that the new
+	  caps on the number of name constraints and other names, that the new
 	  name constraints code allocates per cert chain. These checks were
-	  checked too late, making these caps only partially effective.
+	  checked too late, making these limits only partially effective.
 
 	* Use EXFLAG_INVALID to handle out of memory and parse errors in
 	  x509v3_cache_extensions().
@@ -240,15 +241,14 @@ LibreSSL Portable Release Notes:
 	* Remove no longer needed read ahead workarounds in the s_client and
 	  s_server.
 
-	* Fix a copy-paste error a skid was confused with an akid when
+	* Fix a copy-paste error - skid was confused with an akid when
 	  checking for EXFLAG_INVALID. This broke OCSP validation with
 	  certain mirrors.
 
-	* Made supported protocols and list of DHE more prominent in
-	  tls_config_set_protocols.3. Various mdoc improvements for that
-	  manual.
+	* Made supported protocols and options for DHE params more prominent
+	  in tls_config_set_protocols.3.
 
-	* Avoid a use-after-scope in tls13_cert_add()
+	* Avoid a use-after-scope in tls13_cert_add().
 
 	* Split TLSv1.3 record protection from record layer.
 
@@ -256,7 +256,7 @@ LibreSSL Portable Release Notes:
 	  struct.
 
 	* Fully initialize rrec in tls12_record_layer_open_record_protected()
-	  to avoid confusing certain static analyzers.
+	  to avoid confusing some static analyzers.
 
 	* Use tls_set_errorx() on OCSP_basic_verify() failure since the latter
 	  does not set errno.
@@ -271,18 +271,15 @@ LibreSSL Portable Release Notes:
 
 	* Avoid mangled output in BIO_debug_callback().
 
-	* Fix client side renegotiation by replacing use of s->internal-type
+	* Fix client initiated renegotiation by replacing use of s->internal-type
 	  with s->server.
-
-	* Avoid a symbol collision with SSL_is_dtls() between libssl and
-	  openssl(1) in static builds.
 
 	* Move the TLSv1.2 record number increment into the new record layer.
 
 	* Move finished and peer finished into the handshake struct.
 
-	* Avoid transcript initialization when sending a TLS HelloRequest
-	  to fix server side renegotiation.
+	* Avoid transcript initialization when sending a TLS HelloRequest,
+	  fixing server initiated renegotiation.
 
 	* Remove pointless assignment in SSL_get0_alpn_selected().
 
@@ -290,26 +287,25 @@ LibreSSL Portable Release Notes:
 
 	* Add missing prototype for d2i_DSAPrivateKey_fp(3) to x509.h.
 
-	* Show DTLSv1.2 message with openssl(1) s_server and s_client.
+	* Add DTLSv1.2 to openssl(1) s_server and s_client protocol message
+	  logging.
 
 	* Avoid leaking param->name in x509_verify_param_zero().
 
-	* Avoid a leak in an error path in openssl x509.
+	* Avoid a leak in an error path in openssl(1) x509.
 
-	* Add some error checking to openssl x509.
+	* Add some error checking to openssl(1) x509.
 
 	* When sending an alert in TLSv1.3, only set its error code when no
 	  other error was set previously. Certain clients rely on specific
-	  SSL_R_ error codes to determine that they deal with a self signed
-	  cert.
+	  SSL_R_ error codes to identify that they are dealing with a self
+	  signed cert.
 
 	* Provide SSL_use_certificate_chain_file(3).
 
 	* Provide SSL_set_hostflags(3) and SSL_get0_peername(3).
 
 	* Provide various DTLSv1.2 specific functions and defines.
-
-	* Remove workarounds for SSL_is_dtls() in openssl(1).
 
 	* Document meaning of '*' in the genrsa output.
 

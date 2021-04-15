@@ -32,8 +32,9 @@ LibreSSL Portable Release Notes:
 
 	* This release adds support for DTLSv1.2 and continues the rewrite
 	  of the record layer for the legacy stack. Numerous bugs and
-	  interoperability issues were fixed in the new verifier. The
-	  OpenSSL 1.1 TLSv1.3 API is not yet available.
+	  interoperability issues were fixed in the new verifier. A few bugs
+	  and incompatibilities remain, so this release uses the old verifier
+	  by default. The OpenSSL 1.1 TLSv1.3 API is not yet available.
 
 	* Switch finish{,_peer}_md_len from an int to a size_t.
 
@@ -300,6 +301,8 @@ LibreSSL Portable Release Notes:
 	  other error was set previously. Certain clients rely on specific
 	  SSL_R_ error codes to identify that they are dealing with a self
 	  signed cert.
+
+	* Switch to the legacy verifier for the stable release.
 
 	* Provide SSL_use_certificate_chain_file(3).
 

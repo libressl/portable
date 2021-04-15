@@ -321,6 +321,10 @@ LibreSSL Portable Release Notes:
 
 	* Update SSL_get_version.3 manual for DTLSv.1.2 support.
 
+	* Added '--enable-libtls-only' build option, which builds and installs a
+	  statically-linked libtls, skipping libcrypto and libssl. This is useful
+	  for systems that ship with OpenSSL but wish to also package libtls.
+
 3.3.1 - Security fix
 
 	* Malformed ASN.1 in a certificate revocation list or a timestamp

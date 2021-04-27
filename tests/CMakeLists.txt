@@ -174,10 +174,10 @@ add_executable(dsatest dsatest.c)
 target_link_libraries(dsatest ${OPENSSL_LIBS})
 add_test(dsatest dsatest)
 
-# ec_point_test
-add_executable(ec_point_test ec_point_test.c)
-target_link_libraries(ec_point_test ${OPENSSL_LIBS})
-add_test(ec_point_test ec_point_test)
+# ec_point_conversion
+add_executable(ec_point_conversion ec_point_conversion.c)
+target_link_libraries(ec_point_conversion ${OPENSSL_LIBS})
+add_test(ec_point_conversion ec_point_conversion)
 
 # ecdhtest
 add_executable(ecdhtest ecdhtest.c)

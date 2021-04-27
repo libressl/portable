@@ -172,6 +172,11 @@ TESTS += dsatest
 check_PROGRAMS += dsatest
 dsatest_SOURCES = dsatest.c
 
+# ec_point_conversion
+TESTS += ec_point_conversion
+check_PROGRAMS += ec_point_conversion
+ec_point_conversion_SOURCES = ec_point_conversion.c
+
 # ecdhtest
 TESTS += ecdhtest
 check_PROGRAMS += ecdhtest

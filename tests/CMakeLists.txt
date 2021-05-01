@@ -174,6 +174,7 @@ add_executable(dsatest dsatest.c)
 target_link_libraries(dsatest ${OPENSSL_LIBS})
 add_test(dsatest dsatest)
 
+if(NOT BUILD_SHARED_LIBS)
 # ec_point_conversion
 add_executable(ec_point_conversion ec_point_conversion.c)
 target_link_libraries(ec_point_conversion ${OPENSSL_LIBS})
@@ -193,6 +194,7 @@ add_test(ecdsatest ecdsatest)
 add_executable(ectest ectest.c)
 target_link_libraries(ectest ${OPENSSL_LIBS})
 add_test(ectest ectest)
+endif()
 
 # enginetest
 add_executable(enginetest enginetest.c)

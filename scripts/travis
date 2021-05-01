@@ -82,13 +82,13 @@ elif [ "x$ARCH" = "xarm32" -o "x$ARCH" = "xarm64" ]; then
 	if [ "x$ARCH" = "xarm32" ]; then
 		sudo apt-get install -y g++-arm-linux-gnueabihf
 		sudo ln -s /usr/arm-linux-gnueabihf/lib /lib/arm-linux-gnueabihf
-		sudo ln -s /lib/arm-linux-gnueabihf/ld-2.19.so /lib/ld-linux-armhf.so.3
+		sudo ln -s /lib/arm-linux-gnueabihf/ld-2.27.so /lib/ld-linux-armhf.so.3
 		export CC=arm-linux-gnueabihf-gcc
 		./configure --host=arm-linux
 	else
 		sudo apt-get install -y g++-aarch64-linux-gnu
 		sudo ln -s /usr/aarch64-linux-gnu/lib/ /lib/aarch64-linux-gnu
-		sudo ln -s /lib/aarch64-linux-gnu/ld-2.19.so /lib/ld-linux-aarch64.so.1
+		sudo ln -s /lib/aarch64-linux-gnu/ld-2.27.so /lib/ld-linux-aarch64.so.1
 		export CC=aarch64-linux-gnu-gcc
 		./configure --host=aarch64-linux
 	fi

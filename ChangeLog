@@ -28,6 +28,11 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.3.3 - Stable release
+
+	* This is the first stable release from the 3.3.x series.
+	  There are no changes from 3.3.2.
+
 3.3.2 - Development release
 
 	* This release adds support for DTLSv1.2 and continues the rewrite

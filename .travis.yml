@@ -10,32 +10,32 @@ matrix:
     - compiler: clang
       os: linux
       env: ARCH=native
-      dist: trusty
+      dist: bionic
       sudo: required
     - compiler: gcc
       os: linux
       env: ARCH=native
-      dist: trusty
+      dist: bionic
       sudo: required
     - compiler: gcc
       os: linux
       env: ARCH=mingw32
-      dist: trusty
+      dist: bionic
       sudo: required
     - compiler: gcc
       os: linux
       env: ARCH=mingw64
-      dist: trusty
+      dist: bionic
       sudo: required
     - compiler: gcc
       os: linux
       env: ARCH=arm32
-      dist: trusty
+      dist: bionic
       sudo: required
     - compiler: gcc
       os: linux
       env: ARCH=arm64
-      dist: trusty
+      dist: bionic
       sudo: required
     - language: android
       name: "Android 4.x"

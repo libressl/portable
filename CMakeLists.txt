@@ -331,7 +331,8 @@ if(SIZEOF_TIME_T STREQUAL "4")
 endif()
 add_definitions(-DSIZEOF_TIME_T=${SIZEOF_TIME_T})
 
-set(OPENSSL_LIBS tls ssl crypto ${PLATFORM_LIBS})
+set(OPENSSL_LIBS ssl crypto ${PLATFORM_LIBS})
+set(LIBTLS_LIBS tls ${PLATFORM_LIBS})
 
 add_subdirectory(crypto)
 add_subdirectory(ssl)

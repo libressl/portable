@@ -968,6 +968,8 @@ if(EXTRA_EXPORT)
 	endforeach()
 endif()
 
+set(LIBTLS_EXTRA_EXPORT ${EXTRA_EXPORT} PARENT_SCOPE)
+
 add_library(crypto_obj OBJECT ${CRYPTO_SRC})
 target_include_directories(crypto_obj
 	PRIVATE

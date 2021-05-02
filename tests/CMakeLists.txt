@@ -144,7 +144,7 @@ add_test(cmstest cmstest)
 
 # configtest
 add_executable(configtest configtest.c)
-target_link_libraries(configtest ${OPENSSL_LIBS})
+target_link_libraries(configtest ${LIBTLS_LIBS})
 add_test(configtest configtest)
 
 # constraints
@@ -276,7 +276,7 @@ if(NOT BUILD_SHARED_LIBS)
 	add_test(key_schedule key_schedule)
 
 	add_executable(keypairtest keypairtest.c)
-	target_link_libraries(keypairtest ${OPENSSL_LIBS})
+	target_link_libraries(keypairtest ${LIBTLS_LIBS})
 	add_test(keypairtest keypairtest
 		${CMAKE_CURRENT_SOURCE_DIR}/ca.pem
 		${CMAKE_CURRENT_SOURCE_DIR}/server.pem
@@ -502,7 +502,7 @@ else()
 endif()
 
 add_executable(tlstest ${TLSTEST_SRC})
-target_link_libraries(tlstest ${OPENSSL_LIBS})
+target_link_libraries(tlstest ${LIBTLS_LIBS})
 if(NOT MSVC)
 	add_test(NAME tlstest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/tlstest.sh)
 else()
@@ -541,7 +541,7 @@ endif()
 # verifytest
 if(NOT BUILD_SHARED_LIBS)
 	add_executable(verifytest verifytest.c)
-	target_link_libraries(verifytest ${OPENSSL_LIBS})
+	target_link_libraries(verifytest ${LIBTLS_LIBS})
 	add_test(verifytest verifytest)
 endif()
 

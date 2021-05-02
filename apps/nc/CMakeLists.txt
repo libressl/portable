@@ -44,7 +44,7 @@ endif()
 
 add_executable(nc ${NC_SRC})
 target_include_directories(nc PRIVATE . ./compat ../../include/compat)
-target_link_libraries(nc tls ${OPENSSL_LIBS})
+target_link_libraries(nc ${LIBTLS_LIBS})
 
 if(ENABLE_NC)
 	if(ENABLE_LIBRESSL_INSTALL)

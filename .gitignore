@@ -47,6 +47,10 @@ Makefile.in
 *.3
 *.5
 
+cert.pem
+openssl.cnf
+x509v3.cnf
+
 # tests
 test-driver
 *.log
@@ -60,6 +64,7 @@ tests/bn_rand_interval*
 tests/bn_to_string*
 tests/cipher*
 tests/constraints*
+tests/ec_point_conversion*
 tests/explicit_bzero*
 tests/freenull*
 tests/gost2814789t*

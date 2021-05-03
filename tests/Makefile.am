@@ -409,6 +409,12 @@ TESTS += sm4test
 check_PROGRAMS += sm4test
 sm4test_SOURCES = sm4test.c
 
+# ssl_get_shared_ciphers
+TESTS += ssl_get_shared_ciphers
+ssl_get_shared_ciphers_CPPFLAGS = $(AM_CPPFLAGS) -DCERTSDIR=\"$(srcdir)\"
+check_PROGRAMS += ssl_get_shared_ciphers
+ssl_get_shared_ciphers_SOURCES = ssl_get_shared_ciphers.c
+
 # ssl_methods
 TESTS += ssl_methods
 check_PROGRAMS += ssl_methods

@@ -71,6 +71,7 @@ tests/gost2814789t*
 tests/key_schedule*
 tests/mont*
 tests/rfc5280time*
+tests/ssl_get_shared_ciphers*
 tests/ssl_methods*
 tests/ssl_versions*
 tests/timingsafe*

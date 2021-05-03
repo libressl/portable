@@ -438,6 +438,13 @@ add_executable(sm4test sm4test.c)
 target_link_libraries(sm4test ${OPENSSL_LIBS})
 add_test(sm4test sm4test)
 
+# ssl_get_shared_ciphers
+add_executable(ssl_get_shared_ciphers ssl_get_shared_ciphers.c)
+set_source_files_properties(ssl_get_shared_ciphers.c PROPERTIES COMPILE_FLAGS
+	-DCERTSDIR=\\"${CMAKE_CURRENT_SOURCE_DIR}\\")
+target_link_libraries(ssl_get_shared_ciphers ${OPENSSL_LIBS})
+add_test(ssl_get_shared_ciphers ssl_get_shared_ciphers)
+
 # ssl_versions
 if(NOT BUILD_SHARED_LIBS)
 	add_executable(ssl_versions ssl_versions.c)

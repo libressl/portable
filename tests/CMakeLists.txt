@@ -491,6 +491,11 @@ if(NOT BUILD_SHARED_LIBS)
 	add_test(tlsexttest tlsexttest)
 endif()
 
+# tlslegacytest
+add_executable(tlslegacytest tlslegacytest.c)
+target_link_libraries(tlslegacytest ${OPENSSL_LIBS})
+add_test(tlslegacytest tlslegacytest)
+
 # tlstest
 set(TLSTEST_SRC tlstest.c)
 check_function_exists(pipe2 HAVE_PIPE2)

@@ -449,6 +449,11 @@ TESTS += tlsexttest
 check_PROGRAMS += tlsexttest
 tlsexttest_SOURCES = tlsexttest.c
 
+# tlslegacytest
+TESTS += tlslegacytest
+check_PROGRAMS += tlslegacytest
+tlslegacytest_SOURCES = tlslegacytest.c
+
 # tlstest
 TESTS += tlstest.sh
 check_PROGRAMS += tlstest

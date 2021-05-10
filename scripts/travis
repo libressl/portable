@@ -98,38 +98,37 @@ elif [ "x$ARCH" = "xarm32" -o "x$ARCH" = "xarm64" ]; then
 
 elif [ "x$ARCH" = "xandroid" ]; then
 	touch $HOME/.android/repositories.cfg
-	echo y | sdkmanager 'ndk-bundle'
-	echo y | sdkmanager 'ndk;20.1.5948944'
-	echo y | sdkmanager 'cmake;3.6.4111459'
+	echo "##### Date: `date` install NDK and build tools"
+	echo y | sdkmanager 'platforms;android-30' > /dev/null 2>&1
+	echo "##### Date: `date` platforms;android installed"
+	echo y | sdkmanager 'ndk-bundle' > /dev/null 2>&1
+	echo "##### Date: `date` ndk-bundle installed"
+	echo y | sdkmanager 'ndk;22.1.7171670'
+	echo "##### Date: `date` ndk installed"
+	echo y | sdkmanager 'cmake;3.18.1'
+	echo "##### Date: `date` cmake installed"
 
-	export CMAKE=$ANDROID_HOME/cmake/3.6.4111459/bin/cmake
-	export NINJA=$ANDROID_HOME/cmake/3.6.4111459/bin/ninja
+	echo "##### Date: `date` sdkmanager --list"
+	sdkmanager --list
+
+	export CMAKE=$ANDROID_HOME/cmake/3.18.1/bin/cmake
+	export NINJA=$ANDROID_HOME/cmake/3.18.1/bin/ninja
 	export ANDROID_NDK_HOME=$ANDROID_HOME/ndk-bundle
 	export TC_FILE=$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake
 
-	# get available API level and architecture
-	pdir=$ANDROID_NDK_HOME/platforms
+	# set target API level and architecture
 	level_arch=""
 	level=$MIN_NAL
 	while [ $level -le $MAX_NAL ]
 	do
-		if [ -d $pdir/android-$level ] ; then
-			adir=$pdir/android-$level
-			if [ -d $adir/arch-arm ] ; then
-				level_arch="$level_arch $level;armeabi-v7a"
-			fi
-			if [ -d $adir/arch-arm64 ] ; then
-				level_arch="$level_arch $level;arm64-v8a"
-			fi
-			if [ -d $adir/arch-x86 ] ; then
-				level_arch="$level_arch $level;x86"
-			fi
-			if [ -d $adir/arch-x86_64 ] ; then
-				level_arch="$level_arch $level;x86_64"
-			fi
-		fi
+		level_arch="$level_arch $level;x86_64"
+		level_arch="$level_arch $level;x86"
+		level_arch="$level_arch $level;arm64-v8a"
+
 		level=`expr $level + 1`
 	done
+
+	echo "##### level_arch = $level_arch"
 
 	# build each API level and architecture
 	for la in $level_arch

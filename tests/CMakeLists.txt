@@ -132,10 +132,9 @@ if(NOT BUILD_SHARED_LIBS)
 endif()
 
 # clienttest
-# disabled
-#add_executable(clienttest clienttest.c)
-#target_link_libraries(clienttest ${OPENSSL_LIBS})
-#add_test(clienttest clienttest)
+add_executable(clienttest clienttest.c)
+target_link_libraries(clienttest ${OPENSSL_LIBS})
+add_test(clienttest clienttest)
 
 # cmstest
 add_executable(cmstest cmstest.c)

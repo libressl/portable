@@ -8,8 +8,6 @@ includedir=@includedir@
 Name: LibreSSL-libcrypto
 Description: LibreSSL cryptography library
 Version: @VERSION@
-Requires:
-Conflicts:
 Libs: -L${libdir} -lcrypto
 Libs.private: @LIBS@ @PLATFORM_LDADD@
 Cflags: -I${includedir}

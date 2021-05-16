@@ -8,8 +8,6 @@ includedir=@includedir@
 Name: LibreSSL-libtls
 Description: Secure communications using the TLS socket protocol.
 Version: @VERSION@
-Requires:
-Conflicts:
 Libs: -L${libdir} -ltls
 Libs.private: @LIBS@ @PLATFORM_LDADD@
 Cflags: -I${includedir}

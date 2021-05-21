@@ -173,6 +173,14 @@ add_executable(dsatest dsatest.c)
 target_link_libraries(dsatest ${OPENSSL_LIBS})
 add_test(dsatest dsatest)
 
+# dtlstest
+if(NOT WIN32)
+	add_executable(dtlstest dtlstest.c)
+	target_link_libraries(dtlstest ${OPENSSL_LIBS})
+	add_test(NAME dtlstest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/dtlstest.sh)
+	set_tests_properties(dtlstest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
+endif()
+
 if(NOT BUILD_SHARED_LIBS)
 # ec_point_conversion
 add_executable(ec_point_conversion ec_point_conversion.c)

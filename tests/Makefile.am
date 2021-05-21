@@ -171,6 +171,12 @@ TESTS += dsatest
 check_PROGRAMS += dsatest
 dsatest_SOURCES = dsatest.c
 
+# dtlstest
+TESTS += dtlstest.sh
+check_PROGRAMS += dtlstest
+dtlstest_SOURCES = dtlstest.c
+EXTRA_DIST += dtlstest.sh
+
 # ec_point_conversion
 TESTS += ec_point_conversion
 check_PROGRAMS += ec_point_conversion

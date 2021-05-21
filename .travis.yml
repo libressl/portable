@@ -62,3 +62,6 @@ matrix:
 
 script:
   "./scripts/travis"
+
+after_failure:
+  "./scripts/travis_failure"

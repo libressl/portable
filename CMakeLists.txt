@@ -113,7 +113,6 @@ if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID MATCHES "Clang")
 endif()
 
 if(WIN32)
-	add_definitions(-Drestrict)
 	add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 	add_definitions(-D_CRT_DEPRECATED_NO_WARNINGS)
 	add_definitions(-D_REENTRANT -D_POSIX_THREAD_SAFE_FUNCTIONS)
@@ -125,7 +124,7 @@ endif()
 if(MSVC)
 	add_definitions(-Dinline=__inline)
 	message(STATUS "Using [${CMAKE_C_COMPILER_ID}] compiler")
-	if(CMAKE_C_COMPILER_ID MATCHES "MSVC")
+	if(CMAKE_C_COMPILER_ID MATCHES "MSVC" OR CMAKE_C_COMPILER_ID MATCHES "Clang")
 		set(MSVC_DISABLED_WARNINGS_LIST
 			"C4018" # 'expression' : signed/unsigned mismatch
 			"C4057" # 'operator' : 'identifier1' indirection to

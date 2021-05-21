@@ -1,0 +1,64 @@
+name: linux_ci
+
+on: [push]
+
+jobs:
+  build-native:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-18.04]
+        compiler: [clang, gcc]
+    runs-on: ${{ matrix.os }}
+    continue-on-error: true
+    env:
+      CC: ${{ matrix.compiler }}
+      ARCH: native
+    name: ${{ matrix.compiler }} - ${{ matrix.os }}
+    steps:
+    - name: Install packages for macos
+      if: matrix.os == 'macos-latest'
+      run: brew install automake
+    - uses: actions/checkout@v2
+    - name: Run CI script
+      run: ./scripts/travis
+
+  build-other:
+    strategy:
+      matrix:
+        arch: [mingw32, mingw64, arm32, arm64]
+    runs-on: ubuntu-18.04
+    continue-on-error: true
+    env:
+      CC: gcc
+      ARCH: ${{ matrix.arch }}
+    name: ${{ matrix.arch }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run CI script
+      run: ./scripts/travis
+
+  build-android-8-9:
+    runs-on: ubuntu-18.04
+    continue-on-error: true
+    env:
+      ARCH: android
+      MIN_NAL: 26
+      MAX_NAL: 28
+    name: Android 8.x 9
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run CI script
+      run: ./scripts/travis
+
+  build-android-10-11:
+    runs-on: ubuntu-18.04
+    continue-on-error: true
+    env:
+      ARCH: android
+      MIN_NAL: 29
+      MAX_NAL: 30
+    name: Android 10 11
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run CI script
+      run: ./scripts/travis

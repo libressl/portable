@@ -97,23 +97,9 @@ elif [ "x$ARCH" = "xarm32" -o "x$ARCH" = "xarm64" ]; then
 	file apps/openssl/.libs/openssl
 
 elif [ "x$ARCH" = "xandroid" ]; then
-	touch $HOME/.android/repositories.cfg
-	echo "##### Date: `date` install NDK and build tools"
-	echo y | sdkmanager 'platforms;android-30' > /dev/null 2>&1
-	echo "##### Date: `date` platforms;android installed"
-	echo y | sdkmanager 'ndk-bundle' > /dev/null 2>&1
-	echo "##### Date: `date` ndk-bundle installed"
-	echo y | sdkmanager 'ndk;22.1.7171670'
-	echo "##### Date: `date` ndk installed"
-	echo y | sdkmanager 'cmake;3.18.1'
-	echo "##### Date: `date` cmake installed"
+	sudo apt-get update
+	sudo apt-get install -y cmake ninja-build
 
-	echo "##### Date: `date` sdkmanager --list"
-	sdkmanager --list
-
-	export CMAKE=$ANDROID_HOME/cmake/3.18.1/bin/cmake
-	export NINJA=$ANDROID_HOME/cmake/3.18.1/bin/ninja
-	export ANDROID_NDK_HOME=$ANDROID_HOME/ndk-bundle
 	export TC_FILE=$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake
 
 	# set target API level and architecture
@@ -143,12 +129,12 @@ elif [ "x$ARCH" = "xandroid" ]; then
 		 rm -fr $build_dir
 		 mkdir $build_dir
 		 cd $build_dir
-		 $CMAKE -GNinja -DCMAKE_MAKE_PROGRAM=$NINJA \
+		 cmake -GNinja -DCMAKE_MAKE_PROGRAM=ninja \
 		 -DANDROID_NDK=$ANDROID_NDK_HOME \
 		 -DCMAKE_TOOLCHAIN_FILE=$TC_FILE \
 		 -DANDROID_ABI=$ABI -DANDROID_NATIVE_API_LEVEL=$NAL ..
 
-		 $NINJA -j 4
+		 ninja -j 4
 
 		 echo ""
 		 file apps/openssl/openssl

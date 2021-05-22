@@ -1,6 +1,6 @@
 name: linux_ci
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build-native:

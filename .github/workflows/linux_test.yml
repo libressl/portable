@@ -9,7 +9,7 @@ jobs:
         os: [macos-latest, ubuntu-18.04]
         compiler: [clang, gcc]
     runs-on: ${{ matrix.os }}
-    continue-on-error: true
+    continue-on-error: false
     env:
       CC: ${{ matrix.compiler }}
       ARCH: native

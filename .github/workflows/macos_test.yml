@@ -1,4 +1,4 @@
-name: linux_ci
+name: macos_ci
 
 on: [push, pull_request]
 
@@ -6,7 +6,7 @@ jobs:
   build-native:
     strategy:
       matrix:
-        os: [ubuntu-18.04, ubuntu-20.04]
+        os: [macos-latest]
         compiler: [clang, gcc]
     runs-on: ${{ matrix.os }}
     continue-on-error: false
@@ -15,6 +15,8 @@ jobs:
       ARCH: native
     name: ${{ matrix.compiler }} - ${{ matrix.os }}
     steps:
+    - name: Install packages for macos
+      run: brew install automake
     - uses: actions/checkout@v2
     - name: Run CI script
       run: ./scripts/test

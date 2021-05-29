@@ -3,6 +3,9 @@
 flag e +
 rfork ne
 
-if(! test -f /bin/sh)
-	bind -b /$cputype/bin/ape /bin
-./update.sh
+ape/psh ./update.sh
+
+for(f in `{ls apps/*/*.c}){
+	sed 's/	\.opt\.value = (.*),$/	.opt = { .value = \1 },/' $f >/tmp/autogen.$pid
+	cp /tmp/autogen.$pid $f
+}

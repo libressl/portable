@@ -1,78 +1,3 @@
-diff -uprN -X mkfile crypto.orig/asn1/a_time_tm.c crypto/asn1/a_time_tm.c
---- crypto.orig/asn1/a_time_tm.c	Sun May 31 21:08:00 2020
-+++ crypto/asn1/a_time_tm.c	Sun May 31 19:27:31 2020
-@@ -246,7 +246,7 @@ ASN1_TIME_set_string_internal(ASN1_TIME 
- 	if ((tmp = strdup(str)) == NULL)
- 		return (0);
- 	free(s->data);
--	s->data = tmp;
-+	s->data = (unsigned char*)tmp;
- 	s->length = strlen(tmp);
- 	s->type = type;
- 
-@@ -309,7 +309,7 @@ ASN1_TIME_adj_internal(ASN1_TIME *s, tim
- 		return (NULL);
- 	}
- 	free(s->data);
--	s->data = p;
-+	s->data = (unsigned char*)p;
- 	s->length = len;
- 	return (s);
- }
-@@ -341,7 +341,7 @@ ASN1_TIME_check(const ASN1_TIME *t)
- {
- 	if (t->type != V_ASN1_GENERALIZEDTIME && t->type != V_ASN1_UTCTIME)
- 		return (0);
--	return (t->type == ASN1_time_parse(t->data, t->length, NULL, t->type));
-+	return (t->type == ASN1_time_parse((const char*)t->data, t->length, NULL, t->type));
- }
- 
- ASN1_GENERALIZEDTIME *
-@@ -355,7 +355,7 @@ ASN1_TIME_to_generalizedtime(const ASN1_
- 		return (NULL);
- 
- 	memset(&tm, 0, sizeof(tm));
--	if (t->type != ASN1_time_parse(t->data, t->length, &tm, t->type))
-+	if (t->type != ASN1_time_parse((const char*)t->data, t->length, &tm, t->type))
- 		return (NULL);
- 	if ((str = gentime_string_from_tm(&tm)) == NULL)
- 		return (NULL);
-@@ -370,7 +370,7 @@ ASN1_TIME_to_generalizedtime(const ASN1_
- 		*out = tmp;
- 
- 	free(tmp->data);
--	tmp->data = str;
-+	tmp->data = (unsigned char*)str;
- 	tmp->length = strlen(str);
- 	return (tmp);
- }
-@@ -390,7 +390,7 @@ ASN1_UTCTIME_check(const ASN1_UTCTIME *d
- {
- 	if (d->type != V_ASN1_UTCTIME)
- 		return (0);
--	return (d->type == ASN1_time_parse(d->data, d->length, NULL, d->type));
-+	return (d->type == ASN1_time_parse((const char*)d->data, d->length, NULL, d->type));
- }
- 
- int
-@@ -428,7 +428,7 @@ ASN1_UTCTIME_cmp_time_t(const ASN1_UTCTI
- 	 * The danger is that users of this function will not
- 	 * differentiate the -2 failure case from t1 < t2.
- 	 */
--	if (ASN1_time_parse(s->data, s->length, &tm1, V_ASN1_UTCTIME) == -1)
-+	if (ASN1_time_parse((const char*)s->data, s->length, &tm1, V_ASN1_UTCTIME) == -1)
- 		return (-2); /* XXX */
- 
- 	if (gmtime_r(&t2, &tm2) == NULL)
-@@ -446,7 +446,7 @@ ASN1_GENERALIZEDTIME_check(const ASN1_GE
- {
- 	if (d->type != V_ASN1_GENERALIZEDTIME)
- 		return (0);
--	return (d->type == ASN1_time_parse(d->data, d->length, NULL, d->type));
-+	return (d->type == ASN1_time_parse((const char*)d->data, d->length, NULL, d->type));
- }
- 
- int
 diff -uprN -X mkfile crypto.orig/chacha/chacha-merged.c crypto/chacha/chacha-merged.c
 --- crypto.orig/chacha/chacha-merged.c	Sun May 31 21:08:04 2020
 +++ crypto/chacha/chacha-merged.c	Sun May 31 19:27:31 2020
@@ -95,30 +20,6 @@ diff -uprN -X mkfile crypto.orig/cryptlib.c crypto/cryptlib.c
  #include <unistd.h>
  
  #include <openssl/opensslconf.h>
-diff -uprN -X mkfile crypto.orig/evp/e_sm4.c crypto/evp/e_sm4.c
---- crypto.orig/evp/e_sm4.c	Sun May 31 21:08:09 2020
-+++ crypto/evp/e_sm4.c	Sun May 31 19:27:31 2020
-@@ -84,7 +84,7 @@ sm4_ctr_cipher(EVP_CIPHER_CTX *ctx, unsi
- 	EVP_SM4_KEY *key = EVP_C_DATA(EVP_SM4_KEY, ctx);
- 
- 	CRYPTO_ctr128_encrypt(in, out, len, &key->ks, ctx->iv, ctx->buf,
--	    &ctx->num, (block128_f)SM4_encrypt);
-+	    (unsigned int *)&ctx->num, (block128_f)SM4_encrypt);
- 	return 1;
- }
- 
-diff -uprN -X mkfile crypto.orig/gost/gostr341001_pmeth.c crypto/gost/gostr341001_pmeth.c
---- crypto.orig/gost/gostr341001_pmeth.c	Sun May 31 21:08:11 2020
-+++ crypto/gost/gostr341001_pmeth.c	Sun May 31 19:27:31 2020
-@@ -603,7 +603,7 @@ pkey_gost01_ctrl(EVP_PKEY_CTX *ctx, int 
- 		}
- 		memcpy(ukm, p2, p1);
- 		free(pctx->shared_ukm);
--		pctx->shared_ukm = ukm;
-+		pctx->shared_ukm = (unsigned char*)ukm;
- 		return 1;
- 	    }
- 
 diff -uprN -X mkfile crypto.orig/ocsp/ocsp_cl.c crypto/ocsp/ocsp_cl.c
 --- crypto.orig/ocsp/ocsp_cl.c	Sun May 31 21:08:12 2020
 +++ crypto/ocsp/ocsp_cl.c	Sun May 31 19:27:31 2020
@@ -130,24 +31,6 @@ diff -uprN -X mkfile crypto.orig/ocsp/ocsp_cl.c crypto/ocsp/ocsp_cl.c
  
  /* Utility functions related to sending OCSP requests and extracting
   * relevant information from the response.
-@@ -336,7 +337,7 @@ OCSP_check_validity(ASN1_GENERALIZEDTIME
- 	 */
- 
- 	/* Check thisUpdate is valid and not more than nsec in the future */
--	if (ASN1_time_parse(thisupd->data, thisupd->length, &tm_this,
-+	if (ASN1_time_parse((const char *)thisupd->data, thisupd->length, &tm_this,
- 	    V_ASN1_GENERALIZEDTIME) != V_ASN1_GENERALIZEDTIME) {
- 		OCSPerror(OCSP_R_ERROR_IN_THISUPDATE_FIELD);
- 		return 0;
-@@ -368,7 +369,7 @@ OCSP_check_validity(ASN1_GENERALIZEDTIME
- 		return 1;
- 
- 	/* Check nextUpdate is valid and not more than nsec in the past */
--	if (ASN1_time_parse(nextupd->data, nextupd->length, &tm_next,
-+	if (ASN1_time_parse((const char *)nextupd->data, nextupd->length, &tm_next,
- 	    V_ASN1_GENERALIZEDTIME) != V_ASN1_GENERALIZEDTIME) {
- 		OCSPerror(OCSP_R_ERROR_IN_NEXTUPDATE_FIELD);
- 		return 0;
 diff -uprN -X mkfile crypto.orig/ocsp/ocsp_srv.c crypto/ocsp/ocsp_srv.c
 --- crypto.orig/ocsp/ocsp_srv.c	Sun May 31 21:08:12 2020
 +++ crypto/ocsp/ocsp_srv.c	Sun May 31 19:27:31 2020
@@ -258,18 +141,6 @@ diff -uprN -X mkfile crypto.orig/poly1305/poly1305-donna.c crypto/poly1305/poly1
  
  static inline void poly1305_init(poly1305_context *ctx,
      const unsigned char key[32]);
-diff -uprN -X mkfile crypto.orig/x509/x509_vfy.c crypto/x509/x509_vfy.c
---- crypto.orig/x509/x509_vfy.c	Sun May 31 21:08:16 2020
-+++ crypto/x509/x509_vfy.c	Sun May 31 19:27:32 2020
-@@ -1881,7 +1881,7 @@ X509_cmp_time_internal(const ASN1_TIME *
- 
- 	memset(&tm1, 0, sizeof(tm1));
- 
--	type = ASN1_time_parse(ctm->data, ctm->length, &tm1, ctm->type);
-+	type = ASN1_time_parse((const char*)ctm->data, ctm->length, &tm1, ctm->type);
- 	if (type == -1)
- 		goto out; /* invalid time */
- 
 diff -uprN -X mkfile crypto.orig/x509/x_all.c crypto/x509/x_all.c
 --- crypto.orig/x509/x_all.c	Sun May 31 21:08:16 2020
 +++ crypto/x509/x_all.c	Sun May 31 19:27:32 2020
@@ -380,21 +251,3 @@ diff -uprN -X mkfile crypto.orig/x509v3/v3_utl.c crypto/x509v3/v3_utl.c
  #include <openssl/bn.h>
  #include <openssl/conf.h>
  #include <openssl/err.h>
-@@ -720,7 +721,7 @@ equal_nocase(const unsigned char *patter
- 	skip_prefix(&pattern, &pattern_len, subject, subject_len, flags);
- 	if (pattern_len != subject_len)
- 		return 0;
--	return (strncasecmp(pattern, subject, pattern_len) == 0);
-+	return (strncasecmp((char *)pattern, (char *)subject, pattern_len) == 0);
- }
- 
- /* Compare using strncmp. */
-@@ -735,7 +736,7 @@ equal_case(const unsigned char *pattern,
- 	skip_prefix(&pattern, &pattern_len, subject, subject_len, flags);
- 	if (pattern_len != subject_len)
- 		return 0;
--	return (strncmp(pattern, subject, pattern_len) == 0);
-+	return (strncmp((char *)pattern, (char *)subject, pattern_len) == 0);
- }
- 
- /*

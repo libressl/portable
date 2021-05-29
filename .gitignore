@@ -47,6 +47,10 @@ Makefile.in
 *.3
 *.5
 
+cert.pem
+openssl.cnf
+x509v3.cnf
+
 # tests
 test-driver
 *.log
@@ -59,12 +63,16 @@ tests/bnaddsub*
 tests/bn_rand_interval*
 tests/bn_to_string*
 tests/cipher*
+tests/constraints*
+tests/ec_point_conversion*
 tests/explicit_bzero*
 tests/freenull*
 tests/gost2814789t*
 tests/key_schedule*
 tests/mont*
 tests/rfc5280time*
+tests/ssl_get_shared_ciphers*
+tests/ssl_methods*
 tests/ssl_versions*
 tests/timingsafe*
 tests/tls_ext_alpn*
@@ -77,6 +85,9 @@ tests/*.pem
 tests/testssl
 tests/*.txt
 tests/compat/*.c
+tests/verify*
+tests/x509_info*
+tests/x509attribute*
 tests/x509name*
 !tests/optionstest.c
 !tests/*.test
@@ -137,6 +148,7 @@ include/openssl/*.h
 /apps/ocspcheck/ocspcheck*
 /apps/ocspcheck/compat/memmem.c
 /apps/ocspcheck/compat/inet_ntop.c
+/apps/ocspcheck/compat/strtonum.c
 
 /apps/nc/*.h
 /apps/nc/*.c

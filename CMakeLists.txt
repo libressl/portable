@@ -113,19 +113,18 @@ if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID MATCHES "Clang")
 endif()
 
 if(WIN32)
-	add_definitions(-Drestrict)
 	add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 	add_definitions(-D_CRT_DEPRECATED_NO_WARNINGS)
 	add_definitions(-D_REENTRANT -D_POSIX_THREAD_SAFE_FUNCTIONS)
 	add_definitions(-DWIN32_LEAN_AND_MEAN -D_WIN32_WINNT=0x0600)
 	add_definitions(-DCPPFLAGS -DNO_SYSLOG -DNO_CRYPT)
-	set(PLATFORM_LIBS ${PLATFORM_LIBS} ws2_32)
+	set(PLATFORM_LIBS ${PLATFORM_LIBS} ws2_32 bcrypt)
 endif()
 
 if(MSVC)
 	add_definitions(-Dinline=__inline)
 	message(STATUS "Using [${CMAKE_C_COMPILER_ID}] compiler")
-	if(CMAKE_C_COMPILER_ID MATCHES "MSVC")
+	if(CMAKE_C_COMPILER_ID MATCHES "MSVC" OR CMAKE_C_COMPILER_ID MATCHES "Clang")
 		set(MSVC_DISABLED_WARNINGS_LIST
 			"C4018" # 'expression' : signed/unsigned mismatch
 			"C4057" # 'operator' : 'identifier1' indirection to
@@ -331,7 +330,8 @@ if(SIZEOF_TIME_T STREQUAL "4")
 endif()
 add_definitions(-DSIZEOF_TIME_T=${SIZEOF_TIME_T})
 
-set(OPENSSL_LIBS tls ssl crypto ${PLATFORM_LIBS})
+set(OPENSSL_LIBS ssl crypto ${PLATFORM_LIBS})
+set(LIBTLS_LIBS tls ${PLATFORM_LIBS})
 
 add_subdirectory(crypto)
 add_subdirectory(ssl)
@@ -367,6 +367,17 @@ if(NOT MSVC)
 	install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/pkgconfig
 		DESTINATION ${CMAKE_INSTALL_LIBDIR})
 endif()
+
+if(NOT "${OPENSSLDIR}" STREQUAL "")
+	set(CONF_DIR "${OPENSSLDIR}")
+else()
+	set(CONF_DIR "${CMAKE_INSTALL_PREFIX}/etc/ssl")
+endif()
+
+if(ENABLE_LIBRESSL_INSTALL)
+	install(FILES cert.pem openssl.cnf x509v3.cnf DESTINATION ${CONF_DIR})
+	install(DIRECTORY DESTINATION ${CONF_DIR}/certs)
+endif(ENABLE_LIBRESSL_INSTALL)
 
 if(NOT TARGET uninstall)
 	configure_file(

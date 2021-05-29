@@ -2,6 +2,7 @@ include $(top_srcdir)/Makefile.am.common
 
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/modes
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/asn1
+AM_CPPFLAGS += -I $(top_srcdir)/crypto/x509
 AM_CPPFLAGS += -I $(top_srcdir)/ssl
 AM_CPPFLAGS += -I $(top_srcdir)/tls
 AM_CPPFLAGS += -I $(top_srcdir)/apps/openssl
@@ -131,10 +132,9 @@ check_PROGRAMS += cipherstest
 cipherstest_SOURCES = cipherstest.c
 
 # clienttest
-# disabled
-#TESTS += clienttest
-#check_PROGRAMS += clienttest
-#clienttest_SOURCES = clienttest.c
+TESTS += clienttest
+check_PROGRAMS += clienttest
+clienttest_SOURCES = clienttest.c
 
 # cmstest
 TESTS += cmstest
@@ -145,6 +145,11 @@ cmstest_SOURCES = cmstest.c
 TESTS += configtest
 check_PROGRAMS += configtest
 configtest_SOURCES = configtest.c
+
+# constraints
+TESTS += constraints
+check_PROGRAMS += constraints
+constraints_SOURCES = constraints.c
 
 # cts128test
 TESTS += cts128test
@@ -165,6 +170,17 @@ dhtest_SOURCES = dhtest.c
 TESTS += dsatest
 check_PROGRAMS += dsatest
 dsatest_SOURCES = dsatest.c
+
+# dtlstest
+TESTS += dtlstest.sh
+check_PROGRAMS += dtlstest
+dtlstest_SOURCES = dtlstest.c
+EXTRA_DIST += dtlstest.sh
+
+# ec_point_conversion
+TESTS += ec_point_conversion
+check_PROGRAMS += ec_point_conversion
+ec_point_conversion_SOURCES = ec_point_conversion.c
 
 # ecdhtest
 TESTS += ecdhtest
@@ -399,6 +415,17 @@ TESTS += sm4test
 check_PROGRAMS += sm4test
 sm4test_SOURCES = sm4test.c
 
+# ssl_get_shared_ciphers
+TESTS += ssl_get_shared_ciphers
+ssl_get_shared_ciphers_CPPFLAGS = $(AM_CPPFLAGS) -DCERTSDIR=\"$(srcdir)\"
+check_PROGRAMS += ssl_get_shared_ciphers
+ssl_get_shared_ciphers_SOURCES = ssl_get_shared_ciphers.c
+
+# ssl_methods
+TESTS += ssl_methods
+check_PROGRAMS += ssl_methods
+ssl_methods_SOURCES = ssl_methods.c
+
 # ssl_versions
 TESTS += ssl_versions
 check_PROGRAMS += ssl_versions
@@ -433,6 +460,11 @@ timingsafe_SOURCES = timingsafe.c
 TESTS += tlsexttest
 check_PROGRAMS += tlsexttest
 tlsexttest_SOURCES = tlsexttest.c
+
+# tlslegacytest
+TESTS += tlslegacytest
+check_PROGRAMS += tlslegacytest
+tlslegacytest_SOURCES = tlslegacytest.c
 
 # tlstest
 TESTS += tlstest.sh
@@ -472,6 +504,16 @@ verifytest_SOURCES = verifytest.c
 TESTS += x25519test
 check_PROGRAMS += x25519test
 x25519test_SOURCES = x25519test.c
+
+# x509attribute
+TESTS += x509attribute
+check_PROGRAMS += x509attribute
+x509attribute_SOURCES = x509attribute.c
+
+# x509_info
+TESTS += x509_info
+check_PROGRAMS += x509_info
+x509_info_SOURCES = x509_info.c
 
 # x509name
 TESTS += x509name

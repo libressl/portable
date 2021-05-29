@@ -2,6 +2,7 @@ include_directories(
 	.
 	../crypto/modes
 	../crypto/asn1
+	../crypto/x509
 	../ssl
 	../tls
 	../apps/openssl
@@ -123,16 +124,17 @@ if(NOT BUILD_SHARED_LIBS)
 	add_test(cipher_list cipher_list)
 endif()
 
-# cipherstest
-add_executable(cipherstest cipherstest.c)
-target_link_libraries(cipherstest ${OPENSSL_LIBS})
-add_test(cipherstest cipherstest)
+if(NOT BUILD_SHARED_LIBS)
+	# cipherstest
+	add_executable(cipherstest cipherstest.c)
+	target_link_libraries(cipherstest ${OPENSSL_LIBS})
+	add_test(cipherstest cipherstest)
+endif()
 
 # clienttest
-# disabled
-#add_executable(clienttest clienttest.c)
-#target_link_libraries(clienttest ${OPENSSL_LIBS})
-#add_test(clienttest clienttest)
+add_executable(clienttest clienttest.c)
+target_link_libraries(clienttest ${OPENSSL_LIBS})
+add_test(clienttest clienttest)
 
 # cmstest
 add_executable(cmstest cmstest.c)
@@ -141,8 +143,15 @@ add_test(cmstest cmstest)
 
 # configtest
 add_executable(configtest configtest.c)
-target_link_libraries(configtest ${OPENSSL_LIBS})
+target_link_libraries(configtest ${LIBTLS_LIBS})
 add_test(configtest configtest)
+
+# constraints
+if(NOT BUILD_SHARED_LIBS)
+	add_executable(constraints constraints.c)
+	target_link_libraries(constraints ${OPENSSL_LIBS})
+	add_test(constraints constraints)
+endif()
 
 # cts128test
 add_executable(cts128test cts128test.c)
@@ -164,6 +173,20 @@ add_executable(dsatest dsatest.c)
 target_link_libraries(dsatest ${OPENSSL_LIBS})
 add_test(dsatest dsatest)
 
+# dtlstest
+if(NOT WIN32)
+	add_executable(dtlstest dtlstest.c)
+	target_link_libraries(dtlstest ${OPENSSL_LIBS})
+	add_test(NAME dtlstest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/dtlstest.sh)
+	set_tests_properties(dtlstest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
+endif()
+
+if(NOT BUILD_SHARED_LIBS)
+# ec_point_conversion
+add_executable(ec_point_conversion ec_point_conversion.c)
+target_link_libraries(ec_point_conversion ${OPENSSL_LIBS})
+add_test(ec_point_conversion ec_point_conversion)
+
 # ecdhtest
 add_executable(ecdhtest ecdhtest.c)
 target_link_libraries(ecdhtest ${OPENSSL_LIBS})
@@ -178,6 +201,7 @@ add_test(ecdsatest ecdsatest)
 add_executable(ectest ectest.c)
 target_link_libraries(ectest ${OPENSSL_LIBS})
 add_test(ectest ectest)
+endif()
 
 # enginetest
 add_executable(enginetest enginetest.c)
@@ -259,7 +283,7 @@ if(NOT BUILD_SHARED_LIBS)
 	add_test(key_schedule key_schedule)
 
 	add_executable(keypairtest keypairtest.c)
-	target_link_libraries(keypairtest ${OPENSSL_LIBS})
+	target_link_libraries(keypairtest ${LIBTLS_LIBS})
 	add_test(keypairtest keypairtest
 		${CMAKE_CURRENT_SOURCE_DIR}/ca.pem
 		${CMAKE_CURRENT_SOURCE_DIR}/server.pem
@@ -422,6 +446,13 @@ add_executable(sm4test sm4test.c)
 target_link_libraries(sm4test ${OPENSSL_LIBS})
 add_test(sm4test sm4test)
 
+# ssl_get_shared_ciphers
+add_executable(ssl_get_shared_ciphers ssl_get_shared_ciphers.c)
+set_source_files_properties(ssl_get_shared_ciphers.c PROPERTIES COMPILE_FLAGS
+	-DCERTSDIR=\\"${CMAKE_CURRENT_SOURCE_DIR}\\")
+target_link_libraries(ssl_get_shared_ciphers ${OPENSSL_LIBS})
+add_test(ssl_get_shared_ciphers ssl_get_shared_ciphers)
+
 # ssl_versions
 if(NOT BUILD_SHARED_LIBS)
 	add_executable(ssl_versions ssl_versions.c)
@@ -475,6 +506,11 @@ if(NOT BUILD_SHARED_LIBS)
 	add_test(tlsexttest tlsexttest)
 endif()
 
+# tlslegacytest
+add_executable(tlslegacytest tlslegacytest.c)
+target_link_libraries(tlslegacytest ${OPENSSL_LIBS})
+add_test(tlslegacytest tlslegacytest)
+
 # tlstest
 set(TLSTEST_SRC tlstest.c)
 check_function_exists(pipe2 HAVE_PIPE2)
@@ -485,7 +521,7 @@ else()
 endif()
 
 add_executable(tlstest ${TLSTEST_SRC})
-target_link_libraries(tlstest ${OPENSSL_LIBS})
+target_link_libraries(tlstest ${LIBTLS_LIBS})
 if(NOT MSVC)
 	add_test(NAME tlstest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/tlstest.sh)
 else()
@@ -524,7 +560,7 @@ endif()
 # verifytest
 if(NOT BUILD_SHARED_LIBS)
 	add_executable(verifytest verifytest.c)
-	target_link_libraries(verifytest ${OPENSSL_LIBS})
+	target_link_libraries(verifytest ${LIBTLS_LIBS})
 	add_test(verifytest verifytest)
 endif()
 
@@ -532,6 +568,16 @@ endif()
 add_executable(x25519test x25519test.c)
 target_link_libraries(x25519test ${OPENSSL_LIBS})
 add_test(x25519test x25519test)
+
+# x509attribute
+add_executable(x509attribute x509attribute.c)
+target_link_libraries(x509attribute ${OPENSSL_LIBS})
+add_test(x509attribute x509attribute)
+
+# x509_info
+add_executable(x509_info x509_info.c)
+target_link_libraries(x509_info ${OPENSSL_LIBS})
+add_test(x509_info x509_info)
 
 # x509name
 add_executable(x509name x509name.c)

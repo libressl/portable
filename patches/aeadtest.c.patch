@@ -1,9 +1,9 @@
---- tests/aeadtest.c.orig	2018-07-24 21:59:17.000000000 -0500
-+++ tests/aeadtest.c	2018-11-07 18:44:43.000000000 -0600
-@@ -76,6 +76,12 @@
-
+--- tests/aeadtest.c.orig	Sat Jan 26 12:39:05 2019
++++ tests/aeadtest.c	Fri Sep  4 04:04:26 2020
+@@ -79,6 +79,12 @@
+ 
  #define BUF_MAX 1024
-
+ 
 +#ifdef _MSC_VER
 +#ifdef IN
 +#undef IN

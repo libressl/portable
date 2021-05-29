@@ -73,7 +73,7 @@ AC_DEFUN([CHECK_C_HARDENING_OPTIONS], [
 		CHECK_CFLAG([[-fno-strict-overflow]])
 
 		# _FORTIFY_SOURCE replaces builtin functions with safer versions.
-		CHECK_CFLAG([[-D_FORTIFY_SOURCE=2]])
+		AX_ADD_FORTIFY_SOURCE
 
 		# Enable read only relocations
 		CHECK_LDFLAG([[-Wl,-z,relro]])

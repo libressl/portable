@@ -30,8 +30,7 @@ init:
   # update mysy2
   - C:\msys64\usr\bin\bash -lc "pacman --needed --noconfirm -Sy pacman-mirrors"
   - C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Syu"
-  - C:\msys64\usr\bin\bash -lc "pacman --noconfirm -S autoconf perl"
-  - C:\msys64\usr\bin\bash -lc "pacman --noconfirm -S git"
+  - C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Sy autoconf perl git"
 
 before_build:
   - bash autogen.sh
@@ -43,5 +42,13 @@ build_script:
   - cmake --build . --config %CONFIG%
 
 test_script:
-  # TODO: Determine how to run ssltest on AppVeyor
-  - ctest -C %CONFIG% --timeout 150 --output-on-failure -E ssltest
+  - ctest -C %CONFIG% --timeout 150 --output-on-failure
+
+on_failure:
+  - 7z a Testing.zip Testing
+  - appveyor PushArtifact Testing.zip
+
+artifacts:
+  - path: build\Testing
+    name: Testing
+    type: zip

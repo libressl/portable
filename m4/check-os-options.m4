@@ -112,7 +112,7 @@ char buf[1]; getentropy(buf, 1);
 		CPPFLAGS="$CPPFLAGS -D_REENTRANT -D_POSIX_THREAD_SAFE_FUNCTIONS"
 		CPPFLAGS="$CPPFLAGS -DWIN32_LEAN_AND_MEAN -D_WIN32_WINNT=0x0600"
 		CPPFLAGS="$CPPFLAGS"
-		AC_SUBST([PLATFORM_LDADD], ['-lws2_32'])
+		AC_SUBST([PLATFORM_LDADD], ['-lws2_32 -lbcrypt'])
 		;;
 	*solaris*)
 		HOST_OS=solaris
@@ -123,10 +123,20 @@ char buf[1]; getentropy(buf, 1);
 	*) ;;
 esac
 
-AC_ARG_ENABLE([nc],
-	AS_HELP_STRING([--enable-nc], [Enable installing TLS-enabled nc(1)]))
-AM_CONDITIONAL([ENABLE_NC], [test "x$enable_nc" = xyes])
-AM_CONDITIONAL([BUILD_NC],  [test x$BUILD_NC = xyes -o "x$enable_nc" = xyes])
+# Check if time_t is sized correctly
+AC_CHECK_SIZEOF([time_t], [time.h])
+AM_CONDITIONAL([SMALL_TIME_T], [test "$ac_cv_sizeof_time_t" = "4"])
+if test "$ac_cv_sizeof_time_t" = "4"; then
+    AC_DEFINE([SMALL_TIME_T])
+    echo " ** Warning, this system is unable to represent times past 2038"
+    echo " ** It will behave incorrectly when handling valid RFC5280 dates"
+
+    if test "$host_os" = "mingw32" ; then
+        echo " **"
+        echo " ** You can solve this by adjusting the build flags in your"
+        echo " ** mingw-w64 toolchain. Refer to README.windows for details."
+    fi
+fi
 
 AM_CONDITIONAL([HOST_AIX],     [test x$HOST_OS = xaix])
 AM_CONDITIONAL([HOST_CYGWIN],  [test x$HOST_OS = xcygwin])

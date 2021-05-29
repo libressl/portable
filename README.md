@@ -26,7 +26,7 @@ the LibreSSL portable project attempts to provide working alternatives for
 other operating systems, and assists with improving OS-native implementations
 where possible.
 
-At the time of this writing, LibreSSL is know to build and work on:
+At the time of this writing, LibreSSL is known to build and work on:
 
 * Linux (kernel 3.17 or later recommended)
 * FreeBSD (tested with 9.2 and later)
@@ -37,9 +37,9 @@ At the time of this writing, LibreSSL is know to build and work on:
 * AIX (5.3 and later)
 
 LibreSSL also supports the following Windows environments:
-* Microsoft Windows (Vista or higher, x86 and x64)
+* Microsoft Windows (Windows 7 / Windows Server 2008r2 or later, x86 and x64)
 * Wine (32-bit and 64-bit)
-* Builds with Mingw-w64, Cygwin, and Visual Studio
+* Mingw-w64, Cygwin, and Visual Studio
 
 Official release tarballs are available at your friendly neighborhood
 OpenBSD mirror in directory
@@ -134,7 +134,7 @@ directory and run:
  cmake -G"Visual Studio 12 2013" ..
 ```
 
-Replace "Visual Studion 12 2013" with whatever version of Visual Studio you
+Replace "Visual Studio 12 2013" with whatever version of Visual Studio you
 have installed. This will generate a LibreSSL.sln file that you can incorporate
 into other projects or build by itself.
 

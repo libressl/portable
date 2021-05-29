@@ -1,8 +1,11 @@
 include $(top_srcdir)/Makefile.am.common
 
+if !ENABLE_LIBTLS_ONLY
 bin_PROGRAMS = ocspcheck
-
 dist_man_MANS = ocspcheck.8
+else
+noinst_PROGRAMS = ocspcheck
+endif
 
 EXTRA_DIST = ocspcheck.8
 EXTRA_DIST += CMakeLists.txt
@@ -18,4 +21,8 @@ noinst_HEADERS = http.h
 
 if !HAVE_MEMMEM
 ocspcheck_SOURCES += compat/memmem.c
+endif
+
+if !HAVE_STRTONUM
+ocspcheck_SOURCES += compat/strtonum.c
 endif

@@ -29,8 +29,7 @@ USER_CFLAGS="$CFLAGS"
 AC_PROG_CC([cc gcc])
 AC_PROG_CC_STDC
 AM_PROG_CC_C_O
-AC_PROG_LIBTOOL
-LT_INIT
+LT_INIT([pic-only])
 
 CHECK_OS_OPTIONS
 
@@ -75,26 +74,12 @@ AC_ARG_ENABLE([tests],
        [enable_tests="yes"])
 AM_CONDITIONAL([ENABLE_TESTS], [test "x$enable_tests" = xyes])
 
-# Add CPU-specific alignment flags
-old_cflags=$CFLAGS
-CFLAGS="$CFLAGS -I$srcdir/include"
-AC_MSG_CHECKING([if BSWAP4 builds without __STRICT_ALIGNMENT])
-AC_TRY_COMPILE([#include "$srcdir/crypto/modes/modes_lcl.h"],
-	       [int a = 0; BSWAP4(a);],
-	       AC_MSG_RESULT([yes])
-	       BSWAP4=yes,
-	       AC_MSG_RESULT([no])
-	       BSWAP4=no)
-CFLAGS="$old_cflags"
-
 AS_CASE([$host_cpu],
-	[*sparc*], [CPPFLAGS="$CPPFLAGS -D__STRICT_ALIGNMENT"],
 	[*arm*], [host_cpu=arm],
 	[*amd64*], [host_cpu=x86_64 HOSTARCH=intel],
 	[i?86], [HOSTARCH=intel],
 	[x86_64], [HOSTARCH=intel]
 )
-AS_IF([test "x$BSWAP4" = "xyes" -a "$host_cpu" = "arm" ],,CPPFLAGS="$CPPFLAGS -D__STRICT_ALIGNMENT")
 AM_CONDITIONAL([HOST_CPU_IS_INTEL], [test "x$HOSTARCH" = "xintel"])
 
 AC_MSG_CHECKING([if .gnu.warning accepts long strings])
@@ -125,9 +110,6 @@ AM_CONDITIONAL([HOST_ASM_MASM_X86_64],
 AM_CONDITIONAL([HOST_ASM_MINGW64_X86_64],
     [test "x$HOST_ABI" = "xmingw64" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
 
-# Check if time_t is sized correctly
-AC_CHECK_SIZEOF([time_t], [time.h])
-
 AC_CONFIG_FILES([
 	Makefile
 	include/Makefile
@@ -147,18 +129,14 @@ AC_CONFIG_FILES([
 	openssl.pc
 ])
 
-AM_CONDITIONAL([SMALL_TIME_T], [test "$ac_cv_sizeof_time_t" = "4"])
-if test "$ac_cv_sizeof_time_t" = "4"; then
-    AC_DEFINE([SMALL_TIME_T])
-    echo " ** Warning, this system is unable to represent times past 2038"
-    echo " ** It will behave incorrectly when handling valid RFC5280 dates"
+AC_ARG_ENABLE([nc],
+	AS_HELP_STRING([--enable-nc], [Enable installing TLS-enabled nc(1)]))
+AM_CONDITIONAL([ENABLE_NC], [test "x$enable_nc" = xyes])
+AM_CONDITIONAL([BUILD_NC],  [test x$BUILD_NC = xyes -o "x$enable_nc" = xyes])
 
-    if test "$host_os" = "mingw32" ; then
-        echo " **"
-        echo " ** You can solve this by adjusting the build flags in your"
-        echo " ** mingw-w64 toolchain. Refer to README.windows for details."
-    fi
-fi
+AC_ARG_ENABLE([libtls-only],
+	AS_HELP_STRING([--enable-libtls-only], [Enable installing libtls only]))
+AM_CONDITIONAL([ENABLE_LIBTLS_ONLY], [test "x$enable_libtls_only" = xyes])
 
 AC_REQUIRE_AUX_FILE([tap-driver.sh])
 

@@ -1,10 +1,23 @@
 include $(top_srcdir)/Makefile.am.common
 
+if ENABLE_LIBTLS_ONLY
+noinst_LTLIBRARIES = libssl.la
+else
 lib_LTLIBRARIES = libssl.la
+endif
 
 EXTRA_DIST = VERSION
 EXTRA_DIST += CMakeLists.txt
 EXTRA_DIST += ssl.sym
+
+CLEANFILES = libssl_la_objects.mk
+
+EXTRA_libssl_la_DEPENDENCIES = libssl_la_objects.mk
+
+libssl_la_objects.mk: Makefile
+	@echo "libssl_la_objects= $(libssl_la_OBJECTS)" \
+	  | sed 's/  */ $$\(abs_top_builddir\)\/ssl\//g' \
+	  > libssl_la_objects.mk
 
 libssl_la_LDFLAGS = -version-info @LIBSSL_VERSION@ -no-undefined -export-symbols $(top_srcdir)/ssl/ssl.sym
 libssl_la_LIBADD = $(abs_top_builddir)/crypto/libcrypto.la $(PLATFORM_LDADD)
@@ -14,11 +27,9 @@ libssl_la_SOURCES += bs_ber.c
 libssl_la_SOURCES += bs_cbb.c
 libssl_la_SOURCES += bs_cbs.c
 libssl_la_SOURCES += d1_both.c
-libssl_la_SOURCES += d1_clnt.c
 libssl_la_SOURCES += d1_lib.c
 libssl_la_SOURCES += d1_pkt.c
 libssl_la_SOURCES += d1_srtp.c
-libssl_la_SOURCES += d1_srvr.c
 libssl_la_SOURCES += pqueue.c
 libssl_la_SOURCES += s3_cbc.c
 libssl_la_SOURCES += s3_lib.c
@@ -47,6 +58,9 @@ libssl_la_SOURCES += ssl_txt.c
 libssl_la_SOURCES += ssl_versions.c
 libssl_la_SOURCES += t1_enc.c
 libssl_la_SOURCES += t1_lib.c
+libssl_la_SOURCES += tls12_key_schedule.c
+libssl_la_SOURCES += tls12_lib.c
+libssl_la_SOURCES += tls12_record_layer.c
 libssl_la_SOURCES += tls13_buffer.c
 libssl_la_SOURCES += tls13_client.c
 libssl_la_SOURCES += tls13_error.c

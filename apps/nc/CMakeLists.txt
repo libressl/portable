@@ -30,7 +30,8 @@ else()
 endif()
 
 check_function_exists(strtonum HAVE_STRTONUM)
-if(HAVE_STRTONUM)
+if(HAVE_STRTONUM AND CMAKE_SYSTEM_NAME MATCHES "Darwin" AND
+    CMAKE_HOST_SYSTEM_VERSION VERSION_GREATER_EQUAL 20)
 	add_definitions(-DHAVE_STRTONUM)
 else()
 	set(NC_SRC ${NC_SRC} compat/strtonum.c)
@@ -44,7 +45,7 @@ endif()
 
 add_executable(nc ${NC_SRC})
 target_include_directories(nc PRIVATE . ./compat ../../include/compat)
-target_link_libraries(nc tls ${OPENSSL_LIBS})
+target_link_libraries(nc ${LIBTLS_LIBS})
 
 if(ENABLE_NC)
 	if(ENABLE_LIBRESSL_INSTALL)

@@ -46,7 +46,6 @@ echo $libssl_version > ssl/VERSION
 libtls_version=$major:$minor:0
 echo "libtls version $libtls_version"
 echo $libtls_version > tls/VERSION
-echo $major.$minor.0 > libtls-standalone/VERSION
 
 do_mv() {
 	if ! cmp -s "$1" "$2"
@@ -93,9 +92,8 @@ $CP $libcrypto_src/opensslfeatures.h include/openssl
 $CP $libssl_src/pqueue.h include
 
 $CP $libtls_src/tls.h include
-$CP $libtls_src/tls.h libtls-standalone/include
 
-for i in crypto/compat libtls-standalone/compat; do
+for i in crypto/compat; do
 	for j in $libc_src/crypt/arc4random.c \
 	    $libc_src/crypt/arc4random_uniform.c \
 	    $libc_src/crypt/chacha_private.h \
@@ -116,15 +114,6 @@ for i in crypto/compat libtls-standalone/compat; do
 	done
 done
 
-$CP include/compat/stdlib.h \
-	include/compat/string.h \
-	include/compat/unistd.h \
-	libtls-standalone/include
-
-$CP crypto/compat/arc4random*.h \
-	crypto/compat/bsd-asprintf.c \
-	libtls-standalone/compat
-
 (cd $libcrypto_src/objects/;
 	$OBJECTS objects.txt obj_mac.num obj_mac.h;
 	$OBJ_DAT obj_mac.h obj_dat.h )
@@ -143,7 +132,7 @@ copy_hdrs $libcrypto_src "stack/stack.h lhash/lhash.h stack/safestack.h
 	objects/objects.h asn1/asn1.h bn/bn.h ec/ec.h ecdsa/ecdsa.h
 	ecdh/ecdh.h rsa/rsa.h sha/sha.h x509/x509_vfy.h pkcs7/pkcs7.h pem/pem.h
 	pem/pem2.h hkdf/hkdf.h hmac/hmac.h rand/rand.h md5/md5.h
-	x509v3/x509v3.h conf/conf.h ocsp/ocsp.h
+	x509/x509v3.h x509/x509_verify.h conf/conf.h ocsp/ocsp.h
 	aes/aes.h modes/modes.h asn1/asn1t.h dso/dso.h bf/blowfish.h
 	bio/bio.h cast/cast.h cmac/cmac.h cms/cms.h conf/conf_api.h des/des.h dh/dh.h
 	dsa/dsa.h engine/engine.h ui/ui.h pkcs12/pkcs12.h ts/ts.h
@@ -154,7 +143,13 @@ copy_hdrs $libcrypto_src "stack/stack.h lhash/lhash.h stack/safestack.h
 
 copy_hdrs $libssl_src "srtp.h ssl.h ssl2.h ssl3.h ssl23.h tls1.h dtls1.h"
 
-$CP $libcrypto_src/opensslv.h include/openssl
+# override upstream opensslv.h if a local version exists
+if [ -f patches/opensslv.h ]; then
+	$CP patches/opensslv.h include/openssl
+else
+	$CP $libcrypto_src/opensslv.h include/openssl
+fi
+
 awk '/LIBRESSL_VERSION_TEXT/ {print $4}' < include/openssl/opensslv.h | cut -d\" -f1 > VERSION
 echo "LibreSSL version `cat VERSION`"
 
@@ -259,18 +254,10 @@ rm -f tls/*.c tls/*.h libtls/src/*.c libtls/src/*.h
 for i in `awk '/SOURCES|HEADERS/ { print $3 }' tls/Makefile.am` ; do
 	if [ -e $libtls_src/$i ]; then
 		$CP $libtls_src/$i tls
-		$CP $libtls_src/$i libtls-standalone/src
 	fi
 done
 # add the libtls symbol export list
 $GREP '^[A-Za-z0-9_]' < $libtls_src/Symbols.list > tls/tls.sym
-
-mkdir -p libtls-standalone/m4
-$CP m4/check*.m4 \
-	m4/disable*.m4 \
-	libtls-standalone/m4
-sed -e "s/compat\///" crypto/Makefile.am.arc4random > \
-	libtls-standalone/compat/Makefile.am.arc4random
 
 # copy nc(1) source
 echo "copying nc(1) source"
@@ -289,6 +276,7 @@ echo "copying ocspcheck(1) source"
 $CP $sbin_src/ocspcheck/ocspcheck.8 apps/ocspcheck
 rm -f apps/ocspcheck/*.c apps/ocspcheck/*.h
 $CP_LIBC $libc_src/string/memmem.c apps/ocspcheck/compat
+$CP_LIBC $libc_src/stdlib/strtonum.c apps/ocspcheck/compat
 for i in `awk '/SOURCES|HEADERS|MANS/ { print $3 }' apps/ocspcheck/Makefile.am` ; do
 	if [ -e $sbin_src/ocspcheck/$i ]; then
 		$CP $sbin_src/ocspcheck/$i apps/ocspcheck
@@ -299,9 +287,9 @@ done
 echo "copying openssl(1) source"
 $CP $bin_src/openssl/openssl.1 apps/openssl
 $CP_LIBC $libc_src/stdlib/strtonum.c apps/openssl/compat
-$CP $libcrypto_src/cert.pem apps/openssl
-$CP $libcrypto_src/openssl.cnf apps/openssl
-$CP $libcrypto_src/x509v3.cnf apps/openssl
+$CP $libcrypto_src/cert.pem .
+$CP $libcrypto_src/openssl.cnf .
+$CP $libcrypto_src/x509v3.cnf .
 for i in `awk '/SOURCES|HEADERS|MANS/ { print $3 }' apps/openssl/Makefile.am` ; do
 	if [ -e $bin_src/openssl/$i ]; then
 		$CP $bin_src/openssl/$i apps/openssl
@@ -361,6 +349,7 @@ chmod 755 tests/testssl
 	for i in `$LS *.h|sort`; do
 		echo "opensslinclude_HEADERS += $i" >> Makefile.am
 	done
+	echo endif >> Makefile.am
 )
 
 add_man_links() {
@@ -401,9 +390,9 @@ fi
 # copy manpages
 echo "copying manpages"
 echo EXTRA_DIST = CMakeLists.txt > man/Makefile.am
+echo "if !ENABLE_LIBTLS_ONLY" >> man/Makefile.am
 echo dist_man3_MANS = >> man/Makefile.am
 echo dist_man5_MANS = >> man/Makefile.am
-
 (cd man
 	for i in `$LS $libssl_src/man/*.3 | sort`; do
 		NAME=`basename "$i"`
@@ -430,3 +419,4 @@ echo dist_man5_MANS = >> man/Makefile.am
 	done
 )
 add_man_links . man/Makefile.am
+echo endif >> man/Makefile.am

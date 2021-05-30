@@ -73,7 +73,9 @@ AC_DEFUN([CHECK_C_HARDENING_OPTIONS], [
 		CHECK_CFLAG([[-fno-strict-overflow]])
 
 		# _FORTIFY_SOURCE replaces builtin functions with safer versions.
-		AX_ADD_FORTIFY_SOURCE
+		AS_IF([test "x$HOST_OS" != "xwin"], [
+			AX_ADD_FORTIFY_SOURCE
+		])
 
 		# Enable read only relocations
 		CHECK_LDFLAG([[-Wl,-z,relro]])

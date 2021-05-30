@@ -386,7 +386,7 @@ function mkfilehdr(m, wfile,		a,n,i,name) {
 	# -T flag is dropped; will cause incompatible type signatures error.
 	# -w flag is dropped; is very chatty.
 	# -B flag is needed because apps/openssl still have K&R style prototype.
-	print "CFLAGS=-FV -B -c\\" >>wfile
+	print "CFLAGS=-FV -B -u -c\\" >>wfile
 	printf "\t-I%s/include\\\n", topdir() >>wfile
 	printf "\t-I%s/include/compat\\\n", topdir() >>wfile
 	for(name in defs)

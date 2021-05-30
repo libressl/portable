@@ -63,7 +63,6 @@ do_cp_libc() {
 CP_LIBC='do_cp_libc'
 
 CP='cp -p'
-LS='ls -1'
 GREP='grep'
 if [ -x /opt/csw/bin/ggrep ]; then
 	GREP='/opt/csw/bin/ggrep'
@@ -75,7 +74,6 @@ OBJECTS='perl objects.pl'
 OBJ_DAT='perl obj_dat.pl'
 if [ `uname` = Plan9 ]; then
 	CP='cp'
-	LS='ls'
 	find_c_src() {
 		du -a $1 |
 		sed 's/^[   ]*[0-9][0-9]*[  ]*//' |
@@ -346,7 +344,7 @@ chmod 755 tests/testssl
 # add headers
 (cd include/openssl
 	$CP Makefile.am.tpl Makefile.am
-	for i in `$LS *.h|sort`; do
+	for i in `ls -1 *.h|sort`; do
 		echo "opensslinclude_HEADERS += $i" >> Makefile.am
 	done
 	echo endif >> Makefile.am
@@ -394,25 +392,25 @@ echo "if !ENABLE_LIBTLS_ONLY" >> man/Makefile.am
 echo dist_man3_MANS = >> man/Makefile.am
 echo dist_man5_MANS = >> man/Makefile.am
 (cd man
-	for i in `$LS $libssl_src/man/*.3 | sort`; do
+	for i in `ls -1 $libssl_src/man/*.3 | sort`; do
 		NAME=`basename "$i"`
 		$CP $i .
 		echo "dist_man3_MANS += $NAME" >> Makefile.am
 	done
 
-	for i in `$LS $libcrypto_src/man/*.3 | sort`; do
+	for i in `ls -1 $libcrypto_src/man/*.3 | sort`; do
 		NAME=`basename "$i"`
 		$CP $i .
 		echo "dist_man3_MANS += $NAME" >> Makefile.am
 	done
 
-	for i in `$LS $libtls_src/man/*.3 | sort`; do
+	for i in `ls -1 $libtls_src/man/*.3 | sort`; do
 		NAME=`basename "$i"`
 		$CP $i .
 		echo "dist_man3_MANS += $NAME" >> Makefile.am
 	done
 
-	for i in `$LS $libcrypto_src/man/*.5 | sort`; do
+	for i in `ls -1 $libcrypto_src/man/*.5 | sort`; do
 		NAME=`basename "$i"`
 		$CP $i .
 		echo "dist_man5_MANS += $NAME" >> Makefile.am

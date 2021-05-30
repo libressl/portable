@@ -167,7 +167,6 @@ include/openssl/*.h
 
 /crypto/*
 !/crypto/Makefile.am.*
-!/crypto/mkfile
 !/crypto/compat/arc4random.h
 !/crypto/compat/b_win.c
 !/crypto/compat/explicit_bzero_win.c

@@ -10,10 +10,12 @@
 ## Steps that apply to all builds ##
 
 Before building LibreSSL, You must install latest 9legacy stable patches, and
-two pull-requests for 0intro/plan9-contrib.
+four pull-requests for 0intro/plan9-contrib and lufia/plan9.
 
 * https://github.com/0intro/plan9-contrib/pull/6
 * https://github.com/0intro/plan9-contrib/pull/7
+* https://github.com/0intro/plan9-contrib/pull/13
+* https://github.com/lufia/plan9/pull/10
 
 Once you have a source tree, either by downloaded using git and having
 run the `autogen.sh` script above, or by downloading a release distribution from
@@ -21,11 +23,6 @@ an OpenBSD mirror, run these commands to build and install the package on most
 systems:
 
 ```sh
-./gen-mkfile.sh lib crypto/Makefile.am
-./gen-mkfile.sh lib ssl/Makefile.am
-./gen-mkfile.sh lib tls/Makefile.am
-./gen-mkfile.sh bin apps/openssl/Makefile.am
-./gen-mkfile.sh include include/Makefile.am
 mk
 mk install
 ```

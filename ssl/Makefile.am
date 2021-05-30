@@ -76,6 +76,7 @@ libssl_la_SOURCES += tls13_server.c
 
 noinst_HEADERS = bytestring.h
 noinst_HEADERS += srtp.h
+noinst_HEADERS += dtls_locl.h
 noinst_HEADERS += ssl_locl.h
 noinst_HEADERS += ssl_sigalgs.h
 noinst_HEADERS += ssl_tlsext.h

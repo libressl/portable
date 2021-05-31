@@ -9,7 +9,7 @@ jobs:
         os: [ubuntu-18.04, ubuntu-20.04]
         arch: [mingw32, mingw64, arm32, arm64]
     runs-on: ${{ matrix.os }}
-    continue-on-error: true
+    continue-on-error: false
     env:
       CC: gcc
       ARCH: ${{ matrix.arch }}

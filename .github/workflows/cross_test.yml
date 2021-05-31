@@ -13,7 +13,7 @@ jobs:
     env:
       CC: gcc
       ARCH: ${{ matrix.arch }}
-    name: ${{ matrix.arch }}
+    name: ${{ matrix.arch }} - ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
     - name: Run CI script

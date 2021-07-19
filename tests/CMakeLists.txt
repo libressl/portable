@@ -174,7 +174,7 @@ target_link_libraries(dsatest ${OPENSSL_LIBS})
 add_test(dsatest dsatest)
 
 # dtlstest
-if(NOT WIN32)
+if(NOT BUILD_SHARED_LIBS AND NOT WIN32)
 	add_executable(dtlstest dtlstest.c)
 	target_link_libraries(dtlstest ${OPENSSL_LIBS})
 	add_test(NAME dtlstest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/dtlstest.sh)

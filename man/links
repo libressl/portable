@@ -101,6 +101,7 @@ ASN1_item_d2i.3,ASN1_item_print.3
 ASN1_item_d2i.3,d2i_ASN1_TYPE.3
 ASN1_item_d2i.3,i2d_ASN1_TYPE.3
 ASN1_item_new.3,ASN1_item_free.3
+ASN1_parse_dump.3,ASN1_parse.3
 ASN1_put_object.3,ASN1_put_eoc.3
 ASN1_time_parse.3,ASN1_TIME_set_tm.3
 ASN1_time_parse.3,ASN1_time_tm_cmp.3
@@ -130,6 +131,9 @@ BIO_ctrl.3,BIO_set_info_callback.3
 BIO_ctrl.3,BIO_tell.3
 BIO_ctrl.3,BIO_wpending.3
 BIO_ctrl.3,bio_info_cb.3
+BIO_dump.3,BIO_dump_fp.3
+BIO_dump.3,BIO_dump_indent.3
+BIO_dump.3,BIO_dump_indent_fp.3
 BIO_f_buffer.3,BIO_get_buffer_num_lines.3
 BIO_f_buffer.3,BIO_set_buffer_read_data.3
 BIO_f_buffer.3,BIO_set_buffer_size.3
@@ -578,11 +582,13 @@ EC_GROUP_copy.3,EC_GROUP_set_point_conversion_form.3
 EC_GROUP_copy.3,EC_GROUP_set_seed.3
 EC_GROUP_new.3,EC_GROUP_clear_free.3
 EC_GROUP_new.3,EC_GROUP_free.3
+EC_GROUP_new.3,EC_GROUP_get_curve.3
 EC_GROUP_new.3,EC_GROUP_get_curve_GF2m.3
 EC_GROUP_new.3,EC_GROUP_get_curve_GFp.3
 EC_GROUP_new.3,EC_GROUP_new_by_curve_name.3
 EC_GROUP_new.3,EC_GROUP_new_curve_GF2m.3
 EC_GROUP_new.3,EC_GROUP_new_curve_GFp.3
+EC_GROUP_new.3,EC_GROUP_set_curve.3
 EC_GROUP_new.3,EC_GROUP_set_curve_GF2m.3
 EC_GROUP_new.3,EC_GROUP_set_curve_GFp.3
 EC_GROUP_new.3,EC_get_builtin_curves.3
@@ -647,6 +653,7 @@ EC_POINT_new.3,EC_POINT_copy.3
 EC_POINT_new.3,EC_POINT_dup.3
 EC_POINT_new.3,EC_POINT_free.3
 EC_POINT_new.3,EC_POINT_get_Jprojective_coordinates_GFp.3
+EC_POINT_new.3,EC_POINT_get_affine_coordinates.3
 EC_POINT_new.3,EC_POINT_get_affine_coordinates_GF2m.3
 EC_POINT_new.3,EC_POINT_get_affine_coordinates_GFp.3
 EC_POINT_new.3,EC_POINT_hex2point.3
@@ -656,8 +663,10 @@ EC_POINT_new.3,EC_POINT_point2bn.3
 EC_POINT_new.3,EC_POINT_point2hex.3
 EC_POINT_new.3,EC_POINT_point2oct.3
 EC_POINT_new.3,EC_POINT_set_Jprojective_coordinates_GFp.3
+EC_POINT_new.3,EC_POINT_set_affine_coordinates.3
 EC_POINT_new.3,EC_POINT_set_affine_coordinates_GF2m.3
 EC_POINT_new.3,EC_POINT_set_affine_coordinates_GFp.3
+EC_POINT_new.3,EC_POINT_set_compressed_coordinates.3
 EC_POINT_new.3,EC_POINT_set_compressed_coordinates_GF2m.3
 EC_POINT_new.3,EC_POINT_set_compressed_coordinates_GFp.3
 EC_POINT_new.3,EC_POINT_set_to_infinity.3
@@ -838,8 +847,10 @@ EVP_DigestInit.3,EVP_sha224.3
 EVP_DigestInit.3,EVP_sha256.3
 EVP_DigestInit.3,EVP_sha384.3
 EVP_DigestInit.3,EVP_sha512.3
+EVP_DigestSignInit.3,EVP_DigestSign.3
 EVP_DigestSignInit.3,EVP_DigestSignFinal.3
 EVP_DigestSignInit.3,EVP_DigestSignUpdate.3
+EVP_DigestVerifyInit.3,EVP_DigestVerify.3
 EVP_DigestVerifyInit.3,EVP_DigestVerifyFinal.3
 EVP_DigestVerifyInit.3,EVP_DigestVerifyUpdate.3
 EVP_EncodeInit.3,EVP_DecodeBlock.3
@@ -1170,6 +1181,7 @@ OBJ_nid2obj.3,OBJ_obj2txt.3
 OBJ_nid2obj.3,OBJ_sn2nid.3
 OBJ_nid2obj.3,OBJ_txt2nid.3
 OBJ_nid2obj.3,OBJ_txt2obj.3
+OBJ_nid2obj.3,i2a_ASN1_OBJECT.3
 OBJ_nid2obj.3,i2t_ASN1_OBJECT.3
 OCSP_CRLID_new.3,OCSP_CRLID_free.3
 OCSP_REQUEST_new.3,OCSP_ONEREQ_free.3
@@ -1552,6 +1564,7 @@ SHA1.3,SHA512_Final.3
 SHA1.3,SHA512_Init.3
 SHA1.3,SHA512_Update.3
 SSL_CIPHER_get_name.3,SSL_CIPHER_description.3
+SSL_CIPHER_get_name.3,SSL_CIPHER_find.3
 SSL_CIPHER_get_name.3,SSL_CIPHER_get_auth_nid.3
 SSL_CIPHER_get_name.3,SSL_CIPHER_get_bits.3
 SSL_CIPHER_get_name.3,SSL_CIPHER_get_cipher_nid.3
@@ -1693,6 +1706,7 @@ SSL_CTX_set_read_ahead.3,SSL_get_read_ahead.3
 SSL_CTX_set_read_ahead.3,SSL_set_read_ahead.3
 SSL_CTX_set_session_cache_mode.3,SSL_CTX_get_session_cache_mode.3
 SSL_CTX_set_session_id_context.3,SSL_set_session_id_context.3
+SSL_CTX_set_ssl_version.3,SSL_CTX_get_ssl_method.3
 SSL_CTX_set_ssl_version.3,SSL_get_ssl_method.3
 SSL_CTX_set_ssl_version.3,SSL_set_ssl_method.3
 SSL_CTX_set_timeout.3,SSL_CTX_get_timeout.3
@@ -1945,6 +1959,7 @@ X509_NAME_ENTRY_get_object.3,X509_NAME_ENTRY_create_by_txt.3
 X509_NAME_ENTRY_get_object.3,X509_NAME_ENTRY_free.3
 X509_NAME_ENTRY_get_object.3,X509_NAME_ENTRY_get_data.3
 X509_NAME_ENTRY_get_object.3,X509_NAME_ENTRY_new.3
+X509_NAME_ENTRY_get_object.3,X509_NAME_ENTRY_set.3
 X509_NAME_ENTRY_get_object.3,X509_NAME_ENTRY_set_data.3
 X509_NAME_ENTRY_get_object.3,X509_NAME_ENTRY_set_object.3
 X509_NAME_add_entry_by_txt.3,X509_NAME_add_entry.3
@@ -2053,6 +2068,9 @@ X509_VERIFY_PARAM_set_flags.3,X509_VERIFY_PARAM_set_purpose.3
 X509_VERIFY_PARAM_set_flags.3,X509_VERIFY_PARAM_set_time.3
 X509_VERIFY_PARAM_set_flags.3,X509_VERIFY_PARAM_set_trust.3
 X509_VERIFY_PARAM_set_flags.3,X509_VERIFY_PARAM_table_cleanup.3
+X509_add1_trust_object.3,X509_add1_reject_object.3
+X509_add1_trust_object.3,X509_reject_clear.3
+X509_add1_trust_object.3,X509_trust_clear.3
 X509_check_host.3,X509_check_email.3
 X509_check_host.3,X509_check_ip.3
 X509_check_host.3,X509_check_ip_asc.3
@@ -2071,6 +2089,7 @@ X509_digest.3,X509_CRL_digest.3
 X509_digest.3,X509_NAME_digest.3
 X509_digest.3,X509_REQ_digest.3
 X509_digest.3,X509_pubkey_digest.3
+X509_find_by_subject.3,X509_find_by_issuer_and_serial.3
 X509_get0_notBefore.3,X509_CRL_get0_lastUpdate.3
 X509_get0_notBefore.3,X509_CRL_get0_nextUpdate.3
 X509_get0_notBefore.3,X509_CRL_get_lastUpdate.3
@@ -2097,8 +2116,10 @@ X509_get0_signature.3,X509_get_signature_nid.3
 X509_get0_signature.3,X509_get_signature_type.3
 X509_get1_email.3,X509_email_free.3
 X509_get1_email.3,X509_get1_ocsp.3
+X509_get_pubkey.3,X509_REQ_extract_key.3
 X509_get_pubkey.3,X509_REQ_get_pubkey.3
 X509_get_pubkey.3,X509_REQ_set_pubkey.3
+X509_get_pubkey.3,X509_extract_key.3
 X509_get_pubkey.3,X509_get0_pubkey.3
 X509_get_pubkey.3,X509_get0_pubkey_bitstr.3
 X509_get_pubkey.3,X509_get_X509_PUBKEY.3
@@ -2117,10 +2138,17 @@ X509_get_version.3,X509_CRL_set_version.3
 X509_get_version.3,X509_REQ_get_version.3
 X509_get_version.3,X509_REQ_set_version.3
 X509_get_version.3,X509_set_version.3
+X509_keyid_set1.3,X509_alias_get0.3
+X509_keyid_set1.3,X509_alias_set1.3
+X509_keyid_set1.3,X509_keyid_get0.3
 X509_new.3,X509_chain_up_ref.3
 X509_new.3,X509_dup.3
 X509_new.3,X509_free.3
 X509_new.3,X509_up_ref.3
+X509_print_ex.3,X509_CERT_AUX_print.3
+X509_print_ex.3,X509_print.3
+X509_print_ex.3,X509_print_ex_fp.3
+X509_print_ex.3,X509_print_fp.3
 X509_sign.3,X509_CRL_sign.3
 X509_sign.3,X509_CRL_sign_ctx.3
 X509_sign.3,X509_CRL_verify.3
@@ -2129,6 +2157,7 @@ X509_sign.3,X509_REQ_sign_ctx.3
 X509_sign.3,X509_REQ_verify.3
 X509_sign.3,X509_sign_ctx.3
 X509_sign.3,X509_verify.3
+X509_signature_dump.3,X509_signature_print.3
 X509v3_get_ext_by_NID.3,X509_CRL_add_ext.3
 X509v3_get_ext_by_NID.3,X509_CRL_delete_ext.3
 X509v3_get_ext_by_NID.3,X509_CRL_get_ext.3
@@ -2482,6 +2511,7 @@ d2i_X509_NAME.3,X509_NAME_ENTRY_dup.3
 d2i_X509_NAME.3,X509_NAME_dup.3
 d2i_X509_NAME.3,X509_NAME_get0_der.3
 d2i_X509_NAME.3,X509_NAME_hash.3
+d2i_X509_NAME.3,X509_NAME_set.3
 d2i_X509_NAME.3,d2i_X509_NAME_ENTRY.3
 d2i_X509_NAME.3,i2d_X509_NAME.3
 d2i_X509_NAME.3,i2d_X509_NAME_ENTRY.3

@@ -28,6 +28,16 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.3.4 - Security fix
+
+	* In LibreSSL, printing a certificate can result in a crash in
+	  X509_CERT_AUX_print().
+	  From Ingo Schwarze
+
+	* Ensure GNU-stack is set on ELF platforms when building with CMake to
+	  enable non-executable stack annotations for the GNU toolchain.
+	  From Tobias Heider
+
 3.3.3 - Stable release
 
 	* This is the first stable release from the 3.3.x series.

@@ -36,6 +36,7 @@ set(
 	ssl_versions.c
 	t1_enc.c
 	t1_lib.c
+	tls_content.c
 	tls12_key_schedule.c
 	tls12_lib.c
 	tls12_record_layer.c

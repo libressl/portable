@@ -309,11 +309,14 @@ BN_add_word.3,BN_mul_word.3
 BN_add_word.3,BN_sub_word.3
 BN_bn2bin.3,BN_asc2bn.3
 BN_bn2bin.3,BN_bin2bn.3
+BN_bn2bin.3,BN_bn2binpad.3
 BN_bn2bin.3,BN_bn2dec.3
 BN_bn2bin.3,BN_bn2hex.3
+BN_bn2bin.3,BN_bn2lebinpad.3
 BN_bn2bin.3,BN_bn2mpi.3
 BN_bn2bin.3,BN_dec2bn.3
 BN_bn2bin.3,BN_hex2bn.3
+BN_bn2bin.3,BN_lebin2bn.3
 BN_bn2bin.3,BN_mpi2bn.3
 BN_bn2bin.3,BN_print.3
 BN_bn2bin.3,BN_print_fp.3
@@ -576,6 +579,7 @@ EC_GROUP_copy.3,EC_GROUP_get_point_conversion_form.3
 EC_GROUP_copy.3,EC_GROUP_get_seed_len.3
 EC_GROUP_copy.3,EC_GROUP_get_trinomial_basis.3
 EC_GROUP_copy.3,EC_GROUP_method_of.3
+EC_GROUP_copy.3,EC_GROUP_order_bits.3
 EC_GROUP_copy.3,EC_GROUP_set_asn1_flag.3
 EC_GROUP_copy.3,EC_GROUP_set_curve_name.3
 EC_GROUP_copy.3,EC_GROUP_set_generator.3
@@ -1719,6 +1723,7 @@ SSL_CTX_set_tlsext_status_cb.3,SSL_CTX_get_tlsext_status_arg.3
 SSL_CTX_set_tlsext_status_cb.3,SSL_CTX_get_tlsext_status_cb.3
 SSL_CTX_set_tlsext_status_cb.3,SSL_CTX_set_tlsext_status_arg.3
 SSL_CTX_set_tlsext_status_cb.3,SSL_get_tlsext_status_ocsp_resp.3
+SSL_CTX_set_tlsext_status_cb.3,SSL_get_tlsext_status_type.3
 SSL_CTX_set_tlsext_status_cb.3,SSL_set_tlsext_status_ocsp_resp.3
 SSL_CTX_set_tlsext_status_cb.3,SSL_set_tlsext_status_type.3
 SSL_CTX_set_tlsext_use_srtp.3,SSL_get_selected_srtp_profile.3

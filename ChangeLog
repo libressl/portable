@@ -28,6 +28,11 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.3.5 - Security fix
+
+	* A stack overread could occur when checking X.509 name constraints.
+	  From GoldBinocle on GitHub.
+
 3.3.4 - Security fix
 
 	* In LibreSSL, printing a certificate can result in a crash in

@@ -3,9 +3,9 @@
 #define HEADER_OPENSSLV_H
 
 /* These will change with each release of LibreSSL-portable */
-#define LIBRESSL_VERSION_NUMBER 0x3020600fL
+#define LIBRESSL_VERSION_NUMBER 0x3020700fL
 /*                                    ^ Patch starts here   */
-#define LIBRESSL_VERSION_TEXT   "LibreSSL 3.2.6"
+#define LIBRESSL_VERSION_TEXT   "LibreSSL 3.2.7"
 
 /* These will never change */
 #define OPENSSL_VERSION_NUMBER	0x20000000L

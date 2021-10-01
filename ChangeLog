@@ -33,6 +33,9 @@ LibreSSL Portable Release Notes:
 	* A stack overread could occur when checking X.509 name constraints.
 	  From GoldBinocle on GitHub.
 
+	* Enable X509_V_FLAG_TRUSTED_FIRST by default in the legacy verifier.
+	  This compensates for the expiry of the DST Root X3 certificate.
+
 3.2.6 - Security fix
 
 	* In LibreSSL, printing a certificate can result in a crash in

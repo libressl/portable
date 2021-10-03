@@ -4,7 +4,9 @@
  */
 
 #ifndef _WIN32
+#ifdef HAVE_ARPA_NAMESER_H
 #include_next <arpa/nameser.h>
+#endif
 #else
 #include <win32netcompat.h>
 

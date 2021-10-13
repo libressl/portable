@@ -28,6 +28,54 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.4.1 - Stable release
+
+	* New Features
+	  - Added support for OpenSSL 1.1.1 TLSv1.3 APIs.
+	  - Enabled the new X.509 validator to allow verification of
+	    modern certificate chains.
+	* Portable Improvements
+	  - Ported continuous integration and test infrastructure to Github
+	    actions.
+	  - Added Universal Windows Platform (UWP) build support.
+	  - Fixed mingw-w64 builds on newer versions with missing SSP support.
+	  - Added non-executable stack annotations for CMake builds.
+	* API and Documentation Enhancements
+	  - Added the following APIs from OpenSSL
+	    BN_bn2binpad BN_bn2lebinpad BN_lebin2bn EC_GROUP_get_curve
+	    EC_GROUP_order_bits EC_GROUP_set_curve
+	    EC_POINT_get_affine_coordinates
+	    EC_POINT_set_affine_coordinates
+	    EC_POINT_set_compressed_coordinates EVP_DigestSign
+	    EVP_DigestVerify SSL_CIPHER_find SSL_CTX_get0_privatekey
+	    SSL_CTX_get_max_early_data SSL_CTX_get_ssl_method
+	    SSL_CTX_set_ciphersuites SSL_CTX_set_max_early_data
+	    SSL_CTX_set_post_handshake_auth SSL_SESSION_get0_cipher
+	    SSL_SESSION_get_max_early_data SSL_SESSION_is_resumable
+	    SSL_SESSION_set_max_early_data SSL_get_early_data_status
+	    SSL_get_max_early_data SSL_read_early_data SSL_set0_rbio
+	    SSL_set_ciphersuites SSL_set_max_early_data
+	    SSL_set_post_handshake_auth
+	    SSL_set_psk_use_session_callback
+	    SSL_verify_client_post_handshake SSL_write_early_data
+	  - Added AES-GCM constants from RFC 7714 for SRTP.
+	* Compatibility Changes
+	  - Implement flushing for TLSv1.3 handshakes behavior, needed for Apache.
+	  - Call the info callback on connect/accept exit in TLSv1.3,
+	    needed for p5-Net-SSLeay.
+	  - Default to using named curve parameter encoding from
+	    pre-OpenSSL 1.1.0, adding OPENSSL_EC_EXPLICIT_CURVE.
+	  - Do not ignore SSL_TLSEXT_ERR_FATAL from the ALPN callback.
+	* Testing and Proactive Security
+	  - Added additional state machine test coverage.
+	  - Improved integration test support with ruby/openssl tests.
+	  - Error codes and callback support in new X.509 validator made
+	    compatible with p5-Net_SSLeay tests.
+	* Internal Improvements
+	  - Numerous fixes and improvements to the new X.509 validator to
+	    ensure compatible error codes and callback support compatible
+	    with the legacy OpenSSL validator.
+
 3.4.0 - Development release
 
 	* Add support for OpenSSL 1.1.1 TLSv1.3 APIs.
@@ -35,6 +83,14 @@ LibreSSL Portable Release Notes:
 	* Enable new x509 validator.
 
 	* More details to come, testing is appreciated.
+
+3.3.5 - Security fix
+
+	* A stack overread could occur when checking X.509 name constraints.
+	  From GoldBinocle on GitHub.
+
+	* Enable X509_V_FLAG_TRUSTED_FIRST by default in the legacy verifier.
+	  This compensates for the expiry of the DST Root X3 certificate.
 
 3.3.4 - Security fix
 

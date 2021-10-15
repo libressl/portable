@@ -352,6 +352,51 @@ if(LIBRESSL_APPS AND LIBRESSL_TESTS)
 	add_subdirectory(tests)
 endif()
 
+if (BUILD_APPLE_FRAMEWORK)
+	# Trick cmake into doing work - like copying the headers
+	set(EMPTY_C ${CMAKE_CURRENT_BINARY_DIR}/empty.c)
+	file(TOUCH ${EMPTY_C})
+
+	set(MODULE_MODULEMAP ${CMAKE_CURRENT_BINARY_DIR}/module.modulemap)
+	file(WRITE ${MODULE_MODULEMAP} "\
+framework module LibreSSL {
+	umbrella header \"LibreSSL.h\"
+
+	export *
+	module * { export * }
+}
+")
+	set_source_files_properties(${MODULE_MODULEMAP} PROPERTIES
+			MACOSX_PACKAGE_LOCATION Modules)
+
+	# Create the umbrella header
+	set(LIBRESSL_H ${CMAKE_CURRENT_BINARY_DIR}/LibreSSL.h)
+	file(REMOVE ${LIBRESSL_H})
+	file(GLOB LIBRESSL_INCLUDES
+			${CMAKE_CURRENT_LIST_DIR}/include/*.h ${CMAKE_CURRENT_LIST_DIR}/include/openssl/*.h)
+
+	foreach(LIBRESSL_INCLUDE ${LIBRESSL_INCLUDES})
+		file(RELATIVE_PATH RELATIVE_INCLUDE ${CMAKE_CURRENT_LIST_DIR}/include ${LIBRESSL_INCLUDE})
+		get_filename_component(RELATIVE_INCLUDE_DIR ${RELATIVE_INCLUDE} DIRECTORY)
+		set_source_files_properties(${LIBRESSL_INCLUDE} PROPERTIES
+					MACOSX_PACKAGE_LOCATION Headers/${RELATIVE_INCLUDE_DIR})
+		file(APPEND ${LIBRESSL_H} "#include \"${RELATIVE_INCLUDE}\"\n")
+	endforeach()
+
+	# Create the framework from object libraries
+	add_library(LibreSSL_framework ${EMPTY_C}
+			$<TARGET_OBJECTS:crypto_obj> $<TARGET_OBJECTS:ssl_obj>
+			${LIBRESSL_H} ${LIBRESSL_INCLUDES}
+			${MODULE_MODULEMAP})
+	set_target_properties(LibreSSL_framework PROPERTIES
+			OUTPUT_NAME LibreSSL
+			PUBLIC_HEADER "${LIBRESSL_H}"
+			FRAMEWORK on)
+
+	install(TARGETS LibreSSL_framework
+			FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR})
+endif(BUILD_APPLE_FRAMEWORK)
+
 if(NOT MSVC)
 	# Create pkgconfig files.
 	set(prefix      ${CMAKE_INSTALL_PREFIX})

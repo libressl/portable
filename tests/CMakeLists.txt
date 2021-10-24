@@ -1,16 +1,7 @@
 include_directories(
 	.
-	../crypto/modes
-	../crypto/asn1
-	../crypto/x509
-	../ssl
-	../tls
-	../apps/openssl
-	../apps/openssl/compat
 	../include/compat
 )
-
-add_definitions(-D_PATH_SSL_CA_FILE=\"${CMAKE_CURRENT_SOURCE_DIR}/../apps/openssl/cert.pem\")
 
 file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR} TEST_SOURCE_DIR)
 
@@ -39,6 +30,8 @@ add_test(asn1evp asn1evp)
 
 # asn1test
 add_executable(asn1test asn1test.c)
+set_source_files_properties(asn1test.c PROPERTIES
+	INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../ssl)
 target_link_libraries(asn1test ${OPENSSL_LIBS})
 add_test(asn1test asn1test)
 
@@ -96,6 +89,8 @@ endif()
 # buffertest
 if(NOT BUILD_SHARED_LIBS)
 	add_executable(buffertest buffertest.c)
+	set_source_files_properties(buffertest.c PROPERTIES
+		INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../ssl)
 	target_link_libraries(buffertest ${OPENSSL_LIBS})
 	add_test(buffertest buffertest)
 endif()
@@ -103,6 +98,8 @@ endif()
 # bytestringtest
 if(NOT BUILD_SHARED_LIBS)
 	add_executable(bytestringtest bytestringtest.c)
+	set_source_files_properties(bytestringtest.c PROPERTIES
+		INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../ssl)
 	target_link_libraries(bytestringtest ${OPENSSL_LIBS})
 	add_test(bytestringtest bytestringtest)
 endif()
@@ -120,6 +117,8 @@ add_test(chachatest chachatest)
 # cipher_list
 if(NOT BUILD_SHARED_LIBS)
 	add_executable(cipher_list cipher_list.c)
+	set_source_files_properties(cipher_list.c PROPERTIES
+		INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../ssl)
 	target_link_libraries(cipher_list ${OPENSSL_LIBS})
 	add_test(cipher_list cipher_list)
 endif()
@@ -149,6 +148,8 @@ add_test(configtest configtest)
 # constraints
 if(NOT BUILD_SHARED_LIBS)
 	add_executable(constraints constraints.c)
+	set_source_files_properties(constraints.c PROPERTIES
+		INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../crypto/x509)
 	target_link_libraries(constraints ${OPENSSL_LIBS})
 	add_test(constraints constraints)
 endif()
@@ -176,6 +177,8 @@ add_test(dsatest dsatest)
 # dtlstest
 if(NOT BUILD_SHARED_LIBS AND NOT WIN32)
 	add_executable(dtlstest dtlstest.c)
+	set_source_files_properties(dtlstest.c PROPERTIES
+		INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../ssl)
 	target_link_libraries(dtlstest ${OPENSSL_LIBS})
 	add_test(NAME dtlstest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/dtlstest.sh)
 	set_tests_properties(dtlstest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
@@ -252,6 +255,8 @@ add_test(gost2814789t gost2814789t)
 # handshake_table
 if(NOT BUILD_SHARED_LIBS)
 	add_executable(handshake_table handshake_table.c)
+	set_source_files_properties(handshake_table.c PROPERTIES
+		INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../ssl)
 	target_link_libraries(handshake_table ${OPENSSL_LIBS})
 	add_test(handshake_table handshake_table)
 endif()
@@ -279,10 +284,14 @@ add_test(igetest igetest)
 # keypairtest
 if(NOT BUILD_SHARED_LIBS)
 	add_executable(key_schedule key_schedule.c)
+	set_source_files_properties(key_schedule.c PROPERTIES
+		INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../ssl)
 	target_link_libraries(key_schedule ${OPENSSL_LIBS})
 	add_test(key_schedule key_schedule)
 
 	add_executable(keypairtest keypairtest.c)
+	set_source_files_properties(keypairtest.c PROPERTIES
+		INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../tls)
 	target_link_libraries(keypairtest ${LIBTLS_LIBS})
 	add_test(keypairtest keypairtest
 		${CMAKE_CURRENT_SOURCE_DIR}/ca.pem
@@ -308,6 +317,8 @@ add_test(mont mont)
 # ocsp_test
 if(ENABLE_EXTRATESTS)
 	add_executable(ocsp_test ocsp_test.c)
+	set_source_files_properties(ocsp_test.c PROPERTIES COMPILE_FLAGS
+		-D_PATH_SSL_CA_FILE=\\"${CMAKE_CURRENT_SOURCE_DIR}/../cert.pem\\")
 	target_link_libraries(ocsp_test ${OPENSSL_LIBS})
 	if(NOT MSVC)
 		add_test(NAME ocsptest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/ocsptest.sh)
@@ -318,6 +329,9 @@ endif()
 
 # optionstest
 add_executable(optionstest optionstest.c)
+set_source_files_properties(optionstest.c PROPERTIES
+	INCLUDE_DIRECTORIES
+	"${CMAKE_CURRENT_SOURCE_DIR}/../apps/openssl;${CMAKE_CURRENT_SOURCE_DIR}/../apps/openssl/compat")
 target_link_libraries(optionstest ${OPENSSL_LIBS})
 add_test(optionstest optionstest)
 
@@ -379,6 +393,8 @@ add_test(rc4test rc4test)
 # recordtest
 if(NOT BUILD_SHARED_LIBS)
 	add_executable(recordtest recordtest.c)
+	set_source_files_properties(recordtest.c PROPERTIES
+		INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../ssl)
 	target_link_libraries(recordtest ${OPENSSL_LIBS})
 	add_test(recordtest recordtest)
 endif()
@@ -386,6 +402,8 @@ endif()
 # record_layer_test
 if(NOT BUILD_SHARED_LIBS)
 	add_executable(record_layer_test record_layer_test.c)
+	set_source_files_properties(record_layer_test.c PROPERTIES
+		INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../ssl)
 	target_link_libraries(record_layer_test ${OPENSSL_LIBS})
 	add_test(record_layer_test record_layer_test)
 endif()
@@ -448,20 +466,25 @@ add_test(sm4test sm4test)
 
 # ssl_get_shared_ciphers
 add_executable(ssl_get_shared_ciphers ssl_get_shared_ciphers.c)
-set_source_files_properties(ssl_get_shared_ciphers.c PROPERTIES COMPILE_FLAGS
-	-DCERTSDIR=\\"${CMAKE_CURRENT_SOURCE_DIR}\\")
+set_source_files_properties(ssl_get_shared_ciphers.c PROPERTIES
+	COMPILE_FLAGS -DCERTSDIR=\\"${CMAKE_CURRENT_SOURCE_DIR}\\"
+	INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../ssl)
 target_link_libraries(ssl_get_shared_ciphers ${OPENSSL_LIBS})
 add_test(ssl_get_shared_ciphers ssl_get_shared_ciphers)
 
 # ssl_versions
 if(NOT BUILD_SHARED_LIBS)
 	add_executable(ssl_versions ssl_versions.c)
+	set_source_files_properties(ssl_versions.c PROPERTIES
+		INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../ssl)
 	target_link_libraries(ssl_versions ${OPENSSL_LIBS})
 	add_test(ssl_versions ssl_versions)
 endif()
 
 # ssltest
 add_executable(ssltest ssltest.c)
+set_source_files_properties(ssltest.c PROPERTIES
+	INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../ssl)
 target_link_libraries(ssltest ${OPENSSL_LIBS})
 if(NOT MSVC)
 	add_test(NAME ssltest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/ssltest.sh)
@@ -502,6 +525,8 @@ add_test(timingsafe timingsafe)
 # tlsexttest
 if(NOT BUILD_SHARED_LIBS)
 	add_executable(tlsexttest tlsexttest.c)
+	set_source_files_properties(tlsexttest.c PROPERTIES
+		INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../ssl)
 	target_link_libraries(tlsexttest ${OPENSSL_LIBS})
 	add_test(tlsexttest tlsexttest)
 endif()
@@ -534,6 +559,8 @@ endif()
 # tls_ext_alpn
 if(NOT BUILD_SHARED_LIBS)
 	add_executable(tls_ext_alpn tls_ext_alpn.c)
+	set_source_files_properties(tls_ext_alpn.c PROPERTIES
+		INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../ssl)
 	target_link_libraries(tls_ext_alpn ${OPENSSL_LIBS})
 	add_test(tls_ext_alpn tls_ext_alpn)
 endif()
@@ -541,6 +568,8 @@ endif()
 # tls_prf
 if(NOT BUILD_SHARED_LIBS)
 	add_executable(tls_prf tls_prf.c)
+	set_source_files_properties(tls_prf.c PROPERTIES
+		INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../ssl)
 	target_link_libraries(tls_prf ${OPENSSL_LIBS})
 	add_test(tls_prf tls_prf)
 endif()
@@ -548,6 +577,8 @@ endif()
 # utf8test
 if(NOT BUILD_SHARED_LIBS)
 	add_executable(utf8test utf8test.c)
+	set_source_files_properties(utf8test.c PROPERTIES
+		INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../crypto/asn1)
 	target_link_libraries(utf8test ${OPENSSL_LIBS})
 	add_test(utf8test utf8test)
 endif()
@@ -555,6 +586,8 @@ endif()
 # valid_handshakes_terminate
 if(NOT BUILD_SHARED_LIBS)
 	add_executable(valid_handshakes_terminate valid_handshakes_terminate.c)
+	set_source_files_properties(valid_handshakes_terminate.c PROPERTIES
+		INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../ssl)
 	target_link_libraries(valid_handshakes_terminate ${OPENSSL_LIBS})
 	add_test(valid_handshakes_terminate valid_handshakes_terminate)
 endif()

@@ -1,14 +1,5 @@
 include $(top_srcdir)/Makefile.am.common
 
-AM_CPPFLAGS += -I $(top_srcdir)/crypto/modes
-AM_CPPFLAGS += -I $(top_srcdir)/crypto/asn1
-AM_CPPFLAGS += -I $(top_srcdir)/crypto/x509
-AM_CPPFLAGS += -I $(top_srcdir)/ssl
-AM_CPPFLAGS += -I $(top_srcdir)/tls
-AM_CPPFLAGS += -I $(top_srcdir)/apps/openssl
-AM_CPPFLAGS += -I $(top_srcdir)/apps/openssl/compat
-AM_CPPFLAGS += -D_PATH_SSL_CA_FILE=\"$(top_srcdir)/apps/openssl/cert.pem\"
-
 LDADD = $(abs_top_builddir)/tls/.libs/libtls.a
 LDADD += $(abs_top_builddir)/ssl/.libs/libssl.a
 LDADD += $(abs_top_builddir)/crypto/.libs/libcrypto.a
@@ -52,6 +43,7 @@ asn1evp_SOURCES = asn1evp.c
 
 # asn1test
 TESTS += asn1test
+asn1test_CPPFLAGS = $(AM_CPPFLAGS) -I $(top_srcdir)/ssl
 check_PROGRAMS += asn1test
 asn1test_SOURCES = asn1test.c
 
@@ -101,12 +93,13 @@ bn_to_string_SOURCES = bn_to_string.c
 
 # buffertest
 TESTS += buffertest
-buffertest_CPPFLAGS = $(AM_CPPFLAGS)
+buffertest_CPPFLAGS = $(AM_CPPFLAGS) -I $(top_srcdir)/ssl
 check_PROGRAMS += buffertest
 buffertest_SOURCES = buffertest.c
 
 # bytestringtest
 TESTS += bytestringtest
+bytestringtest_CPPFLAGS = $(AM_CPPFLAGS) -I $(top_srcdir)/ssl
 check_PROGRAMS += bytestringtest
 bytestringtest_SOURCES = bytestringtest.c
 
@@ -122,6 +115,7 @@ chachatest_SOURCES = chachatest.c
 
 # cipher_list
 TESTS += cipher_list
+cipher_list_CPPFLAGS = $(AM_CPPFLAGS) -I $(top_srcdir)/ssl
 check_PROGRAMS += cipher_list
 cipher_list_SOURCES = cipher_list.c
 noinst_HEADERS = tests.h
@@ -148,6 +142,7 @@ configtest_SOURCES = configtest.c
 
 # constraints
 TESTS += constraints
+constraints_CPPFLAGS = $(AM_CPPFLAGS) -I $(top_srcdir)/crypto/x509
 check_PROGRAMS += constraints
 constraints_SOURCES = constraints.c
 
@@ -174,6 +169,7 @@ dsatest_SOURCES = dsatest.c
 # dtlstest
 if !HOST_WIN
 TESTS += dtlstest.sh
+dtlstest_CPPFLAGS = $(AM_CPPFLAGS) -I $(top_srcdir)/ssl
 check_PROGRAMS += dtlstest
 dtlstest_SOURCES = dtlstest.c
 endif
@@ -247,6 +243,7 @@ gost2814789t_SOURCES = gost2814789t.c
 
 # handshake_table
 TESTS += handshake_table
+handshake_table_CPPFLAGS = $(AM_CPPFLAGS) -I $(top_srcdir)/ssl
 check_PROGRAMS += handshake_table
 handshake_table_SOURCES = handshake_table.c
 
@@ -272,12 +269,14 @@ igetest_SOURCES = igetest.c
 
 # keypairtest
 TESTS += keypairtest.sh
+keypairtest_CPPFLAGS = $(AM_CPPFLAGS) -I $(top_srcdir)/tls
 check_PROGRAMS += keypairtest
 keypairtest_SOURCES = keypairtest.c
 EXTRA_DIST += keypairtest.sh
 
 # key_schedule
 TESTS += key_schedule
+key_schedule_CPPFLAGS = $(AM_CPPFLAGS) -I $(top_srcdir)/ssl
 check_PROGRAMS += key_schedule
 key_schedule_SOURCES = key_schedule.c
 
@@ -299,6 +298,7 @@ mont_SOURCES = mont.c
 # ocsp_test
 if ENABLE_EXTRATESTS
 TESTS += ocsptest.sh
+ocsp_test_CPPFLAGS = $(AM_CPPFLAGS) -D_PATH_SSL_CA_FILE=\"$(top_srcdir)/cert.pem\"
 check_PROGRAMS += ocsp_test
 ocsp_test_SOURCES = ocsp_test.c
 endif
@@ -306,6 +306,7 @@ EXTRA_DIST += ocsptest.sh ocsptest.bat
 
 # optionstest
 TESTS += optionstest
+optionstest_CPPFLAGS = $(AM_CPPFLAGS) -I $(top_srcdir)/apps/openssl -I $(top_srcdir)/apps/openssl/compat
 check_PROGRAMS += optionstest
 optionstest_SOURCES = optionstest.c
 
@@ -358,11 +359,13 @@ rc4test_SOURCES = rc4test.c
 
 # recordtest
 TESTS += recordtest
+recordtest_CPPFLAGS = $(AM_CPPFLAGS) -I $(top_srcdir)/ssl
 check_PROGRAMS += recordtest
 recordtest_SOURCES = recordtest.c
 
 # record_layer_test
 TESTS += record_layer_test
+record_layer_test_CPPFLAGS = $(AM_CPPFLAGS) -I $(top_srcdir)/ssl
 check_PROGRAMS += record_layer_test
 record_layer_test_SOURCES = record_layer_test.c
 
@@ -430,11 +433,13 @@ ssl_methods_SOURCES = ssl_methods.c
 
 # ssl_versions
 TESTS += ssl_versions
+ssl_versions_CPPFLAGS = $(AM_CPPFLAGS) -I $(top_srcdir)/ssl
 check_PROGRAMS += ssl_versions
 ssl_versions_SOURCES = ssl_versions.c
 
 # ssltest
 TESTS += ssltest.sh
+ssltest_CPPFLAGS = $(AM_CPPFLAGS) -I $(top_srcdir)/ssl
 check_PROGRAMS += ssltest
 ssltest_SOURCES = ssltest.c
 EXTRA_DIST += ssltest.sh ssltest.bat
@@ -460,6 +465,7 @@ timingsafe_SOURCES = timingsafe.c
 
 # tlsexttest
 TESTS += tlsexttest
+tlsexttest_CPPFLAGS = $(AM_CPPFLAGS) -I $(top_srcdir)/ssl
 check_PROGRAMS += tlsexttest
 tlsexttest_SOURCES = tlsexttest.c
 
@@ -479,21 +485,25 @@ EXTRA_DIST += tlstest.sh tlstest.bat
 
 # tls_ext_alpn
 TESTS += tls_ext_alpn
+tls_ext_alpn_CPPFLAGS = $(AM_CPPFLAGS) -I $(top_srcdir)/ssl
 check_PROGRAMS += tls_ext_alpn
 tls_ext_alpn_SOURCES = tls_ext_alpn.c
 
 # tls_prf
 TESTS += tls_prf
+tls_prf_CPPFLAGS = $(AM_CPPFLAGS) -I $(top_srcdir)/ssl
 check_PROGRAMS += tls_prf
 tls_prf_SOURCES = tls_prf.c
 
 # utf8test
 TESTS += utf8test
+utf8test_CPPFLAGS = $(AM_CPPFLAGS) -I $(top_srcdir)/crypto/asn1
 check_PROGRAMS += utf8test
 utf8test_SOURCES = utf8test.c
 
 # valid_handshakes_terminate
 TESTS += valid_handshakes_terminate
+valid_handshakes_terminate_CPPFLAGS = $(AM_CPPFLAGS) -I $(top_srcdir)/ssl
 check_PROGRAMS += valid_handshakes_terminate
 valid_handshakes_terminate_SOURCES = valid_handshakes_terminate.c
 

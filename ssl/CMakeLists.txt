@@ -36,11 +36,11 @@ set(
 	ssl_versions.c
 	t1_enc.c
 	t1_lib.c
+	tls_buffer.c
 	tls_content.c
 	tls12_key_schedule.c
 	tls12_lib.c
 	tls12_record_layer.c
-	tls13_buffer.c
 	tls13_client.c
 	tls13_error.c
 	tls13_handshake.c

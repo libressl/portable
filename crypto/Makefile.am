@@ -7,6 +7,7 @@ AM_CPPFLAGS += -I$(top_srcdir)/crypto/ecdh
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/ecdsa
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/evp
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/modes
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/x509
 AM_CPPFLAGS += -I$(top_srcdir)/crypto
 
 noinst_LTLIBRARIES = libcompat.la

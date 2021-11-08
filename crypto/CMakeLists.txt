@@ -1,3 +1,5 @@
+add_definitions(-DLIBRESSL_CRYPTO_INTERNAL)
+
 if(HOST_ASM_ELF_ARMV4)
 	set(
 		ASM_ARMV4_ELF_SRC
@@ -726,9 +728,11 @@ set(
 	x509/pcy_map.c
 	x509/pcy_node.c
 	x509/pcy_tree.c
+	x509/x509_addr.c
 	x509/x509_akey.c
 	x509/x509_akeya.c
 	x509/x509_alt.c
+	x509/x509_asid.c
 	x509/x509_att.c
 	x509/x509_bcons.c
 	x509/x509_bitst.c
@@ -982,6 +986,7 @@ target_include_directories(crypto_obj
 		ecdsa
 		evp
 		modes
+		x509
 		../include/compat
 	PUBLIC
 		../include)
@@ -998,6 +1003,7 @@ target_include_directories(crypto
 		ecdsa
 		evp
 		modes
+		x509
 		../include/compat
 	PUBLIC
 		../include)

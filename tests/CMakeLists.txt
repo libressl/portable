@@ -4,7 +4,6 @@ include_directories(
 	../crypto/asn1
 	../crypto/x509
 	../ssl
-	../tls
 	../apps/openssl
 	../apps/openssl/compat
 	../include/compat
@@ -284,6 +283,7 @@ if(NOT BUILD_SHARED_LIBS)
 
 	add_executable(keypairtest keypairtest.c)
 	target_link_libraries(keypairtest ${LIBTLS_LIBS})
+	target_include_directories(keypairtest BEFORE PUBLIC ../tls)
 	add_test(keypairtest keypairtest
 		${CMAKE_CURRENT_SOURCE_DIR}/ca.pem
 		${CMAKE_CURRENT_SOURCE_DIR}/server.pem
@@ -595,4 +595,3 @@ if(BUILD_SHARED_LIBS)
 		"${CMAKE_CURRENT_BINARY_DIR}"
 		COMMENT "Copying DLLs for regression tests")
 endif()
-

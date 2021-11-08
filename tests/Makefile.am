@@ -4,7 +4,6 @@ AM_CPPFLAGS += -I $(top_srcdir)/crypto/modes
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/asn1
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/x509
 AM_CPPFLAGS += -I $(top_srcdir)/ssl
-AM_CPPFLAGS += -I $(top_srcdir)/tls
 AM_CPPFLAGS += -I $(top_srcdir)/apps/openssl
 AM_CPPFLAGS += -I $(top_srcdir)/apps/openssl/compat
 AM_CPPFLAGS += -D_PATH_SSL_CA_FILE=\"$(top_srcdir)/apps/openssl/cert.pem\"
@@ -101,7 +100,6 @@ bn_to_string_SOURCES = bn_to_string.c
 
 # buffertest
 TESTS += buffertest
-buffertest_CPPFLAGS = $(AM_CPPFLAGS)
 check_PROGRAMS += buffertest
 buffertest_SOURCES = buffertest.c
 
@@ -272,6 +270,7 @@ igetest_SOURCES = igetest.c
 
 # keypairtest
 TESTS += keypairtest.sh
+keypairtest_CPPFLAGS = -I $(top_srcdir)/tls
 check_PROGRAMS += keypairtest
 keypairtest_SOURCES = keypairtest.c
 EXTRA_DIST += keypairtest.sh

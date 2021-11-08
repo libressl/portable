@@ -520,3 +520,8 @@ x509_info_SOURCES = x509_info.c
 TESTS += x509name
 check_PROGRAMS += x509name
 x509name_SOURCES = x509name.c
+
+# x509req_ext
+TESTS += x509req_ext
+check_PROGRAMS += x509req_ext
+x509req_ext_SOURCES = x509req_ext.c

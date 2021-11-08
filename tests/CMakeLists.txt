@@ -586,6 +586,11 @@ add_executable(x509name x509name.c)
 target_link_libraries(x509name ${OPENSSL_LIBS})
 add_test(x509name x509name)
 
+# x509req_ext
+add_executable(x509req_ext x509req_ext.c)
+target_link_libraries(x509req_ext ${OPENSSL_LIBS})
+add_test(x509req_ext x509req_ext)
+
 if(BUILD_SHARED_LIBS)
 	add_custom_command(TARGET x25519test POST_BUILD
 		COMMAND "${CMAKE_COMMAND}" -E copy

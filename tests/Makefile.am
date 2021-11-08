@@ -270,7 +270,7 @@ igetest_SOURCES = igetest.c
 
 # keypairtest
 TESTS += keypairtest.sh
-keypairtest_CPPFLAGS = -I $(top_srcdir)/tls
+keypairtest_CPPFLAGS = -I $(top_srcdir)/tls $(AM_CPPFLAGS)
 check_PROGRAMS += keypairtest
 keypairtest_SOURCES = keypairtest.c
 EXTRA_DIST += keypairtest.sh

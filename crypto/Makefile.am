@@ -265,6 +265,7 @@ libcrypto_la_SOURCES += ex_data.c
 libcrypto_la_SOURCES += malloc-wrapper.c
 libcrypto_la_SOURCES += mem_clr.c
 libcrypto_la_SOURCES += mem_dbg.c
+libcrypto_la_SOURCES += o_fips.c
 libcrypto_la_SOURCES += o_init.c
 libcrypto_la_SOURCES += o_str.c
 libcrypto_la_SOURCES += o_time.c

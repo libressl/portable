@@ -233,6 +233,7 @@ set(
 	malloc-wrapper.c
 	mem_clr.c
 	mem_dbg.c
+	o_fips.c
 	o_init.c
 	o_str.c
 	o_time.c

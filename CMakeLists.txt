@@ -352,6 +352,19 @@ if(LIBRESSL_APPS AND LIBRESSL_TESTS)
 	add_subdirectory(tests)
 endif()
 
+if (BUILD_APPLE_XCFRAMEWORK)
+	# Create the super library from object libraries
+	add_library(LibreSSL_xcframework
+			$<TARGET_OBJECTS:crypto_obj> $<TARGET_OBJECTS:tls_obj> $<TARGET_OBJECTS:ssl_obj>)
+	set_target_properties(LibreSSL_xcframework PROPERTIES
+			OUTPUT_NAME ressl)
+
+	if(ENABLE_LIBRESSL_INSTALL)
+		install(TARGETS LibreSSL_xcframework
+				LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+	endif(ENABLE_LIBRESSL_INSTALL)
+endif(BUILD_APPLE_XCFRAMEWORK)
+
 if(ENABLE_LIBRESSL_INSTALL)
 	if(NOT MSVC)
 		# Create pkgconfig files.

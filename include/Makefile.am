@@ -7,6 +7,7 @@ SUBDIRS = openssl
 noinst_HEADERS = pqueue.h
 noinst_HEADERS += compat/dirent.h
 noinst_HEADERS += compat/dirent_msvc.h
+noinst_HEADERS += compat/endian.h
 noinst_HEADERS += compat/err.h
 noinst_HEADERS += compat/fcntl.h
 noinst_HEADERS += compat/limits.h
@@ -25,8 +26,6 @@ noinst_HEADERS += compat/win32netcompat.h
 
 noinst_HEADERS += compat/arpa/inet.h
 noinst_HEADERS += compat/arpa/nameser.h
-
-noinst_HEADERS += compat/machine/endian.h
 
 noinst_HEADERS += compat/netinet/in.h
 noinst_HEADERS += compat/netinet/ip.h

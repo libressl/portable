@@ -1,7 +1,11 @@
 AC_DEFUN([CHECK_LIBC_COMPAT], [
 # Check for libc headers
-AC_CHECK_HEADERS([err.h readpassphrase.h])
-AC_CHECK_HEADERS([arpa/nameser.h endian.h netinet/ip.h resolv.h])
+AC_CHECK_HEADERS([endian.h err.h readpassphrase.h])
+AC_CHECK_HEADERS([netinet/ip.h], [], [],
+[#include <sys/types.h>
+#include <arpa/inet.h>
+])
+AC_HEADER_RESOLV
 # Check for general libc functions
 AC_CHECK_FUNCS([asprintf freezero memmem])
 AC_CHECK_FUNCS([readpassphrase reallocarray recallocarray])

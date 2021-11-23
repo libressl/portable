@@ -1,0 +1,18 @@
+--- tests/x509req_ext.c.orig	Tue Nov 23 18:31:32 2021
++++ tests/x509req_ext.c	Tue Nov 23 18:41:56 2021
+@@ -136,6 +136,7 @@
+ 	}
+ 	if ((irc = ASN1_TYPE_get(aval)) != V_ASN1_SEQUENCE)
+ 		fail_int("ASN1_TYPE_get", irc);
++#ifndef _MSC_VER
+ 	exts = ASN1_item_unpack(aval->value.sequence, &X509_EXTENSIONS_it);
+ 	if (exts == NULL) {
+ 		fail_str("ASN1_item_unpack", "NULL");
+@@ -144,6 +145,7 @@
+ 	if ((irc = sk_X509_EXTENSION_num(exts)) != 0)
+ 		fail_int("sk_X509_EXTENSION_num", irc);
+ 	sk_X509_EXTENSION_free(exts);
++#endif
+ 
+ end_valid:
+ 	testname = "getext";

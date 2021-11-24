@@ -28,6 +28,12 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.4.2 - Security fix
+
+	* In some situations the X.509 verifier would discard an error on an
+	  unverified certificate chain, resulting in an authentication bypass.
+	  Thanks to Ilya Shipitsin and Timo Steinlein for reporting.
+
 3.4.1 - Stable release
 
 	* New Features

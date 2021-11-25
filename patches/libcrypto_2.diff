@@ -1,0 +1,59 @@
+commit 5dd3c162296b91c3ec61aec1ad52a10fdde8d142
+Author: claudio <>
+Date:   Wed Oct 6 08:29:41 2021 +0000
+
+    X509_STORE_CTX_init() allows the store to be NULL on init. Add checks
+    for a NULL ctx->ctx in the lookup functions using X509_STORE_CTX.
+    This affects X509_STORE_get1_certs(), X509_STORE_get1_crls(),
+    X509_STORE_CTX_get1_issuer() and X509_STORE_get_by_subject().
+    With this X509_verify_cert() no longer crashes with a NULL store.
+    With and OK tb@
+
+diff --git a/src/lib/libcrypto/x509/x509_lu.c b/src/lib/libcrypto/x509/x509_lu.c
+index f21103c700..315eddf612 100644
+--- a/src/lib/libcrypto/x509/x509_lu.c
++++ b/src/lib/libcrypto/x509/x509_lu.c
+@@ -1,4 +1,4 @@
+-/* $OpenBSD: x509_lu.c,v 1.30 2018/08/24 19:21:09 tb Exp $ */
++/* $OpenBSD: x509_lu.c,v 1.31 2021/10/06 08:29:41 claudio Exp $ */
+ /* Copyright (C) 1995-1998 Eric Young (eay@cryptsoft.com)
+  * All rights reserved.
+  *
+@@ -312,6 +312,9 @@ X509_STORE_get_by_subject(X509_STORE_CTX *vs, int type, X509_NAME *name,
+ 	X509_OBJECT stmp, *tmp;
+ 	int i, j;
+ 
++	if (ctx == NULL)
++		return 0;
++
+ 	CRYPTO_w_lock(CRYPTO_LOCK_X509_STORE);
+ 	tmp = X509_OBJECT_retrieve_by_subject(ctx->objs, type, name);
+ 	CRYPTO_w_unlock(CRYPTO_LOCK_X509_STORE);
+@@ -561,6 +564,8 @@ X509_STORE_get1_certs(X509_STORE_CTX *ctx, X509_NAME *nm)
+ 	X509 *x;
+ 	X509_OBJECT *obj;
+ 
++	if (ctx->ctx == NULL)
++		return NULL;
+ 	sk = sk_X509_new_null();
+ 	if (sk == NULL)
+ 		return NULL;
+@@ -610,6 +615,8 @@ X509_STORE_get1_crls(X509_STORE_CTX *ctx, X509_NAME *nm)
+ 	X509_CRL *x;
+ 	X509_OBJECT *obj, xobj;
+ 
++	if (ctx->ctx == NULL)
++		return NULL;
+ 	sk = sk_X509_CRL_new_null();
+ 	if (sk == NULL)
+ 		return NULL;
+@@ -718,6 +725,9 @@ X509_STORE_CTX_get1_issuer(X509 **issuer, X509_STORE_CTX *ctx, X509 *x)
+ 	}
+ 	X509_OBJECT_free_contents(&obj);
+ 
++	if (ctx->ctx == NULL)
++		return 0;
++
+ 	/* Else find index of first cert accepted by 'check_issued' */
+ 	ret = 0;
+ 	CRYPTO_w_lock(CRYPTO_LOCK_X509_STORE);

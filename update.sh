@@ -360,6 +360,10 @@ for i in patches/*.patch; do
     $PATCH -p0 < $i
 done
 
+for i in patches/libcrypto*.diff; do
+	(cd crypto; $PATCH -p4 < ../$i)
+done
+
 # copy manpages
 echo "copying manpages"
 echo EXTRA_DIST = CMakeLists.txt > man/Makefile.am

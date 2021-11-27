@@ -1,4 +1,4 @@
-add_definitions(-DLIBRESSL_CRYPTO_INTERNAL)
+#add_definitions(-DLIBRESSL_CRYPTO_INTERNAL)
 
 if(HOST_ASM_ELF_ARMV4)
 	set(

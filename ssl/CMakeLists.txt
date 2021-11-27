@@ -89,3 +89,16 @@ if(ENABLE_LIBRESSL_INSTALL)
 		RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 	)
 endif(ENABLE_LIBRESSL_INSTALL)
+
+# build static library for regression test
+if(BUILD_SHARED_LIBS)
+	add_library(ssl-static STATIC $<TARGET_OBJECTS:ssl_obj>)
+	target_include_directories(ssl-static
+		PRIVATE
+			.
+			../include/compat
+		PUBLIC
+			../include)
+	target_link_libraries(ssl-static crypto-static ${PLATFORM_LIBS})
+endif()
+

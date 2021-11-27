@@ -412,6 +412,16 @@ set(
 	conf/conf_mall.c
 	conf/conf_mod.c
 	conf/conf_sap.c
+	ct/ct_b64.c
+	ct/ct_err.c
+	ct/ct_log.c
+	ct/ct_oct.c
+	ct/ct_policy.c
+	ct/ct_prn.c
+	ct/ct_sct.c
+	ct/ct_sct_ctx.c
+	ct/ct_vfy.c
+	ct/ct_x509v3.c
 	curve25519/curve25519-generic.c
 	curve25519/curve25519.c
 	des/cbc_cksm.c

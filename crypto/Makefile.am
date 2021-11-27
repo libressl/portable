@@ -1,5 +1,7 @@
 include $(top_srcdir)/Makefile.am.common
 
+AM_CPPFLAGS += -DLIBRESSL_CRYPTO_INTERNAL
+
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/asn1
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/bn
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/ec
@@ -499,6 +501,19 @@ libcrypto_la_SOURCES += conf/conf_mall.c
 libcrypto_la_SOURCES += conf/conf_mod.c
 libcrypto_la_SOURCES += conf/conf_sap.c
 noinst_HEADERS += conf/conf_def.h
+
+# ct
+libcrypto_la_SOURCES += ct/ct_b64.c
+libcrypto_la_SOURCES += ct/ct_err.c
+libcrypto_la_SOURCES += ct/ct_log.c
+libcrypto_la_SOURCES += ct/ct_oct.c
+libcrypto_la_SOURCES += ct/ct_policy.c
+libcrypto_la_SOURCES += ct/ct_prn.c
+libcrypto_la_SOURCES += ct/ct_sct.c
+libcrypto_la_SOURCES += ct/ct_sct_ctx.c
+libcrypto_la_SOURCES += ct/ct_vfy.c
+libcrypto_la_SOURCES += ct/ct_x509v3.c
+noinst_HEADERS += ct/ct_local.h
 
 # curve25519
 libcrypto_la_SOURCES += curve25519/curve25519-generic.c

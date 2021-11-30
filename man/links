@@ -124,7 +124,9 @@ ASN1_mbstring_copy.3,ASN1_STRING_set_by_NID.3
 ASN1_mbstring_copy.3,ASN1_STRING_set_default_mask.3
 ASN1_mbstring_copy.3,ASN1_STRING_set_default_mask_asc.3
 ASN1_mbstring_copy.3,ASN1_mbstring_ncopy.3
+ASN1_mbstring_copy.3,ASN1_tag2bit.3
 ASN1_parse_dump.3,ASN1_parse.3
+ASN1_put_object.3,ASN1_object_size.3
 ASN1_put_object.3,ASN1_put_eoc.3
 ASN1_time_parse.3,ASN1_TIME_set_tm.3
 ASN1_time_parse.3,ASN1_time_tm_cmp.3
@@ -157,6 +159,11 @@ BIO_ctrl.3,bio_info_cb.3
 BIO_dump.3,BIO_dump_fp.3
 BIO_dump.3,BIO_dump_indent.3
 BIO_dump.3,BIO_dump_indent_fp.3
+BIO_f_asn1.3,BIO_asn1_get_prefix.3
+BIO_f_asn1.3,BIO_asn1_get_suffix.3
+BIO_f_asn1.3,BIO_asn1_set_prefix.3
+BIO_f_asn1.3,BIO_asn1_set_suffix.3
+BIO_f_asn1.3,asn1_ps_func.3
 BIO_f_buffer.3,BIO_get_buffer_num_lines.3
 BIO_f_buffer.3,BIO_set_buffer_read_data.3
 BIO_f_buffer.3,BIO_set_buffer_size.3

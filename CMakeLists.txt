@@ -296,7 +296,7 @@ if(HAVE_ERR_H)
 	add_definitions(-DHAVE_ERR_H)
 endif()
 
-check_include_files(netinet/ip.h HAVE_NETINET_IP_H)
+check_include_files("sys/types.h;arpa/inet.h;netinet/ip.h" HAVE_NETINET_IP_H)
 if(HAVE_NETINET_IP_H)
 	add_definitions(-DHAVE_NETINET_IP_H)
 endif()

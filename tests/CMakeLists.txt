@@ -46,6 +46,11 @@ add_executable(asn1time asn1time.c)
 target_link_libraries(asn1time ${OPENSSL_TEST_LIBS})
 add_test(asn1time asn1time)
 
+# asn1x509
+add_executable(asn1x509 asn1x509.c)
+target_link_libraries(asn1x509 ${OPENSSL_TEST_LIBS})
+add_test(asn1x509 asn1x509)
+
 # base64test
 add_executable(base64test base64test.c)
 target_link_libraries(base64test ${OPENSSL_TEST_LIBS})

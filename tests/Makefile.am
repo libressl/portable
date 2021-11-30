@@ -59,6 +59,11 @@ TESTS += asn1time
 check_PROGRAMS += asn1time
 asn1time_SOURCES = asn1time.c
 
+# asn1x509
+TESTS += asn1x509
+check_PROGRAMS += asn1x509
+asn1x509_SOURCES = asn1x509.c
+
 # base64test
 TESTS += base64test
 check_PROGRAMS += base64test

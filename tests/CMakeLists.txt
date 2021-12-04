@@ -32,10 +32,30 @@ if(NOT (WIN32 OR (CMAKE_SYSTEM_NAME MATCHES "MINGW")))
 	add_test(arc4randomforktest ${CMAKE_CURRENT_SOURCE_DIR}/arc4randomforktest.sh)
 endif()
 
+# asn1api
+add_executable(asn1api asn1api.c)
+target_link_libraries(asn1api ${OPENSSL_TEST_LIBS})
+add_test(asn1api asn1api)
+
+# asn1basic
+add_executable(asn1basic asn1basic.c)
+target_link_libraries(asn1basic ${OPENSSL_TEST_LIBS})
+add_test(asn1basic asn1basic)
+
+# asn1complex
+add_executable(asn1complex asn1complex.c)
+target_link_libraries(asn1complex ${OPENSSL_TEST_LIBS})
+add_test(asn1complex asn1complex)
+
 # asn1evp
 add_executable(asn1evp asn1evp.c)
 target_link_libraries(asn1evp ${OPENSSL_TEST_LIBS})
 add_test(asn1evp asn1evp)
+
+# asn1string_copy
+add_executable(asn1string_copy asn1string_copy.c)
+target_link_libraries(asn1string_copy ${OPENSSL_TEST_LIBS})
+add_test(asn1string_copy asn1string_copy)
 
 # asn1test
 add_executable(asn1test asn1test.c)
@@ -169,6 +189,11 @@ if(NOT WIN32)
 	add_test(NAME dtlstest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/dtlstest.sh)
 	set_tests_properties(dtlstest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 endif()
+
+# ec_asn1_test
+add_executable(ec_asn1_test ec_asn1_test.c)
+target_link_libraries(ec_asn1_test ${OPENSSL_TEST_LIBS})
+add_test(ec_asn1_test ec_asn1_test)
 
 # ec_point_conversion
 add_executable(ec_point_conversion ec_point_conversion.c)

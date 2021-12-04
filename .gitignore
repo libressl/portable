@@ -57,8 +57,13 @@ test-driver
 *.trs
 tests/aes_wrap*
 tests/arc4random_fork*
+tests/asn1api*
+tests/asn1basic*
+tests/asn1complex*
+tests/asn1string_copy*
 tests/asn1evp*
 tests/asn1time*
+tests/asn1x509*
 tests/bnaddsub*
 tests/bn_rand_interval*
 tests/bn_to_string*
@@ -89,6 +94,7 @@ tests/verify*
 tests/x509_info*
 tests/x509attribute*
 tests/x509name*
+tests/x509req_ext*
 !tests/optionstest.c
 !tests/*.test
 tests/client.c

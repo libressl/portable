@@ -44,10 +44,30 @@ arc4randomforktest_SOURCES = arc4randomforktest.c
 endif
 EXTRA_DIST += arc4randomforktest.sh
 
+# asn1api
+TESTS += asn1api
+check_PROGRAMS += asn1api
+asn1api_SOURCES = asn1api.c
+
+# asn1basic
+TESTS += asn1basic
+check_PROGRAMS += asn1basic
+asn1basic_SOURCES = asn1basic.c
+
+# asn1complex
+TESTS += asn1complex
+check_PROGRAMS += asn1complex
+asn1complex_SOURCES = asn1complex.c
+
 # asn1evp
 TESTS += asn1evp
 check_PROGRAMS += asn1evp
 asn1evp_SOURCES = asn1evp.c
+
+# asn1string_copy
+TESTS += asn1string_copy
+check_PROGRAMS += asn1string_copy
+asn1string_copy_SOURCES = asn1string_copy.c
 
 # asn1test
 TESTS += asn1test
@@ -181,6 +201,11 @@ check_PROGRAMS += dtlstest
 dtlstest_SOURCES = dtlstest.c
 endif
 EXTRA_DIST += dtlstest.sh
+
+# ec_asn1_test
+TESTS += ec_asn1_test
+check_PROGRAMS += ec_asn1_test
+ec_asn1_test_SOURCES = ec_asn1_test.c
 
 # ec_point_conversion
 TESTS += ec_point_conversion

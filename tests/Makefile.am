@@ -273,17 +273,17 @@ TESTS += igetest
 check_PROGRAMS += igetest
 igetest_SOURCES = igetest.c
 
+# key_schedule
+TESTS += key_schedule
+check_PROGRAMS += key_schedule
+key_schedule_SOURCES = key_schedule.c
+
 # keypairtest
 TESTS += keypairtest.sh
 keypairtest_CPPFLAGS = -I $(top_srcdir)/tls $(AM_CPPFLAGS)
 check_PROGRAMS += keypairtest
 keypairtest_SOURCES = keypairtest.c
 EXTRA_DIST += keypairtest.sh
-
-# key_schedule
-TESTS += key_schedule
-check_PROGRAMS += key_schedule
-key_schedule_SOURCES = key_schedule.c
 
 # md4test
 TESTS += md4test

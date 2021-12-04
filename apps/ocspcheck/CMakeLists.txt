@@ -28,6 +28,7 @@ else()
 endif()
 
 add_executable(ocspcheck ${OCSPCHECK_SRC})
+target_include_directories(ocspcheck PUBLIC ../../include)
 target_include_directories(ocspcheck PRIVATE . ./compat ../../include/compat)
 target_link_libraries(ocspcheck tls ${OPENSSL_LIBS})
 

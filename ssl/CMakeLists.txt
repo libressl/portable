@@ -63,12 +63,6 @@ target_include_directories(ssl_obj
 		../include)
 
 add_library(ssl $<TARGET_OBJECTS:ssl_obj>)
-target_include_directories(ssl
-	PRIVATE
-		.
-		../include/compat
-	PUBLIC
-		../include)
 
 export_symbol(ssl ${CMAKE_CURRENT_SOURCE_DIR}/ssl.sym)
 target_link_libraries(ssl crypto ${PLATFORM_LIBS})
@@ -93,12 +87,6 @@ endif(ENABLE_LIBRESSL_INSTALL)
 # build static library for regression test
 if(BUILD_SHARED_LIBS)
 	add_library(ssl-static STATIC $<TARGET_OBJECTS:ssl_obj>)
-	target_include_directories(ssl-static
-		PRIVATE
-			.
-			../include/compat
-		PUBLIC
-			../include)
 	target_link_libraries(ssl-static crypto-static ${PLATFORM_LIBS})
 endif()
 

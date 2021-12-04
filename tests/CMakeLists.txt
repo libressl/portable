@@ -6,6 +6,7 @@ include_directories(
 	../ssl
 	../apps/openssl
 	../apps/openssl/compat
+	../include
 	../include/compat
 )
 

@@ -1003,21 +1003,6 @@ target_include_directories(crypto_obj
 		../include)
 
 add_library(crypto $<TARGET_OBJECTS:crypto_obj>)
-target_include_directories(crypto
-	PRIVATE
-		.
-		asn1
-		bn
-		dsa
-		ec
-		ecdh
-		ecdsa
-		evp
-		modes
-		x509
-		../include/compat
-	PUBLIC
-		../include)
 
 export_symbol(crypto ${CMAKE_CURRENT_BINARY_DIR}/crypto_p.sym)
 target_link_libraries(crypto ${PLATFORM_LIBS})
@@ -1042,21 +1027,6 @@ endif(ENABLE_LIBRESSL_INSTALL)
 # build static library for regression test
 if(BUILD_SHARED_LIBS)
 	add_library(crypto-static STATIC $<TARGET_OBJECTS:crypto_obj>)
-	target_include_directories(crypto-static
-		PRIVATE
-			.
-			asn1
-			bn
-			dsa
-			ec
-			ecdh
-			ecdsa
-			evp
-			modes
-			x509
-			../include/compat
-		PUBLIC
-			../include)
 	target_link_libraries(crypto-static ${PLATFORM_LIBS})
 endif()
 

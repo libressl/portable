@@ -77,6 +77,7 @@ if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
 endif()
 
 add_executable(openssl ${OPENSSL_SRC})
+target_include_directories(openssl PUBLIC ../../include)
 target_include_directories(openssl PRIVATE . ../../include/compat)
 target_link_libraries(openssl ${OPENSSL_LIBS})
 

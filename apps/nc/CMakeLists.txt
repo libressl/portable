@@ -44,6 +44,7 @@ else()
 endif()
 
 add_executable(nc ${NC_SRC})
+target_include_directories(nc PUBLIC ../../include)
 target_include_directories(nc PRIVATE . ./compat ../../include/compat)
 target_link_libraries(nc ${LIBTLS_LIBS})
 

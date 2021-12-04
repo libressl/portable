@@ -48,12 +48,6 @@ target_include_directories(tls_obj
 
 add_library(tls $<TARGET_OBJECTS:tls_obj> $<TARGET_OBJECTS:ssl_obj>
 	$<TARGET_OBJECTS:crypto_obj>)
-target_include_directories(tls
-	PRIVATE
-		.
-		../include/compat
-	PUBLIC
-		../include)
 
 export_symbol(tls ${CMAKE_CURRENT_BINARY_DIR}/tls.sym)
 target_link_libraries(tls ${PLATFORM_LIBS})
@@ -79,12 +73,6 @@ endif(ENABLE_LIBRESSL_INSTALL)
 if(BUILD_SHARED_LIBS)
 	add_library(tls-static STATIC $<TARGET_OBJECTS:tls_obj>
 		$<TARGET_OBJECTS:ssl_obj> $<TARGET_OBJECTS:crypto_obj>)
-	target_include_directories(tls-static
-		PRIVATE
-			.
-			../include/compat
-		PUBLIC
-			../include)
 	target_link_libraries(tls-static ${PLATFORM_LIBS})
 endif()
 

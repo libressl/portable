@@ -424,6 +424,11 @@ set_source_files_properties(ssl_get_shared_ciphers.c PROPERTIES COMPILE_FLAGS
 target_link_libraries(ssl_get_shared_ciphers ${OPENSSL_TEST_LIBS})
 add_test(ssl_get_shared_ciphers ssl_get_shared_ciphers)
 
+# ssl_methods
+add_executable(ssl_methods ssl_methods.c)
+target_link_libraries(ssl_methods ${OPENSSL_TEST_LIBS})
+add_test(ssl_methods ssl_methods)
+
 # ssl_versions
 add_executable(ssl_versions ssl_versions.c)
 target_link_libraries(ssl_versions ${OPENSSL_TEST_LIBS})

@@ -6,7 +6,7 @@ AM_CPPFLAGS += -I $(top_srcdir)/crypto/x509
 AM_CPPFLAGS += -I $(top_srcdir)/ssl
 AM_CPPFLAGS += -I $(top_srcdir)/apps/openssl
 AM_CPPFLAGS += -I $(top_srcdir)/apps/openssl/compat
-AM_CPPFLAGS += -D_PATH_SSL_CA_FILE=\"$(top_srcdir)/apps/openssl/cert.pem\"
+AM_CPPFLAGS += -D_PATH_SSL_CA_FILE=\"$(top_srcdir)/cert.pem\"
 
 LDADD = $(abs_top_builddir)/tls/.libs/libtls.a
 LDADD += $(abs_top_builddir)/ssl/.libs/libssl.a

@@ -255,6 +255,8 @@ set(
 	asn1/a_mbstr.c
 	asn1/a_object.c
 	asn1/a_octet.c
+	asn1/a_pkey.c
+	asn1/a_pubkey.c
 	asn1/a_print.c
 	asn1/a_sign.c
 	asn1/a_strex.c
@@ -274,14 +276,10 @@ set(
 	asn1/asn_pack.c
 	asn1/bio_asn1.c
 	asn1/bio_ndef.c
-	asn1/d2i_pr.c
-	asn1/d2i_pu.c
 	asn1/evp_asn1.c
 	asn1/f_enum.c
 	asn1/f_int.c
 	asn1/f_string.c
-	asn1/i2d_pr.c
-	asn1/i2d_pu.c
 	asn1/n_pkey.c
 	asn1/nsseq.c
 	asn1/p5_pbe.c

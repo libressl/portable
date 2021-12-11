@@ -1,7 +1,9 @@
 include $(top_srcdir)/Makefile.am.common
 
+noinst_LTLIBRARIES = libbs.la
+
 if ENABLE_LIBTLS_ONLY
-noinst_LTLIBRARIES = libssl.la
+noinst_LTLIBRARIES += libssl.la
 else
 lib_LTLIBRARIES = libssl.la
 endif
@@ -21,11 +23,14 @@ libssl_la_objects.mk: Makefile
 
 libssl_la_LDFLAGS = -version-info @LIBSSL_VERSION@ -no-undefined -export-symbols $(top_srcdir)/ssl/ssl.sym
 libssl_la_LIBADD = $(abs_top_builddir)/crypto/libcrypto.la $(PLATFORM_LDADD)
+libssl_la_LIBADD += libbs.la
+
+libbs_la_SOURCES = bs_ber.c
+libbs_la_SOURCES += bs_cbb.c
+libbs_la_SOURCES += bs_cbs.c
+noinst_HEADERS = bytestring.h
 
 libssl_la_SOURCES = bio_ssl.c
-libssl_la_SOURCES += bs_ber.c
-libssl_la_SOURCES += bs_cbb.c
-libssl_la_SOURCES += bs_cbs.c
 libssl_la_SOURCES += d1_both.c
 libssl_la_SOURCES += d1_lib.c
 libssl_la_SOURCES += d1_pkt.c
@@ -75,7 +80,6 @@ libssl_la_SOURCES += tls13_record.c
 libssl_la_SOURCES += tls13_record_layer.c
 libssl_la_SOURCES += tls13_server.c
 
-noinst_HEADERS = bytestring.h
 noinst_HEADERS += srtp.h
 noinst_HEADERS += dtls_locl.h
 noinst_HEADERS += ssl_locl.h

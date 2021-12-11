@@ -4,6 +4,7 @@ AM_CPPFLAGS += -DLIBRESSL_CRYPTO_INTERNAL
 
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/asn1
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/bn
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/bytestring
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/ec
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/ecdh
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/ecdsa
@@ -439,6 +440,12 @@ noinst_HEADERS += bn/bn_prime.h
 libcrypto_la_SOURCES += buffer/buf_err.c
 libcrypto_la_SOURCES += buffer/buf_str.c
 libcrypto_la_SOURCES += buffer/buffer.c
+noinst_HEADERS += bytestring/bytestring.h
+
+# bytestring
+libcrypto_la_SOURCES += bytestring/bs_ber.c
+libcrypto_la_SOURCES += bytestring/bs_cbb.c
+libcrypto_la_SOURCES += bytestring/bs_cbs.c
 
 # camellia
 libcrypto_la_SOURCES += camellia/cmll_cfb.c

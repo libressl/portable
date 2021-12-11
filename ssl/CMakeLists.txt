@@ -1,9 +1,6 @@
 set(
 	SSL_SRC
 	bio_ssl.c
-	bs_ber.c
-	bs_cbb.c
-	bs_cbs.c
 	d1_both.c
 	d1_lib.c
 	d1_pkt.c
@@ -54,6 +51,13 @@ set(
 	tls13_server.c
 )
 
+set(
+	BS_SRC
+	bs_ber.c
+	bs_cbb.c
+	bs_cbs.c
+)
+
 add_library(ssl_obj OBJECT ${SSL_SRC})
 target_include_directories(ssl_obj
 	PRIVATE
@@ -62,7 +66,17 @@ target_include_directories(ssl_obj
 	PUBLIC
 		../include)
 
-add_library(ssl $<TARGET_OBJECTS:ssl_obj>)
+add_library(bs_obj OBJECT ${BS_SRC})
+target_include_directories(bs_obj
+	PRIVATE
+		.
+		../include/compat)
+
+if(BUILD_SHARED_LIBS)
+	add_library(ssl $<TARGET_OBJECTS:ssl_obj> $<TARGET_OBJECTS:bs_obj>)
+else()
+	add_library(ssl $<TARGET_OBJECTS:ssl_obj>)
+endif()
 
 export_symbol(ssl ${CMAKE_CURRENT_SOURCE_DIR}/ssl.sym)
 target_link_libraries(ssl crypto ${PLATFORM_LIBS})

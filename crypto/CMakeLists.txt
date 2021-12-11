@@ -371,6 +371,9 @@ set(
 	buffer/buf_err.c
 	buffer/buf_str.c
 	buffer/buffer.c
+	bytestring/bs_ber.c
+	bytestring/bs_cbb.c
+	bytestring/bs_cbs.c
 	camellia/cmll_cfb.c
 	camellia/cmll_ctr.c
 	camellia/cmll_ecb.c
@@ -989,6 +992,7 @@ target_include_directories(crypto_obj
 		.
 		asn1
 		bn
+		bytestring
 		dsa
 		ec
 		ecdh

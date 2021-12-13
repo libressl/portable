@@ -25,7 +25,7 @@ libssl_la_objects.mk: Makefile
 
 .PHONY: remove_bs_objects
 remove_bs_objects: libssl.la
-	$(AR) dv $(abs_top_builddir)/ssl/.libs/libssl.a \
+	-$(AR) dv $(abs_top_builddir)/ssl/.libs/libssl.a \
 	    bs_ber.o bs_cbb.o bs_cbs.o
 
 libssl_la_LDFLAGS = -version-info @LIBSSL_VERSION@ -no-undefined -export-symbols $(top_srcdir)/ssl/ssl.sym

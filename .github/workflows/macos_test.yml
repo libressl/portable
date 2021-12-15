@@ -21,7 +21,7 @@ jobs:
     - name: Run CI script
       run: ./scripts/test
     - name: Archive test logs
-      uses: actions/upload-artifacts@v2
+      uses: actions/upload-artifact@v2
       with:
         name: test-logs
         path: tests/*.log

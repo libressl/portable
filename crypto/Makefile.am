@@ -9,6 +9,7 @@ AM_CPPFLAGS += -I$(top_srcdir)/crypto/ec
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/ecdh
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/ecdsa
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/evp
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/hmac
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/modes
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/x509
 AM_CPPFLAGS += -I$(top_srcdir)/crypto
@@ -747,6 +748,7 @@ libcrypto_la_SOURCES += hkdf/hkdf.c
 libcrypto_la_SOURCES += hmac/hm_ameth.c
 libcrypto_la_SOURCES += hmac/hm_pmeth.c
 libcrypto_la_SOURCES += hmac/hmac.c
+noinst_HEADERS += hmac/hmac_local.h
 
 # idea
 libcrypto_la_SOURCES += idea/i_cbc.c

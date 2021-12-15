@@ -998,6 +998,7 @@ target_include_directories(crypto_obj
 		ecdh
 		ecdsa
 		evp
+		hmac
 		modes
 		x509
 		../include/compat

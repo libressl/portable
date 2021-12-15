@@ -9,7 +9,7 @@ jobs:
         os: [macos-latest]
         compiler: [clang, gcc]
     runs-on: ${{ matrix.os }}
-    continue-on-error: false
+    continue-on-error: true
     env:
       CC: ${{ matrix.compiler }}
       ARCH: native
@@ -20,3 +20,8 @@ jobs:
     - uses: actions/checkout@v2
     - name: Run CI script
       run: ./scripts/test
+    - name: Archive test logs
+      uses: actions/upload-artifacts@v2
+      with:
+        name: test-logs
+        path: tests/*.log

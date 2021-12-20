@@ -245,7 +245,6 @@ set(
 	aes/aes_ofb.c
 	aes/aes_wrap.c
 	asn1/a_bitstr.c
-	asn1/a_bool.c
 	asn1/a_d2i_fp.c
 	asn1/a_digest.c
 	asn1/a_dup.c
@@ -256,10 +255,11 @@ set(
 	asn1/a_object.c
 	asn1/a_octet.c
 	asn1/a_pkey.c
-	asn1/a_pubkey.c
 	asn1/a_print.c
+	asn1/a_pubkey.c
 	asn1/a_sign.c
 	asn1/a_strex.c
+	asn1/a_string.c
 	asn1/a_strnid.c
 	asn1/a_time.c
 	asn1/a_time_tm.c
@@ -269,23 +269,20 @@ set(
 	asn1/ameth_lib.c
 	asn1/asn1_err.c
 	asn1/asn1_gen.c
-	asn1/asn1_lib.c
+	asn1/asn1_old_lib.c
 	asn1/asn1_par.c
+	asn1/asn1_types.c
 	asn1/asn_mime.c
 	asn1/asn_moid.c
 	asn1/asn_pack.c
 	asn1/bio_asn1.c
 	asn1/bio_ndef.c
 	asn1/evp_asn1.c
-	asn1/f_enum.c
-	asn1/f_int.c
-	asn1/f_string.c
 	asn1/n_pkey.c
 	asn1/nsseq.c
 	asn1/p5_pbe.c
 	asn1/p5_pbev2.c
 	asn1/p8_pkey.c
-	asn1/t_bitst.c
 	asn1/t_crl.c
 	asn1/t_pkey.c
 	asn1/t_req.c

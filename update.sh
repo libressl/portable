@@ -82,6 +82,7 @@ for i in crypto/compat; do
 	    $libc_src/crypt/chacha_private.h \
 	    $libc_src/stdlib/reallocarray.c \
 	    $libc_src/stdlib/recallocarray.c \
+	    $libc_src/stdlib/strtonum.c \
 	    $libc_src/string/explicit_bzero.c \
 	    $libc_src/string/strcasecmp.c \
 	    $libc_src/string/strlcpy.c \
@@ -243,7 +244,6 @@ echo "copying nc(1) source"
 $CP $bin_src/nc/nc.1 apps/nc
 rm -f apps/nc/*.c apps/nc/*.h
 $CP_LIBC $libc_src/net/base64.c apps/nc/compat
-$CP_LIBC $libc_src/stdlib/strtonum.c apps/nc/compat
 for i in `awk '/SOURCES|HEADERS|MANS/ { print $3 }' apps/nc/Makefile.am` ; do
 	if [ -e $bin_src/nc/$i ]; then
 		$CP $bin_src/nc/$i apps/nc
@@ -255,7 +255,6 @@ echo "copying ocspcheck(1) source"
 $CP $sbin_src/ocspcheck/ocspcheck.8 apps/ocspcheck
 rm -f apps/ocspcheck/*.c apps/ocspcheck/*.h
 $CP_LIBC $libc_src/string/memmem.c apps/ocspcheck/compat
-$CP_LIBC $libc_src/stdlib/strtonum.c apps/ocspcheck/compat
 for i in `awk '/SOURCES|HEADERS|MANS/ { print $3 }' apps/ocspcheck/Makefile.am` ; do
 	if [ -e $sbin_src/ocspcheck/$i ]; then
 		$CP $sbin_src/ocspcheck/$i apps/ocspcheck
@@ -265,7 +264,6 @@ done
 # copy openssl(1) source
 echo "copying openssl(1) source"
 $CP $bin_src/openssl/openssl.1 apps/openssl
-$CP_LIBC $libc_src/stdlib/strtonum.c apps/openssl/compat
 $CP $libcrypto_src/cert.pem .
 $CP $libcrypto_src/openssl.cnf .
 $CP $libcrypto_src/x509v3.cnf .

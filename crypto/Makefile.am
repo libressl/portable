@@ -76,6 +76,9 @@ endif
 if !HAVE_STRSEP
 	-echo strsep >> crypto_portable.sym
 endif
+if !HAVE_STRTONUM
+	-echo strtonum >> crypto_portable.sym
+endif
 if !HAVE_TIMEGM
 	-echo timegm >> crypto_portable.sym
 endif
@@ -173,6 +176,10 @@ endif
 
 if !HAVE_STRSEP
 libcompat_la_SOURCES += compat/strsep.c
+endif
+
+if !HAVE_STRTONUM
+libcompat_la_SOURCES += compat/strtonum.c
 endif
 
 if !HAVE_ASPRINTF

@@ -13,14 +13,6 @@ else()
         set(OCSPCHECK_SRC ${OCSPCHECK_SRC} compat/memmem.c)
 endif()
 
-check_function_exists(strtonum HAVE_STRTONUM)
-if(HAVE_STRTONUM AND CMAKE_SYSTEM_NAME MATCHES "Darwin" AND
-    CMAKE_HOST_SYSTEM_VERSION VERSION_GREATER_EQUAL 20)
-	add_definitions(-DHAVE_STRTONUM)
-else()
-	set(OCSPCHECK_SRC ${OCSPCHECK_SRC} compat/strtonum.c)
-endif()
-
 if(NOT "${OPENSSLDIR}" STREQUAL "")
 	add_definitions(-DDEFAULT_CA_FILE=\"${OPENSSLDIR}/cert.pem\")
 else()

@@ -61,14 +61,6 @@ if(WIN32)
 	set(OPENSSL_SRC ${OPENSSL_SRC} compat/poll_win.c)
 endif()
 
-check_function_exists(strtonum HAVE_STRTONUM)
-if(HAVE_STRTONUM AND CMAKE_SYSTEM_NAME MATCHES "Darwin" AND
-    CMAKE_HOST_SYSTEM_VERSION VERSION_GREATER_EQUAL 20)
-	add_definitions(-DHAVE_STRTONUM)
-else()
-	set(OPENSSL_SRC ${OPENSSL_SRC} compat/strtonum.c)
-endif()
-
 if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
         check_function_exists(clock_gettime HAVE_CLOCK_GETTIME)
         if(NOT HAVE_CLOCK_GETTIME)

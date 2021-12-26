@@ -43,8 +43,4 @@ if !HAVE_READPASSPHRASE
 nc_SOURCES += compat/readpassphrase.c
 endif
 
-if !HAVE_STRTONUM
-nc_SOURCES += compat/strtonum.c
-endif
-
 endif

@@ -24,7 +24,6 @@
 
 #include <apps.h>
 #include <apps.c>
-#include <strtonum.c>
 
 /* Needed to keep apps.c happy... */
 BIO *bio_err;

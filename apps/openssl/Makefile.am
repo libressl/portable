@@ -84,10 +84,6 @@ openssl_SOURCES += compat/clock_gettime_osx.c
 endif
 endif
 
-if !HAVE_STRTONUM
-openssl_SOURCES += compat/strtonum.c
-endif
-
 noinst_HEADERS = apps.h
 noinst_HEADERS += progs.h
 noinst_HEADERS += s_apps.h

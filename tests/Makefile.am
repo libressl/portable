@@ -403,6 +403,12 @@ TESTS += record_layer_test
 check_PROGRAMS += record_layer_test
 record_layer_test_SOURCES = record_layer_test.c
 
+# rfc3779
+TESTS += rfc3779
+rfc3779_CPPFLAGS = $(AM_CPPFLAGS) -D__unused=
+check_PROGRAMS += rfc3779
+rfc3779_SOURCES = rfc3779.c
+
 # rfc5280time
 check_PROGRAMS += rfc5280time
 rfc5280time_SOURCES = rfc5280time.c

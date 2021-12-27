@@ -76,6 +76,7 @@ tests/freenull*
 tests/gost2814789t*
 tests/key_schedule*
 tests/mont*
+tests/rfc3779*
 tests/rfc5280time*
 tests/ssl_get_shared_ciphers*
 tests/ssl_methods*

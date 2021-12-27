@@ -396,6 +396,12 @@ add_executable(record_layer_test record_layer_test.c)
 target_link_libraries(record_layer_test ${OPENSSL_TEST_LIBS})
 add_test(record_layer_test record_layer_test)
 
+# rfc3779
+add_executable(rfc3779 rfc3779.c)
+set_source_files_properties(rfc3779.c PROPERTIES COMPILE_FLAGS -D__unused=)
+target_link_libraries(rfc3779 ${OPENSSL_TEST_LIBS})
+add_test(rfc3779 rfc3779)
+
 # rfc5280time
 add_executable(rfc5280time rfc5280time.c)
 target_link_libraries(rfc5280time ${OPENSSL_TEST_LIBS})

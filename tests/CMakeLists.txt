@@ -1,7 +1,10 @@
+add_definitions(-DLIBRESSL_CRYPTO_INTERNAL)
+
 include_directories(
 	.
-	../crypto/modes
 	../crypto/asn1
+	../crypto/bio
+	../crypto/modes
 	../crypto/x509
 	../ssl
 	../apps/openssl

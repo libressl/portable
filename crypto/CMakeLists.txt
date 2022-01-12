@@ -245,11 +245,7 @@ set(
 	aes/aes_ofb.c
 	aes/aes_wrap.c
 	asn1/a_bitstr.c
-	asn1/a_d2i_fp.c
-	asn1/a_digest.c
-	asn1/a_dup.c
 	asn1/a_enum.c
-	asn1/a_i2d_fp.c
 	asn1/a_int.c
 	asn1/a_mbstr.c
 	asn1/a_object.c
@@ -257,7 +253,6 @@ set(
 	asn1/a_pkey.c
 	asn1/a_print.c
 	asn1/a_pubkey.c
-	asn1/a_sign.c
 	asn1/a_strex.c
 	asn1/a_string.c
 	asn1/a_strnid.c
@@ -265,19 +260,19 @@ set(
 	asn1/a_time_tm.c
 	asn1/a_type.c
 	asn1/a_utf8.c
-	asn1/a_verify.c
 	asn1/ameth_lib.c
 	asn1/asn1_err.c
 	asn1/asn1_gen.c
+	asn1/asn1_item.c
+	asn1/asn1_lib.c
+	asn1/asn1_old.c
 	asn1/asn1_old_lib.c
 	asn1/asn1_par.c
 	asn1/asn1_types.c
 	asn1/asn_mime.c
 	asn1/asn_moid.c
-	asn1/asn_pack.c
 	asn1/bio_asn1.c
 	asn1/bio_ndef.c
-	asn1/evp_asn1.c
 	asn1/n_pkey.c
 	asn1/nsseq.c
 	asn1/p5_pbe.c
@@ -993,8 +988,10 @@ target_include_directories(crypto_obj
 	PRIVATE
 		.
 		asn1
+		bio
 		bn
 		bytestring
+		dh
 		dsa
 		ec
 		ecdh
@@ -1002,6 +999,8 @@ target_include_directories(crypto_obj
 		evp
 		hmac
 		modes
+		ocsp
+		rsa
 		x509
 		../include/compat
 	PUBLIC

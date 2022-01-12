@@ -35,6 +35,7 @@ set(
 	t1_lib.c
 	tls_buffer.c
 	tls_content.c
+	tls_key_share.c
 	tls12_key_schedule.c
 	tls12_lib.c
 	tls12_record_layer.c
@@ -43,7 +44,6 @@ set(
 	tls13_handshake.c
 	tls13_handshake_msg.c
 	tls13_key_schedule.c
-	tls13_key_share.c
 	tls13_legacy.c
 	tls13_lib.c
 	tls13_record.c

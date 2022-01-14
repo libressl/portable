@@ -273,7 +273,6 @@ set(
 	asn1/asn_moid.c
 	asn1/bio_asn1.c
 	asn1/bio_ndef.c
-	asn1/n_pkey.c
 	asn1/nsseq.c
 	asn1/p5_pbe.c
 	asn1/p5_pbev2.c
@@ -299,7 +298,6 @@ set(
 	asn1/x_info.c
 	asn1/x_long.c
 	asn1/x_name.c
-	asn1/x_nx509.c
 	asn1/x_pkey.c
 	asn1/x_pubkey.c
 	asn1/x_req.c
@@ -556,9 +554,6 @@ set(
 	evp/evp_lib.c
 	evp/evp_pbe.c
 	evp/evp_pkey.c
-	evp/m_dss.c
-	evp/m_dss1.c
-	evp/m_ecdsa.c
 	evp/m_gost2814789.c
 	evp/m_gostr341194.c
 	evp/m_md4.c
@@ -642,7 +637,6 @@ set(
 	pem/pem_oth.c
 	pem/pem_pk8.c
 	pem/pem_pkey.c
-	pem/pem_seal.c
 	pem/pem_sign.c
 	pem/pem_x509.c
 	pem/pem_xaux.c

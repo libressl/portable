@@ -70,6 +70,7 @@ tests/bn_to_string*
 tests/cipher*
 tests/constraints*
 tests/ec_point_conversion*
+tests/evp_pkey_check*
 tests/explicit_bzero*
 tests/freenull*
 tests/gost2814789t*

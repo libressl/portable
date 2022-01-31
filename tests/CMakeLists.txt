@@ -223,6 +223,11 @@ add_executable(enginetest enginetest.c)
 target_link_libraries(enginetest ${OPENSSL_TEST_LIBS})
 add_test(enginetest enginetest)
 
+# evp_pkey_check
+add_executable(evp_pkey_check evp_pkey_check.c)
+target_link_libraries(evp_pkey_check ${OPENSSL_TEST_LIBS})
+add_test(evp_pkey_check evp_pkey_check)
+
 # evptest
 add_executable(evptest evptest.c)
 target_link_libraries(evptest ${OPENSSL_TEST_LIBS})

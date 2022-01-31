@@ -235,6 +235,11 @@ TESTS += enginetest
 check_PROGRAMS += enginetest
 enginetest_SOURCES = enginetest.c
 
+# evp_pkey_check
+TESTS += evp_pkey_check
+check_PROGRAMS += evp_pkey_check
+evp_pkey_check_SOURCES = evp_pkey_check.c
+
 # evptest
 TESTS += evptest.sh
 check_PROGRAMS += evptest

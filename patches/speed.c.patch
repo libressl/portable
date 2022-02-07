@@ -1,6 +1,6 @@
---- apps/openssl/speed.c.orig	Tue Jul  2 21:58:28 2019
-+++ apps/openssl/speed.c	Sun Jul 14 19:39:44 2019
-@@ -159,7 +159,16 @@ static void
+--- apps/openssl/speed.c.orig	Sun Feb  6 20:37:16 2022
++++ apps/openssl/speed.c	Sun Feb  6 21:07:42 2022
+@@ -159,7 +159,16 @@
  pkey_print_message(const char *str, const char *str2,
      long num, int bits, int sec);
  static void print_result(int alg, int run_no, int count, double time_used);
@@ -17,7 +17,7 @@
  
  #define ALGOR_NUM	32
  #define SIZE_NUM	5
-@@ -466,8 +475,10 @@ speed_main(int argc, char **argv)
+@@ -466,8 +475,10 @@
  	const EVP_CIPHER *evp_cipher = NULL;
  	const EVP_MD *evp_md = NULL;
  	int decrypt = 0;
@@ -28,7 +28,7 @@
  
  	if (single_execution) {
  		if (pledge("stdio proc", NULL) == -1) {
-@@ -544,6 +555,7 @@ speed_main(int argc, char **argv)
+@@ -544,6 +555,7 @@
  			j--;	/* Otherwise, -decrypt gets confused with an
  				 * algorithm. */
  		}
@@ -36,7 +36,7 @@
  		else if ((argc > 0) && (strcmp(*argv, "-multi") == 0)) {
  			argc--;
  			argv++;
-@@ -559,6 +571,7 @@ speed_main(int argc, char **argv)
+@@ -559,6 +571,7 @@
  			j--;	/* Otherwise, -multi gets confused with an
  				 * algorithm. */
  		}
@@ -44,7 +44,7 @@
  		else if (argc > 0 && !strcmp(*argv, "-mr")) {
  			mr = 1;
  			j--;	/* Otherwise, -mr gets confused with an
-@@ -921,7 +934,9 @@ speed_main(int argc, char **argv)
+@@ -921,7 +934,9 @@
  			BIO_printf(bio_err, "-evp e          use EVP e.\n");
  			BIO_printf(bio_err, "-decrypt        time decryption instead of encryption (only EVP).\n");
  			BIO_printf(bio_err, "-mr             produce machine readable output.\n");
@@ -54,7 +54,7 @@
  			goto end;
  		}
  		argc--;
-@@ -929,8 +944,10 @@ speed_main(int argc, char **argv)
+@@ -929,8 +944,10 @@
  		j++;
  	}
  
@@ -65,7 +65,7 @@
  
  	if (j == 0) {
  		for (i = 0; i < ALGOR_NUM; i++) {
-@@ -1771,7 +1788,9 @@ speed_main(int argc, char **argv)
+@@ -1807,7 +1824,9 @@
  				ecdh_doit[j] = 0;
  		}
  	}
@@ -75,7 +75,7 @@
  	if (!mr) {
  		fprintf(stdout, "%s\n", SSLeay_version(SSLEAY_VERSION));
  		fprintf(stdout, "%s\n", SSLeay_version(SSLEAY_BUILT_ON));
-@@ -1944,11 +1963,15 @@ pkey_print_message(const char *str, const char *str2, 
+@@ -1980,11 +1999,15 @@
  static void
  print_result(int alg, int run_no, int count, double time_used)
  {
@@ -91,7 +91,7 @@
  static char *
  sstrsep(char **string, const char *delim)
  {
-@@ -2155,4 +2178,5 @@ do_multi(int multi)
+@@ -2191,4 +2214,5 @@
  	free(fds);
  	return 1;
  }

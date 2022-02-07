@@ -1,5 +1,5 @@
---- tests/tlsexttest.c.orig	Mon Apr  5 01:40:26 2021
-+++ tests/tlsexttest.c	Thu Apr  8 04:17:13 2021
+--- tests/tlsexttest.c.orig	Sun Feb  6 20:37:16 2022
++++ tests/tlsexttest.c	Sun Feb  6 21:07:42 2022
 @@ -1658,7 +1658,9 @@
  };
  
@@ -10,7 +10,7 @@
  
  static int
  test_tlsext_sni_client(void)
-@@ -1821,9 +1823,9 @@
+@@ -1843,9 +1845,9 @@
  	if (!CBB_finish(&cbb, &data, &dlen))
  		errx(1, "failed to finish CBB");
  
@@ -22,7 +22,7 @@
  		goto err;
  	}
  
-@@ -1832,14 +1834,14 @@
+@@ -1854,14 +1856,14 @@
  		fprintf(stderr, "received:\n");
  		hexdump(data, dlen);
  		fprintf(stderr, "test data:\n");
@@ -39,7 +39,7 @@
  	if (!tlsext_sni_client_parse(ssl, SSL_TLSEXT_MSG_SH, &cbs, &alert)) {
  		FAIL("failed to parse server SNI\n");
  		goto err;
-@@ -2723,7 +2725,10 @@
+@@ -2746,7 +2748,10 @@
  	0x04, 0x03, 0x02, 0x01, 0x02, 0x03,
  };
  
@@ -51,9 +51,9 @@
  
  static int
  test_tlsext_clienthello_build(void)
-@@ -2791,18 +2796,18 @@
- 	if (!CBB_finish(&cbb, &data, &dlen))
- 		errx(1, "failed to finish CBB");
+@@ -2823,18 +2828,18 @@
+ 		goto err;
+ 	}
  
 -	if (dlen != sizeof(tlsext_clienthello_disabled)) {
 +	if (dlen != sizeof_tlsext_clienthello_disabled) {

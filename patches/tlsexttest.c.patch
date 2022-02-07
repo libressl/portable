@@ -1,5 +1,5 @@
---- tests/tlsexttest.c.orig	Mon Apr  5 01:40:26 2021
-+++ tests/tlsexttest.c	Thu Apr  8 04:17:13 2021
+--- tests/tlsexttest.c.orig	Sun Feb  6 21:12:21 2022
++++ tests/tlsexttest.c	Sun Feb  6 21:12:45 2022
 @@ -1658,7 +1658,9 @@
  };
  

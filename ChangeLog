@@ -28,6 +28,240 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.5.0 - Development release
+	* New Features
+	  - libtls has a new tls_signer interface to help privsep daemons
+	    separate their secrets from the network facing processes.
+	    Documentation will follow.
+	  - The RFC 3779 API was ported from OpenSSL. Many bugs were fixed,
+	    regression tests were added and the code was cleaned up.
+	  - Certificate Transparency was ported from OpenSSL. Many internal
+	    improvements were made, resulting in cleaner and safer code.
+	    Regress coverage was added. libssl does not yet make use of it.
+	* Portable Improvements
+	  - Fixed various POSIX compliance and other portability issues
+	    found by the port to the Sortix operating system.
+	* Compatibility Changes
+	  - Most structs that were previously defined in the following headers
+	    are now opaque as they are in OpenSSL 1.1:
+	    bio.h, bn.h, comp.h, dh.h, dsa.h, evp.h, hmac.h, ocsp.h, rsa.h,
+	    x509.h, x509v3.h, x509_vfy.h
+	  - Switch TLSv1.3 cipher names from AEAD- to OpenSSL's TLS_
+	    OpenSSL added the TLSv1.3 ciphersuites with "RFC names" instead
+	    of using something consistent with the previous naming. Various
+	    test suites expect these names (instead of checking for the much
+	    more sensible cipher numbers). The old names are still accepted
+	    as aliases.
+	  - Subject alternative names and name constraints are now validated
+	    when they are added to certificates. Various interoperability
+	    problems with stacks that validate certificates more strictly
+	    than OpenSSL can be avoided this way.
+	  - Attempt to opportunistically use the host name for SNI in s_client
+	* Bug fixes
+	  - In some situations, the verifier would discard the error on an
+	    unvalidated certificate chain. This would happen when the
+	    verification callback was in use, instructing the verifier to
+	    continue unconditionally. This could lead to incorrect decisions
+	    being made in software.
+	  - Avoid an infinite loop in SSL_shutdown()
+	  - Fix another return 0 bug in SSL_shutdown()
+	  - Handle zero byte reads/writes that trigger handshakes in the
+	    TLSv1.3 stack
+	  - A long standing memleak in libtls CRL handling was fixed
+	* Internal Improvements
+	  - Cache the SHA-512 hash instead of the SHA-1 hash and cache
+	    notBefore and notAfter times when X.509 certificates are parsed.
+	  - The X.509 lookup code has been simplified and cleaned up.
+	  - Fixed numerous issues flagged by coverity and the cryptofuzz
+	    project
+	  - Increased the number of Miller-Rabin checks in DH and DSA
+	    key/parameter generation
+	  - Started using the bytestring API in libcrypto for cleaner and
+	    safer code
+	  - Convert {i2d,d2i}_{,EC_,DSA_,RSA_}PUBKEY{,_bio,_fp}() to templated
+	    ASN1
+	  - Convert ASN1_OBJECT_new() to calloc()
+	  - Convert ASN1_STRING_type_new() to calloc()
+	  - Rewrite ASN1_STRING_cmp()
+	  - Use calloc() for X509_CRL_METHOD_new() instead of malloc()
+	  - Convert ASN1_PCTX_new() to calloc()
+	  - Replace asn1_tlc_clear and asn1_tlc_clear_nc macros with a
+	    function
+	  - Consolidate {d2i,i2d}_{pr,pu}.c
+	  - Remove handling of a NULL BUF_MEM from asn1_collect()
+	  - Pull the recursion depth check up to the top of asn1_collect()
+	  - Inline collect_data() in asn1_collect()
+	  - Convert asn1_d2i_ex_primitive()/asn1_collect() from BUF_MEM to CBB
+	  - Clean up d2i_ASN1_BOOLEAN() and i2d_ASN1_BOOLEAN()
+	  - Consolidate ASN.1 universal tag type data
+	  - Rewrite ASN.1 identifier/length parsing in CBS
+	  - Make OBJ_obj2nid() work correctly with NID_undef
+	  - tlsext_tick_lifetime_hint is now an uint32_t
+	  - Untangle ssl3_get_message() return values
+	  - Rename tls13_buffer to tls_buffer
+	  - Fold DTLS_STATE_INTERNAL into DTLS1_STATE
+	  - Provide a way to determine our maximum legacy version
+	  - Mop up enc_read_ctx and read_hash
+	  - Fold SSL_SESSION_INTERNAL into SSL_SESSION
+	  - Use ssl_force_want_read in the DTLS code
+	  - Add record processing limit to DTLS code
+	  - Add explicit CBS_contains_zero_byte() check in CBS_strdup()
+	  - Improve SNI hostname validation
+	  - Ensure SSL_set_tlsext_host_name() is given a valid hostname
+	  - Fix a strange check in the auto DH codepath
+	  - Factor out/rewrite DHE key exchange
+	  - Convert server serialisation of DHE parameters/public key to new
+	    functions
+	  - Check DH public key in ssl_kex_peer_public_dhe()
+	  - Move the minimum DHE key size check into ssl_kex_peer_params_dhe()
+	  - Clean up and refactor server side DHE key exchange
+	  - Provide CBS_get_last_u8()
+	  - Provide CBS_get_u64()
+	  - Provide CBS_add_u64()
+	  - Provide various CBS_peek_* functions
+	  - Use CBS_get_last_u8() to find the content type in TLSv1.3 records
+	  - unifdef TLS13_USE_LEGACY_CLIENT_AUTH
+	  - Correct SSL_get_peer_cert_chain() when used with the TLSv1.3 stack
+	  - Only allow zero length key shares when we know we're doing HRR
+	  - Pull key share group/length CBB code up from
+	    tls13_key_share_public()
+	  - Refactor ssl3_get_server_kex_ecdhe() to separate parsing and
+	    validation
+	  - Return 0 on failure from send/get kex functions in the legacy
+	    stack
+	  - Rename tls13_key_share to tls_key_share
+	  - Allocate and free the EVP_AEAD_CTX struct in
+	    tls13_record_protection
+	  - Convert legacy TLS client to tls_key_share
+	  - Convert legacy TLS server to tls_key_share
+	  - Stop attempting to duplicate the public and private key of dh_tmp
+	  - Rename dh_tmp to dhe_params
+	  - Rename CERT to SSL_CERT and CERT_PKEY to SSL_CERT_PKEY
+	  - Clean up pkey handling in ssl3_get_server_key_exchange()
+	  - Fix GOST skip certificate verify handling
+	  - Simplify tlsext_keyshare_server_parse()
+	  - Plumb decode errors through key share parsing code
+	  - Simplify SSL_get_peer_certificate()
+	  - Cleanup/simplify ssl_cert_type()
+	  - The S3I macro was removed
+	  - The openssl(1) cms and smime subcommands option handling was
+	    converted and the C source was cleaned up.
+	* Documentation improvements
+	  - 45 new manual pages, most of which were written from scratch.
+	    Documentation coverage of ASN.1 and X.509 code has been
+	    significantly improved.
+	* API additions and removals
+	  - libtls API additions
+	    tls_config_set_sign_cb tls_signer_add_keypair_file
+	    tls_signer_add_keypair_mem tls_signer_free tls_signer_new
+	    tls_signer_sign
+	  - libssl
+	    API additions
+	      SSL_get0_verified_chain SSL_peek_ex SSL_read_ex SSL_write_ex
+	    API stubs for compatibility
+	      SSL_CTX_get_keylog_callback SSL_CTX_get_num_tickets
+	      SSL_CTX_set_keylog_callback SSL_CTX_set_num_tickets
+	      SSL_get_num_tickets SSL_set_num_tickets
+	  - libcrypto
+	    added API (some of these were previously available as macros):
+	      ASIdOrRange_free ASIdOrRange_new ASIdentifierChoice_free
+	      ASIdentifierChoice_new ASIdentifiers_free ASIdentifiers_new
+	      ASN1_TIME_diff ASRange_free ASRange_new BIO_get_callback_ex
+	      BIO_get_init BIO_set_callback_ex BIO_set_next
+	      BIO_set_retry_reason BN_GENCB_set BN_GENCB_set_old
+	      BN_abs_is_word BN_bn2lebinpad BN_get_flags BN_is_negative
+	      BN_is_odd BN_is_one BN_is_word BN_is_zero BN_set_flags
+	      BN_to_montgomery BN_with_flags BN_zero_ex CTLOG_STORE_free
+	      CTLOG_STORE_get0_log_by_id CTLOG_STORE_load_default_file
+	      CTLOG_STORE_load_file CTLOG_STORE_new CTLOG_free
+	      CTLOG_get0_log_id CTLOG_get0_name CTLOG_get0_public_key
+	      CTLOG_new CTLOG_new_from_base64 CT_POLICY_EVAL_CTX_free
+	      CT_POLICY_EVAL_CTX_get0_cert CT_POLICY_EVAL_CTX_get0_issuer
+	      CT_POLICY_EVAL_CTX_get0_log_store CT_POLICY_EVAL_CTX_get_time
+	      CT_POLICY_EVAL_CTX_new CT_POLICY_EVAL_CTX_set1_cert
+	      CT_POLICY_EVAL_CTX_set1_issuer
+	      CT_POLICY_EVAL_CTX_set_shared_CTLOG_STORE
+	      CT_POLICY_EVAL_CTX_set_time DH_get0_g DH_get0_p DH_get0_priv_key
+	      DH_get0_pub_key DH_get0_q DH_get_length DSA_bits DSA_get0_g
+	      DSA_get0_p DSA_get0_priv_key DSA_get0_pub_key DSA_get0_q
+	      ECDSA_SIG_get0_r ECDSA_SIG_get0_s EVP_AEAD_CTX_free
+	      EVP_AEAD_CTX_new EVP_CIPHER_CTX_buf_noconst
+	      EVP_CIPHER_CTX_get_cipher_data EVP_CIPHER_CTX_set_cipher_data
+	      EVP_MD_CTX_md_data EVP_MD_CTX_pkey_ctx EVP_MD_CTX_set_pkey_ctx
+	      EVP_MD_meth_dup EVP_MD_meth_free EVP_MD_meth_new
+	      EVP_MD_meth_set_app_datasize EVP_MD_meth_set_cleanup
+	      EVP_MD_meth_set_copy EVP_MD_meth_set_ctrl EVP_MD_meth_set_final
+	      EVP_MD_meth_set_flags EVP_MD_meth_set_init
+	      EVP_MD_meth_set_input_blocksize EVP_MD_meth_set_result_size
+	      EVP_MD_meth_set_update EVP_PKEY_asn1_set_check
+	      EVP_PKEY_asn1_set_param_check EVP_PKEY_asn1_set_public_check
+	      EVP_PKEY_check EVP_PKEY_meth_set_check
+	      EVP_PKEY_meth_set_param_check EVP_PKEY_meth_set_public_check
+	      EVP_PKEY_param_check EVP_PKEY_public_check FIPS_mode
+	      FIPS_mode_set IPAddressChoice_free IPAddressChoice_new
+	      IPAddressFamily_free IPAddressFamily_new IPAddressOrRange_free
+	      IPAddressOrRange_new IPAddressRange_free IPAddressRange_new
+	      OBJ_get0_data OBJ_length OCSP_resp_get0_certs OCSP_resp_get0_id
+	      OCSP_resp_get0_produced_at OCSP_resp_get0_respdata
+	      OCSP_resp_get0_signature OCSP_resp_get0_signer
+	      OCSP_resp_get0_tbs_sigalg PEM_write_bio_PrivateKey_traditional
+	      RSA_get0_d RSA_get0_dmp1 RSA_get0_dmq1 RSA_get0_e RSA_get0_iqmp
+	      RSA_get0_n RSA_get0_p RSA_get0_pss_params RSA_get0_q
+	      SCT_LIST_free SCT_LIST_print SCT_LIST_validate SCT_free
+	      SCT_get0_extensions SCT_get0_log_id SCT_get0_signature
+	      SCT_get_log_entry_type SCT_get_signature_nid SCT_get_source
+	      SCT_get_timestamp SCT_get_validation_status SCT_get_version
+	      SCT_new SCT_new_from_base64 SCT_print SCT_set0_extensions
+	      SCT_set0_log_id SCT_set0_signature SCT_set1_extensions
+	      SCT_set1_log_id SCT_set1_signature SCT_set_log_entry_type
+	      SCT_set_signature_nid SCT_set_source SCT_set_timestamp
+	      SCT_set_version SCT_validate SCT_validation_status_string
+	      X509_OBJECT_free X509_OBJECT_new X509_REQ_get0_pubkey
+	      X509_SIG_get0 X509_SIG_getm X509_STORE_CTX_get_by_subject
+	      X509_STORE_CTX_get_num_untrusted
+	      X509_STORE_CTX_get_obj_by_subject X509_STORE_CTX_get_verify
+	      X509_STORE_CTX_get_verify_cb X509_STORE_CTX_set0_verified_chain
+	      X509_STORE_CTX_set_current_cert X509_STORE_CTX_set_error_depth
+	      X509_STORE_CTX_set_verify X509_STORE_get_verify
+	      X509_STORE_get_verify_cb X509_STORE_set_verify
+	      X509_get_X509_PUBKEY X509_get_extended_key_usage
+	      X509_get_extension_flags X509_get_key_usage
+	      X509v3_addr_add_inherit X509v3_addr_add_prefix
+	      X509v3_addr_add_range X509v3_addr_canonize X509v3_addr_get_afi
+	      X509v3_addr_get_range X509v3_addr_inherits
+	      X509v3_addr_is_canonical X509v3_addr_subset
+	      X509v3_addr_validate_path X509v3_addr_validate_resource_set
+	      X509v3_asid_add_id_or_range X509v3_asid_add_inherit
+	      X509v3_asid_canonize X509v3_asid_inherits
+	      X509v3_asid_is_canonical X509v3_asid_subset
+	      X509v3_asid_validate_path X509v3_asid_validate_resource_set
+	      d2i_ASIdOrRange d2i_ASIdentifierChoice d2i_ASIdentifiers
+	      d2i_ASRange d2i_IPAddressChoice d2i_IPAddressFamily
+	      d2i_IPAddressOrRange d2i_IPAddressRange d2i_SCT_LIST
+	      i2d_ASIdOrRange i2d_ASIdentifierChoice i2d_ASIdentifiers
+	      i2d_ASRange i2d_IPAddressChoice i2d_IPAddressFamily
+	      i2d_IPAddressOrRange i2d_IPAddressRange i2d_SCT_LIST
+	      i2d_re_X509_CRL_tbs i2d_re_X509_REQ_tbs i2d_re_X509_tbs i2o_SCT
+	      i2o_SCT_LIST o2i_SCT o2i_SCT_LIST
+	  removed API:
+	      ASN1_check_infinite_end ASN1_const_check_infinite_end EVP_dss
+	      EVP_dss1 EVP_ecdsa HMAC_CTX_cleanup HMAC_CTX_init
+	      NETSCAPE_ENCRYPTED_PKEY_free NETSCAPE_ENCRYPTED_PKEY_new
+	      NETSCAPE_PKEY_free NETSCAPE_PKEY_new NETSCAPE_X509_free
+	      NETSCAPE_X509_new OBJ_bsearch_ex_ PEM_SealFinal PEM_SealInit
+	      PEM_SealUpdate PEM_read_X509_CERT_PAIR
+	      PEM_read_bio_X509_CERT_PAIR PEM_write_X509_CERT_PAIR
+	      PEM_write_bio_X509_CERT_PAIR X509_CERT_PAIR_free
+	      X509_CERT_PAIR_new X509_OBJECT_free_contents asn1_do_adb
+	      asn1_do_lock asn1_enc_free asn1_enc_init asn1_enc_restore
+	      asn1_enc_save asn1_ex_c2i asn1_get_choice_selector
+	      asn1_get_field_ptr asn1_set_choice_selector check_defer
+	      d2i_ASN1_BOOLEAN d2i_NETSCAPE_ENCRYPTED_PKEY d2i_NETSCAPE_PKEY
+	      d2i_NETSCAPE_X509 d2i_Netscape_RSA d2i_RSA_NET
+	      d2i_X509_CERT_PAIR i2d_ASN1_BOOLEAN i2d_NETSCAPE_ENCRYPTED_PKEY
+	      i2d_NETSCAPE_PKEY i2d_NETSCAPE_X509 i2d_Netscape_RSA i2d_RSA_NET
+	      i2d_X509_CERT_PAIR name_cmp obj_cleanup_defer
+
 3.4.1 - Stable release
 
 	* New Features

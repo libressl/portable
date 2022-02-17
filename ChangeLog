@@ -30,9 +30,6 @@ LibreSSL Portable Release Notes:
 
 3.5.0 - Development release
 	* New Features
-	  - libtls has a new tls_signer interface to help privsep daemons
-	    separate their secrets from the network facing processes.
-	    Documentation will follow.
 	  - The RFC 3779 API was ported from OpenSSL. Many bugs were fixed,
 	    regression tests were added and the code was cleaned up.
 	  - Certificate Transparency was ported from OpenSSL. Many internal

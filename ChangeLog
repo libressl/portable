@@ -38,6 +38,12 @@ LibreSSL Portable Release Notes:
 	* Portable Improvements
 	  - Fixed various POSIX compliance and other portability issues
 	    found by the port to the Sortix operating system.
+	  - Add libmd as platform specific libraries for Solaris.
+	    Issue reported from (ihsan <at> opencsw org) on libressl ML.
+	  - Set IA-64 compiler flag only if it is HP-UX with IA-64.
+	    Suggested from Larkin Nickle (me <at> larbob org) by libressl ML.
+	  - Enabled and scheduled Coverity scan.
+	    Contributed by Ilya Shipitsin (chipitsine <at> gmail com> on github.
 	* Compatibility Changes
 	  - Most structs that were previously defined in the following headers
 	    are now opaque as they are in OpenSSL 1.1:

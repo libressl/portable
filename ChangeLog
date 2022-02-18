@@ -154,10 +154,6 @@ LibreSSL Portable Release Notes:
 	    Documentation coverage of ASN.1 and X.509 code has been
 	    significantly improved.
 	* API additions and removals
-	  - libtls API additions
-	    tls_config_set_sign_cb tls_signer_add_keypair_file
-	    tls_signer_add_keypair_mem tls_signer_free tls_signer_new
-	    tls_signer_sign
 	  - libssl
 	    API additions
 	      SSL_get0_verified_chain SSL_peek_ex SSL_read_ex SSL_write_ex
@@ -172,7 +168,7 @@ LibreSSL Portable Release Notes:
 	      ASN1_TIME_diff ASRange_free ASRange_new BIO_get_callback_ex
 	      BIO_get_init BIO_set_callback_ex BIO_set_next
 	      BIO_set_retry_reason BN_GENCB_set BN_GENCB_set_old
-	      BN_abs_is_word BN_bn2lebinpad BN_get_flags BN_is_negative
+	      BN_abs_is_word BN_get_flags BN_is_negative
 	      BN_is_odd BN_is_one BN_is_word BN_is_zero BN_set_flags
 	      BN_to_montgomery BN_with_flags BN_zero_ex CTLOG_STORE_free
 	      CTLOG_STORE_get0_log_by_id CTLOG_STORE_load_default_file

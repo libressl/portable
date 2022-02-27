@@ -1,5 +1,5 @@
---- tests/tlsexttest.c.orig	Sun Feb  6 20:37:16 2022
-+++ tests/tlsexttest.c	Sun Feb  6 21:07:42 2022
+--- tests/tlsexttest.c.orig	Fri Feb 18 16:30:40 2022
++++ tests/tlsexttest.c	Mon Feb 21 05:39:35 2022
 @@ -1658,7 +1658,9 @@
  };
  
@@ -39,7 +39,7 @@
  	if (!tlsext_sni_client_parse(ssl, SSL_TLSEXT_MSG_SH, &cbs, &alert)) {
  		FAIL("failed to parse server SNI\n");
  		goto err;
-@@ -2746,7 +2748,10 @@
+@@ -2747,7 +2749,10 @@
  	0x04, 0x03, 0x02, 0x01, 0x02, 0x03,
  };
  
@@ -51,7 +51,7 @@
  
  static int
  test_tlsext_clienthello_build(void)
-@@ -2823,18 +2828,18 @@
+@@ -2826,18 +2831,18 @@
  		goto err;
  	}
  

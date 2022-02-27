@@ -26,13 +26,12 @@ diff -u include/openssl.orig/dtls1.h include/openssl/dtls1.h
  #if defined(HEADER_CRYPTLIB_H) && !defined(OPENSSLDIR)
  #define OPENSSLDIR "/etc/ssl"
  #endif
-diff -u include/openssl.orig/ossl_typ.h include/openssl/ossl_typ.h
---- include/openssl.orig/ossl_typ.h	Mon Dec  7 07:58:32 2015
-+++ include/openssl/ossl_typ.h	Mon Dec  7 07:56:14 2015
-@@ -80,6 +80,22 @@
+--- include/openssl/ossl_typ.h.orig	Fri Feb 18 16:30:39 2022
++++ include/openssl/ossl_typ.h	Mon Feb 21 05:39:35 2022
+@@ -82,6 +82,22 @@
  typedef struct ASN1_ITEM_st ASN1_ITEM;
  typedef struct asn1_pctx_st ASN1_PCTX;
-
+ 
 +#if defined(_WIN32) && defined(__WINCRYPT_H__)
 +#ifndef LIBRESSL_INTERNAL
 +#ifdef _MSC_VER

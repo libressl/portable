@@ -2421,7 +2421,6 @@ bn_dump.3,bn_wexpand.3
 bn_dump.3,mul.3
 bn_dump.3,mul_add.3
 bn_dump.3,sqr.3
-d2i_ASN1_BOOLEAN.3,i2d_ASN1_BOOLEAN.3
 d2i_ASN1_NULL.3,i2d_ASN1_NULL.3
 d2i_ASN1_OBJECT.3,i2d_ASN1_OBJECT.3
 d2i_ASN1_OCTET_STRING.3,d2i_ASN1_BIT_STRING.3

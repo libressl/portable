@@ -28,6 +28,11 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.3.6 - Security fix
+
+	* A malicious certificate can cause an infinite loop.
+	  Reported by and fix from Tavis Ormandy and David Benjamin, Google.
+
 3.3.5 - Security fix
 
 	* A stack overread could occur when checking X.509 name constraints.

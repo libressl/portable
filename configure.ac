@@ -12,7 +12,7 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-AC_INIT([libressl], m4_esyscmd([tr -d '\n' < VERSION]))
+AC_INIT([libressl], m4_esyscmd(tr -d '\n' < VERSION))
 AC_SUBST([LIBCRYPTO_VERSION], m4_esyscmd([tr -d '\n' < crypto/VERSION]))
 AC_SUBST([LIBSSL_VERSION], m4_esyscmd([tr -d '\n' < ssl/VERSION]))
 AC_SUBST([LIBTLS_VERSION], m4_esyscmd([tr -d '\n' < tls/VERSION]))
@@ -27,7 +27,6 @@ m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 USER_CFLAGS="$CFLAGS"
 
 AC_PROG_CC([cc gcc])
-AC_PROG_CC_STDC
 AM_PROG_CC_C_O
 LT_INIT([pic-only])
 

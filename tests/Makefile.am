@@ -67,6 +67,11 @@ TESTS += asn1evp
 check_PROGRAMS += asn1evp
 asn1evp_SOURCES = asn1evp.c
 
+# asn1object
+TESTS += asn1object
+check_PROGRAMS += asn1object
+asn1object_SOURCES = asn1object.c
+
 # asn1string_copy
 TESTS += asn1string_copy
 check_PROGRAMS += asn1string_copy
@@ -109,6 +114,11 @@ endif
 TESTS += bnaddsub
 check_PROGRAMS += bnaddsub
 bnaddsub_SOURCES = bnaddsub.c
+
+# bn_mod_exp2_mont
+TESTS += bn_mod_exp2_mont
+check_PROGRAMS += bn_mod_exp2_mont
+bn_mod_exp2_mont_SOURCES = bn_mod_exp2_mont.c
 
 # bn_rand_interval
 TESTS += bn_rand_interval
@@ -482,6 +492,11 @@ check_PROGRAMS += ssltest
 ssltest_SOURCES = ssltest.c
 EXTRA_DIST += ssltest.sh ssltest.bat
 EXTRA_DIST += testssl testssl.bat ca.pem server.pem
+
+# string_table
+TESTS += string_table
+check_PROGRAMS += string_table
+string_table_SOURCES = string_table.c
 
 # testdsa
 TESTS += testdsa.sh

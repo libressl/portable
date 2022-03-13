@@ -55,6 +55,11 @@ add_executable(asn1evp asn1evp.c)
 target_link_libraries(asn1evp ${OPENSSL_TEST_LIBS})
 add_test(asn1evp asn1evp)
 
+# asn1object
+add_executable(asn1object asn1object.c)
+target_link_libraries(asn1object ${OPENSSL_TEST_LIBS})
+add_test(asn1object asn1object)
+
 # asn1string_copy
 add_executable(asn1string_copy asn1string_copy.c)
 target_link_libraries(asn1string_copy ${OPENSSL_TEST_LIBS})
@@ -97,6 +102,11 @@ endif()
 add_executable(bnaddsub bnaddsub.c)
 target_link_libraries(bnaddsub ${OPENSSL_TEST_LIBS})
 add_test(bnaddsub bnaddsub)
+
+# bn_mod_exp2_mont
+add_executable(bn_mod_exp2_mont bn_mod_exp2_mont.c)
+target_link_libraries(bn_mod_exp2_mont ${OPENSSL_TEST_LIBS})
+add_test(bn_mod_exp2_mont bn_mod_exp2_mont)
 
 # bn_rand_interval
 add_executable(bn_rand_interval bn_rand_interval.c)
@@ -482,6 +492,11 @@ else()
 	add_test(NAME ssltest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/ssltest.bat $<TARGET_FILE:ssltest> $<TARGET_FILE:openssl>)
 endif()
 set_tests_properties(ssltest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
+
+# string_table
+add_executable(string_table string_table.c)
+target_link_libraries(string_table ${OPENSSL_TEST_LIBS})
+add_test(string_table string_table)
 
 # testdsa
 if(NOT MSVC)

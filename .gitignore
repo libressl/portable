@@ -60,11 +60,13 @@ tests/arc4random_fork*
 tests/asn1api*
 tests/asn1basic*
 tests/asn1complex*
-tests/asn1string_copy*
 tests/asn1evp*
+tests/asn1object*
+tests/asn1string_copy*
 tests/asn1time*
 tests/asn1x509*
 tests/bnaddsub*
+tests/bn_mod_exp2_mont*
 tests/bn_rand_interval*
 tests/bn_to_string*
 tests/cipher*
@@ -81,6 +83,7 @@ tests/rfc5280time*
 tests/ssl_get_shared_ciphers*
 tests/ssl_methods*
 tests/ssl_versions*
+tests/string_table*
 tests/timingsafe*
 tests/tls_ext_alpn*
 tests/tls_prf*

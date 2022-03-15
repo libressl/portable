@@ -108,6 +108,11 @@ add_executable(bn_mod_exp2_mont bn_mod_exp2_mont.c)
 target_link_libraries(bn_mod_exp2_mont ${OPENSSL_TEST_LIBS})
 add_test(bn_mod_exp2_mont bn_mod_exp2_mont)
 
+# bn_mod_sqrt
+add_executable(bn_mod_sqrt bn_mod_sqrt.c)
+target_link_libraries(bn_mod_sqrt ${OPENSSL_TEST_LIBS})
+add_test(bn_mod_sqrt bn_mod_sqrt)
+
 # bn_rand_interval
 add_executable(bn_rand_interval bn_rand_interval.c)
 target_link_libraries(bn_rand_interval ${OPENSSL_TEST_LIBS})

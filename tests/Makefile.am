@@ -120,6 +120,11 @@ TESTS += bn_mod_exp2_mont
 check_PROGRAMS += bn_mod_exp2_mont
 bn_mod_exp2_mont_SOURCES = bn_mod_exp2_mont.c
 
+# bn_mod_sqrt
+TESTS += bn_mod_sqrt
+check_PROGRAMS += bn_mod_sqrt
+bn_mod_sqrt_SOURCES = bn_mod_sqrt.c
+
 # bn_rand_interval
 TESTS += bn_rand_interval
 check_PROGRAMS += bn_rand_interval

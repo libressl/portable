@@ -67,6 +67,7 @@ tests/asn1time*
 tests/asn1x509*
 tests/bnaddsub*
 tests/bn_mod_exp2_mont*
+tests/bn_mod_sqrt*
 tests/bn_rand_interval*
 tests/bn_to_string*
 tests/cipher*

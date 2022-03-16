@@ -73,15 +73,21 @@ warn(const char *fmt, ...)
 }
 
 static inline void
+vwarnx(const char *fmt, va_list args)
+{
+	if (fmt != NULL)
+		vfprintf(stderr, fmt, args);
+	fprintf(stderr, "\n");
+}
+
+static inline void
 warnx(const char *fmt, ...)
 {
 	va_list ap;
 
 	va_start(ap, fmt);
-	if (fmt != NULL)
-		vfprintf(stderr, fmt, ap);
+	vwarnx(fmt, ap);
 	va_end(ap);
-	fprintf(stderr, "\n");
 }
 
 #endif

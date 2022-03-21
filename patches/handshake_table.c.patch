@@ -1,6 +1,6 @@
---- tests/handshake_table.c.orig	Sat Aug 22 18:51:52 2020
-+++ tests/handshake_table.c	Fri Sep  4 04:04:26 2020
-@@ -479,6 +479,7 @@
+--- tests/handshake_table.c.orig	Tue Mar 15 11:37:03 2022
++++ tests/handshake_table.c	Mon Mar 21 05:26:15 2022
+@@ -518,6 +518,7 @@
  	unsigned int	depth = 0;
  	int		ch, graphviz = 0, print = 0;
  
@@ -8,7 +8,7 @@
  	while ((ch = getopt(argc, argv, "Cg")) != -1) {
  		switch (ch) {
  		case 'C':
-@@ -496,6 +497,7 @@
+@@ -535,6 +536,7 @@
  
  	if (argc != 0)
  		usage();

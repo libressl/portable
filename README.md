@@ -6,6 +6,7 @@
 [![Android_Build Status](https://github.com/libressl-portable/portable/actions/workflows/android_test.yml/badge.svg)](https://github.com/libressl-portable/portable/actions/workflows/android_test.yml)
 [![Cross_Build Status](https://github.com/libressl-portable/portable/actions/workflows/cross_test.yml/badge.svg)](https://github.com/libressl-portable/portable/actions/workflows/cross_test.yml)
 [![Fuzzing Status](https://oss-fuzz-build-logs.storage.googleapis.com/badges/libressl.svg)](https://bugs.chromium.org/p/oss-fuzz/issues/list?sort=-opened&can=1&q=proj:libressl)
+[![ASan Status](https://github.com/libressl-portable/portable/actions/workflows/linux_test_asan.yml/badge.svg)](https://github.com/libressl-portable/portable/actions/workflows/linux_test_asan.yml)
 
 LibreSSL is a fork of [OpenSSL](https://www.openssl.org) 1.0.1g developed by the
 [OpenBSD](https://www.openbsd.org) project.  Our goal is to modernize the codebase,

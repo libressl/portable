@@ -201,9 +201,9 @@ gen_asm_stdout elf sha/asm/sha1-armv4-large.pl crypto/sha/sha1-elf-armv4.S
 gen_asm_stdout elf sha/asm/sha256-armv4.pl crypto/sha/sha256-elf-armv4.S
 gen_asm_stdout elf sha/asm/sha512-armv4.pl crypto/sha/sha512-elf-armv4.S
 gen_asm_stdout elf modes/asm/ghash-armv4.pl crypto/modes/ghash-elf-armv4.S
-$CP $libcrypto_src/armv4cpuid.S crypto
-$CP $libcrypto_src/armcap.c crypto
-$CP $libcrypto_src/arm_arch.h crypto
+$CP $libcrypto_src/arch/arm/armv4cpuid.S crypto
+$CP $libcrypto_src/arch/arm/armcap.c crypto
+$CP $libcrypto_src/arch/arm/arm_arch.h crypto
 
 for abi in elf macosx masm mingw64; do
 	echo generating x86_64 ASM source for $abi

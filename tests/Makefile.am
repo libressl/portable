@@ -4,6 +4,7 @@ AM_CPPFLAGS += -DLIBRESSL_CRYPTO_INTERNAL
 
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/asn1
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/bio
+AM_CPPFLAGS += -I $(top_srcdir)/crypto/evp
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/modes
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/x509
 AM_CPPFLAGS += -I $(top_srcdir)/ssl
@@ -254,6 +255,11 @@ enginetest_SOURCES = enginetest.c
 TESTS += evp_pkey_check
 check_PROGRAMS += evp_pkey_check
 evp_pkey_check_SOURCES = evp_pkey_check.c
+
+# evp_pkey_cleanup
+TESTS += evp_pkey_cleanup
+check_PROGRAMS += evp_pkey_cleanup
+evp_pkey_cleanup_SOURCES = evp_pkey_cleanup.c
 
 # evptest
 TESTS += evptest.sh

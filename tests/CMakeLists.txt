@@ -4,6 +4,7 @@ include_directories(
 	.
 	../crypto/asn1
 	../crypto/bio
+	../crypto/evp
 	../crypto/modes
 	../crypto/x509
 	../ssl
@@ -242,6 +243,11 @@ add_test(enginetest enginetest)
 add_executable(evp_pkey_check evp_pkey_check.c)
 target_link_libraries(evp_pkey_check ${OPENSSL_TEST_LIBS})
 add_test(evp_pkey_check evp_pkey_check)
+
+# evp_pkey_cleanup
+add_executable(evp_pkey_cleanup evp_pkey_cleanup.c)
+target_link_libraries(evp_pkey_cleanup ${OPENSSL_TEST_LIBS})
+add_test(evp_pkey_cleanup evp_pkey_cleanup)
 
 # evptest
 add_executable(evptest evptest.c)

@@ -341,6 +341,11 @@ add_executable(mont mont.c)
 target_link_libraries(mont ${OPENSSL_TEST_LIBS})
 add_test(mont mont)
 
+# objectstest
+add_executable(objectstest objectstest.c)
+target_link_libraries(objectstest ${OPENSSL_TEST_LIBS})
+add_test(objectstest objectstest)
+
 # ocsp_test
 if(ENABLE_EXTRATESTS)
 	add_executable(ocsp_test ocsp_test.c)

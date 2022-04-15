@@ -31,6 +31,10 @@ LibreSSL Portable Release Notes:
 3.5.2 - Stable release
 
 	* Bug fixes
+	  - Avoid single byte overread in asn1_parse2().
+	  - Allow name constraints with a leading dot. From Alex Wilson.
+	  - Relax a check in x509_constraints_dirname() to allow prefixes.
+	    From Alex Wilson.
 	  - Fix NULL dereferences in openssl(1) cms option parsing.
 	  - Do not zero the computed cofactor on ec_guess_cofactor() success.
 	  - Bound cofactor in EC_GROUP_set_generator() to reduce the number of
@@ -43,8 +47,17 @@ LibreSSL Portable Release Notes:
 	  - Avoid an infinite loop on parsing DSA private keys by validating
 	    that the provided parameters conform to FIPS 186-4.
 	    Issue reported by Hanno Boeck, comments by David Benjamin.
+	* Compatibility improvements
+	  - Allow non-standard name constraints of the form @domain.com.
 	* Internal improvements
+	  - Limit OID text conversion to 64 bits per arc.
+	  - Clean up and simplify memory BIO code.
+	  - Reduce number of memmove() calls in memory BIOs.
+	  - Factor out alert handling code in the legacy stack.
+	  - Add sanity checks on p and q in old_dsa_priv_decode()
+	  - Cache the SHA-512 hash instead of the SHA-1 for CRLs.
 	  - Suppress various compiler warnings for old gcc versions.
+	  - Remove free_cont from asn1_d2i_ex_primitive()/asn1_ex_c2i().
 	  - Rework ASN1_STRING_set().
 	  - Remove const from tls1_transcript_hash_value().
 	  - Clean up and simplify ssl3_renegotiate{,_check}().

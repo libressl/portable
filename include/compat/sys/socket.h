@@ -10,6 +10,7 @@
 #endif
 
 #if !defined(SOCK_NONBLOCK) || !defined(SOCK_CLOEXEC)
+#define NEED_SOCKET_FLAGS
 #define SOCK_CLOEXEC            0x8000  /* set FD_CLOEXEC */
 #define SOCK_NONBLOCK           0x4000  /* set O_NONBLOCK */
 int bsd_socketpair(int domain, int type, int protocol, int socket_vector[2]);

@@ -58,6 +58,7 @@ LibreSSL Portable Release Notes:
 	  - Cache the SHA-512 hash instead of the SHA-1 for CRLs.
 	  - Suppress various compiler warnings for old gcc versions.
 	  - Remove free_cont from asn1_d2i_ex_primitive()/asn1_ex_c2i().
+	  - Rework ownership handling in x509_constraints_validate().
 	  - Rework ASN1_STRING_set().
 	  - Remove const from tls1_transcript_hash_value().
 	  - Clean up and simplify ssl3_renegotiate{,_check}().

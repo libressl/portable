@@ -6,8 +6,7 @@
 #ifndef _WIN32
 #include_next <sys/socket.h>
 
-#if !defined(SOCK_NONBLOCK) || !defined(SOCK_CLOEXEC)
-#define NEED_SOCKET_FLAGS
+#if defined(NEED_SOCKET_FLAGS)
 int _socket(int domain, int type, int protocol);
 #ifndef SOCKET_FLAGS_PRIV
 #define socket(d, t, p) _socket(d, t, p)

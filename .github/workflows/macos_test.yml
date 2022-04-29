@@ -6,7 +6,7 @@ jobs:
   build-native:
     strategy:
       matrix:
-        os: [macos-latest]
+        os: [macos-12, macos-11]
         compiler: [clang, gcc]
     runs-on: ${{ matrix.os }}
     continue-on-error: false

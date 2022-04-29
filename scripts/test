@@ -20,24 +20,24 @@ if [ "x$ARCH" = "xnative" ]; then
 	# test cmake and ninja
 	if [ `uname` = "Darwin" ]; then
 		cmake ..
-		make
+		make -j 4
 		make test
 
 		cd ../build-shared
 		cmake -DBUILD_SHARED_LIBS=ON ..
-		make
+		make -j 4
 		make test
 	else
 		sudo apt-get update
 		sudo apt-get install -y cmake ninja-build
 
 		cmake -GNinja ..
-		ninja
+		ninja -j 4
 		ninja test
 
 		cd ../build-shared
 		cmake -GNinja -DBUILD_SHARED_LIBS=ON ..
-		ninja
+		ninja -j 4
 		ninja test
 	fi
 
@@ -58,21 +58,21 @@ elif [ "x$ARCH" = "xmingw32" -o "x$ARCH" = "xmingw64" ]; then
 	fi
 
 	./configure --host=$CPU-w64-mingw32
-	make -j
+	make -j 4
 
 	(
 	 rm -fr build-static
 	 mkdir build-static
 	 cd build-static
 	 cmake -GNinja -DCMAKE_TOOLCHAIN_FILE=../scripts/$CPU-w64-mingw32.cmake ..
-	 ninja
+	 ninja -j 4
 	)
 	(
 	 rm -fr build-shared
 	 mkdir build-shared
 	 cd build-shared
 	 cmake -GNinja -DCMAKE_TOOLCHAIN_FILE=../scripts/$CPU-w64-mingw32.cmake -DBUILD_SHARED_LIBS=ON ..
-	 ninja
+	 ninja -j 4
 	)
 
 elif [ "x$ARCH" = "xarm32" -o "x$ARCH" = "xarm64" ]; then

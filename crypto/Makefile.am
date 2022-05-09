@@ -760,6 +760,11 @@ libcrypto_la_SOURCES += idea/i_ofb64.c
 libcrypto_la_SOURCES += idea/i_skey.c
 noinst_HEADERS += idea/idea_lcl.h
 
+# kdf
+libcrypto_la_SOURCES += kdf/hkdf_evp.c
+libcrypto_la_SOURCES += kdf/kdf_err.c
+noinst_HEADERS += kdf/kdf.h
+
 # lhash
 libcrypto_la_SOURCES += lhash/lh_stats.c
 libcrypto_la_SOURCES += lhash/lhash.c

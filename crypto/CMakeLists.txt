@@ -602,6 +602,8 @@ set(
 	idea/i_ecb.c
 	idea/i_ofb64.c
 	idea/i_skey.c
+	kdf/hkdf_evp.c
+	kdf/kdf_err.c
 	lhash/lh_stats.c
 	lhash/lhash.c
 	md4/md4_dgst.c

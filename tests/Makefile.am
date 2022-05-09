@@ -354,6 +354,11 @@ TESTS += mont
 check_PROGRAMS += mont
 mont_SOURCES = mont.c
 
+# objectstest
+TESTS += objectstest
+check_PROGRAMS += objectstest
+objectstest_SOURCES = objectstest.c
+
 # ocsp_test
 if ENABLE_EXTRATESTS
 TESTS += ocsptest.sh

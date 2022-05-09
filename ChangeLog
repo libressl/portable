@@ -28,6 +28,63 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.5.2 - Stable release
+
+	* Bug fixes
+	  - Avoid single byte overread in asn1_parse2().
+	  - Allow name constraints with a leading dot. From Alex Wilson.
+	  - Relax a check in x509_constraints_dirname() to allow prefixes.
+	    From Alex Wilson.
+	  - Fix NULL dereferences in openssl(1) cms option parsing.
+	  - Do not zero the computed cofactor on ec_guess_cofactor() success.
+	  - Bound cofactor in EC_GROUP_set_generator() to reduce the number of
+	    bogus groups that can be described with nonsensical parameters.
+	  - Avoid various potential segfaults in EVP_PKEY_CTX_free() in low
+	    memory conditions. Reported for HMAC by Masaru Masuda.
+	  - Plug leak in ASN1_TIME_adj_internal().
+	  - Avoid infinite loop for custom curves of order 1.
+	    Issue reported by Hanno Boeck, comments by David Benjamin.
+	  - Avoid an infinite loop on parsing DSA private keys by validating
+	    that the provided parameters conform to FIPS 186-4.
+	    Issue reported by Hanno Boeck, comments by David Benjamin.
+	* Compatibility improvements
+	  - Allow non-standard name constraints of the form @domain.com.
+	* Internal improvements
+	  - Limit OID text conversion to 64 bits per arc.
+	  - Clean up and simplify memory BIO code.
+	  - Reduce number of memmove() calls in memory BIOs.
+	  - Factor out alert handling code in the legacy stack.
+	  - Add sanity checks on p and q in old_dsa_priv_decode()
+	  - Cache the SHA-512 hash instead of the SHA-1 for CRLs.
+	  - Suppress various compiler warnings for old gcc versions.
+	  - Remove free_cont from asn1_d2i_ex_primitive()/asn1_ex_c2i().
+	  - Rework ownership handling in x509_constraints_validate().
+	  - Rework ASN1_STRING_set().
+	  - Remove const from tls1_transcript_hash_value().
+	  - Clean up and simplify ssl3_renegotiate{,_check}().
+	  - Rewrite legacy TLS and DTLS unexpected handshake message handling.
+	  - Simplify SSL_do_handshake().
+	  - Rewrite ASCII/text to ASN.1 object conversion.
+	  - Provide t2i_ASN1_OBJECT_internal() and use it for OBJ_txt2obj().
+	  - Split armv7 and aarch64 code into separate locations.
+	  - Rewrote openssl(1) ts to use the new option handling and cleaned
+	    up the C code.
+	  - Provide asn1_get_primitive().
+	  - Convert {c2i,d2i}_ASN1_OBJECT() to CBS.
+	  - Remove the minimum record length checks from dtls1_read_bytes().
+	  - Clean up {dtls1,ssl3}_read_bytes().
+	  - Be more careful with embedded and terminating NULs in the new
+	    name constraints code.
+	  - Check EVP_Digest* return codes in openssl(1) ts
+	  - Various minor code cleanup in openssl(1) pkcs12
+	  - Use calloc() in pkey_hmac_init().
+	  - Simplify priv_key handling in d2i_ECPrivateKey().
+	* Documentation improvements
+	  - Update d2i_ASN1_OBJECT(3) documentation to reflect reality after
+	    refactoring and bug fixes.
+	  - Fixed numerous minor grammar, spelling, wording, and punctuation
+	    issues.
+
 3.5.1 - Security release
 
 	* A malicious certificate can cause an infinite loop.

@@ -1,26 +1,26 @@
 image:
-  - Previous Visual Studio 2019
+  - Visual Studio 2019
 
 environment:
   PATH: C:\msys64\usr\bin;C:\msys64\mingw64\bin;C:\Windows\System32;C:\Windows;%PATH%
 
   matrix:
-    - APPVEYOR_BUILD_WORKER_IMAGE: Previous Visual Studio 2019
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       GENERATOR: Visual Studio 16 2019
       ARCHITECTURE: Win32
       CONFIG: Release
       SHARED_LIBS: ON
-    - APPVEYOR_BUILD_WORKER_IMAGE: Previous Visual Studio 2019
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       GENERATOR: Visual Studio 16 2019
       ARCHITECTURE: Win32
       CONFIG: Release
       SHARED_LIBS: OFF
-    - APPVEYOR_BUILD_WORKER_IMAGE: Previous Visual Studio 2019
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       GENERATOR: Visual Studio 16 2019
       ARCHITECTURE: x64
       CONFIG: Release
       SHARED_LIBS: ON
-    - APPVEYOR_BUILD_WORKER_IMAGE: Previous Visual Studio 2019
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       GENERATOR: Visual Studio 16 2019
       ARCHITECTURE: x64
       CONFIG: Release

@@ -28,6 +28,12 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.5.3 - Reliability fix
+
+	* Fix d2i_ASN1_OBJECT(). A confusion of two CBS resulted in advancing
+	  the passed *der_in pointer incorrectly. Thanks to Aram Sargsyan for
+	  reporting the issue and testing the fix.
+
 3.5.2 - Stable release
 
 	* Bug fixes

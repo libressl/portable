@@ -12,9 +12,9 @@ AM_CPPFLAGS += -I $(top_srcdir)/apps/openssl
 AM_CPPFLAGS += -I $(top_srcdir)/apps/openssl/compat
 AM_CPPFLAGS += -D_PATH_SSL_CA_FILE=\"$(top_srcdir)/cert.pem\"
 
-LDADD = $(abs_top_builddir)/tls/.libs/libtls.a
-LDADD += $(abs_top_builddir)/ssl/.libs/libssl.a
-LDADD += $(abs_top_builddir)/crypto/.libs/libcrypto.a
+LDADD = $(abs_top_builddir)/tls/libtls_convenience.la
+LDADD += $(abs_top_builddir)/ssl/libssl.la
+LDADD += $(abs_top_builddir)/crypto/libcrypto.la
 LDADD += $(PLATFORM_LDADD) $(PROG_LDADD)
 if HOST_ASM_MACOSX_X86_64
 LDADD += $(abs_top_builddir)/crypto/.libs/libcrypto_la-cpuid-macosx-x86_64.o

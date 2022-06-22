@@ -1,5 +1,5 @@
---- apps/nc/netcat.c.orig	Sat Feb 15 11:04:42 2020
-+++ apps/nc/netcat.c	Sat Feb 15 11:24:38 2020
+--- apps/nc/netcat.c.orig	Wed Jun 22 11:15:52 2022
++++ apps/nc/netcat.c	Wed Jun 22 11:15:52 2022
 @@ -93,9 +93,13 @@
  int	Dflag;					/* sodebug */
  int	Iflag;					/* TCP receive buffer size */
@@ -53,7 +53,7 @@
  
  	/* Cruft to make sure options are clean, and used properly. */
  	if (argc == 1 && family == AF_UNIX) {
-@@ -947,7 +957,10 @@
+@@ -945,7 +955,10 @@
      char *ipaddr)
  {
  	struct addrinfo *res, *res0;
@@ -65,7 +65,7 @@
  
  	if ((error = getaddrinfo(host, port, &hints, &res0)))
  		errx(1, "getaddrinfo for host \"%s\" port %s: %s", host,
-@@ -962,8 +975,10 @@
+@@ -960,8 +973,10 @@
  		if (sflag || pflag) {
  			struct addrinfo ahints, *ares;
  
@@ -76,7 +76,7 @@
  			memset(&ahints, 0, sizeof(struct addrinfo));
  			ahints.ai_family = res->ai_family;
  			ahints.ai_socktype = uflag ? SOCK_DGRAM : SOCK_STREAM;
-@@ -1055,7 +1070,10 @@
+@@ -1053,7 +1068,10 @@
  local_listen(const char *host, const char *port, struct addrinfo hints)
  {
  	struct addrinfo *res, *res0;
@@ -88,7 +88,7 @@
  	int error;
  
  	/* Allow nodename to be null. */
-@@ -1076,9 +1094,11 @@
+@@ -1074,9 +1092,11 @@
  		    res->ai_protocol)) == -1)
  			continue;
  
@@ -100,21 +100,21 @@
  
  		set_common_sockopts(s, res->ai_family);
  
-@@ -1548,11 +1568,13 @@
+@@ -1545,11 +1565,13 @@
  {
  	int x = 1;
  
 +#ifdef TCP_MD5SIG
  	if (Sflag) {
  		if (setsockopt(s, IPPROTO_TCP, TCP_MD5SIG,
- 			&x, sizeof(x)) == -1)
+ 		    &x, sizeof(x)) == -1)
  			err(1, NULL);
  	}
 +#endif
  	if (Dflag) {
  		if (setsockopt(s, SOL_SOCKET, SO_DEBUG,
- 			&x, sizeof(x)) == -1)
-@@ -1563,9 +1585,16 @@
+ 		    &x, sizeof(x)) == -1)
+@@ -1560,9 +1582,16 @@
  		    IP_TOS, &Tflag, sizeof(Tflag)) == -1)
  			err(1, "set IP ToS");
  
@@ -131,7 +131,7 @@
  	}
  	if (Iflag) {
  		if (setsockopt(s, SOL_SOCKET, SO_RCVBUF,
-@@ -1589,13 +1618,17 @@
+@@ -1586,13 +1615,17 @@
  	}
  
  	if (minttl != -1) {
@@ -150,7 +150,7 @@
  	}
  }
  
-@@ -1820,15 +1853,19 @@
+@@ -1817,15 +1850,19 @@
  	\t-P proxyuser\tUsername for proxy authentication\n\
  	\t-p port\t	Specify local port for remote connects\n\
  	\t-R CAfile	CA bundle\n\

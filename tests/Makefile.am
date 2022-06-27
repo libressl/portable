@@ -4,6 +4,7 @@ AM_CPPFLAGS += -DLIBRESSL_CRYPTO_INTERNAL
 
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/asn1
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/bio
+AM_CPPFLAGS += -I $(top_srcdir)/crypto/bn
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/evp
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/modes
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/x509
@@ -47,6 +48,11 @@ check_PROGRAMS += arc4randomforktest
 arc4randomforktest_SOURCES = arc4randomforktest.c
 endif
 EXTRA_DIST += arc4randomforktest.sh
+
+# asn1_string_to_utf8
+TESTS += asn1_string_to_utf8
+check_PROGRAMS += asn1_string_to_utf8
+asn1_string_to_utf8_SOURCES = asn1_string_to_utf8.c
 
 # asn1api
 TESTS += asn1api
@@ -110,6 +116,11 @@ TESTS += biotest
 check_PROGRAMS += biotest
 biotest_SOURCES = biotest.c
 endif
+
+# bn_primes
+TESTS += bn_primes
+check_PROGRAMS += bn_primes
+bn_primes_SOURCES = bn_primes.c
 
 # bnaddsub
 TESTS += bnaddsub

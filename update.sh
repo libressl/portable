@@ -309,8 +309,8 @@ for i in `find $libssl_regress -name '*.c'`; do
 	 $CP "$i" tests
 done
 $CP $libssl_regress/unit/tests.h tests
-$CP $libssl_regress/certs/ca.pem tests
-$CP $libssl_regress/certs/server.pem tests
+$CP $libssl_regress/certs/*.pem tests
+$CP $libssl_regress/certs/*.crl tests
 $CP $libssl_regress/pqueue/expected.txt tests/pq_expected.txt
 
 # copy libtls tests

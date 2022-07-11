@@ -23,6 +23,7 @@ set(
 	ssl_packet.c
 	ssl_pkt.c
 	ssl_rsa.c
+	ssl_seclevel.c
 	ssl_sess.c
 	ssl_sigalgs.c
 	ssl_srvr.c

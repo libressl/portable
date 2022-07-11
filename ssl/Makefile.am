@@ -62,6 +62,7 @@ libssl_la_SOURCES += ssl_methods.c
 libssl_la_SOURCES += ssl_packet.c
 libssl_la_SOURCES += ssl_pkt.c
 libssl_la_SOURCES += ssl_rsa.c
+libssl_la_SOURCES += ssl_seclevel.c
 libssl_la_SOURCES += ssl_sess.c
 libssl_la_SOURCES += ssl_sigalgs.c
 libssl_la_SOURCES += ssl_srvr.c

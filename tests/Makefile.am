@@ -518,7 +518,19 @@ TESTS += ssltest.sh
 check_PROGRAMS += ssltest
 ssltest_SOURCES = ssltest.c
 EXTRA_DIST += ssltest.sh ssltest.bat
-EXTRA_DIST += testssl testssl.bat ca.pem server.pem
+EXTRA_DIST += testssl testssl.bat
+EXTRA_DIST += ca-int-ecdsa.crl ca-int-ecdsa.pem ca-int-rsa.crl ca-int-rsa.pem
+EXTRA_DIST += ca-root-ecdsa.pem ca-root-rsa.pem ca.pem client.pem
+EXTRA_DIST += client1-ecdsa-chain.pem client1-ecdsa.pem client1-rsa-chain.pem
+EXTRA_DIST += client1-rsa.pem client2-ecdsa-chain.pem client2-ecdsa.pem
+EXTRA_DIST += client2-rsa-chain.pem client2-rsa.pem client3-ecdsa-chain.pem
+EXTRA_DIST += client3-ecdsa.pem client3-rsa-chain.pem client3-rsa.pem
+EXTRA_DIST += server.pem server1-ecdsa-chain.pem server1-ecdsa.pem
+EXTRA_DIST += server1-rsa-chain.pem server1-rsa.pem server2-ecdsa-chain.pem
+EXTRA_DIST += server2-ecdsa.pem server2-rsa-chain.pem server2-rsa.pem
+EXTRA_DIST += server3-ecdsa-chain.pem server3-ecdsa.pem server3-rsa-chain.pem
+EXTRA_DIST += server3-rsa.pem
+
 
 # string_table
 TESTS += string_table

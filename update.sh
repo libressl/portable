@@ -358,6 +358,10 @@ fi
 for i in patches/*.patch; do
     $PATCH -p0 < $i
 done
+# apply local patch for https://github.com/libressl-portable/portable/issues/760
+(cd crypto
+	$PATCH -p4 < ../patches/uninit_asn1_string_to_utf8.diff
+)
 
 # copy manpages
 echo "copying manpages"

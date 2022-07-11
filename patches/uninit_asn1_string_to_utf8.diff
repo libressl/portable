@@ -1,0 +1,45 @@
+commit 54dbcf45e7206fb845f0ca733a8473fe3f0926ac
+Author: tb <>
+Date:   Mon May 16 20:41:24 2022 +0000
+
+    Avoid use of uninitialized in ASN1_STRING_to_UTF8()
+    
+    A long standing failure to initialize a struct on the stack fully was
+    exposed by a recent refactoring. Fortunately, the uninitialized 'flag'
+    member is only used to decide whether or not to call freezero(NULL, 0),
+    so it is completely harmless. This is a first trivial fix, a better
+    version will be landed separately with regress.
+    
+    Reported by Steffen Jaeckel, GH #760
+    
+    ok beck
+
+diff --git a/src/lib/libcrypto/asn1/a_string.c b/src/lib/libcrypto/asn1/a_string.c
+index 90e363e9c7..9086d3bec8 100644
+--- a/src/lib/libcrypto/asn1/a_string.c
++++ b/src/lib/libcrypto/asn1/a_string.c
+@@ -1,4 +1,4 @@
+-/* $OpenBSD: a_string.c,v 1.7 2022/03/17 17:17:58 jsing Exp $ */
++/* $OpenBSD: a_string.c,v 1.8 2022/05/16 20:41:24 tb Exp $ */
+ /* Copyright (C) 1995-1998 Eric Young (eay@cryptsoft.com)
+  * All rights reserved.
+  *
+@@ -276,7 +276,8 @@ ASN1_STRING_print(BIO *bp, const ASN1_STRING *astr)
+ int
+ ASN1_STRING_to_UTF8(unsigned char **out, const ASN1_STRING *in)
+ {
+-	ASN1_STRING stmp, *str = &stmp;
++	ASN1_STRING stmp = { 0 };
++	ASN1_STRING *str = &stmp;
+ 	int mbflag, ret;
+ 
+ 	if (in == NULL)
+@@ -287,8 +288,6 @@ ASN1_STRING_to_UTF8(unsigned char **out, const ASN1_STRING *in)
+ 
+ 	mbflag |= MBSTRING_FLAG;
+ 
+-	stmp.data = NULL;
+-	stmp.length = 0;
+ 	ret = ASN1_mbstring_copy(&str, in->data, in->length, mbflag,
+ 	    B_ASN1_UTF8STRING);
+ 	if (ret < 0)

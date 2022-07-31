@@ -77,7 +77,7 @@ target_include_directories(bs_obj
 if(BUILD_SHARED_LIBS)
 	add_library(ssl $<TARGET_OBJECTS:ssl_obj> $<TARGET_OBJECTS:bs_obj>)
 else()
-	add_library(ssl $<TARGET_OBJECTS:ssl_obj>)
+	add_library(ssl $<TARGET_OBJECTS:ssl_obj> ../dummy.c)
 endif()
 
 export_symbol(ssl ${CMAKE_CURRENT_SOURCE_DIR}/ssl.sym)
@@ -105,4 +105,3 @@ if(BUILD_SHARED_LIBS)
 	add_library(ssl-static STATIC $<TARGET_OBJECTS:ssl_obj>)
 	target_link_libraries(ssl-static crypto-static ${PLATFORM_LIBS})
 endif()
-

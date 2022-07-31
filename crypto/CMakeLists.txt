@@ -1002,7 +1002,7 @@ target_include_directories(crypto_obj
 	PUBLIC
 		../include)
 
-add_library(crypto $<TARGET_OBJECTS:crypto_obj>)
+add_library(crypto $<TARGET_OBJECTS:crypto_obj> ../dummy.c)
 
 export_symbol(crypto ${CMAKE_CURRENT_BINARY_DIR}/crypto_p.sym)
 target_link_libraries(crypto ${PLATFORM_LIBS})
@@ -1029,4 +1029,3 @@ if(BUILD_SHARED_LIBS)
 	add_library(crypto-static STATIC $<TARGET_OBJECTS:crypto_obj>)
 	target_link_libraries(crypto-static ${PLATFORM_LIBS})
 endif()
-

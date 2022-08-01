@@ -333,6 +333,7 @@ set(
 	bn/bn_add.c
 	bn/bn_asm.c
 	bn/bn_blind.c
+	bn/bn_bpsw.c
 	bn/bn_const.c
 	bn/bn_ctx.c
 	bn/bn_depr.c
@@ -342,6 +343,7 @@ set(
 	bn/bn_exp2.c
 	bn/bn_gcd.c
 	bn/bn_gf2m.c
+	bn/bn_isqrt.c
 	bn/bn_kron.c
 	bn/bn_lib.c
 	bn/bn_mod.c

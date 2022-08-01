@@ -21,7 +21,12 @@ file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR} TEST_SOURCE_DIR)
 # aeadtest
 add_executable(aeadtest aeadtest.c)
 target_link_libraries(aeadtest ${OPENSSL_TEST_LIBS})
-add_test(aeadtest aeadtest ${CMAKE_CURRENT_SOURCE_DIR}/aeadtests.txt)
+if(NOT WIN32)
+	add_test(NAME aeadtest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/aeadtest.sh)
+	set_tests_properties(aeadtest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
+else()
+	add_test(aeadtest aeadtest aead ${CMAKE_CURRENT_SOURCE_DIR}/aeadtests.txt)
+endif()
 
 # aes_wrap
 add_executable(aes_wrap aes_wrap.c)

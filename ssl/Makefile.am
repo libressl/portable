@@ -86,6 +86,7 @@ libssl_la_SOURCES += tls13_handshake_msg.c
 libssl_la_SOURCES += tls13_key_schedule.c
 libssl_la_SOURCES += tls13_legacy.c
 libssl_la_SOURCES += tls13_lib.c
+libssl_la_SOURCES += tls13_quic.c
 libssl_la_SOURCES += tls13_record.c
 libssl_la_SOURCES += tls13_record_layer.c
 libssl_la_SOURCES += tls13_server.c

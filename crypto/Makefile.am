@@ -412,6 +412,7 @@ noinst_HEADERS += bio/bio_local.h
 libcrypto_la_SOURCES += bn/bn_add.c
 libcrypto_la_SOURCES += bn/bn_asm.c
 libcrypto_la_SOURCES += bn/bn_blind.c
+libcrypto_la_SOURCES += bn/bn_bpsw.c
 libcrypto_la_SOURCES += bn/bn_const.c
 libcrypto_la_SOURCES += bn/bn_ctx.c
 libcrypto_la_SOURCES += bn/bn_depr.c
@@ -421,6 +422,7 @@ libcrypto_la_SOURCES += bn/bn_exp.c
 libcrypto_la_SOURCES += bn/bn_exp2.c
 libcrypto_la_SOURCES += bn/bn_gcd.c
 libcrypto_la_SOURCES += bn/bn_gf2m.c
+libcrypto_la_SOURCES += bn/bn_isqrt.c
 libcrypto_la_SOURCES += bn/bn_kron.c
 libcrypto_la_SOURCES += bn/bn_lib.c
 libcrypto_la_SOURCES += bn/bn_mod.c
@@ -927,6 +929,7 @@ libcrypto_la_SOURCES += ts/ts_rsp_sign.c
 libcrypto_la_SOURCES += ts/ts_rsp_utils.c
 libcrypto_la_SOURCES += ts/ts_rsp_verify.c
 libcrypto_la_SOURCES += ts/ts_verify_ctx.c
+noinst_HEADERS += ts/ts_local.h
 
 # txt_db
 libcrypto_la_SOURCES += txt_db/txt_db.c

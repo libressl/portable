@@ -47,6 +47,7 @@ set(
 	tls13_key_schedule.c
 	tls13_legacy.c
 	tls13_lib.c
+	tls13_quic.c
 	tls13_record.c
 	tls13_record_layer.c
 	tls13_server.c

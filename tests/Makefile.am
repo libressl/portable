@@ -34,6 +34,11 @@ check_PROGRAMS += aeadtest
 aeadtest_SOURCES = aeadtest.c
 EXTRA_DIST += aeadtest.sh
 EXTRA_DIST += aeadtests.txt
+EXTRA_DIST += aes_128_gcm_tests.txt
+EXTRA_DIST += aes_192_gcm_tests.txt
+EXTRA_DIST += aes_256_gcm_tests.txt
+EXTRA_DIST += chacha20_poly1305_tests.txt
+EXTRA_DIST += xchacha20_poly1305_tests.txt
 
 # aes_wrap
 TESTS += aes_wrap

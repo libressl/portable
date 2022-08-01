@@ -4,6 +4,7 @@ include_directories(
 	.
 	../crypto/asn1
 	../crypto/bio
+	../crypto/bn
 	../crypto/evp
 	../crypto/modes
 	../crypto/x509
@@ -109,6 +110,11 @@ add_executable(bnaddsub bnaddsub.c)
 target_link_libraries(bnaddsub ${OPENSSL_TEST_LIBS})
 add_test(bnaddsub bnaddsub)
 
+# bn_isqrt
+add_executable(bn_isqrt bn_isqrt.c)
+target_link_libraries(bn_isqrt ${OPENSSL_TEST_LIBS})
+add_test(bn_isqrt bn_isqrt)
+
 # bn_mod_exp2_mont
 add_executable(bn_mod_exp2_mont bn_mod_exp2_mont.c)
 target_link_libraries(bn_mod_exp2_mont ${OPENSSL_TEST_LIBS})
@@ -118,6 +124,11 @@ add_test(bn_mod_exp2_mont bn_mod_exp2_mont)
 add_executable(bn_mod_sqrt bn_mod_sqrt.c)
 target_link_libraries(bn_mod_sqrt ${OPENSSL_TEST_LIBS})
 add_test(bn_mod_sqrt bn_mod_sqrt)
+
+# bn_primes
+add_executable(bn_primes bn_primes.c)
+target_link_libraries(bn_primes ${OPENSSL_TEST_LIBS})
+add_test(bn_primes bn_primes)
 
 # bn_rand_interval
 add_executable(bn_rand_interval bn_rand_interval.c)
@@ -498,6 +509,11 @@ add_test(ssl_get_shared_ciphers ssl_get_shared_ciphers)
 add_executable(ssl_methods ssl_methods.c)
 target_link_libraries(ssl_methods ${OPENSSL_TEST_LIBS})
 add_test(ssl_methods ssl_methods)
+
+# ssl_set_alpn_protos
+add_executable(ssl_set_alpn_protos ssl_set_alpn_protos.c)
+target_link_libraries(ssl_set_alpn_protos ${OPENSSL_TEST_LIBS})
+add_test(ssl_set_alpn_protos ssl_set_alpn_protos)
 
 # ssl_versions
 add_executable(ssl_versions ssl_versions.c)

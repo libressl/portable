@@ -122,15 +122,15 @@ check_PROGRAMS += biotest
 biotest_SOURCES = biotest.c
 endif
 
-# bn_primes
-TESTS += bn_primes
-check_PROGRAMS += bn_primes
-bn_primes_SOURCES = bn_primes.c
-
 # bnaddsub
 TESTS += bnaddsub
 check_PROGRAMS += bnaddsub
 bnaddsub_SOURCES = bnaddsub.c
+
+# bn_isqrt
+TESTS += bn_isqrt
+check_PROGRAMS += bn_isqrt
+bn_isqrt_SOURCES = bn_isqrt.c
 
 # bn_mod_exp2_mont
 TESTS += bn_mod_exp2_mont
@@ -141,6 +141,11 @@ bn_mod_exp2_mont_SOURCES = bn_mod_exp2_mont.c
 TESTS += bn_mod_sqrt
 check_PROGRAMS += bn_mod_sqrt
 bn_mod_sqrt_SOURCES = bn_mod_sqrt.c
+
+# bn_primes
+TESTS += bn_primes
+check_PROGRAMS += bn_primes
+bn_primes_SOURCES = bn_primes.c
 
 # bn_rand_interval
 TESTS += bn_rand_interval
@@ -512,6 +517,11 @@ ssl_get_shared_ciphers_SOURCES = ssl_get_shared_ciphers.c
 TESTS += ssl_methods
 check_PROGRAMS += ssl_methods
 ssl_methods_SOURCES = ssl_methods.c
+
+# ssl_set_alpn_protos
+TESTS += ssl_set_alpn_protos
+check_PROGRAMS += ssl_set_alpn_protos
+ssl_set_alpn_protos_SOURCES = ssl_set_alpn_protos.c
 
 # ssl_versions
 TESTS += ssl_versions

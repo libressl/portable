@@ -63,11 +63,14 @@ tests/asn1complex*
 tests/asn1evp*
 tests/asn1object*
 tests/asn1string_copy*
+tests/asn1_string_to_utf8*
 tests/asn1time*
 tests/asn1x509*
 tests/bnaddsub*
+tests/bn_isqrt*
 tests/bn_mod_exp2_mont*
 tests/bn_mod_sqrt*
+tests/bn_primes*
 tests/bn_rand_interval*
 tests/bn_to_string*
 tests/cipher*
@@ -84,6 +87,7 @@ tests/rfc3779*
 tests/rfc5280time*
 tests/ssl_get_shared_ciphers*
 tests/ssl_methods*
+tests/ssl_set_alpn_protos*
 tests/ssl_versions*
 tests/string_table*
 tests/timingsafe*

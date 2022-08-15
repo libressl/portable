@@ -839,6 +839,7 @@ libcrypto_la_SOURCES += pkcs12/p12_mutl.c
 libcrypto_la_SOURCES += pkcs12/p12_npas.c
 libcrypto_la_SOURCES += pkcs12/p12_p8d.c
 libcrypto_la_SOURCES += pkcs12/p12_p8e.c
+libcrypto_la_SOURCES += pkcs12/p12_sbag.c
 libcrypto_la_SOURCES += pkcs12/p12_utl.c
 libcrypto_la_SOURCES += pkcs12/pk12err.c
 

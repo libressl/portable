@@ -658,6 +658,7 @@ set(
 	pkcs12/p12_npas.c
 	pkcs12/p12_p8d.c
 	pkcs12/p12_p8e.c
+	pkcs12/p12_sbag.c
 	pkcs12/p12_utl.c
 	pkcs12/pk12err.c
 	pkcs7/bio_pk7.c

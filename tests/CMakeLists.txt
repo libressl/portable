@@ -413,6 +413,17 @@ else()
 endif()
 set_tests_properties(pq_test PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 
+# quictest
+set(QUICTEST_SRC quictest.c)
+add_executable(quictest ${QUICTEST_SRC})
+target_link_libraries(quictest ${OPENSSL_TEST_LIBS})
+if(NOT MSVC)
+	add_test(NAME quictest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/quictest.sh)
+else()
+	add_test(NAME quictest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/quictest.bat $<TARGET_FILE:quictest>)
+endif()
+set_tests_properties(quictest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
+
 # randtest
 add_executable(randtest randtest.c)
 target_link_libraries(randtest ${OPENSSL_TEST_LIBS})

@@ -425,6 +425,12 @@ pq_test_SOURCES = pq_test.c
 EXTRA_DIST += pq_test.sh pq_test.bat
 EXTRA_DIST += pq_expected.txt
 
+# quictest
+TESTS += quictest.sh
+check_PROGRAMS += quictest
+quictest_SOURCES = quictest.c
+EXTRA_DIST += quictest.sh quictest.bat
+
 # randtest
 TESTS += randtest
 check_PROGRAMS += randtest

@@ -37,6 +37,7 @@ set(
 	tls_buffer.c
 	tls_content.c
 	tls_key_share.c
+	tls_lib.c
 	tls12_key_schedule.c
 	tls12_lib.c
 	tls12_record_layer.c

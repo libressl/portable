@@ -76,6 +76,7 @@ libssl_la_SOURCES += t1_lib.c
 libssl_la_SOURCES += tls_buffer.c
 libssl_la_SOURCES += tls_content.c
 libssl_la_SOURCES += tls_key_share.c
+libssl_la_SOURCES += tls_lib.c
 libssl_la_SOURCES += tls12_key_schedule.c
 libssl_la_SOURCES += tls12_lib.c
 libssl_la_SOURCES += tls12_record_layer.c

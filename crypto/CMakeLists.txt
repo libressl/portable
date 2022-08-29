@@ -999,6 +999,7 @@ target_include_directories(crypto_obj
 		hmac
 		modes
 		ocsp
+		pkcs12
 		rsa
 		x509
 		../include/compat

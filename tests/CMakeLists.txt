@@ -462,7 +462,7 @@ endif()
 # rmd_test
 add_executable(rmd_test rmd_test.c)
 target_link_libraries(rmd_test ${OPENSSL_TEST_LIBS})
-add_test(rmd_test rmdtest)
+add_test(rmd_test rmd_test)
 
 # rsa_test
 add_executable(rsa_test rsa_test.c)

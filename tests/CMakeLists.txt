@@ -342,15 +342,10 @@ add_test(keypairtest keypairtest
 	${CMAKE_CURRENT_SOURCE_DIR}/server.pem
 	${CMAKE_CURRENT_SOURCE_DIR}/server.pem)
 
-# md4test
-add_executable(md4test md4test.c)
-target_link_libraries(md4test ${OPENSSL_TEST_LIBS})
-add_test(md4test md4test)
-
-# md5test
-add_executable(md5test md5test.c)
-target_link_libraries(md5test ${OPENSSL_TEST_LIBS})
-add_test(md5test md5test)
+# md_test
+add_executable(md_test md_test.c)
+target_link_libraries(md_test ${OPENSSL_TEST_LIBS})
+add_test(md_test md_test)
 
 # mont
 add_executable(mont mont.c)
@@ -464,10 +459,10 @@ else()
 	add_test(rfc5280time rfc5280time)
 endif()
 
-# rmdtest
-add_executable(rmdtest rmdtest.c)
-target_link_libraries(rmdtest ${OPENSSL_TEST_LIBS})
-add_test(rmdtest rmdtest)
+# rmd_test
+add_executable(rmd_test rmd_test.c)
+target_link_libraries(rmd_test ${OPENSSL_TEST_LIBS})
+add_test(rmd_test rmdtest)
 
 # rsa_test
 add_executable(rsa_test rsa_test.c)
@@ -484,20 +479,10 @@ else()
 endif()
 set_tests_properties(servertest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 
-# sha1test
-add_executable(sha1test sha1test.c)
-target_link_libraries(sha1test ${OPENSSL_TEST_LIBS})
-add_test(sha1test sha1test)
-
-# sha256test
-add_executable(sha256test sha256test.c)
-target_link_libraries(sha256test ${OPENSSL_TEST_LIBS})
-add_test(sha256test sha256test)
-
-# sha512test
-add_executable(sha512test sha512test.c)
-target_link_libraries(sha512test ${OPENSSL_TEST_LIBS})
-add_test(sha512test sha512test)
+# sha_test
+add_executable(sha_test sha_test.c)
+target_link_libraries(sha_test ${OPENSSL_TEST_LIBS})
+add_test(sha_test sha_test)
 
 # sm3test
 add_executable(sm3test sm3test.c)

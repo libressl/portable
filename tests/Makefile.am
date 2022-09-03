@@ -360,15 +360,10 @@ check_PROGRAMS += keypairtest
 keypairtest_SOURCES = keypairtest.c
 EXTRA_DIST += keypairtest.sh
 
-# md4test
-TESTS += md4test
-check_PROGRAMS += md4test
-md4test_SOURCES = md4test.c
-
-# md5test
-TESTS += md5test
-check_PROGRAMS += md5test
-md5test_SOURCES = md5test.c
+# md_test
+TESTS += md_test
+check_PROGRAMS += md_test
+md_test_SOURCES = md_test.c
 
 # mont
 TESTS += mont
@@ -472,10 +467,10 @@ TESTS += rfc5280time
 endif
 EXTRA_DIST += rfc5280time_small.test
 
-# rmdtest
-TESTS += rmdtest
-check_PROGRAMS += rmdtest
-rmdtest_SOURCES = rmdtest.c
+# rmd_test
+TESTS += rmd_test
+check_PROGRAMS += rmd_test
+rmd_test_SOURCES = rmd_test.c
 
 # rsa_test
 TESTS += rsa_test
@@ -488,20 +483,10 @@ check_PROGRAMS += servertest
 servertest_SOURCES = servertest.c
 EXTRA_DIST += servertest.sh servertest.bat
 
-# sha1test
-TESTS += sha1test
-check_PROGRAMS += sha1test
-sha1test_SOURCES = sha1test.c
-
-# sha256test
-TESTS += sha256test
-check_PROGRAMS += sha256test
-sha256test_SOURCES = sha256test.c
-
-# sha512test
-TESTS += sha512test
-check_PROGRAMS += sha512test
-sha512test_SOURCES = sha512test.c
+# sha_test
+TESTS += sha_test
+check_PROGRAMS += sha_test
+sha_test_SOURCES = sha_test.c
 
 # sm3test
 TESTS += sm3test

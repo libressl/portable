@@ -46,37 +46,3 @@
  	{
  		.str = "700101000000Z",
  		.data = "700101000000Z",
-@@ -273,14 +279,14 @@
- 
- 	if ((i = X509_cmp_time(gt, &att->time)) != -1) {
- 		fprintf(stderr, "FAIL: test %i - X509_cmp_time failed - returned %d compared to %lld\n",
--		    test_no, i, att->time);
-+		    test_no, i, (long long)att->time);
- 		goto done;
- 	}
- 
- 	att->time--;
- 	if ((i = X509_cmp_time(gt, &att->time)) != 1) {
- 		fprintf(stderr, "FAIL: test %i - X509_cmp_time failed - returned %d compared to %lld\n",
--		    test_no, i, att->time);
-+		    test_no, i, (long long)att->time);
- 		goto done;
- 	}
- 	att->time++;
-@@ -325,14 +331,14 @@
- 
- 	if ((i = X509_cmp_time(ut, &att->time)) != -1) {
- 		fprintf(stderr, "FAIL: test %i - X509_cmp_time failed - returned %d compared to %lld\n",
--		    test_no, i, att->time);
-+		    test_no, i, (long long)att->time);
- 		goto done;
- 	}
- 
- 	att->time--;
- 	if ((i = X509_cmp_time(ut, &att->time)) != 1) {
- 		fprintf(stderr, "FAIL: test %i - X509_cmp_time failed - returned %d compared to %lld\n",
--		    test_no, i, att->time);
-+		    test_no, i, (long long)att->time);
- 		goto done;
- 	}
- 	att->time++;

@@ -429,10 +429,10 @@ add_executable(rc2test rc2test.c)
 target_link_libraries(rc2test ${OPENSSL_TEST_LIBS})
 add_test(rc2test rc2test)
 
-# rc4test
-add_executable(rc4test rc4test.c)
-target_link_libraries(rc4test ${OPENSSL_TEST_LIBS})
-add_test(rc4test rc4test)
+# rc4_test
+add_executable(rc4_test rc4_test.c)
+target_link_libraries(rc4_test ${OPENSSL_TEST_LIBS})
+add_test(rc4_test rc4_test)
 
 # recordtest
 add_executable(recordtest recordtest.c)

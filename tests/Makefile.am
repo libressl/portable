@@ -436,10 +436,10 @@ TESTS += rc2test
 check_PROGRAMS += rc2test
 rc2test_SOURCES = rc2test.c
 
-# rc4test
-TESTS += rc4test
-check_PROGRAMS += rc4test
-rc4test_SOURCES = rc4test.c
+# rc4_test
+TESTS += rc4_test
+check_PROGRAMS += rc4_test
+rc4_test_SOURCES = rc4_test.c
 
 # recordtest
 TESTS += recordtest

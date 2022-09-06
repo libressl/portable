@@ -431,10 +431,10 @@ TESTS += randtest
 check_PROGRAMS += randtest
 randtest_SOURCES = randtest.c
 
-# rc2test
-TESTS += rc2test
-check_PROGRAMS += rc2test
-rc2test_SOURCES = rc2test.c
+# rc2_test
+TESTS += rc2_test
+check_PROGRAMS += rc2_test
+rc2_test_SOURCES = rc2_test.c
 
 # rc4_test
 TESTS += rc4_test

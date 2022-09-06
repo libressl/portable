@@ -424,10 +424,10 @@ add_executable(randtest randtest.c)
 target_link_libraries(randtest ${OPENSSL_TEST_LIBS})
 add_test(randtest randtest)
 
-# rc2test
-add_executable(rc2test rc2test.c)
-target_link_libraries(rc2test ${OPENSSL_TEST_LIBS})
-add_test(rc2test rc2test)
+# rc2_test
+add_executable(rc2_test rc2_test.c)
+target_link_libraries(rc2_test ${OPENSSL_TEST_LIBS})
+add_test(rc2_test rc2_test)
 
 # rc4_test
 add_executable(rc4_test rc4_test.c)

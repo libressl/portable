@@ -28,6 +28,15 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.6.1 - Stable release
+
+	* Bug fixes
+	  - Custom verification callbacks could cause the X.509 verifier to
+	    fail to store errors resulting from leaf certificate verification.
+	    Reported by Ilya Shipitsin.
+	  - Unbreak ASN.1 indefinite length encoding.
+	    Reported by Niklas Hallqvist.
+
 3.6.0 - Development release
 
 	* Internal improvements

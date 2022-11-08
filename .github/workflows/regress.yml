@@ -8,7 +8,7 @@ jobs:
   rust-openssl:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@main
     - name: Install apt dependencies
       run: |
         sudo apt-get update

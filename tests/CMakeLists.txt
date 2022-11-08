@@ -217,13 +217,14 @@ add_executable(dsatest dsatest.c)
 target_link_libraries(dsatest ${OPENSSL_TEST_LIBS})
 add_test(dsatest dsatest)
 
-# dtlstest
-if(NOT WIN32)
-	add_executable(dtlstest dtlstest.c)
-	target_link_libraries(dtlstest ${OPENSSL_TEST_LIBS})
-	add_test(NAME dtlstest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/dtlstest.sh)
-	set_tests_properties(dtlstest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
-endif()
+# XXX This test is too flaky for CI. Disable it until it is fixed.
+# # dtlstest
+# if(NOT WIN32)
+# 	add_executable(dtlstest dtlstest.c)
+# 	target_link_libraries(dtlstest ${OPENSSL_TEST_LIBS})
+# 	add_test(NAME dtlstest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/dtlstest.sh)
+# 	set_tests_properties(dtlstest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
+# endif()
 
 # ec_asn1_test
 add_executable(ec_asn1_test ec_asn1_test.c)

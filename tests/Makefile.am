@@ -234,13 +234,14 @@ TESTS += dsatest
 check_PROGRAMS += dsatest
 dsatest_SOURCES = dsatest.c
 
-# dtlstest
-if !HOST_WIN
-TESTS += dtlstest.sh
-check_PROGRAMS += dtlstest
-dtlstest_SOURCES = dtlstest.c
-endif
-EXTRA_DIST += dtlstest.sh
+# XXX this test is too flaky for CI. Disable it until it is fixed.
+## dtlstest
+#if !HOST_WIN
+#TESTS += dtlstest.sh
+#check_PROGRAMS += dtlstest
+#dtlstest_SOURCES = dtlstest.c
+#endif
+#EXTRA_DIST += dtlstest.sh
 
 # ec_asn1_test
 TESTS += ec_asn1_test

@@ -1,9 +1,9 @@
---- tests/tlsexttest.c.orig	Mon Sep  5 22:30:36 2022
-+++ tests/tlsexttest.c	Mon Sep  5 22:32:52 2022
-@@ -1773,7 +1773,9 @@ static unsigned char tlsext_sni_client[] = {
+--- tests/tlsexttest.c.orig	Tue Nov  8 10:32:18 2022
++++ tests/tlsexttest.c	Tue Nov  8 10:35:52 2022
+@@ -1773,7 +1773,9 @@ static const unsigned char tlsext_sni_client[] = {
  };
  
- static unsigned char tlsext_sni_server[] = {
+ static const unsigned char tlsext_sni_server[] = {
 +	0x00
  };
 +const size_t sizeof_tlsext_sni_server = 0;
@@ -39,7 +39,7 @@
  	if (!client_funcs->parse(ssl, SSL_TLSEXT_MSG_SH, &cbs, &alert)) {
  		FAIL("failed to parse server SNI\n");
  		goto err;
-@@ -3196,7 +3198,10 @@ unsigned char tlsext_clienthello_default[] = {
+@@ -3194,7 +3196,10 @@ unsigned char tlsext_clienthello_default[] = {
  	0x04, 0x03, 0x02, 0x01, 0x02, 0x03,
  };
  
@@ -51,7 +51,7 @@
  
  static int
  test_tlsext_clienthello_build(void)
-@@ -3282,18 +3287,18 @@ test_tlsext_clienthello_build(void)
+@@ -3280,18 +3285,18 @@ test_tlsext_clienthello_build(void)
  		goto err;
  	}
  

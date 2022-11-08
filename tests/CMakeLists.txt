@@ -93,9 +93,9 @@ target_link_libraries(base64test ${OPENSSL_TEST_LIBS})
 add_test(base64test base64test)
 
 # bftest
-add_executable(bftest bftest.c)
-target_link_libraries(bftest ${OPENSSL_TEST_LIBS})
-add_test(bftest bftest)
+add_executable(bf_test bf_test.c)
+target_link_libraries(bf_test ${OPENSSL_TEST_LIBS})
+add_test(bf_test bf_test)
 
 # biotest
 # the BIO tests rely on resolver results that are OS and environment-specific

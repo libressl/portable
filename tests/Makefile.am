@@ -5,6 +5,7 @@ AM_CPPFLAGS += -DLIBRESSL_CRYPTO_INTERNAL
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/asn1
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/bio
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/bn
+AM_CPPFLAGS += -I $(top_srcdir)/crypto/curve25519
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/evp
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/modes
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/x509
@@ -39,6 +40,11 @@ EXTRA_DIST += aes_192_gcm_tests.txt
 EXTRA_DIST += aes_256_gcm_tests.txt
 EXTRA_DIST += chacha20_poly1305_tests.txt
 EXTRA_DIST += xchacha20_poly1305_tests.txt
+
+# aes
+TESTS += aes_test
+check_PROGRAMS += aes_test
+aes_test_SOURCES = aes_test.c
 
 # aes_wrap
 TESTS += aes_wrap
@@ -163,6 +169,11 @@ TESTS += bn_to_string
 check_PROGRAMS += bn_to_string
 bn_to_string_SOURCES = bn_to_string.c
 
+# bn_unit
+TESTS += bn_unit
+check_PROGRAMS += bn_unit
+bn_unit_SOURCES = bn_unit.c
+
 # buffertest
 TESTS += buffertest
 check_PROGRAMS += buffertest
@@ -268,10 +279,20 @@ TESTS += ectest
 check_PROGRAMS += ectest
 ectest_SOURCES = ectest.c
 
+# ed25519test
+TESTS += ed25519test
+check_PROGRAMS += ed25519test
+ed25519test_SOURCES = ed25519test.c
+
 # enginetest
 TESTS += enginetest
 check_PROGRAMS += enginetest
 enginetest_SOURCES = enginetest.c
+
+# evp_ecx_test
+TESTS += evp_ecx_test
+check_PROGRAMS += evp_ecx_test
+evp_ecx_test_SOURCES = evp_ecx_test.c
 
 # evp_pkey_check
 TESTS += evp_pkey_check

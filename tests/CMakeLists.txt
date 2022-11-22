@@ -5,6 +5,7 @@ include_directories(
 	../crypto/asn1
 	../crypto/bio
 	../crypto/bn
+	../crypto/curve25519
 	../crypto/evp
 	../crypto/modes
 	../crypto/x509
@@ -28,6 +29,11 @@ if(NOT WIN32)
 else()
 	add_test(aeadtest aeadtest aead ${CMAKE_CURRENT_SOURCE_DIR}/aeadtests.txt)
 endif()
+
+# aes_test
+add_executable(aes_test aes_test.c)
+target_link_libraries(aes_test ${OPENSSL_TEST_LIBS})
+add_test(aes_test aes_test)
 
 # aes_wrap
 add_executable(aes_wrap aes_wrap.c)
@@ -147,6 +153,11 @@ add_executable(bn_to_string bn_to_string.c)
 target_link_libraries(bn_to_string ${OPENSSL_TEST_LIBS})
 add_test(bn_to_string bn_to_string)
 
+# bn_unit
+add_executable(bn_unit bn_unit.c)
+target_link_libraries(bn_unit ${OPENSSL_TEST_LIBS})
+add_test(bn_unit bn_unit)
+
 # buffertest
 add_executable(buffertest buffertest.c)
 target_link_libraries(buffertest ${OPENSSL_TEST_LIBS})
@@ -251,10 +262,20 @@ add_executable(ectest ectest.c)
 target_link_libraries(ectest ${OPENSSL_TEST_LIBS})
 add_test(ectest ectest)
 
+# ed25519test
+add_executable(ed25519test ed25519test.c)
+target_link_libraries(ed25519test ${OPENSSL_TEST_LIBS})
+add_test(ed25519test ed25519test)
+
 # enginetest
 add_executable(enginetest enginetest.c)
 target_link_libraries(enginetest ${OPENSSL_TEST_LIBS})
 add_test(enginetest enginetest)
+
+# evp_ecx_test
+add_executable(evp_ecx_test evp_ecx_test.c)
+target_link_libraries(evp_ecx_test ${OPENSSL_TEST_LIBS})
+add_test(evp_ecx_test evp_ecx_test)
 
 # evp_pkey_check
 add_executable(evp_pkey_check evp_pkey_check.c)

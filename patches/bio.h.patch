@@ -1,6 +1,6 @@
---- include/openssl/bio.h.orig	Mon Sep  5 22:30:32 2022
-+++ include/openssl/bio.h	Tue Sep  6 01:38:22 2022
-@@ -666,8 +666,24 @@ void BIO_copy_next_retry(BIO *b);
+--- include/openssl/bio.h.orig	Tue Nov 22 21:08:27 2022
++++ include/openssl/bio.h	Tue Nov 22 21:08:48 2022
+@@ -667,8 +667,24 @@ void BIO_copy_next_retry(BIO *b);
  
  /*long BIO_ghbn_ctrl(int cmd,int iarg,char *parg);*/
  
@@ -25,7 +25,7 @@
  	__attribute__((__format__(__printf__, 2, 3), __nonnull__(2)));
  int
  BIO_vprintf(BIO *bio, const char *format, va_list args)
-@@ -680,6 +696,7 @@ int
+@@ -681,6 +697,7 @@ int
  BIO_vsnprintf(char *buf, size_t n, const char *format, va_list args)
  	__attribute__((__deprecated__, __format__(__printf__, 3, 0),
  	    __nonnull__(3)));

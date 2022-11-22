@@ -236,7 +236,6 @@ set(
 	o_fips.c
 	o_init.c
 	o_str.c
-	o_time.c
 	aes/aes_cfb.c
 	aes/aes_ctr.c
 	aes/aes_ecb.c
@@ -257,6 +256,7 @@ set(
 	asn1/a_string.c
 	asn1/a_strnid.c
 	asn1/a_time.c
+	asn1/a_time_posix.c
 	asn1/a_time_tm.c
 	asn1/a_type.c
 	asn1/a_utf8.c
@@ -356,6 +356,7 @@ set(
 	bn/bn_rand.c
 	bn/bn_recp.c
 	bn/bn_shift.c
+	bn/bn_small_primes.c
 	bn/bn_sqr.c
 	bn/bn_sqrt.c
 	bn/bn_word.c
@@ -488,6 +489,7 @@ set(
 	ec/ecp_nist.c
 	ec/ecp_oct.c
 	ec/ecp_smpl.c
+	ec/ecx_methods.c
 	ecdh/ecdh_kdf.c
 	ecdh/ech_err.c
 	ecdh/ech_key.c
@@ -992,10 +994,12 @@ target_include_directories(crypto_obj
 		bytestring
 		dh
 		dsa
+		curve25519
 		ec
 		ecdh
 		ecdsa
 		evp
+		hidden
 		hmac
 		modes
 		ocsp

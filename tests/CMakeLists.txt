@@ -93,6 +93,11 @@ add_executable(asn1x509 asn1x509.c)
 target_link_libraries(asn1x509 ${OPENSSL_TEST_LIBS})
 add_test(asn1x509 asn1x509)
 
+# asn1_string_to_utf8
+add_executable(asn1_string_to_utf8 asn1_string_to_utf8.c)
+target_link_libraries(asn1_string_to_utf8 ${OPENSSL_TEST_LIBS})
+add_test(asn1_string_to_utf8 asn1_string_to_utf8)
+
 # base64test
 add_executable(base64test base64test.c)
 target_link_libraries(base64test ${OPENSSL_TEST_LIBS})

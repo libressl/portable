@@ -112,7 +112,7 @@ base64test_SOURCES = base64test.c
 # bftest
 TESTS += bf_test
 check_PROGRAMS += bf_test
-bftest_SOURCES = bf_test.c
+bf_test_SOURCES = bf_test.c
 
 # biotest
 # the BIO tests rely on resolver results that are OS and environment-specific

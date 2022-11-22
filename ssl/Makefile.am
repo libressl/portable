@@ -39,6 +39,9 @@ libbs_la_SOURCES += bs_cbb.c
 libbs_la_SOURCES += bs_cbs.c
 noinst_HEADERS = bytestring.h
 
+noinst_HEADERS += hidden/ssl_namespace.h
+noinst_HEADERS += hidden/openssl/ssl.h
+
 libssl_la_SOURCES = bio_ssl.c
 libssl_la_SOURCES += d1_both.c
 libssl_la_SOURCES += d1_lib.c

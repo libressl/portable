@@ -277,7 +277,9 @@ done
 echo "copying libssl source"
 rm -f ssl/*.c ssl/*.h
 for i in `awk '/SOURCES|HEADERS/ { print $3 }' ssl/Makefile.am` ; do
-	$CP $libssl_src/$i ssl
+	dir=`dirname $i`
+	mkdir -p ssl/$dir
+	$CP $libssl_src/$i ssl/$i
 done
 # add the libssl symbol export list
 $GREP '^[A-Za-z0-9_]' < $libssl_src/Symbols.list > ssl/ssl.sym

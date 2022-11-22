@@ -6,6 +6,7 @@ AM_CPPFLAGS += -I$(top_srcdir)/crypto/asn1
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/bio
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/bn
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/bytestring
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/curve25519
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/dh
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/dsa
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/ec
@@ -285,12 +286,10 @@ libcrypto_la_SOURCES += mem_dbg.c
 libcrypto_la_SOURCES += o_fips.c
 libcrypto_la_SOURCES += o_init.c
 libcrypto_la_SOURCES += o_str.c
-libcrypto_la_SOURCES += o_time.c
 noinst_HEADERS += arm_arch.h
 noinst_HEADERS += constant_time_locl.h
 noinst_HEADERS += cryptlib.h
 noinst_HEADERS += md32_common.h
-noinst_HEADERS += o_time.h
 noinst_HEADERS += x86_arch.h
 
 # aes
@@ -317,6 +316,7 @@ libcrypto_la_SOURCES += asn1/a_strex.c
 libcrypto_la_SOURCES += asn1/a_string.c
 libcrypto_la_SOURCES += asn1/a_strnid.c
 libcrypto_la_SOURCES += asn1/a_time.c
+libcrypto_la_SOURCES += asn1/a_time_posix.c
 libcrypto_la_SOURCES += asn1/a_time_tm.c
 libcrypto_la_SOURCES += asn1/a_type.c
 libcrypto_la_SOURCES += asn1/a_utf8.c
@@ -376,7 +376,6 @@ libcrypto_la_SOURCES += bf/bf_enc.c
 libcrypto_la_SOURCES += bf/bf_ofb64.c
 libcrypto_la_SOURCES += bf/bf_skey.c
 noinst_HEADERS += bf/bf_locl.h
-noinst_HEADERS += bf/bf_pi.h
 
 # bio
 libcrypto_la_SOURCES += bio/b_dump.c
@@ -436,6 +435,7 @@ libcrypto_la_SOURCES += bn/bn_print.c
 libcrypto_la_SOURCES += bn/bn_rand.c
 libcrypto_la_SOURCES += bn/bn_recp.c
 libcrypto_la_SOURCES += bn/bn_shift.c
+libcrypto_la_SOURCES += bn/bn_small_primes.c
 libcrypto_la_SOURCES += bn/bn_sqr.c
 libcrypto_la_SOURCES += bn/bn_sqrt.c
 libcrypto_la_SOURCES += bn/bn_word.c
@@ -619,6 +619,7 @@ libcrypto_la_SOURCES += ec/ecp_mont.c
 libcrypto_la_SOURCES += ec/ecp_nist.c
 libcrypto_la_SOURCES += ec/ecp_oct.c
 libcrypto_la_SOURCES += ec/ecp_smpl.c
+libcrypto_la_SOURCES += ec/ecx_methods.c
 noinst_HEADERS += ec/ec_lcl.h
 
 # ecdh
@@ -745,6 +746,17 @@ libcrypto_la_SOURCES += gost/gostr341194.c
 libcrypto_la_SOURCES += gost/streebog.c
 noinst_HEADERS += gost/gost_asn1.h
 noinst_HEADERS += gost/gost_locl.h
+
+# hidden
+noinst_HEADERS += hidden/crypto_namespace.h
+noinst_HEADERS += hidden/openssl/hmac.h
+noinst_HEADERS += hidden/openssl/pkcs12.h
+noinst_HEADERS += hidden/openssl/pkcs7.h
+noinst_HEADERS += hidden/openssl/stack.h
+noinst_HEADERS += hidden/openssl/ui.h
+noinst_HEADERS += hidden/openssl/x509.h
+noinst_HEADERS += hidden/openssl/x509_vfy.h
+noinst_HEADERS += hidden/openssl/x509v3.h
 
 # hkdf
 libcrypto_la_SOURCES += hkdf/hkdf.c

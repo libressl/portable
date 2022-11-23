@@ -13,19 +13,6 @@ diff -u include/openssl.orig/dtls1.h include/openssl/dtls1.h
 
  #include <stdio.h>
  #include <stdlib.h>
---- include/openssl/opensslconf.h.orig	Sat Nov  5 08:36:25 2016
-+++ include/openssl/opensslconf.h	Mon Jul 17 06:06:58 2017
-@@ -1,6 +1,10 @@
- #include <openssl/opensslfeatures.h>
- /* crypto/opensslconf.h.in */
-
-+#if defined(_MSC_VER) && !defined(__clang__) && !defined(__attribute__)
-+#define __attribute__(a)
-+#endif
-+
- #if defined(HEADER_CRYPTLIB_H) && !defined(OPENSSLDIR)
- #define OPENSSLDIR "/etc/ssl"
- #endif
 --- include/openssl/ossl_typ.h.orig	Fri Feb 18 16:30:39 2022
 +++ include/openssl/ossl_typ.h	Mon Feb 21 05:39:35 2022
 @@ -82,6 +82,22 @@

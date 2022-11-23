@@ -64,9 +64,7 @@ set(
 add_library(ssl_obj OBJECT ${SSL_SRC})
 target_include_directories(ssl_obj
 	PRIVATE
-		../crypto/hidden
 		../crypto/bio
-		./hidden
 		.
 		../include/compat
 	PUBLIC

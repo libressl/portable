@@ -999,7 +999,6 @@ target_include_directories(crypto_obj
 		ecdh
 		ecdsa
 		evp
-		hidden
 		hmac
 		modes
 		ocsp

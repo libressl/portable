@@ -1,0 +1,24 @@
+--- include/openssl/opensslconf.h.orig	Tue Nov 22 21:08:27 2022
++++ include/openssl/opensslconf.h	Wed Nov 23 12:38:07 2022
+@@ -1,6 +1,21 @@
+ #include <openssl/opensslfeatures.h>
+ /* crypto/opensslconf.h.in */
+ 
++#if defined(_MSC_VER) && !defined(__clang__) && !defined(__attribute__)
++#define __attribute__(a)
++#endif
++
++#ifndef LIBRESSL_NAMESPACE
++# define LCRYPTO_UNUSED(x)
++# define LCRYPTO_USED(x)
++# define LCRYPTO_ALIAS1(pre, x)
++# define LCRYPTO_ALIAS(x)
++
++# define LSSL_UNUSED(x)
++# define LSSL_USED(x)
++# define LSSL_ALIAS(x)
++#endif /* !LIBRESSL_NAMESPACE */
++
+ #if defined(HEADER_CRYPTLIB_H) && !defined(OPENSSLDIR)
+ #define OPENSSLDIR "/etc/ssl"
+ #endif

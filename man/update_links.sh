@@ -21,4 +21,5 @@ echo "# This is an auto-generated file by $0" > links
 /usr/src/regress/usr.bin/mandoc/db/mlinks/obj/mlinks mandoc.db | \
     grep -v OCSP_crlID_new | \
     grep -v bn_print | \
+    grep -v "<type>" | \
     sort >> links

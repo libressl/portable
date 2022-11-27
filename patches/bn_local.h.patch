@@ -1,5 +1,5 @@
---- ./crypto/bn/bn_lcl.h.orig	Fri Feb 18 16:30:39 2022
-+++ ./crypto/bn/bn_lcl.h	Mon Feb 21 05:39:35 2022
+--- ./crypto/bn/bn_local.h.orig	Fri Feb 18 16:30:39 2022
++++ ./crypto/bn/bn_local.h	Mon Feb 21 05:39:35 2022
 @@ -283,7 +283,7 @@
  	     : "r"(a), "r"(b));		\
  	ret;			})

@@ -1,5 +1,5 @@
---- crypto/modes/modes_lcl.h.orig	Tue Nov 14 10:25:15 2017
-+++ crypto/modes/modes_lcl.h	Sat Jan 19 22:19:23 2019
+--- crypto/modes/modes_local.h.orig	Tue Nov 14 10:25:15 2017
++++ crypto/modes/modes_local.h	Sat Jan 19 22:19:23 2019
 @@ -45,14 +45,16 @@
  			asm ("bswapl %0"		\
  			: "+r"(ret));	ret;		})

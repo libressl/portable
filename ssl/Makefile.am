@@ -96,8 +96,8 @@ libssl_la_SOURCES += tls13_record_layer.c
 libssl_la_SOURCES += tls13_server.c
 
 noinst_HEADERS += srtp.h
-noinst_HEADERS += dtls_locl.h
-noinst_HEADERS += ssl_locl.h
+noinst_HEADERS += dtls_local.h
+noinst_HEADERS += ssl_local.h
 noinst_HEADERS += ssl_sigalgs.h
 noinst_HEADERS += ssl_tlsext.h
 noinst_HEADERS += tls_content.h

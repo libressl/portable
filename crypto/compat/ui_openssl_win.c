@@ -124,7 +124,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "ui_locl.h"
+#include "ui_local.h"
 
 #ifndef NX509_SIG
 #define NX509_SIG 32

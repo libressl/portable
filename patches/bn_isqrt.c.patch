@@ -1,6 +1,6 @@
---- tests/bn_isqrt.c.orig	Mon Aug 15 10:40:29 2022
-+++ tests/bn_isqrt.c	Mon Aug 15 10:41:46 2022
-@@ -304,6 +304,7 @@ main(int argc, char *argv[])
+--- tests/bn_isqrt.c.orig	Sun Nov 27 10:48:32 2022
++++ tests/bn_isqrt.c	Sun Nov 27 10:48:49 2022
+@@ -303,6 +303,7 @@ main(int argc, char *argv[])
  	int ch;
  	int failed = 0, print = 0;
  
@@ -8,7 +8,7 @@
  	while ((ch = getopt(argc, argv, "C")) != -1) {
  		switch (ch) {
  		case 'C':
-@@ -314,6 +315,7 @@ main(int argc, char *argv[])
+@@ -313,6 +314,7 @@ main(int argc, char *argv[])
  			break;
  		}
  	}

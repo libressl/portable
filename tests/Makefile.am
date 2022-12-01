@@ -128,15 +128,26 @@ check_PROGRAMS += biotest
 biotest_SOURCES = biotest.c
 endif
 
-# bnaddsub
-TESTS += bnaddsub
-check_PROGRAMS += bnaddsub
-bnaddsub_SOURCES = bnaddsub.c
+# bn_add_sub
+TESTS += bn_add_sub
+check_PROGRAMS += bn_add_sub
+bn_add_sub_SOURCES = bn_add_sub.c
+
+# bn_cmp
+TESTS += bn_cmp
+check_PROGRAMS += bn_cmp
+bn_cmp_SOURCES = bn_cmp.c
 
 # bn_isqrt
 TESTS += bn_isqrt
 check_PROGRAMS += bn_isqrt
 bn_isqrt_SOURCES = bn_isqrt.c
+
+# bn_mod_exp
+TESTS += bn_mod_exp
+check_PROGRAMS += bn_mod_exp
+bn_mod_exp_CPPFLAGS = $(AM_CPPFLAGS) -ULIBRESSL_INTERNAL
+bn_mod_exp_SOURCES = bn_mod_exp.c
 
 # bn_mod_exp2_mont
 TESTS += bn_mod_exp2_mont
@@ -148,6 +159,11 @@ TESTS += bn_mod_sqrt
 check_PROGRAMS += bn_mod_sqrt
 bn_mod_sqrt_SOURCES = bn_mod_sqrt.c
 
+# bn_mont
+TESTS += bn_mont
+check_PROGRAMS += bn_mont
+bn_mont_SOURCES = bn_mont.c
+
 # bn_primes
 TESTS += bn_primes
 check_PROGRAMS += bn_primes
@@ -158,11 +174,11 @@ TESTS += bn_rand_interval
 check_PROGRAMS += bn_rand_interval
 bn_rand_interval_SOURCES = bn_rand_interval.c
 
-# bntest
-TESTS += bntest
-bntest_CPPFLAGS = $(AM_CPPFLAGS) -ULIBRESSL_INTERNAL
-check_PROGRAMS += bntest
-bntest_SOURCES = bntest.c
+# bn_test
+TESTS += bn_test
+bn_test_CPPFLAGS = $(AM_CPPFLAGS) -ULIBRESSL_INTERNAL
+check_PROGRAMS += bn_test
+bn_test_SOURCES = bn_test.c
 
 # bn_to_string
 TESTS += bn_to_string
@@ -324,12 +340,6 @@ endif
 endif
 endif
 
-# exptest
-TESTS += exptest
-check_PROGRAMS += exptest
-exptest_CPPFLAGS = $(AM_CPPFLAGS) -ULIBRESSL_INTERNAL
-exptest_SOURCES = exptest.c
-
 # freenull
 TESTS += freenull
 check_PROGRAMS += freenull
@@ -386,11 +396,6 @@ EXTRA_DIST += keypairtest.sh
 TESTS += md_test
 check_PROGRAMS += md_test
 md_test_SOURCES = md_test.c
-
-# mont
-TESTS += mont
-check_PROGRAMS += mont
-mont_SOURCES = mont.c
 
 # objectstest
 TESTS += objectstest

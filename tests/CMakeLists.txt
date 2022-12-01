@@ -116,15 +116,27 @@ if(ENABLE_EXTRATESTS)
 	add_test(biotest biotest)
 endif()
 
-# bnaddsub
-add_executable(bnaddsub bnaddsub.c)
-target_link_libraries(bnaddsub ${OPENSSL_TEST_LIBS})
-add_test(bnaddsub bnaddsub)
+# bn_add_sub
+add_executable(bn_add_sub bn_add_sub.c)
+target_link_libraries(bn_add_sub ${OPENSSL_TEST_LIBS})
+add_test(bn_add_sub bn_add_sub)
+
+# bn_cmp
+add_executable(bn_cmp bn_cmp.c)
+target_link_libraries(bn_cmp ${OPENSSL_TEST_LIBS})
+add_test(bn_cmp bn_cmp)
 
 # bn_isqrt
 add_executable(bn_isqrt bn_isqrt.c)
 target_link_libraries(bn_isqrt ${OPENSSL_TEST_LIBS})
 add_test(bn_isqrt bn_isqrt)
+
+# bn_mod_exp
+add_executable(bn_mod_exp bn_mod_exp.c)
+set_source_files_properties(bn_mod_exp.c PROPERTIES COMPILE_FLAGS
+	-ULIBRESSL_INTERNAL)
+target_link_libraries(bn_mod_exp ${OPENSSL_TEST_LIBS})
+add_test(bn_mod_exp bn_mod_exp)
 
 # bn_mod_exp2_mont
 add_executable(bn_mod_exp2_mont bn_mod_exp2_mont.c)
@@ -136,6 +148,11 @@ add_executable(bn_mod_sqrt bn_mod_sqrt.c)
 target_link_libraries(bn_mod_sqrt ${OPENSSL_TEST_LIBS})
 add_test(bn_mod_sqrt bn_mod_sqrt)
 
+# bn_mont
+add_executable(bn_mont bn_mont.c)
+target_link_libraries(bn_mont ${OPENSSL_TEST_LIBS})
+add_test(bn_mont bn_mont)
+
 # bn_primes
 add_executable(bn_primes bn_primes.c)
 target_link_libraries(bn_primes ${OPENSSL_TEST_LIBS})
@@ -146,12 +163,12 @@ add_executable(bn_rand_interval bn_rand_interval.c)
 target_link_libraries(bn_rand_interval ${OPENSSL_TEST_LIBS})
 add_test(bn_rand_interval bn_rand_interval)
 
-# bntest
-add_executable(bntest bntest.c)
-set_source_files_properties(bntest.c PROPERTIES COMPILE_FLAGS
+# bn_test
+add_executable(bn_test bn_test.c)
+set_source_files_properties(bn_test.c PROPERTIES COMPILE_FLAGS
 	-ULIBRESSL_INTERNAL)
-target_link_libraries(bntest ${OPENSSL_TEST_LIBS})
-add_test(bntest bntest)
+target_link_libraries(bn_test ${OPENSSL_TEST_LIBS})
+add_test(bn_test bn_test)
 
 # bn_to_string
 add_executable(bn_to_string bn_to_string.c)
@@ -309,13 +326,6 @@ if(NOT WIN32)
 	add_test(explicit_bzero explicit_bzero)
 endif()
 
-# exptest
-add_executable(exptest exptest.c)
-set_source_files_properties(exptest.c PROPERTIES COMPILE_FLAGS
-	-ULIBRESSL_INTERNAL)
-target_link_libraries(exptest ${OPENSSL_TEST_LIBS})
-add_test(exptest exptest)
-
 # freenull
 add_executable(freenull freenull.c)
 target_link_libraries(freenull ${OPENSSL_TEST_LIBS})
@@ -373,11 +383,6 @@ add_test(keypairtest keypairtest
 add_executable(md_test md_test.c)
 target_link_libraries(md_test ${OPENSSL_TEST_LIBS})
 add_test(md_test md_test)
-
-# mont
-add_executable(mont mont.c)
-target_link_libraries(mont ${OPENSSL_TEST_LIBS})
-add_test(mont mont)
 
 # objectstest
 add_executable(objectstest objectstest.c)

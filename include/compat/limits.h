@@ -23,3 +23,9 @@
 #define PATH_MAX MAXPATHLEN
 #endif
 #endif
+
+#ifdef Plan9
+#ifndef PATH_MAX
+#define PATH_MAX _POSIX_PATH_MAX
+#endif
+#endif

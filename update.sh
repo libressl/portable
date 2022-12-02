@@ -67,6 +67,21 @@ GREP='grep'
 if [ -x /opt/csw/bin/ggrep ]; then
 	GREP='/opt/csw/bin/ggrep'
 fi
+find_c_src() {
+	find $1 -name '*.c'
+}
+OBJECTS='perl objects.pl'
+OBJ_DAT='perl obj_dat.pl'
+if [ `uname` = Plan9 ]; then
+	CP='cp'
+	find_c_src() {
+		du -a $1 |
+		sed 's/^[   ]*[0-9][0-9]*[  ]*//' |
+		$GREP '\.c$'
+	}
+	OBJECTS='awk -f ../../../../../plan9/objects.awk'
+	OBJ_DAT='awk -f ../../../../../plan9/obj_dat.awk'
+fi
 
 $CP $libssl_src/LICENSE COPYING
 
@@ -99,8 +114,8 @@ for i in crypto/compat; do
 done
 
 (cd $libcrypto_src/objects/;
-	perl objects.pl objects.txt obj_mac.num obj_mac.h;
-	perl obj_dat.pl obj_mac.h obj_dat.h )
+	$OBJECTS objects.txt obj_mac.num obj_mac.h;
+	$OBJ_DAT obj_mac.h obj_dat.h )
 mkdir -p include/openssl crypto/objects
 $MV $libcrypto_src/objects/obj_mac.h ./include/openssl/obj_mac.h
 $MV $libcrypto_src/objects/obj_dat.h ./crypto/objects/obj_dat.h
@@ -192,6 +207,11 @@ gen_asm() {
 		$MV $3.tmp $3
 	fi
 }
+if [ `uname` = Plan9 ]; then
+	# Plan 9 don't assemble .S files; always compile C sources.
+	gen_asm(){ true; }
+	gen_asm_stdout(){ true; }
+fi
 
 echo generating arm ASM source for elf
 gen_asm_stdout elf aes/asm/aes-armv4.pl crypto/aes/aes-elf-armv4.S
@@ -286,7 +306,7 @@ $GREP '^[A-Za-z0-9_]' < $libssl_src/Symbols.list > ssl/ssl.sym
 
 # copy libcrypto tests
 echo "copying tests"
-for i in `find $libcrypto_regress -name '*.c'`; do
+for i in `find_c_src $libcrypto_regress`; do
 	 $CP "$i" tests
 done
 $CP $libcrypto_regress/evp/evptests.txt tests
@@ -307,7 +327,7 @@ $CP $libc_regress/timingsafe/timingsafe.c tests
 
 # copy libssl tests
 $CP $libssl_regress/ssl/testssl tests
-for i in `find $libssl_regress -name '*.c'`; do
+for i in `find_c_src $libssl_regress`; do
 	 $CP "$i" tests
 done
 $CP $libssl_regress/unit/tests.h tests
@@ -316,7 +336,7 @@ $CP $libssl_regress/certs/*.crl tests
 $CP $libssl_regress/pqueue/expected.txt tests/pq_expected.txt
 
 # copy libtls tests
-for i in `find $libtls_regress -name '*.c'`; do
+for i in `find_c_src $libtls_regress`; do
 	 $CP "$i" tests
 done
 
@@ -360,6 +380,11 @@ fi
 for i in patches/*.patch; do
     $PATCH -p0 < $i
 done
+if [ `uname` = Plan9 -a -z "$IGNOREPLAN9PATCHES" ]; then
+    for i in plan9/*.patch; do
+        $PATCH -p0 < $i
+    done
+fi
 
 # copy manpages
 echo "copying manpages"

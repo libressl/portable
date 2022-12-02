@@ -1,0 +1,43 @@
+# Building LibreSSL #
+
+**This is very early version.**
+
+## Prerequisites when building from a Git checkout ##
+
+1. Ensure you have the following packages installed: git
+2. Run `./autogen.rc` to prepare the source tree for building.
+
+## Steps that apply to all builds ##
+
+Before building LibreSSL, You must install latest 9legacy stable patches, and
+four pull-requests for 0intro/plan9-contrib and lufia/plan9.
+
+* https://github.com/0intro/plan9-contrib/pull/6
+* https://github.com/0intro/plan9-contrib/pull/7
+* https://github.com/0intro/plan9-contrib/pull/13
+* https://github.com/lufia/plan9/pull/10
+
+Once you have a source tree, either by downloaded using git and having
+run the `autogen.sh` script above, or by downloading a release distribution from
+an OpenBSD mirror, run these commands to build and install the package on most
+systems:
+
+```sh
+mk
+mk install
+```
+
+# Development
+
+If you catch any problem, you can update patches in plan9 directory.
+For example, to merge a changes for crypto/cpt_err.c into crypto.patch:
+
+ git clean -xf
+ IGNOREPLAN9PATCHES=1 ./autogen.rc
+ mkdir (crypto ssl tls apps)^.orig
+ for(i in crypto ssl tls apps)
+       dircp $i $i.orig
+
+Feel free edit crypto/cpt_err.c, then update a patch:
+
+ ape/diff -uprN -X mkfile crypto.orig crypto >plan9/crypto.patch

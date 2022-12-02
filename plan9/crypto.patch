@@ -1,0 +1,33 @@
+diff -uprN -X mkfile crypto.orig/chacha/chacha-merged.c crypto/chacha/chacha-merged.c
+--- crypto.orig/chacha/chacha-merged.c	Sun May 31 21:08:04 2020
++++ crypto/chacha/chacha-merged.c	Sun May 31 19:27:31 2020
+@@ -7,6 +7,7 @@ Public domain.
+ 
+ #include <sys/types.h>
+ 
++#include <stddef.h>
+ #include <stdint.h>
+ 
+ #define CHACHA_MINKEYLEN 	16
+diff -uprN -X mkfile crypto.orig/cryptlib.c crypto/cryptlib.c
+--- crypto.orig/cryptlib.c	Sun May 31 21:07:59 2020
++++ crypto/cryptlib.c	Sun May 31 19:27:31 2020
+@@ -119,6 +119,7 @@
+ #include <stdio.h>
+ #include <string.h>
+ #include <syslog.h>
++#include <sys/types.h>
+ #include <unistd.h>
+ 
+ #include <openssl/opensslconf.h>
+diff -uprN -X mkfile crypto.orig/poly1305/poly1305-donna.c crypto/poly1305/poly1305-donna.c
+--- crypto.orig/poly1305/poly1305-donna.c	Sun May 31 21:08:13 2020
++++ crypto/poly1305/poly1305-donna.c	Sun May 31 19:27:32 2020
+@@ -6,6 +6,7 @@
+  */
+ 
+ #include <stddef.h>
++#include <openssl/poly1305.h>
+ 
+ static inline void poly1305_init(poly1305_context *ctx,
+     const unsigned char key[32]);

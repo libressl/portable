@@ -1,0 +1,41 @@
+AFLAGS=
+
+LIBOBJ=${OFILES:%=$LIB(%)}
+LIBDIR=.
+
+default:V:	$LIB
+
+all:V:	$LIB dir-all
+
+$LIB:	$LIBOBJ
+	ar vu $LIB $newmember
+
+%.$O:	$HFILES
+
+%.$O:	%.c
+	$CC $CFLAGS $stem.c
+
+$LIB(%.$O):N:	%.$O
+
+install:VQ:	$LIB dir-install
+	~ $LIBDIR '.' || cp $LIB $LIBDIR/$LIB
+
+installall:V: dir-installall
+	for (objtype in $CPUS)
+		mk install
+
+%.all:V:
+	for (objtype in $CPUS)
+		mk $stem
+
+nuke:V:	dir-nuke
+	rm -f *.[$OS] $CLEANFILES
+	rm -f $LIB
+
+clean:V:	dir-clean
+	rm -f *.[$OS] $CLEANFILES
+
+update:V:	dir-update
+	update $UPDATEFLAGS $UPDATE
+
+<$ROOT/plan9/mkdirs

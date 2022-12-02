@@ -5,6 +5,7 @@ EXTRA_DIST = CMakeLists.txt
 SUBDIRS = openssl
 
 noinst_HEADERS = pqueue.h
+noinst_HEADERS += compat/_apetypes.h
 noinst_HEADERS += compat/dirent.h
 noinst_HEADERS += compat/dirent_msvc.h
 noinst_HEADERS += compat/endian.h

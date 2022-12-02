@@ -1,0 +1,12 @@
+diff -uprN -X mkfile ssl.orig/ssl_cert.c ssl/ssl_cert.c
+--- ssl.orig/ssl_cert.c	Sun May 31 21:08:22 2020
++++ ssl/ssl_cert.c	Sun May 31 19:27:33 2020
+@@ -133,7 +133,7 @@
+ int
+ SSL_get_ex_data_X509_STORE_CTX_idx(void)
+ {
+-	static volatile int ssl_x509_store_ctx_idx = -1;
++	static int ssl_x509_store_ctx_idx = -1;
+ 	int got_write_lock = 0;
+ 
+ 	CRYPTO_r_lock(CRYPTO_LOCK_SSL_CTX);

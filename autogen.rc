@@ -1,0 +1,30 @@
+#!/bin/rc
+
+flag e +
+rfork ne
+
+ape/psh ./update.sh
+
+for(f in `{ls apps/*/*.c}){
+	sed 's/	\.opt\.([a-zA-Z0-9_]+) = (.*),$/	.opt = { .\1 = \2 },/' $f >/tmp/autogen.$pid
+	cp /tmp/autogen.$pid $f
+}
+for(f in `{grep -l '<openssl/(asn1|ocsp|pkcs12|x509v3)\.h>' */*.c */*/*.c}){
+	awk '
+	{ print }
+	n > 0 { next }
+	/^#include[ \t]+<openssl\/(asn1|ocsp|pkcs12|x509v3)\.h>$/ {
+		print "#include <openssl/asn1t.h>"
+		n++
+	}
+	' $f >/tmp/autogen.$pid
+	cp /tmp/autogen.$pid $f
+}
+rm /tmp/autogen.$pid
+
+cp plan9/apps.mkfile apps/mkfile
+ape/psh ./gen-mkfile.sh lib crypto/Makefile.am
+ape/psh ./gen-mkfile.sh lib ssl/Makefile.am
+ape/psh ./gen-mkfile.sh lib tls/Makefile.am
+ape/psh ./gen-mkfile.sh bin apps/openssl/Makefile.am
+ape/psh ./gen-mkfile.sh include include/Makefile.am

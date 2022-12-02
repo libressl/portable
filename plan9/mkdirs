@@ -1,0 +1,6 @@
+dir-%:V:
+	for(i in $DIRS) @{
+		cd $i
+		echo cd `{pwd}';' mk $MKFLAGS $stem
+		mk $MKFLAGS $stem
+	}

@@ -31,11 +31,10 @@ LibreSSL Portable Release Notes:
 3.7.0 - Development release
 
 	* Internal improvements
-
-	- Remove dependency on system timegm() and gmtime() by replacing
-	  traditional Julian date conversion with POSIX epoch-seconds date
-   	  conversion from BoringSSL
-	- Clean oxsld and unused BN code dealing with primes.
+	  - Remove dependency on system timegm() and gmtime() by replacing
+	    traditional Julian date conversion with POSIX epoch-seconds date
+	    conversion from BoringSSL.
+	  - Clean old and unused BN code dealing with primes.
 	  - Start rewriting name constraints code using CBS.
 	  - Remove support for the HMAC PRIVATE KEY.
 	  - Rework DSA signing and verifying internals.

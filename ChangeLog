@@ -33,7 +33,7 @@ LibreSSL Portable Release Notes:
 	* Internal improvements
 	  - Remove dependency on system timegm() and gmtime() by replacing
 	    traditional Julian date conversion with POSIX epoch-seconds date
-   	    conversion from BoringSSL
+	    conversion from BoringSSL.
 	  - Clean old and unused BN code dealing with primes.
 	  - Start rewriting name constraints code using CBS.
 	  - Remove support for the HMAC PRIVATE KEY.
@@ -46,7 +46,6 @@ LibreSSL Portable Release Notes:
 	  - BIO_read() and BIO_write() now behave more closely to OpenSSL 3 in
 	    various corner cases. More work is needed here.
 	* Bug fixes
-	  - Make BIO_push(3) fail if a call would result in a cycle
 	  - Add EVP_chacha20_poly1305() to the list of all ciphers.
 	  - Fix potential leaks of EVP_PKEY in various printing functions
 	  - Fix potential leak in OBJ_NAME_add().

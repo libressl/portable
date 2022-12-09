@@ -108,13 +108,23 @@ add_executable(bf_test bf_test.c)
 target_link_libraries(bf_test ${OPENSSL_TEST_LIBS})
 add_test(bf_test bf_test)
 
-# biotest
-# the BIO tests rely on resolver results that are OS and environment-specific
+# bio_chain
+add_executable(bio_chain bio_chain.c)
+target_link_libraries(bio_chain ${OPENSSL_TEST_LIBS})
+add_test(bio_chain bio_chain)
+
+# bio_host
+# this test relies on resolver results that are OS and environment-specific
 if(ENABLE_EXTRATESTS)
-	add_executable(biotest biotest.c)
-	target_link_libraries(biotest ${OPENSSL_TEST_LIBS})
-	add_test(biotest biotest)
+	add_executable(bio_host bio_host.c)
+	target_link_libraries(bio_host ${OPENSSL_TEST_LIBS})
+	add_test(bio_host bio_host)
 endif()
+
+# bio_mem
+add_executable(bio_mem bio_mem.c)
+target_link_libraries(bio_mem ${OPENSSL_TEST_LIBS})
+add_test(bio_mem bio_mem)
 
 # bn_add_sub
 add_executable(bn_add_sub bn_add_sub.c)

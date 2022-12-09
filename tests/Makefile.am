@@ -120,13 +120,23 @@ TESTS += bf_test
 check_PROGRAMS += bf_test
 bf_test_SOURCES = bf_test.c
 
-# biotest
-# the BIO tests rely on resolver results that are OS and environment-specific
+# bio_chain
+TESTS += bio_chain
+check_PROGRAMS += bio_chain
+bio_chain_SOURCES = bio_chain.c
+
+# bio_host
+# this test relies on resolver results that are OS and environment-specific
 if ENABLE_EXTRATESTS
-TESTS += biotest
-check_PROGRAMS += biotest
-biotest_SOURCES = biotest.c
+TESTS += bio_host
+check_PROGRAMS += bio_host
+bio_host_SOURCES = bio_host.c
 endif
+
+# bio_mem
+TESTS += bio_mem
+check_PROGRAMS += bio_mem
+bio_mem_SOURCES = bio_mem.c
 
 # bn_add_sub
 TESTS += bn_add_sub

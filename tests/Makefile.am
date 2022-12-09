@@ -115,7 +115,7 @@ TESTS += base64test
 check_PROGRAMS += base64test
 base64test_SOURCES = base64test.c
 
-# bftest
+# bf_test
 TESTS += bf_test
 check_PROGRAMS += bf_test
 bf_test_SOURCES = bf_test.c

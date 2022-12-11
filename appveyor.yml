@@ -49,6 +49,5 @@ on_failure:
   - appveyor PushArtifact Testing.zip
 
 artifacts:
-  - path: build\Testing
-    name: Testing
+  - path: build
     type: zip

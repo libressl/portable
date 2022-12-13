@@ -141,6 +141,7 @@ echo "LibreSSL version `cat VERSION`"
 # copy libcrypto source
 echo copying libcrypto source
 rm -f crypto/*.c crypto/*.h
+touch crypto/empty.c
 for i in `awk '/SOURCES|HEADERS/ { print $3 }' crypto/Makefile.am` ; do
 	dir=`dirname $i`
 	mkdir -p crypto/$dir
@@ -231,6 +232,7 @@ done
 # copy libtls source
 echo copying libtls source
 rm -f tls/*.c tls/*.h libtls/src/*.c libtls/src/*.h
+touch tls/empty.c
 for i in `awk '/SOURCES|HEADERS/ { print $3 }' tls/Makefile.am` ; do
 	if [ -e $libtls_src/$i ]; then
 		$CP $libtls_src/$i tls
@@ -276,6 +278,7 @@ done
 # copy libssl source
 echo "copying libssl source"
 rm -f ssl/*.c ssl/*.h
+touch ssl/empty.c
 for i in `awk '/SOURCES|HEADERS/ { print $3 }' ssl/Makefile.am` ; do
 	dir=`dirname $i`
 	mkdir -p ssl/$dir

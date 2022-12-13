@@ -15,6 +15,7 @@ noinst_DATA = remove_bs_objects
 EXTRA_DIST = VERSION
 EXTRA_DIST += CMakeLists.txt
 EXTRA_DIST += ssl.sym
+EXTRA_DIST += empty.c
 
 CLEANFILES = libssl_la_objects.mk
 

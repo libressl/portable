@@ -8,6 +8,7 @@ lib_LTLIBRARIES = libtls.la
 EXTRA_DIST = VERSION
 EXTRA_DIST += CMakeLists.txt
 EXTRA_DIST += tls.sym
+EXTRA_DIST += empty.c
 
 CLEANFILES = libtls_la_objects.mk
 

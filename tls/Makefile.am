@@ -9,6 +9,15 @@ EXTRA_DIST = VERSION
 EXTRA_DIST += CMakeLists.txt
 EXTRA_DIST += tls.sym
 
+CLEANFILES = libtls_la_objects.mk
+
+EXTRA_libtls_la_DEPENDENCIES = libtls_la_objects.mk
+
+libtls_la_objects.mk: Makefile
+	@echo "libtls_la_objects= $(libtls_la_OBJECTS)" \
+	  | sed 's/  */ $$\(abs_top_builddir\)\/tls\//g' \
+	  > libtls_la_objects.mk
+
 libtls_la_LDFLAGS = -version-info @LIBTLS_VERSION@ -no-undefined -export-symbols $(top_srcdir)/tls/tls.sym
 libtls_la_LIBADD = $(libcrypto_la_objects)
 libtls_la_LIBADD += $(libcompat_la_objects)

@@ -722,6 +722,7 @@ set(
 	txt_db/txt_db.c
 	ui/ui_err.c
 	ui/ui_lib.c
+	ui/ui_null.c
 	ui/ui_util.c
 	whrlpool/wp_dgst.c
 	x509/by_dir.c

@@ -953,6 +953,7 @@ libcrypto_la_SOURCES += txt_db/txt_db.c
 # ui
 libcrypto_la_SOURCES += ui/ui_err.c
 libcrypto_la_SOURCES += ui/ui_lib.c
+libcrypto_la_SOURCES += ui/ui_null.c
 if !HOST_WIN
 libcrypto_la_SOURCES += ui/ui_openssl.c
 endif

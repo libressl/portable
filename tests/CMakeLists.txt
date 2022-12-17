@@ -180,6 +180,11 @@ add_executable(bn_rand_interval bn_rand_interval.c)
 target_link_libraries(bn_rand_interval ${OPENSSL_TEST_LIBS})
 add_test(bn_rand_interval bn_rand_interval)
 
+# bn_shift
+add_executable(bn_shift bn_shift.c)
+target_link_libraries(bn_shift ${OPENSSL_TEST_LIBS})
+add_test(bn_shift bn_shift)
+
 # bn_test
 add_executable(bn_test bn_test.c)
 set_source_files_properties(bn_test.c PROPERTIES COMPILE_FLAGS

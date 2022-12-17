@@ -196,6 +196,11 @@ TESTS += bn_rand_interval
 check_PROGRAMS += bn_rand_interval
 bn_rand_interval_SOURCES = bn_rand_interval.c
 
+# bn_shift
+TESTS += bn_shift
+check_PROGRAMS += bn_shift
+bn_shift_SOURCES = bn_shift.c
+
 # bn_test
 TESTS += bn_test
 bn_test_CPPFLAGS = $(AM_CPPFLAGS) -ULIBRESSL_INTERNAL

@@ -1,0 +1,11 @@
+--- tests/bn_mod_exp2_mont.c.orig	Sun Dec 18 00:42:18 2022
++++ tests/bn_mod_exp2_mont.c	Sun Dec 18 00:42:25 2022
+@@ -32,7 +32,7 @@ main(void)
+ 	if ((m = BN_new()) == NULL)
+ 		errx(1, "BN_new");
+ 
+-	BN_zero_ex(m);
++	BN_zero(m);
+ 
+ 	if (BN_mod_exp2_mont(NULL, NULL, NULL, NULL, NULL, m, NULL, NULL))
+ 		errx(1, "BN_mod_exp2_mont succeeded");

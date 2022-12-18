@@ -1,26 +1,15 @@
 --- tests/bn_shift.c.orig	Sun Dec 18 01:05:29 2022
-+++ tests/bn_shift.c	Sun Dec 18 01:15:00 2022
-@@ -26,6 +26,10 @@
- 
- #include <openssl/bn.h>
- 
-+#ifndef _MSC_VER
-+#define INCLUDE_BENCHMARKS
-+#endif
-+
- static const char *bn_shift_want_hex = \
-     "02AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" \
-     "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8";
-@@ -314,6 +318,8 @@ test_bn_rshift_to_zero(void)
++++ tests/bn_shift.c	Sun Dec 18 01:29:36 2022
+@@ -314,6 +314,8 @@ test_bn_rshift_to_zero(void)
  	return failed;
  }
  
-+#ifdef INCLUDE_BENCHMARKS
++#if 0
 +
  static void
  benchmark_bn_lshift1(BIGNUM *bn)
  {
-@@ -507,9 +513,12 @@ benchmark_run(const struct benchmark *bm, int seconds)
+@@ -507,9 +509,12 @@ benchmark_run(const struct benchmark *bm, int seconds)
  	BN_free(bn);
  }
  
@@ -29,11 +18,11 @@
  static void
  benchmark_bn_shift(void)
  {
-+#ifdef INCLUDE_BENCHMARKS
++#if 0
  	const struct benchmark *bm;
  	size_t i;
  
-@@ -517,6 +526,9 @@ benchmark_bn_shift(void)
+@@ -517,6 +522,9 @@ benchmark_bn_shift(void)
  		bm = &benchmarks[i];
  		benchmark_run(bm, 5);
  	}

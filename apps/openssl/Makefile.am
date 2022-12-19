@@ -1,5 +1,8 @@
 include $(top_srcdir)/Makefile.am.common
 
+-include $(abs_top_builddir)/crypto/libcrypto_la_objects.mk
+-include $(abs_top_builddir)/ssl/libssl_la_objects.mk
+
 if !ENABLE_LIBTLS_ONLY
 bin_PROGRAMS = openssl
 dist_man_MANS = openssl.1
@@ -7,8 +10,10 @@ else
 noinst_PROGRAMS = openssl
 endif
 
-openssl_LDADD = $(abs_top_builddir)/ssl/libssl.la
-openssl_LDADD += $(abs_top_builddir)/crypto/libcrypto.la
+openssl_LDADD = $(libcrypto_la_objects)
+openssl_LDADD += $(libcompat_la_objects)
+openssl_LDADD += $(libcompatnoopt_la_objects)
+openssl_LDADD += $(libssl_la_objects)
 openssl_LDADD += $(PLATFORM_LDADD) $(PROG_LDADD)
 
 openssl_SOURCES = apps.c

@@ -19,12 +19,12 @@ with relevant portions of the C library, to a Git repository. This makes it
 easier to follow all of the relevant changes to the upstream project in a
 single place:
 
-	https://github.com/libressl-portable/openbsd
+	https://github.com/libressl/openbsd
 
 The portable bits of the project are largely maintained out-of-tree, and their
 history is also available from Git.
 
-	https://github.com/libressl-portable/portable
+	https://github.com/libressl/portable
 
 LibreSSL Portable Release Notes:
 
@@ -2602,7 +2602,7 @@ LibreSSL Portable Release Notes:
 	* Address POODLE attack by disabling SSLv3 by default
 
 	* Fix Eliptical Curve cipher selection bug
-	  (https://github.com/libressl-portable/portable/issues/35)
+	  (https://github.com/libressl/portable/issues/35)
 
 2.1.0 - First release from the OpenBSD 5.7 tree
 	* Added support for automatic ephemeral EC keys

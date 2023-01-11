@@ -1,12 +1,12 @@
 ![LibreSSL image](https://www.libressl.org/images/libressl.jpg)
 ## Official portable version of [LibreSSL](https://www.libressl.org) ##
 
-[![Linux Build Status](https://github.com/libressl-portable/portable/actions/workflows/linux_test.yml/badge.svg)](https://github.com/libressl-portable/portable/actions/workflows/linux_test.yml)
-[![macOS Build Status](https://github.com/libressl-portable/portable/actions/workflows/macos_test.yml/badge.svg)](https://github.com/libressl-portable/portable/actions/workflows/macos_test.yml)
-[![Android_Build Status](https://github.com/libressl-portable/portable/actions/workflows/android_test.yml/badge.svg)](https://github.com/libressl-portable/portable/actions/workflows/android_test.yml)
-[![Cross_Build Status](https://github.com/libressl-portable/portable/actions/workflows/cross_test.yml/badge.svg)](https://github.com/libressl-portable/portable/actions/workflows/cross_test.yml)
+[![Linux Build Status](https://github.com/libressl/portable/actions/workflows/linux_test.yml/badge.svg)](https://github.com/libressl/portable/actions/workflows/linux_test.yml)
+[![macOS Build Status](https://github.com/libressl/portable/actions/workflows/macos_test.yml/badge.svg)](https://github.com/libressl/portable/actions/workflows/macos_test.yml)
+[![Android_Build Status](https://github.com/libressl/portable/actions/workflows/android_test.yml/badge.svg)](https://github.com/libressl/portable/actions/workflows/android_test.yml)
+[![Cross_Build Status](https://github.com/libressl/portable/actions/workflows/cross_test.yml/badge.svg)](https://github.com/libressl/portable/actions/workflows/cross_test.yml)
 [![Fuzzing Status](https://oss-fuzz-build-logs.storage.googleapis.com/badges/libressl.svg)](https://bugs.chromium.org/p/oss-fuzz/issues/list?sort=-opened&can=1&q=proj:libressl)
-[![ASan Status](https://github.com/libressl-portable/portable/actions/workflows/linux_test_asan.yml/badge.svg)](https://github.com/libressl-portable/portable/actions/workflows/linux_test_asan.yml)
+[![ASan Status](https://github.com/libressl/portable/actions/workflows/linux_test_asan.yml/badge.svg)](https://github.com/libressl/portable/actions/workflows/linux_test_asan.yml)
 
 LibreSSL is a fork of [OpenSSL](https://www.openssl.org) 1.0.1g developed by the
 [OpenBSD](https://www.openbsd.org) project.  Our goal is to modernize the codebase,
@@ -52,11 +52,11 @@ OpenBSD mirror in directory
 although we suggest that you use a [mirror](https://www.openbsd.org/ftp.html).
 
 The LibreSSL portable build framework is also
-[mirrored](https://github.com/libressl-portable/portable) in Github.
+[mirrored](https://github.com/libressl/portable) on GitHub.
 
 Please report bugs either to the public libressl@openbsd.org mailing list,
-or to the github
-[issue tracker](https://github.com/libressl-portable/portable/issues)
+or to the GitHub
+[issue tracker](https://github.com/libressl/portable/issues)
 
 Severe vulnerabilities or bugs requiring coordination with OpenSSL can be
 sent to the core team at libressl-security@openbsd.org.

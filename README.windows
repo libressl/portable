@@ -46,7 +46,7 @@ problem.
 
 A script for generating ready-to-use .DLL and static .LIB files is included in
 the source repository at
-https://github.com/libressl-portable/portable/blob/master/dist-win.sh
+https://github.com/libressl/portable/blob/master/dist-win.sh
 
 This script uses mingw-w64 to build LibreSSL and then uses Visual Studio tools
 to generate compatible library import files ready-to-use with Visual

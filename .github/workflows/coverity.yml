@@ -1,6 +1,7 @@
 name: Coverity
 
 on:
+  workflow_dispatch:
   schedule:
   - cron: "0 0 * * *"
 
@@ -9,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.repository_owner == 'libressl' }}
     env:
-      COVERITY_SCAN_PROJECT_NAME: 'libressl/portable'
+      COVERITY_SCAN_PROJECT_NAME: 'libressl-portable/portable'
       COVERITY_SCAN_BRANCH_PATTERN: '*'
       COVERITY_SCAN_NOTIFICATION_EMAIL: 'libressl-security@openbsd.org'
       COVERITY_SCAN_BUILD_COMMAND_PREPEND: "./autogen.sh && ./configure && make dist && tar zxf libressl-*.tar.gz && rm libressl-*.tar.gz && cd libressl-* && mkdir build-static && mkdir build-shared && cmake -GNinja -DBUILD_SHARED_LIBS=ON .."

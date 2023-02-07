@@ -358,6 +358,8 @@ fi
 for i in patches/*.patch; do
     $PATCH -p0 < $i
 done
+(cd crypto
+$PATCH -p2 < ../patches/x509_genn.c.diff)
 
 # copy manpages
 echo "copying manpages"

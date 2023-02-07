@@ -1,0 +1,17 @@
+Index: lib/libcrypto/x509/x509_genn.c
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/x509/x509_genn.c,v
+retrieving revision 1.2
+diff -u -p -r1.2 x509_genn.c
+--- lib/libcrypto/x509/x509_genn.c	8 Dec 2020 15:06:42 -0000	1.2
++++ lib/libcrypto/x509/x509_genn.c	24 Jan 2023 09:43:06 -0000
+@@ -366,7 +366,8 @@ GENERAL_NAME_cmp(GENERAL_NAME *a, GENERA
+ 		return -1;
+ 	switch (a->type) {
+ 	case GEN_X400:
+-		result = ASN1_TYPE_cmp(a->d.x400Address, b->d.x400Address);
++		result = ASN1_STRING_cmp((ASN1_STRING *)a->d.x400Address,
++		    (ASN1_STRING *)b->d.x400Address);
+ 		break;
+ 
+ 	case GEN_EDIPARTY:

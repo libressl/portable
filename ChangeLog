@@ -28,6 +28,12 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.5.4 - Stable release
+
+	* Security fix
+	  - A malicious certificate revocation list or timestamp response token
+	    would allow an attacker to read arbitrary memory.
+
 3.5.3 - Reliability fix
 
 	* Fix d2i_ASN1_OBJECT(). A confusion of two CBS resulted in advancing

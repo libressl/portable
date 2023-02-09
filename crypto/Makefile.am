@@ -1037,3 +1037,4 @@ noinst_HEADERS += x509/vpm_int.h
 noinst_HEADERS += x509/x509_internal.h
 noinst_HEADERS += x509/x509_issuer_cache.h
 noinst_HEADERS += x509/x509_local.h
+noinst_HEADERS += x509/x509_verify.h

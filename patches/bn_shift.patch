@@ -1,6 +1,6 @@
---- tests/bn_shift.c.orig	Sun Dec 18 01:05:29 2022
-+++ tests/bn_shift.c	Sun Dec 18 01:29:36 2022
-@@ -314,6 +314,8 @@ test_bn_rshift_to_zero(void)
+--- tests/bn_shift.c.orig	Thu Feb  9 18:42:51 2023
++++ tests/bn_shift.c	Thu Feb  9 18:43:08 2023
+@@ -351,6 +351,8 @@ test_bn_rshift_to_zero(void)
  	return failed;
  }
  
@@ -9,7 +9,7 @@
  static void
  benchmark_bn_lshift1(BIGNUM *bn)
  {
-@@ -507,9 +509,12 @@ benchmark_run(const struct benchmark *bm, int seconds)
+@@ -616,9 +618,12 @@ benchmark_run(const struct benchmark *bm, int seconds)
  	BN_free(bn);
  }
  
@@ -22,7 +22,7 @@
  	const struct benchmark *bm;
  	size_t i;
  
-@@ -517,6 +522,9 @@ benchmark_bn_shift(void)
+@@ -626,6 +631,9 @@ benchmark_bn_shift(void)
  		bm = &benchmarks[i];
  		benchmark_run(bm, 5);
  	}

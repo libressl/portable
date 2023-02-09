@@ -411,12 +411,10 @@ noinst_HEADERS += bio/bio_local.h
 
 # bn
 libcrypto_la_SOURCES += bn/bn_add.c
-libcrypto_la_SOURCES += bn/bn_asm.c
 libcrypto_la_SOURCES += bn/bn_blind.c
 libcrypto_la_SOURCES += bn/bn_bpsw.c
 libcrypto_la_SOURCES += bn/bn_const.c
 libcrypto_la_SOURCES += bn/bn_ctx.c
-libcrypto_la_SOURCES += bn/bn_depr.c
 libcrypto_la_SOURCES += bn/bn_div.c
 libcrypto_la_SOURCES += bn/bn_err.c
 libcrypto_la_SOURCES += bn/bn_exp.c
@@ -441,8 +439,39 @@ libcrypto_la_SOURCES += bn/bn_sqr.c
 libcrypto_la_SOURCES += bn/bn_sqrt.c
 libcrypto_la_SOURCES += bn/bn_word.c
 libcrypto_la_SOURCES += bn/bn_x931p.c
+noinst_HEADERS += bn/bn_internal.h
 noinst_HEADERS += bn/bn_local.h
 noinst_HEADERS += bn/bn_prime.h
+noinst_HEADERS += bn/s2n_bignum.h
+noinst_HEADERS += bn/s2n_bignum_internal.h
+
+# bn/arch
+noinst_HEADERS += bn/arch/aarch64/bn_arch.h
+noinst_HEADERS += bn/arch/alpha/bn_arch.h
+noinst_HEADERS += bn/arch/amd64/bn_arch.h
+noinst_HEADERS += bn/arch/arm/bn_arch.h
+noinst_HEADERS += bn/arch/hppa/bn_arch.h
+noinst_HEADERS += bn/arch/i386/bn_arch.h
+noinst_HEADERS += bn/arch/m88k/bn_arch.h
+noinst_HEADERS += bn/arch/mips64/bn_arch.h
+noinst_HEADERS += bn/arch/powerpc/bn_arch.h
+noinst_HEADERS += bn/arch/powerpc64/bn_arch.h
+noinst_HEADERS += bn/arch/riscv64/bn_arch.h
+noinst_HEADERS += bn/arch/sh/bn_arch.h
+noinst_HEADERS += bn/arch/sparc64/bn_arch.h
+
+# bn/arch/amd64
+EXTRA_libcrypto_la_SOURCES += ./bn/arch/amd64/bignum_add.S
+EXTRA_libcrypto_la_SOURCES += ./bn/arch/amd64/bignum_cmadd.S
+EXTRA_libcrypto_la_SOURCES += ./bn/arch/amd64/bignum_cmul.S
+EXTRA_libcrypto_la_SOURCES += ./bn/arch/amd64/bignum_mul.S
+EXTRA_libcrypto_la_SOURCES += ./bn/arch/amd64/bignum_mul_4_8_alt.S
+EXTRA_libcrypto_la_SOURCES += ./bn/arch/amd64/bignum_mul_8_16_alt.S
+EXTRA_libcrypto_la_SOURCES += ./bn/arch/amd64/bignum_sqr.S
+EXTRA_libcrypto_la_SOURCES += ./bn/arch/amd64/bignum_sqr_4_8_alt.S
+EXTRA_libcrypto_la_SOURCES += ./bn/arch/amd64/bignum_sqr_8_16_alt.S
+EXTRA_libcrypto_la_SOURCES += ./bn/arch/amd64/bignum_sub.S
+EXTRA_libcrypto_la_SOURCES += ./bn/arch/amd64/bn_arch.c
 
 # buffer
 libcrypto_la_SOURCES += buffer/buf_err.c

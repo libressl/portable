@@ -19,6 +19,18 @@ ASM_X86_64_ELF += sha/sha512-elf-x86_64.S
 ASM_X86_64_ELF += whrlpool/wp-elf-x86_64.S
 ASM_X86_64_ELF += cpuid-elf-x86_64.S
 
+ASM_X86_64_ELF += bn/arch/amd64/bignum_add.S
+ASM_X86_64_ELF += bn/arch/amd64/bignum_cmadd.S
+ASM_X86_64_ELF += bn/arch/amd64/bignum_cmul.S
+ASM_X86_64_ELF += bn/arch/amd64/bignum_mul.S
+ASM_X86_64_ELF += bn/arch/amd64/bignum_mul_4_8_alt.S
+ASM_X86_64_ELF += bn/arch/amd64/bignum_mul_8_16_alt.S
+ASM_X86_64_ELF += bn/arch/amd64/bignum_sqr.S
+ASM_X86_64_ELF += bn/arch/amd64/bignum_sqr_4_8_alt.S
+ASM_X86_64_ELF += bn/arch/amd64/bignum_sqr_8_16_alt.S
+ASM_X86_64_ELF += bn/arch/amd64/bignum_sub.S
+ASM_X86_64_ELF += bn/arch/amd64/bn_arch.c
+
 EXTRA_DIST += $(ASM_X86_64_ELF)
 
 if HOST_ASM_ELF_X86_64
@@ -38,4 +50,7 @@ libcrypto_la_CPPFLAGS += -DSHA512_ASM
 libcrypto_la_CPPFLAGS += -DWHIRLPOOL_ASM
 libcrypto_la_CPPFLAGS += -DOPENSSL_CPUID_OBJ
 libcrypto_la_SOURCES += $(ASM_X86_64_ELF)
+
+# XXX - not the right place for this. It should be done depending on CPU.
+libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/amd64/
 endif

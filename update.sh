@@ -14,8 +14,7 @@ if [ ! -d openbsd ]; then
 fi
 (cd openbsd
  git fetch
- git checkout $openbsd_branch
- git pull --rebase)
+ git checkout $openbsd_branch)
 
 # setup source paths
 CWD=`pwd`

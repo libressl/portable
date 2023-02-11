@@ -94,8 +94,9 @@ int main() {return 0;}
 ])
 
 AC_ARG_ENABLE([asm],
-	AS_HELP_STRING([--disable-asm], [Disable assembly]))
-AM_CONDITIONAL([OPENSSL_NO_ASM], [test "x$enable_asm" = "xno"])
+	AS_HELP_STRING([--enable-asm], [Enable assembly]))
+# Disable below while updating to support upstream assembly changes
+AM_CONDITIONAL([OPENSSL_NO_ASM], [test "x$enable_asm" = xyes])
 
 # Conditionally enable assembly by default
 AM_CONDITIONAL([HOST_ASM_ELF_ARM],

@@ -418,7 +418,6 @@ libcrypto_la_SOURCES += bn/bn_ctx.c
 libcrypto_la_SOURCES += bn/bn_div.c
 libcrypto_la_SOURCES += bn/bn_err.c
 libcrypto_la_SOURCES += bn/bn_exp.c
-libcrypto_la_SOURCES += bn/bn_exp2.c
 libcrypto_la_SOURCES += bn/bn_gcd.c
 libcrypto_la_SOURCES += bn/bn_gf2m.c
 libcrypto_la_SOURCES += bn/bn_isqrt.c
@@ -459,19 +458,6 @@ noinst_HEADERS += bn/arch/powerpc64/bn_arch.h
 noinst_HEADERS += bn/arch/riscv64/bn_arch.h
 noinst_HEADERS += bn/arch/sh/bn_arch.h
 noinst_HEADERS += bn/arch/sparc64/bn_arch.h
-
-# bn/arch/amd64
-EXTRA_libcrypto_la_SOURCES += ./bn/arch/amd64/bignum_add.S
-EXTRA_libcrypto_la_SOURCES += ./bn/arch/amd64/bignum_cmadd.S
-EXTRA_libcrypto_la_SOURCES += ./bn/arch/amd64/bignum_cmul.S
-EXTRA_libcrypto_la_SOURCES += ./bn/arch/amd64/bignum_mul.S
-EXTRA_libcrypto_la_SOURCES += ./bn/arch/amd64/bignum_mul_4_8_alt.S
-EXTRA_libcrypto_la_SOURCES += ./bn/arch/amd64/bignum_mul_8_16_alt.S
-EXTRA_libcrypto_la_SOURCES += ./bn/arch/amd64/bignum_sqr.S
-EXTRA_libcrypto_la_SOURCES += ./bn/arch/amd64/bignum_sqr_4_8_alt.S
-EXTRA_libcrypto_la_SOURCES += ./bn/arch/amd64/bignum_sqr_8_16_alt.S
-EXTRA_libcrypto_la_SOURCES += ./bn/arch/amd64/bignum_sub.S
-EXTRA_libcrypto_la_SOURCES += ./bn/arch/amd64/bn_arch.c
 
 # buffer
 libcrypto_la_SOURCES += buffer/buf_err.c
@@ -616,8 +602,6 @@ libcrypto_la_SOURCES += dsa/dsa_meth.c
 libcrypto_la_SOURCES += dsa/dsa_ossl.c
 libcrypto_la_SOURCES += dsa/dsa_pmeth.c
 libcrypto_la_SOURCES += dsa/dsa_prn.c
-libcrypto_la_SOURCES += dsa/dsa_sign.c
-libcrypto_la_SOURCES += dsa/dsa_vrf.c
 noinst_HEADERS += dsa/dsa_local.h
 
 # dso

@@ -362,9 +362,6 @@ done
 (cd crypto
 	$PATCH -p4 < ../patches/uninit_asn1_string_to_utf8.diff
 )
-(cd crypto
-	$PATCH -p2 < ../patches/x509_genn.c.diff
-)
 
 # copy manpages
 echo "copying manpages"

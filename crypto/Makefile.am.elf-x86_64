@@ -50,7 +50,4 @@ libcrypto_la_CPPFLAGS += -DSHA512_ASM
 libcrypto_la_CPPFLAGS += -DWHIRLPOOL_ASM
 libcrypto_la_CPPFLAGS += -DOPENSSL_CPUID_OBJ
 libcrypto_la_SOURCES += $(ASM_X86_64_ELF)
-
-# XXX - not the right place for this. It should be done depending on CPU.
-libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/amd64/
 endif

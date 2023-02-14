@@ -445,19 +445,50 @@ noinst_HEADERS += bn/s2n_bignum.h
 noinst_HEADERS += bn/s2n_bignum_internal.h
 
 # bn/arch
+if HOST_AARCH64
+libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/aarch64/
+endif
 noinst_HEADERS += bn/arch/aarch64/bn_arch.h
-noinst_HEADERS += bn/arch/alpha/bn_arch.h
-noinst_HEADERS += bn/arch/amd64/bn_arch.h
+
+if HOST_ARM
+libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/arm/
+endif
 noinst_HEADERS += bn/arch/arm/bn_arch.h
-noinst_HEADERS += bn/arch/hppa/bn_arch.h
+
+if HOST_I386
+libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/i386/
+endif
 noinst_HEADERS += bn/arch/i386/bn_arch.h
-noinst_HEADERS += bn/arch/m88k/bn_arch.h
+
+if HOST_MIPS64
+libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/mips64/
+endif
 noinst_HEADERS += bn/arch/mips64/bn_arch.h
+
+if HOST_POWERPC
+libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/powerpc/
+endif
 noinst_HEADERS += bn/arch/powerpc/bn_arch.h
+
+if HOST_POWERPC64
+libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/powerpc64/
+endif
 noinst_HEADERS += bn/arch/powerpc64/bn_arch.h
+
+if HOST_RISCV64
+libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/riscv64/
+endif
 noinst_HEADERS += bn/arch/riscv64/bn_arch.h
-noinst_HEADERS += bn/arch/sh/bn_arch.h
+
+if HOST_SPARC64
+libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/sparc64/
+endif
 noinst_HEADERS += bn/arch/sparc64/bn_arch.h
+
+if HOST_X86_64
+libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/amd64/
+endif
+noinst_HEADERS += bn/arch/amd64/bn_arch.h
 
 # buffer
 libcrypto_la_SOURCES += buffer/buf_err.c

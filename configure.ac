@@ -76,10 +76,25 @@ AM_CONDITIONAL([ENABLE_TESTS], [test "x$enable_tests" = xyes])
 AS_CASE([$host_cpu],
 	[*arm*], [host_cpu=arm],
 	[*amd64*], [host_cpu=x86_64 HOSTARCH=intel],
-	[i?86], [HOSTARCH=intel],
+	[i?86], [host_cpu=i386 HOSTARCH=intel],
+	[mipsel*], [host_cpu=mips],
+	[mips64el*], [host_cpu=mips64],
+	[powerpc*], [host_cpu=powerpc],
+	[ppc64*], [host_cpu=powerpc64],
 	[x86_64], [HOSTARCH=intel]
 )
 AM_CONDITIONAL([HOST_CPU_IS_INTEL], [test "x$HOSTARCH" = "xintel"])
+
+AM_CONDITIONAL([HOST_AARCH64],   [test "$host_cpu" = "aarch64"])
+AM_CONDITIONAL([HOST_ARM],       [test "$host_cpu" = "arm"])
+AM_CONDITIONAL([HOST_I386],      [test "$host_cpu" = "i386"])
+AM_CONDITIONAL([HOST_MIPS],      [test "$host_cpu" = "mips"])
+AM_CONDITIONAL([HOST_MIPS64],    [test "$host_cpu" = "mips64"])
+AM_CONDITIONAL([HOST_POWERPC],   [test "$host_cpu" = "powerpc"])
+AM_CONDITIONAL([HOST_POWERPC64], [test "$host_cpu" = "ppc64"])
+AM_CONDITIONAL([HOST_RISCV64],   [test "$host_cpu" = "riscv64"])
+AM_CONDITIONAL([HOST_SPARC64],   [test "$host_cpu" = "sparc64"])
+AM_CONDITIONAL([HOST_X86_64],    [test "$host_cpu" = "x86_64"])
 
 AC_MSG_CHECKING([if .gnu.warning accepts long strings])
 AC_LINK_IFELSE([AC_LANG_SOURCE([[

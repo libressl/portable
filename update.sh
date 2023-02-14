@@ -151,6 +151,13 @@ for i in `awk '/SOURCES|HEADERS/ { print $3 }' crypto/Makefile.am` ; do
 		fi
 	fi
 done
+
+for i in $libcrypto_src/bn/arch/*; do
+	arch=`basename $i`
+	mkdir -p crypto/bn/arch/$arch
+	$CP $libcrypto_src/bn/arch/$arch/* crypto/bn/arch/$arch/
+done
+
 $CP crypto/compat/b_win.c crypto/bio
 $CP crypto/compat/ui_openssl_win.c crypto/ui
 # add the libcrypto symbol export list

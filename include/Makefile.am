@@ -44,4 +44,18 @@ noinst_HEADERS += compat/sys/time.h
 noinst_HEADERS += compat/sys/types.h
 noinst_HEADERS += compat/sys/uio.h
 
+noinst_HEADERS += arch/aarch64/opensslconf.h
+noinst_HEADERS += arch/alpha/opensslconf.h
+noinst_HEADERS += arch/amd64/opensslconf.h
+noinst_HEADERS += arch/arm/opensslconf.h
+noinst_HEADERS += arch/hppa/opensslconf.h
+noinst_HEADERS += arch/i386/opensslconf.h
+noinst_HEADERS += arch/m88k/opensslconf.h
+noinst_HEADERS += arch/mips64/opensslconf.h
+noinst_HEADERS += arch/powerpc/opensslconf.h
+noinst_HEADERS += arch/powerpc64/opensslconf.h
+noinst_HEADERS += arch/riscv64/opensslconf.h
+noinst_HEADERS += arch/sh/opensslconf.h
+noinst_HEADERS += arch/sparc64/opensslconf.h
+
 include_HEADERS = tls.h

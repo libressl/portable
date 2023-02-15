@@ -1,4 +1,4 @@
-SUBDIRS = crypto ssl tls include apps man
+SUBDIRS = include crypto ssl tls apps man
 if ENABLE_TESTS
 SUBDIRS += tests
 endif

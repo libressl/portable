@@ -70,7 +70,6 @@ fi
 
 $CP $libssl_src/LICENSE COPYING
 
-$CP $libcrypto_src/arch/amd64/opensslconf.h include/openssl
 $CP $libcrypto_src/opensslfeatures.h include/openssl
 $CP $libssl_src/pqueue.h include
 
@@ -150,6 +149,12 @@ for i in `awk '/SOURCES|HEADERS/ { print $3 }' crypto/Makefile.am` ; do
 			$CP $libcrypto_src/$i crypto/$i
 		fi
 	fi
+done
+
+for i in $libcrypto_src/arch/*; do
+	arch=`basename $i`
+	mkdir -p include/arch/$arch
+	$CP $libcrypto_src/arch/$arch/opensslconf.h include/arch/$arch/
 done
 
 for i in $libcrypto_src/bn/arch/*; do

@@ -145,6 +145,7 @@ stamp-h1
 stamp-h2
 
 include/openssl/Makefile.am
+include/arch
 
 VERSION
 crypto/VERSION
@@ -152,6 +153,7 @@ ssl/VERSION
 tls/VERSION
 libtls-standalone/VERSION
 
+ssl/hidden
 ssl/*.c
 ssl/*.h
 tls/*.c

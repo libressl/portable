@@ -19,6 +19,18 @@ ASM_X86_64_MACOSX += sha/sha512-macosx-x86_64.S
 ASM_X86_64_MACOSX += whrlpool/wp-macosx-x86_64.S
 ASM_X86_64_MACOSX += cpuid-macosx-x86_64.S
 
+ASM_X86_64_MACOSX += bn/arch/amd64/bignum_add.S
+ASM_X86_64_MACOSX += bn/arch/amd64/bignum_cmadd.S
+ASM_X86_64_MACOSX += bn/arch/amd64/bignum_cmul.S
+ASM_X86_64_MACOSX += bn/arch/amd64/bignum_mul.S
+ASM_X86_64_MACOSX += bn/arch/amd64/bignum_mul_4_8_alt.S
+ASM_X86_64_MACOSX += bn/arch/amd64/bignum_mul_8_16_alt.S
+ASM_X86_64_MACOSX += bn/arch/amd64/bignum_sqr.S
+ASM_X86_64_MACOSX += bn/arch/amd64/bignum_sqr_4_8_alt.S
+ASM_X86_64_MACOSX += bn/arch/amd64/bignum_sqr_8_16_alt.S
+ASM_X86_64_MACOSX += bn/arch/amd64/bignum_sub.S
+ASM_X86_64_MACOSX += bn/arch/amd64/bn_arch.c
+
 EXTRA_DIST += $(ASM_X86_64_MACOSX)
 
 if HOST_ASM_MACOSX_X86_64

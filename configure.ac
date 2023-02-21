@@ -109,15 +109,17 @@ int main() {return 0;}
 ])
 
 AC_ARG_ENABLE([asm],
-	AS_HELP_STRING([--enable-asm], [Enable assembly]))
+	AS_HELP_STRING([--disable-asm], [Disable assembly]))
 # Disable below while updating to support upstream assembly changes
-AM_CONDITIONAL([OPENSSL_NO_ASM], [test "x$enable_asm" = xyes])
+AM_CONDITIONAL([OPENSSL_NO_ASM], [true])
+# AM_CONDITIONAL([OPENSSL_NO_ASM], [test "x$enable_asm" = "xno"])
 
 # Conditionally enable assembly by default
 AM_CONDITIONAL([HOST_ASM_ELF_ARM],
     [test "x$HOST_ABI" = "xelf" -a "$host_cpu" = "arm" -a "x$enable_asm" != "xno"])
 AM_CONDITIONAL([HOST_ASM_ELF_X86_64],
     [test "x$HOST_ABI" = "xelf" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
+
 AM_CONDITIONAL([HOST_ASM_MACOSX_X86_64],
     [test "x$HOST_ABI" = "xmacosx" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
 AM_CONDITIONAL([HOST_ASM_MASM_X86_64],

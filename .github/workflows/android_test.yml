@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   build-android-8-9:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     continue-on-error: false
     env:
       ARCH: android
@@ -17,7 +17,7 @@ jobs:
       run: ./scripts/test
 
   build-android-10-11:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     continue-on-error: false
     env:
       ARCH: android

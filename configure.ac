@@ -112,6 +112,7 @@ AC_ARG_ENABLE([asm],
 	AS_HELP_STRING([--disable-asm], [Disable assembly]))
 # Disable below while updating to support upstream assembly changes
 AM_CONDITIONAL([OPENSSL_NO_ASM], [true])
+enable_asm = "no"
 # AM_CONDITIONAL([OPENSSL_NO_ASM], [test "x$enable_asm" = "xno"])
 
 # Conditionally enable assembly by default

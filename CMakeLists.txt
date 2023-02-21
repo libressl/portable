@@ -308,6 +308,7 @@ endif()
 
 if("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "(aarch64|arm64)")
 	set(HOST_AARCH64 true)
+	set(ENABLE_ASM false)
 elseif("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "arm")
 	set(HOST_ARM true)
 elseif("${CMAKE_SYSTEM_NAME}" STREQUAL "SunOS" AND "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "i386")

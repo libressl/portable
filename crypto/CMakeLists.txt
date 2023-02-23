@@ -58,6 +58,7 @@ if(HOST_ASM_ELF_X86_64)
 		bn/arch/amd64/bignum_sqr_4_8_alt.S
 		bn/arch/amd64/bignum_sqr_8_16_alt.S
 		bn/arch/amd64/bignum_sub.S
+		bn/arch/amd64/word_clz.S
 		bn/arch/amd64/bn_arch.c
 	)
 	add_definitions(-DAES_ASM)
@@ -112,6 +113,7 @@ if(HOST_ASM_MACOSX_X86_64)
 		bn/arch/amd64/bignum_sqr_4_8_alt.S
 		bn/arch/amd64/bignum_sqr_8_16_alt.S
 		bn/arch/amd64/bignum_sub.S
+		bn/arch/amd64/word_clz.S
 		bn/arch/amd64/bn_arch.c
 	)
 	add_definitions(-DAES_ASM)

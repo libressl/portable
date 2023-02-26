@@ -111,7 +111,7 @@ int main() {return 0;}
 
 AC_ARG_ENABLE([asm],
 	AS_HELP_STRING([--disable-asm], [Disable assembly]))
-AM_CONDITIONAL([OPENSSL_NO_ASM], [test "x$enable_asm" = "xno" -o "$host_cpu" = "aarch64"])
+AM_CONDITIONAL([OPENSSL_NO_ASM], [test "x$enable_asm" = "xno" -o "$host_cpu" = "i386"])
 
 # Conditionally enable assembly by default
 AM_CONDITIONAL([HOST_ASM_ELF_ARM],

@@ -81,19 +81,16 @@ elif [ "x$ARCH" = "xarm32" -o "x$ARCH" = "xarm64" ]; then
 
 	if [ "x$ARCH" = "xarm32" ]; then
 		sudo apt-get install -y g++-arm-linux-gnueabihf
-		sudo ln -s /usr/arm-linux-gnueabihf/lib/ld-*.*.so /lib/ld-linux-armhf.so.3
-		export LD_LIBRARY_PATH=/usr/arm-linux-gnueabihf/lib
-		export CC=arm-linux-gnueabihf-gcc
-		./configure --host=arm-linux
+		sudo ln -s /usr/arm-linux-gnueabihf/lib/ld-linux-armhf.so.3 /lib/
+		./configure --host=arm-linux-gnueabihf
+		LD_LIBRARY_PATH=/usr/arm-linux-gnueabihf/lib make -j 4 check
 	else
 		sudo apt-get install -y g++-aarch64-linux-gnu
-		sudo ln -s /usr/aarch64-linux-gnu/lib/ld-*.*.so /lib/ld-linux-aarch64.so.1
-		export LD_LIBRARY_PATH=/usr/aarch64-linux-gnu/lib
-		export CC=aarch64-linux-gnu-gcc
-		./configure --host=aarch64-linux
+		sudo ln -s /usr/aarch64-linux-gnu/lib/ld-linux-aarch64.so.1 /lib/
+		./configure --host=aarch64-linux-gnu
+		LD_LIBRARY_PATH=/usr/aarch64-linux-gnu/lib make -j 4 check
 	fi
 
-	make -j 4 check
 	file apps/openssl/.libs/openssl
 
 elif [ "x$ARCH" = "xandroid" ]; then

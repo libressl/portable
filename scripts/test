@@ -116,7 +116,7 @@ elif [ "x$ARCH" = "xandroid" ]; then
 
 		(
 		 build_dir=build_$NAL_$ABI
-		 rm -fr $build_dir
+		 rm -fr $build_dir include/openssl/opensslconf.h
 		 mkdir $build_dir
 		 cd $build_dir
 		 cmake -GNinja -DCMAKE_MAKE_PROGRAM=ninja \

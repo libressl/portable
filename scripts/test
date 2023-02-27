@@ -1,11 +1,15 @@
 #!/bin/sh
 set -e
 
-./autogen.sh
-
 unset CC
-sudo apt update
-sudo apt install -y cmake ninja-build
+
+if type apt-get >/dev/null
+then
+	sudo apt-get update
+	sudo apt-get install -y cmake ninja-build
+fi
+
+./autogen.sh
 
 if [ "x$ARCH" = "xnative" ]; then
 	# test autotools
@@ -32,7 +36,6 @@ if [ "x$ARCH" = "xnative" ]; then
 		make -j 4
 		make test
 	else
-
 		cmake -GNinja ..
 		ninja -j 4
 		ninja test
@@ -49,7 +52,7 @@ elif [ "x$ARCH" = "xmingw32" -o "x$ARCH" = "xmingw64" ]; then
 		CPU=x86_64
 	fi
 
-	sudo apt install -y mingw-w64
+	sudo apt-get install -y mingw-w64
 
 	./configure --host=$CPU-w64-mingw32
 	make -j 4
@@ -70,15 +73,15 @@ elif [ "x$ARCH" = "xmingw32" -o "x$ARCH" = "xmingw64" ]; then
 	)
 
 elif [ "x$ARCH" = "xarm32" -o "x$ARCH" = "xarm64" ]; then
-	sudo apt install -y qemu-user-static binfmt-support
+	sudo apt-get install -y qemu-user-static binfmt-support
 
 	if [ "x$ARCH" = "xarm32" ]; then
-		sudo apt install -y g++-arm-linux-gnueabihf
+		sudo apt-get install -y g++-arm-linux-gnueabihf
 		sudo ln -sf /usr/arm-linux-gnueabihf/lib/ld-linux-armhf.so.3 /lib/
 		./configure --host=arm-linux-gnueabihf
 		LD_LIBRARY_PATH=/usr/arm-linux-gnueabihf/lib make -j 4 check
 	else
-		sudo apt install -y g++-aarch64-linux-gnu
+		sudo apt-get install -y g++-aarch64-linux-gnu
 		sudo ln -sf /usr/aarch64-linux-gnu/lib/ld-linux-aarch64.so.1 /lib/
 		./configure --host=aarch64-linux-gnu
 		LD_LIBRARY_PATH=/usr/aarch64-linux-gnu/lib make -j 4 check

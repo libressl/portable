@@ -115,10 +115,11 @@ elif [ "x$ARCH" = "xandroid" ]; then
 		echo "##### Date: `date`, Native API level: $NAL, ABI: $ABI"
 
 		(
-		 build_dir=build_$NAL_$ABI
+		 build_dir=build-$NAL_$ABI
 		 rm -fr $build_dir include/openssl/opensslconf.h
 		 mkdir $build_dir
 		 cd $build_dir
+		 echo "##### cmake -GNinja -DCMAKE_MAKE_PROGRAM=ninja -DANDROID_NDK=$ANDROID_NDK_HOME -DCMAKE_TOOLCHAIN_FILE=$TC_FILE -DANDROID_ABI=$ABI -DANDROID_NATIVE_API_LEVEL=$NAL .."
 		 cmake -GNinja -DCMAKE_MAKE_PROGRAM=ninja \
 		 -DANDROID_NDK=$ANDROID_NDK_HOME \
 		 -DCMAKE_TOOLCHAIN_FILE=$TC_FILE \

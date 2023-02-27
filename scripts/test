@@ -3,6 +3,10 @@ set -e
 
 ./autogen.sh
 
+unset CC
+sudo apt update
+sudo apt install -y cmake ninja-build
+
 if [ "x$ARCH" = "xnative" ]; then
 	# test autotools
 	./configure
@@ -28,8 +32,6 @@ if [ "x$ARCH" = "xnative" ]; then
 		make -j 4
 		make test
 	else
-		sudo apt-get update
-		sudo apt-get install -y cmake ninja-build
 
 		cmake -GNinja ..
 		ninja -j 4
@@ -42,20 +44,12 @@ if [ "x$ARCH" = "xnative" ]; then
 	fi
 
 elif [ "x$ARCH" = "xmingw32" -o "x$ARCH" = "xmingw64" ]; then
-	sudo apt-get update
-	sudo apt-get install -y cmake ninja-build
-
 	CPU=i686
 	if [ "x$ARCH" = "xmingw64" ]; then
 		CPU=x86_64
 	fi
-	export CC=$CPU-w64-mingw32-gcc
 
-	if [ -z $(which $CC) ]; then
-		sudo apt-get update
-		sudo apt-get install -y mingw-w64 make
-		export PATH=$PATH:/opt/$ARCH/bin
-	fi
+	sudo apt install -y mingw-w64
 
 	./configure --host=$CPU-w64-mingw32
 	make -j 4
@@ -76,17 +70,16 @@ elif [ "x$ARCH" = "xmingw32" -o "x$ARCH" = "xmingw64" ]; then
 	)
 
 elif [ "x$ARCH" = "xarm32" -o "x$ARCH" = "xarm64" ]; then
-	sudo apt-get update
-	sudo apt-get install -y qemu-user-static binfmt-support
+	sudo apt install -y qemu-user-static binfmt-support
 
 	if [ "x$ARCH" = "xarm32" ]; then
-		sudo apt-get install -y g++-arm-linux-gnueabihf
-		sudo ln -s /usr/arm-linux-gnueabihf/lib/ld-linux-armhf.so.3 /lib/
+		sudo apt install -y g++-arm-linux-gnueabihf
+		sudo ln -sf /usr/arm-linux-gnueabihf/lib/ld-linux-armhf.so.3 /lib/
 		./configure --host=arm-linux-gnueabihf
 		LD_LIBRARY_PATH=/usr/arm-linux-gnueabihf/lib make -j 4 check
 	else
-		sudo apt-get install -y g++-aarch64-linux-gnu
-		sudo ln -s /usr/aarch64-linux-gnu/lib/ld-linux-aarch64.so.1 /lib/
+		sudo apt install -y g++-aarch64-linux-gnu
+		sudo ln -sf /usr/aarch64-linux-gnu/lib/ld-linux-aarch64.so.1 /lib/
 		./configure --host=aarch64-linux-gnu
 		LD_LIBRARY_PATH=/usr/aarch64-linux-gnu/lib make -j 4 check
 	fi
@@ -94,9 +87,6 @@ elif [ "x$ARCH" = "xarm32" -o "x$ARCH" = "xarm64" ]; then
 	file apps/openssl/.libs/openssl
 
 elif [ "x$ARCH" = "xandroid" ]; then
-	sudo apt-get update
-	sudo apt-get install -y cmake ninja-build
-
 	export TC_FILE=$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake
 
 	# set target API level and architecture

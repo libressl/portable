@@ -1,5 +1,7 @@
 include $(top_srcdir)/Makefile.am.common
 
+-include $(abs_top_builddir)/crypto/libcrypto_la_objects.mk
+
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/bio
 
 noinst_LTLIBRARIES = libbs.la
@@ -34,6 +36,8 @@ remove_bs_objects: libssl.la
 libssl_la_CPPFLAGS = -I$(top_srcdir)/ssl/hidden ${AM_CPPFLAGS}
 libssl_la_LDFLAGS = -version-info @LIBSSL_VERSION@ -no-undefined -export-symbols $(top_srcdir)/ssl/ssl.sym
 libssl_la_LIBADD = $(abs_top_builddir)/crypto/libcrypto.la $(PLATFORM_LDADD)
+libssl_la_LIBADD += $(libcompat_la_objects)
+libssl_la_LIBADD += $(libcompatnoopt_la_objects)
 libssl_la_LIBADD += libbs.la
 
 libbs_la_SOURCES = bs_ber.c

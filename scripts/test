@@ -1,11 +1,11 @@
 #!/bin/sh
 set -e
+set -x
 
 unset CC
 ENABLE_ASM="${ENABLE_ASM:=ON}"
 
-if type apt-get >/dev/null
-then
+if type apt-get >/dev/null 2>&1; then
 	sudo apt-get update
 	sudo apt-get install -y cmake ninja-build
 fi
@@ -53,7 +53,9 @@ elif [ "x$ARCH" = "xmingw32" -o "x$ARCH" = "xmingw64" ]; then
 		CPU=x86_64
 	fi
 
-	sudo apt-get install -y mingw-w64
+	if ! type i686-w64-mingw32-gcc > /dev/null; then
+		sudo apt-get install -y mingw-w64
+	fi
 
 	./configure --host=$CPU-w64-mingw32
 	make -j 4

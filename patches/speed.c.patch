@@ -83,7 +83,7 @@
 +	speed_alarm_free(run);
 +#endif
  	BIO_printf(bio_err, mr ? "+R:%d:%s:%f\n"
- 	    : "%d %s's in %.2fs\n", count, names[alg], time_used);
+ 	    : "%d %s in %.2fs\n", count, names[alg], time_used);
  	results[alg][run_no] = ((double) count) / time_used * lengths[run_no];
  }
  

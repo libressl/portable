@@ -719,6 +719,7 @@ libcrypto_la_SOURCES += evp/bio_b64.c
 libcrypto_la_SOURCES += evp/bio_enc.c
 libcrypto_la_SOURCES += evp/bio_md.c
 libcrypto_la_SOURCES += evp/c_all.c
+libcrypto_la_SOURCES += evp/cipher_method_lib.c
 libcrypto_la_SOURCES += evp/digest.c
 libcrypto_la_SOURCES += evp/e_aes.c
 libcrypto_la_SOURCES += evp/e_aes_cbc_hmac_sha1.c

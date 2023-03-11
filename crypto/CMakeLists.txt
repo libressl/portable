@@ -552,6 +552,7 @@ set(
 	evp/bio_enc.c
 	evp/bio_md.c
 	evp/c_all.c
+	evp/cipher_method_lib.c
 	evp/digest.c
 	evp/e_aes.c
 	evp/e_aes_cbc_hmac_sha1.c

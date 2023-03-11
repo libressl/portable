@@ -217,6 +217,11 @@ TESTS += bn_unit
 check_PROGRAMS += bn_unit
 bn_unit_SOURCES = bn_unit.c
 
+# bn_word
+TESTS += bn_word
+check_PROGRAMS += bn_word
+bn_word_SOURCES = bn_word.c
+
 # buffertest
 TESTS += buffertest
 check_PROGRAMS += buffertest

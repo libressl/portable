@@ -202,6 +202,11 @@ add_executable(bn_unit bn_unit.c)
 target_link_libraries(bn_unit ${OPENSSL_TEST_LIBS})
 add_test(bn_unit bn_unit)
 
+# bn_word
+add_executable(bn_word bn_word.c)
+target_link_libraries(bn_word ${OPENSSL_TEST_LIBS})
+add_test(bn_word bn_word)
+
 # buffertest
 add_executable(buffertest buffertest.c)
 target_link_libraries(buffertest ${OPENSSL_TEST_LIBS})

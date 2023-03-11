@@ -83,6 +83,7 @@ tests/bn_rand_interval*
 tests/bn_shift*
 tests/bn_to_string*
 tests/bn_unit*
+tests/bn_word*
 tests/callback*
 tests/cipher*
 tests/constraints*

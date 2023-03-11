@@ -369,6 +369,7 @@ endif
 
 # freenull
 TESTS += freenull
+freenull_CPPFLAGS = $(AM_CPPFLAGS) -ULIBRESSL_INTERNAL
 check_PROGRAMS += freenull
 freenull_SOURCES = freenull.c
 

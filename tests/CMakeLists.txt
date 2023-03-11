@@ -350,6 +350,8 @@ endif()
 
 # freenull
 add_executable(freenull freenull.c)
+set_source_files_properties(freenull.c PROPERTIES COMPILE_FLAGS
+	-ULIBRESSL_INTERNAL)
 target_link_libraries(freenull ${OPENSSL_TEST_LIBS})
 add_test(freenull freenull)
 

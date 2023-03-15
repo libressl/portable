@@ -1,0 +1,120 @@
+diff -u openbsd/src/lib/libcrypto/hidden/openssl/hmac.h crypto/hidden/openssl/hmac.h
+--- openbsd/src/lib/libcrypto/hidden/openssl/hmac.h	2023-03-15 11:41:37.632580800 -0600
++++ crypto/hidden/openssl/hmac.h	2023-03-15 16:49:29.144080400 -0600
+@@ -18,7 +18,11 @@
+ #ifndef _LIBCRYPTO_HMAC_H_
+ #define _LIBCRYPTO_HMAC_H_
+ 
++#ifdef _MSC_VER
++#include <../include/openssl/hmac.h>
++#else
+ #include_next <openssl/hmac.h>
++#endif
+ #include "crypto_namespace.h"
+ 
+ LCRYPTO_USED(HMAC_CTX_new);
+diff -u openbsd/src/lib/libcrypto/hidden/openssl/pkcs12.h crypto/hidden/openssl/pkcs12.h
+--- openbsd/src/lib/libcrypto/hidden/openssl/pkcs12.h	2023-03-15 11:41:37.648024900 -0600
++++ crypto/hidden/openssl/pkcs12.h	2023-03-15 17:15:36.015981800 -0600
+@@ -18,7 +18,11 @@
+ #ifndef _LIBCRYPTO_PKCS12_H
+ #define _LIBCRYPTO_PKCS12_H
+ 
++#ifdef _MSC_VER
++#include <../include/openssl/pkcs12.h>
++#else
+ #include_next <openssl/pkcs12.h>
++#endif
+ #include "crypto_namespace.h"
+ 
+ LCRYPTO_USED(PKCS12_SAFEBAG_get0_attr);
+diff -u openbsd/src/lib/libcrypto/hidden/openssl/pkcs7.h crypto/hidden/openssl/pkcs7.h
+--- openbsd/src/lib/libcrypto/hidden/openssl/pkcs7.h	2023-03-15 11:41:37.663599200 -0600
++++ crypto/hidden/openssl/pkcs7.h	2023-03-15 16:53:43.232866600 -0600
+@@ -18,7 +18,11 @@
+ #ifndef _LIBCRYPTO_PKCS7_H
+ #define _LIBCRYPTO_PKCS7_H
+ 
++#ifdef _MSC_VER
++#include <../include/openssl/pkcs7.h>
++#else
+ #include_next <openssl/pkcs7.h>
++#endif
+ #include "crypto_namespace.h"
+ 
+ LCRYPTO_USED(PKCS7_ISSUER_AND_SERIAL_new);
+diff -u openbsd/src/lib/libcrypto/hidden/openssl/stack.h crypto/hidden/openssl/stack.h
+--- openbsd/src/lib/libcrypto/hidden/openssl/stack.h	2023-03-15 11:41:37.680453800 -0600
++++ crypto/hidden/openssl/stack.h	2023-03-15 16:49:29.200142600 -0600
+@@ -18,7 +18,11 @@
+ #ifndef _LIBCRYPTO_STACK_H
+ #define _LIBCRYPTO_STACK_H
+ 
++#ifdef _MSC_VER
++#include <../include/openssl/stack.h>
++#else
+ #include_next <openssl/stack.h>
++#endif
+ #include "crypto_namespace.h"
+ 
+ LCRYPTO_USED(sk_num);
+diff -u openbsd/src/lib/libcrypto/hidden/openssl/ui.h crypto/hidden/openssl/ui.h
+--- openbsd/src/lib/libcrypto/hidden/openssl/ui.h	2023-03-15 11:41:37.696291800 -0600
++++ crypto/hidden/openssl/ui.h	2023-03-15 16:49:29.222310800 -0600
+@@ -18,7 +18,11 @@
+ #ifndef _LIBCRYPTO_UI_H
+ #define _LIBCRYPTO_UI_H
+ 
++#ifdef _MSC_VER
++#include <../include/openssl/ui.h>
++#else
+ #include_next <openssl/ui.h>
++#endif
+ #include "crypto_namespace.h"
+ 
+ LCRYPTO_USED(UI_new);
+diff -u openbsd/src/lib/libcrypto/hidden/openssl/x509.h crypto/hidden/openssl/x509.h
+--- openbsd/src/lib/libcrypto/hidden/openssl/x509.h	2023-03-15 11:41:37.713302600 -0600
++++ crypto/hidden/openssl/x509.h	2023-03-15 16:49:29.238904200 -0600
+@@ -18,7 +18,11 @@
+ #ifndef _LIBCRYPTO_X509_H
+ #define _LIBCRYPTO_X509_H
+ 
++#ifdef _MSC_VER
++#include <../include/openssl/x509.h>
++#else
+ #include_next <openssl/x509.h>
++#endif
+ #include "crypto_namespace.h"
+ 
+ LCRYPTO_USED(X509_CRL_up_ref);
+diff -u openbsd/src/lib/libcrypto/hidden/openssl/x509v3.h crypto/hidden/openssl/x509v3.h
+--- openbsd/src/lib/libcrypto/hidden/openssl/x509v3.h	2023-03-15 11:41:37.756379100 -0600
++++ crypto/hidden/openssl/x509v3.h	2023-03-15 16:49:29.264482800 -0600
+@@ -18,7 +18,11 @@
+ #ifndef _LIBCRYPTO_X509V3_H
+ #define _LIBCRYPTO_X509V3_H
+ 
++#ifdef _MSC_VER
++#include <../include/openssl/x509v3.h>
++#else
+ #include_next <openssl/x509v3.h>
++#endif
+ #include "crypto_namespace.h"
+ 
+ LCRYPTO_USED(PROXY_POLICY_new);
+diff -u openbsd/src/lib/libcrypto/hidden/openssl/x509_vfy.h crypto/hidden/openssl/x509_vfy.h
+--- openbsd/src/lib/libcrypto/hidden/openssl/x509_vfy.h	2023-03-15 11:41:37.735995100 -0600
++++ crypto/hidden/openssl/x509_vfy.h	2023-03-15 16:49:29.300450300 -0600
+@@ -18,7 +18,11 @@
+ #ifndef _LIBCRYPTO_X509_VFY_H
+ #define _LIBCRYPTO_X509_VFY_H
+ 
++#ifdef _MSC_VER
++#include <../include/openssl/x509_vfy.h>
++#else
+ #include_next <openssl/x509_vfy.h>
++#endif
+ #include "crypto_namespace.h"
+ 
+ LCRYPTO_USED(X509_STORE_set_depth);

@@ -28,6 +28,33 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.7.1 - Development release
+
+	* Internal improvements
+	  - Initial overhaul of the BIGNUM code:
+	    - Added a new framework that allows architecture-dependent
+	      replacement implementations for bignum primitives
+	    - Imported s2n-bignum's constant time assembly primitives.
+	      Use them for amd64 and arm64.
+	    - Lots of cleanup, simplification and bug fixes
+	  - Assorted initial cleanup in the EC code
+	  - Fixed Perl assembly generators to move constants into .rodata.
+	    This allows code to run with execute-only permissions
+	* Bug fixes
+	  - Fixed a memory leak, a double free and various other issues in
+	    BIO_new_NDEF()
+	  - Avoid infinite loops in DSA and ECDSA signing
+	  - Check DSA parameter sanity
+	  - Fixed various crashes in the openssl(1) testing utility
+	  - Do not check policies by default in the new X.509 verifier
+	* Public API:
+	  - added EVP_CIPHER_meth_* support (only setters)
+	  - UI_null(), X509_CRL_get0_tbs_sigalg(), X509_STORE_*check_issued(),
+	    X509_get0_uids()
+	* Security fix
+	  - A malicious certificate revocation list or timestamp response token
+	    would allow an attacker to read arbitrary memory.
+
 3.7.0 - Development release
 
 	* Internal improvements

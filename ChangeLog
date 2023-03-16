@@ -52,12 +52,8 @@ LibreSSL Portable Release Notes:
 	    BIO_new_NDEF().
 	  - Fixed various crashes in the openssl(1) testing utility.
 	  - Do not check policies by default in the new X.509 verifier.
-	  - Avoid crash with ASN.1 BOOLEANS in openssl(1) asn1parse.
 	  - Added missing error checking in PKCS7.
 	  - Call CRYPTO_cleanup_all_ex_data() from OPENSSL_cleanup().
-	* Compatibility changes
-	  - Correct the prototypes of BIO_get_conn_ip(3) and
-	    BIO_get_conn_int_port(3).
 	* New features
 	  - Added UI_null()
 	  - Added X509_STORE_*check_issued()
@@ -66,7 +62,6 @@ LibreSSL Portable Release Notes:
 	* Documentation improvements
 	  - Marked BIO_s_log(3) BIO_nread0(3), BIO_nread(3), BIO_nwrite0(3), BIO_nwrite(3),
 	    BIO_dump_cb(3) and BIO_dump_indent_cb(3) as intentionally undocumented.
-	  - Merged documentation of UI_null() from OpenSSL 1.1
 	  - Document BIO_number_read(3), BIO_number_written(3),
 		BIO_set_retry_read(3), BIO_set_retry_write(3),
 		BIO_set_retry_special(3), BIO_clear_retry_flags(3),
@@ -74,15 +69,14 @@ LibreSSL Portable Release Notes:
 		BIO_clear_flags(3), BIO_test_flags(3), BIO_get_flags(3).
 		BIO_callback_fn_ex(3), BIO_set_callback_ex(3), BIO_get_callback_ex(3),
 		BIO_callback_fn(3), and the BIO_FLAGS_* constants
+	  - Correct the prototypes of BIO_get_conn_ip(3) and BIO_get_conn_int_port(3).
 	  - Document ED25519_keypair(3), ED25519_sign(3), and ED25519_verify(3).
 	  - Document EVP_PKEY_new_raw_private_key(3),
 		EVP_PKEY_new_raw_public_key(3), EVP_PKEY_get_raw_private_key(3), and
 		EVP_PKEY_get_raw_public_key(3).
 	  - Document ASN1_buf_print(3).
-	  - Document ECDSA_SIG_get0_{r,s}().
-	  - Document DH_get0_* for individual DH members.
-	  - Document DSA_get0_* for individual DSA members
-	  - Document RSA_get0_* for individual RSA members.
+	  - Document DH_get0_*, DSA_get0_*, ECDSA_SIG_get0_{r,s}() and RSA_get0_*.
+	  - Merged documentation of UI_null() from OpenSSL 1.1
 	  - Various spelling and other documentation improvements.
 	* Testing and Proactive Security
 	  - As always, new test coverage is added as bugs are fixed and subsystems

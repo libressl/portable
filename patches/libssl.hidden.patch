@@ -1,0 +1,15 @@
+diff -u openbsd/src/lib/libssl/hidden/openssl/ssl.h ssl/hidden/openssl/ssl.h
+--- openbsd/src/lib/libssl/hidden/openssl/ssl.h	2023-03-15 11:41:52.466146400 -0600
++++ ssl/hidden/openssl/ssl.h	2023-03-15 16:49:29.358377300 -0600
+@@ -18,7 +18,11 @@
+ #ifndef _LIBSSL_SSL_H_
+ #define _LIBSSL_SSL_H_
+ 
++#ifdef _MSC_VER
++#include <../include/openssl/ssl.h>
++#else
+ #include_next <openssl/ssl.h>
++#endif
+ #include "ssl_namespace.h"
+ 
+ LSSL_USED(BIO_f_ssl);

@@ -1,13 +1,22 @@
---- crypto/hidden/crypto_namespace.h.orig	2023-02-28 00:41:43.212756628 -0600
-+++ crypto/hidden/crypto_namespace.h	2023-02-28 00:42:01.152756349 -0600
-@@ -18,6 +18,10 @@
- #ifndef _LIBCRYPTO_CRYPTO_NAMESPACE_H_
- #define _LIBCRYPTO_CRYPTO_NAMESPACE_H_
+--- openbsd/src/lib/libcrypto/hidden/crypto_namespace.h	2023-03-15 11:41:37.614024500 -0600
++++ crypto/hidden/crypto_namespace.h	2023-03-15 17:12:55.297157400 -0600
+@@ -24,6 +24,12 @@
+  * external calls use the latter name.
+  */
  
-+#if defined(_MSC_VER) && !defined(__clang__) && !defined(__attribute__)
-+#define __attribute__(a)
-+#endif
-+
- /*
-  * If marked as 'used', then internal calls use the name with prefix "_lcry_"
-  * and we alias that to the normal name *and* the name with prefix "_libre_";
++#ifdef _MSC_VER
++# define LCRYPTO_UNUSED(x)
++# define LCRYPTO_USED(x)
++# define LCRYPTO_ALIAS1(pre, x)
++# define LCRYPTO_ALIAS(x)
++#else
+ #ifdef LIBRESSL_NAMESPACE
+ # define LCRYPTO_UNUSED(x)		typeof(x) x __attribute__((deprecated))
+ #ifdef LIBRESSL_CRYPTO_NAMESPACE
+@@ -40,5 +46,6 @@
+ # define LCRYPTO_ALIAS1(pre,x)
+ # define LCRYPTO_ALIAS(x)	asm("")
+ #endif
++#endif /* _MSC_VER */
+ 
+ #endif	/* _LIBCRYPTO_CRYPTO_NAMESPACE_H_ */

@@ -1,0 +1,24 @@
+ASM_MIPS64_ELF = aes/aes-mips.S
+ASM_MIPS64_ELF += bn/bn-mips.S
+ASM_MIPS64_ELF += bn/mont-mips.S
+ASM_MIPS64_ELF += sha/sha1-mips.S
+ASM_MIPS64_ELF += sha/sha512-mips.S
+ASM_MIPS64_ELF += sha/sha256-mips.S
+
+ASM_MIPS64_ELF += aes/aes_cbc.c
+ASM_MIPS64_ELF += camellia/camellia.c
+ASM_MIPS64_ELF += camellia/cmll_cbc.c
+ASM_MIPS64_ELF += rc4/rc4_enc.c
+ASM_MIPS64_ELF += rc4/rc4_skey.c
+ASM_MIPS64_ELF += whrlpool/wp_block.c
+
+EXTRA_DIST += $(ASM_MIPS64_ELF)
+
+if HOST_ASM_ELF_MIPS64
+libcrypto_la_CPPFLAGS += -DAES_ASM
+libcrypto_la_CPPFLAGS += -DOPENSSL_BN_ASM_MONT
+libcrypto_la_CPPFLAGS += -DSHA1_ASM
+libcrypto_la_CPPFLAGS += -DSHA256_ASM
+libcrypto_la_CPPFLAGS += -DSHA512_ASM
+libcrypto_la_SOURCES += $(ASM_MIPS64_ELF)
+endif

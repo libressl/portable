@@ -219,7 +219,7 @@ gen_asm() {
 	fi
 }
 
-#echo generating mips ASM source for elf
+echo generating mips ASM source for elf
 gen_asm_mips o32 aes aes-mips    aes-mips
 gen_asm_mips o32 bn  mips        bn-mips
 gen_asm_mips o32 bn  mips-mont   mont-mips

@@ -89,10 +89,10 @@ elif [ "x$ARCH" = "xarm32" -o "x$ARCH" = "xarm64" ]; then
 
 	file apps/openssl/.libs/openssl
 
-elif [ "x$ARCH" = "xmipsel" -o "x$ARCH" = "xmips64el" ]; then
+elif [ "x$ARCH" = "xmips32" -o "x$ARCH" = "xmips64" ]; then
 	sudo apt-get install -y qemu-user-static binfmt-support
 
-	if [ "x$ARCH" = "xmipsel" ]; then
+	if [ "x$ARCH" = "xmips32" ]; then
 		sudo apt-get install -y g++-mips-linux-gnu
 		sudo ln -sf /usr/mipsel-linux-gnu/lib/ld.so.1 /lib/
 		./configure --host=mipsel-linux-gnu

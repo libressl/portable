@@ -126,6 +126,11 @@ TESTS += bf_test
 check_PROGRAMS += bf_test
 bf_test_SOURCES = bf_test.c
 
+# bio_asn1
+TESTS += bio_asn1
+check_PROGRAMS += bio_asn1
+bio_asn1_SOURCES = bio_asn1.c
+
 # bio_chain
 TESTS += bio_chain
 check_PROGRAMS += bio_chain

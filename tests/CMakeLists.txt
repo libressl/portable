@@ -108,6 +108,11 @@ add_executable(bf_test bf_test.c)
 target_link_libraries(bf_test ${OPENSSL_TEST_LIBS})
 add_test(bf_test bf_test)
 
+# bio_asn1
+add_executable(bio_asn1 bio_asn1.c)
+target_link_libraries(bio_asn1 ${OPENSSL_TEST_LIBS})
+add_test(bio_asn1 bio_asn1)
+
 # bio_chain
 add_executable(bio_chain bio_chain.c)
 target_link_libraries(bio_chain ${OPENSSL_TEST_LIBS})

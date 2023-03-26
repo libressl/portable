@@ -28,6 +28,14 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.8.0 - Development release
+	* Internal improvements
+	  - Cleaned up SHA internals
+	  - Improved sieve of Eratosthenes script used for generating a table
+	    of small primes
+	* Bug fixes
+	  - Correctly reduce negative input to BN_mod_exp2_mont
+
 3.7.1 - Development release
 
 	* Internal improvements

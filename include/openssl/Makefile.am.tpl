@@ -17,6 +17,9 @@ endif
 if HOST_I386
 	-cp $(top_srcdir)/include/arch/i386/opensslconf.h opensslconf.h
 endif
+if HOST_MIPS
+	-cp $(top_srcdir)/include/arch/mips/opensslconf.h opensslconf.h
+endif
 if HOST_MIPS64
 	-cp $(top_srcdir)/include/arch/mips64/opensslconf.h opensslconf.h
 endif

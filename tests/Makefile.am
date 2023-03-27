@@ -165,12 +165,6 @@ check_PROGRAMS += bn_mod_exp
 bn_mod_exp_CPPFLAGS = $(AM_CPPFLAGS) -ULIBRESSL_INTERNAL
 bn_mod_exp_SOURCES = bn_mod_exp.c
 
-# bn_mod_exp_zero
-TESTS += bn_mod_exp_zero
-check_PROGRAMS += bn_mod_exp_zero
-bn_mod_exp_zero_CPPFLAGS = $(AM_CPPFLAGS) -ULIBRESSL_INTERNAL
-bn_mod_exp_zero_SOURCES = bn_mod_exp_zero.c
-
 # bn_mod_exp2_mont
 TESTS += bn_mod_exp2_mont
 check_PROGRAMS += bn_mod_exp2_mont

@@ -148,13 +148,6 @@ set_source_files_properties(bn_mod_exp.c PROPERTIES COMPILE_FLAGS
 target_link_libraries(bn_mod_exp ${OPENSSL_TEST_LIBS})
 add_test(bn_mod_exp bn_mod_exp)
 
-# bn_mod_exp_zero
-add_executable(bn_mod_exp_zero bn_mod_exp_zero.c)
-set_source_files_properties(bn_mod_exp_zero.c PROPERTIES COMPILE_FLAGS
-	-ULIBRESSL_INTERNAL)
-target_link_libraries(bn_mod_exp_zero ${OPENSSL_TEST_LIBS})
-add_test(bn_mod_exp_zero bn_mod_exp_zero)
-
 # bn_mod_exp2_mont
 add_executable(bn_mod_exp2_mont bn_mod_exp2_mont.c)
 target_link_libraries(bn_mod_exp2_mont ${OPENSSL_TEST_LIBS})

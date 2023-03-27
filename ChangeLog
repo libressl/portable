@@ -57,7 +57,7 @@ LibreSSL Portable Release Notes:
 	* New features
 	  - Added UI_null()
 	  - Added X509_STORE_*check_issued()
-	  - Added X509_CRL_get0_sigalg() and X509_get0_uids() accessors.
+	  - Added X509_CRL_get0_tbs_sigalg() and X509_get0_uids() accessors.
 	  - Added EVP_CIPHER_meth_*() setter API.
 	* Documentation improvements
 	  - Marked BIO_s_log(3) BIO_nread0(3), BIO_nread(3), BIO_nwrite0(3), BIO_nwrite(3),

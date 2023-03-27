@@ -12,10 +12,27 @@ if [ ! -d openbsd ]; then
 		git clone $LIBRESSL_GIT/openbsd
 	fi
 fi
-(cd openbsd
- git fetch
- git checkout $openbsd_branch
- git pull --rebase)
+
+# pull either the latest or if on a tag, the matching tag
+set +e
+tag=`git describe --exact-match --tags HEAD 2>/dev/null`
+is_tag=$?
+# adjust for 9 hour time delta between trees
+release_ts=$((`git show -s --format=%ct $tag|tail -n1` + 32400))
+commit=`git -C openbsd rev-list -n 1 --before=$release_ts $openbsd_branch`
+git -C openbsd fetch
+if [ $is_tag -eq 0 ]; then
+  echo "This is tag $tag, trying OpenBSD tag libressl-$tag"
+  if ! git -C openbsd checkout "libressl-$tag"; then
+    echo "No matching OpenBSD tag found trying nearest commit $commit"
+    git -C openbsd checkout -q $commit
+  fi
+else
+  echo "Not on a tag, grabbing latest (NOTE: this may be broken from time to time)"
+  git -C openbsd checkout $openbsd_branch
+  git -C openbsd pull
+fi
+set -e
 
 # setup source paths
 CWD=`pwd`

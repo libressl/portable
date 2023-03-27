@@ -136,10 +136,6 @@ endif
 libcrypto_la_CPPFLAGS = -I$(top_srcdir)/crypto/hidden ${AM_CPPFLAGS}
 libcrypto_la_CPPFLAGS += -DLIBRESSL_INTERNAL
 libcrypto_la_CPPFLAGS += -DOPENSSL_NO_HW_PADLOCK
-if OPENSSL_NO_ASM
-libcrypto_la_CPPFLAGS += -DOPENSSL_NO_ASM
-else
-endif
 
 if OPENSSLDIR_DEFINED
 libcrypto_la_CPPFLAGS += -DOPENSSLDIR=\"@OPENSSLDIR@\"
@@ -247,16 +243,21 @@ libcrypto_la_SOURCES =
 EXTRA_libcrypto_la_SOURCES =
 
 include Makefile.am.elf-arm
+include Makefile.am.elf-mips
+include Makefile.am.elf-mips64
 include Makefile.am.elf-x86_64
 include Makefile.am.macosx-x86_64
 include Makefile.am.masm-x86_64
 include Makefile.am.mingw64-x86_64
 
 if !HOST_ASM_ELF_ARM
+if !HOST_ASM_ELF_MIPS
+if !HOST_ASM_ELF_MIPS64
 if !HOST_ASM_ELF_X86_64
 if !HOST_ASM_MACOSX_X86_64
 if !HOST_ASM_MASM_X86_64
 if !HOST_ASM_MINGW64_X86_64
+libcrypto_la_CPPFLAGS += -DOPENSSL_NO_ASM
 libcrypto_la_SOURCES += aes/aes_cbc.c
 libcrypto_la_SOURCES += aes/aes_core.c
 libcrypto_la_SOURCES += camellia/camellia.c
@@ -264,6 +265,8 @@ libcrypto_la_SOURCES += camellia/cmll_cbc.c
 libcrypto_la_SOURCES += rc4/rc4_enc.c
 libcrypto_la_SOURCES += rc4/rc4_skey.c
 libcrypto_la_SOURCES += whrlpool/wp_block.c
+endif
+endif
 endif
 endif
 endif
@@ -458,6 +461,11 @@ if HOST_I386
 libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/i386/
 endif
 noinst_HEADERS += bn/arch/i386/bn_arch.h
+
+if HOST_MIPS
+libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/mips/
+endif
+noinst_HEADERS += bn/arch/mips/bn_arch.h
 
 if HOST_MIPS64
 libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/mips64/

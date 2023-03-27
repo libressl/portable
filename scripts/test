@@ -89,6 +89,23 @@ elif [ "x$ARCH" = "xarm32" -o "x$ARCH" = "xarm64" ]; then
 
 	file apps/openssl/.libs/openssl
 
+elif [ "x$ARCH" = "xmips32" -o "x$ARCH" = "xmips64" ]; then
+	sudo apt-get install -y qemu-user-static binfmt-support
+
+	if [ "x$ARCH" = "xmips32" ]; then
+		sudo apt-get install -y g++-mips-linux-gnu
+		sudo ln -sf /usr/mipsel-linux-gnu/lib/ld.so.1 /lib/
+		./configure --host=mipsel-linux-gnu
+		LD_LIBRARY_PATH=/usr/mipsel-linux-gnu/lib make -j 4 check
+	else
+		sudo apt-get install -y g++-mips64el-linux-gnuabi64
+		sudo ln -sf /usr/mips64el-linux-gnuabi64/lib64/ld.so.1 /lib64
+		./configure --host=mips64el-linux-gnuabi64
+		LD_LIBRARY_PATH=/usr/mips64el-linux-gnuabi64/lib make -j 4 check
+	fi
+
+	file apps/openssl/.libs/openssl
+
 elif [ "x$ARCH" = "xandroid" ]; then
 	export TC_FILE=$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake
 

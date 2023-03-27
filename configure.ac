@@ -77,9 +77,9 @@ AS_CASE([$host_cpu],
 	[arm64], [host_cpu=aarch64],
 	[*arm*], [host_cpu=arm],
 	[*amd64*], [host_cpu=x86_64 HOSTARCH=intel],
-	[i?86], [host_cpu=i386 HOSTARCH=intel],
-	[mipsel*], [host_cpu=mips],
-	[mips64el*], [host_cpu=mips64],
+	[i?86], [host_cpu=i386 HOSTARCH=intel enable_asm=no],
+	[mips64*], [host_cpu=mips64 enable_asm=no],
+	[mips*], [host_cpu=mips enable_asm=no],
 	[powerpc*], [host_cpu=powerpc],
 	[ppc64*], [host_cpu=powerpc64],
 	[x86_64], [HOSTARCH=intel]
@@ -109,13 +109,16 @@ int main() {return 0;}
    AC_MSG_RESULT(no)
 ])
 
-AC_ARG_ENABLE([asm],
-	AS_HELP_STRING([--disable-asm], [Disable assembly]))
-AM_CONDITIONAL([OPENSSL_NO_ASM], [test "x$enable_asm" = "xno" -o "$host_cpu" = "i386"])
+AC_ARG_ENABLE([asm], AS_HELP_STRING([--disable-asm], [Disable assembly]))
+AM_CONDITIONAL([OPENSSL_NO_ASM], [test "x$enable_asm" = "xno"])
 
 # Conditionally enable assembly by default
 AM_CONDITIONAL([HOST_ASM_ELF_ARM],
     [test "x$HOST_ABI" = "xelf" -a "$host_cpu" = "arm" -a "x$enable_asm" != "xno"])
+AM_CONDITIONAL([HOST_ASM_ELF_MIPS],
+    [test "x$HOST_ABI" = "xelf" -a "$host_cpu" = "mips" -a "x$enable_asm" != "xno"])
+AM_CONDITIONAL([HOST_ASM_ELF_MIPS64],
+    [test "x$HOST_ABI" = "xelf" -a "$host_cpu" = "mips64" -a "x$enable_asm" != "xno"])
 AM_CONDITIONAL([HOST_ASM_ELF_X86_64],
     [test "x$HOST_ABI" = "xelf" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
 AM_CONDITIONAL([HOST_ASM_MACOSX_X86_64],

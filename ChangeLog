@@ -29,12 +29,18 @@ history is also available from Git.
 LibreSSL Portable Release Notes:
 
 3.8.0 - Development release
+
 	* Internal improvements
-	  - Cleaned up SHA internals
 	  - Improved sieve of Eratosthenes script used for generating a table
-	    of small primes
+	    of small primes.
+	  - Cleaned up SHA internals.
+	  - Replace internal use of BN_copy() with bn_copy() for consistency.
 	* Bug fixes
-	  - Correctly reduce negative input to BN_mod_exp2_mont
+	  - Correctly reduce negative input to BN_mod_exp2_mont().
+	  - Ensure ERR_load_ERR_strings() does not set errno unexpectedly.
+	* Testing and Proactive Security
+	  - As always, new test coverage is added as bugs are fixed and subsystems
+	    are cleaned up.
 
 3.7.1 - Development release
 

@@ -39,6 +39,7 @@ LibreSSL Portable Release Notes:
 	* Bug fixes
 	  - Correctly reduce negative input to BN_mod_exp2_mont().
 	  - Ensure ERR_load_ERR_strings() does not set errno unexpectedly.
+	  - Fix error checking of i2d_ECDSA_SIG() in ossl_ecdsa_sign().
 	* Testing and Proactive Security
 	  - As always, new test coverage is added as bugs are fixed and subsystems
 	    are cleaned up.

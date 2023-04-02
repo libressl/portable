@@ -28,6 +28,15 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.7.2 - Stable release
+
+	* Portable changes
+	 - Moved official Github project to http://github.com/libressl/
+	 - Build support for Apple Silicon
+	 - Installed opensslconf.h is now architecture-specific
+	 - Removed internal defines from opensslconf.h
+	 - Support reproducible builds on tagged commits in main branch
+
 3.7.1 - Development release
 
 	* Internal improvements

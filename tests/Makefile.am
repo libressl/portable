@@ -159,6 +159,11 @@ TESTS += bn_cmp
 check_PROGRAMS += bn_cmp
 bn_cmp_SOURCES = bn_cmp.c
 
+# bn_gcd
+TESTS += bn_gcd
+check_PROGRAMS += bn_gcd
+bn_gcd_SOURCES = bn_gcd.c
+
 # bn_isqrt
 TESTS += bn_isqrt
 check_PROGRAMS += bn_isqrt

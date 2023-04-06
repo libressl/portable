@@ -36,11 +36,15 @@ LibreSSL Portable Release Notes:
 	  - Cleaned up SHA internals.
 	  - Replace internal use of BN_copy() with bn_copy() for consistency.
 	  - Rewrote BN_exp().
+	  - Add branch target information (BTI) support to arm64 assembly.
 	* Bug fixes
 	  - Correctly reduce negative input to BN_mod_exp2_mont().
 	  - Ensure ERR_load_ERR_strings() does not set errno unexpectedly.
 	  - Fix error checking of i2d_ECDSA_SIG() in ossl_ecdsa_sign().
+	  - Fixed detection of extended operations (XOP) on AMD hardware.
+	  - Ensure Montgomery exponentiation is used for the initial RSA blinding.
 	* Testing and Proactive Security
+	  - Significantly improved test coverage of BN_mod_sqrt() and GCD.
 	  - As always, new test coverage is added as bugs are fixed and subsystems
 	    are cleaned up.
 

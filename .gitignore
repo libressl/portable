@@ -27,11 +27,18 @@
 *.gcov
 *.gcda
 
+# mandoc stuff
+links
+mandoc.db
+
 # Autotools stuff
 .deps
 .dirstamp
 Makefile
 Makefile.in
+
+# CMake stuff
+build
 
 # Libtool stuff
 .libs
@@ -67,7 +74,9 @@ tests/asn1string_copy*
 tests/asn1_string_to_utf8*
 tests/asn1time*
 tests/asn1x509*
+tests/bio_asn1*
 tests/bio_chain*
+tests/bio_host*
 tests/bio_mem*
 tests/bnaddsub*
 tests/bn_add_sub*
@@ -127,6 +136,15 @@ tests/server.c
 tests/util.c
 tests/valid_handshakes_terminate*
 tests/handshake_table*
+
+# benchmarks, tests with external dependencies
+tests/bn_general*
+tests/bn_mul_div*
+tests/expirecallback*
+tests/wycheproof-primes*
+
+# update.sh creates this for some reason
+tests/empty.c
 
 # ctags stuff
 TAGS

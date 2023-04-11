@@ -30,6 +30,8 @@ LibreSSL Portable Release Notes:
 
 3.8.0 - In development
 
+	* Portable changes
+	  - Extended the endian.h compat header with htobe* and betoh* macros.
 	* Internal improvements
 	  - Improved sieve of Eratosthenes script used for generating a table
 	    of small primes.

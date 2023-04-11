@@ -62,11 +62,20 @@
 
 #if defined(_WIN32) && !defined(HAVE_ENDIAN_H)
 #include <winsock2.h>
+
 #define betoh16(x) ntohs((x))
 #define htobe16(x) htons((x))
 #define betoh32(x) ntohl((x))
 #define htobe32(x) ntohl((x))
 #define betoh64(x) ntohll((x))
+
+#if !defined(ntohll)
+#define ntohll(x) ((1==htonl(1)) ? (x) : ((uint64_t)ntohl((x) & 0xFFFFFFFF) << 32) | ntohl((x) >> 32))
+#endif
+#if !defined(htonll)
+#define htonll(x) ((1==ntohl(1)) ? (x) : ((uint64_t)htonl((x) & 0xFFFFFFFF) << 32) | htonl((x) >> 32))
+#endif
+
 #define htobe64(x) ntohll((x))
 #endif /* _WIN32 && !HAVE_ENDIAN_H */
 

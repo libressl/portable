@@ -370,6 +370,7 @@ set(
 	bn/bn_kron.c
 	bn/bn_lib.c
 	bn/bn_mod.c
+	bn/bn_mod_sqrt.c
 	bn/bn_mont.c
 	bn/bn_mpi.c
 	bn/bn_mul.c
@@ -381,7 +382,6 @@ set(
 	bn/bn_shift.c
 	bn/bn_small_primes.c
 	bn/bn_sqr.c
-	bn/bn_sqrt.c
 	bn/bn_word.c
 	bn/bn_x931p.c
 	buffer/buf_err.c
@@ -723,8 +723,7 @@ set(
 	rsa/rsa_saos.c
 	rsa/rsa_sign.c
 	rsa/rsa_x931.c
-	sha/sha1_one.c
-	sha/sha1dgst.c
+	sha/sha1.c
 	sha/sha256.c
 	sha/sha512.c
 	sm3/sm3.c

@@ -426,6 +426,7 @@ libcrypto_la_SOURCES += bn/bn_isqrt.c
 libcrypto_la_SOURCES += bn/bn_kron.c
 libcrypto_la_SOURCES += bn/bn_lib.c
 libcrypto_la_SOURCES += bn/bn_mod.c
+libcrypto_la_SOURCES += bn/bn_mod_sqrt.c
 libcrypto_la_SOURCES += bn/bn_mont.c
 libcrypto_la_SOURCES += bn/bn_mpi.c
 libcrypto_la_SOURCES += bn/bn_mul.c
@@ -437,7 +438,6 @@ libcrypto_la_SOURCES += bn/bn_recp.c
 libcrypto_la_SOURCES += bn/bn_shift.c
 libcrypto_la_SOURCES += bn/bn_small_primes.c
 libcrypto_la_SOURCES += bn/bn_sqr.c
-libcrypto_la_SOURCES += bn/bn_sqrt.c
 libcrypto_la_SOURCES += bn/bn_word.c
 libcrypto_la_SOURCES += bn/bn_x931p.c
 noinst_HEADERS += bn/bn_internal.h
@@ -969,8 +969,7 @@ libcrypto_la_SOURCES += rsa/rsa_x931.c
 noinst_HEADERS += rsa/rsa_local.h
 
 # sha
-libcrypto_la_SOURCES += sha/sha1_one.c
-libcrypto_la_SOURCES += sha/sha1dgst.c
+libcrypto_la_SOURCES += sha/sha1.c
 libcrypto_la_SOURCES += sha/sha256.c
 libcrypto_la_SOURCES += sha/sha512.c
 noinst_HEADERS += sha/sha_local.h

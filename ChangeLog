@@ -33,10 +33,11 @@ LibreSSL Portable Release Notes:
 	* Internal improvements
 	  - Improved sieve of Eratosthenes script used for generating a table
 	    of small primes.
-	  - Cleaned up SHA internals.
+	  - Cleaned up and rewrote SHA internals.
 	  - Replace internal use of BN_copy() with bn_copy() for consistency.
 	  - Rewrote BN_exp().
 	  - Add branch target information (BTI) support to arm64 assembly.
+	  - Added a new implementation of BN_mod_sqrt().
 	* Bug fixes
 	  - Correctly reduce negative input to BN_mod_exp2_mont().
 	  - Ensure ERR_load_ERR_strings() does not set errno unexpectedly.

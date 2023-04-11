@@ -136,15 +136,15 @@ add_executable(bn_add_sub bn_add_sub.c)
 target_link_libraries(bn_add_sub ${OPENSSL_TEST_LIBS})
 add_test(bn_add_sub bn_add_sub)
 
-# bn_gcd
-add_executable(bn_gcd bn_cmp.c)
-target_link_libraries(bn_gcd ${OPENSSL_TEST_LIBS})
-add_test(bn_gcd bn_gcd)
-
 # bn_cmp
 add_executable(bn_cmp bn_cmp.c)
 target_link_libraries(bn_cmp ${OPENSSL_TEST_LIBS})
 add_test(bn_cmp bn_cmp)
+
+# bn_gcd
+add_executable(bn_gcd bn_cmp.c)
+target_link_libraries(bn_gcd ${OPENSSL_TEST_LIBS})
+add_test(bn_gcd bn_gcd)
 
 # bn_isqrt
 add_executable(bn_isqrt bn_isqrt.c)

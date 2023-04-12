@@ -46,6 +46,11 @@ LibreSSL Portable Release Notes:
 	  - Fix error checking of i2d_ECDSA_SIG() in ossl_ecdsa_sign().
 	  - Fixed detection of extended operations (XOP) on AMD hardware.
 	  - Ensure Montgomery exponentiation is used for the initial RSA blinding.
+	* Documentation improvements
+	  - Improved documentation of BIO_ctrl(3), BIO_set_info_callback(3), 
+	    BIO_get_info_callback(3), BIO_method_type(3), and BIO_method_name(3).
+	  - Marked BIO_CB_return(), BIO_cb_pre(), and BIO_cb_Post() as intentionally
+	    undocumented.
 	* Testing and Proactive Security
 	  - Significantly improved test coverage of BN_mod_sqrt() and GCD.
 	  - As always, new test coverage is added as bugs are fixed and subsystems

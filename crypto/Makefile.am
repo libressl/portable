@@ -292,6 +292,7 @@ libcrypto_la_SOURCES += o_str.c
 noinst_HEADERS += arm_arch.h
 noinst_HEADERS += constant_time.h
 noinst_HEADERS += cryptlib.h
+noinst_HEADERS += crypto_internal.h
 noinst_HEADERS += md32_common.h
 noinst_HEADERS += x86_arch.h
 
@@ -972,7 +973,6 @@ noinst_HEADERS += rsa/rsa_local.h
 libcrypto_la_SOURCES += sha/sha1.c
 libcrypto_la_SOURCES += sha/sha256.c
 libcrypto_la_SOURCES += sha/sha512.c
-noinst_HEADERS += sha/sha_local.h
 
 # sm3
 libcrypto_la_SOURCES += sm3/sm3.c

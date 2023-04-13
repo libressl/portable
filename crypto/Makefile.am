@@ -620,7 +620,6 @@ noinst_HEADERS += des/spr.h
 libcrypto_la_SOURCES += dh/dh_ameth.c
 libcrypto_la_SOURCES += dh/dh_asn1.c
 libcrypto_la_SOURCES += dh/dh_check.c
-libcrypto_la_SOURCES += dh/dh_depr.c
 libcrypto_la_SOURCES += dh/dh_err.c
 libcrypto_la_SOURCES += dh/dh_gen.c
 libcrypto_la_SOURCES += dh/dh_key.c
@@ -632,7 +631,6 @@ noinst_HEADERS += dh/dh_local.h
 # dsa
 libcrypto_la_SOURCES += dsa/dsa_ameth.c
 libcrypto_la_SOURCES += dsa/dsa_asn1.c
-libcrypto_la_SOURCES += dsa/dsa_depr.c
 libcrypto_la_SOURCES += dsa/dsa_err.c
 libcrypto_la_SOURCES += dsa/dsa_gen.c
 libcrypto_la_SOURCES += dsa/dsa_key.c
@@ -687,8 +685,6 @@ libcrypto_la_SOURCES += ecdsa/ecs_asn1.c
 libcrypto_la_SOURCES += ecdsa/ecs_err.c
 libcrypto_la_SOURCES += ecdsa/ecs_lib.c
 libcrypto_la_SOURCES += ecdsa/ecs_ossl.c
-libcrypto_la_SOURCES += ecdsa/ecs_sign.c
-libcrypto_la_SOURCES += ecdsa/ecs_vrf.c
 noinst_HEADERS += ecdsa/ecs_local.h
 
 # engine
@@ -952,7 +948,6 @@ libcrypto_la_SOURCES += rsa/rsa_ameth.c
 libcrypto_la_SOURCES += rsa/rsa_asn1.c
 libcrypto_la_SOURCES += rsa/rsa_chk.c
 libcrypto_la_SOURCES += rsa/rsa_crpt.c
-libcrypto_la_SOURCES += rsa/rsa_depr.c
 libcrypto_la_SOURCES += rsa/rsa_eay.c
 libcrypto_la_SOURCES += rsa/rsa_err.c
 libcrypto_la_SOURCES += rsa/rsa_gen.c

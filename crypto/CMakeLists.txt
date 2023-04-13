@@ -466,7 +466,6 @@ set(
 	dh/dh_ameth.c
 	dh/dh_asn1.c
 	dh/dh_check.c
-	dh/dh_depr.c
 	dh/dh_err.c
 	dh/dh_gen.c
 	dh/dh_key.c
@@ -475,7 +474,6 @@ set(
 	dh/dh_prn.c
 	dsa/dsa_ameth.c
 	dsa/dsa_asn1.c
-	dsa/dsa_depr.c
 	dsa/dsa_err.c
 	dsa/dsa_gen.c
 	dsa/dsa_key.c
@@ -519,8 +517,6 @@ set(
 	ecdsa/ecs_err.c
 	ecdsa/ecs_lib.c
 	ecdsa/ecs_ossl.c
-	ecdsa/ecs_sign.c
-	ecdsa/ecs_vrf.c
 	engine/eng_all.c
 	engine/eng_cnf.c
 	engine/eng_ctrl.c
@@ -708,7 +704,6 @@ set(
 	rsa/rsa_asn1.c
 	rsa/rsa_chk.c
 	rsa/rsa_crpt.c
-	rsa/rsa_depr.c
 	rsa/rsa_eay.c
 	rsa/rsa_err.c
 	rsa/rsa_gen.c

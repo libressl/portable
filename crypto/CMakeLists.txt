@@ -360,6 +360,7 @@ set(
 	bn/bn_blind.c
 	bn/bn_bpsw.c
 	bn/bn_const.c
+	bn/bn_convert.c
 	bn/bn_ctx.c
 	bn/bn_div.c
 	bn/bn_err.c
@@ -376,7 +377,6 @@ set(
 	bn/bn_mul.c
 	bn/bn_nist.c
 	bn/bn_prime.c
-	bn/bn_print.c
 	bn/bn_rand.c
 	bn/bn_recp.c
 	bn/bn_shift.c

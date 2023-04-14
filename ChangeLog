@@ -36,8 +36,9 @@ LibreSSL Portable Release Notes:
 	  - Improved sieve of Eratosthenes script used for generating a table
 	    of small primes.
 	  - Cleaned up and rewrote SHA internals.
+	  - Added initial support for truncated SHA-2.
 	  - Replace internal use of BN_copy() with bn_copy() for consistency.
-	  - Rewrote BN_exp().
+	  - Rewrote and improved BN_exp() and BN_copy().
 	  - Add branch target information (BTI) support to arm64 assembly.
 	  - Added a new implementation of BN_mod_sqrt().
 	* Bug fixes
@@ -53,6 +54,7 @@ LibreSSL Portable Release Notes:
 	    undocumented.
 	* Testing and Proactive Security
 	  - Significantly improved test coverage of BN_mod_sqrt() and GCD.
+	  - Made more tests available in portable.
 	  - As always, new test coverage is added as bugs are fixed and subsystems
 	    are cleaned up.
 

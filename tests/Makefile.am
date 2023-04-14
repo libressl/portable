@@ -57,6 +57,12 @@ TESTS += aes_wrap
 check_PROGRAMS += aes_wrap
 aes_wrap_SOURCES = aes_wrap.c
 
+# apitest
+TESTS += apitest
+check_PROGRAMS += apitest
+apitest_SOURCES = apitest.c
+apitest_CPPFLAGS = $(AM_CPPFLAGS) -DCERTSDIR=\"$(srcdir)\"
+
 # arc4randomforktest
 # Windows/mingw does not have fork, but Cygwin does.
 if !HOST_WIN
@@ -164,6 +170,8 @@ TESTS += bn_gcd
 check_PROGRAMS += bn_gcd
 bn_gcd_SOURCES = bn_gcd.c
 
+# bn_general is a benchmark.
+
 # bn_isqrt
 TESTS += bn_isqrt
 check_PROGRAMS += bn_isqrt
@@ -231,6 +239,9 @@ TESTS += bytestringtest
 check_PROGRAMS += bytestringtest
 bytestringtest_SOURCES = bytestringtest.c
 
+# callback
+# callbackfailures
+
 # casttest
 TESTS += casttest
 check_PROGRAMS += casttest
@@ -276,6 +287,15 @@ constraints_SOURCES = constraints.c
 TESTS += cts128test
 check_PROGRAMS += cts128test
 cts128test_SOURCES = cts128test.c
+
+# cttest
+TESTS += cttest
+check_PROGRAMS += cttest
+cttest_SOURCES = cttest.c
+cttest_CPPFLAGS = $(AM_CPPFLAGS) -DCTPATH=\"$(srcdir)\"
+EXTRA_DIST += ctlog.conf
+EXTRA_DIST += letsencrypt-r3.crt
+EXTRA_DIST += libressl.org.crt
 
 # destest
 TESTS += destest
@@ -358,6 +378,13 @@ evptest_SOURCES = evptest.c
 EXTRA_DIST += evptest.sh
 EXTRA_DIST += evptests.txt
 
+# evp_test
+TESTS += evp_test
+check_PROGRAMS += evp_test
+evp_test_SOURCES = evp_test.c
+
+# expirecallback.c
+
 # explicit_bzero
 # explicit_bzero relies on SA_ONSTACK, which is unavailable on Windows
 if !HOST_WIN
@@ -370,6 +397,11 @@ explicit_bzero_SOURCES += compat/memmem.c
 endif
 endif
 endif
+
+# exportertest
+TESTS += exportertest
+check_PROGRAMS += exportertest
+exportertest_SOURCES = exportertest.c
 
 # freenull
 TESTS += freenull
@@ -411,6 +443,8 @@ ideatest_SOURCES = ideatest.c
 TESTS += igetest
 check_PROGRAMS += igetest
 igetest_SOURCES = igetest.c
+
+# init_pledge.c
 
 # key_schedule
 TESTS += key_schedule
@@ -536,6 +570,8 @@ TESTS += rsa_test
 check_PROGRAMS += rsa_test
 rsa_test_SOURCES = rsa_test.c
 
+# server.c
+
 # servertest
 TESTS += servertest.sh
 check_PROGRAMS += servertest
@@ -546,6 +582,16 @@ EXTRA_DIST += servertest.sh servertest.bat
 TESTS += sha_test
 check_PROGRAMS += sha_test
 sha_test_SOURCES = sha_test.c
+
+# signertest
+TESTS += signertest
+check_PROGRAMS += signertest
+signertest_CPPFLAGS = -I $(top_srcdir)/tls $(AM_CPPFLAGS) -DCERTSDIR=\"$(srcdir)\"
+signertest_SOURCES = signertest.c
+
+# sm2crypttest
+# sm2evptest
+# sm2sigtest
 
 # sm3test
 TESTS += sm3test

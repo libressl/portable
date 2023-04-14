@@ -353,6 +353,8 @@ for i in `find $libcrypto_regress -name '*.c'`; do
 done
 $CP $libcrypto_regress/evp/evptests.txt tests
 $CP $libcrypto_regress/aead/*.txt tests
+$CP $libcrypto_regress/ct/ctlog.conf tests
+$CP $libcrypto_regress/ct/*.crt tests
 
 # generate libcrypto freenull.c
 awk -f $libcrypto_regress/free/freenull.awk \

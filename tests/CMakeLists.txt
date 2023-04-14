@@ -40,6 +40,13 @@ add_executable(aes_wrap aes_wrap.c)
 target_link_libraries(aes_wrap ${OPENSSL_TEST_LIBS})
 add_test(aes_wrap aes_wrap)
 
+# apitest
+add_executable(apitest apitest.c)
+target_link_libraries(apitest ${OPENSSL_TEST_LIBS})
+set_source_files_properties(apitest.c PROPERTIES COMPILE_FLAGS
+	-DCERTSDIR=\\"${CMAKE_CURRENT_SOURCE_DIR}\\")
+add_test(apitest apitest)
+
 # arc4randomforktest
 # Windows/mingw does not have fork, but Cygwin does.
 if(NOT (WIN32 OR (CMAKE_SYSTEM_NAME MATCHES "MINGW")))
@@ -146,6 +153,8 @@ add_executable(bn_gcd bn_cmp.c)
 target_link_libraries(bn_gcd ${OPENSSL_TEST_LIBS})
 add_test(bn_gcd bn_gcd)
 
+# bn_general is a benchmark
+
 # bn_isqrt
 add_executable(bn_isqrt bn_isqrt.c)
 target_link_libraries(bn_isqrt ${OPENSSL_TEST_LIBS})
@@ -215,6 +224,9 @@ add_executable(bytestringtest bytestringtest.c)
 target_link_libraries(bytestringtest ${OPENSSL_TEST_LIBS})
 add_test(bytestringtest bytestringtest)
 
+# callback
+# callbackfailures
+
 # casttest
 add_executable(casttest casttest.c)
 target_link_libraries(casttest ${OPENSSL_TEST_LIBS})
@@ -259,6 +271,13 @@ add_test(constraints constraints)
 add_executable(cts128test cts128test.c)
 target_link_libraries(cts128test ${OPENSSL_TEST_LIBS})
 add_test(cts128test cts128test)
+
+# cttest
+add_executable(cttest cttest.c)
+target_link_libraries(cttest ${OPENSSL_TEST_LIBS})
+set_source_files_properties(cttest.c PROPERTIES COMPILE_FLAGS
+	-DCTPATH=\\"${CMAKE_CURRENT_SOURCE_DIR}\\")
+add_test(cttest cttest)
 
 # destest
 add_executable(destest destest.c)
@@ -339,6 +358,13 @@ add_executable(evptest evptest.c)
 target_link_libraries(evptest ${OPENSSL_TEST_LIBS})
 add_test(evptest evptest ${CMAKE_CURRENT_SOURCE_DIR}/evptests.txt)
 
+# evp_test
+add_executable(evp_test evp_test.c)
+target_link_libraries(evp_test ${OPENSSL_TEST_LIBS})
+add_test(evp_test evp_test)
+
+# expirecallback.c
+
 # explicit_bzero
 # explicit_bzero relies on SA_ONSTACK, which is unavailable on Windows
 if(NOT WIN32)
@@ -350,6 +376,11 @@ if(NOT WIN32)
 	target_link_libraries(explicit_bzero ${OPENSSL_TEST_LIBS})
 	add_test(explicit_bzero explicit_bzero)
 endif()
+
+# exportertest
+add_executable(exportertest exportertest.c)
+target_link_libraries(exportertest ${OPENSSL_TEST_LIBS})
+add_test(exportertest exportertest)
 
 # freenull
 add_executable(freenull freenull.c)
@@ -393,11 +424,14 @@ add_executable(igetest igetest.c)
 target_link_libraries(igetest ${OPENSSL_TEST_LIBS})
 add_test(igetest igetest)
 
-# keypairtest
+# init_pledge
+
+# key_schedule
 add_executable(key_schedule key_schedule.c)
 target_link_libraries(key_schedule ${OPENSSL_TEST_LIBS})
 add_test(key_schedule key_schedule)
 
+# keypair
 add_executable(keypairtest keypairtest.c)
 target_link_libraries(keypairtest ${LIBTLS_TEST_LIBS})
 target_include_directories(keypairtest BEFORE PUBLIC ../tls)
@@ -528,6 +562,8 @@ add_executable(rsa_test rsa_test.c)
 target_link_libraries(rsa_test ${OPENSSL_TEST_LIBS})
 add_test(rsa_test rsa_test)
 
+# server.c
+
 # servertest
 add_executable(servertest servertest.c)
 target_link_libraries(servertest ${OPENSSL_TEST_LIBS})
@@ -542,6 +578,18 @@ set_tests_properties(servertest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR
 add_executable(sha_test sha_test.c)
 target_link_libraries(sha_test ${OPENSSL_TEST_LIBS})
 add_test(sha_test sha_test)
+
+# signertest
+add_executable(signertest signertest.c)
+target_link_libraries(signertest ${LIBTLS_TEST_LIBS})
+target_include_directories(signertest BEFORE PUBLIC ../tls)
+set_source_files_properties(signertest.c PROPERTIES COMPILE_FLAGS
+	-DCERTSDIR=\\"${CMAKE_CURRENT_SOURCE_DIR}\\")
+add_test(signertest signertest)
+
+# sm2crypttest
+# sm2evptest
+# sm2sigtest
 
 # sm3test
 add_executable(sm3test sm3test.c)

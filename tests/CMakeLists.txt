@@ -579,13 +579,14 @@ add_executable(sha_test sha_test.c)
 target_link_libraries(sha_test ${OPENSSL_TEST_LIBS})
 add_test(sha_test sha_test)
 
+# XXX HAVE_SOCKETPAIR
 # signertest
-add_executable(signertest signertest.c)
-target_link_libraries(signertest ${LIBTLS_TEST_LIBS})
-target_include_directories(signertest BEFORE PUBLIC ../tls)
-set_source_files_properties(signertest.c PROPERTIES COMPILE_FLAGS
-	-DCERTSDIR=\\"${CMAKE_CURRENT_SOURCE_DIR}\\")
-add_test(signertest signertest)
+# add_executable(signertest signertest.c)
+# target_link_libraries(signertest ${LIBTLS_TEST_LIBS})
+# target_include_directories(signertest BEFORE PUBLIC ../tls)
+# set_source_files_properties(signertest.c PROPERTIES COMPILE_FLAGS
+#	-DCERTSDIR=\\"${CMAKE_CURRENT_SOURCE_DIR}\\")
+# add_test(signertest signertest)
 
 # sm2crypttest
 # sm2evptest

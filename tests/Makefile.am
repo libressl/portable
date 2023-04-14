@@ -583,11 +583,12 @@ TESTS += sha_test
 check_PROGRAMS += sha_test
 sha_test_SOURCES = sha_test.c
 
+# XXX HAVE_SOCKETPAIR
 # signertest
-TESTS += signertest
-check_PROGRAMS += signertest
-signertest_CPPFLAGS = -I $(top_srcdir)/tls $(AM_CPPFLAGS) -DCERTSDIR=\"$(srcdir)\"
-signertest_SOURCES = signertest.c
+# TESTS += signertest
+# check_PROGRAMS += signertest
+# signertest_CPPFLAGS = -I $(top_srcdir)/tls $(AM_CPPFLAGS) -DCERTSDIR=\"$(srcdir)\"
+# signertest_SOURCES = signertest.c
 
 # sm2crypttest
 # sm2evptest

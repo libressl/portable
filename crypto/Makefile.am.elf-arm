@@ -1,5 +1,4 @@
 ASM_ARM_ELF = aes/aes-elf-armv4.S
-ASM_ARM_ELF += bn/gf2m-elf-armv4.S
 ASM_ARM_ELF += bn/mont-elf-armv4.S
 ASM_ARM_ELF += sha/sha1-elf-armv4.S
 ASM_ARM_ELF += sha/sha512-elf-armv4.S
@@ -20,7 +19,6 @@ EXTRA_DIST += $(ASM_ARM_ELF)
 if HOST_ASM_ELF_ARM
 libcrypto_la_CPPFLAGS += -DAES_ASM
 libcrypto_la_CPPFLAGS += -DOPENSSL_BN_ASM_MONT
-libcrypto_la_CPPFLAGS += -DOPENSSL_BN_ASM_GF2m
 libcrypto_la_CPPFLAGS += -DGHASH_ASM
 libcrypto_la_CPPFLAGS += -DSHA1_ASM
 libcrypto_la_CPPFLAGS += -DSHA256_ASM

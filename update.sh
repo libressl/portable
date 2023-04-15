@@ -254,7 +254,6 @@ gen_asm_mips 64 sha sha512-mips sha512-mips64
 
 echo generating arm ASM source for elf
 gen_asm_stdout elf aes/asm/aes-armv4.pl        aes/aes-elf-armv4.S
-gen_asm_stdout elf bn/asm/armv4-gf2m.pl        bn/gf2m-elf-armv4.S
 gen_asm_stdout elf bn/asm/armv4-mont.pl        bn/mont-elf-armv4.S
 gen_asm_stdout elf sha/asm/sha1-armv4-large.pl sha/sha1-elf-armv4.S
 gen_asm_stdout elf sha/asm/sha256-armv4.pl     sha/sha256-elf-armv4.S
@@ -274,7 +273,6 @@ for abi in elf macosx masm mingw64; do
 	gen_asm_stdout $abi bn/asm/modexp512-x86_64.pl   bn/modexp512-$abi-x86_64.S
 	gen_asm_stdout $abi bn/asm/x86_64-mont.pl        bn/mont-$abi-x86_64.S
 	gen_asm_stdout $abi bn/asm/x86_64-mont5.pl       bn/mont5-$abi-x86_64.S
-	gen_asm_stdout $abi bn/asm/x86_64-gf2m.pl        bn/gf2m-$abi-x86_64.S
 	gen_asm_stdout $abi camellia/asm/cmll-x86_64.pl  camellia/cmll-$abi-x86_64.S
 	gen_asm_stdout $abi md5/asm/md5-x86_64.pl        md5/md5-$abi-x86_64.S
 	gen_asm_stdout $abi modes/asm/ghash-x86_64.pl    modes/ghash-$abi-x86_64.S

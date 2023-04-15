@@ -32,15 +32,20 @@ LibreSSL Portable Release Notes:
 
 	* Portable changes
 	  - Extended the endian.h compat header with htobe* and betoh* macros.
+	  - Adapted more tests to the portable framework.
 	* Internal improvements
 	  - Improved sieve of Eratosthenes script used for generating a table
 	    of small primes.
 	  - Cleaned up and rewrote SHA internals.
-	  - Added initial support for truncated SHA-2.
 	  - Replace internal use of BN_copy() with bn_copy() for consistency.
 	  - Rewrote and improved BN_exp() and BN_copy().
 	  - Add branch target information (BTI) support to arm64 assembly.
 	  - Added a new implementation of BN_mod_sqrt().
+	* New features
+	  - Added support for truncated SHA-2 and for SHA-3.
+	* Compatibility changes
+	  - Removed X9.31 support
+	  - Dropped proxy certificate (RFC 3820) support
 	* Bug fixes
 	  - Correctly reduce negative input to BN_mod_exp2_mont().
 	  - Ensure ERR_load_ERR_strings() does not set errno unexpectedly.
@@ -54,7 +59,6 @@ LibreSSL Portable Release Notes:
 	    undocumented.
 	* Testing and Proactive Security
 	  - Significantly improved test coverage of BN_mod_sqrt() and GCD.
-	  - Made more tests available in portable.
 	  - As always, new test coverage is added as bugs are fixed and subsystems
 	    are cleaned up.
 

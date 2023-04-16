@@ -44,8 +44,8 @@ LibreSSL Portable Release Notes:
 	* New features
 	  - Added support for truncated SHA-2 and for SHA-3.
 	* Compatibility changes
-	  - Removed X9.31 support
-	  - Dropped proxy certificate (RFC 3820) support
+	  - Removed X9.31 support.
+	  - Dropped proxy certificate (RFC 3820) support.
 	* Bug fixes
 	  - Correctly reduce negative input to BN_mod_exp2_mont().
 	  - Ensure ERR_load_ERR_strings() does not set errno unexpectedly.

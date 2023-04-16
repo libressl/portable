@@ -17,6 +17,7 @@ AM_CPPFLAGS += -I$(top_srcdir)/crypto/modes
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/ocsp
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/pkcs12
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/rsa
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/sha
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/x509
 AM_CPPFLAGS += -I$(top_srcdir)/crypto
 

@@ -1012,6 +1012,7 @@ target_include_directories(crypto_obj
 		ocsp
 		pkcs12
 		rsa
+		sha
 		x509
 		../include/compat
 	PUBLIC

@@ -363,7 +363,6 @@ set(
 	bn/bn_mod.c
 	bn/bn_mod_sqrt.c
 	bn/bn_mont.c
-	bn/bn_mpi.c
 	bn/bn_mul.c
 	bn/bn_nist.c
 	bn/bn_prime.c

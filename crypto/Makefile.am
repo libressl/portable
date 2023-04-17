@@ -431,7 +431,6 @@ libcrypto_la_SOURCES += bn/bn_lib.c
 libcrypto_la_SOURCES += bn/bn_mod.c
 libcrypto_la_SOURCES += bn/bn_mod_sqrt.c
 libcrypto_la_SOURCES += bn/bn_mont.c
-libcrypto_la_SOURCES += bn/bn_mpi.c
 libcrypto_la_SOURCES += bn/bn_mul.c
 libcrypto_la_SOURCES += bn/bn_nist.c
 libcrypto_la_SOURCES += bn/bn_prime.c

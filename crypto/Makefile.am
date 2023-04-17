@@ -626,7 +626,6 @@ libcrypto_la_SOURCES += dh/dh_gen.c
 libcrypto_la_SOURCES += dh/dh_key.c
 libcrypto_la_SOURCES += dh/dh_lib.c
 libcrypto_la_SOURCES += dh/dh_pmeth.c
-libcrypto_la_SOURCES += dh/dh_prn.c
 noinst_HEADERS += dh/dh_local.h
 
 # dsa

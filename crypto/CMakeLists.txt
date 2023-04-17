@@ -461,7 +461,6 @@ set(
 	dh/dh_key.c
 	dh/dh_lib.c
 	dh/dh_pmeth.c
-	dh/dh_prn.c
 	dsa/dsa_ameth.c
 	dsa/dsa_asn1.c
 	dsa/dsa_err.c

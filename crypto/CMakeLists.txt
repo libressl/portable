@@ -573,6 +573,7 @@ set(
 	evp/m_null.c
 	evp/m_ripemd.c
 	evp/m_sha1.c
+	evp/m_sha3.c
 	evp/m_sigver.c
 	evp/m_streebog.c
 	evp/m_sm3.c
@@ -709,6 +710,7 @@ set(
 	rsa/rsa_x931.c
 	sha/sha1.c
 	sha/sha256.c
+	sha/sha3.c
 	sha/sha512.c
 	sm3/sm3.c
 	sm4/sm4.c

@@ -760,6 +760,7 @@ libcrypto_la_SOURCES += evp/m_md5_sha1.c
 libcrypto_la_SOURCES += evp/m_null.c
 libcrypto_la_SOURCES += evp/m_ripemd.c
 libcrypto_la_SOURCES += evp/m_sha1.c
+libcrypto_la_SOURCES += evp/m_sha3.c
 libcrypto_la_SOURCES += evp/m_sigver.c
 libcrypto_la_SOURCES += evp/m_streebog.c
 libcrypto_la_SOURCES += evp/m_sm3.c
@@ -967,8 +968,10 @@ noinst_HEADERS += rsa/rsa_local.h
 # sha
 libcrypto_la_SOURCES += sha/sha1.c
 libcrypto_la_SOURCES += sha/sha256.c
+libcrypto_la_SOURCES += sha/sha3.c
 libcrypto_la_SOURCES += sha/sha512.c
 noinst_HEADERS += sha/sha_internal.h
+noinst_HEADERS += sha/sha3_internal.h
 
 # sm3
 libcrypto_la_SOURCES += sm3/sm3.c

@@ -595,14 +595,20 @@ add_executable(sha_test sha_test.c)
 target_link_libraries(sha_test ${OPENSSL_TEST_LIBS})
 add_test(sha_test sha_test)
 
-# XXX HAVE_SOCKETPAIR
 # signertest
-# add_executable(signertest signertest.c)
-# target_link_libraries(signertest ${LIBTLS_TEST_LIBS})
-# target_include_directories(signertest BEFORE PUBLIC ../tls)
-# set_source_files_properties(signertest.c PROPERTIES COMPILE_FLAGS
-#	-DCERTSDIR=\\"${CMAKE_CURRENT_SOURCE_DIR}\\")
-# add_test(signertest signertest)
+if(NOT CMAKE_SYSTEM_NAME MATCHES "WindowsStore")
+	set(SIGNERTEST_SRC signertest.c)
+	check_function_exists(pipe2 HAVE_PIPE2)
+	if(!HAVE_PIPE2)
+		set(SIGNERTEST_SRC ${SIGNERTEST_SRC} compat/pipe2.c)
+	endif()
+	set_source_files_properties(signertest.c PROPERTIES COMPILE_FLAGS
+	      -DCERTSDIR=\\"${CMAKE_CURRENT_SOURCE_DIR}\\")
+	add_executable(signertest ${SIGNERTEST_SRC})
+	target_link_libraries(signertest ${LIBTLS_TEST_LIBS})
+	target_include_directories(signertest BEFORE PUBLIC ../tls)
+	add_test(signertest signertest)
+endif()
 
 # sm2crypttest
 # sm2evptest

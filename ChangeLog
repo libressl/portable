@@ -41,12 +41,21 @@ LibreSSL Portable Release Notes:
 	  - Rewrote and improved BN_exp() and BN_copy().
 	  - Add branch target information (BTI) support to arm64 assembly.
 	  - Added a new implementation of BN_mod_sqrt().
+	  - Removed incomplete and dangerous BN_RECURSION code.
 	* New features
 	  - Added support for truncated SHA-2 and for SHA-3.
 	* Compatibility changes
+	  - Support for GF2m was removed: BIGNUM no longer supports binary extension
+	    field arithmetic and all binary elliptic builtin curves were removed.
+	  - Removed dangerous, "fast" NIST prime and elliptic curve implementations.
+	    In particular, EC_GFp_nist_method() is no longer available.
+	  - Removed most public symbols that were deprecated in OpenSSL 0.9.8.
 	  - Removed X9.31 support.
+	  - Removed Cipher Text Stealing mode.
 	  - Dropped proxy certificate (RFC 3820) support.
-	  - Started removing binary extension field and curve support.
+	  - The POLICY_TREE and its related structures and API are no longer public.
+	  - The explicitText user notice uses UTF8String instead of VisibleString
+	    to reduce the risk of emitting certificates with invalid DER-encoding.
 	* Bug fixes
 	  - Correctly reduce negative input to BN_mod_exp2_mont().
 	  - Ensure ERR_load_ERR_strings() does not set errno unexpectedly.

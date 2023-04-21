@@ -1041,7 +1041,6 @@ libcrypto_la_SOURCES += x509/x509_cpols.c
 libcrypto_la_SOURCES += x509/x509_crld.c
 libcrypto_la_SOURCES += x509/x509_d2.c
 libcrypto_la_SOURCES += x509/x509_def.c
-libcrypto_la_SOURCES += x509/x509_enum.c
 libcrypto_la_SOURCES += x509/x509_err.c
 libcrypto_la_SOURCES += x509/x509_ext.c
 libcrypto_la_SOURCES += x509/x509_extku.c

@@ -755,7 +755,6 @@ set(
 	x509/x509_crld.c
 	x509/x509_d2.c
 	x509/x509_def.c
-	x509/x509_enum.c
 	x509/x509_err.c
 	x509/x509_ext.c
 	x509/x509_extku.c

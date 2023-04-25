@@ -42,6 +42,7 @@ LibreSSL Portable Release Notes:
 	  - Add branch target information (BTI) support to arm64 assembly.
 	  - Added a new implementation of BN_mod_sqrt().
 	  - Removed incomplete and dangerous BN_RECURSION code.
+	  - Added endbr64 instructions to amd64 assembly.
 	* New features
 	  - Added support for truncated SHA-2 and for SHA-3.
 	* Compatibility changes

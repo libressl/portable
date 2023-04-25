@@ -542,6 +542,7 @@ set(
 	evp/e_gost2814789.c
 	evp/e_idea.c
 	evp/e_null.c
+	evp/e_old.c
 	evp/e_rc2.c
 	evp/e_rc4.c
 	evp/e_rc4_hmac_md5.c

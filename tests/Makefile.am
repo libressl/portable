@@ -283,11 +283,6 @@ TESTS += constraints
 check_PROGRAMS += constraints
 constraints_SOURCES = constraints.c
 
-# cts128test
-TESTS += cts128test
-check_PROGRAMS += cts128test
-cts128test_SOURCES = cts128test.c
-
 # cttest
 TESTS += cttest
 check_PROGRAMS += cttest

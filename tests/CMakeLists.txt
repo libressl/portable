@@ -267,11 +267,6 @@ add_executable(constraints constraints.c)
 target_link_libraries(constraints ${OPENSSL_TEST_LIBS})
 add_test(constraints constraints)
 
-# cts128test
-add_executable(cts128test cts128test.c)
-target_link_libraries(cts128test ${OPENSSL_TEST_LIBS})
-add_test(cts128test cts128test)
-
 # cttest
 add_executable(cttest cttest.c)
 target_link_libraries(cttest ${OPENSSL_TEST_LIBS})

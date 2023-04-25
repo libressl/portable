@@ -31,7 +31,6 @@ openssl_SOURCES += gendh.c
 openssl_SOURCES += gendsa.c
 openssl_SOURCES += genpkey.c
 openssl_SOURCES += genrsa.c
-openssl_SOURCES += nseq.c
 openssl_SOURCES += ocsp.c
 openssl_SOURCES += openssl.c
 openssl_SOURCES += passwd.c

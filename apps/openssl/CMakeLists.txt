@@ -20,7 +20,6 @@ set(
 	gendsa.c
 	genpkey.c
 	genrsa.c
-	nseq.c
 	ocsp.c
 	openssl.c
 	passwd.c

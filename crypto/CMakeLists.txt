@@ -289,7 +289,6 @@ set(
 	asn1/asn_moid.c
 	asn1/bio_asn1.c
 	asn1/bio_ndef.c
-	asn1/nsseq.c
 	asn1/p5_pbe.c
 	asn1/p5_pbev2.c
 	asn1/p8_pkey.c
@@ -356,7 +355,6 @@ set(
 	bn/bn_err.c
 	bn/bn_exp.c
 	bn/bn_gcd.c
-	bn/bn_gf2m.c
 	bn/bn_isqrt.c
 	bn/bn_kron.c
 	bn/bn_lib.c
@@ -364,7 +362,6 @@ set(
 	bn/bn_mod_sqrt.c
 	bn/bn_mont.c
 	bn/bn_mul.c
-	bn/bn_nist.c
 	bn/bn_prime.c
 	bn/bn_rand.c
 	bn/bn_recp.c
@@ -372,7 +369,6 @@ set(
 	bn/bn_small_primes.c
 	bn/bn_sqr.c
 	bn/bn_word.c
-	bn/bn_x931p.c
 	buffer/buf_err.c
 	buffer/buf_str.c
 	buffer/buffer.c
@@ -475,9 +471,6 @@ set(
 	dso/dso_lib.c
 	dso/dso_null.c
 	dso/dso_openssl.c
-	ec/ec2_mult.c
-	ec/ec2_oct.c
-	ec/ec2_smpl.c
 	ec/ec_ameth.c
 	ec/ec_asn1.c
 	ec/ec_check.c
@@ -493,7 +486,6 @@ set(
 	ec/ec_print.c
 	ec/eck_prn.c
 	ec/ecp_mont.c
-	ec/ecp_nist.c
 	ec/ecp_oct.c
 	ec/ecp_smpl.c
 	ec/ecx_methods.c
@@ -550,7 +542,6 @@ set(
 	evp/e_gost2814789.c
 	evp/e_idea.c
 	evp/e_null.c
-	evp/e_old.c
 	evp/e_rc2.c
 	evp/e_rc4.c
 	evp/e_rc4_hmac_md5.c
@@ -625,7 +616,6 @@ set(
 	modes/ccm128.c
 	modes/cfb128.c
 	modes/ctr128.c
-	modes/cts128.c
 	modes/gcm128.c
 	modes/ofb128.c
 	modes/xts128.c
@@ -706,7 +696,6 @@ set(
 	rsa/rsa_pss.c
 	rsa/rsa_saos.c
 	rsa/rsa_sign.c
-	rsa/rsa_x931.c
 	sha/sha1.c
 	sha/sha256.c
 	sha/sha3.c
@@ -768,8 +757,6 @@ set(
 	x509/x509_ncons.c
 	x509/x509_obj.c
 	x509/x509_ocsp.c
-	x509/x509_pci.c
-	x509/x509_pcia.c
 	x509/x509_pcons.c
 	x509/x509_pku.c
 	x509/x509_pmaps.c
@@ -779,7 +766,6 @@ set(
 	x509/x509_req.c
 	x509/x509_set.c
 	x509/x509_skey.c
-	x509/x509_sxnet.c
 	x509/x509_trs.c
 	x509/x509_txt.c
 	x509/x509_utl.c

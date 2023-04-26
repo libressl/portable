@@ -759,6 +759,7 @@ set(
 	x509/x509_pcons.c
 	x509/x509_pku.c
 	x509/x509_pmaps.c
+	x509/x509_policy.c
 	x509/x509_prn.c
 	x509/x509_purp.c
 	x509/x509_r2x.c

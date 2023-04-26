@@ -1044,6 +1044,7 @@ libcrypto_la_SOURCES += x509/x509_obj.c
 libcrypto_la_SOURCES += x509/x509_ocsp.c
 libcrypto_la_SOURCES += x509/x509_pcons.c
 libcrypto_la_SOURCES += x509/x509_pku.c
+libcrypto_la_SOURCES += x509/x509_policy.c
 libcrypto_la_SOURCES += x509/x509_pmaps.c
 libcrypto_la_SOURCES += x509/x509_prn.c
 libcrypto_la_SOURCES += x509/x509_purp.c

@@ -660,7 +660,6 @@ set(
 	pkcs12/p12_sbag.c
 	pkcs12/p12_utl.c
 	pkcs12/pk12err.c
-	pkcs7/bio_pk7.c
 	pkcs7/pk7_asn1.c
 	pkcs7/pk7_attr.c
 	pkcs7/pk7_doit.c

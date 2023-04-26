@@ -898,7 +898,6 @@ libcrypto_la_SOURCES += pkcs12/pk12err.c
 noinst_HEADERS += pkcs12/pkcs12_local.h
 
 # pkcs7
-libcrypto_la_SOURCES += pkcs7/bio_pk7.c
 libcrypto_la_SOURCES += pkcs7/pk7_asn1.c
 libcrypto_la_SOURCES += pkcs7/pk7_attr.c
 libcrypto_la_SOURCES += pkcs7/pk7_doit.c

@@ -722,12 +722,6 @@ set(
 	x509/by_dir.c
 	x509/by_file.c
 	x509/by_mem.c
-	x509/pcy_cache.c
-	x509/pcy_data.c
-	x509/pcy_lib.c
-	x509/pcy_map.c
-	x509/pcy_node.c
-	x509/pcy_tree.c
 	x509/x509_addr.c
 	x509/x509_akey.c
 	x509/x509_akeya.c

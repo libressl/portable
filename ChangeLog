@@ -43,7 +43,8 @@ LibreSSL Portable Release Notes:
 	  - Added a new implementation of BN_mod_sqrt().
 	  - Removed incomplete and dangerous BN_RECURSION code.
 	  - Added endbr64 instructions to amd64 assembly.
-	  - Imported RFC 5280 policy checking code from BoringSSL.
+	  - Imported RFC 5280 policy checking code from BoringSSL and used it
+	    to replace the old exponential time code.
 	* New features
 	  - Added support for truncated SHA-2 and for SHA-3.
 	* Compatibility changes
@@ -57,7 +58,7 @@ LibreSSL Portable Release Notes:
 	  - Removed SXNET and NETSCAPE_CERT_SEQUENCE support including the
 	    openssl(1) nseq command.
 	  - Dropped proxy certificate (RFC 3820) support.
-	  - The POLICY_TREE and its related structures and API are no longer public.
+	  - The POLICY_TREE and its related structures and API were removed.
 	  - The explicitText user notice uses UTF8String instead of VisibleString
 	    to reduce the risk of emitting certificates with invalid DER-encoding.
 	* Bug fixes

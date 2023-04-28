@@ -541,7 +541,7 @@ record_layer_test_SOURCES = record_layer_test.c
 
 # rfc3779
 TESTS += rfc3779
-rfc3779_CPPFLAGS = $(AM_CPPFLAGS) -D__unused=
+rfc3779_CPPFLAGS = $(AM_CPPFLAGS)
 check_PROGRAMS += rfc3779
 rfc3779_SOURCES = rfc3779.c
 

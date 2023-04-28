@@ -1,6 +1,6 @@
---- tests/tlsexttest.c.orig	Tue Apr 25 16:44:59 2023
-+++ tests/tlsexttest.c	Tue Apr 25 16:45:18 2023
-@@ -1774,7 +1774,9 @@
+--- tests/tlsexttest.c.orig	Fri Apr 28 11:42:38 2023
++++ tests/tlsexttest.c	Fri Apr 28 11:55:27 2023
+@@ -1775,7 +1775,9 @@
  };
  
  static const unsigned char tlsext_sni_server[] = {
@@ -10,7 +10,7 @@
  
  static int
  test_tlsext_sni_client(void)
-@@ -1972,9 +1974,9 @@
+@@ -1973,9 +1975,9 @@
  	if (!CBB_finish(&cbb, &data, &dlen))
  		errx(1, "failed to finish CBB");
  
@@ -22,7 +22,7 @@
  		goto err;
  	}
  
-@@ -1983,14 +1985,14 @@
+@@ -1984,14 +1986,14 @@
  		fprintf(stderr, "received:\n");
  		hexdump(data, dlen);
  		fprintf(stderr, "test data:\n");
@@ -39,7 +39,7 @@
  	if (!client_funcs->parse(ssl, SSL_TLSEXT_MSG_SH, &cbs, &alert)) {
  		FAIL("failed to parse server SNI\n");
  		goto err;
-@@ -3195,7 +3197,10 @@
+@@ -3196,7 +3198,10 @@
  	0x04, 0x03, 0x02, 0x01, 0x02, 0x03,
  };
  
@@ -51,7 +51,7 @@
  
  static int
  test_tlsext_clienthello_build(void)
-@@ -3286,18 +3291,18 @@
+@@ -3287,18 +3292,18 @@
  		goto err;
  	}
  

@@ -485,6 +485,13 @@ add_executable(poly1305test poly1305test.c)
 target_link_libraries(poly1305test ${OPENSSL_TEST_LIBS})
 add_test(poly1305test poly1305test)
 
+# policy
+add_executable(policy policy.c)
+set_source_files_properties(policy.c PROPERTIES COMPILE_FLAGS
+	-DCERTSDIR=\\"${CMAKE_CURRENT_SOURCE_DIR}\\")
+target_link_libraries(policy ${OPENSSL_TEST_LIBS})
+add_test(policy policy)
+
 # pq_test
 add_executable(pq_test pq_test.c)
 target_link_libraries(pq_test ${OPENSSL_TEST_LIBS})

@@ -501,6 +501,39 @@ TESTS += poly1305test
 check_PROGRAMS += poly1305test
 poly1305test_SOURCES = poly1305test.c
 
+# policy
+TESTS += policy
+check_program += policy
+policy_CPPFLAGS = $(AM_CPPFLAGS) -DCERTSDIR=\"$(srcdir)\"
+policy_SOURCES = policy.c
+EXTRA_DIST += policy_intermediate.pem
+EXTRA_DIST += policy_intermediate_any.pem
+EXTRA_DIST += policy_intermediate_duplicate.pem
+EXTRA_DIST += policy_intermediate_invalid.pem
+EXTRA_DIST += policy_intermediate_mapped.pem
+EXTRA_DIST += policy_intermediate_mapped_any.pem
+EXTRA_DIST += policy_intermediate_mapped_oid3.pem
+EXTRA_DIST += policy_intermediate_require.pem
+EXTRA_DIST += policy_intermediate_require1.pem
+EXTRA_DIST += policy_intermediate_require2.pem
+EXTRA_DIST += policy_intermediate_require_duplicate.pem
+EXTRA_DIST += policy_intermediate_require_no_policies.pem
+EXTRA_DIST += policy_leaf.pem
+EXTRA_DIST += policy_leaf_any.pem
+EXTRA_DIST += policy_leaf_duplicate.pem
+EXTRA_DIST += policy_leaf_invalid.pem
+EXTRA_DIST += policy_leaf_none.pem
+EXTRA_DIST += policy_leaf_oid1.pem
+EXTRA_DIST += policy_leaf_oid2.pem
+EXTRA_DIST += policy_leaf_oid3.pem
+EXTRA_DIST += policy_leaf_oid4.pem
+EXTRA_DIST += policy_leaf_oid5.pem
+EXTRA_DIST += policy_leaf_require.pem
+EXTRA_DIST += policy_leaf_require1.pem
+EXTRA_DIST += policy_root.pem
+EXTRA_DIST += policy_root2.pem
+EXTRA_DIST += policy_root_cross_inhibit_mapping.pem
+
 # pq_test
 TESTS += pq_test.sh
 check_PROGRAMS += pq_test

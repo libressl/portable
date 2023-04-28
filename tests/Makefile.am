@@ -503,7 +503,7 @@ poly1305test_SOURCES = poly1305test.c
 
 # policy
 TESTS += policy
-check_program += policy
+check_PROGRAMS += policy
 policy_CPPFLAGS = $(AM_CPPFLAGS) -DCERTSDIR=\"$(srcdir)\"
 policy_SOURCES = policy.c
 EXTRA_DIST += policy_intermediate.pem

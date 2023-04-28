@@ -1,0 +1,11 @@
+--- include/openssl/crypto.h.orig	Fri Apr 28 23:17:50 2023
++++ include/openssl/crypto.h	Fri Apr 28 23:19:00 2023
+@@ -488,7 +488,7 @@ typedef int *CRYPTO_MEM_LEAK_CB(unsigned long, const c
+ int CRYPTO_mem_leaks_cb(CRYPTO_MEM_LEAK_CB *cb);
+ 
+ /* die if we have to */
+-void OpenSSLDie(const char *file, int line, const char *assertion);
++__dead void OpenSSLDie(const char *file, int line, const char *assertion);
+ #define OPENSSL_assert(e)       (void)((e) ? 0 : (OpenSSLDie(__FILE__, __LINE__, #e),1))
+ 
+ uint64_t OPENSSL_cpu_caps(void);

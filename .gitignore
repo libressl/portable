@@ -107,6 +107,7 @@ tests/freenull*
 tests/gost2814789t*
 tests/key_schedule*
 tests/mont*
+tests/policy*
 tests/rfc3779*
 tests/rfc5280time*
 tests/ssl_get_shared_ciphers*
@@ -126,6 +127,7 @@ tests/testssl
 tests/*.txt
 tests/compat/*.c
 tests/verify*
+tests/x509_asn1*
 tests/x509_info*
 tests/x509attribute*
 tests/x509name*

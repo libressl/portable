@@ -70,7 +70,7 @@ LibreSSL Portable Release Notes:
 	* Documentation improvements
 	  - Improved documentation of BIO_ctrl(3), BIO_set_info_callback(3), 
 	    BIO_get_info_callback(3), BIO_method_type(3), and BIO_method_name(3).
-	  - Marked BIO_CB_return(), BIO_cb_pre(), and BIO_cb_Post() as intentionally
+	  - Marked BIO_CB_return(), BIO_cb_pre(), and BIO_cb_post() as intentionally
 	    undocumented.
 	* Testing and Proactive Security
 	  - Significantly improved test coverage of BN_mod_sqrt() and GCD.

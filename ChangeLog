@@ -55,7 +55,7 @@ LibreSSL Portable Release Notes:
 	  - Removed dangerous, "fast" NIST prime and elliptic curve implementations.
 	    In particular, EC_GFp_nist_method() is no longer available.
 	  - Removed most public symbols that were deprecated in OpenSSL 0.9.8.
-	  - Removed X9.31 support.
+	  - The public X9.31 API was removed. RSA_X931_PADDING is still available.
 	  - Removed Cipher Text Stealing mode.
 	  - Removed SXNET and NETSCAPE_CERT_SEQUENCE support including the
 	    openssl(1) nseq command.

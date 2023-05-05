@@ -695,6 +695,7 @@ set(
 	rsa/rsa_pss.c
 	rsa/rsa_saos.c
 	rsa/rsa_sign.c
+	rsa/rsa_x931.c
 	sha/sha1.c
 	sha/sha256.c
 	sha/sha3.c

@@ -950,6 +950,7 @@ libcrypto_la_SOURCES += rsa/rsa_prn.c
 libcrypto_la_SOURCES += rsa/rsa_pss.c
 libcrypto_la_SOURCES += rsa/rsa_saos.c
 libcrypto_la_SOURCES += rsa/rsa_sign.c
+libcrypto_la_SOURCES += rsa/rsa_x931.c
 noinst_HEADERS += rsa/rsa_local.h
 
 # sha

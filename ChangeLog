@@ -45,8 +45,6 @@ LibreSSL Portable Release Notes:
 	  - Added endbr64 instructions to amd64 assembly.
 	  - Imported RFC 5280 policy checking code from BoringSSL and used it
 	    to replace the old exponential time code.
-	  - Modified X509_NAME_get_text_by_[NID|OBJ] to safely return a C string
-	    instead of potentially arbitrary bytes
 	* New features
 	  - Added support for truncated SHA-2 and for SHA-3.
 	* Compatibility changes
@@ -69,7 +67,7 @@ LibreSSL Portable Release Notes:
 	  - Fix error checking of i2d_ECDSA_SIG() in ossl_ecdsa_sign().
 	  - Fixed detection of extended operations (XOP) on AMD hardware.
 	  - Ensure Montgomery exponentiation is used for the initial RSA blinding.
-	  - Policy is always checked in X509 validation, Critical policy extensions
+	  - Policy is always checked in X509 validation. Critical policy extensions
 	    are no longer silently ignored.
 	* Documentation improvements
 	  - Improved documentation of BIO_ctrl(3), BIO_set_info_callback(3),

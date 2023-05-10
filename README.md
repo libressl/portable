@@ -14,9 +14,12 @@ improve security, and apply best practice development processes from OpenBSD.
 
 ## Compatibility with OpenSSL: ##
 
-LibreSSL is API compatible with OpenSSL 1.0.1, but does not yet include all
-new APIs from OpenSSL 1.0.2 and later. LibreSSL also includes APIs not yet
-present in OpenSSL. The current common API subset is OpenSSL 1.0.1.
+LibreSSL provides much of the OpenSSL 1.1 API. The OpenSSL 3 API is not currently
+supported. Incompatibilities between the projects exist and are unavoidable since
+both evolve with different goals and priorities. Important incompatibilities will
+be addressed if possible and as long as they are not too detrimental to LibreSSL's
+goals of simplicity, security and sanity. We do not add new features, ciphers and
+API without a solid reason and require that new code be clean and of high quality.
 
 LibreSSL is not ABI compatible with any release of OpenSSL, or necessarily
 earlier releases of LibreSSL. You will need to relink your programs to

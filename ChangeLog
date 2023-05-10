@@ -3,16 +3,16 @@ Git, it can be confusing following all of the changes.
 
 Most of the libssl and libcrypto source code is is here in OpenBSD CVS:
 
-	http://cvsweb.openbsd.org/cgi-bin/cvsweb/src/lib/libssl/
+	https://cvsweb.openbsd.org/cgi-bin/cvsweb/src/lib/libssl/
 
 Some of the libcrypto and OS-compatibility files for entropy and random number
 generation are here:
 
-	http://cvsweb.openbsd.org/cgi-bin/cvsweb/src/lib/libcrypto/
+	https://cvsweb.openbsd.org/cgi-bin/cvsweb/src/lib/libcrypto/
 
 A simplified TLS wrapper library is here:
 
-	http://cvsweb.openbsd.org/cgi-bin/cvsweb/src/lib/libtls/
+	https://cvsweb.openbsd.org/cgi-bin/cvsweb/src/lib/libtls/
 
 The LibreSSL Portable project copies these portions of the OpenBSD tree, along
 with relevant portions of the C library, to a Git repository. This makes it

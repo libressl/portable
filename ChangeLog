@@ -45,6 +45,7 @@ LibreSSL Portable Release Notes:
 	  - Added endbr64 instructions to amd64 assembly.
 	  - Imported RFC 5280 policy checking code from BoringSSL and used it
 	    to replace the old exponential time code.
+	  - Converted more of libcrypto to use CBB/CBS.
 	* New features
 	  - Added support for truncated SHA-2 and for SHA-3.
 	* Compatibility changes
@@ -62,13 +63,14 @@ LibreSSL Portable Release Notes:
 	  - The explicitText user notice uses UTF8String instead of VisibleString
 	    to reduce the risk of emitting certificates with invalid DER-encoding.
 	* Bug fixes
-	  - Correctly reduce negative input to BN_mod_exp2_mont().
+	  - Correctly handle negative input to various BIGNUM functions.
 	  - Ensure ERR_load_ERR_strings() does not set errno unexpectedly.
 	  - Fix error checking of i2d_ECDSA_SIG() in ossl_ecdsa_sign().
 	  - Fixed detection of extended operations (XOP) on AMD hardware.
 	  - Ensure Montgomery exponentiation is used for the initial RSA blinding.
 	  - Policy is always checked in X509 validation. Critical policy extensions
 	    are no longer silently ignored.
+	  - Fixed error handling in tls_check_common_name().
 	* Documentation improvements
 	  - Improved documentation of BIO_ctrl(3), BIO_set_info_callback(3),
 	    BIO_get_info_callback(3), BIO_method_type(3), and BIO_method_name(3).

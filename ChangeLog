@@ -48,6 +48,8 @@ LibreSSL Portable Release Notes:
 	  - Converted more of libcrypto to use CBB/CBS.
 	* New features
 	  - Added support for truncated SHA-2 and for SHA-3.
+	  - The BPSW primality test performs additional Miller-Rabin rounds
+	    with random bases to reduce the likelihood of composites passing.
 	* Compatibility changes
 	  - Support for GF2m was removed: BIGNUM no longer supports binary extension
 	    field arithmetic and all binary elliptic builtin curves were removed.

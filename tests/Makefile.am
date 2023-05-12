@@ -102,6 +102,11 @@ TESTS += asn1object
 check_PROGRAMS += asn1object
 asn1object_SOURCES = asn1object.c
 
+# asn1oct
+TESTS += asn1oct
+check_PROGRAMS += asn1oct
+asn1oct_SOURCES = asn1oct.c
+
 # asn1string_copy
 TESTS += asn1string_copy
 check_PROGRAMS += asn1string_copy

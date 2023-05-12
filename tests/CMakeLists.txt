@@ -80,6 +80,11 @@ add_executable(asn1object asn1object.c)
 target_link_libraries(asn1object ${OPENSSL_TEST_LIBS})
 add_test(asn1object asn1object)
 
+# asn1oct
+add_executable(asn1oct asn1oct.c)
+target_link_libraries(asn1oct ${OPENSSL_TEST_LIBS})
+add_test(asn1oct asn1oct)
+
 # asn1string_copy
 add_executable(asn1string_copy asn1string_copy.c)
 target_link_libraries(asn1string_copy ${OPENSSL_TEST_LIBS})

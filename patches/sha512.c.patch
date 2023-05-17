@@ -1,0 +1,41 @@
+--- crypto/sha/sha512.c.orig	Wed May 17 16:02:02 2023
++++ crypto/sha/sha512.c	Wed May 17 16:02:58 2023
+@@ -161,22 +161,22 @@ sha512_block_data_order(SHA512_CTX *ctx, const void *_
+ 
+ 		if ((uintptr_t)in % sizeof(SHA_LONG64) == 0) {
+ 			/* Input is 64 bit aligned. */
+-			X[0] = be64toh(in[0]);
+-			X[1] = be64toh(in[1]);
+-			X[2] = be64toh(in[2]);
+-			X[3] = be64toh(in[3]);
+-			X[4] = be64toh(in[4]);
+-			X[5] = be64toh(in[5]);
+-			X[6] = be64toh(in[6]);
+-			X[7] = be64toh(in[7]);
+-			X[8] = be64toh(in[8]);
+-			X[9] = be64toh(in[9]);
+-			X[10] = be64toh(in[10]);
+-			X[11] = be64toh(in[11]);
+-			X[12] = be64toh(in[12]);
+-			X[13] = be64toh(in[13]);
+-			X[14] = be64toh(in[14]);
+-			X[15] = be64toh(in[15]);
++			X[0] = betoh64(in[0]);
++			X[1] = betoh64(in[1]);
++			X[2] = betoh64(in[2]);
++			X[3] = betoh64(in[3]);
++			X[4] = betoh64(in[4]);
++			X[5] = betoh64(in[5]);
++			X[6] = betoh64(in[6]);
++			X[7] = betoh64(in[7]);
++			X[8] = betoh64(in[8]);
++			X[9] = betoh64(in[9]);
++			X[10] = betoh64(in[10]);
++			X[11] = betoh64(in[11]);
++			X[12] = betoh64(in[12]);
++			X[13] = betoh64(in[13]);
++			X[14] = betoh64(in[14]);
++			X[15] = betoh64(in[15]);
+ 		} else {
+ 			/* Input is not 64 bit aligned. */
+ 			X[0] = crypto_load_be64toh(&in[0]);

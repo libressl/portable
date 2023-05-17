@@ -1,0 +1,20 @@
+--- crypto/crypto_internal.h.orig	Wed May 17 15:44:32 2023
++++ crypto/crypto_internal.h	Wed May 17 15:45:11 2023
+@@ -38,7 +38,7 @@ crypto_load_be32toh(const void *src)
+ 
+ 	memcpy(&v, src, sizeof(v));
+ 
+-	return be32toh(v);
++	return betoh32(v);
+ }
+ #endif
+ 
+@@ -69,7 +69,7 @@ crypto_load_be64toh(const void *src)
+ 
+ 	memcpy(&v, src, sizeof(v));
+ 
+-	return be64toh(v);
++	return betoh64(v);
+ }
+ #endif
+ 

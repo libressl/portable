@@ -70,6 +70,7 @@ tests/asn1basic*
 tests/asn1complex*
 tests/asn1evp*
 tests/asn1object*
+tests/asn1oct*
 tests/asn1string_copy*
 tests/asn1_string_to_utf8*
 tests/asn1time*

@@ -1,5 +1,5 @@
 --- apps/openssl/speed.c.orig	Sun May 21 12:13:46 2023
-+++ apps/openssl/speed.c	Sun May 21 12:15:49 2023
++++ apps/openssl/speed.c	Sun May 21 12:31:50 2023
 @@ -161,7 +161,16 @@ static void
  pkey_print_message(const char *str, const char *str2,
      long num, int bits, int sec);
@@ -17,17 +17,16 @@
  
  #define ALGOR_NUM	32
  #define SIZE_NUM	5
-@@ -431,8 +440,10 @@ speed_main(int argc, char **argv)
+@@ -431,7 +440,9 @@ speed_main(int argc, char **argv)
  	const EVP_CIPHER *evp_cipher = NULL;
  	const EVP_MD *evp_md = NULL;
  	int decrypt = 0;
 +#ifndef _WIN32
  	int multi = 0;
- 	const char *errstr = NULL;
 +#endif
+ 	const char *errstr = NULL;
  
  	if (pledge("stdio proc", NULL) == -1) {
- 		perror("pledge");
 @@ -506,6 +517,7 @@ speed_main(int argc, char **argv)
  			decrypt = 1;
  			j--;	/* Otherwise, -decrypt gets confused with an

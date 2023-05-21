@@ -66,8 +66,8 @@ LibreSSL Portable Release Notes:
 	  - The POLICY_TREE and its related structures and API were removed.
 	  - The explicitText user notice uses UTF8String instead of VisibleString
 	    to reduce the risk of emitting certificates with invalid DER-encoding.
-	  - Initial fixes for RSA-PSS suport to make the TLSv1.3 stack more compliant
-	    with RFC 8446.
+	  - Initial fixes for RSA-PSS support to make the TLSv1.3 stack more
+	    compliant with RFC 8446.
 	* Bug fixes
 	  - Correctly handle negative input to various BIGNUM functions.
 	  - Ensure ERR_load_ERR_strings() does not set errno unexpectedly.

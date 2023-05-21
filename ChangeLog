@@ -50,6 +50,8 @@ LibreSSL Portable Release Notes:
 	  - Added support for truncated SHA-2 and for SHA-3.
 	  - The BPSW primality test performs additional Miller-Rabin rounds
 	    with random bases to reduce the likelihood of composites passing.
+	  - Allow testing of ciphers and digests using badly aligned buffers
+	    in openssl speed.
 	* Compatibility changes
 	  - Support for GF2m was removed: BIGNUM no longer supports binary extension
 	    field arithmetic and all binary elliptic builtin curves were removed.
@@ -64,6 +66,8 @@ LibreSSL Portable Release Notes:
 	  - The POLICY_TREE and its related structures and API were removed.
 	  - The explicitText user notice uses UTF8String instead of VisibleString
 	    to reduce the risk of emitting certificates with invalid DER-encoding.
+	  - Initial fixes for RSA-PSS suport to make the TLSv1.3 stack more compliant
+	    with RFC 8446.
 	* Bug fixes
 	  - Correctly handle negative input to various BIGNUM functions.
 	  - Ensure ERR_load_ERR_strings() does not set errno unexpectedly.

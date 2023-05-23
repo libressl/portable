@@ -78,7 +78,8 @@ LibreSSL Portable Release Notes:
 	    are no longer silently ignored.
 	  - Fixed error handling in tls_check_common_name().
 	  - Add missing pointer invalidation in SSL_free().
-	  - Fixed X509error() and X509V3error().
+	  - Fixed X509err() and X509V3err() and their internal versions.
+	  - Ensure that OBJ_obj2txt() always returns a C string again.
 	* Documentation improvements
 	  - Improved documentation of BIO_ctrl(3), BIO_set_info_callback(3),
 	    BIO_get_info_callback(3), BIO_method_type(3), and BIO_method_name(3).

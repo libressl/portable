@@ -625,6 +625,11 @@ add_executable(ssl_set_alpn_protos ssl_set_alpn_protos.c)
 target_link_libraries(ssl_set_alpn_protos ${OPENSSL_TEST_LIBS})
 add_test(ssl_set_alpn_protos ssl_set_alpn_protos)
 
+# ssl_verify_param
+add_executable(ssl_verify_param ssl_verify_param.c)
+target_link_libraries(ssl_verify_param ${OPENSSL_TEST_LIBS})
+add_test(ssl_verify_param ssl_verify_param)
+
 # ssl_versions
 add_executable(ssl_versions ssl_versions.c)
 target_link_libraries(ssl_versions ${OPENSSL_TEST_LIBS})

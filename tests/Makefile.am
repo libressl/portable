@@ -653,6 +653,11 @@ TESTS += ssl_set_alpn_protos
 check_PROGRAMS += ssl_set_alpn_protos
 ssl_set_alpn_protos_SOURCES = ssl_set_alpn_protos.c
 
+# ssl_verify_param
+TESTS += ssl_verify_param
+check_PROGRAMS += ssl_verify_param
+ssl_verify_param_SOURCES = ssl_verify_param.c
+
 # ssl_versions
 TESTS += ssl_versions
 check_PROGRAMS += ssl_versions

@@ -114,6 +114,7 @@ tests/rfc5280time*
 tests/ssl_get_shared_ciphers*
 tests/ssl_methods*
 tests/ssl_set_alpn_protos*
+tests/ssl_verify_param*
 tests/ssl_versions*
 tests/string_table*
 tests/timingsafe*

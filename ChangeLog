@@ -80,6 +80,8 @@ LibreSSL Portable Release Notes:
 	  - Add missing pointer invalidation in SSL_free().
 	  - Fixed X509err() and X509V3err() and their internal versions.
 	  - Ensure that OBJ_obj2txt() always returns a C string again.
+	  - In X509_VERIFY_PARAM_inherit() copy hostflags independently of the
+	    host list.
 	* Documentation improvements
 	  - Improved documentation of BIO_ctrl(3), BIO_set_info_callback(3),
 	    BIO_get_info_callback(3), BIO_method_type(3), and BIO_method_name(3).

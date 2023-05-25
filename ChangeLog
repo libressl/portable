@@ -28,7 +28,7 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
-3.8.0 - In development
+3.8.0 - Development release
 
 	* Portable changes
 	  - Extended the endian.h compat header with htobe* and betoh* macros.
@@ -46,12 +46,15 @@ LibreSSL Portable Release Notes:
 	  - Imported RFC 5280 policy checking code from BoringSSL and used it
 	    to replace the old exponential time code.
 	  - Converted more of libcrypto to use CBB/CBS.
+	  - Cleaned up and simplified the code dealing with builtin curves.
 	* New features
 	  - Added support for truncated SHA-2 and for SHA-3.
 	  - The BPSW primality test performs additional Miller-Rabin rounds
 	    with random bases to reduce the likelihood of composites passing.
 	  - Allow testing of ciphers and digests using badly aligned buffers
 	    in openssl speed.
+	  - Added a workaround for a poorly thought-out change in OpenSSL 3 that
+	    broke privilege separation support in libtls.
 	* Compatibility changes
 	  - Support for GF2m was removed: BIGNUM no longer supports binary extension
 	    field arithmetic and all binary elliptic builtin curves were removed.

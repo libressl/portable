@@ -28,6 +28,13 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+
+3.7.3 - Stable release
+
+	* Bug fix
+	  - Hostflags in the verify parameters would not propagate from an
+	    SSL_CTX to newly created SSL.
+
 3.7.2 - Stable release
 
 	* Portable changes

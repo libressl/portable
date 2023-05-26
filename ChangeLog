@@ -31,16 +31,16 @@ LibreSSL Portable Release Notes:
 3.8.0 - Development release
 
 	* Portable changes
-	  - Extended the endian.h compat header with htobe* and betoh* macros.
+	  - Extended the endian.h compat header with hto* and *toh macros.
 	  - Adapted more tests to the portable framework.
 	* Internal improvements
 	  - Improved sieve of Eratosthenes script used for generating a table
 	    of small primes.
-	  - Cleaned up and rewrote SHA internals.
+	  - Started cleaning up and rewriting SHA internals.
 	  - Replace internal use of BN_copy() with bn_copy() for consistency.
 	  - Rewrote and improved BN_exp() and BN_copy().
 	  - Add branch target information (BTI) support to arm64 assembly.
-	  - Added a new implementation of BN_mod_sqrt().
+	  - Replaced BN_mod_sqrt() with a new implementation.
 	  - Removed incomplete and dangerous BN_RECURSION code.
 	  - Added endbr64 instructions to amd64 assembly.
 	  - Imported RFC 5280 policy checking code from BoringSSL and used it
@@ -61,7 +61,7 @@ LibreSSL Portable Release Notes:
 	  - Removed dangerous, "fast" NIST prime and elliptic curve implementations.
 	    In particular, EC_GFp_nist_method() is no longer available.
 	  - Removed most public symbols that were deprecated in OpenSSL 0.9.8.
-	  - The public X9.31 API was removed. RSA_X931_PADDING is still available.
+	  - Removed the public X9.31 API (RSA_X931_PADDING is still available).
 	  - Removed Cipher Text Stealing mode.
 	  - Removed SXNET and NETSCAPE_CERT_SEQUENCE support including the
 	    openssl(1) nseq command.

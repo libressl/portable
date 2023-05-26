@@ -30,9 +30,10 @@ LibreSSL Portable Release Notes:
 
 3.6.3 - Stable release
 
-	* Bug fix
+	* Bug fixes
 	  - Hostflags in the verify parameters would not propagate from an
 	    SSL_CTX to newly created SSL.
+	  - A double free or use after free could occur after SSL_clear(3).
 
 3.6.2 - Stable release
 

@@ -1,0 +1,21 @@
+--- crypto/x509/x509_vpm.c.orig	Thu May 25 07:41:58 2023
++++ crypto/x509/x509_vpm.c	Thu May 25 07:47:42 2023
+@@ -328,7 +328,9 @@ X509_VERIFY_PARAM_inherit(X509_VERIFY_PARAM *dest, con
+ 			return 0;
+ 	}
+ 
+-	/* Copy the host flags if and only if we're copying the host list */
++	if (test_x509_verify_param_copy_id(hostflags, 0))
++		dest->id->hostflags = id->hostflags;
++
+ 	if (test_x509_verify_param_copy_id(hosts, NULL)) {
+ 		if (dest->id->hosts) {
+ 			string_stack_free(dest->id->hosts);
+@@ -339,7 +341,6 @@ X509_VERIFY_PARAM_inherit(X509_VERIFY_PARAM *dest, con
+ 			    sk_deep_copy(id->hosts, strdup, str_free);
+ 			if (dest->id->hosts == NULL)
+ 				return 0;
+-			dest->id->hostflags = id->hostflags;
+ 		}
+ 	}
+ 

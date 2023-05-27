@@ -194,6 +194,11 @@ fixup_masm() {
 		> $2
 }
 
+fixup_macosx() {
+	echo Fixing up $2
+	sed -e 's/endbr64//' $1 > $2
+}
+
 # generate assembly crypto algorithms
 asm_src=$libcrypto_src
 gen_asm_stdout() {
@@ -205,6 +210,8 @@ gen_asm_stdout() {
 	EOF
 	if [ $1 = "masm" ]; then
 		fixup_masm crypto/$3.tmp crypto/$3
+	elif [ $1 = "macosx" ]; then
+		fixup_macosx crypto/$3.tmp crypto/$3
 	else
 		$MV crypto/$3.tmp crypto/$3
 	fi
@@ -231,6 +238,8 @@ gen_asm() {
 	EOF
 	if [ $1 = "masm" ]; then
 		fixup_masm crypto/$3.tmp crypto/$3
+	elif [ $1 = "macosx" ]; then
+		fixup_macosx crypto/$3.tmp crypto/$3
 	else
 		$MV crypto/$3.tmp crypto/$3
 	fi

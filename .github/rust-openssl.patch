@@ -1,13 +1,13 @@
 diff --git a/openssl-sys/build/main.rs b/openssl-sys/build/main.rs
-index ba149c17..5274dc44 100644
+index 1762068d..9e7295b0 100644
 --- a/openssl-sys/build/main.rs
 +++ b/openssl-sys/build/main.rs
 @@ -285,7 +285,7 @@ See rust-openssl documentation for more information:
              (3, 7, 0) => ('3', '7', '0'),
              (3, 7, 1) => ('3', '7', '1'),
              (3, 7, _) => ('3', '7', 'x'),
--            _ => version_error(),
-+            _ => ('3', '7', 'x'),
+-            (3, 8, 0) => ('3', '8', '0'),
++            (3, 8, _) => ('3', '8', '0'),
+             _ => version_error(),
          };
  
-         println!("cargo:libressl=true");

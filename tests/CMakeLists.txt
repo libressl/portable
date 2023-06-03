@@ -172,6 +172,11 @@ set_source_files_properties(bn_mod_exp.c PROPERTIES COMPILE_FLAGS
 target_link_libraries(bn_mod_exp ${OPENSSL_TEST_LIBS})
 add_test(bn_mod_exp bn_mod_exp)
 
+# bn_mod_inverse
+add_executable(bn_mod_inverse bn_mod_inverse.c)
+target_link_libraries(bn_mod_inverse ${OPENSSL_TEST_LIBS})
+add_test(bn_mod_inverse bn_mod_inverse)
+
 # bn_mod_sqrt
 add_executable(bn_mod_sqrt bn_mod_sqrt.c)
 target_link_libraries(bn_mod_sqrt ${OPENSSL_TEST_LIBS})

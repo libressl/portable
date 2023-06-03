@@ -87,6 +87,7 @@ tests/bn_isqrt*
 tests/bn_mod_exp*
 tests/bn_mod_exp_zero*
 tests/bn_mod_exp2_mont*
+tests/bn_mod_inverse*
 tests/bn_mod_sqrt*
 tests/bn_mont*
 tests/bn_primes*

@@ -188,6 +188,11 @@ check_PROGRAMS += bn_mod_exp
 bn_mod_exp_CPPFLAGS = $(AM_CPPFLAGS) -ULIBRESSL_INTERNAL
 bn_mod_exp_SOURCES = bn_mod_exp.c
 
+# bn_mod_inverse
+TESTS += bn_mod_inverse
+check_PROGRAMS += bn_mod_inverse
+bn_mod_inverse_SOURCES = bn_mod_inverse.c
+
 # bn_mod_sqrt
 TESTS += bn_mod_sqrt
 check_PROGRAMS += bn_mod_sqrt

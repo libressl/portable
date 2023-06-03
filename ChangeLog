@@ -34,8 +34,8 @@ LibreSSL Portable Release Notes:
 	* Internal improvements
 	  - Fixed alignment handling in SHA-512.
 	  - Moved the verified_chain to the correct internal struct.
-	  - Improved checks for commonName in libtls. 
-	  - Fixed error check for X509_get_ext_d2i() failure in libtls. 
+	  - Improved checks for commonName in libtls.
+	  - Fixed error check for X509_get_ext_d2i() failure in libtls.
 	  - Improved BIGNUM internals and performance on aarch64.
 	  - Initial cleanups for SHA-256 internals.
 	  - Converted more libcrypto internals API using CBB and CBS.
@@ -44,6 +44,7 @@ LibreSSL Portable Release Notes:
 	  - X509_NAME_get_text_by_{NID,OBJ}() now only succeed if they contain
 	    valid UTF-8 without embedded NUL.
 	* Bug fixes
+	  - Fixed aliasing issue in BN_mod_inverse().
 	* Documentation improvements
 	  - Made it very explicit that the verify_cb() should not be used.
 	* Testing and Proactive Security

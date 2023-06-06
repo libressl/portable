@@ -46,7 +46,8 @@ LibreSSL Portable Release Notes:
 	* Bug fixes
 	  - Fixed aliasing issue in BN_mod_inverse().
 	* Documentation improvements
-	  - Made it very explicit that the verify_cb() should not be used.
+	  - Made it very explicit that the verify callback should not be used.
+	  - Called out that the CRL lastUpdate is standardized as thisUpdate.
 	* Testing and Proactive Security
 
 3.8.0 - Development release

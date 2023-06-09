@@ -49,6 +49,8 @@ LibreSSL Portable Release Notes:
 	  - Made it very explicit that the verify callback should not be used.
 	  - Called out that the CRL lastUpdate is standardized as thisUpdate.
 	* Testing and Proactive Security
+	  - As always, new test coverage is added as bugs are fixed and subsystems
+	    are cleaned up.
 
 3.8.0 - Development release
 

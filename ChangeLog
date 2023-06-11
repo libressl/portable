@@ -39,6 +39,7 @@ LibreSSL Portable Release Notes:
 	  - Improved BIGNUM internals and performance on aarch64.
 	  - Initial cleanups for SHA-256 internals.
 	  - Converted more libcrypto internals API using CBB and CBS.
+	  - Removed code guarded by ZLIB.
 	* New features
 	* Compatibility changes
 	  - X509_NAME_get_text_by_{NID,OBJ}() now only succeed if they contain

@@ -37,7 +37,7 @@ LibreSSL Portable Release Notes:
 	  - Improved checks for commonName in libtls.
 	  - Fixed error check for X509_get_ext_d2i() failure in libtls.
 	  - Improved BIGNUM internals and performance on aarch64.
-	  - Initial cleanups for SHA-256 internals.
+	  - Initial cleanup passes for SHA-256 internals.
 	  - Converted more libcrypto internals API using CBB and CBS.
 	  - Removed code guarded by ZLIB.
 	* New features

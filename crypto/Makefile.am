@@ -469,7 +469,6 @@ libcrypto_la_SOURCES += cmac/cmac.c
 # cms
 libcrypto_la_SOURCES += cms/cms_asn1.c
 libcrypto_la_SOURCES += cms/cms_att.c
-libcrypto_la_SOURCES += cms/cms_cd.c
 libcrypto_la_SOURCES += cms/cms_dd.c
 libcrypto_la_SOURCES += cms/cms_enc.c
 libcrypto_la_SOURCES += cms/cms_env.c

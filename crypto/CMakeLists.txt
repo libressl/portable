@@ -391,7 +391,6 @@ set(
 	cmac/cmac.c
 	cms/cms_asn1.c
 	cms/cms_att.c
-	cms/cms_cd.c
 	cms/cms_dd.c
 	cms/cms_enc.c
 	cms/cms_env.c

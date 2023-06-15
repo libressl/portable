@@ -40,6 +40,8 @@ LibreSSL Portable Release Notes:
 	  - Initial cleanup passes for SHA-256 internals.
 	  - Converted more libcrypto internals API using CBB and CBS.
 	  - Removed code guarded by #ifdef ZLIB.
+	  - Changed ASN1_item_sign_ctx() and ASN1_item_verify() to work with
+	    Ed25519 and fixed a few bugs in there.
 	* New features
 	* Compatibility changes
 	  - X509_NAME_get_text_by_{NID,OBJ}() now only succeed if they contain

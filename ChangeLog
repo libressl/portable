@@ -37,6 +37,7 @@ LibreSSL Portable Release Notes:
 	  - Improved checks for commonName in libtls.
 	  - Fixed error check for X509_get_ext_d2i() failure in libtls.
 	  - Improved BIGNUM internals and performance on aarch64.
+	  - Significantly improved Montgomery multiplication performance.
 	  - Initial cleanup passes for SHA-256 internals.
 	  - Converted more libcrypto internals API using CBB and CBS.
 	  - Removed code guarded by #ifdef ZLIB.
@@ -48,6 +49,9 @@ LibreSSL Portable Release Notes:
 	    valid UTF-8 without embedded NUL.
 	* Bug fixes
 	  - Fixed aliasing issue in BN_mod_inverse().
+	  - Made CRYPTO_get_ex_new_index() not return 0 to allow applications
+	    to use *_{get,set}_app_data() and *_{get,set}_ex_data() alongside
+	    each other.
 	* Documentation improvements
 	  - Made it very explicit that the verify callback should not be used.
 	  - Called out that the CRL lastUpdate is standardized as thisUpdate.

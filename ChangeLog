@@ -43,6 +43,7 @@ LibreSSL Portable Release Notes:
 	  - Removed code guarded by #ifdef ZLIB.
 	  - Changed ASN1_item_sign_ctx() and ASN1_item_verify() to work with
 	    Ed25519 and fixed a few bugs in there.
+	  - Moved libtls from ECDSA_METHOD to EC_KEY_METHOD.
 	* New features
 	* Compatibility changes
 	  - X509_NAME_get_text_by_{NID,OBJ}() now only succeed if they contain

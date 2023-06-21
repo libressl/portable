@@ -44,6 +44,10 @@ LibreSSL Portable Release Notes:
 	  - Changed ASN1_item_sign_ctx() and ASN1_item_verify() to work with
 	    Ed25519 and fixed a few bugs in there.
 	  - Moved libtls from ECDSA_METHOD to EC_KEY_METHOD.
+	  - Fixed various issues with EVP_PKEY_CTX_{new,dup}().
+	  - Improved X.509 certificate version checks.
+	  - Cleaned up handling of elliptic curve cofactors.
+	  - Made BN_num_bits() independent of bn->top.
 	* New features
 	* Compatibility changes
 	  - X509_NAME_get_text_by_{NID,OBJ}() now only succeed if they contain

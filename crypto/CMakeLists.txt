@@ -363,6 +363,7 @@ set(
 	bn/bn_mont.c
 	bn/bn_mul.c
 	bn/bn_prime.c
+	bn/bn_primitives.c
 	bn/bn_rand.c
 	bn/bn_recp.c
 	bn/bn_shift.c

@@ -1,6 +1,6 @@
---- apps/openssl/openssl.c.orig	Tue Apr 25 16:50:41 2023
-+++ apps/openssl/openssl.c	Tue Apr 25 16:51:01 2023
-@@ -358,7 +358,9 @@
+--- apps/openssl/openssl.c.orig	Sat Jun 17 13:06:00 2023
++++ apps/openssl/openssl.c	Sat Jun 24 04:44:55 2023
+@@ -354,7 +354,9 @@
  static void
  openssl_startup(void)
  {

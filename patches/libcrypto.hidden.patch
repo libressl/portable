@@ -102,7 +102,7 @@ diff -u openbsd/src/lib/libcrypto/hidden/openssl/x509v3.h crypto/hidden/openssl/
 +#endif
  #include "crypto_namespace.h"
  
- LCRYPTO_USED(PROXY_POLICY_new);
+ LCRYPTO_USED(BASIC_CONSTRAINTS_new);
 diff -u openbsd/src/lib/libcrypto/hidden/openssl/x509_vfy.h crypto/hidden/openssl/x509_vfy.h
 --- openbsd/src/lib/libcrypto/hidden/openssl/x509_vfy.h	2023-03-15 11:41:37.735995100 -0600
 +++ crypto/hidden/openssl/x509_vfy.h	2023-03-15 16:49:29.300450300 -0600

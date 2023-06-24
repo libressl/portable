@@ -153,6 +153,11 @@ add_executable(bn_cmp bn_cmp.c)
 target_link_libraries(bn_cmp ${OPENSSL_TEST_LIBS})
 add_test(bn_cmp bn_cmp)
 
+# bn_convert
+add_executable(bn_convert bn_convert.c)
+target_link_libraries(bn_convert ${OPENSSL_TEST_LIBS})
+add_test(bn_convert bn_convert)
+
 # bn_gcd
 add_executable(bn_gcd bn_cmp.c)
 target_link_libraries(bn_gcd ${OPENSSL_TEST_LIBS})

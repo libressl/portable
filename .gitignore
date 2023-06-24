@@ -82,6 +82,7 @@ tests/bio_mem*
 tests/bnaddsub*
 tests/bn_add_sub*
 tests/bn_cmp*
+tests/bn_convert*
 tests/bn_gcd*
 tests/bn_isqrt*
 tests/bn_mod_exp*

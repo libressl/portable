@@ -170,6 +170,11 @@ TESTS += bn_cmp
 check_PROGRAMS += bn_cmp
 bn_cmp_SOURCES = bn_cmp.c
 
+# bn_convert
+TESTS += bn_convert
+check_PROGRAMS += bn_convert
+bn_convert_SOURCES = bn_convert.c
+
 # bn_gcd
 TESTS += bn_gcd
 check_PROGRAMS += bn_gcd

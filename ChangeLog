@@ -36,7 +36,7 @@ LibreSSL Portable Release Notes:
 	  - Moved the verified_chain to the correct internal struct.
 	  - Improved checks for commonName in libtls.
 	  - Fixed error check for X509_get_ext_d2i() failure in libtls.
-	  - Improved BIGNUM internals and performance on aarch64.
+	  - Improved BIGNUM internals and performance.
 	  - Significantly improved Montgomery multiplication performance.
 	  - Initial cleanup passes for SHA-256 internals.
 	  - Converted more libcrypto internals API using CBB and CBS.
@@ -48,6 +48,8 @@ LibreSSL Portable Release Notes:
 	  - Improved X.509 certificate version checks.
 	  - Cleaned up handling of elliptic curve cofactors.
 	  - Made BN_num_bits() independent of bn->top.
+	  - Rewrote and simplified bn_sqr().
+	  - Removed EC_GROUP precomp machinery.
 	* New features
 	* Compatibility changes
 	  - X509_NAME_get_text_by_{NID,OBJ}() now only succeed if they contain

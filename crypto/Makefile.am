@@ -603,7 +603,6 @@ libcrypto_la_SOURCES += ecdh/ecdh_kdf.c
 libcrypto_la_SOURCES += ecdh/ech_err.c
 libcrypto_la_SOURCES += ecdh/ech_key.c
 libcrypto_la_SOURCES += ecdh/ech_lib.c
-noinst_HEADERS += ecdh/ech_local.h
 
 # ecdsa
 libcrypto_la_SOURCES += ecdsa/ecs_asn1.c

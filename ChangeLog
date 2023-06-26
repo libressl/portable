@@ -60,6 +60,7 @@ LibreSSL Portable Release Notes:
 	  - Made CRYPTO_get_ex_new_index() not return 0 to allow applications
 	    to use *_{get,set}_app_data() and *_{get,set}_ex_data() alongside
 	    each other.
+	  - Made EVP_PKEY_set1_hkdf_key() fail on a NULL key.
 	* Documentation improvements
 	  - Made it very explicit that the verify callback should not be used.
 	  - Called out that the CRL lastUpdate is standardized as thisUpdate.

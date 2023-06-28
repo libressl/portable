@@ -55,6 +55,7 @@ LibreSSL Portable Release Notes:
 	  - X509_NAME_get_text_by_{NID,OBJ}() now only succeed if they contain
 	    valid UTF-8 without embedded NUL.
 	  - Moved libtls from ECDSA_METHOD to EC_KEY_METHOD.
+	  - Removed support for ECDH_METHOD and ECDSA_METHOD.
 	* Bug fixes
 	  - Fixed aliasing issue in BN_mod_inverse().
 	  - Made CRYPTO_get_ex_new_index() not return 0 to allow applications

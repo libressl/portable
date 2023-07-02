@@ -69,6 +69,9 @@ LibreSSL Portable Release Notes:
 	* Testing and Proactive Security
 	  - As always, new test coverage is added as bugs are fixed and subsystems
 	    are cleaned up.
+	* Security fixes
+	  - Disabled TLSv1.0 and TLSv1.1 in libssl so that they may no longer
+	    be selected for use.
 
 3.8.0 - Development release
 

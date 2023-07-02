@@ -50,6 +50,7 @@ LibreSSL Portable Release Notes:
 	  - Rewrote and simplified bn_sqr().
 	  - Removed EC_GROUP precomp machinery.
 	  - Ensure no X.509v3 extensions appear more than once in certificates.
+	  - Cleaned up various ECDH, ECDSA and EC internals.
 	* New features
 	* Compatibility changes
 	  - X509_NAME_get_text_by_{NID,OBJ}() now only succeed if they contain

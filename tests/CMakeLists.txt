@@ -599,9 +599,12 @@ add_test(sha_test sha_test)
 if(NOT CMAKE_SYSTEM_NAME MATCHES "WindowsStore")
 	set(SIGNERTEST_SRC signertest.c)
 	check_function_exists(pipe2 HAVE_PIPE2)
-	if(!HAVE_PIPE2)
+	if(HAVE_PIPE2)
+		add_definitions(-DHAVE_PIPE2)
+	else()
 		set(SIGNERTEST_SRC ${SIGNERTEST_SRC} compat/pipe2.c)
 	endif()
+
 	set_source_files_properties(signertest.c PROPERTIES COMPILE_FLAGS
 	      -DCERTSDIR=\\"${CMAKE_CURRENT_SOURCE_DIR}\\")
 	add_executable(signertest ${SIGNERTEST_SRC})

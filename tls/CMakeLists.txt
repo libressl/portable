@@ -45,7 +45,8 @@ target_include_directories(tls_obj
 		.
 		../include/compat
 	PUBLIC
-		../include)
+		../include
+		${CMAKE_BINARY_DIR}/include)
 
 add_library(tls $<TARGET_OBJECTS:tls_obj> $<TARGET_OBJECTS:ssl_obj>
 	$<TARGET_OBJECTS:crypto_obj> empty.c)

@@ -4,7 +4,10 @@ if(ENABLE_LIBRESSL_INSTALL)
 	        PATTERN "CMakeLists.txt" EXCLUDE
 	        PATTERN "compat" EXCLUDE
 	        PATTERN "pqueue.h" EXCLUDE
-	        PATTERN "Makefile*" EXCLUDE)
+	        PATTERN "Makefile*" EXCLUDE
+	        PATTERN "arch" EXCLUDE)
+	install(FILES ${CMAKE_BINARY_DIR}/include/openssl/opensslconf.h
+	        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/openssl")
 endif(ENABLE_LIBRESSL_INSTALL)
 
 if(HOST_AARCH64)
@@ -28,4 +31,4 @@ elseif(HOST_SPARC64)
 elseif(HOST_X86_64)
 	file(READ arch/amd64/opensslconf.h OPENSSLCONF)
 endif()
-file(WRITE openssl/opensslconf.h "${OPENSSLCONF}")
+file(WRITE ${CMAKE_BINARY_DIR}/include/openssl/opensslconf.h "${OPENSSLCONF}")

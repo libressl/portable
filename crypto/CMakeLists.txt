@@ -997,7 +997,8 @@ target_include_directories(crypto_obj
 		x509
 		../include/compat
 	PUBLIC
-		../include)
+		../include
+		${CMAKE_BINARY_DIR}/include)
 
 if(HOST_AARCH64)
 	target_include_directories(crypto_obj PRIVATE bn/arch/aarch64/)

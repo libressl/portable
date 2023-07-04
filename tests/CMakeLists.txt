@@ -13,6 +13,7 @@ include_directories(
 	../apps/openssl
 	../apps/openssl/compat
 	../include
+	${CMAKE_BINARY_DIR}/include
 	../include/compat
 )
 

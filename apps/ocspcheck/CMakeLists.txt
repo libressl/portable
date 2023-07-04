@@ -8,9 +8,9 @@ set(
 
 check_function_exists(memmem HAVE_MEMMEM)
 if(HAVE_MEMMEM)
-        add_definitions(-DHAVE_MEMMEM)
+	add_definitions(-DHAVE_MEMMEM)
 else()
-        set(OCSPCHECK_SRC ${OCSPCHECK_SRC} compat/memmem.c)
+	set(OCSPCHECK_SRC ${OCSPCHECK_SRC} compat/memmem.c)
 endif()
 
 if(NOT "${OPENSSLDIR}" STREQUAL "")
@@ -20,8 +20,12 @@ else()
 endif()
 
 add_executable(ocspcheck ${OCSPCHECK_SRC})
-target_include_directories(ocspcheck PUBLIC ../../include)
-target_include_directories(ocspcheck PRIVATE . ./compat ../../include/compat)
+target_include_directories(ocspcheck
+	PRIVATE
+		../../include/compat
+	PUBLIC
+		../../include
+		${CMAKE_BINARY_DIR}/include)
 target_link_libraries(ocspcheck tls ${OPENSSL_LIBS})
 
 if(ENABLE_LIBRESSL_INSTALL)

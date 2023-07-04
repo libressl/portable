@@ -61,15 +61,20 @@ if(WIN32)
 endif()
 
 if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
-        check_function_exists(clock_gettime HAVE_CLOCK_GETTIME)
-        if(NOT HAVE_CLOCK_GETTIME)
-                set(OPENSSL_SRC ${OPENSSL_SRC} compat/clock_gettime_osx.c)
-        endif()
+	check_function_exists(clock_gettime HAVE_CLOCK_GETTIME)
+	if(NOT HAVE_CLOCK_GETTIME)
+			set(OPENSSL_SRC ${OPENSSL_SRC} compat/clock_gettime_osx.c)
+	endif()
 endif()
 
 add_executable(openssl ${OPENSSL_SRC})
-target_include_directories(openssl PUBLIC ../../include)
-target_include_directories(openssl PRIVATE . ../../include/compat)
+target_include_directories(openssl
+	PRIVATE
+		.
+		../../include/compat
+	PUBLIC
+		../../include
+		${CMAKE_BINARY_DIR}/include)
 target_link_libraries(openssl ${OPENSSL_LIBS})
 
 if(ENABLE_LIBRESSL_INSTALL)

@@ -69,7 +69,8 @@ target_include_directories(ssl_obj
 		../crypto/bio
 		../include/compat
 	PUBLIC
-		../include)
+		../include
+		${CMAKE_BINARY_DIR}/include)
 
 add_library(bs_obj OBJECT ${BS_SRC})
 target_include_directories(bs_obj

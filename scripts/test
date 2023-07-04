@@ -10,46 +10,77 @@ if type apt-get >/dev/null 2>&1; then
 	sudo apt-get install -y cmake ninja-build
 fi
 
+# generate source tree
 ./autogen.sh
 
-if [ "x$ARCH" = "xnative" ]; then
+if [ "$ARCH" = "" ]; then
+	ARCH=`uname -m`
+fi
+
+# test macOS
+if [ `uname` = "Darwin" ]; then
 	# test autotools
 	./configure
-	make -j 4 distcheck
 
 	# make distribution
-	make dist
+	make -j 4 distcheck
+
+	# test cmake
 	tar zxvf libressl-*.tar.gz
 	cd libressl-*
-	mkdir build-static
-	mkdir build-shared
 
-	cd build-static
+	(
+		mkdir build-static
+		cd build-static
+		cmake -DCMAKE_OSX_ARCHITECTURES=$ARCH ..
+		make -j 4
+		if [ "$ARCH" = "x86_64" ]; then
+			make test
+		fi
+	)
+
+	(
+		mkdir build-shared
+		cd build-shared
+		cmake -DBUILD_SHARED_LIBS=ON -DCMAKE_OSX_ARCHITECTURES=$ARCH ..
+		make -j 4
+		if [ "$ARCH" = "x86_64" ]; then
+			make test
+		fi
+	)
+
+# assuming Linux below
+elif [ "$ARCH" = "native" ]; then
+	# test autotools
+	./configure
+
+	# make distribution
+	make -j 4 distcheck
+
+	tar zxvf libressl-*.tar.gz
+	cd libressl-*
+
 
 	# test cmake and ninja
-	if [ `uname` = "Darwin" ]; then
-		cmake -DENABLE_ASM=${ENABLE_ASM} ..
-		make -j 4
-		make test
-
-		cd ../build-shared
-		cmake -DBUILD_SHARED_LIBS=ON -DENABLE_ASM=${ENABLE_ASM} ..
-		make -j 4
-		make test
-	else
+	(
+		mkdir build-static
+		cd build-static
 		cmake -GNinja -DENABLE_ASM=${ENABLE_ASM} ..
-		ninja -j 4
+		ninja
 		ninja test
+	)
 
-		cd ../build-shared
+	(
+		mkdir build-shared
+		cd build-shared
 		cmake -GNinja -DBUILD_SHARED_LIBS=ON -DENABLE_ASM=${ENABLE_ASM} ..
-		ninja -j 4
+		ninja
 		ninja test
-	fi
+	)
 
-elif [ "x$ARCH" = "xmingw32" -o "x$ARCH" = "xmingw64" ]; then
+elif [ "$ARCH" = "mingw32" -o "$ARCH" = "mingw64" ]; then
 	CPU=i686
-	if [ "x$ARCH" = "xmingw64" ]; then
+	if [ "$ARCH" = "mingw64" ]; then
 		CPU=x86_64
 	fi
 
@@ -75,10 +106,10 @@ elif [ "x$ARCH" = "xmingw32" -o "x$ARCH" = "xmingw64" ]; then
 	 ninja -j 4
 	)
 
-elif [ "x$ARCH" = "xarm32" -o "x$ARCH" = "xarm64" ]; then
+elif [ "$ARCH" = "arm32" -o "$ARCH" = "arm64" ]; then
 	sudo apt-get install -y qemu-user-static binfmt-support
 
-	if [ "x$ARCH" = "xarm32" ]; then
+	if [ "$ARCH" = "arm32" ]; then
 		sudo apt-get install -y g++-arm-linux-gnueabihf
 		sudo ln -sf /usr/arm-linux-gnueabihf/lib/ld-linux-armhf.so.3 /lib/
 		./configure --host=arm-linux-gnueabihf
@@ -92,10 +123,10 @@ elif [ "x$ARCH" = "xarm32" -o "x$ARCH" = "xarm64" ]; then
 
 	file apps/openssl/.libs/openssl
 
-elif [ "x$ARCH" = "xmips32" -o "x$ARCH" = "xmips64" ]; then
+elif [ "$ARCH" = "mips32" -o "$ARCH" = "mips64" ]; then
 	sudo apt-get install -y qemu-user-static binfmt-support
 
-	if [ "x$ARCH" = "xmips32" ]; then
+	if [ "$ARCH" = "mips32" ]; then
 		sudo apt-get install -y g++-mips-linux-gnu
 		sudo ln -sf /usr/mipsel-linux-gnu/lib/ld.so.1 /lib/
 		./configure --host=mipsel-linux-gnu
@@ -109,7 +140,7 @@ elif [ "x$ARCH" = "xmips32" -o "x$ARCH" = "xmips64" ]; then
 
 	file apps/openssl/.libs/openssl
 
-elif [ "x$ARCH" = "xandroid" ]; then
+elif [ "$ARCH" = "android" ]; then
 	export TC_FILE=$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake
 
 	# set target API level and architecture

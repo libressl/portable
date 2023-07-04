@@ -306,6 +306,15 @@ if(HAVE_NETINET_IP_H)
 	add_definitions(-DHAVE_NETINET_IP_H)
 endif()
 
+# This isn't ready for universal binaries yet, since we do conditional
+# compilation based on the architecture, but this makes cross compiling for a
+# single architecture work on macOS at least.
+#
+# Don't set CMAKE_OSX_ARCHITECTURES to more than a single value for now.
+if(APPLE)
+	set(CMAKE_SYSTEM_PROCESSOR "${CMAKE_OSX_ARCHITECTURES}")
+endif()
+
 if("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "(aarch64|arm64)")
 	set(HOST_AARCH64 true)
 elseif("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "arm")

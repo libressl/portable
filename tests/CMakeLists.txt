@@ -660,12 +660,12 @@ add_test(ssl_versions ssl_versions)
 # ssltest
 add_executable(ssltest ssltest.c)
 target_link_libraries(ssltest ${OPENSSL_TEST_LIBS})
-#if(NOT MSVC)
-#	add_test(NAME ssltest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/ssltest.sh)
-#else()
-#	add_test(NAME ssltest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/ssltest.bat $<TARGET_FILE:ssltest> $<TARGET_FILE:openssl>)
-#endif()
-#set_tests_properties(ssltest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
+if(NOT MSVC)
+	add_test(NAME ssltest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/ssltest.sh)
+else()
+	add_test(NAME ssltest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/ssltest.bat $<TARGET_FILE:ssltest> $<TARGET_FILE:openssl>)
+endif()
+set_tests_properties(ssltest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 
 # string_table
 add_executable(string_table string_table.c)

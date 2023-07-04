@@ -12,7 +12,7 @@ jobs:
     continue-on-error: false
     env:
       ARCH: ${{ matrix.arch }}
-    name: ${{ matrix.compiler }} - ${{ matrix.os }}
+    name: ${{ matrix.os }} - ${{ matrix.arch }}
     steps:
     - name: Install packages for macos
       run: brew install automake

@@ -678,7 +678,7 @@ check_PROGRAMS += ssl_versions
 ssl_versions_SOURCES = ssl_versions.c
 
 # ssltest
-#TESTS += ssltest.sh
+TESTS += ssltest.sh
 check_PROGRAMS += ssltest
 ssltest_SOURCES = ssltest.c
 EXTRA_DIST += ssltest.sh ssltest.bat

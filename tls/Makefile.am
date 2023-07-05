@@ -20,10 +20,17 @@ libtls_la_objects.mk: Makefile
 	  > libtls_la_objects.mk
 
 libtls_la_LDFLAGS = -version-info @LIBTLS_VERSION@ -no-undefined -export-symbols $(top_srcdir)/tls/tls.sym
+
+if ENABLE_LIBTLS_ONLY
 libtls_la_LIBADD = $(libcrypto_la_objects)
+libtls_la_LIBADD += $(libssl_la_objects)
+else
+libtls_la_LIBADD = $(abs_top_builddir)/crypto/libcrypto.la
+libtls_la_LIBADD += $(abs_top_builddir)/ssl/libssl.la
+endif
+
 libtls_la_LIBADD += $(libcompat_la_objects)
 libtls_la_LIBADD += $(libcompatnoopt_la_objects)
-libtls_la_LIBADD += $(libssl_la_objects)
 libtls_la_LIBADD += $(PLATFORM_LDADD)
 
 libtls_la_CPPFLAGS = $(AM_CPPFLAGS)

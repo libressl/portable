@@ -490,14 +490,12 @@ set(
 	ec/ecp_oct.c
 	ec/ecp_smpl.c
 	ec/ecx_methods.c
-	ecdh/ecdh_kdf.c
+	ecdh/ecdh.c
 	ecdh/ech_err.c
-	ecdh/ech_key.c
 	ecdh/ech_lib.c
-	ecdsa/ecs_asn1.c
+	ecdsa/ecdsa.c
 	ecdsa/ecs_err.c
 	ecdsa/ecs_lib.c
-	ecdsa/ecs_ossl.c
 	engine/eng_all.c
 	engine/eng_cnf.c
 	engine/eng_ctrl.c

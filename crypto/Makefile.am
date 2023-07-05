@@ -599,17 +599,15 @@ libcrypto_la_SOURCES += ec/ecx_methods.c
 noinst_HEADERS += ec/ec_local.h
 
 # ecdh
-libcrypto_la_SOURCES += ecdh/ecdh_kdf.c
+libcrypto_la_SOURCES += ecdh/ecdh.c
 libcrypto_la_SOURCES += ecdh/ech_err.c
-libcrypto_la_SOURCES += ecdh/ech_key.c
 libcrypto_la_SOURCES += ecdh/ech_lib.c
 
 # ecdsa
-libcrypto_la_SOURCES += ecdsa/ecs_asn1.c
+libcrypto_la_SOURCES += ecdsa/ecdsa.c
 libcrypto_la_SOURCES += ecdsa/ecs_err.c
 libcrypto_la_SOURCES += ecdsa/ecs_lib.c
-libcrypto_la_SOURCES += ecdsa/ecs_ossl.c
-noinst_HEADERS += ecdsa/ecs_local.h
+noinst_HEADERS += ecdsa/ecdsa_local.h
 
 # engine
 libcrypto_la_SOURCES += engine/eng_all.c

@@ -118,3 +118,17 @@ diff -u openbsd/src/lib/libcrypto/hidden/openssl/x509_vfy.h crypto/hidden/openss
  #include "crypto_namespace.h"
  
  LCRYPTO_USED(X509_STORE_set_depth);
+--- crypto/hidden/openssl/chacha.h.orig	Wed Jul  5 13:42:44 2023
++++ crypto/hidden/openssl/chacha.h	Wed Jul  5 13:44:17 2023
+@@ -18,7 +18,11 @@
+ #ifndef _LIBCRYPTO_CHACHA_H
+ #define _LIBCRYPTO_CHACHA_H
+ 
++#ifdef _MSC_VER
++#include <../include/openssl/chacha.h>
++#else
+ #include_next <openssl/chacha.h>
++#endif
+ #include "crypto_namespace.h"
+ 
+ LCRYPTO_USED(ChaCha_set_key);

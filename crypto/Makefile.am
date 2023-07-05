@@ -721,6 +721,7 @@ noinst_HEADERS += gost/gost_local.h
 
 # hidden
 noinst_HEADERS += hidden/crypto_namespace.h
+noinst_HEADERS += hidden/openssl/chacha.h
 noinst_HEADERS += hidden/openssl/hmac.h
 noinst_HEADERS += hidden/openssl/pkcs12.h
 noinst_HEADERS += hidden/openssl/pkcs7.h

@@ -16,4 +16,16 @@
 #include <limits.h>
 #endif
 
+#if !defined(HAVE_ATTRIBUTE__BOUNDED__) && !defined(__bounded__)
+# define __bounded__(x, y, z)
+#endif
+
+#if !defined(HAVE_ATTRIBUTE__DEAD) && !defined(__dead)
+#ifdef _MSC_VER
+#define __dead      __declspec(noreturn)
+#else
+#define __dead      __attribute__((__noreturn__))
+#endif
+#endif
+
 #endif

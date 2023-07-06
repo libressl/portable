@@ -8,9 +8,9 @@
 
 #if defined(_WIN32)
 
-#define LITTLE_ENDIAN  1234
+#define LITTLE_ENDIAN 1234
 #define BIG_ENDIAN 4321
-#define PDP_ENDIAN	3412
+#define PDP_ENDIAN 3412
 
 /*
  * Use GCC and Visual Studio compiler defines to determine endian.
@@ -28,8 +28,8 @@
 #include_next <machine/endian.h>
 
 #elif defined(__sun) || defined(_AIX) || defined(__hpux)
-#include <sys/types.h>
 #include <arpa/nameser_compat.h>
+#include <sys/types.h>
 
 #elif defined(__sgi)
 #include <standards.h>
@@ -39,10 +39,9 @@
 
 #ifndef __STRICT_ALIGNMENT
 #define __STRICT_ALIGNMENT
-#if defined(__i386)    || defined(__i386__)    || \
-    defined(__x86_64)  || defined(__x86_64__)  || \
-    defined(__s390__)  || defined(__s390x__)   || \
-    defined(__aarch64__)                       || \
+#if defined(__i386) || defined(__i386__) || defined(__x86_64) ||               \
+    defined(__x86_64__) || defined(__s390__) || defined(__s390x__) ||          \
+    defined(__aarch64__) ||                                                    \
     ((defined(__arm__) || defined(__arm)) && __ARM_ARCH >= 6)
 #undef __STRICT_ALIGNMENT
 #endif
@@ -70,10 +69,16 @@
 #define be64toh(x) ntohll((x))
 
 #if !defined(ntohll)
-#define ntohll(x) ((1==htonl(1)) ? (x) : ((uint64_t)ntohl((x) & 0xFFFFFFFF) << 32) | ntohl((x) >> 32))
+#define ntohll(x)                                                              \
+  ((1 == htonl(1))                                                             \
+       ? (x)                                                                   \
+       : ((uint64_t)ntohl((x)&0xFFFFFFFF) << 32) | ntohl((x) >> 32))
 #endif
 #if !defined(htonll)
-#define htonll(x) ((1==ntohl(1)) ? (x) : ((uint64_t)htonl((x) & 0xFFFFFFFF) << 32) | htonl((x) >> 32))
+#define htonll(x)                                                              \
+  ((1 == ntohl(1))                                                             \
+       ? (x)                                                                   \
+       : ((uint64_t)htonl((x)&0xFFFFFFFF) << 32) | htonl((x) >> 32))
 #endif
 
 #define htobe64(x) ntohll((x))
@@ -81,13 +86,13 @@
 
 #ifdef __linux__
 #if !defined(betoh16)
-#define betoh16	be16toh
+#define betoh16(x) be16toh(x)
 #endif
 #if !defined(betoh32)
-#define betoh32	be32toh
+#define betoh32(x) be32toh(x)
 #endif
 #if !defined(betoh64)
-#define betoh64	be64toh
+#define betoh64(x) be64toh(x)
 #endif
 #endif /* __linux__ */
 
@@ -96,26 +101,39 @@
 #include <sys/endian.h>
 #endif
 #if !defined(betoh16)
-#define betoh16	be16toh
+#define betoh16(x) be16toh(x)
 #endif
 #if !defined(betoh32)
-#define betoh32	be32toh
+#define betoh32(x) be32toh(x)
 #endif
 #if !defined(betoh64)
-#define betoh64	be64toh
+#define betoh64(x) be64toh(x)
 #endif
 #endif
 
 #if defined(__NetBSD__)
 #if !defined(betoh16)
-#define betoh16	be16toh
+#define betoh16(x) be16toh(x)
 #endif
 #if !defined(betoh32)
-#define betoh32	be32toh
+#define betoh32(x) be32toh(x)
 #endif
 #if !defined(betoh64)
-#define betoh64	be64toh
+#define betoh64(x) be64toh(x)
 #endif
+#endif
+
+#if defined(__sun)
+#include <sys/byteorder.h>
+#define be16toh(x) BE_IN16(x)
+#define betoh16(x) BE_IN16(x)
+#define htobe16(x) BE_16(x)
+#define be32toh(x) BE_IN32(x)
+#define betoh32(x) BE_IN32(x)
+#define htobe32(x) BE_32(x)
+#define be64toh(x) BE_IN64(x)
+#define betoh64(x) BE_IN64(x)
+#define htobe64(x) BE_64(x)
 #endif
 
 #endif

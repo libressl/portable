@@ -121,7 +121,7 @@ if(WIN32)
 	if(NOT CMAKE_SYSTEM_NAME MATCHES "WindowsStore")
 		add_definitions(-D_WIN32_WINNT=0x0600)
 	endif()
-	set(PLATFORM_LIBS ${PLATFORM_LIBS} ws2_32 bcrypt)
+	set(PLATFORM_LIBS ${PLATFORM_LIBS} ws2_32 ntdll bcrypt)
 endif()
 
 if(MSVC)

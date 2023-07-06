@@ -18,7 +18,7 @@ set +e
 tag=`git describe --exact-match --tags HEAD 2>/dev/null`
 is_tag=$?
 # adjust for 9 hour time delta between trees
-release_ts=$((`git show -s --format=%ct $tag|tail -n1` + 32400))
+release_ts=$((`git show -s --format=%ct $tag|tail -1` + 32400))
 commit=`git -C openbsd rev-list -n 1 --before=$release_ts $openbsd_branch`
 git -C openbsd fetch
 if [ $is_tag -eq 0 ]; then

@@ -253,7 +253,7 @@ posix_getsockopt(int sockfd, int level, int optname,
 	int rc;
 	if (is_socket(sockfd)) {
 		rc = getsockopt(sockfd, level, optname, (char *)optval, optlen);
-		if (rc == 0) {
+		if (rc != 0) {
 			rc = wsa_errno(WSAGetLastError());
 		}
 	} else {
@@ -269,7 +269,7 @@ posix_setsockopt(int sockfd, int level, int optname,
 	int rc;
 	if (is_socket(sockfd)) {
 		rc = setsockopt(sockfd, level, optname, (char *)optval, optlen);
-		if (rc == 0) {
+		if (rc != 0) {
 			rc = wsa_errno(WSAGetLastError());
 		}
 	} else {

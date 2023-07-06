@@ -157,18 +157,6 @@ wsa_errno(int err)
 #include <crtdbg.h>
 #include <stdlib.h>
 
-typedef void (*_invalid_parameter_handler)(
-   const wchar_t * expression,
-   const wchar_t * function,
-   const wchar_t * file,
-   unsigned int line,
-   uintptr_t pReserved
-);
-
-extern _invalid_parameter_handler _set_thread_local_invalid_parameter_handler(
-   _invalid_parameter_handler pNew
-);
-
 static void noop_handler(const wchar_t *expression,	const wchar_t *function,
     const wchar_t *file, unsigned int line, uintptr_t pReserved)
 {

@@ -1,0 +1,27 @@
+name: solaris_ci
+
+on: [push]
+
+jobs:
+  build-native:
+    strategy:
+      matrix:
+        release: [11.4]
+    runs-on: macos-12
+    continue-on-error: false
+    name: Solaris ${{ matrix.release }}
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@main
+    - name: Configure source
+      run: |
+        brew install automake autoconf libtool
+        ./autogen.sh
+    - name: Build on VM
+      uses: vmactions/solaris-vm@v0
+      with:
+        prepare: |
+          pkg install gcc make
+        run: |
+          MAKE=gmake ./configure
+          gmake -j2 check

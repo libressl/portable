@@ -198,6 +198,11 @@ add_executable(bn_primes bn_primes.c)
 target_link_libraries(bn_primes ${OPENSSL_TEST_LIBS})
 add_test(bn_primes bn_primes)
 
+# bn_print
+add_executable(bn_print bn_print.c)
+target_link_libraries(bn_print ${OPENSSL_TEST_LIBS})
+add_test(bn_print bn_print)
+
 # bn_rand_interval
 add_executable(bn_rand_interval bn_rand_interval.c)
 target_link_libraries(bn_rand_interval ${OPENSSL_TEST_LIBS})

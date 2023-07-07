@@ -213,6 +213,11 @@ TESTS += bn_primes
 check_PROGRAMS += bn_primes
 bn_primes_SOURCES = bn_primes.c
 
+# bn_print
+TESTS += bn_print
+check_PROGRAMS += bn_print
+bn_print_SOURCES = bn_print.c
+
 # bn_rand_interval
 TESTS += bn_rand_interval
 check_PROGRAMS += bn_rand_interval

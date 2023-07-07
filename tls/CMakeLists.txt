@@ -54,7 +54,7 @@ add_library(tls $<TARGET_OBJECTS:tls_obj> $<TARGET_OBJECTS:ssl_obj>
 export_symbol(tls ${CMAKE_CURRENT_BINARY_DIR}/tls.sym)
 target_link_libraries(tls ${PLATFORM_LIBS})
 if (WIN32)
-	set(TLS_POSTFIX -${TLS_MAJOR_VERSION})
+	set(TLS_POSTFIX -${TLS_MAJOR_VERSION} PARENT_SCOPE)
 endif()
 set_target_properties(tls PROPERTIES
 	OUTPUT_NAME tls${TLS_POSTFIX}

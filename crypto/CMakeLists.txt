@@ -1029,7 +1029,7 @@ add_library(crypto $<TARGET_OBJECTS:crypto_obj> empty.c)
 export_symbol(crypto ${CMAKE_CURRENT_BINARY_DIR}/crypto_p.sym)
 target_link_libraries(crypto ${PLATFORM_LIBS})
 if (WIN32)
-	set(CRYPTO_POSTFIX -${CRYPTO_MAJOR_VERSION})
+	set(CRYPTO_POSTFIX -${CRYPTO_MAJOR_VERSION} PARENT_SCOPE)
 endif()
 set_target_properties(crypto PROPERTIES
 	OUTPUT_NAME crypto${CRYPTO_POSTFIX}

@@ -176,6 +176,11 @@ if(HAVE_ASPRINTF)
 	add_definitions(-DHAVE_ASPRINTF)
 endif()
 
+check_function_exists(getopt HAVE_GETOPT)
+if(HAVE_GETOPT)
+	add_definitions(-DHAVE_GETOPT)
+endif()
+
 check_function_exists(reallocarray HAVE_REALLOCARRAY)
 if(HAVE_REALLOCARRAY)
 	add_definitions(-DHAVE_REALLOCARRAY)

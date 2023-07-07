@@ -148,6 +148,49 @@ wsa_errno(int err)
 	return -1;
 }
 
+/*
+ * Employ a similar trick to cpython (pycore_fileutils.h) where the CRT report
+ * handler is disabled while checking if a descriptor is a socket or a file
+ */
+#if defined _MSC_VER && _MSC_VER >= 1900
+
+#include <crtdbg.h>
+#include <stdlib.h>
+
+static void noop_handler(const wchar_t *expression,	const wchar_t *function,
+    const wchar_t *file, unsigned int line, uintptr_t pReserved)
+{
+	return;
+}
+
+#define BEGIN_SUPPRESS_IPH \
+	_invalid_parameter_handler old_handler = _set_thread_local_invalid_parameter_handler(noop_handler)
+#define END_SUPPRESS_IPH \
+	_set_thread_local_invalid_parameter_handler(old_handler)
+
+#else
+
+#define BEGIN_SUPPRESS_IPH
+#define END_SUPPRESS_IPH
+
+#endif
+
+static int
+is_socket(int fd)
+{
+	intptr_t hd;
+
+	BEGIN_SUPPRESS_IPH;
+	hd = _get_osfhandle(fd);
+	END_SUPPRESS_IPH;
+
+	if (hd == (intptr_t)INVALID_HANDLE_VALUE) {
+		return 1; /* fd is not file descriptor */
+	}
+
+	return 0;
+}
+
 int
 posix_connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen)
 {
@@ -160,24 +203,31 @@ posix_connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen)
 int
 posix_close(int fd)
 {
-	if (closesocket(fd) == SOCKET_ERROR) {
-		int err = WSAGetLastError();
-		return (err == WSAENOTSOCK || err == WSAEBADF ||
-		    err == WSANOTINITIALISED) ?
-			close(fd) : wsa_errno(err);
+	int rc;
+
+	if (is_socket(fd)) {
+		if ((rc = closesocket(fd)) == SOCKET_ERROR) {
+			int err = WSAGetLastError();
+			rc = wsa_errno(err);
+		}
+	} else {
+		rc = close(fd);
 	}
-	return 0;
+	return rc;
 }
 
 ssize_t
 posix_read(int fd, void *buf, size_t count)
 {
-	ssize_t rc = recv(fd, buf, count, 0);
-	if (rc == SOCKET_ERROR) {
-		int err = WSAGetLastError();
-		return (err == WSAENOTSOCK || err == WSAEBADF ||
-		    err == WSANOTINITIALISED) ?
-			read(fd, buf, count) : wsa_errno(err);
+	ssize_t rc;
+
+	if (is_socket(fd)) {
+		if ((rc = recv(fd, buf, count, 0)) == SOCKET_ERROR) {
+			int err = WSAGetLastError();
+			rc = wsa_errno(err);
+		}
+	} else {
+		rc = read(fd, buf, count);
 	}
 	return rc;
 }
@@ -185,12 +235,13 @@ posix_read(int fd, void *buf, size_t count)
 ssize_t
 posix_write(int fd, const void *buf, size_t count)
 {
-	ssize_t rc = send(fd, buf, count, 0);
-	if (rc == SOCKET_ERROR) {
-		int err = WSAGetLastError();
-		return (err == WSAENOTSOCK || err == WSAEBADF ||
-		    err == WSANOTINITIALISED) ?
-			write(fd, buf, count) : wsa_errno(err);
+	ssize_t rc;
+	if (is_socket(fd)) {
+		if ((rc = send(fd, buf, count, 0)) == SOCKET_ERROR) {
+			rc = wsa_errno(WSAGetLastError());
+		}
+	} else {
+		rc = write(fd, buf, count);
 	}
 	return rc;
 }
@@ -199,17 +250,32 @@ int
 posix_getsockopt(int sockfd, int level, int optname,
 	void *optval, socklen_t *optlen)
 {
-	int rc = getsockopt(sockfd, level, optname, (char *)optval, optlen);
-	return rc == 0 ? 0 : wsa_errno(WSAGetLastError());
-
+	int rc;
+	if (is_socket(sockfd)) {
+		rc = getsockopt(sockfd, level, optname, (char *)optval, optlen);
+		if (rc != 0) {
+			rc = wsa_errno(WSAGetLastError());
+		}
+	} else {
+		rc = -1;
+	}
+	return rc;
 }
 
 int
 posix_setsockopt(int sockfd, int level, int optname,
 	const void *optval, socklen_t optlen)
 {
-	int rc = setsockopt(sockfd, level, optname, (char *)optval, optlen);
-	return rc == 0 ? 0 : wsa_errno(WSAGetLastError());
+	int rc;
+	if (is_socket(sockfd)) {
+		rc = setsockopt(sockfd, level, optname, (char *)optval, optlen);
+		if (rc != 0) {
+			rc = wsa_errno(WSAGetLastError());
+		}
+	} else {
+		rc = -1;
+	}
+	return rc;
 }
 
 uid_t getuid(void)
@@ -241,5 +307,4 @@ int gettimeofday(struct timeval * tp, struct timezone * tzp)
 	tp->tv_usec = (long)(system_time.wMilliseconds * 1000);
 	return 0;
 }
-
 #endif

@@ -729,6 +729,7 @@ noinst_HEADERS += hidden/openssl/hmac.h
 noinst_HEADERS += hidden/openssl/pkcs12.h
 noinst_HEADERS += hidden/openssl/pkcs7.h
 noinst_HEADERS += hidden/openssl/stack.h
+noinst_HEADERS += hidden/openssl/ts.h
 noinst_HEADERS += hidden/openssl/ui.h
 noinst_HEADERS += hidden/openssl/x509.h
 noinst_HEADERS += hidden/openssl/x509_vfy.h

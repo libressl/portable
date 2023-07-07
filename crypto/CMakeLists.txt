@@ -818,6 +818,11 @@ if(NOT HAVE_FREEZERO)
 	set(EXTRA_EXPORT ${EXTRA_EXPORT} freezero)
 endif()
 
+if(NOT HAVE_GETOPT)
+	set(CRYPTO_SRC ${CRYPTO_SRC} compat/getopt_long.c)
+	set(EXTRA_EXPORT ${EXTRA_EXPORT} getopt)
+endif()
+
 if(NOT HAVE_GETPAGESIZE)
 	set(CRYPTO_SRC ${CRYPTO_SRC} compat/getpagesize.c)
 endif()

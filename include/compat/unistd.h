@@ -64,6 +64,10 @@ int getentropy(void *buf, size_t buflen);
 #endif
 #endif
 
+#ifndef HAVE_GETOPT
+#include <getopt.h>
+#endif
+
 #ifndef HAVE_GETPAGESIZE
 int getpagesize(void);
 #endif

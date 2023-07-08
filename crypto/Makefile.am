@@ -736,6 +736,7 @@ noinst_HEADERS += hidden/openssl/conf_api.h
 noinst_HEADERS += hidden/openssl/crypto.h
 noinst_HEADERS += hidden/openssl/ct.h
 noinst_HEADERS += hidden/openssl/curve25519.h
+noinst_HEADERS += hidden/openssl/dh.h
 noinst_HEADERS += hidden/openssl/dsa.h
 noinst_HEADERS += hidden/openssl/dso.h
 noinst_HEADERS += hidden/openssl/ec.h

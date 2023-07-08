@@ -726,6 +726,8 @@ noinst_HEADERS += hidden/openssl/asn1.h
 noinst_HEADERS += hidden/openssl/asn1t.h
 noinst_HEADERS += hidden/openssl/bio.h
 noinst_HEADERS += hidden/openssl/chacha.h
+noinst_HEADERS += hidden/openssl/ct.h
+noinst_HEADERS += hidden/openssl/dso.h
 noinst_HEADERS += hidden/openssl/ec.h
 noinst_HEADERS += hidden/openssl/ecdh.h
 noinst_HEADERS += hidden/openssl/ecdsa.h
@@ -776,12 +778,10 @@ libcrypto_la_SOURCES += lhash/lhash.c
 # md4
 libcrypto_la_SOURCES += md4/md4_dgst.c
 libcrypto_la_SOURCES += md4/md4_one.c
-noinst_HEADERS += md4/md4_local.h
 
 # md5
 libcrypto_la_SOURCES += md5/md5_dgst.c
 libcrypto_la_SOURCES += md5/md5_one.c
-noinst_HEADERS += md5/md5_local.h
 
 # modes
 libcrypto_la_SOURCES += modes/cbc128.c
@@ -878,7 +878,6 @@ noinst_HEADERS += rc4/rc4_local.h
 # ripemd
 libcrypto_la_SOURCES += ripemd/rmd_dgst.c
 libcrypto_la_SOURCES += ripemd/rmd_one.c
-noinst_HEADERS += ripemd/rmd_local.h
 noinst_HEADERS += ripemd/rmdconst.h
 
 # rsa

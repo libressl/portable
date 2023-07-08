@@ -912,7 +912,6 @@ noinst_HEADERS += sha/sha3_internal.h
 
 # sm3
 libcrypto_la_SOURCES += sm3/sm3.c
-noinst_HEADERS += sm3/sm3_local.h
 
 # sm4
 libcrypto_la_SOURCES += sm4/sm4.c

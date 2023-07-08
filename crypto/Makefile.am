@@ -730,6 +730,7 @@ noinst_HEADERS += hidden/openssl/chacha.h
 noinst_HEADERS += hidden/openssl/cms.h
 noinst_HEADERS += hidden/openssl/comp.h
 noinst_HEADERS += hidden/openssl/conf_api.h
+noinst_HEADERS += hidden/openssl/crypto.h
 noinst_HEADERS += hidden/openssl/ct.h
 noinst_HEADERS += hidden/openssl/dso.h
 noinst_HEADERS += hidden/openssl/ec.h

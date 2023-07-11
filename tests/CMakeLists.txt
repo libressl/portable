@@ -269,10 +269,9 @@ target_link_libraries(cipherstest ${OPENSSL_TEST_LIBS})
 add_test(cipherstest cipherstest)
 
 # clienttest
-# Disabled for now after removal of TLS 1.0/1.1 support
 add_executable(clienttest clienttest.c)
 target_link_libraries(clienttest ${OPENSSL_TEST_LIBS})
-#add_test(clienttest clienttest)
+add_test(clienttest clienttest)
 
 # cmstest
 add_executable(cmstest cmstest.c)
@@ -588,15 +587,14 @@ add_test(rsa_test rsa_test)
 # server.c
 
 # servertest
-# Disabled for now after removal of TLS 1.0/1.1 support
 add_executable(servertest servertest.c)
 target_link_libraries(servertest ${OPENSSL_TEST_LIBS})
-#if(NOT MSVC)
-#	add_test(NAME servertest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/servertest.sh)
-#else()
-#	add_test(NAME servertest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/servertest.bat $<TARGET_FILE:servertest>)
-#endif()
-#set_tests_properties(servertest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
+if(NOT MSVC)
+	add_test(NAME servertest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/servertest.sh)
+else()
+	add_test(NAME servertest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/servertest.bat $<TARGET_FILE:servertest>)
+endif()
+set_tests_properties(servertest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 
 # sha_test
 add_executable(sha_test sha_test.c)

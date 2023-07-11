@@ -284,8 +284,7 @@ check_PROGRAMS += cipherstest
 cipherstest_SOURCES = cipherstest.c
 
 # clienttest
-# Disabled for now after removal of TLS 1.0/1.1 support
-#TESTS += clienttest
+TESTS += clienttest
 check_PROGRAMS += clienttest
 clienttest_SOURCES = clienttest.c
 
@@ -622,8 +621,7 @@ rsa_test_SOURCES = rsa_test.c
 # server.c
 
 # servertest
-# Disabled for now after removal of TLS 1.0/1.1 support
-#TESTS += servertest.sh
+TESTS += servertest.sh
 check_PROGRAMS += servertest
 servertest_SOURCES = servertest.c
 EXTRA_DIST += servertest.sh servertest.bat

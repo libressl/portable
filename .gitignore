@@ -92,6 +92,7 @@ tests/bn_mod_inverse*
 tests/bn_mod_sqrt*
 tests/bn_mont*
 tests/bn_primes*
+tests/bn_print*
 tests/bn_rand_interval*
 tests/bn_shift*
 tests/bn_to_string*
@@ -103,6 +104,7 @@ tests/constraints*
 tests/ctlog.conf
 tests/*.crt
 tests/ec_point_conversion*
+tests/ecc_cdh*
 tests/evp_pkey_check*
 tests/evp_pkey_cleanup*
 tests/explicit_bzero*

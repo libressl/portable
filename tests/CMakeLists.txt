@@ -319,6 +319,11 @@ add_test(dsatest dsatest)
 # 	set_tests_properties(dtlstest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 # endif()
 
+# ecc_cdh
+add_executable(ecc_cdh ecc_cdh.c)
+target_link_libraries(ecc_cdh ${OPENSSL_TEST_LIBS})
+add_test(ecc_cdh ecc_cdh)
+
 # ec_asn1_test
 add_executable(ec_asn1_test ec_asn1_test.c)
 target_link_libraries(ec_asn1_test ${OPENSSL_TEST_LIBS})

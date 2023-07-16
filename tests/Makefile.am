@@ -336,6 +336,11 @@ dsatest_SOURCES = dsatest.c
 #endif
 #EXTRA_DIST += dtlstest.sh
 
+# ecc_cdh
+TESTS += ecc_cdh
+check_PROGRAMS += ecc_cdh
+ecc_cdh_SOURCES = ecc_cdh.c
+
 # ec_asn1_test
 TESTS += ec_asn1_test
 check_PROGRAMS += ec_asn1_test

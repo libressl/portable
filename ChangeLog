@@ -52,6 +52,7 @@ LibreSSL Portable Release Notes:
 	  - Ensure no X.509v3 extensions appear more than once in certificates.
 	  - Cleaned up various ECDH, ECDSA and EC internals.
 	  - Replaced ASN1_bn_print with a cleaner internal implementation.
+	  - Simplified ASN1_item_sign_ctx().
 	* New features
 	* Compatibility changes
 	  - X509_NAME_get_text_by_{NID,OBJ}() now only succeed if they contain

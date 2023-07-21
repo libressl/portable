@@ -59,6 +59,8 @@ LibreSSL Portable Release Notes:
 	    valid UTF-8 without embedded NUL.
 	  - Moved libtls from ECDSA_METHOD to EC_KEY_METHOD.
 	  - Removed support for ECDH_METHOD and ECDSA_METHOD.
+	  - BN_is_prime{,_fasttest}_ex() refuse to check numbers larger than
+	    32 kbits for primality. This mitigates various DoS vectors.
 	* Bug fixes
 	  - Fixed aliasing issue in BN_mod_inverse().
 	  - Made CRYPTO_get_ex_new_index() not return 0 to allow applications

@@ -497,6 +497,7 @@ set(
 	ecdsa/ecdsa.c
 	ecdsa/ecs_err.c
 	ecdsa/ecs_lib.c
+	engine/engine_stubs.c
 	engine/eng_all.c
 	engine/eng_cnf.c
 	engine/eng_ctrl.c

@@ -1301,14 +1301,13 @@ OBJ_NAME_add.3,OBJ_NAME_get.3
 OBJ_NAME_add.3,OBJ_NAME_init.3
 OBJ_NAME_add.3,OBJ_NAME_new_index.3
 OBJ_NAME_add.3,OBJ_NAME_remove.3
-OBJ_add_sigid.3,OBJ_find_sigid_algs.3
-OBJ_add_sigid.3,OBJ_find_sigid_by_algs.3
 OBJ_create.3,OBJ_add_object.3
 OBJ_create.3,OBJ_cleanup.3
 OBJ_create.3,OBJ_create_objects.3
 OBJ_create.3,OBJ_new_nid.3
 OBJ_create.3,check_defer.3
 OBJ_create.3,obj_cleanup_defer.3
+OBJ_find_sigid_algs.3,OBJ_find_sigid_by_algs.3
 OBJ_nid2obj.3,OBJ_cmp.3
 OBJ_nid2obj.3,OBJ_dup.3
 OBJ_nid2obj.3,OBJ_ln2nid.3

@@ -822,7 +822,6 @@ libcrypto_la_SOURCES += objects/obj_err.c
 libcrypto_la_SOURCES += objects/obj_lib.c
 libcrypto_la_SOURCES += objects/obj_xref.c
 noinst_HEADERS += objects/obj_dat.h
-noinst_HEADERS += objects/obj_xref.h
 
 # ocsp
 libcrypto_la_SOURCES += ocsp/ocsp_asn.c

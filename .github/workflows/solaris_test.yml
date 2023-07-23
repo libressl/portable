@@ -1,6 +1,9 @@
 name: solaris_ci
 
-on: [push]
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: "0 0 * * *"
 
 jobs:
   build-native:

@@ -3,8 +3,9 @@
 
 [![Linux Build Status](https://github.com/libressl/portable/actions/workflows/linux_test.yml/badge.svg)](https://github.com/libressl/portable/actions/workflows/linux_test.yml)
 [![macOS Build Status](https://github.com/libressl/portable/actions/workflows/macos_test.yml/badge.svg)](https://github.com/libressl/portable/actions/workflows/macos_test.yml)
-[![Android_Build Status](https://github.com/libressl/portable/actions/workflows/android_test.yml/badge.svg)](https://github.com/libressl/portable/actions/workflows/android_test.yml)
-[![Cross_Build Status](https://github.com/libressl/portable/actions/workflows/cross_test.yml/badge.svg)](https://github.com/libressl/portable/actions/workflows/cross_test.yml)
+[![Android Build Status](https://github.com/libressl/portable/actions/workflows/android_test.yml/badge.svg)](https://github.com/libressl/portable/actions/workflows/android_test.yml)
+[![Cross Build Status](https://github.com/libressl/portable/actions/workflows/cross_test.yml/badge.svg)](https://github.com/libressl/portable/actions/workflows/cross_test.yml)
+[![Solaris Build Status](https://github.com/libressl/portable/actions/workflows/solaris_test.yml/badge.svg)](https://github.com/libressl/portable/actions/workflows/solaris_test.yml)
 [![Fuzzing Status](https://oss-fuzz-build-logs.storage.googleapis.com/badges/libressl.svg)](https://bugs.chromium.org/p/oss-fuzz/issues/list?sort=-opened&can=1&q=proj:libressl)
 [![ASan Status](https://github.com/libressl/portable/actions/workflows/linux_test_asan.yml/badge.svg)](https://github.com/libressl/portable/actions/workflows/linux_test_asan.yml)
 

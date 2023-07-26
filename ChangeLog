@@ -54,6 +54,8 @@ LibreSSL Portable Release Notes:
 	  - Replaced ASN1_bn_print with a cleaner internal implementation.
 	  - Simplified ASN1_item_sign_ctx().
 	  - Rewrote OBJ_find_sigid_algs() and OBJ_find_sigid_by_algs().
+	  - Various improvements in the 'simple' EC code.
+	  - Fix OPENSSL_cpuid_setup() invocations on arm/aarch64.
 	* New features
 	* Compatibility changes
 	  - X509_NAME_get_text_by_{NID,OBJ}() now only succeed if they contain

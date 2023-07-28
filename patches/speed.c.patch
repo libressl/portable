@@ -1,5 +1,5 @@
---- apps/openssl/speed.c.orig	Sun May 21 12:13:46 2023
-+++ apps/openssl/speed.c	Sun May 21 12:31:50 2023
+--- apps/openssl/speed.c.orig	Fri Jul 28 06:04:45 2023
++++ apps/openssl/speed.c	Fri Jul 28 06:09:00 2023
 @@ -161,7 +161,16 @@ static void
  pkey_print_message(const char *str, const char *str2,
      long num, int bits, int sec);
@@ -74,7 +74,7 @@
  	if (!mr) {
  		fprintf(stdout, "%s\n", SSLeay_version(SSLEAY_VERSION));
  		fprintf(stdout, "%s\n", SSLeay_version(SSLEAY_BUILT_ON));
-@@ -1915,11 +1934,15 @@ pkey_print_message(const char *str, const char *str2, 
+@@ -1898,11 +1917,15 @@ pkey_print_message(const char *str, const char *str2, 
  static void
  print_result(int alg, int run_no, int count, double time_used)
  {
@@ -90,7 +90,7 @@
  static char *
  sstrsep(char **string, const char *delim)
  {
-@@ -2126,4 +2149,5 @@ do_multi(int multi)
+@@ -2109,4 +2132,5 @@ do_multi(int multi)
  	free(fds);
  	return 1;
  }

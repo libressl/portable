@@ -1,6 +1,6 @@
---- openbsd/src/lib/libcrypto/opensslfeatures.h	2023-03-15 11:41:47.301015100 -0600
-+++ include/openssl/opensslfeatures.h	2023-03-15 18:27:57.740024800 -0600
-@@ -7,6 +7,13 @@
+--- include/openssl/opensslfeatures.h.orig	Fri Jul 28 06:04:42 2023
++++ include/openssl/opensslfeatures.h	Fri Jul 28 06:09:00 2023
+@@ -8,6 +8,13 @@
  #define LIBRESSL_HAS_TLS1_3
  #define LIBRESSL_HAS_DTLS1_2
  

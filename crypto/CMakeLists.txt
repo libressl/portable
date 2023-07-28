@@ -257,7 +257,6 @@ set(
 	aes/aes_ctr.c
 	aes/aes_ecb.c
 	aes/aes_ige.c
-	aes/aes_misc.c
 	aes/aes_ofb.c
 	aes/aes_wrap.c
 	asn1/a_bitstr.c
@@ -294,7 +293,6 @@ set(
 	asn1/p5_pbev2.c
 	asn1/p8_pkey.c
 	asn1/t_crl.c
-	asn1/t_pkey.c
 	asn1/t_req.c
 	asn1/t_spki.c
 	asn1/t_x509.c
@@ -373,7 +371,6 @@ set(
 	bn/bn_sqr.c
 	bn/bn_word.c
 	buffer/buf_err.c
-	buffer/buf_str.c
 	buffer/buffer.c
 	bytestring/bs_ber.c
 	bytestring/bs_cbb.c
@@ -405,10 +402,6 @@ set(
 	cms/cms_pwri.c
 	cms/cms_sd.c
 	cms/cms_smime.c
-	comp/c_rle.c
-	comp/c_zlib.c
-	comp/comp_err.c
-	comp/comp_lib.c
 	conf/conf_api.c
 	conf/conf_def.c
 	conf/conf_err.c
@@ -468,11 +461,6 @@ set(
 	dsa/dsa_ossl.c
 	dsa/dsa_pmeth.c
 	dsa/dsa_prn.c
-	dso/dso_dlfcn.c
-	dso/dso_err.c
-	dso/dso_lib.c
-	dso/dso_null.c
-	dso/dso_openssl.c
 	ec/ec_ameth.c
 	ec/ec_asn1.c
 	ec/ec_check.c
@@ -492,36 +480,8 @@ set(
 	ec/ecp_smpl.c
 	ec/ecx_methods.c
 	ecdh/ecdh.c
-	ecdh/ech_err.c
-	ecdh/ech_lib.c
 	ecdsa/ecdsa.c
-	ecdsa/ecs_err.c
-	ecdsa/ecs_lib.c
 	engine/engine_stubs.c
-	engine/eng_all.c
-	engine/eng_cnf.c
-	engine/eng_ctrl.c
-	engine/eng_dyn.c
-	engine/eng_err.c
-	engine/eng_fat.c
-	engine/eng_init.c
-	engine/eng_lib.c
-	engine/eng_list.c
-	engine/eng_openssl.c
-	engine/eng_pkey.c
-	engine/eng_table.c
-	engine/tb_asnmth.c
-	engine/tb_cipher.c
-	engine/tb_dh.c
-	engine/tb_digest.c
-	engine/tb_dsa.c
-	engine/tb_ecdh.c
-	engine/tb_ecdsa.c
-	engine/tb_eckey.c
-	engine/tb_pkmeth.c
-	engine/tb_rand.c
-	engine/tb_rsa.c
-	engine/tb_store.c
 	err/err.c
 	err/err_all.c
 	err/err_prn.c
@@ -609,10 +569,8 @@ set(
 	kdf/kdf_err.c
 	lhash/lh_stats.c
 	lhash/lhash.c
-	md4/md4_dgst.c
-	md4/md4_one.c
-	md5/md5_dgst.c
-	md5/md5_one.c
+	md4/md4.c
+	md5/md5.c
 	modes/cbc128.c
 	modes/ccm128.c
 	modes/cfb128.c
@@ -677,8 +635,7 @@ set(
 	rc2/rc2_skey.c
 	rc2/rc2cfb64.c
 	rc2/rc2ofb64.c
-	ripemd/rmd_dgst.c
-	ripemd/rmd_one.c
+	ripemd/ripemd.c
 	rsa/rsa_ameth.c
 	rsa/rsa_asn1.c
 	rsa/rsa_chk.c

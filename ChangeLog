@@ -64,6 +64,14 @@ LibreSSL Portable Release Notes:
 	  - Removed support for ECDH_METHOD and ECDSA_METHOD.
 	  - BN_is_prime{,_fasttest}_ex() refuse to check numbers larger than
 	    32 kbits for primality. This mitigates various DoS vectors.
+	  - Comp was removed.
+	  - Dynamic loading of conf modules is no longer supported.
+	  - DSO was removed and OPENSSL_NO_DSO is defined.
+	  - ENGINE support was removed and OPENSSL_NO_ENGINE is set. In spite
+	    of this, some stub functions are provided to avoid patching some
+	    applications that do not honor OPENSSL_NO_ENGINE.
+	  - It is no longer possible to make the library use your own error
+	    stack or ex_data implementation.
 	* Bug fixes
 	  - Fixed aliasing issue in BN_mod_inverse().
 	  - Made CRYPTO_get_ex_new_index() not return 0 to allow applications

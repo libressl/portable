@@ -182,7 +182,7 @@ It will tell CMake to find LibreSSL and if found will let you use the following 
 * LibreSSL::SSL
 * LibreSSL::TLS
 
-If you for example want to use the LibreSSL TLS library in your test program, include it like so (SSL and Cryto are required by TLS and included automatically too):
+If you for example want to use the LibreSSL TLS library in your test program, include it like so (SSL and Crypto are required by TLS and included automatically too):
 
 ```cmake
 target_link_libraries(test LibreSSL::TLS)

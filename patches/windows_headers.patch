@@ -60,10 +60,9 @@ diff -u include/openssl.orig/pkcs7.h include/openssl/pkcs7.h
  /*
  Encryption_ID		DES-CBC
  Digest_ID		MD5
-diff -u include/openssl.orig/x509.h include/openssl/x509.h
---- include/openssl.orig/x509.h	Tue Apr 18 03:26:56 2023
-+++ include/openssl/x509.h	Tue Apr 18 03:27:14 2023
-@@ -106,6 +106,19 @@
+--- include/openssl/x509.h.orig	Thu Aug  3 13:35:00 2023
++++ include/openssl/x509.h	Thu Aug  3 13:35:18 2023
+@@ -100,6 +100,19 @@
  extern "C" {
  #endif
  

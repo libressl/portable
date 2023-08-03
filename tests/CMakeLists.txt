@@ -203,11 +203,6 @@ add_executable(bn_print bn_print.c)
 target_link_libraries(bn_print ${OPENSSL_TEST_LIBS})
 add_test(bn_print bn_print)
 
-# bn_rand_interval
-add_executable(bn_rand_interval bn_rand_interval.c)
-target_link_libraries(bn_rand_interval ${OPENSSL_TEST_LIBS})
-add_test(bn_rand_interval bn_rand_interval)
-
 # bn_shift
 add_executable(bn_shift bn_shift.c)
 target_link_libraries(bn_shift ${OPENSSL_TEST_LIBS})

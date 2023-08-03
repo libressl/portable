@@ -218,11 +218,6 @@ TESTS += bn_print
 check_PROGRAMS += bn_print
 bn_print_SOURCES = bn_print.c
 
-# bn_rand_interval
-TESTS += bn_rand_interval
-check_PROGRAMS += bn_rand_interval
-bn_rand_interval_SOURCES = bn_rand_interval.c
-
 # bn_shift
 TESTS += bn_shift
 check_PROGRAMS += bn_shift

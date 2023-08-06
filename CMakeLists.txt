@@ -39,6 +39,7 @@ option(ENABLE_ASM "Enable assembly" ON)
 option(ENABLE_EXTRATESTS "Enable extra tests that may be unreliable on some platforms" OFF)
 option(ENABLE_NC "Enable installing TLS-enabled nc(1)" OFF)
 set(OPENSSLDIR ${OPENSSLDIR} CACHE PATH "Set the default openssl directory" FORCE)
+set(LIBRESSL_INSTALL_CMAKEDIR "${CMAKE_INSTALL_LIBDIR}/cmake" CACHE STRING "Installation directory for the CMake targets")
 
 option(USE_STATIC_MSVC_RUNTIMES "Use /MT instead of /MD in MSVC" OFF)
 if(USE_STATIC_MSVC_RUNTIMES)
@@ -439,6 +440,38 @@ if (BUILD_APPLE_XCFRAMEWORK)
 	endif(ENABLE_LIBRESSL_INSTALL)
 endif(BUILD_APPLE_XCFRAMEWORK)
 
+file(STRINGS "VERSION" VERSION LIMIT_COUNT 1)
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+	"LibreSSLConfigVersion.cmake"
+	VERSION "${VERSION}"
+	COMPATIBILITY SameMajorVersion
+)
+
+set(INCLUDE_DIRECTORY "${CMAKE_BINARY_DIR}/include")
+configure_package_config_file(
+  "${CMAKE_CURRENT_LIST_DIR}/LibreSSLConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/LibreSSLConfig.cmake"
+	PATH_VARS INCLUDE_DIRECTORY
+  INSTALL_DESTINATION "${CMAKE_CURRENT_BINARY_DIR}"
+	INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}"
+)
+
+if(ENABLE_LIBRESSL_INSTALL)
+	set(INCLUDE_DIRECTORY "${CMAKE_INSTALL_INCLUDEDIR}")
+	configure_package_config_file(
+  	"${CMAKE_CURRENT_LIST_DIR}/LibreSSLConfig.cmake.in"
+  	"${CMAKE_CURRENT_BINARY_DIR}/install-config/LibreSSLConfig.cmake"
+		PATH_VARS INCLUDE_DIRECTORY
+  	INSTALL_DESTINATION "${LIBRESSL_INSTALL_CMAKEDIR}/LibreSSL"
+	)
+	install(FILES
+		"${CMAKE_BINARY_DIR}/install-config/LibreSSLConfig.cmake"
+		"${CMAKE_BINARY_DIR}/LibreSSLConfigVersion.cmake"
+		DESTINATION "${LIBRESSL_INSTALL_CMAKEDIR}/LibreSSL"
+	)
+endif()
+
 if(ENABLE_LIBRESSL_INSTALL)
 	if(NOT MSVC)
 		# Create pkgconfig files.
@@ -449,7 +482,6 @@ if(ENABLE_LIBRESSL_INSTALL)
 		if(PLATFORM_LIBS)
 			string(REGEX REPLACE ";" " -l" PLATFORM_LDADD ";${PLATFORM_LIBS}")
 		endif()
-		file(STRINGS    "VERSION" VERSION LIMIT_COUNT 1)
 		file(GLOB       OPENSSL_PKGCONFIGS "*.pc.in")
 		foreach(file ${OPENSSL_PKGCONFIGS})
 			get_filename_component(filename ${file} NAME)

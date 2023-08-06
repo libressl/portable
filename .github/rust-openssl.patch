@@ -1,8 +1,8 @@
 diff --git a/openssl-sys/build/main.rs b/openssl-sys/build/main.rs
-index 1762068d..9e7295b0 100644
+index 21ccf3d0..1cf2d184 100644
 --- a/openssl-sys/build/main.rs
 +++ b/openssl-sys/build/main.rs
-@@ -285,7 +285,7 @@ See rust-openssl documentation for more information:
+@@ -272,7 +272,7 @@ See rust-openssl documentation for more information:
              (3, 7, 0) => ('3', '7', '0'),
              (3, 7, 1) => ('3', '7', '1'),
              (3, 7, _) => ('3', '7', 'x'),

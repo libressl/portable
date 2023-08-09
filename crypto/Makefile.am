@@ -346,7 +346,6 @@ noinst_HEADERS += bio/bio_local.h
 
 # bn
 libcrypto_la_SOURCES += bn/bn_add.c
-libcrypto_la_SOURCES += bn/bn_blind.c
 libcrypto_la_SOURCES += bn/bn_bpsw.c
 libcrypto_la_SOURCES += bn/bn_const.c
 libcrypto_la_SOURCES += bn/bn_convert.c
@@ -851,8 +850,8 @@ noinst_HEADERS += ripemd/rmdconst.h
 # rsa
 libcrypto_la_SOURCES += rsa/rsa_ameth.c
 libcrypto_la_SOURCES += rsa/rsa_asn1.c
+libcrypto_la_SOURCES += rsa/rsa_blinding.c
 libcrypto_la_SOURCES += rsa/rsa_chk.c
-libcrypto_la_SOURCES += rsa/rsa_crpt.c
 libcrypto_la_SOURCES += rsa/rsa_eay.c
 libcrypto_la_SOURCES += rsa/rsa_err.c
 libcrypto_la_SOURCES += rsa/rsa_gen.c

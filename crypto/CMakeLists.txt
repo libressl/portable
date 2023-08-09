@@ -345,7 +345,6 @@ set(
 	bio/bss_null.c
 	bio/bss_sock.c
 	bn/bn_add.c
-	bn/bn_blind.c
 	bn/bn_bpsw.c
 	bn/bn_const.c
 	bn/bn_convert.c
@@ -638,8 +637,8 @@ set(
 	ripemd/ripemd.c
 	rsa/rsa_ameth.c
 	rsa/rsa_asn1.c
+	rsa/rsa_blinding.c
 	rsa/rsa_chk.c
-	rsa/rsa_crpt.c
 	rsa/rsa_eay.c
 	rsa/rsa_err.c
 	rsa/rsa_gen.c

@@ -9,20 +9,38 @@ jobs:
   scan:
     runs-on: ubuntu-latest
     if: ${{ github.repository_owner == 'libressl' }}
-    env:
-      COVERITY_SCAN_PROJECT_NAME: 'libressl-portable/portable'
-      COVERITY_SCAN_BRANCH_PATTERN: '*'
-      COVERITY_SCAN_NOTIFICATION_EMAIL: 'libressl-security@openbsd.org'
-      COVERITY_SCAN_BUILD_COMMAND_PREPEND: "./autogen.sh && ./configure && make dist && tar zxf libressl-*.tar.gz && rm libressl-*.tar.gz && cd libressl-* && mkdir build-static && mkdir build-shared && cmake -GNinja -DBUILD_SHARED_LIBS=ON .."
-      COVERITY_SCAN_BUILD_COMMAND: "ninja"
     steps:
     - uses: actions/checkout@main
     - name: Install apt dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y cmake ninja-build
-    - name: Run Coverity Scan
-      env:
-        COVERITY_SCAN_TOKEN: ${{ secrets.COVERITY_SCAN_TOKEN }}
+    - name: Download Coverity build tool
       run: |
-        curl -fsSL "https://scan.coverity.com/scripts/travisci_build_coverity_scan.sh" | bash || true
+        wget -c -N https://scan.coverity.com/download/linux64 --post-data "token=${{ secrets.COVERITY_SCAN_TOKEN }}&project=libressl-portable%2Fportable" -O coverity_tool.tar.gz
+        mkdir coverity_tool
+        tar xzf coverity_tool.tar.gz --strip 1 -C coverity_tool
+    - name: Configure
+      run: |
+        ./autogen.sh
+        ./configure
+        make dist
+        tar zxf libressl-*.tar.gz
+        rm libressl-*.tar.gz
+        cd libressl-*
+        mkdir build-static
+        mkdir build-shared 
+        cmake -GNinja -DBUILD_SHARED_LIBS=ON ..
+    - name: Build with Coverity build tool
+      run: |
+        export PATH=`pwd`/coverity_tool/bin:$PATH
+        cov-build --dir cov-int ninja
+    - name: Submit build result to Coverity Scan
+      run: |
+        tar czvf cov.tar.gz cov-int
+        curl --form token=${{ secrets.COVERITY_SCAN_TOKEN }} \
+          --form email=libressl-security@openbsd.org \
+          --form file=@cov.tar.gz \
+          --form version="Commit $GITHUB_SHA" \
+          --form description="Build submitted via CI" \
+          https://scan.coverity.com/builds?project=libressl-portable%2Fportable

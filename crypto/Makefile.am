@@ -845,7 +845,6 @@ noinst_HEADERS += rc4/rc4_local.h
 
 # ripemd
 libcrypto_la_SOURCES += ripemd/ripemd.c
-noinst_HEADERS += ripemd/rmdconst.h
 
 # rsa
 libcrypto_la_SOURCES += rsa/rsa_ameth.c

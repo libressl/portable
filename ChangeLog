@@ -56,8 +56,10 @@ LibreSSL Portable Release Notes:
 	  - Rewrote OBJ_find_sigid_algs() and OBJ_find_sigid_by_algs().
 	  - Various improvements in the 'simple' EC code.
 	  - Fix OPENSSL_cpuid_setup() invocations on arm/aarch64.
-	  - Fixed numerous leaks and other minor bugs in RSA, DH, DSA and EC
-	    ASN.1 methods. Unified the coding style.
+	  - Reduced the dependency of hash implementations on many layers of
+	    macros. This results in significant speedups since modern compilers
+	    are now less confused.
+	  - Significantly simplified the BN_BLINDING internals used in RSA.
 	* New features
 	* Compatibility changes
 	  - X509_NAME_get_text_by_{NID,OBJ}() now only succeed if they contain
@@ -81,6 +83,8 @@ LibreSSL Portable Release Notes:
 	    each other.
 	  - Made EVP_PKEY_set1_hkdf_key() fail on a NULL key.
 	  - Plugged leaks in BIO_chain_dup().
+	  - Fixed numerous leaks and other minor bugs in RSA, DH, DSA and EC
+	    ASN.1 methods. Unified the coding style.
 	* Documentation improvements
 	  - Made it very explicit that the verify callback should not be used.
 	  - Called out that the CRL lastUpdate is standardized as thisUpdate.

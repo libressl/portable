@@ -34,9 +34,11 @@ jobs:
     - name: Build with Coverity build tool
       run: |
         export PATH=`pwd`/coverity_tool/bin:$PATH
+        cd libressl-*
         cov-build --dir cov-int ninja
     - name: Submit build result to Coverity Scan
       run: |
+        cd libressl-*
         tar czvf cov.tar.gz cov-int
         curl --form token=${{ secrets.COVERITY_SCAN_TOKEN }} \
           --form email=libressl-security@openbsd.org \

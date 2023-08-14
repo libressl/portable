@@ -85,6 +85,8 @@ LibreSSL Portable Release Notes:
 	  - Plugged leaks in BIO_chain_dup().
 	  - Fixed numerous leaks and other minor bugs in RSA, DH, DSA and EC
 	    ASN.1 methods. Unified the coding style.
+	  - On socket errors in the poll loop, netcat could issue system calls
+	    on invalidated file descriptors.
 	* Documentation improvements
 	  - Made it very explicit that the verify callback should not be used.
 	  - Called out that the CRL lastUpdate is standardized as thisUpdate.

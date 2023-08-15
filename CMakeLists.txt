@@ -39,7 +39,7 @@ option(ENABLE_ASM "Enable assembly" ON)
 option(ENABLE_EXTRATESTS "Enable extra tests that may be unreliable on some platforms" OFF)
 option(ENABLE_NC "Enable installing TLS-enabled nc(1)" OFF)
 set(OPENSSLDIR ${OPENSSLDIR} CACHE PATH "Set the default openssl directory" FORCE)
-set(LIBRESSL_INSTALL_CMAKEDIR "${CMAKE_INSTALL_LIBDIR}/cmake" CACHE STRING "Installation directory for the CMake targets")
+set(LIBRESSL_INSTALL_CMAKEDIR "${CMAKE_INSTALL_LIBDIR}/cmake/LibreSSL" CACHE STRING "Installation directory for the CMake targets")
 
 option(USE_STATIC_MSVC_RUNTIMES "Use /MT instead of /MD in MSVC" OFF)
 if(USE_STATIC_MSVC_RUNTIMES)
@@ -463,12 +463,12 @@ if(ENABLE_LIBRESSL_INSTALL)
   	"${CMAKE_CURRENT_LIST_DIR}/LibreSSLConfig.cmake.in"
   	"${CMAKE_CURRENT_BINARY_DIR}/install-config/LibreSSLConfig.cmake"
 		PATH_VARS INCLUDE_DIRECTORY
-  	INSTALL_DESTINATION "${LIBRESSL_INSTALL_CMAKEDIR}/LibreSSL"
+  	INSTALL_DESTINATION "${LIBRESSL_INSTALL_CMAKEDIR}"
 	)
 	install(FILES
 		"${CMAKE_BINARY_DIR}/install-config/LibreSSLConfig.cmake"
 		"${CMAKE_BINARY_DIR}/LibreSSLConfigVersion.cmake"
-		DESTINATION "${LIBRESSL_INSTALL_CMAKEDIR}/LibreSSL"
+		DESTINATION "${LIBRESSL_INSTALL_CMAKEDIR}"
 	)
 endif()
 

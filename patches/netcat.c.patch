@@ -1,5 +1,5 @@
---- apps/nc/netcat.c.orig	Thu Feb  9 18:42:55 2023
-+++ apps/nc/netcat.c	Thu Feb  9 18:43:08 2023
+--- apps/nc/netcat.c.orig	Tue Aug 15 15:17:28 2023
++++ apps/nc/netcat.c	Tue Aug 15 15:17:54 2023
 @@ -93,9 +93,13 @@ int	zflag;					/* Port Scan Flag */
  int	Dflag;					/* sodebug */
  int	Iflag;					/* TCP receive buffer size */
@@ -100,7 +100,7 @@
  
  		set_common_sockopts(s, res->ai_family);
  
-@@ -1557,11 +1577,13 @@ set_common_sockopts(int s, int af)
+@@ -1563,11 +1583,13 @@ set_common_sockopts(int s, int af)
  {
  	int x = 1;
  
@@ -114,7 +114,7 @@
  	if (Dflag) {
  		if (setsockopt(s, SOL_SOCKET, SO_DEBUG,
  		    &x, sizeof(x)) == -1)
-@@ -1572,9 +1594,16 @@ set_common_sockopts(int s, int af)
+@@ -1578,9 +1600,16 @@ set_common_sockopts(int s, int af)
  		    IP_TOS, &Tflag, sizeof(Tflag)) == -1)
  			err(1, "set IP ToS");
  
@@ -131,7 +131,7 @@
  	}
  	if (Iflag) {
  		if (setsockopt(s, SOL_SOCKET, SO_RCVBUF,
-@@ -1598,13 +1627,17 @@ set_common_sockopts(int s, int af)
+@@ -1604,13 +1633,17 @@ set_common_sockopts(int s, int af)
  	}
  
  	if (minttl != -1) {
@@ -150,7 +150,7 @@
  	}
  }
  
-@@ -1829,15 +1862,19 @@ help(void)
+@@ -1835,15 +1868,19 @@ help(void)
  	\t-P proxyuser\tUsername for proxy authentication\n\
  	\t-p port\t	Specify local port for remote connects\n\
  	\t-R CAfile	CA bundle\n\

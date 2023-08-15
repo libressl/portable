@@ -998,7 +998,6 @@ EVP_EncryptInit.3,EVP_cast5_cfb.3
 EVP_EncryptInit.3,EVP_cast5_cfb64.3
 EVP_EncryptInit.3,EVP_cast5_ecb.3
 EVP_EncryptInit.3,EVP_cast5_ofb.3
-EVP_EncryptInit.3,EVP_chacha20.3
 EVP_EncryptInit.3,EVP_enc_null.3
 EVP_EncryptInit.3,EVP_get_cipherbyname.3
 EVP_EncryptInit.3,EVP_get_cipherbynid.3
@@ -1225,6 +1224,7 @@ EVP_camellia_128_cbc.3,EVP_camellia_256_cfb128.3
 EVP_camellia_128_cbc.3,EVP_camellia_256_cfb8.3
 EVP_camellia_128_cbc.3,EVP_camellia_256_ecb.3
 EVP_camellia_128_cbc.3,EVP_camellia_256_ofb.3
+EVP_chacha20.3,EVP_chacha20_poly1305.3
 EVP_des_cbc.3,EVP_des_cfb.3
 EVP_des_cbc.3,EVP_des_cfb1.3
 EVP_des_cbc.3,EVP_des_cfb64.3
@@ -1248,6 +1248,9 @@ EVP_des_cbc.3,EVP_des_ofb.3
 EVP_des_cbc.3,EVP_desx_cbc.3
 EVP_rc4.3,EVP_rc4_40.3
 EVP_rc4.3,EVP_rc4_hmac_md5.3
+EVP_sha3_224.3,EVP_sha3_256.3
+EVP_sha3_224.3,EVP_sha3_384.3
+EVP_sha3_224.3,EVP_sha3_512.3
 EVP_sm4_cbc.3,EVP_sm4_cfb.3
 EVP_sm4_cbc.3,EVP_sm4_cfb128.3
 EVP_sm4_cbc.3,EVP_sm4_ctr.3

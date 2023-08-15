@@ -51,7 +51,9 @@
 #include <libkern/OSByteOrder.h>
 #define be16toh(x) OSSwapBigToHostInt16((x))
 #define htobe16(x) OSSwapHostToBigInt16((x))
+#define le32toh(x) OSSwapLittleToHostInt32((x))
 #define be32toh(x) OSSwapBigToHostInt32((x))
+#define htole32(x) OSSwapHostToLittleInt32(x)
 #define htobe32(x) OSSwapHostToBigInt32(x)
 #define htole64(x) OSSwapHostToLittleInt64(x)
 #define htobe64(x) OSSwapHostToBigInt64(x)
@@ -64,7 +66,9 @@
 
 #define be16toh(x) ntohs((x))
 #define htobe16(x) htons((x))
+#define le32toh(x) (x)
 #define be32toh(x) ntohl((x))
+#define htole32(x) (x)
 #define htobe32(x) ntohl((x))
 #define be64toh(x) ntohll((x))
 

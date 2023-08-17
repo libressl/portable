@@ -1,0 +1,40 @@
+name: Fedora/Rawhide
+
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: "0 0 * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  build_and_test:
+    strategy:
+      matrix:
+        cc: [ gcc, clang ]
+    name: ${{ matrix.cc }}
+    runs-on: ubuntu-latest
+    container:
+      image: fedora:rawhide
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install dependencies
+      run: |
+        dnf -y install git make clang cmake ninja-build autoconf automake libtool diffutils patch
+    - name: Configure
+      run: |
+        ./autogen.sh
+        ./configure
+    - name: Make dist
+      run: |
+         make dist
+         tar zxvf libressl-*.tar.gz
+         rm libressl-*.tar.gz
+    - name: Build and test
+      run: |
+         cd libressl-*
+         mkdir build-shared
+         cmake -GNinja -DBUILD_SHARED_LIBS=ON ..
+         ninja
+         ninja test

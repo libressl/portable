@@ -27,4 +27,4 @@ jobs:
           pkg install gcc make
         run: |
           MAKE=gmake ./configure
-          gmake -j2 check
+          gmake -j2 check || (cat tests/test-suite.log && exit 1)

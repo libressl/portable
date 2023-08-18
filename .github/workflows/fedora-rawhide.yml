@@ -22,19 +22,13 @@ jobs:
     - name: Install dependencies
       run: |
         dnf -y install git make clang cmake ninja-build autoconf automake libtool diffutils patch
-    - name: Configure
+    - name: Pull upstream source
       run: |
-        ./autogen.sh
-        ./configure
-    - name: Make dist
+        ./update.sh
+    - name: Build
       run: |
-         make dist
-         tar zxvf libressl-*.tar.gz
-         rm libressl-*.tar.gz
-    - name: Build and test
-      run: |
-         cd libressl-*
-         mkdir build-shared
-         cmake -GNinja -DBUILD_SHARED_LIBS=ON ..
+         CC=${{ matrix.cc }} cmake -GNinja -DBUILD_SHARED_LIBS=ON .
          ninja
+    - name: Test
+      run: |
          ninja test

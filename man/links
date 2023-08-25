@@ -1168,6 +1168,12 @@ EVP_SignInit.3,EVP_SignUpdate.3
 EVP_VerifyInit.3,EVP_VerifyFinal.3
 EVP_VerifyInit.3,EVP_VerifyInit_ex.3
 EVP_VerifyInit.3,EVP_VerifyUpdate.3
+EVP_add_cipher.3,EVP_add_cipher_alias.3
+EVP_add_cipher.3,EVP_add_digest.3
+EVP_add_cipher.3,EVP_add_digest_alias.3
+EVP_add_cipher.3,EVP_delete_cipher_alias.3
+EVP_add_cipher.3,EVP_remove_cipher_alias.3
+EVP_add_cipher.3,EVP_remove_digest_alias.3
 EVP_aes_128_cbc.3,EVP_aes_128_cbc_hmac_sha1.3
 EVP_aes_128_cbc.3,EVP_aes_128_ccm.3
 EVP_aes_128_cbc.3,EVP_aes_128_cfb.3

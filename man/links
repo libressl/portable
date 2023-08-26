@@ -869,6 +869,7 @@ EVP_AEAD_CTX_init.3,EVP_aead_aes_128_gcm.3
 EVP_AEAD_CTX_init.3,EVP_aead_aes_256_gcm.3
 EVP_AEAD_CTX_init.3,EVP_aead_chacha20_poly1305.3
 EVP_AEAD_CTX_init.3,EVP_aead_xchacha20_poly1305.3
+EVP_CIPHER_CTX_get_cipher_data.3,EVP_CIPHER_CTX_set_cipher_data.3
 EVP_CIPHER_meth_new.3,EVP_CIPHER_meth_dup.3
 EVP_CIPHER_meth_new.3,EVP_CIPHER_meth_free.3
 EVP_CIPHER_meth_new.3,EVP_CIPHER_meth_set_cleanup.3
@@ -1172,8 +1173,7 @@ EVP_add_cipher.3,EVP_add_cipher_alias.3
 EVP_add_cipher.3,EVP_add_digest.3
 EVP_add_cipher.3,EVP_add_digest_alias.3
 EVP_add_cipher.3,EVP_delete_cipher_alias.3
-EVP_add_cipher.3,EVP_remove_cipher_alias.3
-EVP_add_cipher.3,EVP_remove_digest_alias.3
+EVP_add_cipher.3,EVP_delete_digest_alias.3
 EVP_aes_128_cbc.3,EVP_aes_128_cbc_hmac_sha1.3
 EVP_aes_128_cbc.3,EVP_aes_128_ccm.3
 EVP_aes_128_cbc.3,EVP_aes_128_cfb.3

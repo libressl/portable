@@ -869,6 +869,7 @@ EVP_AEAD_CTX_init.3,EVP_aead_aes_128_gcm.3
 EVP_AEAD_CTX_init.3,EVP_aead_aes_256_gcm.3
 EVP_AEAD_CTX_init.3,EVP_aead_chacha20_poly1305.3
 EVP_AEAD_CTX_init.3,EVP_aead_xchacha20_poly1305.3
+EVP_CIPHER_CTX_get_cipher_data.3,EVP_CIPHER_CTX_buf_noconst.3
 EVP_CIPHER_CTX_get_cipher_data.3,EVP_CIPHER_CTX_set_cipher_data.3
 EVP_CIPHER_meth_new.3,EVP_CIPHER_meth_dup.3
 EVP_CIPHER_meth_new.3,EVP_CIPHER_meth_free.3
@@ -915,11 +916,8 @@ EVP_DigestInit.3,EVP_MD_type.3
 EVP_DigestInit.3,EVP_get_digestbyname.3
 EVP_DigestInit.3,EVP_get_digestbynid.3
 EVP_DigestInit.3,EVP_get_digestbyobj.3
-EVP_DigestInit.3,EVP_md5.3
-EVP_DigestInit.3,EVP_md5_sha1.3
 EVP_DigestInit.3,EVP_md_null.3
 EVP_DigestInit.3,EVP_ripemd160.3
-EVP_DigestInit.3,EVP_sha1.3
 EVP_DigestInit.3,EVP_sha224.3
 EVP_DigestInit.3,EVP_sha256.3
 EVP_DigestInit.3,EVP_sha384.3
@@ -945,7 +943,9 @@ EVP_EncryptInit.3,EVP_CIPHER_CTX_block_size.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_cipher.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_cleanup.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_clear_flags.3
+EVP_EncryptInit.3,EVP_CIPHER_CTX_copy.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_ctrl.3
+EVP_EncryptInit.3,EVP_CIPHER_CTX_encrypting.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_flags.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_free.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_get_app_data.3
@@ -1155,6 +1155,7 @@ EVP_PKEY_set1_RSA.3,EVP_PKEY_set1_DH.3
 EVP_PKEY_set1_RSA.3,EVP_PKEY_set1_DSA.3
 EVP_PKEY_set1_RSA.3,EVP_PKEY_set1_EC_KEY.3
 EVP_PKEY_set1_RSA.3,EVP_PKEY_set_type.3
+EVP_PKEY_set1_RSA.3,EVP_PKEY_set_type_str.3
 EVP_PKEY_set1_RSA.3,EVP_PKEY_type.3
 EVP_PKEY_sign.3,EVP_PKEY_sign_init.3
 EVP_PKEY_size.3,EVP_PKEY_bits.3
@@ -1254,6 +1255,9 @@ EVP_des_cbc.3,EVP_des_ofb.3
 EVP_des_cbc.3,EVP_desx_cbc.3
 EVP_rc4.3,EVP_rc4_40.3
 EVP_rc4.3,EVP_rc4_hmac_md5.3
+EVP_sha1.3,EVP_md4.3
+EVP_sha1.3,EVP_md5.3
+EVP_sha1.3,EVP_md5_sha1.3
 EVP_sha3_224.3,EVP_sha3_256.3
 EVP_sha3_224.3,EVP_sha3_384.3
 EVP_sha3_224.3,EVP_sha3_512.3

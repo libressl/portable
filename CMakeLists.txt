@@ -62,6 +62,13 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
 	  STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
 endif()
 
+# Enable asserts regardless of build type
+if(MSVC)
+	add_definitions(/UNDEBUG)
+else()
+	add_definitions(-UNDEBUG)
+endif()
+
 set(BUILD_NC true)
 
 if(CMAKE_SYSTEM_NAME MATCHES "Darwin")

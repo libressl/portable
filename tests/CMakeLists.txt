@@ -17,9 +17,6 @@ include_directories(
 	../include/compat
 )
 
-# force 'Debug' build type for tests to not disable asserts
-set(CMAKE_BUILD_TYPE "Debug")
-
 add_definitions(-D_PATH_SSL_CA_FILE=\"${CMAKE_CURRENT_SOURCE_DIR}/../cert.pem\")
 
 file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR} TEST_SOURCE_DIR)

@@ -871,6 +871,9 @@ EVP_AEAD_CTX_init.3,EVP_aead_chacha20_poly1305.3
 EVP_AEAD_CTX_init.3,EVP_aead_xchacha20_poly1305.3
 EVP_CIPHER_CTX_get_cipher_data.3,EVP_CIPHER_CTX_buf_noconst.3
 EVP_CIPHER_CTX_get_cipher_data.3,EVP_CIPHER_CTX_set_cipher_data.3
+EVP_CIPHER_do_all.3,EVP_CIPHER_do_all_sorted.3
+EVP_CIPHER_do_all.3,EVP_MD_do_all.3
+EVP_CIPHER_do_all.3,EVP_MD_do_all_sorted.3
 EVP_CIPHER_meth_new.3,EVP_CIPHER_meth_dup.3
 EVP_CIPHER_meth_new.3,EVP_CIPHER_meth_free.3
 EVP_CIPHER_meth_new.3,EVP_CIPHER_meth_set_cleanup.3

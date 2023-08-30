@@ -41,9 +41,9 @@ LibreSSL Portable Release Notes:
 	    unintentionally.
 	  - Selective removal of CET implementation on platforms where it is
 	    not supported (macOS).
-	  - Integrated four more tests
-	  - Added Windows ARM64 architecture to tested platforms
-	  - Removed Solaris 10 support, fixed Solaris 11
+	  - Integrated four more tests.
+	  - Added Windows ARM64 architecture to tested platforms.
+	  - Removed Solaris 10 support, fixed Solaris 11.
 	  - libtls no longer links statically to libcrypto / libssl unless
 	    '--enable-libtls-only' is specified at configure time.
 	  - Improved Windows compatibility library, namely handling of files vs
@@ -52,7 +52,7 @@ LibreSSL Portable Release Notes:
 	    using flags from the CMake build type instead.
 	  - Set the CMake default build type to 'Release'. This can be overridden
 	    during configuration.
-	  - Fixed broken ASM support with MinGW builds
+	  - Fixed broken ASM support with MinGW builds.
 	* Internal improvements
 	  - Fixed alignment handling in SHA-512.
 	  - Moved the verified_chain to the correct internal struct.

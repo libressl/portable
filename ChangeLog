@@ -28,7 +28,15 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
-3.8.1 - In development
+3.8.2 - In development
+
+	* Portable changes
+	* Internal improvements
+	* Documentation improvements
+	* Testing and Proactive Security
+	* Security fixes
+
+3.8.1 - Development release
 
 	* Portable changes
 	  - Applications bundled as part of the LibreSSL package internally,

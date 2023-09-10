@@ -915,7 +915,6 @@ EVP_DigestInit.3,EVP_DigestFinal.3
 EVP_DigestInit.3,EVP_DigestFinal_ex.3
 EVP_DigestInit.3,EVP_DigestInit_ex.3
 EVP_DigestInit.3,EVP_DigestUpdate.3
-EVP_DigestInit.3,EVP_MAX_MD_SIZE.3
 EVP_DigestInit.3,EVP_MD_CTX_cleanup.3
 EVP_DigestInit.3,EVP_MD_CTX_copy.3
 EVP_DigestInit.3,EVP_MD_CTX_copy_ex.3
@@ -1052,6 +1051,7 @@ EVP_PKEY_CTX_ctrl.3,EVP_PKEY_CTX_set_ecdh_kdf_md.3
 EVP_PKEY_CTX_ctrl.3,EVP_PKEY_CTX_set_ecdh_kdf_outlen.3
 EVP_PKEY_CTX_ctrl.3,EVP_PKEY_CTX_set_ecdh_kdf_type.3
 EVP_PKEY_CTX_ctrl.3,EVP_PKEY_CTX_set_signature_md.3
+EVP_PKEY_CTX_get_operation.3,EVP_PKEY_CTX_get0_pkey.3
 EVP_PKEY_CTX_new.3,EVP_PKEY_CTX_dup.3
 EVP_PKEY_CTX_new.3,EVP_PKEY_CTX_free.3
 EVP_PKEY_CTX_new.3,EVP_PKEY_CTX_new_id.3
@@ -1091,18 +1091,22 @@ EVP_PKEY_cmp.3,EVP_PKEY_cmp_parameters.3
 EVP_PKEY_cmp.3,EVP_PKEY_copy_parameters.3
 EVP_PKEY_cmp.3,EVP_PKEY_missing_parameters.3
 EVP_PKEY_decrypt.3,EVP_PKEY_decrypt_init.3
+EVP_PKEY_derive.3,EVP_PKEY_CTX_get0_peerkey.3
 EVP_PKEY_derive.3,EVP_PKEY_derive_init.3
 EVP_PKEY_derive.3,EVP_PKEY_derive_set_peer.3
 EVP_PKEY_encrypt.3,EVP_PKEY_encrypt_init.3
 EVP_PKEY_keygen.3,EVP_PKEY_CTX_get_app_data.3
 EVP_PKEY_keygen.3,EVP_PKEY_CTX_get_cb.3
 EVP_PKEY_keygen.3,EVP_PKEY_CTX_get_keygen_info.3
+EVP_PKEY_keygen.3,EVP_PKEY_CTX_set0_keygen_info.3
 EVP_PKEY_keygen.3,EVP_PKEY_CTX_set_app_data.3
 EVP_PKEY_keygen.3,EVP_PKEY_CTX_set_cb.3
 EVP_PKEY_keygen.3,EVP_PKEY_gen_cb.3
 EVP_PKEY_keygen.3,EVP_PKEY_keygen_init.3
 EVP_PKEY_keygen.3,EVP_PKEY_paramgen.3
 EVP_PKEY_keygen.3,EVP_PKEY_paramgen_init.3
+EVP_PKEY_meth_new.3,EVP_PKEY_CTX_get_data.3
+EVP_PKEY_meth_new.3,EVP_PKEY_CTX_set_data.3
 EVP_PKEY_meth_new.3,EVP_PKEY_meth_add0.3
 EVP_PKEY_meth_new.3,EVP_PKEY_meth_copy.3
 EVP_PKEY_meth_new.3,EVP_PKEY_meth_find.3
@@ -1422,6 +1426,7 @@ OPENSSL_sk_new.3,sk_zero.3
 OpenSSL_add_all_algorithms.3,EVP_cleanup.3
 OpenSSL_add_all_algorithms.3,OpenSSL_add_all_ciphers.3
 OpenSSL_add_all_algorithms.3,OpenSSL_add_all_digests.3
+OpenSSL_add_all_algorithms.3,SSLeay_add_all_algorithms.3
 PEM_ASN1_read.3,PEM_ASN1_read_bio.3
 PEM_ASN1_read.3,d2i_of_void.3
 PEM_X509_INFO_read.3,PEM_X509_INFO_read_bio.3
@@ -1677,6 +1682,8 @@ RSA_print.3,DSAparams_print.3
 RSA_print.3,DSAparams_print_fp.3
 RSA_print.3,RSA_print_fp.3
 RSA_private_encrypt.3,RSA_public_decrypt.3
+RSA_public_encrypt.3,EVP_PKEY_decrypt_old.3
+RSA_public_encrypt.3,EVP_PKEY_encrypt_old.3
 RSA_public_encrypt.3,RSA_private_decrypt.3
 RSA_security_bits.3,BN_security_bits.3
 RSA_security_bits.3,DH_security_bits.3
@@ -2814,9 +2821,10 @@ d2i_X509_SIG.3,d2i_PKCS8_fp.3
 d2i_X509_SIG.3,i2d_PKCS8_bio.3
 d2i_X509_SIG.3,i2d_PKCS8_fp.3
 d2i_X509_SIG.3,i2d_X509_SIG.3
+des_read_pw.3,EVP_get_pw_prompt.3
 des_read_pw.3,EVP_read_pw_string.3
 des_read_pw.3,EVP_read_pw_string_min.3
-des_read_pw.3,des_read_pw_string.3
+des_read_pw.3,EVP_set_pw_prompt.3
 i2a_ASN1_STRING.3,a2i_ASN1_ENUMERATED.3
 i2a_ASN1_STRING.3,a2i_ASN1_INTEGER.3
 i2a_ASN1_STRING.3,a2i_ASN1_STRING.3

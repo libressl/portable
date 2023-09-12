@@ -778,6 +778,8 @@ endif()
 if(NOT HAVE_GETOPT)
 	set(CRYPTO_SRC ${CRYPTO_SRC} compat/getopt_long.c)
 	set(EXTRA_EXPORT ${EXTRA_EXPORT} getopt)
+	set(EXTRA_EXPORT ${EXTRA_EXPORT} optarg)
+	set(EXTRA_EXPORT ${EXTRA_EXPORT} optind)
 endif()
 
 if(NOT HAVE_GETPAGESIZE)

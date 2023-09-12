@@ -473,8 +473,8 @@ if(ENABLE_LIBRESSL_INSTALL)
   	INSTALL_DESTINATION "${LIBRESSL_INSTALL_CMAKEDIR}"
 	)
 	install(FILES
-		"${CMAKE_BINARY_DIR}/install-config/LibreSSLConfig.cmake"
-		"${CMAKE_BINARY_DIR}/LibreSSLConfigVersion.cmake"
+		"${CMAKE_CURRENT_BINARY_DIR}/install-config/LibreSSLConfig.cmake"
+		"${CMAKE_CURRENT_BINARY_DIR}/LibreSSLConfigVersion.cmake"
 		DESTINATION "${LIBRESSL_INSTALL_CMAKEDIR}"
 	)
 endif()

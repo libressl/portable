@@ -22,6 +22,8 @@ if(WIN32)
 		compat/pread.c
 		compat/pwrite.c
 	)
+
+	set(LIBTLS_EXTRA_EXPORT ${LIBTLS_EXTRA_EXPORT} ftruncate)
 endif()
 
 if(NOT "${OPENSSLDIR}" STREQUAL "")

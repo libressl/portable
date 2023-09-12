@@ -1,5 +1,3 @@
-if(NOT MSVC)
-
 set(
 	OCSPCHECK_SRC
 	http.c
@@ -33,5 +31,3 @@ if(ENABLE_LIBRESSL_INSTALL)
 	install(FILES ocspcheck.8 DESTINATION ${CMAKE_INSTALL_MANDIR}/man8)
 
 endif(ENABLE_LIBRESSL_INSTALL)
-
-endif()

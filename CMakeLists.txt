@@ -163,6 +163,8 @@ if(MSVC)
 			"C4706" # assignment within conditional expression
 			"C4996" # The POSIX name for this item is deprecated.
 				# Instead, use the ISO C and C++ conformant name
+			"C5045" # Compiler will insert Spectre mitigation for memory
+				# load if /Qspectre switch specified
 		)
 	elseif(CMAKE_C_COMPILER_ID MATCHES "Intel")
 		add_definitions(-D_CRT_SUPPRESS_RESTRICT)
@@ -186,6 +188,10 @@ if(MSVC)
 		${MSVC_DISABLED_WARNINGS_LIST})
 	string(REGEX REPLACE "[/-]W[1234][ ]?" "" CMAKE_C_FLAGS ${CMAKE_C_FLAGS})
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -MP -W4 ${MSVC_DISABLED_WARNINGS_STR}")
+	if(MSVC_VERSION GREATER_EQUAL 1912)
+		message(STATUS "Enabling spectre mitigation")
+		set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /Qspectre")
+	endif()
 endif()
 
 check_function_exists(asprintf HAVE_ASPRINTF)

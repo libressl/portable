@@ -1613,9 +1613,6 @@ RSA_get0_key.3,RSA_set0_factors.3
 RSA_get0_key.3,RSA_set0_key.3
 RSA_get0_key.3,RSA_set_flags.3
 RSA_get0_key.3,RSA_test_flags.3
-RSA_get_ex_new_index.3,CRYPTO_EX_dup.3
-RSA_get_ex_new_index.3,CRYPTO_EX_free.3
-RSA_get_ex_new_index.3,CRYPTO_EX_new.3
 RSA_get_ex_new_index.3,RSA_get_ex_data.3
 RSA_get_ex_new_index.3,RSA_set_ex_data.3
 RSA_meth_new.3,RSA_meth_dup.3
@@ -2928,7 +2925,6 @@ tls_ocsp_process_response.3,tls_peer_ocsp_url.3
 tls_read.3,tls_close.3
 tls_read.3,tls_error.3
 tls_read.3,tls_handshake.3
-tls_read.3,tls_reset.3
 tls_read.3,tls_write.3
 x509_verify.3,x509_verify_ctx_chain.3
 x509_verify.3,x509_verify_ctx_error_depth.3

@@ -34,6 +34,14 @@ LibreSSL Portable Release Notes:
 	* Internal improvements
 	* Documentation improvements
 	* Testing and Proactive Security
+	* Bug fixes
+	  - Fixed EVP_PKEY_get{0,1}_RSA for RSA-PSS.
+	  - Plug a potential memory leak in ASN1_TIME_normalize().
+	  - Avoid memory leak in EVP_CipherInit().
+	  - Redirect EVP_PKEY_get1_* through their get0 siblings.
+	  - Fixed a use of uninitialized in i2r_IPAddrBlocks().
+	  - Rewrote CMS_SignerInfo_{sign,verify}().
+	  - Further cleanup and refactoring in the EC code.
 	* Security fixes
 
 3.8.1 - Development release

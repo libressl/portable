@@ -34,6 +34,11 @@ LibreSSL Portable Release Notes:
 	* Internal improvements
 	* Documentation improvements
 	* Testing and Proactive Security
+	* Compatibility changes
+	  - Restrict the RFC 3779 code to IPv4 and IPv6. It was not written
+	    to be able to deal with anything else.
+	  - Fixed EVP_CIPHER_CTX_iv_length() to return what was set with
+	    EVP_CTRL_AEAD_SET_IVLEN or one of its aliases.
 	* Bug fixes
 	  - Fixed EVP_PKEY_get{0,1}_RSA for RSA-PSS.
 	  - Plug a potential memory leak in ASN1_TIME_normalize().

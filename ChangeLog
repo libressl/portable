@@ -47,6 +47,7 @@ LibreSSL Portable Release Notes:
 	  - Fixed a use of uninitialized in i2r_IPAddrBlocks().
 	  - Rewrote CMS_SignerInfo_{sign,verify}().
 	  - Further cleanup and refactoring in the EC code.
+	  - Allow IP addresses to be specified in a URI.
 	* Security fixes
 
 3.8.1 - Development release

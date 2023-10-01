@@ -49,6 +49,9 @@ LibreSSL Portable Release Notes:
 	  - Further cleanup and refactoring in the EC code.
 	  - Allow IP addresses to be specified in a URI.
 	* Security fixes
+	  - Fixed a copy-paste error in ASN1_TIME_compare() that could lead
+	    to two UTCTimes or two GeneralizedTimes incorrectly being compared
+	    as equal. Reported by Duncan Thomson.
 
 3.8.1 - Development release
 

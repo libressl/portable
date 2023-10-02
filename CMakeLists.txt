@@ -63,11 +63,7 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
 endif()
 
 # Enable asserts regardless of build type
-if(MSVC)
-	add_definitions(/UNDEBUG)
-else()
-	add_definitions(-UNDEBUG)
-endif()
+add_definitions(-UNDEBUG)
 
 set(BUILD_NC true)
 
@@ -152,17 +148,17 @@ if(MSVC)
 			"C4100" # 'identifier' : unreferenced formal parameter
 			"C4127" # conditional expression is constant
 			"C4146" # unary minus operator applied to unsigned type,
-				# result still unsigned
+			        # result still unsigned
 			"C4244" # 'argument' : conversion from 'type1' to 'type2',
-				# possible loss of data
+			        # possible loss of data
 			"C4245" # 'conversion' : conversion from 'type1' to 'type2',
-				# signed/unsigned mismatch
+			        # signed/unsigned mismatch
 			"C4267" # 'var' : conversion from 'size_t' to 'type',
-				# possible loss of data
+			        # possible loss of data
 			"C4389" # 'operator' : signed/unsigned mismatch
 			"C4706" # assignment within conditional expression
 			"C4996" # The POSIX name for this item is deprecated.
-				# Instead, use the ISO C and C++ conformant name
+			        # Instead, use the ISO C and C++ conformant name
 		)
 	elseif(CMAKE_C_COMPILER_ID MATCHES "Intel")
 		add_definitions(-D_CRT_SUPPRESS_RESTRICT)

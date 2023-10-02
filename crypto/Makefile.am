@@ -36,6 +36,7 @@ EXTRA_DIST += empty.c
 
 # needed for a CMake target
 EXTRA_DIST += compat/strcasecmp.c
+EXTRA_DIST += compat/getopt_long.c
 
 BUILT_SOURCES = crypto_portable.sym
 CLEANFILES = crypto_portable.sym

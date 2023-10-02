@@ -33,6 +33,7 @@ LibreSSL Portable Release Notes:
 	* Portable changes
 	* Internal improvements
 	* Documentation improvements
+	  - Documented the RFC 3779 API
 	* Testing and Proactive Security
 	* Compatibility changes
 	  - Restrict the RFC 3779 code to IPv4 and IPv6. It was not written

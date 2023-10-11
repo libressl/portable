@@ -775,6 +775,11 @@ TESTS += x509attribute
 check_PROGRAMS += x509attribute
 x509attribute_SOURCES = x509attribute.c
 
+# x509_algor
+TESTS += x509_algor
+check_PROGRAMS += x509_algor
+x509_algor_SOURCES = x509_algor.c
+
 # x509_asn1
 TESTS += x509_asn1
 check_PROGRAMS += x509_asn1

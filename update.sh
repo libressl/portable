@@ -191,7 +191,6 @@ fixup_masm() {
 		| sed -e 's/|/OR/g'   \
 		| sed -e 's/~/NOT/g'  \
 		| sed -e 's/1 << \([0-9]*\)/1 SHL \1/g' \
-		| sed -e 's/^ALIGN.*//g' \
 		> $2
 }
 

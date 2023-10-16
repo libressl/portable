@@ -404,7 +404,6 @@ if(SIZEOF_TIME_T STREQUAL "4")
 	message(WARNING " ** Warning, this system is unable to represent times past 2038\n"
 	                " ** It will behave incorrectly when handling valid RFC5280 dates")
 endif()
-add_definitions(-DSIZEOF_TIME_T=${SIZEOF_TIME_T})
 
 set(OPENSSL_LIBS ssl crypto ${PLATFORM_LIBS})
 set(LIBTLS_LIBS tls ${PLATFORM_LIBS})

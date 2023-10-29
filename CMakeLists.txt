@@ -63,11 +63,7 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
 endif()
 
 # Enable asserts regardless of build type
-if(MSVC)
-	add_definitions(/UNDEBUG)
-else()
-	add_definitions(-UNDEBUG)
-endif()
+add_definitions(-UNDEBUG)
 
 set(BUILD_NC true)
 
@@ -152,17 +148,17 @@ if(MSVC)
 			"C4100" # 'identifier' : unreferenced formal parameter
 			"C4127" # conditional expression is constant
 			"C4146" # unary minus operator applied to unsigned type,
-				# result still unsigned
+			        # result still unsigned
 			"C4244" # 'argument' : conversion from 'type1' to 'type2',
-				# possible loss of data
+			        # possible loss of data
 			"C4245" # 'conversion' : conversion from 'type1' to 'type2',
-				# signed/unsigned mismatch
+			        # signed/unsigned mismatch
 			"C4267" # 'var' : conversion from 'size_t' to 'type',
-				# possible loss of data
+			        # possible loss of data
 			"C4389" # 'operator' : signed/unsigned mismatch
 			"C4706" # assignment within conditional expression
 			"C4996" # The POSIX name for this item is deprecated.
-				# Instead, use the ISO C and C++ conformant name
+			        # Instead, use the ISO C and C++ conformant name
 		)
 	elseif(CMAKE_C_COMPILER_ID MATCHES "Intel")
 		add_definitions(-D_CRT_SUPPRESS_RESTRICT)
@@ -333,32 +329,35 @@ endif()
 # single architecture work on macOS at least.
 #
 # Don't set CMAKE_OSX_ARCHITECTURES to more than a single value for now.
-if(APPLE)
+if(APPLE AND (NOT CMAKE_OSX_ARCHITECTURES STREQUAL ""))
 	set(CMAKE_SYSTEM_PROCESSOR "${CMAKE_OSX_ARCHITECTURES}")
 endif()
 
-if("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "(aarch64|arm64)")
+if("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "(aarch64|arm64|ARM64)")
 	set(HOST_AARCH64 true)
 elseif("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "arm")
 	set(HOST_ARM true)
 elseif("${CMAKE_SYSTEM_NAME}" STREQUAL "SunOS" AND "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "i386")
 	set(HOST_X86_64 true)
-elseif("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "(x86_64|amd64)")
+elseif("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "(x86_64|amd64|AMD64)")
 	set(HOST_X86_64 true)
-elseif("${CMAKE_SYSTEM_NAME}" MATCHES "[i?86|x86]")
+	if (MSVC)
+		set(ENABLE_ASM false)
+	endif()
+elseif("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "(i[3-6]86|[xX]86)")
 	set(ENABLE_ASM false)
 	set(HOST_I386 true)
-elseif("${CMAKE_SYSTEM_NAME}" MATCHES "mips64")
+elseif("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "mips64")
 	set(HOST_MIPS64 true)
-elseif("${CMAKE_SYSTEM_NAME}" MATCHES "mips")
+elseif("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "mips")
 	set(HOST_MIPS true)
-elseif("${CMAKE_SYSTEM_NAME}" MATCHES "powerpc")
+elseif("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "powerpc")
 	set(HOST_POWERPC true)
-elseif("${CMAKE_SYSTEM_NAME}" MATCHES "ppc64")
+elseif("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "ppc64")
 	set(HOST_PPC64 true)
-elseif("${CMAKE_SYSTEM_NAME}" MATCHES "riscv64")
+elseif("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "riscv64")
 	set(HOST_RISCV64 true)
-elseif("${CMAKE_SYSTEM_NAME}" MATCHES "sparc64")
+elseif("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "sparc64")
 	set(HOST_SPARC64 true)
 else()
 	set(ENABLE_ASM false)

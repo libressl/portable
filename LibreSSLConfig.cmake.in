@@ -6,16 +6,19 @@ set_and_check(LIBRESSL_INCLUDE_DIR @PACKAGE_INCLUDE_DIRECTORY@)
 if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/LibreSSL-Crypto.cmake")
   include("${CMAKE_CURRENT_LIST_DIR}/LibreSSL-Crypto.cmake")
   set(LIBRESSL_CRYPTO_LIBRARY LibreSSL::Crypto)
+  set(LibreSSL_Crypto_FOUND TRUE)
 endif()
 
 if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/LibreSSL-SSL.cmake")
   include("${CMAKE_CURRENT_LIST_DIR}/LibreSSL-SSL.cmake")
   set(LIBRESSL_SSL_LIBRARY LibreSSL::SSL)
+  set(LibreSSL_SSL_FOUND TRUE)
 endif()
 
 if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/LibreSSL-TLS.cmake")
   include("${CMAKE_CURRENT_LIST_DIR}/LibreSSL-TLS.cmake")
   set(LIBRESSL_TLS_LIBRARY LibreSSL::TLS)
+  set(LibreSSL_TLS_FOUND TRUE)
 endif()
 
 set(LIBRESSL_LIBRARIES
@@ -24,10 +27,10 @@ set(LIBRESSL_LIBRARIES
   ${LIBRESSL_TLS_LIBRARY}
 )
 
-check_required_components(
-  Crypto
-  SSL
-  TLS
-)
+check_required_components(LibreSSL)
 
-set(LIBRESSL_FOUND TRUE)
+if(DEFINED LibreSSL_FOUND)
+	set(LIBRESSL_FOUND ${LibreSSL_FOUND})
+else()
+	set(LIBRESSL_FOUND TRUE)
+endif()

@@ -37,13 +37,18 @@ LibreSSL Portable Release Notes:
 	* Bug fixes
 	  - Fixed aliasing issues in BN_mod_exp_simple() and BN_mod_exp_recp()
 
-3.8.2 - In development
+3.8.2 - Stable release
 
 	* Portable changes
-	* Internal improvements
+	  - Fixed processor detection for CMake targets. Thanks to jiegec.
+	  - Enabled building oscpcheck with MSVC. Thanks to FtZPetruska
+	  - Improve CMake package detection and installation.
+	    Thanks to mark-groundctl
+	  - Fixed assembly optimizations on x64 Windows targets
+	  - Allow disabling warnings about 
+	  - Use system arc4random on FreeBSD 12 and newer.
 	* Documentation improvements
 	  - Documented the RFC 3779 API
-	* Testing and Proactive Security
 	* Compatibility changes
 	  - Restrict the RFC 3779 code to IPv4 and IPv6. It was not written
 	    to be able to deal with anything else.

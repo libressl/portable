@@ -191,12 +191,24 @@ fixup_masm() {
 		| sed -e 's/|/OR/g'   \
 		| sed -e 's/~/NOT/g'  \
 		| sed -e 's/1 << \([0-9]*\)/1 SHL \1/g' \
-		| sed -e 's/^ALIGN.*//g' \
 		> $2
 }
 
 # generate assembly crypto algorithms
-asm_src=$libcrypto_src
+asm_src=$CWD/asm
+
+setup_asm_generator() {
+	rm -fr $asm_src
+	cp -a $libcrypto_src $asm_src
+}
+
+setup_asm_generator_patched() {
+	setup_asm_generator
+	for i in `ls -1 patches/asm/*.patch | sort -n`; do
+		patch -d $asm_src -p 4 < $i 1> /dev/null 2>/dev/null ;
+	done
+}
+
 gen_asm_stdout() {
 	CC=true perl $asm_src/$2 $1 > crypto/$3.tmp
 	[ $1 = "elf" ] && cat <<-EOF >> crypto/$3.tmp
@@ -237,6 +249,8 @@ gen_asm() {
 	fi
 }
 
+setup_asm_generator
+
 echo generating mips ASM source for elf
 gen_asm_mips o32 aes aes-mips    aes-mips
 gen_asm_mips o32 bn  mips        bn-mips
@@ -266,6 +280,14 @@ $CP $libcrypto_src/arch/arm/arm_arch.h crypto
 
 for abi in elf macosx masm mingw64; do
 	echo generating x86_64 ASM source for $abi
+
+	# use patched generators for non-elf targets
+	if [ $abi = "elf" ]; then
+		setup_asm_generator
+	else
+		setup_asm_generator_patched
+	fi
+
 	gen_asm_stdout $abi aes/asm/aes-x86_64.pl        aes/aes-$abi-x86_64.S
 	gen_asm_stdout $abi aes/asm/vpaes-x86_64.pl      aes/vpaes-$abi-x86_64.S
 	gen_asm_stdout $abi aes/asm/bsaes-x86_64.pl      aes/bsaes-$abi-x86_64.S

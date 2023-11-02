@@ -341,9 +341,6 @@ elseif("${CMAKE_SYSTEM_NAME}" STREQUAL "SunOS" AND "${CMAKE_SYSTEM_PROCESSOR}" S
 	set(HOST_X86_64 true)
 elseif("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "(x86_64|amd64|AMD64)")
 	set(HOST_X86_64 true)
-	if (MSVC)
-		set(ENABLE_ASM false)
-	endif()
 elseif("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "(i[3-6]86|[xX]86)")
 	set(ENABLE_ASM false)
 	set(HOST_I386 true)
@@ -404,7 +401,6 @@ if(SIZEOF_TIME_T STREQUAL "4")
 	message(WARNING " ** Warning, this system is unable to represent times past 2038\n"
 	                " ** It will behave incorrectly when handling valid RFC5280 dates")
 endif()
-add_definitions(-DSIZEOF_TIME_T=${SIZEOF_TIME_T})
 
 set(OPENSSL_LIBS ssl crypto ${PLATFORM_LIBS})
 set(LIBTLS_LIBS tls ${PLATFORM_LIBS})

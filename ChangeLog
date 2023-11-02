@@ -28,6 +28,15 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.9.0 - In development
+
+	* Portable changes
+	* Internal improvements
+	* Documentation improvements
+	* Testing and proactive security
+	* Bug fixes
+	  - Fixed aliasing issues in BN_mod_exp_simple() and BN_mod_exp_recp()
+
 3.8.2 - In development
 
 	* Portable changes

@@ -3,6 +3,14 @@
  * sys/time.h compatibility shim
  */
 
+#ifndef SIZEOF_TIME_T
+#ifdef SMALL_TIME_T
+#define SIZEOF_TIME_T 4
+#else
+#define SIZEOF_TIME_T 8
+#endif
+#endif
+
 #ifdef _MSC_VER
 #if _MSC_VER >= 1900
 #include <../ucrt/time.h>

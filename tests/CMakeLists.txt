@@ -769,11 +769,6 @@ add_executable(x509attribute x509attribute.c)
 target_link_libraries(x509attribute ${OPENSSL_TEST_LIBS})
 add_test(x509attribute x509attribute)
 
-# x509_algor
-add_executable(x509_algor x509_algor.c)
-target_link_libraries(x509_algor ${OPENSSL_TEST_LIBS})
-add_test(x509_algor x509_algor)
-
 # x509_asn1
 add_executable(x509_asn1 x509_asn1.c)
 target_link_libraries(x509_asn1 ${OPENSSL_TEST_LIBS})

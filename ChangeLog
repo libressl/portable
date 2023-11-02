@@ -40,15 +40,17 @@ LibreSSL Portable Release Notes:
 3.8.2 - Stable release
 
 	* Portable changes
-	  - Fixed processor detection for CMake targets. Thanks to jiegec.
-	  - Enabled building oscpcheck with MSVC. Thanks to FtZPetruska
+	  - Fixed processor detection for CMake targets.
+	     Thanks to @jiegec from github.
+	  - Enabled building oscpcheck with MSVC.
+	     Thanks to @FtZPetruska from github.
 	  - Improve CMake package detection and installation.
-	    Thanks to mark-groundctl
-	  - Fixed assembly optimizations on x64 Windows targets
-	  - Allow disabling warnings about 
+	     Thanks to @mark-groundctl from github.
+	  - Fixed assembly optimizations on x64 Windows targets.
+	  - Allow disabling warnings about WINCRYPT overrides.
 	  - Use system arc4random on FreeBSD 12 and newer.
 	* Documentation improvements
-	  - Documented the RFC 3779 API
+	  - Documented the RFC 3779 API.
 	* Compatibility changes
 	  - Restrict the RFC 3779 code to IPv4 and IPv6. It was not written
 	    to be able to deal with anything else.

@@ -130,9 +130,6 @@
 #define NX509_SIG 32
 #endif
 
-/* Define globals.  They are protected by a lock */
-static void (*savsig[NX509_SIG])(int );
-
 DWORD console_mode;
 static FILE *tty_in, *tty_out;
 static int is_a_tty;

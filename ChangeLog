@@ -34,8 +34,12 @@ LibreSSL Portable Release Notes:
 	* Internal improvements
 	* Documentation improvements
 	* Testing and proactive security
+	* Compatibility changes
+	  - Added ChaCha20 and chacha20 aliases for ChaCha.
 	* Bug fixes
 	  - Fixed aliasing issues in BN_mod_exp_simple() and BN_mod_exp_recp()
+	  - Fixed numerous misuses of X509_ALGOR_set0() resulting in leaks and
+	    potentially incorrect encodings.
 
 3.8.2 - Stable release
 

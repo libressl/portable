@@ -101,8 +101,7 @@ endif(ENABLE_LIBRESSL_INSTALL)
 
 # build static library for regression test
 if(BUILD_SHARED_LIBS)
-	add_library(tls-static STATIC $<TARGET_OBJECTS:tls_obj>
-		$<TARGET_OBJECTS:ssl_obj> $<TARGET_OBJECTS:crypto_obj>)
-	target_link_libraries(tls-static ${PLATFORM_LIBS})
+	add_library(tls-static STATIC $<TARGET_OBJECTS:tls_obj>)
+	target_link_libraries(tls-static ${OPENSSL_TEST_LIBS})
 endif()
 

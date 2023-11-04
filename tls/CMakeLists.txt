@@ -50,11 +50,10 @@ target_include_directories(tls_obj
 		../include
 		${CMAKE_BINARY_DIR}/include)
 
-add_library(tls $<TARGET_OBJECTS:tls_obj> $<TARGET_OBJECTS:ssl_obj>
-	$<TARGET_OBJECTS:crypto_obj> empty.c)
+add_library(tls $<TARGET_OBJECTS:tls_obj> empty.c)
 
 export_symbol(tls ${CMAKE_CURRENT_BINARY_DIR}/tls.sym)
-target_link_libraries(tls ${PLATFORM_LIBS})
+target_link_libraries(tls ${OPENSSL_LIBS})
 if (WIN32)
 	set(TLS_POSTFIX -${TLS_MAJOR_VERSION} PARENT_SCOPE)
 endif()

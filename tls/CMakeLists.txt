@@ -29,7 +29,11 @@ endif()
 if(NOT "${OPENSSLDIR}" STREQUAL "")
 	add_definitions(-DTLS_DEFAULT_CA_FILE=\"${OPENSSLDIR}/cert.pem\")
 else()
-	add_definitions(-DTLS_DEFAULT_CA_FILE=\"${CMAKE_INSTALL_PREFIX}/etc/ssl/cert.pem\")
+	if(WIN32)
+		add_definitions(-DTLS_DEFAULT_CA_FILE=\"C:/Windows/libressl/ssl/cert.pem\")
+	else()
+		add_definitions(-DTLS_DEFAULT_CA_FILE=\"${CMAKE_INSTALL_PREFIX}/etc/ssl/cert.pem\")
+	endif()
 endif()
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/tls.sym DESTINATION

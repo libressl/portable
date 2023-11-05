@@ -11,11 +11,7 @@ else()
 	set(OCSPCHECK_SRC ${OCSPCHECK_SRC} compat/memmem.c)
 endif()
 
-if(NOT "${OPENSSLDIR}" STREQUAL "")
-	add_definitions(-DDEFAULT_CA_FILE=\"${OPENSSLDIR}/cert.pem\")
-else()
-	add_definitions(-DDEFAULT_CA_FILE=\"${CMAKE_INSTALL_PREFIX}/etc/ssl/cert.pem\")
-endif()
+add_definitions(-DDEFAULT_CA_FILE=\"${OPENSSLDIR}/cert.pem\")
 
 add_executable(ocspcheck ${OCSPCHECK_SRC})
 target_include_directories(ocspcheck

@@ -26,11 +26,7 @@ if(WIN32)
 	set(LIBTLS_EXTRA_EXPORT ${LIBTLS_EXTRA_EXPORT} ftruncate)
 endif()
 
-if(NOT "${OPENSSLDIR}" STREQUAL "")
-	add_definitions(-DTLS_DEFAULT_CA_FILE=\"${OPENSSLDIR}/cert.pem\")
-else()
-	add_definitions(-DTLS_DEFAULT_CA_FILE=\"${CMAKE_INSTALL_PREFIX}/etc/ssl/cert.pem\")
-endif()
+add_definitions(-DTLS_DEFAULT_CA_FILE=\"${OPENSSLDIR}/cert.pem\")
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/tls.sym DESTINATION
 	${CMAKE_CURRENT_BINARY_DIR})

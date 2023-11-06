@@ -62,6 +62,28 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
 	  STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
 endif()
 
+# Allow cross-compilation by accepting a custom CPU name.
+# If not set, auto-detect it based on other signals.
+if(NOT DEFINED LIBRESSL_CPU OR LIBRESSL_CPU STREQUAL "")
+	if(APPLE AND (NOT CMAKE_OSX_ARCHITECTURES STREQUAL ""))
+		# This isn't ready for universal binaries yet, since we do
+		# conditional compilation based on the architecture.
+		#
+		# Don't set CMAKE_OSX_ARCHITECTURES to more than a single
+		# value for now.
+		set(LIBRESSL_CPU "${CMAKE_OSX_ARCHITECTURES}")
+	elseif(DEFINED CMAKE_C_COMPILER_TARGET AND
+	       NOT CMAKE_C_COMPILER_TARGET STREQUAL "")
+		set(LIBRESSL_CPU "${CMAKE_C_COMPILER_TARGET}")
+	else()
+		# Fallback to the system processor.
+		set(LIBRESSL_CPU "${CMAKE_SYSTEM_PROCESSOR}")
+	endif()
+endif()
+
+message(STATUS "Target processor: ${LIBRESSL_CPU}")
+message(STATUS "Target ABI: ${CMAKE_C_COMPILER_ABI}")
+
 # Enable asserts regardless of build type
 add_definitions(-UNDEBUG)
 
@@ -324,37 +346,28 @@ if(HAVE_NETINET_IP_H)
 	add_definitions(-DHAVE_NETINET_IP_H)
 endif()
 
-# This isn't ready for universal binaries yet, since we do conditional
-# compilation based on the architecture, but this makes cross compiling for a
-# single architecture work on macOS at least.
-#
-# Don't set CMAKE_OSX_ARCHITECTURES to more than a single value for now.
-if(APPLE AND (NOT CMAKE_OSX_ARCHITECTURES STREQUAL ""))
-	set(CMAKE_SYSTEM_PROCESSOR "${CMAKE_OSX_ARCHITECTURES}")
-endif()
-
-if("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "(aarch64|arm64|ARM64)")
+if(LIBRESSL_CPU MATCHES "(aarch64|arm64|ARM64)")
 	set(HOST_AARCH64 true)
-elseif("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "arm")
+elseif(LIBRESSL_CPU MATCHES "arm")
 	set(HOST_ARM true)
-elseif("${CMAKE_SYSTEM_NAME}" STREQUAL "SunOS" AND "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "i386")
+elseif("${CMAKE_SYSTEM_NAME}" STREQUAL "SunOS" AND LIBRESSL_CPU STREQUAL "i386")
 	set(HOST_X86_64 true)
-elseif("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "(x86_64|amd64|AMD64)")
+elseif(LIBRESSL_CPU MATCHES "(x86_64|amd64|AMD64)")
 	set(HOST_X86_64 true)
-elseif("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "(i[3-6]86|[xX]86)")
+elseif(LIBRESSL_CPU MATCHES "(i[3-6]86|[xX]86)")
 	set(ENABLE_ASM false)
 	set(HOST_I386 true)
-elseif("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "mips64")
+elseif(LIBRESSL_CPU MATCHES "mips64")
 	set(HOST_MIPS64 true)
-elseif("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "mips")
+elseif(LIBRESSL_CPU MATCHES "mips")
 	set(HOST_MIPS true)
-elseif("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "powerpc")
+elseif(LIBRESSL_CPU MATCHES "powerpc")
 	set(HOST_POWERPC true)
-elseif("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "ppc64")
+elseif(LIBRESSL_CPU MATCHES "ppc64")
 	set(HOST_PPC64 true)
-elseif("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "riscv64")
+elseif(LIBRESSL_CPU MATCHES "riscv64")
 	set(HOST_RISCV64 true)
-elseif("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "sparc64")
+elseif(LIBRESSL_CPU MATCHES "sparc64")
 	set(HOST_SPARC64 true)
 else()
 	set(ENABLE_ASM false)
@@ -362,20 +375,20 @@ endif()
 
 if(ENABLE_ASM)
 	if("${CMAKE_C_COMPILER_ABI}" STREQUAL "ELF")
-		if("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "(x86_64|amd64)")
+		if(LIBRESSL_CPU MATCHES "(x86_64|amd64)")
 			set(HOST_ASM_ELF_X86_64 true)
-		elseif("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "arm")
+		elseif(LIBRESSL_CPU MATCHES "arm")
 			set(HOST_ASM_ELF_ARMV4 true)
-		elseif(CMAKE_SYSTEM_NAME STREQUAL "SunOS" AND "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "i386")
+		elseif(CMAKE_SYSTEM_NAME STREQUAL "SunOS" AND LIBRESSL_CPU STREQUAL "i386")
 			set(HOST_ASM_ELF_X86_64 true)
 		endif()
 		add_definitions(-DHAVE_GNU_STACK)
-	elseif(APPLE AND "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64")
+	elseif(APPLE AND LIBRESSL_CPU STREQUAL "x86_64")
 		set(HOST_ASM_MACOSX_X86_64 true)
 	elseif(MSVC AND ("${CMAKE_GENERATOR}" MATCHES "Win64" OR "${CMAKE_GENERATOR_PLATFORM}" STREQUAL "x64"))
 		set(HOST_ASM_MASM_X86_64 true)
 		ENABLE_LANGUAGE(ASM_MASM)
-	elseif(MINGW AND "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64")
+	elseif(MINGW AND LIBRESSL_CPU STREQUAL "x86_64")
 		set(HOST_ASM_MINGW64_X86_64 true)
 	endif()
 endif()

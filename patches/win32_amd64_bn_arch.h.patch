@@ -1,17 +1,19 @@
 --- crypto/bn/arch/amd64/bn_arch.h.orig	2023-02-27 04:43:12.257874699 -0600
 +++ crypto/bn/arch/amd64/bn_arch.h	2023-02-27 04:44:05.541873870 -0600
-@@ -20,6 +20,10 @@
+@@ -20,6 +20,12 @@
  #ifndef HEADER_BN_ARCH_H
  #define HEADER_BN_ARCH_H
  
 +#ifdef _WIN32
++#ifndef OPENSSL_NO_ASM
 +#define OPENSSL_NO_ASM
++#endif
 +#else
 +
  #ifndef OPENSSL_NO_ASM
  
  #define HAVE_BN_ADD
-@@ -85,6 +89,7 @@
+@@ -85,6 +91,7 @@
  	*out_r0 = r0;
  }
  #endif /* __GNUC__ */

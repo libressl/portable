@@ -34,6 +34,7 @@ LibreSSL Portable Release Notes:
 	* Internal improvements
 	* Documentation improvements
 	* Testing and proactive security
+	  - Bug fixes and simplifications in the Wycheproof tests.
 	* Compatibility changes
 	  - Added ChaCha20 and chacha20 aliases for ChaCha.
 	* Bug fixes

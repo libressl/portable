@@ -1,0 +1,62 @@
+# GitHub Actions workflow to run tests on Linux.
+name: "Linux"
+
+on:
+  push: {}
+  pull_request: {}
+  schedule:
+    - cron: "0 0 * * *" # At 00:00 daily.
+
+jobs:
+  # Test against all supported architectures.
+  test:
+    name: "${{ matrix.os }}/${{ matrix.arch }} (${{ matrix.compiler }})"
+    runs-on: "${{ matrix.os }}"
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ["ubuntu-20.04", "ubuntu-22.04"]
+        arch: ["native", "arm32", "arm64", "mingw32", "mingw64", "mips32", "mips64"]
+        compiler: ["gcc"]
+        include:
+          - os: "ubuntu-20.04"
+            arch: "native"
+            compiler: "clang"
+          - os: "ubuntu-22.04"
+            arch: "native"
+            compiler: "clang"
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "Run tests"
+        run: ./scripts/test
+        env:
+          ARCH: "${{ matrix.arch }}"
+          CC: "${{ matrix.compiler }}"
+
+  # Test ASAN with and without ASM enabled.
+  test-asan:
+    name: "ASAN (${{ matrix.asm == 'ON' && 'asm' || 'no-asm' }})"
+    runs-on: "ubuntu-latest"
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        asm: [ON, OFF]
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "Run tests"
+        run: ./scripts/test
+        env:
+          ARCH: "native"
+          CC: "clang"
+          CFLAGS: "-ggdb -fsanitize=address"
+          LDFLAGS: "-fsanitize=address"
+          ENABLE_ASM: "${{ matrix.asm }}"
+          CTEST_OUTPUT_ON_FAILURE: 1

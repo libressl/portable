@@ -19,11 +19,6 @@ jobs:
       - name: "Build LibreSSL"
         run: |
           ./autogen.sh
-          ./configure
-          make dist
-          tar zxvf libressl-*.tar.gz
-          rm libressl-*.tar.gz
-          cd libressl-*
           ./configure --prefix="${HOME}/opt"
           make all install
 

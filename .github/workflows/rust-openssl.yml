@@ -32,4 +32,4 @@ jobs:
           OPENSSL_DIR=${HOME}/opt
           LD_LIBRARY_PATH=${HOME}/opt/lib
           patch -p1 < ../.github/rust-openssl.patch
-          cargo test
+          cargo test --verbose

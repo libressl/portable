@@ -41,6 +41,7 @@ LibreSSL Portable Release Notes:
 	  - Fixed aliasing issues in BN_mod_exp_simple() and BN_mod_exp_recp().
 	  - Fixed numerous misuses of X509_ALGOR_set0() resulting in leaks and
 	    potentially incorrect encodings.
+	  - Fixed potential double free in X509v3_asid_add_id_or_range().
 
 3.8.2 - Stable release
 

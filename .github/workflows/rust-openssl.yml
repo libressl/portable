@@ -29,7 +29,6 @@ jobs:
       - name: "Run rust-openssl tests"
         run: |
           cd rust-openssl
-          OPENSSL_DIR=${HOME}/opt
-          LD_LIBRARY_PATH=${HOME}/opt/lib
           patch -p1 < ../.github/rust-openssl.patch
+          export OPENSSL_DIR=${HOME}/opt LD_LIBRARY_PATH=${HOME}/opt/lib
           cargo test --verbose

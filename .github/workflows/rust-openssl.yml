@@ -29,6 +29,14 @@ jobs:
       - name: "Run rust-openssl tests"
         run: |
           cd rust-openssl
-          patch -p1 < ../.github/rust-openssl.patch
+          # instead of erroring use the last supported version
+          ed -s openssl-sys/build/main.rs <<-EOF
+          /_ => version_error/-1
+          .t.
+          s/(.*=/_ =
+          +1d
+          w
+          q
+          EOF
           export OPENSSL_DIR=${HOME}/opt LD_LIBRARY_PATH=${HOME}/opt/lib
           cargo test --verbose

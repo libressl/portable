@@ -42,6 +42,9 @@ LibreSSL Portable Release Notes:
 	  - Fixed numerous misuses of X509_ALGOR_set0() resulting in leaks and
 	    potentially incorrect encodings.
 	  - Fixed potential double free in X509v3_asid_add_id_or_range().
+	  - Stopped using ASN1_time_parse() outside of libcrypto.
+	  - Prepared OPENSSL_gmtime() and OPENSSL_timegm() as public API
+	    wrappers of internal functions compatible with BoringSSL API.
 
 3.8.2 - Stable release
 

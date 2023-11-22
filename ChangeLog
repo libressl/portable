@@ -37,6 +37,7 @@ LibreSSL Portable Release Notes:
 	  - Bug fixes and simplifications in the Wycheproof tests.
 	* Compatibility changes
 	  - Added ChaCha20 and chacha20 aliases for ChaCha.
+	  - SSL_library_init() now has the same effect as OPENSSL_init_ssl().
 	* Bug fixes
 	  - Fixed aliasing issues in BN_mod_exp_simple() and BN_mod_exp_recp().
 	  - Fixed numerous misuses of X509_ALGOR_set0() resulting in leaks and
@@ -45,6 +46,8 @@ LibreSSL Portable Release Notes:
 	  - Stopped using ASN1_time_parse() outside of libcrypto.
 	  - Prepared OPENSSL_gmtime() and OPENSSL_timegm() as public API
 	    wrappers of internal functions compatible with BoringSSL API.
+	  - Removed print_bin() to avoid overwriting the stack with 5 bytes
+	    of ' ' when ECPK parameters are printed with large indentation.
 
 3.8.2 - Stable release
 

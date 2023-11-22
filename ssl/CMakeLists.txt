@@ -8,7 +8,6 @@ set(
 	pqueue.c
 	s3_cbc.c
 	s3_lib.c
-	ssl_algs.c
 	ssl_asn1.c
 	ssl_both.c
 	ssl_cert.c

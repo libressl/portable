@@ -58,7 +58,6 @@ libssl_la_SOURCES += d1_srtp.c
 libssl_la_SOURCES += pqueue.c
 libssl_la_SOURCES += s3_cbc.c
 libssl_la_SOURCES += s3_lib.c
-libssl_la_SOURCES += ssl_algs.c
 libssl_la_SOURCES += ssl_asn1.c
 libssl_la_SOURCES += ssl_both.c
 libssl_la_SOURCES += ssl_cert.c

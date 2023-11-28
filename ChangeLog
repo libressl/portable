@@ -48,6 +48,8 @@ LibreSSL Portable Release Notes:
 	    wrappers of internal functions compatible with BoringSSL API.
 	  - Removed print_bin() to avoid overwriting the stack with 5 bytes
 	    of ' ' when ECPK parameters are printed with large indentation.
+	  - Avoid a NULL dereference after memory allocation failure during TLS
+	    version downgrade.
 
 3.8.2 - Stable release
 

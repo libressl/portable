@@ -32,6 +32,7 @@ LibreSSL Portable Release Notes:
 
 	* Portable changes
 	* Internal improvements
+	  - Converted uses of OBJ_bsearch_() to standard bsearch().
 	* Documentation improvements
 	* Testing and proactive security
 	  - Bug fixes and simplifications in the Wycheproof tests.

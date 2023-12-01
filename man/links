@@ -745,6 +745,9 @@ EC_POINT_new.3,EC_POINT_set_compressed_coordinates.3
 EC_POINT_new.3,EC_POINT_set_compressed_coordinates_GFp.3
 EC_POINT_new.3,EC_POINT_set_to_infinity.3
 ENGINE_new.3,ENGINE_by_id.3
+ENGINE_new.3,ENGINE_cleanup.3
+ENGINE_new.3,ENGINE_ctrl_cmd.3
+ENGINE_new.3,ENGINE_ctrl_cmd_string.3
 ENGINE_new.3,ENGINE_finish.3
 ENGINE_new.3,ENGINE_free.3
 ENGINE_new.3,ENGINE_get_default_RSA.3
@@ -812,6 +815,8 @@ EVP_CIPHER_CTX_ctrl.3,EVP_CIPHER_iv_length.3
 EVP_CIPHER_CTX_ctrl.3,EVP_CIPHER_key_length.3
 EVP_CIPHER_CTX_get_cipher_data.3,EVP_CIPHER_CTX_buf_noconst.3
 EVP_CIPHER_CTX_get_cipher_data.3,EVP_CIPHER_CTX_set_cipher_data.3
+EVP_CIPHER_CTX_init.3,EVP_CIPHER_CTX_cleanup.3
+EVP_CIPHER_CTX_init.3,EVP_Cipher.3
 EVP_CIPHER_CTX_set_flags.3,EVP_CIPHER_CTX_clear_flags.3
 EVP_CIPHER_CTX_set_flags.3,EVP_CIPHER_CTX_get_app_data.3
 EVP_CIPHER_CTX_set_flags.3,EVP_CIPHER_CTX_rand_key.3
@@ -885,14 +890,11 @@ EVP_EncodeInit.3,EVP_EncodeBlock.3
 EVP_EncodeInit.3,EVP_EncodeFinal.3
 EVP_EncodeInit.3,EVP_EncodeUpdate.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_cipher.3
-EVP_EncryptInit.3,EVP_CIPHER_CTX_cleanup.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_copy.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_encrypting.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_free.3
-EVP_EncryptInit.3,EVP_CIPHER_CTX_init.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_new.3
 EVP_EncryptInit.3,EVP_CIPHER_CTX_reset.3
-EVP_EncryptInit.3,EVP_Cipher.3
 EVP_EncryptInit.3,EVP_CipherFinal.3
 EVP_EncryptInit.3,EVP_CipherFinal_ex.3
 EVP_EncryptInit.3,EVP_CipherInit.3
@@ -1342,7 +1344,6 @@ OPENSSL_VERSION_NUMBER.3,SSLeay_version.3
 OPENSSL_config.3,OPENSSL_no_config.3
 OPENSSL_init_crypto.3,OPENSSL_init.3
 OPENSSL_load_builtin_modules.3,ASN1_add_oid_module.3
-OPENSSL_load_builtin_modules.3,ENGINE_add_conf_module.3
 OPENSSL_malloc.3,CRYPTO_free.3
 OPENSSL_malloc.3,CRYPTO_malloc.3
 OPENSSL_malloc.3,CRYPTO_realloc.3

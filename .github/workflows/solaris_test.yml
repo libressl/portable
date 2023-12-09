@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         release: [11.4]
-    runs-on: macos-12
+    runs-on: ubuntu-latest
     continue-on-error: false
     name: Solaris ${{ matrix.release }}
     steps:
@@ -19,7 +19,7 @@ jobs:
         brew install automake autoconf libtool
         ./autogen.sh
     - name: Build on VM
-      uses: vmactions/solaris-vm@v0
+      uses: vmactions/solaris-vm@v1
       with:
         prepare: |
           pkg install gcc make

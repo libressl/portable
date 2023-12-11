@@ -9,7 +9,7 @@ AC_HEADER_RESOLV
 # Check for general libc functions
 AC_CHECK_FUNCS([asprintf freezero memmem])
 AC_CHECK_FUNCS([readpassphrase reallocarray recallocarray])
-AC_CHECK_FUNCS([strlcat strlcpy strndup strnlen strsep strtonum])
+AC_CHECK_FUNCS([strcasecmp strlcat strlcpy strndup strnlen strsep strtonum])
 AC_CHECK_FUNCS([timegm _mkgmtime timespecsub])
 AC_CHECK_FUNCS([getopt getprogname syslog syslog_r])
 AC_CACHE_CHECK([for getpagesize], ac_cv_func_getpagesize, [
@@ -30,6 +30,7 @@ AM_CONDITIONAL([HAVE_MEMMEM], [test "x$ac_cv_func_memmem" = xyes])
 AM_CONDITIONAL([HAVE_READPASSPHRASE], [test "x$ac_cv_func_readpassphrase" = xyes])
 AM_CONDITIONAL([HAVE_REALLOCARRAY], [test "x$ac_cv_func_reallocarray" = xyes])
 AM_CONDITIONAL([HAVE_RECALLOCARRAY], [test "x$ac_cv_func_recallocarray" = xyes])
+AM_CONDITIONAL([HAVE_STRCASECMP], [test "x$ac_cv_func_strcasecmp" = xyes])
 AM_CONDITIONAL([HAVE_STRLCAT], [test "x$ac_cv_func_strlcat" = xyes])
 AM_CONDITIONAL([HAVE_STRLCPY], [test "x$ac_cv_func_strlcpy" = xyes])
 AM_CONDITIONAL([HAVE_STRNDUP], [test "x$ac_cv_func_strndup" = xyes])

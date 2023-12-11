@@ -464,7 +464,7 @@ function get_test_exit_message(status)
     # in $? an exit status of 256+n instead of the more standard 128+n.
     # Apparently, both behaviours are allowed by POSIX (2008), so be
     # prepared to handle them both.  See also Austing Group report ID
-    # 0000051 <http://www.austingroupbugs.net/view.php?id=51>
+    # 0000051 <https://www.austingroupbugs.net/view.php?id=51>
     exit_details = sprintf(" (terminated by signal %d?)", status - 256)
   else
     # Never seen in practice.

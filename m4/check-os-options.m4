@@ -22,7 +22,7 @@ case $host_os in
 		# Don't use arc4random on systems before 10.12 because of
 		# weak seed on failure to open /dev/random, based on latest
 		# public source:
-		# http://www.opensource.apple.com/source/Libc/Libc-997.90.3/gen/FreeBSD/arc4random.c
+		# https://www.opensource.apple.com/source/Libc/Libc-997.90.3/gen/FreeBSD/arc4random.c
 		#
 		# We use the presence of getentropy() to detect 10.12. The
 		# following check take into account that:

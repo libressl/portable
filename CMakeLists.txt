@@ -234,6 +234,11 @@ if(HAVE_STRSEP)
 	add_definitions(-DHAVE_STRSEP)
 endif()
 
+check_function_exists(strtonum HAVE_STRTONUM)
+if(HAVE_STRTONUM)
+	add_definitions(-DHAVE_STRTONUM)
+endif()
+
 check_function_exists(timegm HAVE_TIMEGM)
 if(HAVE_TIMEGM)
 	add_definitions(-DHAVE_TIMEGM)

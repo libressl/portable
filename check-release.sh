@@ -26,7 +26,7 @@ if [ ! -e releases/$tarball ]; then
 	mkdir -p releases
 	rm -f $tarball
 	if [ -z "$LIBRESSL_SSH" ]; then
-		$download http://ftp.openbsd.org/pub/OpenBSD/LibreSSL/$tarball releases/
+		$download https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/$tarball releases/
 		mv $tarball releases
 	else
 		scp $LIBRESSL_SSH/$tarball releases

@@ -131,9 +131,8 @@ fi
     # expects on its last input line (which is displayed below by the
     # last `echo $?' statement), and would thus die reporting an internal
     # error.
-    # For more information, see the Autoconf manual and the threads:
+    # For more information, see the Autoconf manual and the thread:
     # <https://lists.gnu.org/archive/html/bug-autoconf/2011-09/msg00004.html>
-    # <http://mail.opensolaris.org/pipermail/ksh93-integration-discuss/2009-February/004121.html>
     trap : 1 3 2 13 15
     if test $merge -gt 0; then
       exec 2>&1

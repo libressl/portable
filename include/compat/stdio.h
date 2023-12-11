@@ -42,7 +42,7 @@ int posix_rename(const char *oldpath, const char *newpath);
 #define rename(oldpath, newpath) posix_rename(oldpath, newpath)
 #endif
 
-#ifdef _MSC_VER
+#if defined(_MSC_VER) && _MSC_VER < 1900
 #define snprintf _snprintf
 #endif
 

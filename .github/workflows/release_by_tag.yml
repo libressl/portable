@@ -3,7 +3,8 @@ on:
   push:
     tags: [ "v*" ]
 
-permissions: write-all
+permissions:
+  contents: write
 
 jobs:
   release:

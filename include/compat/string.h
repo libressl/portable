@@ -27,43 +27,54 @@
 #endif
 
 #ifndef HAVE_STRCASECMP
+#define strcasecmp libressl_strcasecmp
 int strcasecmp(const char *s1, const char *s2);
+#define strncasecmp libressl_strncasecmp
 int strncasecmp(const char *s1, const char *s2, size_t len);
 #endif
 
 #ifndef HAVE_STRLCPY
+#define strlcpy libressl_strlcpy
 size_t strlcpy(char *dst, const char *src, size_t siz);
 #endif
 
 #ifndef HAVE_STRLCAT
+#define strlcat libressl_strlcat
 size_t strlcat(char *dst, const char *src, size_t siz);
 #endif
 
 #ifndef HAVE_STRNDUP
+#define strndup libressl_strndup
 char * strndup(const char *str, size_t maxlen);
 /* the only user of strnlen is strndup, so only build it if needed */
 #ifndef HAVE_STRNLEN
+#define strnlen libressl_strnlen
 size_t strnlen(const char *str, size_t maxlen);
 #endif
 #endif
 
 #ifndef HAVE_STRSEP
+#define strsep libressl_strsep
 char *strsep(char **stringp, const char *delim);
 #endif
 
 #ifndef HAVE_EXPLICIT_BZERO
+#define explicit_bzero libressl_explicit_bzero
 void explicit_bzero(void *, size_t);
 #endif
 
 #ifndef HAVE_TIMINGSAFE_BCMP
+#define timingsafe_bcmp libressl_timingsafe_bcmp
 int timingsafe_bcmp(const void *b1, const void *b2, size_t n);
 #endif
 
 #ifndef HAVE_TIMINGSAFE_MEMCMP
+#define timingsafe_memcmp libressl_timingsafe_memcmp
 int timingsafe_memcmp(const void *b1, const void *b2, size_t len);
 #endif
 
 #ifndef HAVE_MEMMEM
+#define memmem libressl_memmem
 void * memmem(const void *big, size_t big_len, const void *little,
 	size_t little_len);
 #endif

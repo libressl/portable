@@ -22,20 +22,12 @@ if(WIN32)
 		compat/pread.c
 		compat/pwrite.c
 	)
-
-	set(LIBTLS_EXTRA_EXPORT ${LIBTLS_EXTRA_EXPORT} ftruncate)
 endif()
 
 add_definitions(-DTLS_DEFAULT_CA_FILE=\"${OPENSSLDIR}/cert.pem\")
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/tls.sym DESTINATION
 	${CMAKE_CURRENT_BINARY_DIR})
-if(LIBTLS_EXTRA_EXPORT)
-	list(SORT LIBTLS_EXTRA_EXPORT)
-	foreach(SYM IN LISTS LIBTLS_EXTRA_EXPORT)
-		file(APPEND ${CMAKE_CURRENT_BINARY_DIR}/tls.sym "${SYM}\n")
-	endforeach()
-endif()
 
 add_library(tls_obj OBJECT ${TLS_SRC})
 target_include_directories(tls_obj

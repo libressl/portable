@@ -62,6 +62,5 @@ jobs:
         with:
           upload_url: ${{ needs.release.outputs.upload_url }}
           asset_path: local.zip
-          asset_name: windows-${{ matrix.arch }}-${{ github.ref }}
+          asset_name: windows-${{ matrix.arch }}-${{ github.ref }}.zip
           asset_content_type: application/zip
-

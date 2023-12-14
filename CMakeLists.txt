@@ -413,11 +413,11 @@ set(LIBTLS_LIBS tls ${PLATFORM_LIBS})
 
 # libraries for regression test
 if(BUILD_SHARED_LIBS)
-	set(OPENSSL_TEST_LIBS ssl-static crypto-static ${PLATFORM_LIBS})
+	set(OPENSSL_TEST_LIBS ssl-static crypto-static ${PLATFORM_LIBS} compat_obj)
 	set(LIBTLS_TEST_LIBS tls-static ${OPENSSL_TEST_LIBS})
 else()
-	set(OPENSSL_TEST_LIBS ssl crypto ${PLATFORM_LIBS})
-	set(LIBTLS_TEST_LIBS tls ${PLATFORM_LIBS})
+	set(OPENSSL_TEST_LIBS ssl crypto ${PLATFORM_LIBS} compat_obj)
+	set(LIBTLS_TEST_LIBS tls ${PLATFORM_LIBS} compat_obj)
 endif()
 
 if(OPENSSLDIR STREQUAL "")

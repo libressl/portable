@@ -820,6 +820,7 @@ if(NOT HAVE_SYSLOG_R)
 endif()
 
 if(NOT HAVE_TIMEGM)
+        # XXX - Remove after next bump once libtls, ocspcheck, and asn1time are fixed.
 	set(COMPAT_SRC ${COMPAT_SRC} compat/timegm.c)
 endif()
 

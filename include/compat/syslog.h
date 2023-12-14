@@ -15,6 +15,7 @@
 #include <stdarg.h>
 
 #ifdef _WIN32
+#define LOG_CONS	LOG_INFO
 #define	LOG_INFO	6	/* informational */
 #define LOG_USER    (1<<3)  /* random user-level messages */
 #define	LOG_LOCAL2	(18<<3)	/* reserved for local use */

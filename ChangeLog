@@ -31,9 +31,14 @@ LibreSSL Portable Release Notes:
 3.9.0 - In development
 
 	* Portable changes
+	  - libcrypto no longer exports compat symbols in cmake builds.
+	  - Most compatibility symbols are prefixed with libressl_ to avoid
+	    symbol clashes in static links.
+	  - Fixed various warnings on Windows.
 	* Internal improvements
 	  - Converted uses of OBJ_bsearch_() to standard bsearch().
 	  - Greatly simplified by_file_ctrl().
+	  - Simplified and cleaned up the OBJ_ API.
 	* Documentation improvements
 	  - ENGINE documentation was updated to reflect reality.
 	  - Made EVP API documentation more accurate and less incoherent. 

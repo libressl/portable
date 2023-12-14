@@ -78,7 +78,7 @@ target_include_directories(bs_obj
 		../include/compat)
 
 if(BUILD_SHARED_LIBS)
-	add_library(ssl $<TARGET_OBJECTS:ssl_obj> $<TARGET_OBJECTS:bs_obj>)
+	add_library(ssl $<TARGET_OBJECTS:ssl_obj> $<TARGET_OBJECTS:compat_obj> $<TARGET_OBJECTS:bs_obj>)
 else()
 	add_library(ssl $<TARGET_OBJECTS:ssl_obj> empty.c)
 endif()

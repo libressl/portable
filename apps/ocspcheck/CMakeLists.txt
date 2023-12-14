@@ -20,7 +20,7 @@ target_include_directories(ocspcheck
 	PUBLIC
 		../../include
 		${CMAKE_BINARY_DIR}/include)
-target_link_libraries(ocspcheck tls ${OPENSSL_LIBS})
+target_link_libraries(ocspcheck tls ${OPENSSL_LIBS} compat_obj tls_compat_obj)
 
 if(ENABLE_LIBRESSL_INSTALL)
 	install(TARGETS ocspcheck DESTINATION ${CMAKE_INSTALL_BINDIR})

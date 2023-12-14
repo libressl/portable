@@ -14,28 +14,32 @@ set(
 	tls_verify.c
 )
 
+set(TLS_COMPAT_SRC empty.c)
+
 if(WIN32)
 	set(
 		TLS_SRC
 		${TLS_SRC}
-		compat/ftruncate.c
-		compat/pread.c
-		compat/pwrite.c
 	)
 
-	set(LIBTLS_EXTRA_EXPORT ${LIBTLS_EXTRA_EXPORT} ftruncate)
+	set(TLS_COMPAT_SRC ${TLS_COMPAT_SRC} compat/ftruncate.c)
+	set(TLS_COMPAT_SRC ${TLS_COMPAT_SRC} compat/pread.c)
+	set(TLS_COMPAT_SRC ${TLS_COMPAT_SRC} compat/pwrite.c)
 endif()
 
 add_definitions(-DTLS_DEFAULT_CA_FILE=\"${OPENSSLDIR}/cert.pem\")
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/tls.sym DESTINATION
 	${CMAKE_CURRENT_BINARY_DIR})
-if(LIBTLS_EXTRA_EXPORT)
-	list(SORT LIBTLS_EXTRA_EXPORT)
-	foreach(SYM IN LISTS LIBTLS_EXTRA_EXPORT)
-		file(APPEND ${CMAKE_CURRENT_BINARY_DIR}/tls.sym "${SYM}\n")
-	endforeach()
-endif()
+
+add_library(tls_compat_obj OBJECT ${TLS_COMPAT_SRC})
+target_include_directories(tls_compat_obj
+	PRIVATE
+		.
+		../include/compat
+	PUBLIC
+		../include
+		${CMAKE_BINARY_DIR}/include)
 
 add_library(tls_obj OBJECT ${TLS_SRC})
 target_include_directories(tls_obj
@@ -46,7 +50,11 @@ target_include_directories(tls_obj
 		../include
 		${CMAKE_BINARY_DIR}/include)
 
-add_library(tls $<TARGET_OBJECTS:tls_obj> empty.c)
+if(BUILD_SHARED_LIBS)
+	add_library(tls $<TARGET_OBJECTS:tls_obj> $<TARGET_OBJECTS:tls_compat_obj> $<TARGET_OBJECTS:compat_obj> empty.c)
+else()
+	add_library(tls $<TARGET_OBJECTS:tls_obj> $<TARGET_OBJECTS:tls_compat_obj> empty.c)
+endif()
 
 export_symbol(tls ${CMAKE_CURRENT_BINARY_DIR}/tls.sym)
 target_link_libraries(tls ${OPENSSL_LIBS})

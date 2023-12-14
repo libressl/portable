@@ -14,7 +14,7 @@ set(
 	tls_verify.c
 )
 
-set(TLS_COMPAT_SRC "")
+set(TLS_COMPAT_SRC empty.c)
 
 if(WIN32)
 	set(

@@ -734,7 +734,7 @@ set(
 	x509/x_all.c
 )
 
-set(COMPAT_SRC "")
+set(COMPAT_SRC empty.c)
 
 if(UNIX)
 	set(CRYPTO_SRC ${CRYPTO_SRC} crypto_lock.c)

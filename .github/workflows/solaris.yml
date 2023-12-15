@@ -1,0 +1,31 @@
+# GitHub Actions workflow to run tests on a Solaris VM.
+name: "Solaris"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *" # At 00:00 daily.
+
+jobs:
+  test:
+    name: "Solaris"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "Setup"
+        run: |
+          apt-get install automake autoconf libtool
+          ./autogen.sh
+
+      - name: "Build on VM"
+        uses: vmactions/solaris-vm@v1
+        with:
+          prepare: |
+            pkg install gcc make
+          run: |
+            MAKE=gmake ./configure
+            gmake -j2 check || (cat tests/test-suite.log && exit 1)

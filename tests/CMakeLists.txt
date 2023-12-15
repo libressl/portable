@@ -670,11 +670,6 @@ else()
 endif()
 set_tests_properties(ssltest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 
-# string_table
-add_executable(string_table string_table.c)
-target_link_libraries(string_table ${OPENSSL_TEST_LIBS})
-add_test(string_table string_table)
-
 # testdsa
 if(NOT MSVC)
 	add_test(NAME testdsa COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/testdsa.sh)

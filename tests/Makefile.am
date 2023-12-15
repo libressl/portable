@@ -698,11 +698,6 @@ EXTRA_DIST += server2-ecdsa.pem server2-rsa-chain.pem server2-rsa.pem
 EXTRA_DIST += server3-ecdsa-chain.pem server3-ecdsa.pem server3-rsa-chain.pem
 EXTRA_DIST += server3-rsa.pem
 
-# string_table
-TESTS += string_table
-check_PROGRAMS += string_table
-string_table_SOURCES = string_table.c
-
 # testdsa
 TESTS += testdsa.sh
 EXTRA_DIST += testdsa.sh testdsa.bat

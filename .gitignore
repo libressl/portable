@@ -120,7 +120,6 @@ tests/ssl_methods*
 tests/ssl_set_alpn_protos*
 tests/ssl_verify_param*
 tests/ssl_versions*
-tests/string_table*
 tests/timingsafe*
 tests/tls_ext_alpn*
 tests/tls_prf*

@@ -3,7 +3,11 @@
  * syslog.h compatibility shim
  */
 
-#ifndef _WIN32
+#if defined(_WIN32)
+#define NO_SYSLOG
+#elif defined(FREERTOS)
+#define NO_SYSLOG
+#else
 #include_next <syslog.h>
 #endif
 
@@ -14,7 +18,7 @@
 
 #include <stdarg.h>
 
-#ifdef _WIN32
+#ifdef NO_SYSLOG
 #define LOG_CONS	LOG_INFO
 #define	LOG_INFO	6	/* informational */
 #define LOG_USER    (1<<3)  /* random user-level messages */

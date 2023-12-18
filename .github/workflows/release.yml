@@ -1,0 +1,81 @@
+# GitHub Actions workflow to create releases from tags.
+name: "Release"
+
+on:
+  push:
+    tags: [ "v*" ]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: "Release"
+    runs-on: "ubuntu-latest"
+    outputs:
+      upload_url: "${{ steps.create_release.outputs.upload_url }}"
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "Generate version changelog"
+        run: .github/scripts/changelog.sh "$VERSION" > release-changelog.txt
+        env:
+          VERSION: "${{ github.ref_name }}"
+
+      - name: "Create GitHub release"
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: "${{ github.workspace }}/release-changelog.txt"
+
+  build-windows:
+    name: "${{ matrix.os }}/${{ matrix.arch }}"
+    runs-on: "${{ matrix.os }}"
+    needs: ["release"]
+    strategy:
+      matrix:
+        os: [ "windows-2022" ]
+        arch: [ "Win32", "x64", "ARM64" ]
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "Setup MSYS2"
+        uses: msys2/setup-msys2@v2
+        with:
+          update: true
+          install: >-
+            autoconf
+            automake
+            diffutils
+            libtool
+            gcc
+            git
+            patch
+            perl
+
+      - shell: msys2 {0}
+        run: ./autogen.sh
+
+      - shell: cmd
+        run: cmake -Bbuild -G "Visual Studio 17 2022" -A ${{ matrix.arch }} -DCMAKE_INSTALL_PREFIX=local
+
+      - shell: cmd
+        run: cmake --build build --config Release
+
+      - shell: cmd
+        run: cmake --install build --config Release
+
+      - shell: pwsh
+        run: Compress-Archive -Path local\* local.zip
+
+      - name: "Upload release artifact"
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: "${{ github.token }}"
+        with:
+          upload_url: "${{ needs.release.outputs.upload_url }}"
+          asset_path: "local.zip"
+          asset_name: "libressl_${{ github.ref_name }}_windows_${{ matrix.arch }}.zip"
+          asset_content_type: "application/zip"

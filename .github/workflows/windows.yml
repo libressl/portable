@@ -7,6 +7,10 @@ on:
   schedule:
     - cron: "0 0 * * 0" # At 00:00 weekly on Sunday.
 
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: true
+
 jobs:
   test:
     name: "${{ matrix.os }}/${{ matrix.arch }} (${{ matrix.generator }})"

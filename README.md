@@ -219,7 +219,7 @@ target_link_libraries(test LibreSSL::TLS)
 
 Following the guide in the sections above to compile LibreSSL using make and
 running `sudo make install` will install LibreSSL to the `/usr/local/` folder,
-and will found automatically by find_package. If your system installs it to
+and will be found automatically by find_package. If your system installs it to
 another location, or you have placed them yourself in a different location, you
 can set the CMake variable `LIBRESSL_ROOT_DIR` to the correct path, to help
 CMake find the library.

@@ -1,0 +1,63 @@
+# GitHub Actions workflow to run tests on Windows.
+name: "Windows"
+
+on:
+  push: {}
+  pull_request: {}
+  schedule:
+    - cron: "0 0 * * 0" # At 00:00 weekly on Sunday.
+
+jobs:
+  test:
+    name: "${{ matrix.os }}/${{ matrix.arch }} (${{ matrix.generator }})"
+    runs-on: "${{ matrix.os }}"
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ["windows-2022", "windows-2019"]
+        arch: ["ARM64", "x64", "Win32"]
+        include:
+          - os: "windows-2022"
+            generator: "Visual Studio 17 2022"
+          - os: "windows-2019"
+            generator: "Visual Studio 16 2019"
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "Setup MSYS2"
+        uses: msys2/setup-msys2@v2
+        with:
+          update: true
+          install: >-
+            diffutils
+            gcc
+            git
+            patch
+            perl
+
+      - name: "Update"
+        shell: msys2 {0}
+        run: ./update.sh
+
+      - name: "Configure CMake"
+        shell: cmd
+        run: cmake -Bbuild -G "${{ matrix.generator }}" -A ${{ matrix.arch }} -DCMAKE_INSTALL_PREFIX=../local
+
+      - name: "Build"
+        shell: cmd
+        run: cmake --build build --config Release
+
+      - name: "Test"
+        if: matrix.arch != 'ARM64'
+        shell: cmd
+        run: ctest --test-dir build -C Release --output-on-failure
+
+      - name: "Upload build artifacts"
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: "${{ matrix.os }}-${{ matrix.arch }}-build-results"
+          path: "build"

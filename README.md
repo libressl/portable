@@ -3,6 +3,7 @@
 
 [![Linux Build Status](https://github.com/libressl/portable/actions/workflows/linux.yml/badge.svg)](https://github.com/libressl/portable/actions/workflows/linux.yml)
 [![macOS Build Status](https://github.com/libressl/portable/actions/workflows/macos.yml/badge.svg)](https://github.com/libressl/portable/actions/workflows/macos.yml)
+[![Windows Build Status](https://github.com/libressl/portable/actions/workflows/windows.yml/badge.svg)](https://github.com/libressl/portable/actions/workflows/windows.yml)
 [![Android Build Status](https://github.com/libressl/portable/actions/workflows/android.yml/badge.svg)](https://github.com/libressl/portable/actions/workflows/android.yml)
 [![Solaris Build Status](https://github.com/libressl/portable/actions/workflows/solaris.yml/badge.svg)](https://github.com/libressl/portable/actions/workflows/solaris.yml)
 [![Fuzzing Status](https://oss-fuzz-build-logs.storage.googleapis.com/badges/libressl.svg)](https://bugs.chromium.org/p/oss-fuzz/issues/list?sort=-opened&can=1&q=proj:libressl)

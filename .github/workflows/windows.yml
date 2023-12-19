@@ -33,17 +33,15 @@ jobs:
           update: true
           install: >-
             autoconf
-            automake
             diffutils
-            libtool
             gcc
             git
             patch
             perl
 
-      - name: "Setup"
+      - name: "Update"
         shell: msys2 {0}
-        run: ./autogen.sh
+        run: ./update.sh
 
       - name: "Configure CMake"
         shell: cmd

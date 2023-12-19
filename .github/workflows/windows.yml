@@ -32,7 +32,6 @@ jobs:
         with:
           update: true
           install: >-
-            autoconf
             diffutils
             gcc
             git

@@ -9,7 +9,7 @@ on:
 
 jobs:
   test:
-    name: "${{ matrix.os }}/${{ matrix.arch }}${{ matrix.generator && ' (' + matrix.generator + ')' || '' }}"
+    name: "${{ matrix.os }}/${{ matrix.arch }}${{ matrix.generator && format(' ({0})', matrix.generator) || '' }}"
     runs-on: "${{ matrix.os }}"
     permissions:
       contents: read

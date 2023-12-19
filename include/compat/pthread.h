@@ -48,7 +48,7 @@ pthread_once(pthread_once_t *once, void (*cb) (void))
 	struct _pthread_win32_cb_arg arg = { .cb = cb };
 	BOOL rc = InitOnceExecuteOnce(&once->once, _pthread_once_win32_cb, &arg, NULL);
 	if (rc == 0)
-		return -1;
+		return EINVAL;
 	else
 		return 0;
 }

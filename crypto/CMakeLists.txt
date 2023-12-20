@@ -531,11 +531,8 @@ set(
 	evp/names.c
 	evp/p5_crpt.c
 	evp/p5_crpt2.c
-	evp/p_dec.c
-	evp/p_enc.c
+	evp/p_legacy.c
 	evp/p_lib.c
-	evp/p_open.c
-	evp/p_seal.c
 	evp/p_sign.c
 	evp/p_verify.c
 	evp/pmeth_fn.c

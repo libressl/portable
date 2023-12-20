@@ -439,7 +439,6 @@ set(
 	des/ofb_enc.c
 	des/pcbc_enc.c
 	des/qud_cksm.c
-	des/rand_key.c
 	des/set_key.c
 	des/str2key.c
 	des/xcbc_enc.c

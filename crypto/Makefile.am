@@ -530,7 +530,6 @@ libcrypto_la_SOURCES += des/ofb64enc.c
 libcrypto_la_SOURCES += des/ofb_enc.c
 libcrypto_la_SOURCES += des/pcbc_enc.c
 libcrypto_la_SOURCES += des/qud_cksm.c
-libcrypto_la_SOURCES += des/rand_key.c
 libcrypto_la_SOURCES += des/set_key.c
 libcrypto_la_SOURCES += des/str2key.c
 libcrypto_la_SOURCES += des/xcbc_enc.c

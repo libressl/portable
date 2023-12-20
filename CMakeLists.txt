@@ -302,8 +302,8 @@ if(HAVE_TIMINGSAFE_BCMP)
 endif()
 
 check_function_exists(timingsafe_memcmp HAVE_TIMINGSAFE_MEMCMP)
-if(HAVE_MEMCMP)
-	add_definitions(-DHAVE_MEMCMP)
+if(HAVE_TIMINGSAFE_MEMCMP)
+	add_definitions(-DHAVE_TIMINGSAFE_MEMCMP)
 endif()
 
 check_function_exists(memmem HAVE_MEMMEM)

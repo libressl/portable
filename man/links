@@ -1005,8 +1005,6 @@ EVP_PKEY_asn1_get_count.3,EVP_PKEY_asn1_find_str.3
 EVP_PKEY_asn1_get_count.3,EVP_PKEY_asn1_get0.3
 EVP_PKEY_asn1_get_count.3,EVP_PKEY_asn1_get0_info.3
 EVP_PKEY_asn1_get_count.3,EVP_PKEY_get0_asn1.3
-EVP_PKEY_asn1_new.3,EVP_PKEY_asn1_add0.3
-EVP_PKEY_asn1_new.3,EVP_PKEY_asn1_add_alias.3
 EVP_PKEY_asn1_new.3,EVP_PKEY_asn1_copy.3
 EVP_PKEY_asn1_new.3,EVP_PKEY_asn1_free.3
 EVP_PKEY_asn1_new.3,EVP_PKEY_asn1_set_check.3

@@ -10,32 +10,35 @@
 #include <FreeRTOS/semphr.h>
 #include <FreeRTOS/task.h>
 
+
 // PTHREAD ONCE
 #define pthread_once libressl_pthread_once
 struct pthread_once {
-	int   is_initialized;
-	int   init_executed;
+	xSemaphoreHandle lock;
+	int init_executed;
 };
 #define pthread_once_t libressl_pthread_once_t
 typedef struct pthread_once pthread_once_t;
 
-#define PTHREAD_ONCE_INIT { 1, 0 }
+#define PTHREAD_ONCE_INIT { .lock = NULL, .init_executed = 0 }
 
 static inline int
 pthread_once(pthread_once_t *once, void (*cb) (void))
 {
-	if (!once->is_initialized) {
+	if (once->lock == NULL)
+		once->lock = xSemaphoreCreateMutex();
+	if (once->lock == NULL)
 		return -1;
-	}
+	if (xSemaphoreTake(once->lock, portMAX_DELAY) != pdTRUE)
+		return -1;
 
 	if (!once->init_executed) {
 		once->init_executed = 1;
 		cb();
-		return 0;
 	}
 
-	return -1;
-
+	xSemaphoreGive(once->lock);
+	return 0;
 }
 
 // PTHREAD Support 

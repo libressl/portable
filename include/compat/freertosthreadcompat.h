@@ -10,11 +10,6 @@
 #include <FreeRTOS/semphr.h>
 #include <FreeRTOS/task.h>
 
-static inline uid_t getuid() {
-	return 0; 
-}
-
-
 // PTHREAD ONCE
 #define pthread_once libressl_pthread_once
 struct pthread_once {

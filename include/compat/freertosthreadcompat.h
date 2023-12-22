@@ -79,58 +79,41 @@ typedef struct pthread_mutexattr pthread_mutexattr_t;
 static inline int
 pthread_mutex_init(pthread_mutex_t *mutex, const pthread_mutexattr_t *attr)
 {
-	xSemaphoreHandle x = xSemaphoreCreateMutex();
-	if (x) {
-		mutex->handle = x;
-		return 0;
-	}
-
-	return -1;
+	if ((mutex->handle = xSemaphoreCreateMutex()) == NULL)
+		return -1;
+	return 0;
 }
 
 #define pthread_mutex_lock libressl_pthread_mutex_lock
 static inline int
 pthread_mutex_lock(pthread_mutex_t *mutex)
 {
-	xSemaphoreHandle x = mutex->handle;
-	if (x == NULL) {
-		x = xSemaphoreCreateMutex();
-		mutex->handle = x;
-	}
-
-	if ( xSemaphoreTake(x, portMAX_DELAY) == pdTRUE ) {
-        return 0;
-    }
-    else {
-        return -2;
-    }
+	if (mutex->handle == NULL)
+		mutex->handle = xSemaphoreCreateMutex();
+	if (mutex->handle == NULL)
+		return -1;
+	if (xSemaphoreTake(mutex->handle, portMAX_DELAY) != pdTRUE)
+		return -1;
+	return 0;
 }
 
 #define pthread_mutex_unlock libressl_pthread_mutex_unlock
 static inline int
 pthread_mutex_unlock(pthread_mutex_t *mutex)
 {
-	xSemaphoreHandle x = mutex->handle;
-	if (x) {
-	    if ( xSemaphoreGive(x) == pdTRUE ) {
-	        return 0;
-	    }
-	    else {
-	    	return -1;
-	    }
-	}
-
-	return 0;
+	if (mutex->handle == NULL)
+		return 0;
+	if (xSemaphoreGive(mutex->handle) == pdTRUE)
+		return 0;
+	return -1;
 }
 
 #define pthread_mutex_destroy libressl_pthread_mutex_destroy
 static inline int
 pthread_mutex_destroy(pthread_mutex_t *mutex)
 {
-	xSemaphoreHandle x = mutex->handle;
-	if (x) {
-		vQueueDelete(x);
-	}
+	if (mutex->handle != NULL)
+		vQueueDelete(mutex->handle);
 	mutex->handle = NULL;
 	return 0;
 }

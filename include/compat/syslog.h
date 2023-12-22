@@ -3,9 +3,7 @@
  * syslog.h compatibility shim
  */
 
-#if defined(_WIN32)
-#define NO_SYSLOG
-#elif defined(FREERTOS)
+#if defined(_WIN32) || defined(FREERTOS)
 #define NO_SYSLOG
 #else
 #include_next <syslog.h>

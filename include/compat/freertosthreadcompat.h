@@ -42,12 +42,14 @@ pthread_once(pthread_once_t *once, void (*cb) (void))
 #define pthread_t libressl_pthread_t
 typedef TaskHandle_t pthread_t;
 
+#define pthread_self libressl_pthread_self
 static inline pthread_t
 pthread_self(void)
 {
 	return xTaskGetCurrentTaskHandle();
 }
 
+#define pthread_equal libressl_pthread_equal
 static inline int
 pthread_equal(pthread_t t1, pthread_t t2)
 {
@@ -63,16 +65,17 @@ struct pthread_mutex {
 #define pthread_mutex_t libressl_pthread_mutex_t
 typedef struct pthread_mutex pthread_mutex_t;
 
-#define pthread_mutexattr libressl_mutexattr
+#define pthread_mutexattr libressl_pthread_mutexattr
 struct pthread_mutexattr {
 
 };
-#define pthread_mutexattr_t libressl_mutexattr_t
+#define pthread_mutexattr_t libressl_pthread_mutexattr_t
 typedef struct pthread_mutexattr pthread_mutexattr_t;
 
 
 #define PTHREAD_MUTEX_INITIALIZER { NULL }
 
+#define pthread_mutex_init libressl_pthread_mutex_init
 static inline int
 pthread_mutex_init(pthread_mutex_t *mutex, const pthread_mutexattr_t *attr)
 {
@@ -85,6 +88,7 @@ pthread_mutex_init(pthread_mutex_t *mutex, const pthread_mutexattr_t *attr)
 	return -1;
 }
 
+#define pthread_mutex_lock libressl_pthread_mutex_lock
 static inline int
 pthread_mutex_lock(pthread_mutex_t *mutex)
 {
@@ -102,6 +106,7 @@ pthread_mutex_lock(pthread_mutex_t *mutex)
     }
 }
 
+#define pthread_mutex_unlock libressl_pthread_mutex_unlock
 static inline int
 pthread_mutex_unlock(pthread_mutex_t *mutex)
 {
@@ -118,6 +123,7 @@ pthread_mutex_unlock(pthread_mutex_t *mutex)
 	return 0;
 }
 
+#define pthread_mutex_destroy libressl_pthread_mutex_destroy
 static inline int
 pthread_mutex_destroy(pthread_mutex_t *mutex)
 {

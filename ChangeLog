@@ -40,6 +40,7 @@ LibreSSL Portable Release Notes:
 	  - Greatly simplified by_file_ctrl().
 	  - Simplified and cleaned up the OBJ_ API.
 	  - Cleaned up the EVP_Cipher{Init,Update,Final}() implementations
+	  - Removed unused function pointers from X.509 stores and contexts.
 	* Documentation improvements
 	  - ENGINE documentation was updated to reflect reality.
 	  - Made EVP API documentation more accurate and less incoherent. 
@@ -48,6 +49,9 @@ LibreSSL Portable Release Notes:
 	* Compatibility changes
 	  - Added ChaCha20 and chacha20 aliases for ChaCha.
 	  - SSL_library_init() now has the same effect as OPENSSL_init_ssl().
+	  - The thread unsafe global tables are no longer supported. It is no
+	    longer possible to add aliases for ciphers and digests, custom ASN.1
+	    strings table entries, ASN.1 methods, or X.509 extensions.
 	* Bug fixes
 	  - Fixed aliasing issues in BN_mod_exp_simple() and BN_mod_exp_recp().
 	  - Fixed numerous misuses of X509_ALGOR_set0() resulting in leaks and

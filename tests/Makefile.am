@@ -366,11 +366,6 @@ TESTS += ed25519test
 check_PROGRAMS += ed25519test
 ed25519test_SOURCES = ed25519test.c
 
-# enginetest
-TESTS += enginetest
-check_PROGRAMS += enginetest
-enginetest_SOURCES = enginetest.c
-
 # evp_ecx_test
 TESTS += evp_ecx_test
 check_PROGRAMS += evp_ecx_test

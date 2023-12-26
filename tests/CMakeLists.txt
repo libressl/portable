@@ -349,11 +349,6 @@ add_executable(ed25519test ed25519test.c)
 target_link_libraries(ed25519test ${OPENSSL_TEST_LIBS})
 add_test(ed25519test ed25519test)
 
-# enginetest
-add_executable(enginetest enginetest.c)
-target_link_libraries(enginetest ${OPENSSL_TEST_LIBS})
-add_test(enginetest enginetest)
-
 # evp_ecx_test
 add_executable(evp_ecx_test evp_ecx_test.c)
 target_link_libraries(evp_ecx_test ${OPENSSL_TEST_LIBS})

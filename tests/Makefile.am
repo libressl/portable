@@ -393,6 +393,11 @@ TESTS += evp_test
 check_PROGRAMS += evp_test
 evp_test_SOURCES = evp_test.c
 
+# exdata_test
+TESTS += exdata_test
+check_PROGRAMS += exdata_test
+exdata_test_SOURCES = exdata_test.c
+
 # expirecallback.c
 
 # explicit_bzero

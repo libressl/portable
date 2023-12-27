@@ -374,6 +374,11 @@ add_executable(evp_test evp_test.c)
 target_link_libraries(evp_test ${OPENSSL_TEST_LIBS})
 add_test(evp_test evp_test)
 
+# exdata_test
+add_executable(exdata_test exdata_test.c)
+target_link_libraries(exdata_test ${OPENSSL_TEST_LIBS})
+add_test(exdata_test exdata_test)
+
 # expirecallback.c
 
 # explicit_bzero

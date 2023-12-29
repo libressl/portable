@@ -39,7 +39,7 @@ LibreSSL Portable Release Notes:
 	  - Converted uses of OBJ_bsearch_() to standard bsearch().
 	  - Greatly simplified by_file_ctrl().
 	  - Simplified and cleaned up the OBJ_ API.
-	  - Cleaned up the EVP_Cipher{Init,Update,Final}() implementations
+	  - Cleaned up the EVP_Cipher{Init,Update,Final}() implementations.
 	  - Removed unused function pointers from X.509 stores and contexts.
 	* Documentation improvements
 	  - ENGINE documentation was updated to reflect reality.

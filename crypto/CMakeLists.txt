@@ -488,8 +488,6 @@ set(
 	evp/bio_enc.c
 	evp/bio_md.c
 	evp/c_all.c
-	evp/cipher_method_lib.c
-	evp/digest.c
 	evp/e_aes.c
 	evp/e_aes_cbc_hmac_sha1.c
 	evp/e_bf.c
@@ -507,12 +505,12 @@ set(
 	evp/e_rc4_hmac_md5.c
 	evp/e_sm4.c
 	evp/e_xcbc_d.c
-	evp/encode.c
 	evp/evp_aead.c
-	evp/evp_enc.c
+	evp/evp_cipher.c
+	evp/evp_digest.c
+	evp/evp_encode.c
 	evp/evp_err.c
 	evp/evp_key.c
-	evp/evp_lib.c
 	evp/evp_pbe.c
 	evp/evp_pkey.c
 	evp/m_gost2814789.c

@@ -52,7 +52,8 @@ LibreSSL Portable Release Notes:
 	  - SSL_library_init() now has the same effect as OPENSSL_init_ssl().
 	  - The thread unsafe global tables are no longer supported. It is no
 	    longer possible to add aliases for ciphers and digests, custom ASN.1
-	    strings table entries, ASN.1 methods, or X.509 extensions.
+	    strings table entries, ASN.1 methods, PKEY methods, CRL methods,
+	    or X.509 extensions.
 	  - Turn the long dysfunctional openss(1) s_client -pause into a noop.
 	* Bug fixes
 	  - Fixed aliasing issues in BN_mod_exp_simple() and BN_mod_exp_recp().

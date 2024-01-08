@@ -1,0 +1,1215 @@
+Replace uses of endbr64 with _CET_ENDBR from cet.h
+
+cet.h is needed for other platforms to emit the relevant .gnu.properties
+sections that are necessary for them to enable IBT. It also avoids issues
+with older toolchains on macOS that explode on encountering endbr64.
+
+based on a diff by kettenis
+ok beck kettenis tb
+
+Index: x86_64cpuid.pl
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/x86_64cpuid.pl,v
+diff -u -p -r1.15 x86_64cpuid.pl
+--- x86_64cpuid.pl	25 Apr 2023 04:42:25 -0000	1.15
++++ x86_64cpuid.pl	3 Dec 2023 20:18:30 -0000
+@@ -18,7 +18,7 @@ print<<___;
+ .extern		OPENSSL_cpuid_setup
+ .hidden		OPENSSL_cpuid_setup
+ .section	.init
+-	endbr64
++	_CET_ENDBR
+ 	call	OPENSSL_cpuid_setup
+ 
+ .extern	OPENSSL_ia32cap_P
+@@ -30,7 +30,7 @@ print<<___;
+ .type	OPENSSL_ia32_cpuid,\@abi-omnipotent
+ .align	16
+ OPENSSL_ia32_cpuid:
+-	endbr64
++	_CET_ENDBR
+ 	mov	%rbx,%r8		# save %rbx
+ 
+ 	xor	%eax,%eax
+Index: aes/asm/aes-x86_64.pl
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/aes/asm/aes-x86_64.pl,v
+diff -u -p -r1.12 aes-x86_64.pl
+--- aes/asm/aes-x86_64.pl	25 Apr 2023 04:42:25 -0000	1.12
++++ aes/asm/aes-x86_64.pl	3 Dec 2023 20:18:30 -0000
+@@ -318,7 +318,7 @@ $code.=<<___;
+ .type	_x86_64_AES_encrypt,\@abi-omnipotent
+ .align	16
+ _x86_64_AES_encrypt:
+-	endbr64
++	_CET_ENDBR
+ 	xor	0($key),$s0			# xor with key
+ 	xor	4($key),$s1
+ 	xor	8($key),$s2
+@@ -549,7 +549,7 @@ $code.=<<___;
+ .type	_x86_64_AES_encrypt_compact,\@abi-omnipotent
+ .align	16
+ _x86_64_AES_encrypt_compact:
+-	endbr64
++	_CET_ENDBR
+ 	lea	128($sbox),$inp			# size optimization
+ 	mov	0-128($inp),$acc1		# prefetch Te4
+ 	mov	32-128($inp),$acc2
+@@ -595,7 +595,7 @@ $code.=<<___;
+ .hidden	asm_AES_encrypt
+ asm_AES_encrypt:
+ AES_encrypt:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rbx
+ 	push	%rbp
+ 	push	%r12
+@@ -887,7 +887,7 @@ $code.=<<___;
+ .type	_x86_64_AES_decrypt,\@abi-omnipotent
+ .align	16
+ _x86_64_AES_decrypt:
+-	endbr64
++	_CET_ENDBR
+ 	xor	0($key),$s0			# xor with key
+ 	xor	4($key),$s1
+ 	xor	8($key),$s2
+@@ -1142,7 +1142,7 @@ $code.=<<___;
+ .type	_x86_64_AES_decrypt_compact,\@abi-omnipotent
+ .align	16
+ _x86_64_AES_decrypt_compact:
+-	endbr64
++	_CET_ENDBR
+ 	lea	128($sbox),$inp			# size optimization
+ 	mov	0-128($inp),$acc1		# prefetch Td4
+ 	mov	32-128($inp),$acc2
+@@ -1197,7 +1197,7 @@ $code.=<<___;
+ .hidden	asm_AES_decrypt
+ asm_AES_decrypt:
+ AES_decrypt:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rbx
+ 	push	%rbp
+ 	push	%r12
+@@ -1297,7 +1297,7 @@ $code.=<<___;
+ .type	AES_set_encrypt_key,\@function,3
+ .align	16
+ AES_set_encrypt_key:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rbx
+ 	push	%rbp
+ 	push	%r12			# redundant, but allows to share 
+@@ -1323,7 +1323,7 @@ AES_set_encrypt_key:
+ .type	_x86_64_AES_set_encrypt_key,\@abi-omnipotent
+ .align	16
+ _x86_64_AES_set_encrypt_key:
+-	endbr64
++	_CET_ENDBR
+ 	mov	%esi,%ecx			# %ecx=bits
+ 	mov	%rdi,%rsi			# %rsi=userKey
+ 	mov	%rdx,%rdi			# %rdi=key
+@@ -1569,7 +1569,7 @@ $code.=<<___;
+ .type	AES_set_decrypt_key,\@function,3
+ .align	16
+ AES_set_decrypt_key:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rbx
+ 	push	%rbp
+ 	push	%r12
+@@ -1669,7 +1669,7 @@ $code.=<<___;
+ .hidden	asm_AES_cbc_encrypt
+ asm_AES_cbc_encrypt:
+ AES_cbc_encrypt:
+-	endbr64
++	_CET_ENDBR
+ 	cmp	\$0,%rdx	# check length
+ 	je	.Lcbc_epilogue
+ 	pushfq
+@@ -2561,7 +2561,7 @@ $code.=<<___;
+ .type	block_se_handler,\@abi-omnipotent
+ .align	16
+ block_se_handler:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rsi
+ 	push	%rdi
+ 	push	%rbx
+@@ -2620,7 +2620,7 @@ block_se_handler:
+ .type	key_se_handler,\@abi-omnipotent
+ .align	16
+ key_se_handler:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rsi
+ 	push	%rdi
+ 	push	%rbx
+@@ -2678,7 +2678,7 @@ key_se_handler:
+ .type	cbc_se_handler,\@abi-omnipotent
+ .align	16
+ cbc_se_handler:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rsi
+ 	push	%rdi
+ 	push	%rbx
+Index: aes/asm/aesni-sha1-x86_64.pl
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/aes/asm/aesni-sha1-x86_64.pl,v
+diff -u -p -r1.8 aesni-sha1-x86_64.pl
+--- aes/asm/aesni-sha1-x86_64.pl	25 Apr 2023 04:42:26 -0000	1.8
++++ aes/asm/aesni-sha1-x86_64.pl	3 Dec 2023 20:18:30 -0000
+@@ -89,7 +89,7 @@ $code.=<<___;
+ .type	aesni_cbc_sha1_enc,\@abi-omnipotent
+ .align	16
+ aesni_cbc_sha1_enc:
+-	endbr64
++	_CET_ENDBR
+ 	# caller should check for SSSE3 and AES-NI bits
+ 	mov	OPENSSL_ia32cap_P+0(%rip),%r10d
+ 	mov	OPENSSL_ia32cap_P+4(%rip),%r11d
+@@ -133,7 +133,7 @@ $code.=<<___;
+ .type	aesni_cbc_sha1_enc_ssse3,\@function,6
+ .align	16
+ aesni_cbc_sha1_enc_ssse3:
+-	endbr64
++	_CET_ENDBR
+ 	mov	`($win64?56:8)`(%rsp),$inp	# load 7th argument
+ 	#shr	\$6,$len			# debugging artefact
+ 	#jz	.Lepilogue_ssse3		# debugging artefact
+@@ -652,7 +652,7 @@ $code.=<<___;
+ .type	aesni_cbc_sha1_enc_avx,\@function,6
+ .align	16
+ aesni_cbc_sha1_enc_avx:
+-	endbr64
++	_CET_ENDBR
+ 	mov	`($win64?56:8)`(%rsp),$inp	# load 7th argument
+ 	#shr	\$6,$len			# debugging artefact
+ 	#jz	.Lepilogue_avx			# debugging artefact
+@@ -1103,7 +1103,7 @@ $code.=<<___;
+ .type	ssse3_handler,\@abi-omnipotent
+ .align	16
+ ssse3_handler:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rsi
+ 	push	%rdi
+ 	push	%rbx
+Index: aes/asm/aesni-x86_64.pl
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/aes/asm/aesni-x86_64.pl,v
+diff -u -p -r1.12 aesni-x86_64.pl
+--- aes/asm/aesni-x86_64.pl	18 Sep 2023 22:38:16 -0000	1.12
++++ aes/asm/aesni-x86_64.pl	3 Dec 2023 20:18:30 -0000
+@@ -242,7 +242,7 @@ $code.=<<___;
+ .type	${PREFIX}_encrypt,\@abi-omnipotent
+ .align	16
+ ${PREFIX}_encrypt:
+-	endbr64
++	_CET_ENDBR
+ 	movups	($inp),$inout0		# load input
+ 	mov	240($key),$rounds	# key->rounds
+ ___
+@@ -256,7 +256,7 @@ $code.=<<___;
+ .type	${PREFIX}_decrypt,\@abi-omnipotent
+ .align	16
+ ${PREFIX}_decrypt:
+-	endbr64
++	_CET_ENDBR
+ 	movups	($inp),$inout0		# load input
+ 	mov	240($key),$rounds	# key->rounds
+ ___
+@@ -286,7 +286,7 @@ $code.=<<___;
+ .type	_aesni_${dir}rypt3,\@abi-omnipotent
+ .align	16
+ _aesni_${dir}rypt3:
+-	endbr64
++	_CET_ENDBR
+ 	$movkey	($key),$rndkey0
+ 	shr	\$1,$rounds
+ 	$movkey	16($key),$rndkey1
+@@ -331,7 +331,7 @@ $code.=<<___;
+ .type	_aesni_${dir}rypt4,\@abi-omnipotent
+ .align	16
+ _aesni_${dir}rypt4:
+-	endbr64
++	_CET_ENDBR
+ 	$movkey	($key),$rndkey0
+ 	shr	\$1,$rounds
+ 	$movkey	16($key),$rndkey1
+@@ -377,7 +377,7 @@ $code.=<<___;
+ .type	_aesni_${dir}rypt6,\@abi-omnipotent
+ .align	16
+ _aesni_${dir}rypt6:
+-	endbr64
++	_CET_ENDBR
+ 	$movkey		($key),$rndkey0
+ 	shr		\$1,$rounds
+ 	$movkey		16($key),$rndkey1
+@@ -442,7 +442,7 @@ $code.=<<___;
+ .type	_aesni_${dir}rypt8,\@abi-omnipotent
+ .align	16
+ _aesni_${dir}rypt8:
+-	endbr64
++	_CET_ENDBR
+ 	$movkey		($key),$rndkey0
+ 	shr		\$1,$rounds
+ 	$movkey		16($key),$rndkey1
+@@ -531,7 +531,7 @@ $code.=<<___;
+ .type	aesni_ecb_encrypt,\@function,5
+ .align	16
+ aesni_ecb_encrypt:
+-	endbr64
++	_CET_ENDBR
+ 	and	\$-16,$len
+ 	jz	.Lecb_ret
+ 
+@@ -837,7 +837,7 @@ $code.=<<___;
+ .type	aesni_ccm64_encrypt_blocks,\@function,6
+ .align	16
+ aesni_ccm64_encrypt_blocks:
+-	endbr64
++	_CET_ENDBR
+ ___
+ $code.=<<___ if ($win64);
+ 	lea	-0x58(%rsp),%rsp
+@@ -1025,7 +1025,7 @@ $code.=<<___;
+ .type	aesni_ctr32_encrypt_blocks,\@function,5
+ .align	16
+ aesni_ctr32_encrypt_blocks:
+-	endbr64
++	_CET_ENDBR
+ 	lea	(%rsp),%rax
+ 	push	%rbp
+ 	sub	\$$frame_size,%rsp
+@@ -2487,7 +2487,7 @@ $code.=<<___;
+ .type	${PREFIX}_set_decrypt_key,\@abi-omnipotent
+ .align	16
+ ${PREFIX}_set_decrypt_key:
+-	endbr64
++	_CET_ENDBR
+ 	sub	\$8,%rsp
+ 	call	__aesni_set_encrypt_key
+ 	shl	\$4,$bits		# rounds-1 after _aesni_set_encrypt_key
+@@ -2538,7 +2538,7 @@ $code.=<<___;
+ .type	${PREFIX}_set_encrypt_key,\@abi-omnipotent
+ .align	16
+ ${PREFIX}_set_encrypt_key:
+-	endbr64
++	_CET_ENDBR
+ __aesni_set_encrypt_key:
+ 	sub	\$8,%rsp
+ 	mov	\$-1,%rax
+@@ -2760,7 +2760,7 @@ $code.=<<___ if ($PREFIX eq "aesni");
+ .type	ecb_se_handler,\@abi-omnipotent
+ .align	16
+ ecb_se_handler:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rsi
+ 	push	%rdi
+ 	push	%rbx
+@@ -2780,7 +2780,7 @@ ecb_se_handler:
+ .type	ccm64_se_handler,\@abi-omnipotent
+ .align	16
+ ccm64_se_handler:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rsi
+ 	push	%rdi
+ 	push	%rbx
+@@ -2822,7 +2822,7 @@ ccm64_se_handler:
+ .type	ctr32_se_handler,\@abi-omnipotent
+ .align	16
+ ctr32_se_handler:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rsi
+ 	push	%rdi
+ 	push	%rbx
+@@ -2858,7 +2858,7 @@ ctr32_se_handler:
+ .type	xts_se_handler,\@abi-omnipotent
+ .align	16
+ xts_se_handler:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rsi
+ 	push	%rdi
+ 	push	%rbx
+@@ -2900,7 +2900,7 @@ $code.=<<___;
+ .type	cbc_se_handler,\@abi-omnipotent
+ .align	16
+ cbc_se_handler:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rsi
+ 	push	%rdi
+ 	push	%rbx
+Index: aes/asm/bsaes-x86_64.pl
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/aes/asm/bsaes-x86_64.pl,v
+diff -u -p -r1.6 bsaes-x86_64.pl
+--- aes/asm/bsaes-x86_64.pl	25 Apr 2023 04:42:26 -0000	1.6
++++ aes/asm/bsaes-x86_64.pl	3 Dec 2023 20:18:30 -0000
+@@ -813,7 +813,7 @@ $code.=<<___;
+ .type	_bsaes_encrypt8,\@abi-omnipotent
+ .align	64
+ _bsaes_encrypt8:
+-	endbr64
++	_CET_ENDBR
+ 	lea	.LBS0(%rip), $const	# constants table
+ 
+ 	movdqa	($key), @XMM[9]		# round 0 key
+@@ -878,7 +878,7 @@ $code.=<<___;
+ .type	_bsaes_decrypt8,\@abi-omnipotent
+ .align	64
+ _bsaes_decrypt8:
+-	endbr64
++	_CET_ENDBR
+ 	lea	.LBS0(%rip), $const	# constants table
+ 
+ 	movdqa	($key), @XMM[9]		# round 0 key
+@@ -970,7 +970,7 @@ $code.=<<___;
+ .type	_bsaes_key_convert,\@abi-omnipotent
+ .align	16
+ _bsaes_key_convert:
+-	endbr64
++	_CET_ENDBR
+ 	lea	.Lmasks(%rip), $const
+ 	movdqu	($inp), %xmm7		# load round 0 key
+ 	lea	0x10($inp), $inp
+@@ -1060,7 +1060,7 @@ $code.=<<___;
+ .type	bsaes_enc_key_convert,\@function,2
+ .align	16
+ bsaes_enc_key_convert:
+-	endbr64
++	_CET_ENDBR
+ 	mov	240($inp),%r10d		# pass rounds
+ 	mov	$inp,%rcx		# pass key
+ 	mov	$out,%rax		# pass key schedule
+@@ -1075,7 +1075,7 @@ bsaes_enc_key_convert:
+ .align	16
+ bsaes_encrypt_128:
+ .Lenc128_loop:
+-	endbr64
++	_CET_ENDBR
+ 	movdqu	0x00($inp), @XMM[0]	# load input
+ 	movdqu	0x10($inp), @XMM[1]
+ 	movdqu	0x20($inp), @XMM[2]
+@@ -1108,7 +1108,7 @@ bsaes_encrypt_128:
+ .type	bsaes_dec_key_convert,\@function,2
+ .align	16
+ bsaes_dec_key_convert:
+-	endbr64
++	_CET_ENDBR
+ 	mov	240($inp),%r10d		# pass rounds
+ 	mov	$inp,%rcx		# pass key
+ 	mov	$out,%rax		# pass key schedule
+@@ -1123,7 +1123,7 @@ bsaes_dec_key_convert:
+ .type	bsaes_decrypt_128,\@function,4
+ .align	16
+ bsaes_decrypt_128:
+-	endbr64
++	_CET_ENDBR
+ .Ldec128_loop:
+ 	movdqu	0x00($inp), @XMM[0]	# load input
+ 	movdqu	0x10($inp), @XMM[1]
+@@ -1169,7 +1169,7 @@ $code.=<<___;
+ .type	bsaes_ecb_encrypt_blocks,\@abi-omnipotent
+ .align	16
+ bsaes_ecb_encrypt_blocks:
+-	endbr64
++	_CET_ENDBR
+ 	mov	%rsp, %rax
+ .Lecb_enc_prologue:
+ 	push	%rbp
+@@ -1371,7 +1371,7 @@ $code.=<<___;
+ .type	bsaes_ecb_decrypt_blocks,\@abi-omnipotent
+ .align	16
+ bsaes_ecb_decrypt_blocks:
+-	endbr64
++	_CET_ENDBR
+ 	mov	%rsp, %rax
+ .Lecb_dec_prologue:
+ 	push	%rbp
+@@ -1577,7 +1577,7 @@ $code.=<<___;
+ .type	bsaes_cbc_encrypt,\@abi-omnipotent
+ .align	16
+ bsaes_cbc_encrypt:
+-	endbr64
++	_CET_ENDBR
+ ___
+ $code.=<<___ if ($win64);
+ 	mov	48(%rsp),$arg6		# pull direction flag
+@@ -1865,7 +1865,7 @@ $code.=<<___;
+ .type	bsaes_ctr32_encrypt_blocks,\@abi-omnipotent
+ .align	16
+ bsaes_ctr32_encrypt_blocks:
+-	endbr64
++	_CET_ENDBR
+ 	mov	%rsp, %rax
+ .Lctr_enc_prologue:
+ 	push	%rbp
+@@ -2107,7 +2107,7 @@ $code.=<<___;
+ .type	bsaes_xts_encrypt,\@abi-omnipotent
+ .align	16
+ bsaes_xts_encrypt:
+-	endbr64
++	_CET_ENDBR
+ 	mov	%rsp, %rax
+ .Lxts_enc_prologue:
+ 	push	%rbp
+@@ -2489,7 +2489,7 @@ $code.=<<___;
+ .type	bsaes_xts_decrypt,\@abi-omnipotent
+ .align	16
+ bsaes_xts_decrypt:
+-	endbr64
++	_CET_ENDBR
+ 	mov	%rsp, %rax
+ .Lxts_dec_prologue:
+ 	push	%rbp
+@@ -2966,7 +2966,7 @@ $code.=<<___;
+ .type	se_handler,\@abi-omnipotent
+ .align	16
+ se_handler:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rsi
+ 	push	%rdi
+ 	push	%rbx
+Index: aes/asm/vpaes-x86_64.pl
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/aes/asm/vpaes-x86_64.pl,v
+diff -u -p -r1.5 vpaes-x86_64.pl
+--- aes/asm/vpaes-x86_64.pl	25 Apr 2023 04:42:26 -0000	1.5
++++ aes/asm/vpaes-x86_64.pl	3 Dec 2023 20:18:30 -0000
+@@ -82,7 +82,7 @@ $code.=<<___;
+ .type	_vpaes_encrypt_core,\@abi-omnipotent
+ .align 16
+ _vpaes_encrypt_core:
+-	endbr64
++	_CET_ENDBR
+ 	mov	%rdx,	%r9
+ 	mov	\$16,	%r11
+ 	mov	240(%rdx),%eax
+@@ -173,7 +173,7 @@ _vpaes_encrypt_core:
+ .type	_vpaes_decrypt_core,\@abi-omnipotent
+ .align	16
+ _vpaes_decrypt_core:
+-	endbr64
++	_CET_ENDBR
+ 	mov	%rdx,	%r9		# load key
+ 	mov	240(%rdx),%eax
+ 	movdqa	%xmm9,	%xmm1
+@@ -281,7 +281,7 @@ _vpaes_decrypt_core:
+ .type	_vpaes_schedule_core,\@abi-omnipotent
+ .align	16
+ _vpaes_schedule_core:
+-	endbr64
++	_CET_ENDBR
+ 	# rdi = key
+ 	# rsi = size in bits
+ 	# rdx = buffer
+@@ -467,7 +467,7 @@ _vpaes_schedule_core:
+ .type	_vpaes_schedule_192_smear,\@abi-omnipotent
+ .align	16
+ _vpaes_schedule_192_smear:
+-	endbr64
++	_CET_ENDBR
+ 	pshufd	\$0x80,	%xmm6,	%xmm0	# d c 0 0 -> c 0 0 0
+ 	pxor	%xmm0,	%xmm6		# -> c+d c 0 0
+ 	pshufd	\$0xFE,	%xmm7,	%xmm0	# b a _ _ -> b b b a
+@@ -499,7 +499,7 @@ _vpaes_schedule_192_smear:
+ .type	_vpaes_schedule_round,\@abi-omnipotent
+ .align	16
+ _vpaes_schedule_round:
+-	endbr64
++	_CET_ENDBR
+ 	# extract rcon from xmm8
+ 	pxor	%xmm1,	%xmm1
+ 	palignr	\$15,	%xmm8,	%xmm1
+@@ -567,7 +567,7 @@ _vpaes_schedule_low_round:
+ .type	_vpaes_schedule_transform,\@abi-omnipotent
+ .align	16
+ _vpaes_schedule_transform:
+-	endbr64
++	_CET_ENDBR
+ 	movdqa	%xmm9,	%xmm1
+ 	pandn	%xmm0,	%xmm1
+ 	psrld	\$4,	%xmm1
+@@ -606,7 +606,7 @@ _vpaes_schedule_transform:
+ .type	_vpaes_schedule_mangle,\@abi-omnipotent
+ .align	16
+ _vpaes_schedule_mangle:
+-	endbr64
++	_CET_ENDBR
+ 	movdqa	%xmm0,	%xmm4	# save xmm0 for later
+ 	movdqa	.Lk_mc_forward(%rip),%xmm5
+ 	test	%rcx, 	%rcx
+@@ -680,7 +680,7 @@ _vpaes_schedule_mangle:
+ .type	${PREFIX}_set_encrypt_key,\@function,3
+ .align	16
+ ${PREFIX}_set_encrypt_key:
+-	endbr64
++	_CET_ENDBR
+ ___
+ $code.=<<___ if ($win64);
+ 	lea	-0xb8(%rsp),%rsp
+@@ -729,7 +729,7 @@ $code.=<<___;
+ .type	${PREFIX}_set_decrypt_key,\@function,3
+ .align	16
+ ${PREFIX}_set_decrypt_key:
+-	endbr64
++	_CET_ENDBR
+ ___
+ $code.=<<___ if ($win64);
+ 	lea	-0xb8(%rsp),%rsp
+@@ -783,7 +783,7 @@ $code.=<<___;
+ .type	${PREFIX}_encrypt,\@function,3
+ .align	16
+ ${PREFIX}_encrypt:
+-	endbr64
++	_CET_ENDBR
+ ___
+ $code.=<<___ if ($win64);
+ 	lea	-0xb8(%rsp),%rsp
+@@ -827,7 +827,7 @@ $code.=<<___;
+ .type	${PREFIX}_decrypt,\@function,3
+ .align	16
+ ${PREFIX}_decrypt:
+-	endbr64
++	_CET_ENDBR
+ ___
+ $code.=<<___ if ($win64);
+ 	lea	-0xb8(%rsp),%rsp
+@@ -877,7 +877,7 @@ $code.=<<___;
+ .type	${PREFIX}_cbc_encrypt,\@function,6
+ .align	16
+ ${PREFIX}_cbc_encrypt:
+-	endbr64
++	_CET_ENDBR
+ 	xchg	$key,$len
+ ___
+ ($len,$key)=($key,$len);
+@@ -961,7 +961,7 @@ $code.=<<___;
+ .type	_vpaes_preheat,\@abi-omnipotent
+ .align	16
+ _vpaes_preheat:
+-	endbr64
++	_CET_ENDBR
+ 	lea	.Lk_s0F(%rip), %r10
+ 	movdqa	-0x20(%r10), %xmm10	# .Lk_inv
+ 	movdqa	-0x10(%r10), %xmm11	# .Lk_inv+16
+@@ -1092,7 +1092,7 @@ $code.=<<___;
+ .type	se_handler,\@abi-omnipotent
+ .align	16
+ se_handler:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rsi
+ 	push	%rdi
+ 	push	%rbx
+Index: bn/s2n_bignum_internal.h
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/bn/s2n_bignum_internal.h,v
+diff -u -p -r1.2 s2n_bignum_internal.h
+--- bn/s2n_bignum_internal.h	21 Jan 2023 15:53:54 -0000	1.2
++++ bn/s2n_bignum_internal.h	3 Dec 2023 20:22:18 -0000
+@@ -18,6 +18,12 @@
+ #   define S2N_BN_SYMBOL(name) name
+ #endif
+ 
++#ifdef __CET__
++#   include <cet.h>
++#else
++#   define _CET_ENDBR
++#endif
++
+ #define S2N_BN_SYM_VISIBILITY_DIRECTIVE(name) .globl S2N_BN_SYMBOL(name)
+ #ifdef S2N_BN_HIDE_SYMBOLS
+ #   ifdef __APPLE__
+Index: bn/arch/amd64/bignum_add.S
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/bn/arch/amd64/bignum_add.S,v
+diff -u -p -r1.4 bignum_add.S
+--- bn/arch/amd64/bignum_add.S	25 Apr 2023 04:42:26 -0000	1.4
++++ bn/arch/amd64/bignum_add.S	3 Dec 2023 20:18:30 -0000
+@@ -49,7 +49,7 @@
+ 
+ 
+ S2N_BN_SYMBOL(bignum_add):
+-	endbr64
++	_CET_ENDBR
+ 
+ #if WINDOWS_ABI
+         push    rdi
+Index: bn/arch/amd64/bignum_cmadd.S
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/bn/arch/amd64/bignum_cmadd.S,v
+diff -u -p -r1.4 bignum_cmadd.S
+--- bn/arch/amd64/bignum_cmadd.S	25 Apr 2023 04:42:26 -0000	1.4
++++ bn/arch/amd64/bignum_cmadd.S	3 Dec 2023 20:18:30 -0000
+@@ -54,7 +54,7 @@
+ 
+ 
+ S2N_BN_SYMBOL(bignum_cmadd):
+-	endbr64
++	_CET_ENDBR
+ 
+ #if WINDOWS_ABI
+         push    rdi
+Index: bn/arch/amd64/bignum_cmul.S
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/bn/arch/amd64/bignum_cmul.S,v
+diff -u -p -r1.4 bignum_cmul.S
+--- bn/arch/amd64/bignum_cmul.S	25 Apr 2023 04:42:26 -0000	1.4
++++ bn/arch/amd64/bignum_cmul.S	3 Dec 2023 20:18:30 -0000
+@@ -51,7 +51,7 @@
+ 
+ 
+ S2N_BN_SYMBOL(bignum_cmul):
+-	endbr64
++	_CET_ENDBR
+ 
+ #if WINDOWS_ABI
+         push    rdi
+Index: bn/arch/amd64/bignum_mul.S
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/bn/arch/amd64/bignum_mul.S,v
+diff -u -p -r1.4 bignum_mul.S
+--- bn/arch/amd64/bignum_mul.S	25 Apr 2023 04:42:26 -0000	1.4
++++ bn/arch/amd64/bignum_mul.S	3 Dec 2023 20:18:30 -0000
+@@ -59,7 +59,7 @@
+ 
+ 
+ S2N_BN_SYMBOL(bignum_mul):
+-	endbr64
++	_CET_ENDBR
+ 
+ #if WINDOWS_ABI
+         push    rdi
+Index: bn/arch/amd64/bignum_mul_4_8_alt.S
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/bn/arch/amd64/bignum_mul_4_8_alt.S,v
+diff -u -p -r1.4 bignum_mul_4_8_alt.S
+--- bn/arch/amd64/bignum_mul_4_8_alt.S	25 Apr 2023 04:42:26 -0000	1.4
++++ bn/arch/amd64/bignum_mul_4_8_alt.S	3 Dec 2023 20:18:30 -0000
+@@ -72,7 +72,7 @@
+         adc     h, rdx
+ 
+ S2N_BN_SYMBOL(bignum_mul_4_8_alt):
+-	endbr64
++	_CET_ENDBR
+ 
+ #if WINDOWS_ABI
+         push    rdi
+Index: bn/arch/amd64/bignum_mul_8_16_alt.S
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/bn/arch/amd64/bignum_mul_8_16_alt.S,v
+diff -u -p -r1.4 bignum_mul_8_16_alt.S
+--- bn/arch/amd64/bignum_mul_8_16_alt.S	25 Apr 2023 04:42:26 -0000	1.4
++++ bn/arch/amd64/bignum_mul_8_16_alt.S	3 Dec 2023 20:18:30 -0000
+@@ -72,7 +72,7 @@
+         adc     h, rdx
+ 
+ S2N_BN_SYMBOL(bignum_mul_8_16_alt):
+-	endbr64
++	_CET_ENDBR
+ 
+ #if WINDOWS_ABI
+         push    rdi
+Index: bn/arch/amd64/bignum_sqr.S
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/bn/arch/amd64/bignum_sqr.S,v
+diff -u -p -r1.4 bignum_sqr.S
+--- bn/arch/amd64/bignum_sqr.S	25 Apr 2023 04:42:26 -0000	1.4
++++ bn/arch/amd64/bignum_sqr.S	3 Dec 2023 20:18:30 -0000
+@@ -62,7 +62,7 @@
+ #define llshort ebp
+ 
+ S2N_BN_SYMBOL(bignum_sqr):
+-	endbr64
++	_CET_ENDBR
+ 
+ #if WINDOWS_ABI
+         push    rdi
+Index: bn/arch/amd64/bignum_sqr_4_8_alt.S
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/bn/arch/amd64/bignum_sqr_4_8_alt.S,v
+diff -u -p -r1.4 bignum_sqr_4_8_alt.S
+--- bn/arch/amd64/bignum_sqr_4_8_alt.S	25 Apr 2023 04:42:26 -0000	1.4
++++ bn/arch/amd64/bignum_sqr_4_8_alt.S	3 Dec 2023 20:18:30 -0000
+@@ -71,7 +71,7 @@
+         adc     c, 0
+ 
+ S2N_BN_SYMBOL(bignum_sqr_4_8_alt):
+-	endbr64
++	_CET_ENDBR
+ 
+ #if WINDOWS_ABI
+         push    rdi
+Index: bn/arch/amd64/bignum_sqr_8_16_alt.S
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/bn/arch/amd64/bignum_sqr_8_16_alt.S,v
+diff -u -p -r1.4 bignum_sqr_8_16_alt.S
+--- bn/arch/amd64/bignum_sqr_8_16_alt.S	25 Apr 2023 04:42:26 -0000	1.4
++++ bn/arch/amd64/bignum_sqr_8_16_alt.S	3 Dec 2023 20:18:30 -0000
+@@ -103,7 +103,7 @@
+         adc     c, 0
+ 
+ S2N_BN_SYMBOL(bignum_sqr_8_16_alt):
+-	endbr64
++	_CET_ENDBR
+ 
+ #if WINDOWS_ABI
+         push    rdi
+Index: bn/arch/amd64/bignum_sub.S
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/bn/arch/amd64/bignum_sub.S,v
+diff -u -p -r1.4 bignum_sub.S
+--- bn/arch/amd64/bignum_sub.S	25 Apr 2023 04:42:26 -0000	1.4
++++ bn/arch/amd64/bignum_sub.S	3 Dec 2023 20:18:30 -0000
+@@ -49,7 +49,7 @@
+ 
+ 
+ S2N_BN_SYMBOL(bignum_sub):
+-	endbr64
++	_CET_ENDBR
+ 
+ #if WINDOWS_ABI
+         push    rdi
+Index: bn/arch/amd64/word_clz.S
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/bn/arch/amd64/word_clz.S,v
+diff -u -p -r1.4 word_clz.S
+--- bn/arch/amd64/word_clz.S	25 Apr 2023 04:42:26 -0000	1.4
++++ bn/arch/amd64/word_clz.S	3 Dec 2023 20:18:30 -0000
+@@ -30,7 +30,7 @@
+         .text
+ 
+ S2N_BN_SYMBOL(word_clz):
+-	endbr64
++	_CET_ENDBR
+ 
+ #if WINDOWS_ABI
+         push    rdi
+Index: bn/asm/modexp512-x86_64.pl
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/bn/asm/modexp512-x86_64.pl,v
+diff -u -p -r1.4 modexp512-x86_64.pl
+--- bn/asm/modexp512-x86_64.pl	25 Apr 2023 04:42:26 -0000	1.4
++++ bn/asm/modexp512-x86_64.pl	3 Dec 2023 20:18:30 -0000
+@@ -347,7 +347,7 @@ $code.=<<___;
+ .type	MULADD_128x512,\@abi-omnipotent
+ .align	16
+ MULADD_128x512:
+-	endbr64
++	_CET_ENDBR
+ ___
+ 	&MULSTEP_512([map("%r$_",(8..15))], "(+8*0)(%rcx)", "%rsi", "%rbp", "%rbx");
+ $code.=<<___;
+@@ -415,7 +415,7 @@ $code.=<<___;
+ .type	mont_reduce,\@abi-omnipotent
+ .align	16
+ mont_reduce:
+-	endbr64
++	_CET_ENDBR
+ ___
+ 
+ my $STACK_DEPTH         =  8;
+@@ -678,7 +678,7 @@ $code.=<<___;
+ .type	mont_mul_a3b,\@abi-omnipotent
+ .align	16
+ mont_mul_a3b:
+-	endbr64
++	_CET_ENDBR
+ 	#
+ 	# multiply tmp = src1 * src2
+ 	# For multiply: dst = rcx, src1 = rdi, src2 = rsi
+@@ -1080,7 +1080,7 @@ $code.=<<___;
+ .type	sqr_reduce,\@abi-omnipotent
+ .align	16
+ sqr_reduce:
+-	endbr64
++	_CET_ENDBR
+ 	 mov	(+$pResult_offset+8)(%rsp), %rcx
+ ___
+ 	&SQR_512("%rsp+$tmp16_offset+8", "%rcx", [map("%r$_",(10..15,8..9))], "%rbx", "%rbp", "%rsi", "%rdi");
+@@ -1110,7 +1110,7 @@ $code.=<<___;
+ .globl	mod_exp_512
+ .type	mod_exp_512,\@function,4
+ mod_exp_512:
+-	endbr64
++	_CET_ENDBR
+ 	 push	%rbp
+ 	 push	%rbx
+ 	 push	%r12
+Index: bn/asm/x86_64-mont.pl
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/bn/asm/x86_64-mont.pl,v
+diff -u -p -r1.5 x86_64-mont.pl
+--- bn/asm/x86_64-mont.pl	25 Apr 2023 04:42:26 -0000	1.5
++++ bn/asm/x86_64-mont.pl	3 Dec 2023 20:18:30 -0000
+@@ -63,7 +63,7 @@ $code=<<___;
+ .type	bn_mul_mont,\@function,6
+ .align	16
+ bn_mul_mont:
+-	endbr64
++	_CET_ENDBR
+ 	test	\$3,${num}d
+ 	jnz	.Lmul_enter
+ 	cmp	\$8,${num}d
+@@ -279,7 +279,7 @@ $code.=<<___;
+ .align	16
+ bn_mul4x_mont:
+ .Lmul4x_enter:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rbx
+ 	push	%rbp
+ 	push	%r12
+@@ -707,7 +707,7 @@ $code.=<<___;
+ .align	16
+ bn_sqr4x_mont:
+ .Lsqr4x_enter:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rbx
+ 	push	%rbp
+ 	push	%r12
+Index: bn/asm/x86_64-mont5.pl
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/bn/asm/x86_64-mont5.pl,v
+diff -u -p -r1.8 x86_64-mont5.pl
+--- bn/asm/x86_64-mont5.pl	25 Apr 2023 04:42:26 -0000	1.8
++++ bn/asm/x86_64-mont5.pl	3 Dec 2023 20:18:30 -0000
+@@ -57,7 +57,7 @@ $code=<<___;
+ .type	bn_mul_mont_gather5,\@function,6
+ .align	64
+ bn_mul_mont_gather5:
+-	endbr64
++	_CET_ENDBR
+ 	test	\$3,${num}d
+ 	jnz	.Lmul_enter
+ 	cmp	\$8,${num}d
+@@ -388,7 +388,7 @@ $code.=<<___;
+ .type	bn_mul4x_mont_gather5,\@function,6
+ .align	16
+ bn_mul4x_mont_gather5:
+-	endbr64
++	_CET_ENDBR
+ .Lmul4x_enter:
+ 	mov	${num}d,${num}d
+ 	movd	`($win64?56:8)`(%rsp),%xmm5	# load 7th argument
+@@ -927,7 +927,7 @@ $code.=<<___;
+ .type	bn_scatter5,\@abi-omnipotent
+ .align	16
+ bn_scatter5:
+-	endbr64
++	_CET_ENDBR
+ 	cmp	\$0, $num
+ 	jz	.Lscatter_epilogue
+ 	lea	($tbl,$idx,8),$tbl
+@@ -946,7 +946,7 @@ bn_scatter5:
+ .type	bn_gather5,\@abi-omnipotent
+ .align	16
+ bn_gather5:
+-	endbr64
++	_CET_ENDBR
+ .LSEH_begin_bn_gather5:			# Win64 thing, but harmless in other cases
+ 	# I can't trust assembler to use specific encoding:-(
+ 	.byte	0x4c,0x8d,0x14,0x24			# lea    (%rsp),%r10
+@@ -1057,7 +1057,7 @@ $code.=<<___;
+ .type	mul_handler,\@abi-omnipotent
+ .align	16
+ mul_handler:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rsi
+ 	push	%rdi
+ 	push	%rbx
+Index: camellia/asm/cmll-x86_64.pl
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/camellia/asm/cmll-x86_64.pl,v
+diff -u -p -r1.7 cmll-x86_64.pl
+--- camellia/asm/cmll-x86_64.pl	25 Apr 2023 04:42:26 -0000	1.7
++++ camellia/asm/cmll-x86_64.pl	3 Dec 2023 20:18:30 -0000
+@@ -116,7 +116,7 @@ $code=<<___;
+ .type	Camellia_EncryptBlock,\@abi-omnipotent
+ .align	16
+ Camellia_EncryptBlock:
+-	endbr64
++	_CET_ENDBR
+ 	movl	\$128,%eax
+ 	subl	$arg0d,%eax
+ 	movl	\$3,$arg0d
+@@ -129,7 +129,7 @@ Camellia_EncryptBlock:
+ .align	16
+ .Lenc_rounds:
+ Camellia_EncryptBlock_Rounds:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rbx
+ 	push	%rbp
+ 	push	%r13
+@@ -178,7 +178,7 @@ Camellia_EncryptBlock_Rounds:
+ .type	_x86_64_Camellia_encrypt,\@abi-omnipotent
+ .align	16
+ _x86_64_Camellia_encrypt:
+-	endbr64
++	_CET_ENDBR
+ 	xor	0($key),@S[1]
+ 	xor	4($key),@S[0]		# ^=key[0-3]
+ 	xor	8($key),@S[3]
+@@ -229,7 +229,7 @@ $code.=<<___;
+ .type	Camellia_DecryptBlock,\@abi-omnipotent
+ .align	16
+ Camellia_DecryptBlock:
+-	endbr64
++	_CET_ENDBR
+ 	movl	\$128,%eax
+ 	subl	$arg0d,%eax
+ 	movl	\$3,$arg0d
+@@ -242,7 +242,7 @@ Camellia_DecryptBlock:
+ .align	16
+ .Ldec_rounds:
+ Camellia_DecryptBlock_Rounds:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rbx
+ 	push	%rbp
+ 	push	%r13
+@@ -291,7 +291,7 @@ Camellia_DecryptBlock_Rounds:
+ .type	_x86_64_Camellia_decrypt,\@abi-omnipotent
+ .align	16
+ _x86_64_Camellia_decrypt:
+-	endbr64
++	_CET_ENDBR
+ 	xor	0($key),@S[1]
+ 	xor	4($key),@S[0]		# ^=key[0-3]
+ 	xor	8($key),@S[3]
+@@ -406,7 +406,7 @@ $code.=<<___;
+ .type	Camellia_Ekeygen,\@function,3
+ .align	16
+ Camellia_Ekeygen:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rbx
+ 	push	%rbp
+ 	push	%r13
+@@ -637,7 +637,7 @@ $code.=<<___;
+ .type	Camellia_cbc_encrypt,\@function,6
+ .align	16
+ Camellia_cbc_encrypt:
+-	endbr64
++	_CET_ENDBR
+ 	cmp	\$0,%rdx
+ 	je	.Lcbc_abort
+ 	push	%rbx
+Index: md5/asm/md5-x86_64.pl
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/md5/asm/md5-x86_64.pl,v
+diff -u -p -r1.3 md5-x86_64.pl
+--- md5/asm/md5-x86_64.pl	25 Apr 2023 04:42:26 -0000	1.3
++++ md5/asm/md5-x86_64.pl	3 Dec 2023 20:18:30 -0000
+@@ -128,7 +128,7 @@ $code .= <<EOF;
+ .globl md5_block_asm_data_order
+ .type md5_block_asm_data_order,\@function,3
+ md5_block_asm_data_order:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rbp
+ 	push	%rbx
+ 	push	%r12
+Index: modes/asm/ghash-x86_64.pl
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/modes/asm/ghash-x86_64.pl,v
+diff -u -p -r1.5 ghash-x86_64.pl
+--- modes/asm/ghash-x86_64.pl	25 Apr 2023 04:42:26 -0000	1.5
++++ modes/asm/ghash-x86_64.pl	3 Dec 2023 20:18:30 -0000
+@@ -412,7 +412,7 @@ $code.=<<___;
+ .type	gcm_init_clmul,\@abi-omnipotent
+ .align	16
+ gcm_init_clmul:
+-	endbr64
++	_CET_ENDBR
+ 	movdqu		($Xip),$Hkey
+ 	pshufd		\$0b01001110,$Hkey,$Hkey	# dword swap
+ 
+@@ -450,7 +450,7 @@ $code.=<<___;
+ .type	gcm_gmult_clmul,\@abi-omnipotent
+ .align	16
+ gcm_gmult_clmul:
+-	endbr64
++	_CET_ENDBR
+ 	movdqu		($Xip),$Xi
+ 	movdqa		.Lbswap_mask(%rip),$T3
+ 	movdqu		($Htbl),$Hkey
+@@ -478,7 +478,7 @@ $code.=<<___;
+ .type	gcm_ghash_clmul,\@abi-omnipotent
+ .align	16
+ gcm_ghash_clmul:
+-	endbr64
++	_CET_ENDBR
+ ___
+ $code.=<<___ if ($win64);
+ .LSEH_begin_gcm_ghash_clmul:
+@@ -689,7 +689,7 @@ $code.=<<___;
+ .type	se_handler,\@abi-omnipotent
+ .align	16
+ se_handler:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rsi
+ 	push	%rdi
+ 	push	%rbx
+Index: perlasm/x86_64-xlate.pl
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/perlasm/x86_64-xlate.pl,v
+diff -u -p -r1.16 x86_64-xlate.pl
+--- perlasm/x86_64-xlate.pl	23 Feb 2023 08:49:02 -0000	1.16
++++ perlasm/x86_64-xlate.pl	3 Dec 2023 20:17:16 -0000
+@@ -781,6 +781,22 @@ ___
+ OPTION	DOTNAME
+ ___
+ }
++
++if ($nasm) {
++	print <<___;
++\%define _CET_ENDBR
++___
++} else {
++	print <<___;
++#if defined(__CET__)
++#include <cet.h>
++#else
++#define _CET_ENDBR
++#endif
++
++___
++}
++
+ print "#include \"x86_arch.h\"\n";
+ 
+ while($line=<>) {
+Index: rc4/asm/rc4-md5-x86_64.pl
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/rc4/asm/rc4-md5-x86_64.pl,v
+diff -u -p -r1.4 rc4-md5-x86_64.pl
+--- rc4/asm/rc4-md5-x86_64.pl	28 Jul 2023 10:35:14 -0000	1.4
++++ rc4/asm/rc4-md5-x86_64.pl	3 Dec 2023 20:18:30 -0000
+@@ -109,7 +109,7 @@ $code.=<<___;
+ .globl	$func
+ .type	$func,\@function,$nargs
+ $func:
+-	endbr64
++	_CET_ENDBR
+ 	cmp	\$0,$len
+ 	je	.Labort
+ 	push	%rbx
+@@ -454,7 +454,7 @@ $code.=<<___;
+ .type	RC4_set_key,\@function,3
+ .align	16
+ RC4_set_key:
+-	endbr64
++	_CET_ENDBR
+ 	lea	8($dat),$dat
+ 	lea	($inp,$len),$inp
+ 	neg	$len
+Index: rc4/asm/rc4-x86_64.pl
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/rc4/asm/rc4-x86_64.pl,v
+diff -u -p -r1.16 rc4-x86_64.pl
+--- rc4/asm/rc4-x86_64.pl	28 Jul 2023 10:35:14 -0000	1.16
++++ rc4/asm/rc4-x86_64.pl	3 Dec 2023 20:18:30 -0000
+@@ -128,7 +128,7 @@ $code=<<___;
+ .type	RC4,\@function,4
+ .align	16
+ RC4:
+-	endbr64
++	_CET_ENDBR
+ 	or	$len,$len
+ 	jne	.Lentry
+ 	ret
+@@ -435,7 +435,7 @@ $code.=<<___;
+ .type	RC4_set_key,\@function,3
+ .align	16
+ RC4_set_key:
+-	endbr64
++	_CET_ENDBR
+ 	lea	8($dat),$dat
+ 	lea	($inp,$len),$inp
+ 	neg	$len
+Index: sha/asm/sha1-x86_64.pl
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/sha/asm/sha1-x86_64.pl,v
+diff -u -p -r1.7 sha1-x86_64.pl
+--- sha/asm/sha1-x86_64.pl	25 Apr 2023 04:42:26 -0000	1.7
++++ sha/asm/sha1-x86_64.pl	3 Dec 2023 20:18:30 -0000
+@@ -222,7 +222,7 @@ $code.=<<___;
+ .type	sha1_block_data_order,\@function,3
+ .align	16
+ sha1_block_data_order:
+-	endbr64
++	_CET_ENDBR
+ 	mov	OPENSSL_ia32cap_P+0(%rip),%r9d
+ 	mov	OPENSSL_ia32cap_P+4(%rip),%r8d
+ 	test	\$IA32CAP_MASK1_SSSE3,%r8d		# check SSSE3 bit
+@@ -310,7 +310,7 @@ $code.=<<___;
+ .align	16
+ sha1_block_data_order_ssse3:
+ _ssse3_shortcut:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rbx
+ 	push	%rbp
+ 	push	%r12
+@@ -731,7 +731,7 @@ $code.=<<___;
+ .align	16
+ sha1_block_data_order_avx:
+ _avx_shortcut:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rbx
+ 	push	%rbp
+ 	push	%r12
+@@ -1102,7 +1102,7 @@ $code.=<<___;
+ .type	se_handler,\@abi-omnipotent
+ .align	16
+ se_handler:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rsi
+ 	push	%rdi
+ 	push	%rbx
+Index: sha/asm/sha512-x86_64.pl
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/sha/asm/sha512-x86_64.pl,v
+diff -u -p -r1.7 sha512-x86_64.pl
+--- sha/asm/sha512-x86_64.pl	25 Apr 2023 04:42:26 -0000	1.7
++++ sha/asm/sha512-x86_64.pl	3 Dec 2023 20:18:30 -0000
+@@ -175,7 +175,7 @@ $code=<<___;
+ .type	$func,\@function,4
+ .align	16
+ $func:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rbx
+ 	push	%rbp
+ 	push	%r12
+Index: whrlpool/asm/wp-x86_64.pl
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/whrlpool/asm/wp-x86_64.pl,v
+diff -u -p -r1.5 wp-x86_64.pl
+--- whrlpool/asm/wp-x86_64.pl	25 Apr 2023 04:42:26 -0000	1.5
++++ whrlpool/asm/wp-x86_64.pl	3 Dec 2023 20:18:30 -0000
+@@ -57,7 +57,7 @@ $code=<<___;
+ .type	$func,\@function,3
+ .align	16
+ $func:
+-	endbr64
++	_CET_ENDBR
+ 	push	%rbx
+ 	push	%rbp
+ 	push	%r12

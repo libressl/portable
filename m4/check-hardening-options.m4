@@ -94,6 +94,11 @@ AC_DEFUN([CHECK_C_HARDENING_OPTIONS], [
 				AC_SEARCH_LIBS([__stack_chk_guard],[ssp])
 			])
 		])
+
+		# Check for control-flow integrity support
+		AS_IF([test "x$HOST_OS" != "xdarwin"], [
+			CHECK_CFLAG([[-fcf-protection=full]])
+		])
 	])
 
 	# Restore CC, LD

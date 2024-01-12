@@ -56,6 +56,9 @@ LibreSSL Portable Release Notes:
 	    strings table entries, ASN.1 methods, PKEY methods, digest methods,
 	    CRL methods, purpose and trust identifiers, or X.509 extensions.
 	  - Turn the long dysfunctional openssl(1) s_client -pause into a noop.
+	  - openssl(1) x509 now supports -force_pubkey, -multivalue-rdn,
+	    -set_issuer, -set_subject, and -utf8.
+	    openssl(1) x509
 	* Bug fixes
 	  - Fixed aliasing issues in BN_mod_exp_simple() and BN_mod_exp_recp().
 	  - Fixed numerous misuses of X509_ALGOR_set0() resulting in leaks and

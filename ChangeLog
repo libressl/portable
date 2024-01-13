@@ -51,6 +51,9 @@ LibreSSL Portable Release Notes:
 	* Compatibility changes
 	  - Added ChaCha20 and chacha20 aliases for ChaCha.
 	  - SSL_library_init() now has the same effect as OPENSSL_init_ssl().
+	  - EVP_add_{cipher,digest}() were removed. From the OBJ_NAME API,
+	    only OBJ_NAME_do_all*() remain. In particular, it is no longer
+	    possible to add aliases for ciphers and digests.
 	  - The thread unsafe global tables are no longer supported. It is no
 	    longer possible to add aliases for ciphers and digests, custom ASN.1
 	    strings table entries, ASN.1 methods, PKEY methods, digest methods,
@@ -58,7 +61,6 @@ LibreSSL Portable Release Notes:
 	  - Turn the long dysfunctional openssl(1) s_client -pause into a noop.
 	  - openssl(1) x509 now supports -force_pubkey, -multivalue-rdn,
 	    -set_issuer, -set_subject, and -utf8.
-	    openssl(1) x509
 	* Bug fixes
 	  - Fixed aliasing issues in BN_mod_exp_simple() and BN_mod_exp_recp().
 	  - Fixed numerous misuses of X509_ALGOR_set0() resulting in leaks and

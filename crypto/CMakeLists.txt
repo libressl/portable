@@ -487,7 +487,6 @@ set(
 	evp/bio_b64.c
 	evp/bio_enc.c
 	evp/bio_md.c
-	evp/c_all.c
 	evp/e_aes.c
 	evp/e_aes_cbc_hmac_sha1.c
 	evp/e_bf.c
@@ -511,6 +510,7 @@ set(
 	evp/evp_encode.c
 	evp/evp_err.c
 	evp/evp_key.c
+	evp/evp_names.c
 	evp/evp_pbe.c
 	evp/evp_pkey.c
 	evp/m_gost2814789.c
@@ -526,7 +526,6 @@ set(
 	evp/m_streebog.c
 	evp/m_sm3.c
 	evp/m_wp.c
-	evp/names.c
 	evp/p5_crpt.c
 	evp/p5_crpt2.c
 	evp/p_legacy.c
@@ -572,7 +571,6 @@ set(
 	modes/gcm128.c
 	modes/ofb128.c
 	modes/xts128.c
-	objects/o_names.c
 	objects/obj_dat.c
 	objects/obj_err.c
 	objects/obj_lib.c

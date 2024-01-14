@@ -15,6 +15,7 @@ jobs:
   test:
     name: "${{ matrix.os }}/${{ matrix.arch }}"
     runs-on: "${{ matrix.os }}"
+    if: ${{ github.repository_owner == 'libressl' || github.event_name != 'schedule' }}
     permissions:
       contents: read
     strategy:

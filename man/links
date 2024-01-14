@@ -594,7 +594,6 @@ DSA_SIG_new.3,DSA_SIG_free.3
 DSA_SIG_new.3,DSA_SIG_get0.3
 DSA_SIG_new.3,DSA_SIG_set0.3
 DSA_do_sign.3,DSA_do_verify.3
-DSA_generate_parameters.3,DSA_generate_parameters_ex.3
 DSA_get0_pqg.3,DSA_clear_flags.3
 DSA_get0_pqg.3,DSA_get0_engine.3
 DSA_get0_pqg.3,DSA_get0_g.3
@@ -1257,8 +1256,6 @@ OBJ_create.3,OBJ_add_object.3
 OBJ_create.3,OBJ_cleanup.3
 OBJ_create.3,OBJ_create_objects.3
 OBJ_create.3,OBJ_new_nid.3
-OBJ_create.3,check_defer.3
-OBJ_create.3,obj_cleanup_defer.3
 OBJ_find_sigid_algs.3,OBJ_find_sigid_by_algs.3
 OBJ_nid2obj.3,OBJ_cmp.3
 OBJ_nid2obj.3,OBJ_dup.3
@@ -2206,7 +2203,6 @@ X509_STORE_CTX_new.3,X509_STORE_CTX_set_cert.3
 X509_STORE_CTX_new.3,X509_STORE_CTX_set_chain.3
 X509_STORE_CTX_new.3,X509_STORE_CTX_trusted_stack.3
 X509_STORE_CTX_set_flags.3,X509_STORE_CTX_get0_param.3
-X509_STORE_CTX_set_flags.3,X509_STORE_CTX_purpose_inherit.3
 X509_STORE_CTX_set_flags.3,X509_STORE_CTX_set0_param.3
 X509_STORE_CTX_set_flags.3,X509_STORE_CTX_set_default.3
 X509_STORE_CTX_set_flags.3,X509_STORE_CTX_set_depth.3

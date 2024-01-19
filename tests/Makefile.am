@@ -631,6 +631,12 @@ TESTS += sha_test
 check_PROGRAMS += sha_test
 sha_test_SOURCES = sha_test.c
 
+# shutdowntest
+TESTS += shutdowntest.sh
+check_PROGRAMS += shutdowntest
+shutdowntest_SOURCES = shutdowntest.c
+EXTRA_DIST += shutdowntest.sh shutdowntest.bat
+
 # signertest
 TESTS += signertest
 check_PROGRAMS += signertest

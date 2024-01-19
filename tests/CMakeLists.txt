@@ -601,6 +601,17 @@ add_executable(sha_test sha_test.c)
 target_link_libraries(sha_test ${OPENSSL_TEST_LIBS})
 add_test(sha_test sha_test)
 
+# shutdowntest
+set(SHUTDOWNTEST_SRC shutdowntest.c)
+add_executable(shutdowntest ${SHUTDOWNTEST_SRC})
+target_link_libraries(shutdowntest ${OPENSSL_TEST_LIBS})
+if(NOT MSVC)
+	add_test(NAME shutdowntest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/shutdowntest.sh)
+else()
+	add_test(NAME shutdowntest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/shutdowntest.bat $<TARGET_FILE:shutdowntest>)
+endif()
+set_tests_properties(shutdowntest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
+
 # signertest
 if(NOT CMAKE_SYSTEM_NAME MATCHES "WindowsStore")
 	set(SIGNERTEST_SRC signertest.c)

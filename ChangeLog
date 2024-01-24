@@ -75,6 +75,7 @@ LibreSSL Portable Release Notes:
 	    version downgrade.
 	  - Fixed various bugs in CMAC internals.
 	  - Removed all remaining ENGINE tentacles.
+	  - Fixed 4-byte overreads in GHASH assembly on amd64 and i386.
 
 3.8.2 - Stable release
 

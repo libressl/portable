@@ -76,6 +76,8 @@ LibreSSL Portable Release Notes:
 	  - Fixed various bugs in CMAC internals.
 	  - Removed all remaining ENGINE tentacles.
 	  - Fixed 4-byte overreads in GHASH assembly on amd64 and i386.
+	  - Fixed various NULL dereferences in PKCS #12 code due to mishandling
+	    of OPTIONAL content in PKCS #7 ContentInfo.
 
 3.8.2 - Stable release
 

@@ -526,8 +526,6 @@ set(
 	evp/m_streebog.c
 	evp/m_sm3.c
 	evp/m_wp.c
-	evp/p5_crpt.c
-	evp/p5_crpt2.c
 	evp/p_legacy.c
 	evp/p_lib.c
 	evp/p_sign.c
@@ -598,7 +596,6 @@ set(
 	pkcs12/p12_add.c
 	pkcs12/p12_asn.c
 	pkcs12/p12_attr.c
-	pkcs12/p12_crpt.c
 	pkcs12/p12_crt.c
 	pkcs12/p12_decr.c
 	pkcs12/p12_init.c

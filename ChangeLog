@@ -61,6 +61,8 @@ LibreSSL Portable Release Notes:
 	  - Turn the long dysfunctional openssl(1) s_client -pause into a noop.
 	  - openssl(1) x509 now supports -new -force_pubkey, -multivalue-rdn,
 	    -set_issuer, -set_subject, and -utf8.
+	  - Support ECDSA with SHA-3 signature algorithms.
+	  - Support HMAC with truncated SHA-2 and SHA-3 as PBE PRF.
 	* Bug fixes
 	  - Fixed aliasing issues in BN_mod_exp_simple() and BN_mod_exp_recp().
 	  - Fixed numerous misuses of X509_ALGOR_set0() resulting in leaks and
@@ -78,6 +80,7 @@ LibreSSL Portable Release Notes:
 	  - Fixed 4-byte overreads in GHASH assembly on amd64 and i386.
 	  - Fixed various NULL dereferences in PKCS #12 code due to mishandling
 	    of OPTIONAL content in PKCS #7 ContentInfo.
+	  - Aligned SSL_shutdown() behavior in TLSv1.3 with the legacy stack.
 
 3.8.2 - Stable release
 

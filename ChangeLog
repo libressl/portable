@@ -43,6 +43,7 @@ LibreSSL Portable Release Notes:
 	  - Removed unused function pointers from X.509 stores and contexts.
 	  - A lot of cleanup and reaorganization in EVP.
 	  - Simplified internals of X509_TRUST handling.
+	  - Made deletion from a lhash doall callback safe.
 	* Documentation improvements
 	  - ENGINE documentation was updated to reflect reality.
 	  - Made EVP API documentation more accurate and less incoherent. 

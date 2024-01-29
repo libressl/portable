@@ -46,6 +46,7 @@ jobs:
   test-asan:
     name: "ASAN (${{ matrix.asm == 'ON' && 'asm' || 'no-asm' }})"
     runs-on: "ubuntu-latest"
+    if: ${{ github.repository_owner == 'libressl' || github.event_name != 'schedule' }}
     permissions:
       contents: read
     strategy:

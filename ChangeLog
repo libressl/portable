@@ -41,7 +41,8 @@ LibreSSL Portable Release Notes:
 	  - Simplified and cleaned up the OBJ_ API.
 	  - Cleaned up the EVP_Cipher{Init,Update,Final}() implementations.
 	  - Removed unused function pointers from X.509 stores and contexts.
-	  - A lot of cleanup and reaorganization in EVP.
+	  - A lot of cleanup and reorganization in EVP.
+	  - Removed all remaining ENGINE tentacles.
 	  - Simplified internals of X509_TRUST handling.
 	  - Made deletion from a lhash doall callback safe.
 	* Documentation improvements
@@ -77,7 +78,6 @@ LibreSSL Portable Release Notes:
 	  - Avoid a NULL dereference after memory allocation failure during TLS
 	    version downgrade.
 	  - Fixed various bugs in CMAC internals.
-	  - Removed all remaining ENGINE tentacles.
 	  - Fixed 4-byte overreads in GHASH assembly on amd64 and i386.
 	  - Fixed various NULL dereferences in PKCS #12 code due to mishandling
 	    of OPTIONAL content in PKCS #7 ContentInfo.

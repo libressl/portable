@@ -60,6 +60,7 @@ LibreSSL Portable Release Notes:
 	    longer possible to add aliases for ciphers and digests, custom ASN.1
 	    strings table entries, ASN.1 methods, PKEY methods, digest methods,
 	    CRL methods, purpose and trust identifiers, or X.509 extensions.
+	  - Removed the _cb() and _fp() versions of BIO_dump{,_indent}().
 	  - Turn the long dysfunctional openssl(1) s_client -pause into a noop.
 	  - openssl(1) x509 now supports -new -force_pubkey, -multivalue-rdn,
 	    -set_issuer, -set_subject, and -utf8.
@@ -82,6 +83,8 @@ LibreSSL Portable Release Notes:
 	  - Fixed various NULL dereferences in PKCS #12 code due to mishandling
 	    of OPTIONAL content in PKCS #7 ContentInfo.
 	  - Aligned SSL_shutdown() behavior in TLSv1.3 with the legacy stack.
+	  - Fixed the new X.509 verifier to find trust anchors in the trusted
+	    stack.
 
 3.8.2 - Stable release
 

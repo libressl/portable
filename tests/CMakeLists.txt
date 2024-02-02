@@ -131,6 +131,11 @@ add_executable(bio_chain bio_chain.c)
 target_link_libraries(bio_chain ${OPENSSL_TEST_LIBS})
 add_test(bio_chain bio_chain)
 
+# bio_dump
+add_executable(bio_dump bio_dump.c)
+target_link_libraries(bio_dump ${OPENSSL_TEST_LIBS})
+add_test(bio_dump bio_dump)
+
 # bio_host
 # this test relies on resolver results that are OS and environment-specific
 if(ENABLE_EXTRATESTS)

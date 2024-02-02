@@ -147,6 +147,11 @@ TESTS += bio_chain
 check_PROGRAMS += bio_chain
 bio_chain_SOURCES = bio_chain.c
 
+# bio_dump
+TESTS += bio_dump
+check_PROGRAMS += bio_dump
+bio_dump_SOURCES = bio_dump.c
+
 # bio_host
 # this test relies on resolver results that are OS and environment-specific
 if ENABLE_EXTRATESTS

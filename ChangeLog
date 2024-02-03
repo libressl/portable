@@ -67,6 +67,7 @@ LibreSSL Portable Release Notes:
 	    -set_issuer, -set_subject, and -utf8.
 	  - Support ECDSA with SHA-3 signature algorithms.
 	  - Support HMAC with truncated SHA-2 and SHA-3 as PBE PRF.
+	  - GOST and STREEBOG support was removed from libssl.
 	* Bug fixes
 	  - Fixed aliasing issues in BN_mod_exp_simple() and BN_mod_exp_recp().
 	  - Fixed numerous misuses of X509_ALGOR_set0() resulting in leaks and

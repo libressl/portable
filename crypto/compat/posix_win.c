@@ -164,8 +164,10 @@ static void noop_handler(const wchar_t *expression,	const wchar_t *function,
 }
 
 #define BEGIN_SUPPRESS_IPH \
+	int old_report_mode = _CrtSetReportMode(_CRT_ASSERT, 0); \
 	_invalid_parameter_handler old_handler = _set_thread_local_invalid_parameter_handler(noop_handler)
 #define END_SUPPRESS_IPH \
+	_CrtSetReportMode(_CRT_ASSERT, old_report_mode); \
 	_set_thread_local_invalid_parameter_handler(old_handler)
 
 #else

@@ -13,12 +13,27 @@
 #define PDP_ENDIAN 3412
 
 /*
- * Use GCC and Visual Studio compiler defines to determine endian.
+ * Use GCC compiler defines to determine endianness.
  */
+#if defined(__BYTE_ORDER__)
 #if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
 #define BYTE_ORDER LITTLE_ENDIAN
 #else
 #define BYTE_ORDER BIG_ENDIAN
+#endif
+#endif
+
+/*
+ * Use build system defines to determine endianness.
+ */
+#if !defined(BYTE_ORDER)
+#if defined(HAVE_LITTLE_ENDIAN)
+#define BYTE_ORDER LITTLE_ENDIAN
+#elif defined(HAVE_BIG_ENDIAN)
+#define BYTE_ORDER BIG_ENDIAN
+#else
+#error "Could not detect endianness."
+#endif
 #endif
 
 #elif defined(HAVE_ENDIAN_H)

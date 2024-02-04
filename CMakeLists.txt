@@ -94,8 +94,6 @@ if(WIN32)
 	endif()
 endif()
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
-
 if(CMAKE_SYSTEM_NAME MATCHES "HP-UX")
 	if(CMAKE_C_COMPILER MATCHES "gcc")
 		set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99 -fno-strict-aliasing")
@@ -184,6 +182,8 @@ if(MSVC)
 		${MSVC_DISABLED_WARNINGS_LIST})
 	string(REGEX REPLACE "[/-]W[1234][ ]?" "" CMAKE_C_FLAGS ${CMAKE_C_FLAGS})
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -MP -W4 ${MSVC_DISABLED_WARNINGS_STR}")
+else()
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
 endif()
 
 check_function_exists(asprintf HAVE_ASPRINTF)

@@ -140,6 +140,15 @@ endif()
 if(MSVC)
 	add_definitions(-Dinline=__inline)
 	message(STATUS "Using [${CMAKE_C_COMPILER_ID}] compiler")
+
+	include(TestBigEndian)
+	TEST_BIG_ENDIAN(HAVE_BIG_ENDIAN)
+	if(HAVE_BIG_ENDIAN)
+		add_definitions(-DHAVE_BIG_ENDIAN)
+	else()
+		add_definitions(-DHAVE_LITTLE_ENDIAN)
+	endif()
+
 	if(CMAKE_C_COMPILER_ID MATCHES "MSVC" OR CMAKE_C_COMPILER_ID MATCHES "Clang")
 		set(MSVC_DISABLED_WARNINGS_LIST
 			"C4018" # 'expression' : signed/unsigned mismatch

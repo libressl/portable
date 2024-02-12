@@ -59,6 +59,7 @@ openssl.cnf
 x509v3.cnf
 
 # tests
+tap-driver.sh
 test-driver
 *.log
 *.trs

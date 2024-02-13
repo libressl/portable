@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   test:
-    name: "${{ matrix.os }}/${{ matrix.arch }} (${{ matrix.generator }})"
+    name: "${{ matrix.os }}/${{ matrix.arch }}/shared ${{ matrix.shared }} (${{ matrix.generator }})"
     runs-on: "${{ matrix.os }}"
     if: ${{ github.repository_owner == 'libressl' || github.event_name != 'schedule' }}
     permissions:
@@ -23,6 +23,7 @@ jobs:
       matrix:
         os: ["windows-2022", "windows-2019"]
         arch: ["ARM64", "x64", "Win32"]
+        shared: ["ON", "OFF"]
         include:
           - os: "windows-2022"
             generator: "Visual Studio 17 2022"
@@ -49,7 +50,7 @@ jobs:
 
       - name: "Configure CMake"
         shell: cmd
-        run: cmake -Bbuild -G "${{ matrix.generator }}" -A ${{ matrix.arch }} -DCMAKE_INSTALL_PREFIX=../local
+        run: cmake -Bbuild -G "${{ matrix.generator }}" -A ${{ matrix.arch }} DBUILD_SHARED_LIBS=${{ matrix.shared }} -DCMAKE_INSTALL_PREFIX=../local
 
       - name: "Build"
         shell: cmd
@@ -64,5 +65,5 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: "${{ matrix.os }}-${{ matrix.arch }}-build-results"
+          name: "${{ matrix.os }}-${{ matrix.arch }}-shared-${{ matrix.shared }}-build-results"
           path: "build"

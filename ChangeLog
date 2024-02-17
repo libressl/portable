@@ -49,6 +49,7 @@ LibreSSL Portable Release Notes:
 	* Documentation improvements
 	  - ENGINE documentation was updated to reflect reality.
 	  - Made EVP API documentation more accurate and less incoherent. 
+	  - Call out some shortcomings of the EC_KEY_set_* API explicitly.
 	* Testing and proactive security
 	  - Bug fixes and simplifications in the Wycheproof tests.
 	* Compatibility changes

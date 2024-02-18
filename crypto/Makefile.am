@@ -699,6 +699,7 @@ noinst_HEADERS += hidden/openssl/pem.h
 noinst_HEADERS += hidden/openssl/pkcs12.h
 noinst_HEADERS += hidden/openssl/pkcs7.h
 noinst_HEADERS += hidden/openssl/poly1305.h
+noinst_HEADERS += hidden/openssl/posix_time.h
 noinst_HEADERS += hidden/openssl/rand.h
 noinst_HEADERS += hidden/openssl/rc2.h
 noinst_HEADERS += hidden/openssl/rsa.h

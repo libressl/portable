@@ -26,7 +26,7 @@ set -e
 
 # Check if the version argument is provided
 if [ "$#" -ne 1 ]; then
-    echo "Usage: $0 <version>"
+    echo "Usage: $0 <version>" 1>&2
     exit 1
 fi
 
@@ -37,7 +37,7 @@ changelog=""
 
 # Check if the specified changelog file exists
 if [ ! -f "$changelog_file" ]; then
-    echo "Error: Changelog file '$changelog_file' not found"
+    echo "Error: Changelog file '$changelog_file' not found" 1>&2
     exit 1
 fi
 
@@ -60,7 +60,7 @@ done < "$changelog_file"
 
 # If the specified version was not found, print an error
 if ! $found_version; then
-    echo "Error: Version $version was not found in changelog"
+    echo "Error: Version $version was not found in changelog" 1>&2
     exit 1
 fi
 

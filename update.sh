@@ -240,7 +240,6 @@ gen_asm() {
 setup_asm_generator() {
 	rm -fr $asm_src
 	cp -a $libcrypto_src $asm_src
-	patch -d $asm_src -p0 < patches/asm/endbr64.patch
 	patch -d $asm_src -p4 < patches/asm/masm-align-64.patch
 }
 

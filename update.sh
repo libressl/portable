@@ -185,15 +185,6 @@ $CP crypto/compat/ui_openssl_win.c crypto/ui
 # add the libcrypto symbol export list
 $GREP -v OPENSSL_ia32cap_P $libcrypto_src/Symbols.list | $GREP '^[A-Za-z0-9_]' > crypto/crypto.sym
 
-fixup_masm() {
-	cpp -I./crypto $1     \
-		| sed -e 's/^#/;/'    \
-		| sed -e 's/|/OR/g'   \
-		| sed -e 's/~/NOT/g'  \
-		| sed -e 's/1 << \([0-9]*\)/1 SHL \1/g' \
-		> $2
-}
-
 # generate assembly crypto algorithms
 asm_src=$CWD/asm
 
@@ -204,12 +195,9 @@ gen_asm_stdout() {
 	.section .note.GNU-stack,"",%progbits
 	#endif
 	EOF
-	if [ $1 = "masm" ]; then
-		fixup_masm crypto/$3.tmp crypto/$3
-	else
-		$MV crypto/$3.tmp crypto/$3
-	fi
+	$MV crypto/$3.tmp crypto/$3
 }
+
 gen_asm_mips() {
 	abi=$1
 	dir=$2
@@ -223,6 +211,7 @@ gen_asm_mips() {
 	EOF
 	mv $dst.S crypto/$dir/$dst.S
 }
+
 gen_asm() {
 	CC=true perl $asm_src/$2 $1 crypto/$3.tmp
 	[ $1 = "elf" ] && cat <<-EOF >> crypto/$3.tmp
@@ -230,17 +219,14 @@ gen_asm() {
 	.section .note.GNU-stack,"",%progbits
 	#endif
 	EOF
-	if [ $1 = "masm" ]; then
-		fixup_masm crypto/$3.tmp crypto/$3
-	else
-		$MV crypto/$3.tmp crypto/$3
-	fi
+	$MV crypto/$3.tmp crypto/$3
 }
 
 setup_asm_generator() {
 	rm -fr $asm_src
 	cp -a $libcrypto_src $asm_src
-	patch -d $asm_src -p4 < patches/asm/masm-align-64.patch
+	patch -d $asm_src -p4 < patches/asm/0001-align-read-only-sections-on-masm-windows-to-64-bytes.patch
+	patch -d $asm_src -p4 < patches/asm/0002-fixup-masm-specific-operations-in-the-perl-generator.patch
 }
 
 setup_asm_generator

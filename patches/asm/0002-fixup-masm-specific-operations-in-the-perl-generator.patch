@@ -1,0 +1,30 @@
+From 6495a168869f72d7a319bf1daa042c08a3dca65e Mon Sep 17 00:00:00 2001
+From: Brent Cook <busterb@gmail.com>
+Date: Sun, 25 Feb 2024 11:21:50 -0600
+Subject: [PATCH 2/2] fixup masm-specific operations in the perl generator
+
+---
+ src/lib/libcrypto/perlasm/x86_64-xlate.pl | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/src/lib/libcrypto/perlasm/x86_64-xlate.pl b/src/lib/libcrypto/perlasm/x86_64-xlate.pl
+index 1e5475312..c68a466f3 100755
+--- a/src/lib/libcrypto/perlasm/x86_64-xlate.pl
++++ b/src/lib/libcrypto/perlasm/x86_64-xlate.pl
+@@ -815,6 +815,13 @@ while($line=<>) {
+     $line =~ s|/\*.*\*/||;	# ... and C-style comments...
+     $line =~ s|^\s+||;		# ... and skip white spaces in beginning
+ 
++	if ($masm) {
++		$line =~ s/^#/;/;
++		$line =~ s/|/OR/g;
++		$line =~ s/~/NOT/g;
++		$line =~ s/1 << \([0-9]*\)/1 SHL \1/g
++	}
++
+     undef $label;
+     undef $opcode;
+     undef @args;
+-- 
+2.43.0
+

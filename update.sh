@@ -186,7 +186,7 @@ $CP crypto/compat/ui_openssl_win.c crypto/ui
 $GREP -v OPENSSL_ia32cap_P $libcrypto_src/Symbols.list | $GREP '^[A-Za-z0-9_]' > crypto/crypto.sym
 
 fixup_masm() {
-	cpp -I./crypto -I./include/compat $1 \
+	cpp -I./crypto -I./include/compat -D_MSC_VER $1 \
 		| sed -e 's/^#/;/'    \
 		| sed -e 's/|/OR/g'   \
 		| sed -e 's/~/NOT/g'  \

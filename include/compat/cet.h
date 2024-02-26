@@ -7,7 +7,13 @@
 #define LIBCOMPAT_CET_H
 
 #ifndef _MSC_VER
-#include_next <cet.h>
+
+#ifdef __CET__
+#   include_next <cet.h>
+#else
+#   define _CET_ENDBR
+#endif
+
 #endif
 
 #endif

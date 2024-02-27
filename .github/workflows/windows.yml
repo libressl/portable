@@ -65,5 +65,5 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: "${{ matrix.os }}-${{ matrix.arch }}-shared-${{ matrix.shared }}-build-results"
+          name: "${{ matrix.os }}-${{ matrix.arch }}${{ matrix.shared == 'ON' && '-shared' || '' }}-build-results"
           path: "build"

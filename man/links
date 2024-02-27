@@ -106,7 +106,9 @@ ASN1_TIME_set.3,ASN1_UTCTIME_print.3
 ASN1_TIME_set.3,ASN1_UTCTIME_set.3
 ASN1_TIME_set.3,ASN1_UTCTIME_set_string.3
 ASN1_TIME_set.3,OPENSSL_gmtime.3
+ASN1_TIME_set.3,OPENSSL_posix_to_tm.3
 ASN1_TIME_set.3,OPENSSL_timegm.3
+ASN1_TIME_set.3,OPENSSL_tm_to_posix.3
 ASN1_TYPE_get.3,ASN1_TYPE_cmp.3
 ASN1_TYPE_get.3,ASN1_TYPE_free.3
 ASN1_TYPE_get.3,ASN1_TYPE_get_int_octetstring.3
@@ -843,6 +845,8 @@ EVP_CIPHER_CTX_set_flags.3,EVP_CIPHER_param_to_asn1.3
 EVP_CIPHER_do_all.3,EVP_CIPHER_do_all_sorted.3
 EVP_CIPHER_do_all.3,EVP_MD_do_all.3
 EVP_CIPHER_do_all.3,EVP_MD_do_all_sorted.3
+EVP_CIPHER_do_all.3,OBJ_NAME_do_all.3
+EVP_CIPHER_do_all.3,OBJ_NAME_do_all_sorted.3
 EVP_CIPHER_meth_new.3,EVP_CIPHER_meth_dup.3
 EVP_CIPHER_meth_new.3,EVP_CIPHER_meth_free.3
 EVP_CIPHER_meth_new.3,EVP_CIPHER_meth_set_cleanup.3
@@ -1265,8 +1269,6 @@ NAME_CONSTRAINTS_new.3,GENERAL_SUBTREE_free.3
 NAME_CONSTRAINTS_new.3,GENERAL_SUBTREE_new.3
 NAME_CONSTRAINTS_new.3,NAME_CONSTRAINTS_free.3
 OBJ_NAME_add.3,OBJ_NAME_cleanup.3
-OBJ_NAME_add.3,OBJ_NAME_do_all.3
-OBJ_NAME_add.3,OBJ_NAME_do_all_sorted.3
 OBJ_NAME_add.3,OBJ_NAME_get.3
 OBJ_NAME_add.3,OBJ_NAME_init.3
 OBJ_NAME_add.3,OBJ_NAME_new_index.3

@@ -185,7 +185,7 @@ $CP crypto/compat/ui_openssl_win.c crypto/ui
 $GREP -v OPENSSL_ia32cap_P $libcrypto_src/Symbols.list | $GREP '^[A-Za-z0-9_]' > crypto/crypto.sym
 
 fixup_masm() {
-	cpp -I./crypto $1     \
+	cpp -I./crypto -I./include/compat -D_MSC_VER $1 \
 		| sed -e 's/^#/;/'    \
 		| sed -e 's/|/OR/g'   \
 		| sed -e 's/~/NOT/g'  \
@@ -239,7 +239,6 @@ gen_asm() {
 setup_asm_generator() {
 	rm -fr $asm_src
 	cp -a $libcrypto_src $asm_src
-	patch -d $asm_src -p0 < patches/asm/endbr64.patch
 	patch -d $asm_src -p4 < patches/asm/masm-align-64.patch
 }
 

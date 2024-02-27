@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   test:
-    name: "${{ matrix.os }}/${{ matrix.arch }}/shared ${{ matrix.shared }} (${{ matrix.generator }})"
+    name: "${{ matrix.os }}/${{ matrix.arch }} (${{ matrix.generator }}${{ matrix.shared == 'ON' && ', shared' || '' }})"
     runs-on: "${{ matrix.os }}"
     if: ${{ github.repository_owner == 'libressl' || github.event_name != 'schedule' }}
     permissions:

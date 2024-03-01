@@ -194,7 +194,7 @@ fixup_masm() {
 }
 
 # generate assembly crypto algorithms
-asm_src=$CWD/asm
+asm_src=$libcrypto_src
 
 gen_asm_stdout() {
 	CC=true perl $asm_src/$2 $1 > crypto/$3.tmp
@@ -209,6 +209,7 @@ gen_asm_stdout() {
 		$MV crypto/$3.tmp crypto/$3
 	fi
 }
+
 gen_asm_mips() {
 	abi=$1
 	dir=$2
@@ -222,6 +223,7 @@ gen_asm_mips() {
 	EOF
 	mv $dst.S crypto/$dir/$dst.S
 }
+
 gen_asm() {
 	CC=true perl $asm_src/$2 $1 crypto/$3.tmp
 	[ $1 = "elf" ] && cat <<-EOF >> crypto/$3.tmp
@@ -235,14 +237,6 @@ gen_asm() {
 		$MV crypto/$3.tmp crypto/$3
 	fi
 }
-
-setup_asm_generator() {
-	rm -fr $asm_src
-	cp -a $libcrypto_src $asm_src
-	patch -d $asm_src -p4 < patches/asm/masm-align-64.patch
-}
-
-setup_asm_generator
 
 echo generating mips ASM source for elf
 gen_asm_mips o32 aes aes-mips    aes-mips

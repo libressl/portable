@@ -13,11 +13,13 @@ AM_CPPFLAGS += -I$(top_srcdir)/crypto/ecdh
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/ecdsa
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/evp
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/hmac
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/lhash
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/modes
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/ocsp
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/pkcs12
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/rsa
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/sha
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/stack
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/x509
 AM_CPPFLAGS += -I$(top_srcdir)/crypto
 
@@ -228,6 +230,7 @@ noinst_HEADERS += arm_arch.h
 noinst_HEADERS += constant_time.h
 noinst_HEADERS += cryptlib.h
 noinst_HEADERS += crypto_internal.h
+noinst_HEADERS += crypto_local.h
 noinst_HEADERS += md32_common.h
 noinst_HEADERS += x86_arch.h
 
@@ -258,7 +261,6 @@ libcrypto_la_SOURCES += asn1/a_time_posix.c
 libcrypto_la_SOURCES += asn1/a_time_tm.c
 libcrypto_la_SOURCES += asn1/a_type.c
 libcrypto_la_SOURCES += asn1/a_utf8.c
-libcrypto_la_SOURCES += asn1/ameth_lib.c
 libcrypto_la_SOURCES += asn1/asn1_err.c
 libcrypto_la_SOURCES += asn1/asn1_gen.c
 libcrypto_la_SOURCES += asn1/asn1_item.c
@@ -600,7 +602,6 @@ libcrypto_la_SOURCES += evp/bio_b64.c
 libcrypto_la_SOURCES += evp/bio_enc.c
 libcrypto_la_SOURCES += evp/bio_md.c
 libcrypto_la_SOURCES += evp/e_aes.c
-libcrypto_la_SOURCES += evp/e_aes_cbc_hmac_sha1.c
 libcrypto_la_SOURCES += evp/e_bf.c
 libcrypto_la_SOURCES += evp/e_camellia.c
 libcrypto_la_SOURCES += evp/e_cast.c
@@ -608,12 +609,10 @@ libcrypto_la_SOURCES += evp/e_chacha.c
 libcrypto_la_SOURCES += evp/e_chacha20poly1305.c
 libcrypto_la_SOURCES += evp/e_des.c
 libcrypto_la_SOURCES += evp/e_des3.c
-libcrypto_la_SOURCES += evp/e_gost2814789.c
 libcrypto_la_SOURCES += evp/e_idea.c
 libcrypto_la_SOURCES += evp/e_null.c
 libcrypto_la_SOURCES += evp/e_rc2.c
 libcrypto_la_SOURCES += evp/e_rc4.c
-libcrypto_la_SOURCES += evp/e_rc4_hmac_md5.c
 libcrypto_la_SOURCES += evp/e_sm4.c
 libcrypto_la_SOURCES += evp/e_xcbc_d.c
 libcrypto_la_SOURCES += evp/evp_aead.c
@@ -625,8 +624,6 @@ libcrypto_la_SOURCES += evp/evp_key.c
 libcrypto_la_SOURCES += evp/evp_names.c
 libcrypto_la_SOURCES += evp/evp_pbe.c
 libcrypto_la_SOURCES += evp/evp_pkey.c
-libcrypto_la_SOURCES += evp/m_gost2814789.c
-libcrypto_la_SOURCES += evp/m_gostr341194.c
 libcrypto_la_SOURCES += evp/m_md4.c
 libcrypto_la_SOURCES += evp/m_md5.c
 libcrypto_la_SOURCES += evp/m_md5_sha1.c
@@ -635,7 +632,6 @@ libcrypto_la_SOURCES += evp/m_ripemd.c
 libcrypto_la_SOURCES += evp/m_sha1.c
 libcrypto_la_SOURCES += evp/m_sha3.c
 libcrypto_la_SOURCES += evp/m_sigver.c
-libcrypto_la_SOURCES += evp/m_streebog.c
 libcrypto_la_SOURCES += evp/m_sm3.c
 libcrypto_la_SOURCES += evp/m_wp.c
 libcrypto_la_SOURCES += evp/p_legacy.c
@@ -646,24 +642,6 @@ libcrypto_la_SOURCES += evp/pmeth_fn.c
 libcrypto_la_SOURCES += evp/pmeth_gn.c
 libcrypto_la_SOURCES += evp/pmeth_lib.c
 noinst_HEADERS += evp/evp_local.h
-
-# gost
-libcrypto_la_SOURCES += gost/gost2814789.c
-libcrypto_la_SOURCES += gost/gost89_keywrap.c
-libcrypto_la_SOURCES += gost/gost89_params.c
-libcrypto_la_SOURCES += gost/gost89imit_ameth.c
-libcrypto_la_SOURCES += gost/gost89imit_pmeth.c
-libcrypto_la_SOURCES += gost/gost_asn1.c
-libcrypto_la_SOURCES += gost/gost_err.c
-libcrypto_la_SOURCES += gost/gostr341001.c
-libcrypto_la_SOURCES += gost/gostr341001_ameth.c
-libcrypto_la_SOURCES += gost/gostr341001_key.c
-libcrypto_la_SOURCES += gost/gostr341001_params.c
-libcrypto_la_SOURCES += gost/gostr341001_pmeth.c
-libcrypto_la_SOURCES += gost/gostr341194.c
-libcrypto_la_SOURCES += gost/streebog.c
-noinst_HEADERS += gost/gost_asn1.h
-noinst_HEADERS += gost/gost_local.h
 
 # hidden
 noinst_HEADERS += hidden/crypto_namespace.h
@@ -684,7 +662,6 @@ noinst_HEADERS += hidden/openssl/dh.h
 noinst_HEADERS += hidden/openssl/dsa.h
 noinst_HEADERS += hidden/openssl/ec.h
 noinst_HEADERS += hidden/openssl/err.h
-noinst_HEADERS += hidden/openssl/gost.h
 noinst_HEADERS += hidden/openssl/hkdf.h
 noinst_HEADERS += hidden/openssl/hmac.h
 noinst_HEADERS += hidden/openssl/idea.h
@@ -735,8 +712,8 @@ libcrypto_la_SOURCES += kdf/hkdf_evp.c
 libcrypto_la_SOURCES += kdf/kdf_err.c
 
 # lhash
-libcrypto_la_SOURCES += lhash/lh_stats.c
 libcrypto_la_SOURCES += lhash/lhash.c
+noinst_HEADERS += lhash/lhash_local.h
 
 # md4
 libcrypto_la_SOURCES += md4/md4.c
@@ -873,6 +850,7 @@ libcrypto_la_SOURCES += sm4/sm4.c
 
 # stack
 libcrypto_la_SOURCES += stack/stack.c
+noinst_HEADERS += stack/stack_local.h
 
 # ts
 libcrypto_la_SOURCES += ts/ts_asn1.c

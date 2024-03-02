@@ -415,11 +415,6 @@ add_executable(gcm128test gcm128test.c)
 target_link_libraries(gcm128test ${OPENSSL_TEST_LIBS})
 add_test(gcm128test gcm128test)
 
-# gost2814789t
-add_executable(gost2814789t gost2814789t.c)
-target_link_libraries(gost2814789t ${OPENSSL_TEST_LIBS})
-add_test(gost2814789t gost2814789t)
-
 # handshake_table
 add_executable(handshake_table handshake_table.c)
 target_link_libraries(handshake_table ${OPENSSL_TEST_LIBS})

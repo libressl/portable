@@ -274,9 +274,6 @@ BIO_new.3,BIO_free_all.3
 BIO_new.3,BIO_set.3
 BIO_new.3,BIO_up_ref.3
 BIO_new.3,BIO_vfree.3
-BIO_printf.3,BIO_snprintf.3
-BIO_printf.3,BIO_vprintf.3
-BIO_printf.3,BIO_vsnprintf.3
 BIO_push.3,BIO_pop.3
 BIO_push.3,BIO_set_next.3
 BIO_read.3,BIO_gets.3
@@ -461,7 +458,6 @@ CMAC_Init.3,CMAC_CTX_get0_cipher_ctx.3
 CMAC_Init.3,CMAC_CTX_new.3
 CMAC_Init.3,CMAC_Final.3
 CMAC_Init.3,CMAC_Update.3
-CMAC_Init.3,CMAC_resume.3
 CMS_ContentInfo_new.3,CMS_ContentInfo_free.3
 CMS_ContentInfo_new.3,CMS_ContentInfo_print_ctx.3
 CMS_ContentInfo_new.3,CMS_ReceiptRequest_free.3
@@ -2800,11 +2796,6 @@ lh_new.3,lh_free.3
 lh_new.3,lh_insert.3
 lh_new.3,lh_retrieve.3
 lh_new.3,lh_strhash.3
-lh_stats.3,lh_node_stats.3
-lh_stats.3,lh_node_stats_bio.3
-lh_stats.3,lh_node_usage_stats.3
-lh_stats.3,lh_node_usage_stats_bio.3
-lh_stats.3,lh_stats_bio.3
 s2i_ASN1_INTEGER.3,i2s_ASN1_ENUMERATED.3
 s2i_ASN1_INTEGER.3,i2s_ASN1_ENUMERATED_TABLE.3
 s2i_ASN1_INTEGER.3,i2s_ASN1_INTEGER.3

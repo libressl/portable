@@ -277,7 +277,6 @@ set(
 	asn1/a_time_tm.c
 	asn1/a_type.c
 	asn1/a_utf8.c
-	asn1/ameth_lib.c
 	asn1/asn1_err.c
 	asn1/asn1_gen.c
 	asn1/asn1_item.c
@@ -488,7 +487,6 @@ set(
 	evp/bio_enc.c
 	evp/bio_md.c
 	evp/e_aes.c
-	evp/e_aes_cbc_hmac_sha1.c
 	evp/e_bf.c
 	evp/e_camellia.c
 	evp/e_cast.c
@@ -496,12 +494,10 @@ set(
 	evp/e_chacha20poly1305.c
 	evp/e_des.c
 	evp/e_des3.c
-	evp/e_gost2814789.c
 	evp/e_idea.c
 	evp/e_null.c
 	evp/e_rc2.c
 	evp/e_rc4.c
-	evp/e_rc4_hmac_md5.c
 	evp/e_sm4.c
 	evp/e_xcbc_d.c
 	evp/evp_aead.c
@@ -513,8 +509,6 @@ set(
 	evp/evp_names.c
 	evp/evp_pbe.c
 	evp/evp_pkey.c
-	evp/m_gost2814789.c
-	evp/m_gostr341194.c
 	evp/m_md4.c
 	evp/m_md5.c
 	evp/m_md5_sha1.c
@@ -523,7 +517,6 @@ set(
 	evp/m_sha1.c
 	evp/m_sha3.c
 	evp/m_sigver.c
-	evp/m_streebog.c
 	evp/m_sm3.c
 	evp/m_wp.c
 	evp/p_legacy.c
@@ -533,20 +526,6 @@ set(
 	evp/pmeth_fn.c
 	evp/pmeth_gn.c
 	evp/pmeth_lib.c
-	gost/gost2814789.c
-	gost/gost89_keywrap.c
-	gost/gost89_params.c
-	gost/gost89imit_ameth.c
-	gost/gost89imit_pmeth.c
-	gost/gost_asn1.c
-	gost/gost_err.c
-	gost/gostr341001.c
-	gost/gostr341001_ameth.c
-	gost/gostr341001_key.c
-	gost/gostr341001_params.c
-	gost/gostr341001_pmeth.c
-	gost/gostr341194.c
-	gost/streebog.c
 	hkdf/hkdf.c
 	hmac/hm_ameth.c
 	hmac/hm_pmeth.c
@@ -558,7 +537,6 @@ set(
 	idea/i_skey.c
 	kdf/hkdf_evp.c
 	kdf/kdf_err.c
-	lhash/lh_stats.c
 	lhash/lhash.c
 	md4/md4.c
 	md5/md5.c
@@ -899,11 +877,13 @@ target_include_directories(crypto_obj
 		evp
 		hidden
 		hmac
+		lhash
 		modes
 		ocsp
 		pkcs12
 		rsa
 		sha
+		stack
 		x509
 		../include/compat
 	PUBLIC

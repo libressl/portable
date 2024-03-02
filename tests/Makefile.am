@@ -434,11 +434,6 @@ TESTS += gcm128test
 check_PROGRAMS += gcm128test
 gcm128test_SOURCES = gcm128test.c
 
-# gost2814789t
-TESTS += gost2814789t
-check_PROGRAMS += gost2814789t
-gost2814789t_SOURCES = gost2814789t.c
-
 # handshake_table
 TESTS += handshake_table
 check_PROGRAMS += handshake_table

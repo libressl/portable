@@ -35,6 +35,9 @@ LibreSSL Portable Release Notes:
 	  - Most compatibility symbols are prefixed with libressl_ to avoid
 	    symbol clashes in static links.
 	  - Fixed various warnings on Windows.
+	  - Disabled assert pop-ups with debug builds on Windows.
+	  - Fixed asserts and hangs in Windows ARM64 builds.
+	  - Fixed issues building where CET is not supported.
 	* Internal improvements
 	  - Converted uses of OBJ_bsearch_() to standard bsearch().
 	  - Greatly simplified by_file_ctrl().

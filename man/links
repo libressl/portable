@@ -522,10 +522,6 @@ CRYPTO_get_mem_functions.3,CRYPTO_mem_leaks.3
 CRYPTO_get_mem_functions.3,CRYPTO_mem_leaks_cb.3
 CRYPTO_get_mem_functions.3,CRYPTO_mem_leaks_fp.3
 CRYPTO_get_mem_functions.3,CRYPTO_set_mem_functions.3
-CRYPTO_lock.3,CRYPTO_THREADID_cmp.3
-CRYPTO_lock.3,CRYPTO_THREADID_cpy.3
-CRYPTO_lock.3,CRYPTO_THREADID_current.3
-CRYPTO_lock.3,CRYPTO_THREADID_hash.3
 CRYPTO_lock.3,CRYPTO_add.3
 CRYPTO_lock.3,CRYPTO_r_lock.3
 CRYPTO_lock.3,CRYPTO_r_unlock.3
@@ -1124,11 +1120,6 @@ EVP_SignInit.3,EVP_SignUpdate.3
 EVP_VerifyInit.3,EVP_VerifyFinal.3
 EVP_VerifyInit.3,EVP_VerifyInit_ex.3
 EVP_VerifyInit.3,EVP_VerifyUpdate.3
-EVP_add_cipher.3,EVP_add_cipher_alias.3
-EVP_add_cipher.3,EVP_add_digest.3
-EVP_add_cipher.3,EVP_add_digest_alias.3
-EVP_add_cipher.3,EVP_delete_cipher_alias.3
-EVP_add_cipher.3,EVP_delete_digest_alias.3
 EVP_aes_128_cbc.3,EVP_aes_128_cbc_hmac_sha1.3
 EVP_aes_128_cbc.3,EVP_aes_128_ccm.3
 EVP_aes_128_cbc.3,EVP_aes_128_cfb.3
@@ -1365,7 +1356,6 @@ OPENSSL_sk_new.3,sk_delete.3
 OPENSSL_sk_new.3,sk_delete_ptr.3
 OPENSSL_sk_new.3,sk_dup.3
 OPENSSL_sk_new.3,sk_find.3
-OPENSSL_sk_new.3,sk_find_ex.3
 OPENSSL_sk_new.3,sk_free.3
 OPENSSL_sk_new.3,sk_insert.3
 OPENSSL_sk_new.3,sk_is_sorted.3
@@ -2253,6 +2243,7 @@ X509_STORE_set1_param.3,X509_STORE_add_cert.3
 X509_STORE_set1_param.3,X509_STORE_add_crl.3
 X509_STORE_set1_param.3,X509_STORE_get0_objects.3
 X509_STORE_set1_param.3,X509_STORE_get0_param.3
+X509_STORE_set1_param.3,X509_STORE_get1_objects.3
 X509_STORE_set1_param.3,X509_STORE_get_ex_data.3
 X509_STORE_set1_param.3,X509_STORE_get_ex_new_index.3
 X509_STORE_set1_param.3,X509_STORE_set_depth.3

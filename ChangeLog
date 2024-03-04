@@ -63,12 +63,24 @@ LibreSSL Portable Release Notes:
 	    strings table entries, ASN.1 methods, PKEY methods, digest methods,
 	    CRL methods, purpose and trust identifiers, or X.509 extensions.
 	  - Removed the _cb() and _fp() versions of BIO_dump{,_indent}().
+	  - BIO_set() was removed.
+	  - BIO_{sn,v,vsn}printf() were removed.
 	  - Turn the long dysfunctional openssl(1) s_client -pause into a noop.
 	  - openssl(1) x509 now supports -new -force_pubkey, -multivalue-rdn,
 	    -set_issuer, -set_subject, and -utf8.
 	  - Support ECDSA with SHA-3 signature algorithms.
 	  - Support HMAC with truncated SHA-2 and SHA-3 as PBE PRF.
-	  - GOST and STREEBOG support was removed from libssl.
+	  - GOST and STREEBOG support was removed.
+	  - CRYPTO_THREADID, _LHASH, _STACK, X509_PURPOSE are now opaque,
+	    X509_CERT_AUX and X509_TRUST were removed from the public API.
+	  - ASN1_STRING_TABLE_get() and X509_PURPOSE_get0*() now return const
+	    pointers.
+	  - EVP_{CIPHER,MD}_CTX_init()'s signatures and semantics now match
+	    OpenSSL's behavior.
+	  - sk_find_ex() and OBJ_bsearch_() were removed.
+	  - CRYPTO_malloc() was fixed to use size_t argument.  CRYPTO_malloc()
+	    and CRYPTO_free() now accept file and line arguments.
+	  - A lot of decrepit CRYPTO memory API was removed.
 	* Bug fixes
 	  - Fixed aliasing issues in BN_mod_exp_simple() and BN_mod_exp_recp().
 	  - Fixed numerous misuses of X509_ALGOR_set0() resulting in leaks and

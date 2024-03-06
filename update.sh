@@ -240,7 +240,8 @@ gen_asm() {
 setup_asm_generator() {
 	rm -fr $asm_src
 	cp -a $libcrypto_src $asm_src
-	patch -d $asm_src -p0 < patches/asm/endbr64.patch
+	patch -d $asm_src -p4 < patches/asm/0001-Add-a-few-missing-endbr64-to-libcrypto.patch
+	patch -d $asm_src -p4 < patches/asm/0001-Replace-uses-of-endbr64-with-_CET_ENDBR-from-cet.h.patch
 	patch -d $asm_src -p4 < patches/asm/masm-align-64.patch
 }
 

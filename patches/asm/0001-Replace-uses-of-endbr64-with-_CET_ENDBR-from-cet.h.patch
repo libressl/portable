@@ -1,42 +1,51 @@
-Replace uses of endbr64 with _CET_ENDBR from cet.h
+From c10c5b524e3121f42c9239d737dd7f975638f378 Mon Sep 17 00:00:00 2001
+From: tb <>
+Date: Sat, 24 Feb 2024 15:30:14 +0000
+Subject: [PATCH] Replace uses of endbr64 with _CET_ENDBR from cet.h
 
 cet.h is needed for other platforms to emit the relevant .gnu.properties
 sections that are necessary for them to enable IBT. It also avoids issues
 with older toolchains on macOS that explode on encountering endbr64.
 
 based on a diff by kettenis
-ok beck kettenis tb
+ok beck kettenis
+---
+ src/lib/libcrypto/aes/asm/aes-x86_64.pl       | 26 +++++++--------
+ .../libcrypto/aes/asm/aesni-sha1-x86_64.pl    |  8 ++---
+ src/lib/libcrypto/aes/asm/aesni-x86_64.pl     | 32 +++++++++----------
+ src/lib/libcrypto/aes/asm/bsaes-x86_64.pl     | 28 ++++++++--------
+ src/lib/libcrypto/aes/asm/vpaes-x86_64.pl     | 28 ++++++++--------
+ src/lib/libcrypto/bn/arch/amd64/bignum_add.S  |  2 +-
+ .../libcrypto/bn/arch/amd64/bignum_cmadd.S    |  2 +-
+ src/lib/libcrypto/bn/arch/amd64/bignum_cmul.S |  2 +-
+ src/lib/libcrypto/bn/arch/amd64/bignum_mul.S  |  2 +-
+ .../bn/arch/amd64/bignum_mul_4_8_alt.S        |  2 +-
+ .../bn/arch/amd64/bignum_mul_8_16_alt.S       |  2 +-
+ src/lib/libcrypto/bn/arch/amd64/bignum_sqr.S  |  2 +-
+ .../bn/arch/amd64/bignum_sqr_4_8_alt.S        |  2 +-
+ .../bn/arch/amd64/bignum_sqr_8_16_alt.S       |  2 +-
+ src/lib/libcrypto/bn/arch/amd64/bignum_sub.S  |  2 +-
+ src/lib/libcrypto/bn/arch/amd64/word_clz.S    |  2 +-
+ src/lib/libcrypto/bn/asm/modexp512-x86_64.pl  | 10 +++---
+ src/lib/libcrypto/bn/asm/x86_64-mont.pl       |  6 ++--
+ src/lib/libcrypto/bn/asm/x86_64-mont5.pl      | 10 +++---
+ src/lib/libcrypto/bn/s2n_bignum_internal.h    |  6 ++++
+ src/lib/libcrypto/camellia/asm/cmll-x86_64.pl | 16 +++++-----
+ src/lib/libcrypto/md5/asm/md5-x86_64.pl       |  2 +-
+ src/lib/libcrypto/modes/asm/ghash-x86_64.pl   |  8 ++---
+ src/lib/libcrypto/perlasm/x86_64-xlate.pl     | 16 ++++++++++
+ src/lib/libcrypto/rc4/asm/rc4-md5-x86_64.pl   |  4 +--
+ src/lib/libcrypto/rc4/asm/rc4-x86_64.pl       |  4 +--
+ src/lib/libcrypto/sha/asm/sha1-x86_64.pl      |  8 ++---
+ src/lib/libcrypto/sha/asm/sha512-x86_64.pl    |  2 +-
+ src/lib/libcrypto/whrlpool/asm/wp-x86_64.pl   |  2 +-
+ src/lib/libcrypto/x86_64cpuid.pl              |  4 +--
+ 30 files changed, 132 insertions(+), 110 deletions(-)
 
-Index: x86_64cpuid.pl
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/x86_64cpuid.pl,v
-diff -u -p -r1.15 x86_64cpuid.pl
---- x86_64cpuid.pl	25 Apr 2023 04:42:25 -0000	1.15
-+++ x86_64cpuid.pl	3 Dec 2023 20:18:30 -0000
-@@ -18,7 +18,7 @@ print<<___;
- .extern		OPENSSL_cpuid_setup
- .hidden		OPENSSL_cpuid_setup
- .section	.init
--	endbr64
-+	_CET_ENDBR
- 	call	OPENSSL_cpuid_setup
- 
- .extern	OPENSSL_ia32cap_P
-@@ -30,7 +30,7 @@ print<<___;
- .type	OPENSSL_ia32_cpuid,\@abi-omnipotent
- .align	16
- OPENSSL_ia32_cpuid:
--	endbr64
-+	_CET_ENDBR
- 	mov	%rbx,%r8		# save %rbx
- 
- 	xor	%eax,%eax
-Index: aes/asm/aes-x86_64.pl
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/aes/asm/aes-x86_64.pl,v
-diff -u -p -r1.12 aes-x86_64.pl
---- aes/asm/aes-x86_64.pl	25 Apr 2023 04:42:25 -0000	1.12
-+++ aes/asm/aes-x86_64.pl	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/aes/asm/aes-x86_64.pl b/src/lib/libcrypto/aes/asm/aes-x86_64.pl
+index 78ba20ca5..299214800 100755
+--- a/src/lib/libcrypto/aes/asm/aes-x86_64.pl
++++ b/src/lib/libcrypto/aes/asm/aes-x86_64.pl
 @@ -318,7 +318,7 @@ $code.=<<___;
  .type	_x86_64_AES_encrypt,\@abi-omnipotent
  .align	16
@@ -154,12 +163,10 @@ diff -u -p -r1.12 aes-x86_64.pl
  	push	%rsi
  	push	%rdi
  	push	%rbx
-Index: aes/asm/aesni-sha1-x86_64.pl
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/aes/asm/aesni-sha1-x86_64.pl,v
-diff -u -p -r1.8 aesni-sha1-x86_64.pl
---- aes/asm/aesni-sha1-x86_64.pl	25 Apr 2023 04:42:26 -0000	1.8
-+++ aes/asm/aesni-sha1-x86_64.pl	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/aes/asm/aesni-sha1-x86_64.pl b/src/lib/libcrypto/aes/asm/aesni-sha1-x86_64.pl
+index 879d16793..5eb5b7bf6 100644
+--- a/src/lib/libcrypto/aes/asm/aesni-sha1-x86_64.pl
++++ b/src/lib/libcrypto/aes/asm/aesni-sha1-x86_64.pl
 @@ -89,7 +89,7 @@ $code.=<<___;
  .type	aesni_cbc_sha1_enc,\@abi-omnipotent
  .align	16
@@ -196,12 +203,10 @@ diff -u -p -r1.8 aesni-sha1-x86_64.pl
  	push	%rsi
  	push	%rdi
  	push	%rbx
-Index: aes/asm/aesni-x86_64.pl
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/aes/asm/aesni-x86_64.pl,v
-diff -u -p -r1.12 aesni-x86_64.pl
---- aes/asm/aesni-x86_64.pl	18 Sep 2023 22:38:16 -0000	1.12
-+++ aes/asm/aesni-x86_64.pl	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/aes/asm/aesni-x86_64.pl b/src/lib/libcrypto/aes/asm/aesni-x86_64.pl
+index 07d40a84a..43013a51f 100644
+--- a/src/lib/libcrypto/aes/asm/aesni-x86_64.pl
++++ b/src/lib/libcrypto/aes/asm/aesni-x86_64.pl
 @@ -242,7 +242,7 @@ $code.=<<___;
  .type	${PREFIX}_encrypt,\@abi-omnipotent
  .align	16
@@ -346,12 +351,10 @@ diff -u -p -r1.12 aesni-x86_64.pl
  	push	%rsi
  	push	%rdi
  	push	%rbx
-Index: aes/asm/bsaes-x86_64.pl
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/aes/asm/bsaes-x86_64.pl,v
-diff -u -p -r1.6 bsaes-x86_64.pl
---- aes/asm/bsaes-x86_64.pl	25 Apr 2023 04:42:26 -0000	1.6
-+++ aes/asm/bsaes-x86_64.pl	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/aes/asm/bsaes-x86_64.pl b/src/lib/libcrypto/aes/asm/bsaes-x86_64.pl
+index 7098ba27f..c44a33811 100644
+--- a/src/lib/libcrypto/aes/asm/bsaes-x86_64.pl
++++ b/src/lib/libcrypto/aes/asm/bsaes-x86_64.pl
 @@ -813,7 +813,7 @@ $code.=<<___;
  .type	_bsaes_encrypt8,\@abi-omnipotent
  .align	64
@@ -478,12 +481,10 @@ diff -u -p -r1.6 bsaes-x86_64.pl
  	push	%rsi
  	push	%rdi
  	push	%rbx
-Index: aes/asm/vpaes-x86_64.pl
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/aes/asm/vpaes-x86_64.pl,v
-diff -u -p -r1.5 vpaes-x86_64.pl
---- aes/asm/vpaes-x86_64.pl	25 Apr 2023 04:42:26 -0000	1.5
-+++ aes/asm/vpaes-x86_64.pl	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/aes/asm/vpaes-x86_64.pl b/src/lib/libcrypto/aes/asm/vpaes-x86_64.pl
+index 8ff8d8602..7d92e8d8c 100644
+--- a/src/lib/libcrypto/aes/asm/vpaes-x86_64.pl
++++ b/src/lib/libcrypto/aes/asm/vpaes-x86_64.pl
 @@ -82,7 +82,7 @@ $code.=<<___;
  .type	_vpaes_encrypt_core,\@abi-omnipotent
  .align 16
@@ -610,31 +611,10 @@ diff -u -p -r1.5 vpaes-x86_64.pl
  	push	%rsi
  	push	%rdi
  	push	%rbx
-Index: bn/s2n_bignum_internal.h
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/bn/s2n_bignum_internal.h,v
-diff -u -p -r1.2 s2n_bignum_internal.h
---- bn/s2n_bignum_internal.h	21 Jan 2023 15:53:54 -0000	1.2
-+++ bn/s2n_bignum_internal.h	3 Dec 2023 20:22:18 -0000
-@@ -18,6 +18,12 @@
- #   define S2N_BN_SYMBOL(name) name
- #endif
- 
-+#ifdef __CET__
-+#   include <cet.h>
-+#else
-+#   define _CET_ENDBR
-+#endif
-+
- #define S2N_BN_SYM_VISIBILITY_DIRECTIVE(name) .globl S2N_BN_SYMBOL(name)
- #ifdef S2N_BN_HIDE_SYMBOLS
- #   ifdef __APPLE__
-Index: bn/arch/amd64/bignum_add.S
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/bn/arch/amd64/bignum_add.S,v
-diff -u -p -r1.4 bignum_add.S
---- bn/arch/amd64/bignum_add.S	25 Apr 2023 04:42:26 -0000	1.4
-+++ bn/arch/amd64/bignum_add.S	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/bn/arch/amd64/bignum_add.S b/src/lib/libcrypto/bn/arch/amd64/bignum_add.S
+index 06298ca69..5fe4aae7a 100644
+--- a/src/lib/libcrypto/bn/arch/amd64/bignum_add.S
++++ b/src/lib/libcrypto/bn/arch/amd64/bignum_add.S
 @@ -49,7 +49,7 @@
  
  
@@ -644,12 +624,10 @@ diff -u -p -r1.4 bignum_add.S
  
  #if WINDOWS_ABI
          push    rdi
-Index: bn/arch/amd64/bignum_cmadd.S
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/bn/arch/amd64/bignum_cmadd.S,v
-diff -u -p -r1.4 bignum_cmadd.S
---- bn/arch/amd64/bignum_cmadd.S	25 Apr 2023 04:42:26 -0000	1.4
-+++ bn/arch/amd64/bignum_cmadd.S	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/bn/arch/amd64/bignum_cmadd.S b/src/lib/libcrypto/bn/arch/amd64/bignum_cmadd.S
+index 5ad712749..25ba17bce 100644
+--- a/src/lib/libcrypto/bn/arch/amd64/bignum_cmadd.S
++++ b/src/lib/libcrypto/bn/arch/amd64/bignum_cmadd.S
 @@ -54,7 +54,7 @@
  
  
@@ -659,12 +637,10 @@ diff -u -p -r1.4 bignum_cmadd.S
  
  #if WINDOWS_ABI
          push    rdi
-Index: bn/arch/amd64/bignum_cmul.S
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/bn/arch/amd64/bignum_cmul.S,v
-diff -u -p -r1.4 bignum_cmul.S
---- bn/arch/amd64/bignum_cmul.S	25 Apr 2023 04:42:26 -0000	1.4
-+++ bn/arch/amd64/bignum_cmul.S	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/bn/arch/amd64/bignum_cmul.S b/src/lib/libcrypto/bn/arch/amd64/bignum_cmul.S
+index 9199c8f48..12f785d63 100644
+--- a/src/lib/libcrypto/bn/arch/amd64/bignum_cmul.S
++++ b/src/lib/libcrypto/bn/arch/amd64/bignum_cmul.S
 @@ -51,7 +51,7 @@
  
  
@@ -674,12 +650,10 @@ diff -u -p -r1.4 bignum_cmul.S
  
  #if WINDOWS_ABI
          push    rdi
-Index: bn/arch/amd64/bignum_mul.S
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/bn/arch/amd64/bignum_mul.S,v
-diff -u -p -r1.4 bignum_mul.S
---- bn/arch/amd64/bignum_mul.S	25 Apr 2023 04:42:26 -0000	1.4
-+++ bn/arch/amd64/bignum_mul.S	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/bn/arch/amd64/bignum_mul.S b/src/lib/libcrypto/bn/arch/amd64/bignum_mul.S
+index 2d7ed1909..a3552679a 100644
+--- a/src/lib/libcrypto/bn/arch/amd64/bignum_mul.S
++++ b/src/lib/libcrypto/bn/arch/amd64/bignum_mul.S
 @@ -59,7 +59,7 @@
  
  
@@ -689,12 +663,10 @@ diff -u -p -r1.4 bignum_mul.S
  
  #if WINDOWS_ABI
          push    rdi
-Index: bn/arch/amd64/bignum_mul_4_8_alt.S
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/bn/arch/amd64/bignum_mul_4_8_alt.S,v
-diff -u -p -r1.4 bignum_mul_4_8_alt.S
---- bn/arch/amd64/bignum_mul_4_8_alt.S	25 Apr 2023 04:42:26 -0000	1.4
-+++ bn/arch/amd64/bignum_mul_4_8_alt.S	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/bn/arch/amd64/bignum_mul_4_8_alt.S b/src/lib/libcrypto/bn/arch/amd64/bignum_mul_4_8_alt.S
+index f02b09b28..70ff69e37 100644
+--- a/src/lib/libcrypto/bn/arch/amd64/bignum_mul_4_8_alt.S
++++ b/src/lib/libcrypto/bn/arch/amd64/bignum_mul_4_8_alt.S
 @@ -72,7 +72,7 @@
          adc     h, rdx
  
@@ -704,12 +676,10 @@ diff -u -p -r1.4 bignum_mul_4_8_alt.S
  
  #if WINDOWS_ABI
          push    rdi
-Index: bn/arch/amd64/bignum_mul_8_16_alt.S
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/bn/arch/amd64/bignum_mul_8_16_alt.S,v
-diff -u -p -r1.4 bignum_mul_8_16_alt.S
---- bn/arch/amd64/bignum_mul_8_16_alt.S	25 Apr 2023 04:42:26 -0000	1.4
-+++ bn/arch/amd64/bignum_mul_8_16_alt.S	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/bn/arch/amd64/bignum_mul_8_16_alt.S b/src/lib/libcrypto/bn/arch/amd64/bignum_mul_8_16_alt.S
+index 97be83e1f..066403b07 100644
+--- a/src/lib/libcrypto/bn/arch/amd64/bignum_mul_8_16_alt.S
++++ b/src/lib/libcrypto/bn/arch/amd64/bignum_mul_8_16_alt.S
 @@ -72,7 +72,7 @@
          adc     h, rdx
  
@@ -719,12 +689,10 @@ diff -u -p -r1.4 bignum_mul_8_16_alt.S
  
  #if WINDOWS_ABI
          push    rdi
-Index: bn/arch/amd64/bignum_sqr.S
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/bn/arch/amd64/bignum_sqr.S,v
-diff -u -p -r1.4 bignum_sqr.S
---- bn/arch/amd64/bignum_sqr.S	25 Apr 2023 04:42:26 -0000	1.4
-+++ bn/arch/amd64/bignum_sqr.S	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/bn/arch/amd64/bignum_sqr.S b/src/lib/libcrypto/bn/arch/amd64/bignum_sqr.S
+index c4a0cabf3..54e3f5944 100644
+--- a/src/lib/libcrypto/bn/arch/amd64/bignum_sqr.S
++++ b/src/lib/libcrypto/bn/arch/amd64/bignum_sqr.S
 @@ -62,7 +62,7 @@
  #define llshort ebp
  
@@ -734,12 +702,10 @@ diff -u -p -r1.4 bignum_sqr.S
  
  #if WINDOWS_ABI
          push    rdi
-Index: bn/arch/amd64/bignum_sqr_4_8_alt.S
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/bn/arch/amd64/bignum_sqr_4_8_alt.S,v
-diff -u -p -r1.4 bignum_sqr_4_8_alt.S
---- bn/arch/amd64/bignum_sqr_4_8_alt.S	25 Apr 2023 04:42:26 -0000	1.4
-+++ bn/arch/amd64/bignum_sqr_4_8_alt.S	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/bn/arch/amd64/bignum_sqr_4_8_alt.S b/src/lib/libcrypto/bn/arch/amd64/bignum_sqr_4_8_alt.S
+index b228414dc..7c534ae90 100644
+--- a/src/lib/libcrypto/bn/arch/amd64/bignum_sqr_4_8_alt.S
++++ b/src/lib/libcrypto/bn/arch/amd64/bignum_sqr_4_8_alt.S
 @@ -71,7 +71,7 @@
          adc     c, 0
  
@@ -749,12 +715,10 @@ diff -u -p -r1.4 bignum_sqr_4_8_alt.S
  
  #if WINDOWS_ABI
          push    rdi
-Index: bn/arch/amd64/bignum_sqr_8_16_alt.S
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/bn/arch/amd64/bignum_sqr_8_16_alt.S,v
-diff -u -p -r1.4 bignum_sqr_8_16_alt.S
---- bn/arch/amd64/bignum_sqr_8_16_alt.S	25 Apr 2023 04:42:26 -0000	1.4
-+++ bn/arch/amd64/bignum_sqr_8_16_alt.S	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/bn/arch/amd64/bignum_sqr_8_16_alt.S b/src/lib/libcrypto/bn/arch/amd64/bignum_sqr_8_16_alt.S
+index 04efeec7e..ac0b6f96c 100644
+--- a/src/lib/libcrypto/bn/arch/amd64/bignum_sqr_8_16_alt.S
++++ b/src/lib/libcrypto/bn/arch/amd64/bignum_sqr_8_16_alt.S
 @@ -103,7 +103,7 @@
          adc     c, 0
  
@@ -764,12 +728,10 @@ diff -u -p -r1.4 bignum_sqr_8_16_alt.S
  
  #if WINDOWS_ABI
          push    rdi
-Index: bn/arch/amd64/bignum_sub.S
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/bn/arch/amd64/bignum_sub.S,v
-diff -u -p -r1.4 bignum_sub.S
---- bn/arch/amd64/bignum_sub.S	25 Apr 2023 04:42:26 -0000	1.4
-+++ bn/arch/amd64/bignum_sub.S	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/bn/arch/amd64/bignum_sub.S b/src/lib/libcrypto/bn/arch/amd64/bignum_sub.S
+index 11a9bd7ed..3ff8a3051 100644
+--- a/src/lib/libcrypto/bn/arch/amd64/bignum_sub.S
++++ b/src/lib/libcrypto/bn/arch/amd64/bignum_sub.S
 @@ -49,7 +49,7 @@
  
  
@@ -779,12 +741,10 @@ diff -u -p -r1.4 bignum_sub.S
  
  #if WINDOWS_ABI
          push    rdi
-Index: bn/arch/amd64/word_clz.S
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/bn/arch/amd64/word_clz.S,v
-diff -u -p -r1.4 word_clz.S
---- bn/arch/amd64/word_clz.S	25 Apr 2023 04:42:26 -0000	1.4
-+++ bn/arch/amd64/word_clz.S	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/bn/arch/amd64/word_clz.S b/src/lib/libcrypto/bn/arch/amd64/word_clz.S
+index 464a9d90f..3926fcd4b 100644
+--- a/src/lib/libcrypto/bn/arch/amd64/word_clz.S
++++ b/src/lib/libcrypto/bn/arch/amd64/word_clz.S
 @@ -30,7 +30,7 @@
          .text
  
@@ -794,12 +754,10 @@ diff -u -p -r1.4 word_clz.S
  
  #if WINDOWS_ABI
          push    rdi
-Index: bn/asm/modexp512-x86_64.pl
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/bn/asm/modexp512-x86_64.pl,v
-diff -u -p -r1.4 modexp512-x86_64.pl
---- bn/asm/modexp512-x86_64.pl	25 Apr 2023 04:42:26 -0000	1.4
-+++ bn/asm/modexp512-x86_64.pl	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/bn/asm/modexp512-x86_64.pl b/src/lib/libcrypto/bn/asm/modexp512-x86_64.pl
+index af78fff54..8645d5adc 100644
+--- a/src/lib/libcrypto/bn/asm/modexp512-x86_64.pl
++++ b/src/lib/libcrypto/bn/asm/modexp512-x86_64.pl
 @@ -347,7 +347,7 @@ $code.=<<___;
  .type	MULADD_128x512,\@abi-omnipotent
  .align	16
@@ -845,12 +803,10 @@ diff -u -p -r1.4 modexp512-x86_64.pl
  	 push	%rbp
  	 push	%rbx
  	 push	%r12
-Index: bn/asm/x86_64-mont.pl
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/bn/asm/x86_64-mont.pl,v
-diff -u -p -r1.5 x86_64-mont.pl
---- bn/asm/x86_64-mont.pl	25 Apr 2023 04:42:26 -0000	1.5
-+++ bn/asm/x86_64-mont.pl	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/bn/asm/x86_64-mont.pl b/src/lib/libcrypto/bn/asm/x86_64-mont.pl
+index 6f5ab331e..30cfab4fc 100755
+--- a/src/lib/libcrypto/bn/asm/x86_64-mont.pl
++++ b/src/lib/libcrypto/bn/asm/x86_64-mont.pl
 @@ -63,7 +63,7 @@ $code=<<___;
  .type	bn_mul_mont,\@function,6
  .align	16
@@ -878,12 +834,10 @@ diff -u -p -r1.5 x86_64-mont.pl
  	push	%rbx
  	push	%rbp
  	push	%r12
-Index: bn/asm/x86_64-mont5.pl
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/bn/asm/x86_64-mont5.pl,v
-diff -u -p -r1.8 x86_64-mont5.pl
---- bn/asm/x86_64-mont5.pl	25 Apr 2023 04:42:26 -0000	1.8
-+++ bn/asm/x86_64-mont5.pl	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/bn/asm/x86_64-mont5.pl b/src/lib/libcrypto/bn/asm/x86_64-mont5.pl
+index 3b3325a6c..38751ec5d 100755
+--- a/src/lib/libcrypto/bn/asm/x86_64-mont5.pl
++++ b/src/lib/libcrypto/bn/asm/x86_64-mont5.pl
 @@ -57,7 +57,7 @@ $code=<<___;
  .type	bn_mul_mont_gather5,\@function,6
  .align	64
@@ -929,12 +883,27 @@ diff -u -p -r1.8 x86_64-mont5.pl
  	push	%rsi
  	push	%rdi
  	push	%rbx
-Index: camellia/asm/cmll-x86_64.pl
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/camellia/asm/cmll-x86_64.pl,v
-diff -u -p -r1.7 cmll-x86_64.pl
---- camellia/asm/cmll-x86_64.pl	25 Apr 2023 04:42:26 -0000	1.7
-+++ camellia/asm/cmll-x86_64.pl	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/bn/s2n_bignum_internal.h b/src/lib/libcrypto/bn/s2n_bignum_internal.h
+index f41368833..b82db7d01 100644
+--- a/src/lib/libcrypto/bn/s2n_bignum_internal.h
++++ b/src/lib/libcrypto/bn/s2n_bignum_internal.h
+@@ -18,6 +18,12 @@
+ #   define S2N_BN_SYMBOL(name) name
+ #endif
+ 
++#ifdef __CET__
++#   include <cet.h>
++#else
++#   define _CET_ENDBR
++#endif
++
+ #define S2N_BN_SYM_VISIBILITY_DIRECTIVE(name) .globl S2N_BN_SYMBOL(name)
+ #ifdef S2N_BN_HIDE_SYMBOLS
+ #   ifdef __APPLE__
+diff --git a/src/lib/libcrypto/camellia/asm/cmll-x86_64.pl b/src/lib/libcrypto/camellia/asm/cmll-x86_64.pl
+index 3ceed3e89..187f0596d 100644
+--- a/src/lib/libcrypto/camellia/asm/cmll-x86_64.pl
++++ b/src/lib/libcrypto/camellia/asm/cmll-x86_64.pl
 @@ -116,7 +116,7 @@ $code=<<___;
  .type	Camellia_EncryptBlock,\@abi-omnipotent
  .align	16
@@ -1007,12 +976,10 @@ diff -u -p -r1.7 cmll-x86_64.pl
  	cmp	\$0,%rdx
  	je	.Lcbc_abort
  	push	%rbx
-Index: md5/asm/md5-x86_64.pl
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/md5/asm/md5-x86_64.pl,v
-diff -u -p -r1.3 md5-x86_64.pl
---- md5/asm/md5-x86_64.pl	25 Apr 2023 04:42:26 -0000	1.3
-+++ md5/asm/md5-x86_64.pl	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/md5/asm/md5-x86_64.pl b/src/lib/libcrypto/md5/asm/md5-x86_64.pl
+index 06d69094f..5001c3472 100755
+--- a/src/lib/libcrypto/md5/asm/md5-x86_64.pl
++++ b/src/lib/libcrypto/md5/asm/md5-x86_64.pl
 @@ -128,7 +128,7 @@ $code .= <<EOF;
  .globl md5_block_asm_data_order
  .type md5_block_asm_data_order,\@function,3
@@ -1022,12 +989,10 @@ diff -u -p -r1.3 md5-x86_64.pl
  	push	%rbp
  	push	%rbx
  	push	%r12
-Index: modes/asm/ghash-x86_64.pl
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/modes/asm/ghash-x86_64.pl,v
-diff -u -p -r1.5 ghash-x86_64.pl
---- modes/asm/ghash-x86_64.pl	25 Apr 2023 04:42:26 -0000	1.5
-+++ modes/asm/ghash-x86_64.pl	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/modes/asm/ghash-x86_64.pl b/src/lib/libcrypto/modes/asm/ghash-x86_64.pl
+index 4fded507c..f3caac15d 100644
+--- a/src/lib/libcrypto/modes/asm/ghash-x86_64.pl
++++ b/src/lib/libcrypto/modes/asm/ghash-x86_64.pl
 @@ -412,7 +412,7 @@ $code.=<<___;
  .type	gcm_init_clmul,\@abi-omnipotent
  .align	16
@@ -1064,12 +1029,10 @@ diff -u -p -r1.5 ghash-x86_64.pl
  	push	%rsi
  	push	%rdi
  	push	%rbx
-Index: perlasm/x86_64-xlate.pl
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/perlasm/x86_64-xlate.pl,v
-diff -u -p -r1.16 x86_64-xlate.pl
---- perlasm/x86_64-xlate.pl	23 Feb 2023 08:49:02 -0000	1.16
-+++ perlasm/x86_64-xlate.pl	3 Dec 2023 20:17:16 -0000
+diff --git a/src/lib/libcrypto/perlasm/x86_64-xlate.pl b/src/lib/libcrypto/perlasm/x86_64-xlate.pl
+index 5dbed2a8c..325e7cf58 100755
+--- a/src/lib/libcrypto/perlasm/x86_64-xlate.pl
++++ b/src/lib/libcrypto/perlasm/x86_64-xlate.pl
 @@ -781,6 +781,22 @@ ___
  OPTION	DOTNAME
  ___
@@ -1093,12 +1056,10 @@ diff -u -p -r1.16 x86_64-xlate.pl
  print "#include \"x86_arch.h\"\n";
  
  while($line=<>) {
-Index: rc4/asm/rc4-md5-x86_64.pl
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/rc4/asm/rc4-md5-x86_64.pl,v
-diff -u -p -r1.4 rc4-md5-x86_64.pl
---- rc4/asm/rc4-md5-x86_64.pl	28 Jul 2023 10:35:14 -0000	1.4
-+++ rc4/asm/rc4-md5-x86_64.pl	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/rc4/asm/rc4-md5-x86_64.pl b/src/lib/libcrypto/rc4/asm/rc4-md5-x86_64.pl
+index 3190e6a8e..e5e8aa08a 100644
+--- a/src/lib/libcrypto/rc4/asm/rc4-md5-x86_64.pl
++++ b/src/lib/libcrypto/rc4/asm/rc4-md5-x86_64.pl
 @@ -109,7 +109,7 @@ $code.=<<___;
  .globl	$func
  .type	$func,\@function,$nargs
@@ -1117,12 +1078,10 @@ diff -u -p -r1.4 rc4-md5-x86_64.pl
  	lea	8($dat),$dat
  	lea	($inp,$len),$inp
  	neg	$len
-Index: rc4/asm/rc4-x86_64.pl
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/rc4/asm/rc4-x86_64.pl,v
-diff -u -p -r1.16 rc4-x86_64.pl
---- rc4/asm/rc4-x86_64.pl	28 Jul 2023 10:35:14 -0000	1.16
-+++ rc4/asm/rc4-x86_64.pl	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/rc4/asm/rc4-x86_64.pl b/src/lib/libcrypto/rc4/asm/rc4-x86_64.pl
+index 0472acce8..a9cf9d1bd 100755
+--- a/src/lib/libcrypto/rc4/asm/rc4-x86_64.pl
++++ b/src/lib/libcrypto/rc4/asm/rc4-x86_64.pl
 @@ -128,7 +128,7 @@ $code=<<___;
  .type	RC4,\@function,4
  .align	16
@@ -1141,12 +1100,10 @@ diff -u -p -r1.16 rc4-x86_64.pl
  	lea	8($dat),$dat
  	lea	($inp,$len),$inp
  	neg	$len
-Index: sha/asm/sha1-x86_64.pl
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/sha/asm/sha1-x86_64.pl,v
-diff -u -p -r1.7 sha1-x86_64.pl
---- sha/asm/sha1-x86_64.pl	25 Apr 2023 04:42:26 -0000	1.7
-+++ sha/asm/sha1-x86_64.pl	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/sha/asm/sha1-x86_64.pl b/src/lib/libcrypto/sha/asm/sha1-x86_64.pl
+index e15ff47f8..e080251df 100755
+--- a/src/lib/libcrypto/sha/asm/sha1-x86_64.pl
++++ b/src/lib/libcrypto/sha/asm/sha1-x86_64.pl
 @@ -222,7 +222,7 @@ $code.=<<___;
  .type	sha1_block_data_order,\@function,3
  .align	16
@@ -1183,12 +1140,10 @@ diff -u -p -r1.7 sha1-x86_64.pl
  	push	%rsi
  	push	%rdi
  	push	%rbx
-Index: sha/asm/sha512-x86_64.pl
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/sha/asm/sha512-x86_64.pl,v
-diff -u -p -r1.7 sha512-x86_64.pl
---- sha/asm/sha512-x86_64.pl	25 Apr 2023 04:42:26 -0000	1.7
-+++ sha/asm/sha512-x86_64.pl	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/sha/asm/sha512-x86_64.pl b/src/lib/libcrypto/sha/asm/sha512-x86_64.pl
+index 120693fee..f7a4dad2c 100755
+--- a/src/lib/libcrypto/sha/asm/sha512-x86_64.pl
++++ b/src/lib/libcrypto/sha/asm/sha512-x86_64.pl
 @@ -175,7 +175,7 @@ $code=<<___;
  .type	$func,\@function,4
  .align	16
@@ -1198,12 +1153,10 @@ diff -u -p -r1.7 sha512-x86_64.pl
  	push	%rbx
  	push	%rbp
  	push	%r12
-Index: whrlpool/asm/wp-x86_64.pl
-===================================================================
-RCS file: /cvs/src/lib/libcrypto/whrlpool/asm/wp-x86_64.pl,v
-diff -u -p -r1.5 wp-x86_64.pl
---- whrlpool/asm/wp-x86_64.pl	25 Apr 2023 04:42:26 -0000	1.5
-+++ whrlpool/asm/wp-x86_64.pl	3 Dec 2023 20:18:30 -0000
+diff --git a/src/lib/libcrypto/whrlpool/asm/wp-x86_64.pl b/src/lib/libcrypto/whrlpool/asm/wp-x86_64.pl
+index 7958f6d28..2a3902430 100644
+--- a/src/lib/libcrypto/whrlpool/asm/wp-x86_64.pl
++++ b/src/lib/libcrypto/whrlpool/asm/wp-x86_64.pl
 @@ -57,7 +57,7 @@ $code=<<___;
  .type	$func,\@function,3
  .align	16
@@ -1213,3 +1166,28 @@ diff -u -p -r1.5 wp-x86_64.pl
  	push	%rbx
  	push	%rbp
  	push	%r12
+diff --git a/src/lib/libcrypto/x86_64cpuid.pl b/src/lib/libcrypto/x86_64cpuid.pl
+index dc56732a2..5e85c40c9 100644
+--- a/src/lib/libcrypto/x86_64cpuid.pl
++++ b/src/lib/libcrypto/x86_64cpuid.pl
+@@ -18,7 +18,7 @@ print<<___;
+ .extern		OPENSSL_cpuid_setup
+ .hidden		OPENSSL_cpuid_setup
+ .section	.init
+-	endbr64
++	_CET_ENDBR
+ 	call	OPENSSL_cpuid_setup
+ 
+ .extern	OPENSSL_ia32cap_P
+@@ -30,7 +30,7 @@ print<<___;
+ .type	OPENSSL_ia32_cpuid,\@abi-omnipotent
+ .align	16
+ OPENSSL_ia32_cpuid:
+-	endbr64
++	_CET_ENDBR
+ 	mov	%rbx,%r8		# save %rbx
+ 
+ 	xor	%eax,%eax
+-- 
+2.43.0
+

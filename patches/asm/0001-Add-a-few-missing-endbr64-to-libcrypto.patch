@@ -1,0 +1,74 @@
+From cdcdc3f000a66ef2634f3b9ffef752eaab42c119 Mon Sep 17 00:00:00 2001
+From: tb <>
+Date: Sat, 24 Feb 2024 17:53:20 +0000
+Subject: [PATCH] Add a few missing endbr64 to libcrypto
+
+gcm_{gmult,ghash}_4bit(), aesni_ccm64_decrypt_blocks(), aes_cbc_encrypt(),
+and aesni_xts_{en,de}crypt() were overlooked in previous passes.
+
+Found with a diff for ld.lld by kettenis
+ok kettenis
+---
+ src/lib/libcrypto/aes/asm/aesni-x86_64.pl   | 4 ++++
+ src/lib/libcrypto/modes/asm/ghash-x86_64.pl | 2 ++
+ 2 files changed, 6 insertions(+)
+
+diff --git a/src/lib/libcrypto/aes/asm/aesni-x86_64.pl b/src/lib/libcrypto/aes/asm/aesni-x86_64.pl
+index 43013a51f..441524036 100644
+--- a/src/lib/libcrypto/aes/asm/aesni-x86_64.pl
++++ b/src/lib/libcrypto/aes/asm/aesni-x86_64.pl
+@@ -918,6 +918,7 @@ $code.=<<___;
+ .type	aesni_ccm64_decrypt_blocks,\@function,6
+ .align	16
+ aesni_ccm64_decrypt_blocks:
++	_CET_ENDBR
+ ___
+ $code.=<<___ if ($win64);
+ 	lea	-0x58(%rsp),%rsp
+@@ -1317,6 +1318,7 @@ $code.=<<___;
+ .type	aesni_xts_encrypt,\@function,6
+ .align	16
+ aesni_xts_encrypt:
++	_CET_ENDBR
+ 	lea	(%rsp),%rax
+ 	push	%rbp
+ 	sub	\$$frame_size,%rsp
+@@ -1711,6 +1713,7 @@ $code.=<<___;
+ .type	aesni_xts_decrypt,\@function,6
+ .align	16
+ aesni_xts_decrypt:
++	_CET_ENDBR
+ 	lea	(%rsp),%rax
+ 	push	%rbp
+ 	sub	\$$frame_size,%rsp
+@@ -2148,6 +2151,7 @@ $code.=<<___;
+ .type	${PREFIX}_cbc_encrypt,\@function,6
+ .align	16
+ ${PREFIX}_cbc_encrypt:
++	_CET_ENDBR
+ 	test	$len,$len		# check length
+ 	jz	.Lcbc_ret
+ 
+diff --git a/src/lib/libcrypto/modes/asm/ghash-x86_64.pl b/src/lib/libcrypto/modes/asm/ghash-x86_64.pl
+index f3caac15d..bf547a041 100644
+--- a/src/lib/libcrypto/modes/asm/ghash-x86_64.pl
++++ b/src/lib/libcrypto/modes/asm/ghash-x86_64.pl
+@@ -165,6 +165,7 @@ $code=<<___;
+ .type	gcm_gmult_4bit,\@function,2
+ .align	16
+ gcm_gmult_4bit:
++	_CET_ENDBR
+ 	push	%rbx
+ 	push	%rbp		# %rbp and %r12 are pushed exclusively in
+ 	push	%r12		# order to reuse Win64 exception handler...
+@@ -195,6 +196,7 @@ $code.=<<___;
+ .type	gcm_ghash_4bit,\@function,4
+ .align	16
+ gcm_ghash_4bit:
++	_CET_ENDBR
+ 	push	%rbx
+ 	push	%rbp
+ 	push	%r12
+-- 
+2.43.0
+

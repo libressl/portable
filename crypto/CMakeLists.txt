@@ -734,7 +734,7 @@ if(NOT HAVE_GETOPT)
 endif()
 
 if(NOT HAVE_GETPAGESIZE)
-	set(CRYPTO_SRC ${CRYPTO_SRC} compat/getpagesize.c)
+	set(COMPAT_SRC ${COMPAT_SRC} compat/getpagesize.c)
 endif()
 
 if(NOT HAVE_GETPROGNAME)

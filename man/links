@@ -140,8 +140,6 @@ ASN1_mbstring_copy.3,ASN1_tag2bit.3
 ASN1_parse_dump.3,ASN1_parse.3
 ASN1_put_object.3,ASN1_object_size.3
 ASN1_put_object.3,ASN1_put_eoc.3
-ASN1_time_parse.3,ASN1_TIME_set_tm.3
-ASN1_time_parse.3,ASN1_time_tm_cmp.3
 ASRange_new.3,ASIdOrRange_free.3
 ASRange_new.3,ASIdOrRange_new.3
 ASRange_new.3,ASIdentifierChoice_free.3
@@ -953,18 +951,6 @@ EVP_MD_CTX_ctrl.3,EVP_MD_CTX_pkey_ctx.3
 EVP_MD_CTX_ctrl.3,EVP_MD_CTX_set_flags.3
 EVP_MD_CTX_ctrl.3,EVP_MD_CTX_set_pkey_ctx.3
 EVP_MD_CTX_ctrl.3,EVP_MD_CTX_test_flags.3
-EVP_MD_meth_new.3,EVP_MD_meth_dup.3
-EVP_MD_meth_new.3,EVP_MD_meth_free.3
-EVP_MD_meth_new.3,EVP_MD_meth_set_app_datasize.3
-EVP_MD_meth_new.3,EVP_MD_meth_set_cleanup.3
-EVP_MD_meth_new.3,EVP_MD_meth_set_copy.3
-EVP_MD_meth_new.3,EVP_MD_meth_set_ctrl.3
-EVP_MD_meth_new.3,EVP_MD_meth_set_final.3
-EVP_MD_meth_new.3,EVP_MD_meth_set_flags.3
-EVP_MD_meth_new.3,EVP_MD_meth_set_init.3
-EVP_MD_meth_new.3,EVP_MD_meth_set_input_blocksize.3
-EVP_MD_meth_new.3,EVP_MD_meth_set_result_size.3
-EVP_MD_meth_new.3,EVP_MD_meth_set_update.3
 EVP_MD_nid.3,EVP_MD_CTX_block_size.3
 EVP_MD_nid.3,EVP_MD_CTX_size.3
 EVP_MD_nid.3,EVP_MD_CTX_type.3
@@ -1087,7 +1073,6 @@ EVP_PKEY_set1_RSA.3,EVP_PKEY_assign.3
 EVP_PKEY_set1_RSA.3,EVP_PKEY_assign_DH.3
 EVP_PKEY_set1_RSA.3,EVP_PKEY_assign_DSA.3
 EVP_PKEY_set1_RSA.3,EVP_PKEY_assign_EC_KEY.3
-EVP_PKEY_set1_RSA.3,EVP_PKEY_assign_GOST.3
 EVP_PKEY_set1_RSA.3,EVP_PKEY_assign_RSA.3
 EVP_PKEY_set1_RSA.3,EVP_PKEY_base_id.3
 EVP_PKEY_set1_RSA.3,EVP_PKEY_get0.3
@@ -2048,10 +2033,6 @@ X509_CINF_new.3,X509_CERT_AUX_new.3
 X509_CINF_new.3,X509_CINF_free.3
 X509_CINF_new.3,X509_VAL_free.3
 X509_CINF_new.3,X509_VAL_new.3
-X509_CRL_METHOD_new.3,X509_CRL_METHOD_free.3
-X509_CRL_METHOD_new.3,X509_CRL_get_meth_data.3
-X509_CRL_METHOD_new.3,X509_CRL_set_default_method.3
-X509_CRL_METHOD_new.3,X509_CRL_set_meth_data.3
 X509_CRL_get0_by_serial.3,X509_CRL_add0_revoked.3
 X509_CRL_get0_by_serial.3,X509_CRL_get0_by_cert.3
 X509_CRL_get0_by_serial.3,X509_CRL_get_REVOKED.3

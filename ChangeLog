@@ -35,9 +35,9 @@ LibreSSL Portable Release Notes:
 	  - Most compatibility symbols are prefixed with libressl_ to avoid
 	    symbol clashes in static links.
 	  - Fixed various warnings on Windows.
-	  - Disabled assert pop-ups with debug builds on Windows.
-	  - Fixed asserts and hangs in Windows ARM64 builds.
-	  - Fixed issues building where CET is not supported.
+	  - Removed assert pop-ups with Windows debug builds.
+	  - Fixed crashes and hangs in Windows ARM64 builds.
+	  - Improved control-flow enforcement (CET) support.
 	* Internal improvements
 	  - Converted uses of OBJ_bsearch_() to standard bsearch().
 	  - Greatly simplified by_file_ctrl().
@@ -103,6 +103,13 @@ LibreSSL Portable Release Notes:
 	  - Aligned SSL_shutdown() behavior in TLSv1.3 with the legacy stack.
 	  - Fixed the new X.509 verifier to find trust anchors in the trusted
 	    stack.
+
+3.8.3 - Stable release
+
+	* Portable changes
+	  - Removed assert pop-ups with Windows debug builds.
+	  - Fixed crashes and hangs in Windows ARM64 builds.
+	  - Improved control-flow enforcement (CET) support.
 
 3.8.2 - Stable release
 

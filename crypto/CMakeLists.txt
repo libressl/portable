@@ -739,11 +739,11 @@ endif()
 
 if(NOT HAVE_GETPROGNAME)
 	if(WIN32)
-		set(CRYPTO_SRC ${CRYPTO_SRC} compat/getprogname_windows.c)
+		set(COMPAT_SRC ${COMPAT_SRC} compat/getprogname_windows.c)
 	elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
-		set(CRYPTO_SRC ${CRYPTO_SRC} compat/getprogname_linux.c)
+		set(COMPAT_SRC ${COMPAT_SRC} compat/getprogname_linux.c)
 	else()
-		set(CRYPTO_SRC ${CRYPTO_SRC} compat/getprogname_unimpl.c)
+		set(COMPAT_SRC ${COMPAT_SRC} compat/getprogname_unimpl.c)
 	endif()
 endif()
 
@@ -783,7 +783,7 @@ if(NOT HAVE_STRTONUM)
 endif()
 
 if(NOT HAVE_SYSLOG_R)
-	set(CRYPTO_SRC ${CRYPTO_SRC} compat/syslog_r.c)
+	set(COMPAT_SRC ${COMPAT_SRC} compat/syslog_r.c)
 endif()
 
 if(NOT HAVE_TIMEGM)

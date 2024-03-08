@@ -28,19 +28,12 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
-3.9.0 - In development
+3.8.3 - Stable release
 
 	* Portable changes
-	* Internal improvements
-	* Documentation improvements
-	* Testing and proactive security
-	  - Bug fixes and simplifications in the Wycheproof tests.
-	* Compatibility changes
-	  - Added ChaCha20 and chacha20 aliases for ChaCha.
-	* Bug fixes
-	  - Fixed aliasing issues in BN_mod_exp_simple() and BN_mod_exp_recp().
-	  - Fixed numerous misuses of X509_ALGOR_set0() resulting in leaks and
-	    potentially incorrect encodings.
+	  - Removed assert pop-ups with Windows debug builds.
+	  - Fixed crashes and hangs in Windows ARM64 builds.
+	  - Improved control-flow enforcement (CET) support.
 
 3.8.2 - Stable release
 

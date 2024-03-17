@@ -57,6 +57,15 @@ jobs:
       - name: "Checkout repository"
         uses: actions/checkout@v4
 
+#
+# temporary hack
+# should be revisited after https://github.com/actions/runner-images/issues/9491 is resolved
+#
+
+      - name: Setup entropy
+        run: |
+          sudo sysctl vm.mmap_rnd_bits=28
+
       - name: "Run tests"
         run: ./scripts/test
         env:

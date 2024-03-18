@@ -78,6 +78,7 @@ tests/asn1time*
 tests/asn1x509*
 tests/bio_asn1*
 tests/bio_chain*
+tests/bio_dump*
 tests/bio_host*
 tests/bio_mem*
 tests/bnaddsub*
@@ -133,6 +134,7 @@ tests/testssl
 tests/*.txt
 tests/compat/*.c
 tests/verify*
+tests/x509_algor*
 tests/x509_asn1*
 tests/x509_info*
 tests/x509attribute*

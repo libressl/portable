@@ -25,7 +25,7 @@ jobs:
         arch: ["arm64", "x86_64"]
     steps:
     - name: "Install required packages"
-      run: brew install automake
+      run: brew install automake libtool
 
     - name: "Checkout repository"
       uses: actions/checkout@v4

@@ -1332,10 +1332,8 @@ OPENSSL_init_crypto.3,OPENSSL_init.3
 OPENSSL_load_builtin_modules.3,ASN1_add_oid_module.3
 OPENSSL_malloc.3,CRYPTO_free.3
 OPENSSL_malloc.3,CRYPTO_malloc.3
-OPENSSL_malloc.3,CRYPTO_realloc.3
 OPENSSL_malloc.3,CRYPTO_strdup.3
 OPENSSL_malloc.3,OPENSSL_free.3
-OPENSSL_malloc.3,OPENSSL_realloc.3
 OPENSSL_malloc.3,OPENSSL_strdup.3
 OPENSSL_sk_new.3,sk_delete.3
 OPENSSL_sk_new.3,sk_delete_ptr.3
@@ -2017,7 +2015,6 @@ X509_ALGOR_dup.3,X509_ALGOR_free.3
 X509_ALGOR_dup.3,X509_ALGOR_get0.3
 X509_ALGOR_dup.3,X509_ALGOR_new.3
 X509_ALGOR_dup.3,X509_ALGOR_set0.3
-X509_ALGOR_dup.3,X509_ALGOR_set_md.3
 X509_ATTRIBUTE_get0_object.3,X509_ATTRIBUTE_count.3
 X509_ATTRIBUTE_get0_object.3,X509_ATTRIBUTE_get0_data.3
 X509_ATTRIBUTE_get0_object.3,X509_ATTRIBUTE_get0_type.3

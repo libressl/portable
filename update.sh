@@ -7,9 +7,9 @@ openbsd_branch=`cat OPENBSD_BRANCH`
 echo "pulling upstream openbsd source"
 if [ ! -d openbsd ]; then
 	if [ -z "$LIBRESSL_GIT" ]; then
-		git clone https://github.com/libressl/openbsd.git
+		git clone --depth=8 https://github.com/libressl/openbsd.git
 	else
-		git clone $LIBRESSL_GIT/openbsd
+		git clone --depth=8 $LIBRESSL_GIT/openbsd
 	fi
 fi
 

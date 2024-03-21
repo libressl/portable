@@ -28,7 +28,21 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
-3.9.0 - In development
+4.0.0 - In development
+
+	* Portable changes
+	* Internal improvements
+	  - Cleaned up parts of the conf directory. Simplified some logic,
+	    fixed memory leaks.
+	* Documentation improvements
+	  - Removed documentation of no longer existing API.
+	* Testing and proactive security
+	  - Switched the remaining tests to new certs.
+	* Compatibility changes
+	* Bug fixes
+	  - Fixed signed integer overflow in bnrand().
+
+3.9.0 - Development release
 
 	* Portable changes
 	  - libcrypto no longer exports compat symbols in cmake builds.

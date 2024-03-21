@@ -34,3 +34,4 @@ jobs:
       run: ./scripts/test
       env:
         ARCH: "${{ matrix.arch }}"
+        OS: "${{ matrix.os }}"

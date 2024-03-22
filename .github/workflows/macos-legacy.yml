@@ -1,5 +1,5 @@
 # GitHub Actions workflow to run tests on macOS.
-name: "macOS"
+name: "macOS-legacy"
 
 on:
   push: {}
@@ -21,11 +21,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["macos-14"]
+        os: ["macos-13", "macos-12"]
         arch: ["arm64", "x86_64"]
     steps:
     - name: "Install required packages"
-      run: brew install automake libtool
+      run: brew install automake
 
     - name: "Checkout repository"
       uses: actions/checkout@v4

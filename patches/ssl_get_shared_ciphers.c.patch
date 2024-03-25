@@ -1,0 +1,11 @@
+--- tests/ssl_get_shared_ciphers.c.orig	Mon Mar 25 02:14:15 2024
++++ tests/ssl_get_shared_ciphers.c	Mon Mar 25 02:14:57 2024
+@@ -462,7 +462,7 @@
+ 	size_t i;
+ 	int failed = 0;
+ 
+-	if (asprintf(&server_cert, "%s/server.pem", CERTSDIR) == -1) {
++	if (asprintf(&server_cert, "%s/server1-rsa.pem", CERTSDIR) == -1) {
+ 		fprintf(stderr, "asprintf server_cert failed\n");
+ 		failed = 1;
+ 		goto err;

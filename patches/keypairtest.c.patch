@@ -1,0 +1,11 @@
+--- tests/keypairtest.c.orig	Mon Mar 25 02:14:35 2024
++++ tests/keypairtest.c	Mon Mar 25 02:20:15 2024
+@@ -29,7 +29,7 @@
+ #include <tls_internal.h>
+ 
+ #define PUBKEY_HASH \
+-    "SHA256:858d0f94beb0a08eb4f13871ba57bf0a2e081287d0efbaeb3bbac59dd8f1a8e5"
++    "SHA256:f03c535d374614e7356c0a4e6fd37fe94297b60ed86212adcba40e8e0b07bc9f"
+ 
+ char *cert_file, *key_file, *ocsp_staple_file;
+ 

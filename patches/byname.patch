@@ -1,0 +1,65 @@
+Backport fix for behavior change for EVP_get_{cipher,digest}byname()
+https://github.com/openbsd/src/commit/ace1aaedae16f4098783ed4a8c5602142650126c
+
+--- crypto/evp/evp_names.c.orig	Mon Mar 25 17:27:41 2024
++++ crypto/evp/evp_names.c	Mon Mar 25 17:30:27 2024
+@@ -1852,6 +1852,9 @@ EVP_get_cipherbyname(const char *name)
+ 	if (!OPENSSL_init_crypto(0, NULL))
+ 		return NULL;
+ 
++	if (name == NULL)
++		return NULL;
++
+ 	if ((cipher = bsearch(name, cipher_names, N_CIPHER_NAMES,
+ 	    sizeof(*cipher), cipher_cmp)) == NULL)
+ 		return NULL;
+@@ -1871,6 +1874,9 @@ EVP_get_digestbyname(const char *name)
+ 	const struct digest_name *digest;
+ 
+ 	if (!OPENSSL_init_crypto(0, NULL))
++		return NULL;
++
++	if (name == NULL)
+ 		return NULL;
+ 
+ 	if ((digest = bsearch(name, digest_names, N_DIGEST_NAMES,
+--- tests/evp_test.c.orig	Mon Mar 25 17:27:41 2024
++++ tests/evp_test.c	Mon Mar 25 17:31:32 2024
+@@ -737,6 +737,28 @@ obj_name_do_all_test(void)
+ 	return failure;
+ }
+ 
++static int
++evp_get_cipherbyname_test(void)
++{
++	int failure = 0;
++
++	/* Should handle NULL gracefully */
++	failure |= EVP_get_cipherbyname(NULL) != NULL;
++
++	return failure;
++}
++
++static int
++evp_get_digestbyname_test(void)
++{
++	int failure = 0;
++
++	/* Should handle NULL gracefully */
++	failure |= EVP_get_digestbyname(NULL) != NULL;
++
++	return failure;
++}
++
+ int
+ main(int argc, char **argv)
+ {
+@@ -748,6 +770,8 @@ main(int argc, char **argv)
+ 	failed |= evp_do_all_test();
+ 	failed |= evp_aliases_test();
+ 	failed |= obj_name_do_all_test();
++	failed |= evp_get_cipherbyname_test();
++	failed |= evp_get_digestbyname_test();
+ 
+ 	OPENSSL_cleanup();
+ 

@@ -9,5 +9,5 @@ Name: LibreSSL-libtls
 Description: Secure communications using the TLS socket protocol.
 Version: @VERSION@
 Libs: -L${libdir} -ltls
-Libs.private: @LIBS@ @PLATFORM_LDADD@
+Libs.private: @LIBS@ @PLATFORM_LDADD@ -lssl -lcrypto
 Cflags: -I${includedir}

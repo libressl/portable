@@ -6,11 +6,9 @@ openbsd_branch=`cat OPENBSD_BRANCH`
 # pull in latest upstream code
 echo "pulling upstream openbsd source"
 if [ ! -d openbsd ]; then
-	if [ -z "$LIBRESSL_GIT" ]; then
-		git clone https://github.com/libressl/openbsd.git
-	else
-		git clone $LIBRESSL_GIT/openbsd
-	fi
+	LIBRESSL_GIT_OPTIONS="${LIBRESSL_GIT_OPTIONS:- --depth=8}"
+	LIBRESSL_GIT="${LIBRESSL_GIT:- https://github.com/libressl}"
+	git clone $LIBRESSL_GIT_OPTIONS $LIBRESSL_GIT/openbsd
 fi
 
 # pull either the latest or if on a tag, the matching tag

@@ -34,6 +34,12 @@ LibreSSL Portable Release Notes:
 	* Internal improvements
 	  - Cleaned up parts of the conf directory. Simplified some logic,
 	    fixed memory leaks.
+	  - Simplified X509_check_trust() internals to be somewhat readable.
+	  - Removed last internal uses of gmtime() and timegm() and replaced
+	    them with BoringSSL's posix time conversion API.
+	  - Removed unnecessary stat calls in by_dir.
+	  - Split parsing and processing of TLS extensions to ensure that
+	    extension callbacks are called in a predefined order.
 	* Documentation improvements
 	  - Removed documentation of no longer existing API.
 	* Testing and proactive security

@@ -21,6 +21,8 @@ ASM_X86_64_MINGW64 += cpuid-mingw64-x86_64.S
 EXTRA_DIST += $(ASM_X86_64_MINGW64)
 
 if HOST_ASM_MINGW64_X86_64
+libcrypto_la_CPPFLAGS += -Dendbr64=
+libcrypto_la_CPPFLAGS += -Dendbr32=
 libcrypto_la_CPPFLAGS += -DAES_ASM
 libcrypto_la_CPPFLAGS += -DBSAES_ASM
 libcrypto_la_CPPFLAGS += -DVPAES_ASM

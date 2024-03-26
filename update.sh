@@ -155,7 +155,6 @@ echo "LibreSSL version `cat VERSION`"
 # copy libcrypto source
 echo copying libcrypto source
 rm -f crypto/*.c crypto/*.h
-touch crypto/empty.c
 for i in `awk '/SOURCES|HEADERS/ { print $3 }' crypto/Makefile.am` ; do
 	dir=`dirname $i`
 	mkdir -p crypto/$dir

@@ -34,6 +34,8 @@ ASM_X86_64_MACOSX += bn/arch/amd64/bn_arch.c
 EXTRA_DIST += $(ASM_X86_64_MACOSX)
 
 if HOST_ASM_MACOSX_X86_64
+libcrypto_la_CPPFLAGS += -Dendbr64=
+libcrypto_la_CPPFLAGS += -Dendbr32=
 libcrypto_la_CPPFLAGS += -DAES_ASM
 libcrypto_la_CPPFLAGS += -DBSAES_ASM
 libcrypto_la_CPPFLAGS += -DVPAES_ASM

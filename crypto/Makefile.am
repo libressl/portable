@@ -661,6 +661,7 @@ noinst_HEADERS += hidden/openssl/curve25519.h
 noinst_HEADERS += hidden/openssl/dh.h
 noinst_HEADERS += hidden/openssl/dsa.h
 noinst_HEADERS += hidden/openssl/ec.h
+noinst_HEADERS += hidden/openssl/engine.h
 noinst_HEADERS += hidden/openssl/err.h
 noinst_HEADERS += hidden/openssl/hkdf.h
 noinst_HEADERS += hidden/openssl/hmac.h

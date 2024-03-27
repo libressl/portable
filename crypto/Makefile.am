@@ -308,11 +308,7 @@ noinst_HEADERS += asn1/asn1_local.h
 noinst_HEADERS += asn1/charmap.h
 
 # bf
-libcrypto_la_SOURCES += bf/bf_cfb64.c
-libcrypto_la_SOURCES += bf/bf_ecb.c
-libcrypto_la_SOURCES += bf/bf_enc.c
-libcrypto_la_SOURCES += bf/bf_ofb64.c
-libcrypto_la_SOURCES += bf/bf_skey.c
+libcrypto_la_SOURCES += bf/blowfish.c
 noinst_HEADERS += bf/bf_local.h
 
 # bio

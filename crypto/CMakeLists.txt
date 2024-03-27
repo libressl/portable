@@ -319,11 +319,7 @@ set(
 	asn1/x_val.c
 	asn1/x_x509.c
 	asn1/x_x509a.c
-	bf/bf_cfb64.c
-	bf/bf_ecb.c
-	bf/bf_enc.c
-	bf/bf_ofb64.c
-	bf/bf_skey.c
+	bf/blowfish.c
 	bio/b_dump.c
 	bio/b_print.c
 	bio/b_sock.c

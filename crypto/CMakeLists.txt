@@ -37,7 +37,6 @@ if(HOST_ASM_ELF_X86_64)
 		md5/md5-elf-x86_64.S
 		modes/ghash-elf-x86_64.S
 		rc4/rc4-elf-x86_64.S
-		rc4/rc4-md5-elf-x86_64.S
 		sha/sha1-elf-x86_64.S
 		sha/sha256-elf-x86_64.S
 		sha/sha512-elf-x86_64.S

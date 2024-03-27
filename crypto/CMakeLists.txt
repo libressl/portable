@@ -30,7 +30,6 @@ if(HOST_ASM_ELF_X86_64)
 		aes/bsaes-elf-x86_64.S
 		aes/vpaes-elf-x86_64.S
 		aes/aesni-elf-x86_64.S
-		aes/aesni-sha1-elf-x86_64.S
 		bn/modexp512-elf-x86_64.S
 		bn/mont-elf-x86_64.S
 		bn/mont5-elf-x86_64.S
@@ -83,7 +82,6 @@ if(HOST_ASM_MACOSX_X86_64)
 		aes/bsaes-macosx-x86_64.S
 		aes/vpaes-macosx-x86_64.S
 		aes/aesni-macosx-x86_64.S
-		aes/aesni-sha1-macosx-x86_64.S
 		bn/modexp512-macosx-x86_64.S
 		bn/mont-macosx-x86_64.S
 		bn/mont5-macosx-x86_64.S
@@ -91,7 +89,6 @@ if(HOST_ASM_MACOSX_X86_64)
 		md5/md5-macosx-x86_64.S
 		modes/ghash-macosx-x86_64.S
 		rc4/rc4-macosx-x86_64.S
-		rc4/rc4-md5-macosx-x86_64.S
 		sha/sha1-macosx-x86_64.S
 		sha/sha256-macosx-x86_64.S
 		sha/sha512-macosx-x86_64.S
@@ -137,7 +134,6 @@ if(HOST_ASM_MASM_X86_64)
 		aes/bsaes-masm-x86_64.S
 		aes/vpaes-masm-x86_64.S
 		aes/aesni-masm-x86_64.S
-		aes/aesni-sha1-masm-x86_64.S
 		#bn/modexp512-masm-x86_64.S
 		#bn/mont-masm-x86_64.S
 		#bn/mont5-masm-x86_64.S
@@ -145,7 +141,6 @@ if(HOST_ASM_MASM_X86_64)
 		md5/md5-masm-x86_64.S
 		modes/ghash-masm-x86_64.S
 		rc4/rc4-masm-x86_64.S
-		rc4/rc4-md5-masm-x86_64.S
 		sha/sha1-masm-x86_64.S
 		sha/sha256-masm-x86_64.S
 		sha/sha512-masm-x86_64.S
@@ -178,7 +173,6 @@ if(HOST_ASM_MINGW64_X86_64)
 		aes/bsaes-mingw64-x86_64.S
 		aes/vpaes-mingw64-x86_64.S
 		aes/aesni-mingw64-x86_64.S
-		aes/aesni-sha1-mingw64-x86_64.S
 		#bn/modexp512-mingw64-x86_64.S
 		#bn/mont-mingw64-x86_64.S
 		#bn/mont5-mingw64-x86_64.S
@@ -186,7 +180,6 @@ if(HOST_ASM_MINGW64_X86_64)
 		md5/md5-mingw64-x86_64.S
 		modes/ghash-mingw64-x86_64.S
 		rc4/rc4-mingw64-x86_64.S
-		rc4/rc4-md5-mingw64-x86_64.S
 		sha/sha1-mingw64-x86_64.S
 		sha/sha256-mingw64-x86_64.S
 		sha/sha512-mingw64-x86_64.S
@@ -234,8 +227,7 @@ if((NOT HOST_ASM_ELF_X86_64) AND
 		aes/aes_cbc.c
 		camellia/camellia.c
 		camellia/cmll_cbc.c
-		rc4/rc4_enc.c
-		rc4/rc4_skey.c
+		rc4/rc4.c
 		whrlpool/wp_block.c
 	)
 endif()

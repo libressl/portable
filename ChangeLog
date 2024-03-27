@@ -40,6 +40,7 @@ LibreSSL Portable Release Notes:
 	  - Removed unnecessary stat calls in by_dir.
 	  - Split parsing and processing of TLS extensions to ensure that
 	    extension callbacks are called in a predefined order.
+	  - Cleaned up the MD4 and MD5 implementations.
 	* Documentation improvements
 	  - Removed documentation of no longer existing API.
 	* Testing and proactive security

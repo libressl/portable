@@ -226,7 +226,6 @@ if((NOT HOST_ASM_ELF_X86_64) AND
 		aes/aes_cbc.c
 		camellia/camellia.c
 		camellia/cmll_cbc.c
-		rc4/rc4.c
 		whrlpool/wp_block.c
 	)
 endif()
@@ -584,6 +583,7 @@ set(
 	rc2/rc2_skey.c
 	rc2/rc2cfb64.c
 	rc2/rc2ofb64.c
+	rc4/rc4.c
 	ripemd/ripemd.c
 	rsa/rsa_ameth.c
 	rsa/rsa_asn1.c

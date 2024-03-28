@@ -200,7 +200,6 @@ libcrypto_la_SOURCES += aes/aes_cbc.c
 libcrypto_la_SOURCES += aes/aes_core.c
 libcrypto_la_SOURCES += camellia/camellia.c
 libcrypto_la_SOURCES += camellia/cmll_cbc.c
-libcrypto_la_SOURCES += rc4/rc4.c
 libcrypto_la_SOURCES += whrlpool/wp_block.c
 endif
 endif
@@ -799,6 +798,9 @@ libcrypto_la_SOURCES += rc2/rc2_skey.c
 libcrypto_la_SOURCES += rc2/rc2cfb64.c
 libcrypto_la_SOURCES += rc2/rc2ofb64.c
 noinst_HEADERS += rc2/rc2_local.h
+
+# rc4
+libcrypto_la_SOURCES += rc4/rc4.c
 
 # ripemd
 libcrypto_la_SOURCES += ripemd/ripemd.c

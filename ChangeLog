@@ -46,6 +46,7 @@ LibreSSL Portable Release Notes:
 	* Testing and proactive security
 	  - Switched the remaining tests to new certs.
 	* Compatibility changes
+	  - Removed workaround for F5 middle boxes.
 	* Bug fixes
 	  - Fixed signed integer overflow in bnrand().
 

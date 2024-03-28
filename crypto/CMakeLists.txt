@@ -244,12 +244,8 @@ set(
 	mem_dbg.c
 	o_fips.c
 	o_str.c
-	aes/aes_cfb.c
-	aes/aes_ctr.c
-	aes/aes_ecb.c
+	aes/aes.c
 	aes/aes_ige.c
-	aes/aes_ofb.c
-	aes/aes_wrap.c
 	asn1/a_bitstr.c
 	asn1/a_enum.c
 	asn1/a_int.c

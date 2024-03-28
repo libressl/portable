@@ -234,12 +234,8 @@ noinst_HEADERS += md32_common.h
 noinst_HEADERS += x86_arch.h
 
 # aes
-libcrypto_la_SOURCES += aes/aes_cfb.c
-libcrypto_la_SOURCES += aes/aes_ctr.c
-libcrypto_la_SOURCES += aes/aes_ecb.c
+libcrypto_la_SOURCES += aes/aes.c
 libcrypto_la_SOURCES += aes/aes_ige.c
-libcrypto_la_SOURCES += aes/aes_ofb.c
-libcrypto_la_SOURCES += aes/aes_wrap.c
 noinst_HEADERS += aes/aes_local.h
 
 # asn1

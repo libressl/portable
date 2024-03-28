@@ -28,6 +28,13 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.9.1 - Stable release
+
+	* Portable changes
+	  - Updated tests with expiring certificates
+	  - CET-related build fixes for Windows and macOS targets
+	  - update libtls linker script to include libssl and libcrypto again
+
 3.9.0 - In development
 
 	* Portable changes

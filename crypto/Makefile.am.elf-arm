@@ -7,7 +7,6 @@ ASM_ARM_ELF += modes/ghash-elf-armv4.S
 ASM_ARM_ELF += armv4cpuid.S
 ASM_ARM_ELF += armcap.c
 
-ASM_ARM_ELF += aes/aes_cbc.c
 ASM_ARM_ELF += camellia/camellia.c
 ASM_ARM_ELF += camellia/cmll_cbc.c
 ASM_ARM_ELF += whrlpool/wp_block.c

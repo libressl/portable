@@ -196,7 +196,6 @@ if !HOST_ASM_MACOSX_X86_64
 if !HOST_ASM_MASM_X86_64
 if !HOST_ASM_MINGW64_X86_64
 libcrypto_la_CPPFLAGS += -DOPENSSL_NO_ASM
-libcrypto_la_SOURCES += aes/aes_cbc.c
 libcrypto_la_SOURCES += aes/aes_core.c
 libcrypto_la_SOURCES += camellia/camellia.c
 libcrypto_la_SOURCES += camellia/cmll_cbc.c
@@ -229,7 +228,6 @@ noinst_HEADERS += constant_time.h
 noinst_HEADERS += cryptlib.h
 noinst_HEADERS += crypto_internal.h
 noinst_HEADERS += crypto_local.h
-noinst_HEADERS += md32_common.h
 noinst_HEADERS += x86_arch.h
 
 # aes

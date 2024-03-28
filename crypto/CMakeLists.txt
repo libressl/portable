@@ -223,7 +223,6 @@ if((NOT HOST_ASM_ELF_X86_64) AND
 	set(
 		CRYPTO_SRC
 		${CRYPTO_SRC}
-		aes/aes_cbc.c
 		camellia/camellia.c
 		camellia/cmll_cbc.c
 		whrlpool/wp_block.c

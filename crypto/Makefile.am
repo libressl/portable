@@ -668,6 +668,7 @@ noinst_HEADERS += hidden/openssl/posix_time.h
 noinst_HEADERS += hidden/openssl/rand.h
 noinst_HEADERS += hidden/openssl/rc2.h
 noinst_HEADERS += hidden/openssl/rc4.h
+noinst_HEADERS += hidden/openssl/ripemd.h
 noinst_HEADERS += hidden/openssl/rsa.h
 noinst_HEADERS += hidden/openssl/sha.h
 noinst_HEADERS += hidden/openssl/sm3.h

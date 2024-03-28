@@ -1,21 +1,26 @@
---- crypto/bn/arch/amd64/bn_arch.h.orig	2023-02-27 04:43:12.257874699 -0600
-+++ crypto/bn/arch/amd64/bn_arch.h	2023-02-27 04:44:05.541873870 -0600
-@@ -20,6 +20,12 @@
+We should consider a OPENSSL_NO_BN_ASM if we can't figure
+out how to fix BIGNUM on this OS
+
+--- crypto/bn/arch/amd64/bn_arch.h.orig	Wed Mar 27 22:17:03 2024
++++ crypto/bn/arch/amd64/bn_arch.h	Wed Mar 27 22:17:31 2024
+@@ -20,8 +20,14 @@
  #ifndef HEADER_BN_ARCH_H
  #define HEADER_BN_ARCH_H
  
 +#ifdef _WIN32
-+#ifndef OPENSSL_NO_ASM
+ #ifndef OPENSSL_NO_ASM
 +#define OPENSSL_NO_ASM
 +#endif
 +#else
-+
- #ifndef OPENSSL_NO_ASM
  
++#ifndef OPENSSL_NO_ASM
++
  #define HAVE_BN_ADD
-@@ -85,6 +91,7 @@
- 	*out_r0 = r0;
+ #define HAVE_BN_ADD_WORDS
+ 
+@@ -104,6 +110,7 @@ bn_subw(BN_ULONG a, BN_ULONG b, BN_ULONG *out_borrow, 
  }
+ 
  #endif /* __GNUC__ */
 +#endif /* _WIN32 */
  

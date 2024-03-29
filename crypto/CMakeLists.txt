@@ -203,18 +203,6 @@ endif()
 if((NOT HOST_ASM_ELF_X86_64) AND
 	(NOT HOST_ASM_MACOSX_X86_64) AND
 	(NOT HOST_ASM_MASM_X86_64) AND
-	(NOT HOST_ASM_MINGW64_X86_64) AND
-	(NOT HOST_ASM_ELF_ARMV4))
-	set(
-		CRYPTO_SRC
-		${CRYPTO_SRC}
-		aes/aes_core.c
-	)
-endif()
-
-if((NOT HOST_ASM_ELF_X86_64) AND
-	(NOT HOST_ASM_MACOSX_X86_64) AND
-	(NOT HOST_ASM_MASM_X86_64) AND
 	(NOT HOST_ASM_MINGW64_X86_64))
 	set(
 		CRYPTO_SRC
@@ -238,6 +226,7 @@ set(
 	o_fips.c
 	o_str.c
 	aes/aes.c
+	aes/aes_core.c
 	aes/aes_ige.c
 	asn1/a_bitstr.c
 	asn1/a_enum.c

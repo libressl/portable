@@ -875,7 +875,7 @@ libcrypto_la_SOURCES += ui/ui_util.c
 noinst_HEADERS += ui/ui_local.h
 
 # whrlpool
-libcrypto_la_sources += whrlpool/whirlpool.c
+libcrypto_la_SOURCES += whrlpool/whirlpool.c
 
 # x509
 libcrypto_la_SOURCES += x509/by_dir.c

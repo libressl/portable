@@ -765,6 +765,11 @@ add_executable(verifytest verifytest.c)
 target_link_libraries(verifytest ${LIBTLS_TEST_LIBS})
 add_test(verifytest verifytest)
 
+# whirlpool_test
+add_executable(whirlpool_test whirlpool_test.c)
+target_link_libraries(whirlpool_test ${OPENSSL_TEST_LIBS})
+add_test(whirlpool_test whirlpool_test)
+
 # x25519test
 add_executable(x25519test x25519test.c)
 target_link_libraries(x25519test ${OPENSSL_TEST_LIBS})

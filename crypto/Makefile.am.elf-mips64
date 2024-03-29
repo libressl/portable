@@ -7,7 +7,6 @@ ASM_MIPS64_ELF += sha/sha256-mips.S
 
 ASM_MIPS64_ELF += camellia/camellia.c
 ASM_MIPS64_ELF += camellia/cmll_cbc.c
-ASM_MIPS64_ELF += whrlpool/wp_block.c
 
 EXTRA_DIST += $(ASM_MIPS64_ELF)
 

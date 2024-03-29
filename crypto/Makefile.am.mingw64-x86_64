@@ -13,7 +13,6 @@ ASM_X86_64_MINGW64 += rc4/rc4-mingw64-x86_64.S
 ASM_X86_64_MINGW64 += sha/sha1-mingw64-x86_64.S
 ASM_X86_64_MINGW64 += sha/sha256-mingw64-x86_64.S
 ASM_X86_64_MINGW64 += sha/sha512-mingw64-x86_64.S
-ASM_X86_64_MINGW64 += whrlpool/wp-mingw64-x86_64.S
 ASM_X86_64_MINGW64 += cpuid-mingw64-x86_64.S
 
 EXTRA_DIST += $(ASM_X86_64_MINGW64)

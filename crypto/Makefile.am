@@ -199,7 +199,6 @@ libcrypto_la_CPPFLAGS += -DOPENSSL_NO_ASM
 libcrypto_la_SOURCES += aes/aes_core.c
 libcrypto_la_SOURCES += camellia/camellia.c
 libcrypto_la_SOURCES += camellia/cmll_cbc.c
-libcrypto_la_SOURCES += whrlpool/wp_block.c
 endif
 endif
 endif
@@ -876,8 +875,7 @@ libcrypto_la_SOURCES += ui/ui_util.c
 noinst_HEADERS += ui/ui_local.h
 
 # whrlpool
-libcrypto_la_SOURCES += whrlpool/wp_dgst.c
-noinst_HEADERS += whrlpool/wp_local.h
+libcrypto_la_sources += whrlpool/whirlpool.c
 
 # x509
 libcrypto_la_SOURCES += x509/by_dir.c

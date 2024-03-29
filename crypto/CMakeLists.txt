@@ -40,7 +40,6 @@ if(HOST_ASM_ELF_X86_64)
 		sha/sha1-elf-x86_64.S
 		sha/sha256-elf-x86_64.S
 		sha/sha512-elf-x86_64.S
-		whrlpool/wp-elf-x86_64.S
 		cpuid-elf-x86_64.S
 
 		bn/arch/amd64/bignum_add.S
@@ -91,7 +90,6 @@ if(HOST_ASM_MACOSX_X86_64)
 		sha/sha1-macosx-x86_64.S
 		sha/sha256-macosx-x86_64.S
 		sha/sha512-macosx-x86_64.S
-		whrlpool/wp-macosx-x86_64.S
 		cpuid-macosx-x86_64.S
 
 		bn/arch/amd64/bignum_add.S
@@ -143,7 +141,6 @@ if(HOST_ASM_MASM_X86_64)
 		sha/sha1-masm-x86_64.S
 		sha/sha256-masm-x86_64.S
 		sha/sha512-masm-x86_64.S
-		whrlpool/wp-masm-x86_64.S
 		cpuid-masm-x86_64.S
 	)
 	add_definitions(-Dendbr64=)
@@ -182,7 +179,6 @@ if(HOST_ASM_MINGW64_X86_64)
 		sha/sha1-mingw64-x86_64.S
 		sha/sha256-mingw64-x86_64.S
 		sha/sha512-mingw64-x86_64.S
-		whrlpool/wp-mingw64-x86_64.S
 		cpuid-mingw64-x86_64.S
 	)
 	add_definitions(-Dendbr64=)
@@ -225,7 +221,6 @@ if((NOT HOST_ASM_ELF_X86_64) AND
 		${CRYPTO_SRC}
 		camellia/camellia.c
 		camellia/cmll_cbc.c
-		whrlpool/wp_block.c
 	)
 endif()
 
@@ -625,7 +620,7 @@ set(
 	ui/ui_lib.c
 	ui/ui_null.c
 	ui/ui_util.c
-	whrlpool/wp_dgst.c
+	whrlpool/whirlpool.c
 	x509/by_dir.c
 	x509/by_file.c
 	x509/by_mem.c

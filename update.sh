@@ -281,7 +281,6 @@ for abi in elf macosx masm mingw64; do
 	gen_asm_stdout $abi sha/asm/sha1-x86_64.pl       sha/sha1-$abi-x86_64.S
 	gen_asm        $abi sha/asm/sha512-x86_64.pl     sha/sha256-$abi-x86_64.S
 	gen_asm        $abi sha/asm/sha512-x86_64.pl     sha/sha512-$abi-x86_64.S
-	gen_asm_stdout $abi whrlpool/asm/wp-x86_64.pl    whrlpool/wp-$abi-x86_64.S
 	gen_asm        $abi x86_64cpuid.pl               cpuid-$abi-x86_64.S
 done
 

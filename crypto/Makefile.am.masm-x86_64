@@ -13,7 +13,6 @@ ASM_X86_64_MASM += rc4/rc4-masm-x86_64.S
 ASM_X86_64_MASM += sha/sha1-masm-x86_64.S
 ASM_X86_64_MASM += sha/sha256-masm-x86_64.S
 ASM_X86_64_MASM += sha/sha512-masm-x86_64.S
-ASM_X86_64_MASM += whrlpool/wp-masm-x86_64.S
 ASM_X86_64_MASM += cpuid-masm-x86_64.S
 
 EXTRA_DIST += $(ASM_X86_64_MASM)

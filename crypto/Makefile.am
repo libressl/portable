@@ -636,6 +636,7 @@ noinst_HEADERS += hidden/crypto_namespace.h
 noinst_HEADERS += hidden/openssl/asn1.h
 noinst_HEADERS += hidden/openssl/asn1t.h
 noinst_HEADERS += hidden/openssl/bio.h
+noinst_HEADERS += hidden/openssl/blowfish.h
 noinst_HEADERS += hidden/openssl/bn.h
 noinst_HEADERS += hidden/openssl/buffer.h
 noinst_HEADERS += hidden/openssl/cast.h

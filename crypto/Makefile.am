@@ -692,11 +692,7 @@ libcrypto_la_SOURCES += hmac/hmac.c
 noinst_HEADERS += hmac/hmac_local.h
 
 # idea
-libcrypto_la_SOURCES += idea/i_cbc.c
-libcrypto_la_SOURCES += idea/i_cfb64.c
-libcrypto_la_SOURCES += idea/i_ecb.c
-libcrypto_la_SOURCES += idea/i_ofb64.c
-libcrypto_la_SOURCES += idea/i_skey.c
+libcrypto_la_SOURCES += idea/idea.c
 noinst_HEADERS += idea/idea_local.h
 
 # kdf

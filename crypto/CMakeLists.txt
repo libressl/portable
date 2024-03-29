@@ -494,11 +494,7 @@ set(
 	hmac/hm_ameth.c
 	hmac/hm_pmeth.c
 	hmac/hmac.c
-	idea/i_cbc.c
-	idea/i_cfb64.c
-	idea/i_ecb.c
-	idea/i_ofb64.c
-	idea/i_skey.c
+	idea/idea.c
 	kdf/hkdf_evp.c
 	kdf/kdf_err.c
 	lhash/lhash.c

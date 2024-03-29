@@ -33,7 +33,6 @@ if(HOST_ASM_ELF_X86_64)
 		bn/modexp512-elf-x86_64.S
 		bn/mont-elf-x86_64.S
 		bn/mont5-elf-x86_64.S
-		camellia/cmll-elf-x86_64.S
 		md5/md5-elf-x86_64.S
 		modes/ghash-elf-x86_64.S
 		rc4/rc4-elf-x86_64.S
@@ -83,7 +82,6 @@ if(HOST_ASM_MACOSX_X86_64)
 		bn/modexp512-macosx-x86_64.S
 		bn/mont-macosx-x86_64.S
 		bn/mont5-macosx-x86_64.S
-		camellia/cmll-macosx-x86_64.S
 		md5/md5-macosx-x86_64.S
 		modes/ghash-macosx-x86_64.S
 		rc4/rc4-macosx-x86_64.S
@@ -134,7 +132,6 @@ if(HOST_ASM_MASM_X86_64)
 		#bn/modexp512-masm-x86_64.S
 		#bn/mont-masm-x86_64.S
 		#bn/mont5-masm-x86_64.S
-		camellia/cmll-masm-x86_64.S
 		md5/md5-masm-x86_64.S
 		modes/ghash-masm-x86_64.S
 		rc4/rc4-masm-x86_64.S
@@ -172,7 +169,6 @@ if(HOST_ASM_MINGW64_X86_64)
 		#bn/modexp512-mingw64-x86_64.S
 		#bn/mont-mingw64-x86_64.S
 		#bn/mont5-mingw64-x86_64.S
-		camellia/cmll-mingw64-x86_64.S
 		md5/md5-mingw64-x86_64.S
 		modes/ghash-mingw64-x86_64.S
 		rc4/rc4-mingw64-x86_64.S
@@ -198,18 +194,6 @@ if(HOST_ASM_MINGW64_X86_64)
 	add_definitions(-DOPENSSL_CPUID_OBJ)
 	set(CRYPTO_SRC ${CRYPTO_SRC} ${ASM_X86_64_MINGW64_SRC})
 	set_property(SOURCE ${ASM_X86_64_MINGW64_SRC} PROPERTY LANGUAGE C)
-endif()
-
-if((NOT HOST_ASM_ELF_X86_64) AND
-	(NOT HOST_ASM_MACOSX_X86_64) AND
-	(NOT HOST_ASM_MASM_X86_64) AND
-	(NOT HOST_ASM_MINGW64_X86_64))
-	set(
-		CRYPTO_SRC
-		${CRYPTO_SRC}
-		camellia/camellia.c
-		camellia/cmll_cbc.c
-	)
 endif()
 
 set(
@@ -338,16 +322,8 @@ set(
 	bytestring/bs_ber.c
 	bytestring/bs_cbb.c
 	bytestring/bs_cbs.c
-	camellia/cmll_cfb.c
-	camellia/cmll_ctr.c
-	camellia/cmll_ecb.c
-	camellia/cmll_misc.c
-	camellia/cmll_ofb.c
-	cast/c_cfb64.c
-	cast/c_ecb.c
-	cast/c_enc.c
-	cast/c_ofb64.c
-	cast/c_skey.c
+	camellia/camellia.c
+	cast/cast.c
 	chacha/chacha.c
 	cmac/cm_ameth.c
 	cmac/cm_pmeth.c

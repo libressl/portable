@@ -5,9 +5,6 @@ ASM_MIPS_ELF += sha/sha1-mips.S
 ASM_MIPS_ELF += sha/sha512-mips.S
 ASM_MIPS_ELF += sha/sha256-mips.S
 
-ASM_MIPS_ELF += camellia/camellia.c
-ASM_MIPS_ELF += camellia/cmll_cbc.c
-
 EXTRA_DIST += $(ASM_MIPS_ELF)
 
 if HOST_ASM_ELF_MIPS

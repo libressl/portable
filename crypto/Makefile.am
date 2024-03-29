@@ -196,8 +196,6 @@ if !HOST_ASM_MACOSX_X86_64
 if !HOST_ASM_MASM_X86_64
 if !HOST_ASM_MINGW64_X86_64
 libcrypto_la_CPPFLAGS += -DOPENSSL_NO_ASM
-libcrypto_la_SOURCES += camellia/camellia.c
-libcrypto_la_SOURCES += camellia/cmll_cbc.c
 endif
 endif
 endif
@@ -427,22 +425,12 @@ libcrypto_la_SOURCES += bytestring/bs_cbb.c
 libcrypto_la_SOURCES += bytestring/bs_cbs.c
 
 # camellia
-libcrypto_la_SOURCES += camellia/cmll_cfb.c
-libcrypto_la_SOURCES += camellia/cmll_ctr.c
-libcrypto_la_SOURCES += camellia/cmll_ecb.c
-libcrypto_la_SOURCES += camellia/cmll_misc.c
-libcrypto_la_SOURCES += camellia/cmll_ofb.c
+libcrypto_la_SOURCES += camellia/camellia.c
 noinst_HEADERS += camellia/camellia.h
-noinst_HEADERS += camellia/cmll_local.h
 
 # cast
-libcrypto_la_SOURCES += cast/c_cfb64.c
-libcrypto_la_SOURCES += cast/c_ecb.c
-libcrypto_la_SOURCES += cast/c_enc.c
-libcrypto_la_SOURCES += cast/c_ofb64.c
-libcrypto_la_SOURCES += cast/c_skey.c
+libcrypto_la_SOURCES += cast/cast.c
 noinst_HEADERS += cast/cast_local.h
-noinst_HEADERS += cast/cast_s.h
 
 # chacha
 EXTRA_libcrypto_la_SOURCES += chacha/chacha-merged.c

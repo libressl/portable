@@ -6,7 +6,6 @@ ASM_X86_64_MINGW64 += aes/aesni-mingw64-x86_64.S
 #ASM_X86_64_MINGW64 += bn/modexp512-mingw64-x86_64.S
 #ASM_X86_64_MINGW64 += bn/mont-mingw64-x86_64.S
 #ASM_X86_64_MINGW64 += bn/mont5-mingw64-x86_64.S
-ASM_X86_64_MINGW64 += camellia/cmll-mingw64-x86_64.S
 ASM_X86_64_MINGW64 += md5/md5-mingw64-x86_64.S
 ASM_X86_64_MINGW64 += modes/ghash-mingw64-x86_64.S
 ASM_X86_64_MINGW64 += rc4/rc4-mingw64-x86_64.S

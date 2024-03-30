@@ -666,6 +666,7 @@ noinst_HEADERS += hidden/openssl/stack.h
 noinst_HEADERS += hidden/openssl/ts.h
 noinst_HEADERS += hidden/openssl/txt_db.h
 noinst_HEADERS += hidden/openssl/ui.h
+noinst_HEADERS += hidden/openssl/whrlpool.h
 noinst_HEADERS += hidden/openssl/x509.h
 noinst_HEADERS += hidden/openssl/x509_vfy.h
 noinst_HEADERS += hidden/openssl/x509v3.h

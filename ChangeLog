@@ -54,6 +54,13 @@ LibreSSL Portable Release Notes:
 	* Compatibility changes
 	  - Removed workaround for F5 middle boxes.
 	* Bug fixes
+	  - Improved standards compliance for supported groups and key shares
+	    extensions
+		- Duplicate key shares are disallowed
+		- Duplicate supported groups are disallowed
+		- Key shares must be sent in the order of supported groups.
+		- Key shares will only be selected if they match the most
+		  preferred supported group by client preference order.
 	  - Fixed signed integer overflow in bnrand().
 
 3.9.0 - Development release

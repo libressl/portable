@@ -41,6 +41,12 @@ LibreSSL Portable Release Notes:
 	  - Split parsing and processing of TLS extensions to ensure that
 	    extension callbacks are called in a predefined order.
 	  - Cleaned up the MD4 and MD5 implementations.
+	  - Assembly functions are no longer exposed in the public API, they
+	    are all wrapped by C functions.
+	  - Removed assembly implementations of legacy ciphers on legacy
+	    architectures.
+	  - Merged most multi-file implementations of ciphers into one or two
+	    C files.
 	* Documentation improvements
 	  - Removed documentation of no longer existing API.
 	* Testing and proactive security

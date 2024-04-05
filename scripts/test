@@ -27,6 +27,7 @@ if [ `uname` = "Darwin" ]; then
 
 	# test cmake
 	tar zxvf libressl-*.tar.gz
+	rm libressl-*.tar.gz
 	cd libressl-*
 
 	(
@@ -62,6 +63,7 @@ elif [ "$ARCH" = "native" ]; then
 	make -j 4 distcheck
 
 	tar zxvf libressl-*.tar.gz
+	rm libressl-*.tar.gz
 	cd libressl-*
 
 

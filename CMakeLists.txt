@@ -509,9 +509,7 @@ if(ENABLE_LIBRESSL_INSTALL)
 		"${CMAKE_CURRENT_BINARY_DIR}/LibreSSLConfigVersion.cmake"
 		DESTINATION "${LIBRESSL_INSTALL_CMAKEDIR}"
 	)
-endif()
 
-if(ENABLE_LIBRESSL_INSTALL)
 	if(NOT MSVC)
 		# Create pkgconfig files.
 		set(prefix      ${CMAKE_INSTALL_PREFIX})
@@ -530,19 +528,17 @@ if(ENABLE_LIBRESSL_INSTALL)
 		install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/pkgconfig
 			DESTINATION ${CMAKE_INSTALL_LIBDIR})
 	endif()
-endif(ENABLE_LIBRESSL_INSTALL)
 
-if(ENABLE_LIBRESSL_INSTALL)
 	install(FILES cert.pem openssl.cnf x509v3.cnf DESTINATION ${CONF_DIR})
 	install(DIRECTORY DESTINATION ${CONF_DIR}/certs)
+
+ 	if(NOT TARGET uninstall)
+		configure_file(
+			"${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
+			"${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
+			IMMEDIATE @ONLY)
+
+		add_custom_target(uninstall
+			COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
+	endif()
 endif(ENABLE_LIBRESSL_INSTALL)
-
-if(NOT TARGET uninstall)
-	configure_file(
-		"${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
-		"${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
-		IMMEDIATE @ONLY)
-
-	add_custom_target(uninstall
-		COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
-endif()

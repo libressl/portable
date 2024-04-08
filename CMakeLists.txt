@@ -541,4 +541,4 @@ if(ENABLE_LIBRESSL_INSTALL)
 		add_custom_target(uninstall
 			COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
 	endif()
-endif(ENABLE_LIBRESSL_INSTALL)
+endif()

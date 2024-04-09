@@ -62,8 +62,8 @@ LibreSSL Portable Release Notes:
 	    their documentation and always set an RFC 5280 conformant time.
 	  - Improved standards compliance for supported groups and key shares
 	    extensions
-		- Duplicate key shares are disallowed
-		- Duplicate supported groups are disallowed
+		- Duplicate key shares are disallowed.
+		- Duplicate supported groups are disallowed.
 		- Key shares must be sent in the order of supported groups.
 		- Key shares will only be selected if they match the most
 		  preferred supported group by client preference order.

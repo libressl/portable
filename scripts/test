@@ -4,7 +4,6 @@ set -x
 
 unset CC
 ENABLE_ASM="${ENABLE_ASM:=ON}"
-VERSION=`cat VERSION`
 
 if type apt-get >/dev/null 2>&1; then
 	sudo apt-get update
@@ -13,6 +12,8 @@ fi
 
 # generate source tree
 ./autogen.sh
+
+VERSION=`cat VERSION`
 
 if [ "$ARCH" = "" ]; then
 	ARCH=`uname -m`

@@ -151,7 +151,7 @@ else
 	$CP $libcrypto_src/opensslv.h include/openssl
 fi
 
-awk '/LIBRESSL_VERSION_TEXT/ {print $4}' < include/openssl/opensslv.h | cut -d\" -f1 > VERSION
+awk '/LIBRESSL_VERSION_TEXT/ {print $4}' < include/openssl/opensslv.h | cut -d\" -f1 | head -n1 > VERSION
 echo "LibreSSL version `cat VERSION`"
 
 # copy libcrypto source

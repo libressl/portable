@@ -177,7 +177,7 @@ if(HOST_ASM_MINGW64_X86_64)
 		sha/sha512-mingw64-x86_64.S
 		cpuid-mingw64-x86_64.S
 	)
-	add_definitions(-Dendbr64=)
+	add_definitions(-Dendbr32=endbr64)
 	add_definitions(-DAES_ASM)
 	add_definitions(-DBSAES_ASM)
 	add_definitions(-DVPAES_ASM)

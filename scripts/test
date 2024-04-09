@@ -4,6 +4,7 @@ set -x
 
 unset CC
 ENABLE_ASM="${ENABLE_ASM:=ON}"
+VERSION=`cat VERSION`
 
 if type apt-get >/dev/null 2>&1; then
 	sudo apt-get update
@@ -26,8 +27,8 @@ if [ `uname` = "Darwin" ]; then
 	make -j 4 distcheck
 
 	# test cmake
-	tar zxvf libressl-*.tar.gz
-	cd libressl-*
+	tar zxvf libressl-$VERSION.tar.gz
+	cd libressl-$VERSION
 
 	(
 		mkdir build-static
@@ -61,8 +62,8 @@ elif [ "$ARCH" = "native" ]; then
 	# make distribution
 	make -j 4 distcheck
 
-	tar zxvf libressl-*.tar.gz
-	cd libressl-*
+	tar zxvf libressl-$VERSION.tar.gz
+	cd libressl-$VERSION
 
 
 	# test cmake and ninja

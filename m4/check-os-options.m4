@@ -145,7 +145,7 @@ if test "$ac_cv_sizeof_time_t" = "4"; then
     if test "$host_os" = "mingw32" ; then
         echo " **"
         echo " ** You can solve this by adjusting the build flags in your"
-        echo " ** mingw-w64 toolchain. Refer to README.windows for details."
+        echo " ** mingw-w64 toolchain. Refer to README.mingw.md for details."
     fi
 fi
 

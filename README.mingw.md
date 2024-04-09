@@ -1,4 +1,4 @@
-# Building
+## Building with mingw-w64 for 32- and 64-bit
 
 For Windows systems, LibreSSL supports the mingw-w64 toolchain, which can use
 GCC or Clang as the compiler. Contrary to its name, mingw-w64 supports both
@@ -23,7 +23,7 @@ For 64-bit builds, use these instead:
  make
  make check
 
-# Why the -D__MINGW_USE_VC2005_COMPAT flag on 32-bit systems?
+### Why the -D__MINGW_USE_VC2005_COMPAT flag on 32-bit systems?
 
 An ABI change introduced with Microsoft Visual C++ 2005 (also known as
 Visual C++ 8.0) switched time_t from 32-bit to 64-bit. It is important to

@@ -143,6 +143,7 @@ generate a Visual Studio project, install CMake, enter the LibreSSL source
 directory and run:
 
 ```sh
+./update.sh
 mkdir build-vs2013
 cd build-vs2013
 cmake -G"Visual Studio 12 2013" ..

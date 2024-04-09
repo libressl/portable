@@ -1,13 +1,13 @@
-## Building with mingw-w64 for 32- and 64-bit
+## Building with MinGW-w64 for 32- and 64-bit
 
-For Windows systems, LibreSSL supports the mingw-w64 toolchain, which can use
-GCC or Clang as the compiler. Contrary to its name, mingw-w64 supports both
-32-bit and 64-bit build environments. If your project already uses mingw-w64,
-then LibreSSL should integrate very nicely. Old versions of the mingw-w64
+For Windows systems, LibreSSL supports the MinGW-w64 toolchain, which can use
+GCC or Clang as the compiler. Contrary to its name, MinGW-w64 supports both
+32-bit and 64-bit build environments. If your project already uses MinGW-w64,
+then LibreSSL should integrate very nicely. Old versions of the MinGW-w64
 toolchain, such as the one packaged with Ubuntu 12.04, may have trouble
 building LibreSSL. Please try it with a recent toolchain if you encounter
-troubles. Cygwin provides an easy method of installing the latest mingw-w64
-cross compilers on Windows.
+troubles. Cygwin provides an easy method of installing the latest MinGW-w64
+cross-compilers on Windows.
 
 To configure and build LibreSSL for a 32-bit system, use the following
 build steps:
@@ -36,7 +36,7 @@ expiry date is set past 19 January 2038, it will be unable to tell if the
 certificate has expired or not, and thus take the safe stance and reject it.
 
 In order to avoid this, you need to build LibreSSL (and everything that links
-with it) with the -D__MINGW_USE_VC2005_COMPAT flag. This tells mingw-w64 to
+with it) with the -D__MINGW_USE_VC2005_COMPAT flag. This tells MinGW-w64 to
 use the new ABI.
 
 64-bit systems always have a 64-bit time_t and are not affected by this

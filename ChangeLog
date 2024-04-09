@@ -51,6 +51,8 @@ LibreSSL Portable Release Notes:
 	    performance reasons which no longer apply since BoringSSL's time
 	    conversion API isn't slow. Also, a recently added error check led
 	    to obscure, undesirable validation failures.
+	  - Stopped calling OPENSSL_cpuid_setup() from the .init section on
+	    amd64 and i386.
 	* Documentation improvements
 	  - Removed documentation of no longer existing API.
 	* Testing and proactive security

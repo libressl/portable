@@ -47,6 +47,10 @@ LibreSSL Portable Release Notes:
 	    architectures.
 	  - Merged most multi-file implementations of ciphers into one or two
 	    C files.
+	  - Removed the cache of certificate validity. This was added for
+	    performance reasons which no longer apply since BoringSSL's time
+	    conversion API isn't slow. Also, a recently added error check led
+	    to obscure, undesirable validation failures.
 	* Documentation improvements
 	  - Removed documentation of no longer existing API.
 	* Testing and proactive security
@@ -54,6 +58,8 @@ LibreSSL Portable Release Notes:
 	* Compatibility changes
 	  - Removed workaround for F5 middle boxes.
 	* Bug fixes
+	  - Made ASN1_TIME_set_string() and ASN1_TIME_set_string_X509() match
+	    their documentation and always set an RFC 5280 conformant time.
 	  - Improved standards compliance for supported groups and key shares
 	    extensions
 		- Duplicate key shares are disallowed

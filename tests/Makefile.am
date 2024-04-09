@@ -170,6 +170,11 @@ TESTS += bn_add_sub
 check_PROGRAMS += bn_add_sub
 bn_add_sub_SOURCES = bn_add_sub.c
 
+# bn_bits
+TESTS += bn_bits
+check_PROGRAMS += bn_bits
+bn_bits_SOURCES = bn_bits.c
+
 # bn_cmp
 TESTS += bn_cmp
 check_PROGRAMS += bn_cmp

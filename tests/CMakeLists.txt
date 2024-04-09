@@ -154,6 +154,11 @@ add_executable(bn_add_sub bn_add_sub.c)
 target_link_libraries(bn_add_sub ${OPENSSL_TEST_LIBS})
 add_test(bn_add_sub bn_add_sub)
 
+# bn_bits
+add_executable(bn_bits bn_bits.c)
+target_link_libraries(bn_bits ${OPENSSL_TEST_LIBS})
+add_test(bn_bits bn_bits)
+
 # bn_cmp
 add_executable(bn_cmp bn_cmp.c)
 target_link_libraries(bn_cmp ${OPENSSL_TEST_LIBS})

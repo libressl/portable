@@ -61,7 +61,7 @@ LibreSSL Portable Release Notes:
 	  - Removed workaround for F5 middle boxes.
 	* Bug fixes
 	  - Made ASN1_TIME_set_string() and ASN1_TIME_set_string_X509() match
-	    their documentation and always set an RFC 5280 conformant time.
+	    their documentation. They always set an RFC 5280 conformant time.
 	  - Improved standards compliance for supported groups and key shares
 	    extensions
 		- Duplicate key shares are disallowed.

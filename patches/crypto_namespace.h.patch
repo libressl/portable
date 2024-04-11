@@ -1,5 +1,5 @@
---- openbsd/src/lib/libcrypto/hidden/crypto_namespace.h	2023-03-15 11:41:37.614024500 -0600
-+++ crypto/hidden/crypto_namespace.h	2023-03-15 17:12:55.297157400 -0600
+--- crypto/hidden/crypto_namespace.h.orig	2024-04-09 10:12:22.320737957 +0200
++++ crypto/hidden/crypto_namespace.h	2024-04-11 09:09:31.163350515 +0200
 @@ -24,6 +24,12 @@
   * external calls use the latter name.
   */
@@ -11,9 +11,9 @@
 +# define LCRYPTO_ALIAS(x)
 +#else
  #ifdef LIBRESSL_NAMESPACE
- # define LCRYPTO_UNUSED(x)		typeof(x) x __attribute__((deprecated))
  #ifdef LIBRESSL_CRYPTO_NAMESPACE
-@@ -40,5 +46,6 @@
+ #  define LCRYPTO_UNUSED(x)	__attribute__((deprecated))		\
+@@ -43,5 +49,6 @@
  # define LCRYPTO_ALIAS1(pre,x)
  # define LCRYPTO_ALIAS(x)	asm("")
  #endif

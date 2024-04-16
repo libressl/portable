@@ -218,7 +218,6 @@ libcrypto_la_SOURCES += malloc-wrapper.c
 libcrypto_la_SOURCES += mem_clr.c
 libcrypto_la_SOURCES += mem_dbg.c
 libcrypto_la_SOURCES += o_fips.c
-libcrypto_la_SOURCES += o_str.c
 noinst_HEADERS += arm_arch.h
 noinst_HEADERS += constant_time.h
 noinst_HEADERS += cryptlib.h

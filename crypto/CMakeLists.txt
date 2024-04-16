@@ -208,7 +208,6 @@ set(
 	mem_clr.c
 	mem_dbg.c
 	o_fips.c
-	o_str.c
 	aes/aes.c
 	aes/aes_core.c
 	aes/aes_ige.c

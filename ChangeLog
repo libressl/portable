@@ -53,6 +53,7 @@ LibreSSL Portable Release Notes:
 	    to obscure, undesirable validation failures.
 	  - Stopped calling OPENSSL_cpuid_setup() from the .init section on
 	    amd64 and i386.
+	  - Rewrote various BN conversion functions.
 	* Documentation improvements
 	  - Removed documentation of no longer existing API.
 	* Testing and proactive security
@@ -70,6 +71,8 @@ LibreSSL Portable Release Notes:
 		- Key shares will only be selected if they match the most
 		  preferred supported group by client preference order.
 	  - Fixed signed integer overflow in bnrand().
+	  - Prevent negative zero from being created via BN_clear_bit() and
+	    BN_mask_bits(). Avoids a one byte overread in BN_bn2mpi().
 
 3.9.0 - Development release
 

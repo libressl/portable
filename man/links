@@ -2055,15 +2055,9 @@ X509_LOOKUP_hash_dir.3,X509_LOOKUP_file.3
 X509_LOOKUP_hash_dir.3,X509_LOOKUP_mem.3
 X509_LOOKUP_new.3,X509_LOOKUP_add_dir.3
 X509_LOOKUP_new.3,X509_LOOKUP_add_mem.3
-X509_LOOKUP_new.3,X509_LOOKUP_by_alias.3
-X509_LOOKUP_new.3,X509_LOOKUP_by_fingerprint.3
-X509_LOOKUP_new.3,X509_LOOKUP_by_issuer_serial.3
-X509_LOOKUP_new.3,X509_LOOKUP_by_subject.3
 X509_LOOKUP_new.3,X509_LOOKUP_ctrl.3
 X509_LOOKUP_new.3,X509_LOOKUP_free.3
-X509_LOOKUP_new.3,X509_LOOKUP_init.3
 X509_LOOKUP_new.3,X509_LOOKUP_load_file.3
-X509_LOOKUP_new.3,X509_LOOKUP_shutdown.3
 X509_LOOKUP_new.3,X509_get_default_cert_dir.3
 X509_LOOKUP_new.3,X509_get_default_cert_dir_env.3
 X509_LOOKUP_new.3,X509_get_default_cert_file.3

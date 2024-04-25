@@ -6,6 +6,7 @@ include $(top_srcdir)/Makefile.am.common
 
 AM_CPPFLAGS += -DLIBRESSL_CRYPTO_INTERNAL
 
+AM_CPPFLAGS += -I $(top_srcdir)/crypto/
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/asn1
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/bio
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/bn
@@ -307,6 +308,11 @@ configtest_SOURCES = configtest.c
 TESTS += constraints
 check_PROGRAMS += constraints
 constraints_SOURCES = constraints.c
+
+# crypto_test
+TESTS += crypto_test
+check_PROGRAMS += crypto_test
+crypto_test_SOURCES = crypto_test.c
 
 # cttest
 TESTS += cttest

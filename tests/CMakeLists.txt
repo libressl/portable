@@ -2,6 +2,7 @@ add_definitions(-DLIBRESSL_CRYPTO_INTERNAL)
 
 include_directories(
 	.
+	../crypto/
 	../crypto/asn1
 	../crypto/bio
 	../crypto/bn
@@ -292,6 +293,11 @@ add_test(configtest configtest)
 add_executable(constraints constraints.c)
 target_link_libraries(constraints ${OPENSSL_TEST_LIBS})
 add_test(constraints constraints)
+
+# crypto_test
+add_executable(crypto_test crypto_test.c)
+target_link_libraries(crypto_test ${OPENSSL_TEST_LIBS})
+add_test(crypto_test crypto_test)
 
 # cttest
 add_executable(cttest cttest.c)

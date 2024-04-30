@@ -35,7 +35,7 @@ jobs:
 
       - name: Setup macOS dependencies
         if: runner.os == 'macOS'
-        run: brew install automake
+        run: brew install automake libtool
 
       - uses: actions/checkout@main
 

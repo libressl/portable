@@ -678,6 +678,8 @@ EC_GROUP_new.3,EC_GROUP_new_by_curve_name.3
 EC_GROUP_new.3,EC_GROUP_new_curve_GFp.3
 EC_GROUP_new.3,EC_GROUP_set_curve.3
 EC_GROUP_new.3,EC_GROUP_set_curve_GFp.3
+EC_GROUP_new.3,EC_curve_nid2nist.3
+EC_GROUP_new.3,EC_curve_nist2nid.3
 EC_GROUP_new.3,EC_get_builtin_curves.3
 EC_KEY_METHOD_new.3,EC_KEY_METHOD_free.3
 EC_KEY_METHOD_new.3,EC_KEY_METHOD_get_compute_key.3

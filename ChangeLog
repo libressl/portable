@@ -62,6 +62,7 @@ LibreSSL Portable Release Notes:
 	  - Removed workaround for F5 middle boxes.
 	  - Removed the useless pem2.h, a public header that was added since
 	    it was too hard to add a prototype to one file.
+	  - Only specified versions can be set on certs, CRLs and CSRs.
 	* Bug fixes
 	  - Made ASN1_TIME_set_string() and ASN1_TIME_set_string_X509() match
 	    their documentation. They always set an RFC 5280 conformant time.

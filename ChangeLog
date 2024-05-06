@@ -76,6 +76,9 @@ LibreSSL Portable Release Notes:
 	  - Fixed signed integer overflow in bnrand().
 	  - Prevent negative zero from being created via BN_clear_bit() and
 	    BN_mask_bits(). Avoids a one byte overread in BN_bn2mpi().
+	  - Add guard to avoid contracting the number linear hash buckets
+	    to zero, which could lead to a crash due to accessing a zero
+	    sized allocation.
 
 3.9.0 - Development release
 

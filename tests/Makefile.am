@@ -484,6 +484,11 @@ check_PROGRAMS += keypairtest
 keypairtest_SOURCES = keypairtest.c
 EXTRA_DIST += keypairtest.sh
 
+# lhash_test
+TESTS += lhash_test
+check_PROGRAMS += lhash_test
+lhash_test_SOURCES = lhash_test.c
+
 # md_test
 TESTS += md_test
 check_PROGRAMS += md_test

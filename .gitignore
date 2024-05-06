@@ -115,6 +115,7 @@ tests/explicit_bzero*
 tests/freenull*
 tests/gost2814789t*
 tests/key_schedule*
+tests/lhash_test*
 tests/mont*
 tests/policy*
 tests/rfc3779*

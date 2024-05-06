@@ -467,6 +467,11 @@ add_test(keypairtest keypairtest
 	${CMAKE_CURRENT_SOURCE_DIR}/server1-rsa.pem
 	${CMAKE_CURRENT_SOURCE_DIR}/server1-rsa.pem)
 
+# lhash_test
+add_executable(lhash_test lhash_test.c)
+target_link_libraries(lhash_test ${OPENSSL_TEST_LIBS})
+add_test(lhash_test lhash_test)
+
 # md_test
 add_executable(md_test md_test.c)
 target_link_libraries(md_test ${OPENSSL_TEST_LIBS})

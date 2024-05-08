@@ -63,6 +63,7 @@ LibreSSL Portable Release Notes:
 	  - Removed the useless pem2.h, a public header that was added since
 	    it was too hard to add a prototype to one file.
 	  - Only specified versions can be set on certs, CRLs and CSRs.
+	  - Prepared X509_REQ_{get,set}_extension_nids() for removal.
 	* Bug fixes
 	  - Made ASN1_TIME_set_string() and ASN1_TIME_set_string_X509() match
 	    their documentation. They always set an RFC 5280 conformant time.

@@ -54,6 +54,7 @@ LibreSSL Portable Release Notes:
 	  - Stopped calling OPENSSL_cpuid_setup() from the .init section on
 	    amd64 and i386.
 	  - Rewrote various BN conversion functions.
+	  - Improved certification request internals.
 	* Documentation improvements
 	  - Removed documentation of no longer existing API.
 	* Testing and proactive security

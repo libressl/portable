@@ -28,6 +28,12 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+3.9.2 - Stable release
+
+	* Bugfixes
+	  - OpenBSD 7.5 errata 003. A missing bounds check could lead to a crash
+	    due to dereferencing a zero-sized allocation.
+
 3.9.1 - Stable release
 
 	* Portable changes

@@ -159,6 +159,7 @@ LibreSSL Portable Release Notes:
 	  - Aligned SSL_shutdown() behavior in TLSv1.3 with the legacy stack.
 	  - Fixed the new X.509 verifier to find trust anchors in the trusted
 	    stack.
+	  - Made in-place decryption work for EVP_chacha20_poly1305().
 
 3.8.3 - Stable release
 

@@ -369,7 +369,6 @@ set(
 	des/ecb_enc.c
 	des/ede_cbcm_enc.c
 	des/enc_read.c
-	des/enc_writ.c
 	des/fcrypt.c
 	des/fcrypt_b.c
 	des/ofb64ede.c

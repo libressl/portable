@@ -1,0 +1,10 @@
+#!/bin/sh
+echo 1..1
+TEST=./asn1time
+if [ -e ./asn1time.exe ]; then
+	TEST=./asn1time.exe
+fi
+
+# map test failure to XFAIL and success to XPASS
+$TEST || echo -n "not "
+echo "ok # this system is unable to represent times past 2038"

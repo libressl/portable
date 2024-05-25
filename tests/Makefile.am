@@ -32,6 +32,7 @@ LDADD = libtest.la $(PLATFORM_LDADD) $(PROG_LDADD)
 TEST_LOG_DRIVER = env AM_TAP_AWK='$(AWK)' $(SHELL) $(top_srcdir)/tap-driver.sh
 
 TESTS =
+XFAIL_TESTS =
 check_PROGRAMS =
 EXTRA_DIST = CMakeLists.txt
 DISTCLEANFILES = pidwraptest.txt
@@ -119,9 +120,15 @@ check_PROGRAMS += asn1test
 asn1test_SOURCES = asn1test.c
 
 # asn1time
-TESTS += asn1time
 check_PROGRAMS += asn1time
 asn1time_SOURCES = asn1time.c
+if SMALL_TIME_T
+TESTS += asn1time_small.test
+XFAIL_TESTS += asn1time_small.test
+else
+TESTS += asn1time
+endif
+EXTRA_DIST += asn1time_small.test
 
 # asn1x509
 TESTS += asn1x509
@@ -617,12 +624,7 @@ rfc3779_SOURCES = rfc3779.c
 # rfc5280time
 check_PROGRAMS += rfc5280time
 rfc5280time_SOURCES = rfc5280time.c
-if SMALL_TIME_T
-TESTS += rfc5280time_small.test
-else
 TESTS += rfc5280time
-endif
-EXTRA_DIST += rfc5280time_small.test
 
 # rmd_test
 TESTS += rmd_test

@@ -147,10 +147,6 @@ endif
 endif
 endif
 
-if !HAVE_TIMEGM
-libcompat_la_SOURCES += compat/timegm.c
-endif
-
 if !HAVE_REALLOCARRAY
 libcompat_la_SOURCES += compat/reallocarray.c
 endif

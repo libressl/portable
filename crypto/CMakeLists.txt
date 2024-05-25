@@ -721,11 +721,6 @@ if(NOT HAVE_SYSLOG_R)
 	set(COMPAT_SRC ${COMPAT_SRC} compat/syslog_r.c)
 endif()
 
-if(NOT HAVE_TIMEGM)
-        # XXX - Remove after next bump once libtls, ocspcheck, and asn1time are fixed.
-	set(COMPAT_SRC ${COMPAT_SRC} compat/timegm.c)
-endif()
-
 if(NOT HAVE_EXPLICIT_BZERO)
 	if(WIN32)
 		set(COMPAT_SRC ${COMPAT_SRC} compat/explicit_bzero_win.c)

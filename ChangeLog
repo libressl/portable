@@ -31,6 +31,8 @@ LibreSSL Portable Release Notes:
 4.0.0 - In development
 
 	* Portable changes
+	  - Removed timegm() compatibility layer since all uses were replaced
+	    with OPENSSL_timegm(). Clean up the corresponding test harness.
 	* Internal improvements
 	  - Cleaned up parts of the conf directory. Simplified some logic,
 	    fixed memory leaks.

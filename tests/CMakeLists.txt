@@ -101,6 +101,9 @@ add_test(asn1test asn1test)
 add_executable(asn1time asn1time.c)
 target_link_libraries(asn1time ${OPENSSL_TEST_LIBS})
 add_test(asn1time asn1time)
+if(SMALL_TIME_T)
+	set_property(TEST asn1time PROPERTY WILL_FAIL TRUE)
+endif()
 
 # asn1x509
 add_executable(asn1x509 asn1x509.c)
@@ -584,11 +587,7 @@ add_test(rfc3779 rfc3779)
 # rfc5280time
 add_executable(rfc5280time rfc5280time.c)
 target_link_libraries(rfc5280time ${OPENSSL_TEST_LIBS})
-if(SMALL_TIME_T)
-	add_test(rfc5280time ${CMAKE_CURRENT_SOURCE_DIR}/rfc5280time_small.test)
-else()
-	add_test(rfc5280time rfc5280time)
-endif()
+add_test(rfc5280time rfc5280time)
 
 # rmd_test
 add_executable(rmd_test rmd_test.c)

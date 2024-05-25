@@ -551,8 +551,6 @@ DES_set_key.3,DES_ede3_cbc_encrypt.3
 DES_set_key.3,DES_ede3_cbcm_encrypt.3
 DES_set_key.3,DES_ede3_cfb64_encrypt.3
 DES_set_key.3,DES_ede3_ofb64_encrypt.3
-DES_set_key.3,DES_enc_read.3
-DES_set_key.3,DES_enc_write.3
 DES_set_key.3,DES_fcrypt.3
 DES_set_key.3,DES_is_weak_key.3
 DES_set_key.3,DES_key_sched.3

@@ -241,7 +241,6 @@ include/openssl/*.h
 !/crypto/compat/getpagesize.c
 !/crypto/compat/posix_win.c
 !/crypto/compat/bsd_asprintf.c
-!/crypto/compat/timegm.c
 !/crypto/compat/ui_openssl_win.c
 !/crypto/compat/crypto_lock_win.c
 !/crypto/CMakeLists.txt

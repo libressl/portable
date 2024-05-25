@@ -24,15 +24,6 @@
 #ifndef LIBCRYPTOCOMPAT_TIME_H
 #define LIBCRYPTOCOMPAT_TIME_H
 
-#ifdef _WIN32
-struct tm *__gmtime_r(const time_t * t, struct tm * tm);
-#define gmtime_r(tp, tm) __gmtime_r(tp, tm)
-#endif
-
-#ifndef HAVE_TIMEGM
-time_t timegm(struct tm *tm);
-#endif
-
 #ifndef CLOCK_MONOTONIC
 #define CLOCK_MONOTONIC CLOCK_REALTIME
 #endif

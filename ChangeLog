@@ -32,7 +32,7 @@ LibreSSL Portable Release Notes:
 
 	* Portable changes
 	  - Removed timegm() compatibility layer since all uses were replaced
-	    with OPENSSL_timegm(). Clean up the corresponding test harness.
+	    with OPENSSL_timegm(). Cleaned up the corresponding test harness.
 	* Internal improvements
 	  - Cleaned up parts of the conf directory. Simplified some logic,
 	    fixed memory leaks.

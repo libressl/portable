@@ -624,7 +624,13 @@ rfc3779_SOURCES = rfc3779.c
 # rfc5280time
 check_PROGRAMS += rfc5280time
 rfc5280time_SOURCES = rfc5280time.c
+if SMALL_TIME_T
+TESTS += rfc5280time_small.test
+XFAIL_TESTS += rfc5280time_small.test
+else
 TESTS += rfc5280time
+endif
+EXTRA_DIST += rfc5280time_small.test
 
 # rmd_test
 TESTS += rmd_test

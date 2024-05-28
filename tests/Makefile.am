@@ -820,6 +820,11 @@ TESTS += x509_asn1
 check_PROGRAMS += x509_asn1
 x509_asn1_SOURCES = x509_asn1.c
 
+# x509_extensions_test
+TESTS += x509_extensions_test
+check_PROGRAMS += x509_extensions_test
+x509_extensions_test_SOURCES = x509_extensions_test.c
+
 # x509_info
 TESTS += x509_info
 check_PROGRAMS += x509_info

@@ -30,6 +30,9 @@
 #elif defined(_WIN32)
 #include "arc4random_win.h"
 
+#elif defined(__EMSCRIPTEN__)
+#include "arc4random_linux.h"
+
 #else
 #error "No arc4random hooks defined for this platform."
 

@@ -49,7 +49,7 @@ LibreSSL also supports the following Windows environments:
 
 * Microsoft Windows (Windows 7 / Windows Server 2008r2 or later, x86 and x64)
 * Wine (32-bit and 64-bit)
-* Mingw-w64, Cygwin, and Visual Studio
+* MinGW-w64, Cygwin, and Visual Studio
 
 Official release tarballs are available at your friendly neighborhood
 OpenBSD mirror in directory
@@ -68,27 +68,24 @@ sent to the core team at libressl-security@openbsd.org.
 
 # Building LibreSSL
 
-## Prerequisites when building from a Git checkout
+## Building from a Git checkout
 
-If you have checked this source using Git, or have downloaded a source tarball
-from GitHub, follow these initial steps to prepare the source tree for
+If you have checked out this source using Git, or have downloaded a source 
+tarball from GitHub, follow these initial steps to prepare the source tree for
 building. _Note: Your build will fail if you do not follow these instructions!
-If you cannot follow these instructions (e.g. Windows system using CMake) or
-cannot meet these prerequistes, please download an official release distribution
-from https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/ instead. Using official
+If you cannot follow these instructions or cannot meet these prerequisites, 
+please download an official release distribution from 
+https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/ instead. Using official
 releases is strongly advised if you are not a developer._
 
-1. Ensure you have the following packages installed:
-   automake, autoconf, git, libtool, perl
-2. Run `./autogen.sh` to prepare the source tree for building or
-   run `./dist.sh` to prepare a tarball.
+1. Ensure that you have a bash shell. This is also required on Windows.
+2. Ensure that you have the following packages installed:
+   automake, autoconf, git, libtool, perl.
+3. Run `./autogen.sh` to prepare the source tree for building.
 
-## Steps that apply to all builds
+## Build steps using configure
 
-Once you have a source tree, either by downloaded using git and having
-run the `autogen.sh` script above, or by downloading a release distribution from
-an OpenBSD mirror, run these commands to build and install the package on most
-systems:
+Once you have the source tree prepared, run these commands to build and install:
 
 ```sh
 ./configure   # see ./configure --help for configuration options
@@ -96,7 +93,11 @@ make check    # runs builtin unit tests
 make install  # set DESTDIR= to install to an alternate location
 ```
 
-If you wish to use the CMake build system, use these commands:
+Alternatively, it is possible to run `./dist.sh` to prepare a tarball.
+
+## Build steps using CMake
+
+Once you have the source tree prepared, run these commands to build and install:
 
 ```sh
 mkdir build
@@ -106,7 +107,7 @@ make
 make test
 ```
 
-For faster builds, you can use Ninja as well:
+For faster builds, you can use Ninja:
 
 ```sh
 mkdir build-ninja
@@ -116,44 +117,15 @@ ninja
 ninja test
 ```
 
-### OS specific build information
-
-#### HP-UX (11i)
-
-Set the UNIX_STD environment variable to `2003` before running `configure`
-in order to build with the HP C/aC++ compiler. See the "standards(5)" man
-page for more details.
+Or another supported build system like Visual Studio:
 
 ```sh
-export UNIX_STD=2003
-./configure
-make
+mkdir build-vs2022
+cd build-vs2022
+cmake -G"Visual Studio 17 2022" ..
 ```
 
-#### Windows - Mingw-w64
-
-LibreSSL builds against relatively recent versions of Mingw-w64, not to be
-confused with the original mingw.org project. Mingw-w64 3.2 or later
-should work. See README.windows for more information
-
-#### Windows - Visual Studio
-
-LibreSSL builds using the CMake target "Visual Studio 12 2013" and newer. To
-generate a Visual Studio project, install CMake, enter the LibreSSL source
-directory and run:
-
-```sh
-./update.sh
-mkdir build-vs2013
-cd build-vs2013
-cmake -G"Visual Studio 12 2013" ..
-```
-
-Replace "Visual Studio 12 2013" with whatever version of Visual Studio you
-have installed. This will generate a LibreSSL.sln file that you can incorporate
-into other projects or build by itself.
-
-#### CMake - Additional Options
+#### Additional CMake Options
 
 | Option Name             | Default | Description                                                                                                     |
 |-------------------------|--------:|-----------------------------------------------------------------------------------------------------------------|
@@ -165,6 +137,26 @@ into other projects or build by itself.
 | `ENABLE_EXTRATESTS`     |   `OFF` | Enable extra tests that may be unreliable on some platforms                                                     |
 | `ENABLE_NC`             |   `OFF` | Enable installing TLS-enabled nc(1)                                                                             |
 | `OPENSSLDIR`            |   Blank | Set the default openssl directory.  Can be specified from command line using <br>```-DOPENSSLDIR=<dirname>```   |
+
+## Build information for specific systems
+
+### HP-UX (11i)
+
+Set the UNIX_STD environment variable to `2003` before running `configure`
+in order to build with the HP C/aC++ compiler. See the "standards(5)" man
+page for more details.
+
+```sh
+export UNIX_STD=2003
+./configure
+make
+```
+
+### MinGW-w64 - Windows
+
+LibreSSL builds against relatively recent versions of [MinGW-w64](https://www.mingw-w64.org/), not to be
+confused with the original mingw.org project. MinGW-w64 3.2 or later
+should work. See [README.mingw.md](README.mingw.md) for more information.
 
 # Using LibreSSL
 

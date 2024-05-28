@@ -109,7 +109,7 @@ char buf[1]; getentropy(buf, 1);
 		)
 		CPPFLAGS="$CPPFLAGS -D_OPENBSD_SOURCE"
 		;;
-	*openbsd* | *bitrig*)
+	*openbsd*)
 		HOST_OS=openbsd
 		HOST_ABI=elf
 		AC_DEFINE([HAVE_ATTRIBUTE__BOUNDED__], [1], [OpenBSD gcc has bounded])
@@ -131,7 +131,9 @@ char buf[1]; getentropy(buf, 1);
 		CPPFLAGS="$CPPFLAGS -D__EXTENSIONS__ -D_XOPEN_SOURCE=600 -DBSD_COMP"
 		AC_SUBST([PLATFORM_LDADD], ['-ldl -lmd -lnsl -lsocket'])
 		;;
-	*) ;;
+	*)
+		HOST_OS=unsupported
+		;;
 esac
 
 # Check if time_t is sized correctly

@@ -32,6 +32,10 @@ LT_INIT([pic-only])
 
 CHECK_OS_OPTIONS
 
+if test "$HOST_OS" = "unsupported"; then
+	AC_MSG_ERROR([unsupported platform: $host_os])
+fi
+
 CHECK_C_HARDENING_OPTIONS
 
 DISABLE_AS_EXECUTABLE_STACK

@@ -4,6 +4,8 @@ set -e
 servertest_bin=./servertest
 if [ -e ./servertest.exe ]; then
 	servertest_bin=./servertest.exe
+elif [ -e ./servertest.js ]; then
+	servertest_bin="node ./servertest.js"
 fi
 
 if [ -z $srcdir ]; then

@@ -4,6 +4,8 @@ set -e
 shutdowntest_bin=./shutdowntest
 if [ -e ./shutdowntest.exe ]; then
 	shutdowntest_bin=./shutdowntest.exe
+elif [ -e ./shutdowntest.js ]; then
+	shutdowntest_bin="node ./shutdowntest.js"
 fi
 
 if [ -z $srcdir ]; then

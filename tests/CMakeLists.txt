@@ -750,12 +750,16 @@ endif()
 set_tests_properties(ssltest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 
 # testdsa
-if(NOT MSVC)
-	add_test(NAME testdsa COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/testdsa.sh)
-else()
-	add_test(NAME testdsa COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/testdsa.bat $<TARGET_FILE:openssl>)
+# testdsa doesn't have an executable instead it uses openssl executable which access various files for IO.
+# adding such files to --preload-file is infeasible.
+if(NOT EMSCRIPTEN)
+	if(NOT MSVC)
+		add_test(NAME testdsa COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/testdsa.sh)
+	else()
+		add_test(NAME testdsa COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/testdsa.bat $<TARGET_FILE:openssl>)
+	endif()
+	set_tests_properties(testdsa PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 endif()
-set_tests_properties(testdsa PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 
 # testenc
 if(NOT MSVC)

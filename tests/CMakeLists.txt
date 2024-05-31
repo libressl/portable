@@ -405,6 +405,9 @@ add_platform_test(evp_pkey_cleanup evp_pkey_cleanup)
 # evptest
 add_executable(evptest evptest.c)
 target_link_libraries(evptest ${OPENSSL_TEST_LIBS})
+if(EMSCRIPTEN)
+	set_target_properties(evptest PROPERTIES LINK_FLAGS "--preload-file ${TEST_SOURCE_DIR}")
+endif()
 add_platform_test(evptest evptest ${CMAKE_CURRENT_SOURCE_DIR}/evptests.txt)
 
 # evp_test

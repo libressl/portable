@@ -488,6 +488,9 @@ add_platform_test(key_schedule key_schedule)
 add_executable(keypairtest keypairtest.c)
 target_link_libraries(keypairtest ${LIBTLS_TEST_LIBS})
 target_include_directories(keypairtest BEFORE PUBLIC ../tls)
+if(EMSCRIPTEN)
+	set_target_properties(keypairtest PROPERTIES LINK_FLAGS "--preload-file ${TEST_SOURCE_DIR}")
+endif()
 add_platform_test(keypairtest keypairtest
 	${CMAKE_CURRENT_SOURCE_DIR}/ca-root-rsa.pem
 	${CMAKE_CURRENT_SOURCE_DIR}/server1-rsa.pem

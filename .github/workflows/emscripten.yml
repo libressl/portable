@@ -1,0 +1,68 @@
+# GitHub Actions workflow to run tests on Linux.
+name: "Emscripten"
+
+on:
+  push: {}
+  pull_request: {}
+  schedule:
+    - cron: "0 0 * * *" # At 00:00 daily.
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: "Emscripten"
+    runs-on: "ubuntu-latest"
+    if: ${{ github.repository_owner == 'libressl' || github.event_name != 'schedule' }}
+    permissions:
+      contents: read
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "Setup emsdk"
+        uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: 3.1.60
+
+      - name: "Prepare repository"
+        run: "./autogen.sh"
+
+      - name: "Configure CMake"
+        run: cmake -Bbuild -DCMAKE_CROSSCOMPILING_EMULATOR=$EMSDK/node/18.20.3_64bit/bin/node -DCMAKE_TOOLCHAIN_FILE=$EMSDK/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake -DENABLE_ASM=OFF
+
+      - name: "Build"
+        run: cmake --build build --config Release
+
+      - name: "Test"
+        run: ctest --test-dir build -C Release --output-on-failure
+
+  # Test ASAN with and without ASM enabled.
+  test-asan:
+    name: "ASAN (no-asm)"
+    runs-on: "ubuntu-latest"
+    if: ${{ github.repository_owner == 'libressl' || github.event_name != 'schedule' }}
+    permissions:
+      contents: read
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "Setup emsdk"
+        uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: 3.1.60
+
+      - name: "Prepare repository"
+        run: "./autogen.sh"
+
+      - name: "Configure CMake"
+        run: cmake -Bbuild -DCMAKE_CROSSCOMPILING_EMULATOR=$EMSDK/node/18.20.3_64bit/bin/node -DCMAKE_TOOLCHAIN_FILE=$EMSDK/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake -DENABLE_ASM=OFF
+
+      - name: "Build"
+        run: cmake --build build --config Release
+
+      - name: "Test"
+        run: ctest --test-dir build -C Release --output-on-failure

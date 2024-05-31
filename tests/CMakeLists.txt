@@ -556,6 +556,9 @@ add_executable(policy policy.c)
 set_source_files_properties(policy.c PROPERTIES COMPILE_FLAGS
 	-DCERTSDIR=\\"${CMAKE_CURRENT_SOURCE_DIR}\\")
 target_link_libraries(policy ${OPENSSL_TEST_LIBS})
+if(EMSCRIPTEN)
+	set_target_properties(policy PROPERTIES LINK_FLAGS "--preload-file ${TEST_SOURCE_DIR}")
+endif()
 add_platform_test(policy policy)
 
 # pq_test

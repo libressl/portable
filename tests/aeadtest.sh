@@ -3,6 +3,8 @@ set -e
 TEST=./aeadtest
 if [ -e ./aeadtest.exe ]; then
 	TEST=./aeadtest.exe
+elif [ -e ./aeadtest.js ]; then
+	TEST="node ./aeadtest.js"
 fi
 $TEST aead $srcdir/aeadtests.txt
 $TEST aes-128-gcm $srcdir/aes_128_gcm_tests.txt

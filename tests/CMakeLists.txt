@@ -62,7 +62,8 @@ add_platform_test(apitest apitest)
 
 # arc4randomforktest
 # Windows/mingw does not have fork, but Cygwin does.
-if(NOT (WIN32 OR (CMAKE_SYSTEM_NAME MATCHES "MINGW")))
+# Emscripten does not have fork.
+if(NOT (WIN32 OR (CMAKE_SYSTEM_NAME MATCHES "MINGW") OR EMSCRIPTEN))
 	add_executable(arc4randomforktest arc4randomforktest.c)
 	target_link_libraries(arc4randomforktest ${OPENSSL_TEST_LIBS})
 	add_test(arc4randomforktest ${CMAKE_CURRENT_SOURCE_DIR}/arc4randomforktest.sh)

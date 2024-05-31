@@ -801,7 +801,8 @@ target_link_libraries(tlslegacytest ${OPENSSL_TEST_LIBS})
 add_platform_test(tlslegacytest tlslegacytest)
 
 # tlstest
-if(NOT CMAKE_SYSTEM_NAME MATCHES "WindowsStore")
+# Emscripten does not support socketpair syscall.
+if(NOT (CMAKE_SYSTEM_NAME MATCHES "WindowsStore" OR EMSCRIPTEN))
 	set(TLSTEST_SRC tlstest.c)
 	check_function_exists(pipe2 HAVE_PIPE2)
 	if(HAVE_PIPE2)

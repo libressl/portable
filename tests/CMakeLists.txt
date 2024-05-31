@@ -402,7 +402,8 @@ add_test(exdata_test exdata_test)
 
 # explicit_bzero
 # explicit_bzero relies on SA_ONSTACK, which is unavailable on Windows
-if(NOT WIN32)
+# explicit_bzero relies on sigsuspend, which is unavailable on Emscripten
+if(NOT (WIN32 OR EMSCRIPTEN))
 	if(HAVE_MEMMEM)
 		add_executable(explicit_bzero explicit_bzero.c)
 	else()

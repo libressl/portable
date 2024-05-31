@@ -674,7 +674,8 @@ endif()
 set_tests_properties(shutdowntest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 
 # signertest
-if(NOT CMAKE_SYSTEM_NAME MATCHES "WindowsStore")
+# Emscripten does not support socketpair syscall.
+if(NOT (CMAKE_SYSTEM_NAME MATCHES "WindowsStore" OR EMSCRIPTEN))
 	set(SIGNERTEST_SRC signertest.c)
 	check_function_exists(pipe2 HAVE_PIPE2)
 	if(HAVE_PIPE2)
@@ -710,6 +711,9 @@ add_executable(ssl_get_shared_ciphers ssl_get_shared_ciphers.c)
 set_source_files_properties(ssl_get_shared_ciphers.c PROPERTIES COMPILE_FLAGS
 	-DCERTSDIR=\\"${CMAKE_CURRENT_SOURCE_DIR}\\")
 target_link_libraries(ssl_get_shared_ciphers ${OPENSSL_TEST_LIBS})
+if(EMSCRIPTEN)
+	set_target_properties(ssl_get_shared_ciphers PROPERTIES LINK_FLAGS "--preload-file ${TEST_SOURCE_DIR}")
+endif()
 add_platform_test(ssl_get_shared_ciphers ssl_get_shared_ciphers)
 
 # ssl_methods

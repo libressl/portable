@@ -58,6 +58,9 @@ add_executable(apitest apitest.c)
 target_link_libraries(apitest ${OPENSSL_TEST_LIBS})
 set_source_files_properties(apitest.c PROPERTIES COMPILE_FLAGS
 	-DCERTSDIR=\\"${CMAKE_CURRENT_SOURCE_DIR}\\")
+if(EMSCRIPTEN)
+	set_target_properties(apitest PROPERTIES LINK_FLAGS "--preload-file ${TEST_SOURCE_DIR}")
+endif()
 add_platform_test(apitest apitest)
 
 # arc4randomforktest

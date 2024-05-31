@@ -69,6 +69,9 @@ LibreSSL Portable Release Notes:
 	  - Only specified versions can be set on certs, CRLs and CSRs.
 	  - Prepared X509_REQ_{get,set}_extension_nids() for removal.
 	  - Removed unused PEM_USER and PEM_CTX types from pem.h.
+	  - Removed typdefs for COMP_CTX, COMP_METHOD, X509_CRL_METHOD, STORE,
+	    STORE_METHOD, and SSL_AEAD_CTX.
+	  - i2d_ASN1_OBJECT() now returns -1 on error like most other i2d_*.
 	* Bug fixes
 	  - Made ASN1_TIME_set_string() and ASN1_TIME_set_string_X509() match
 	    their documentation. They always set an RFC 5280 conformant time.
@@ -85,6 +88,7 @@ LibreSSL Portable Release Notes:
 	  - Add guard to avoid contracting the number linear hash buckets
 	    to zero, which could lead to a crash due to accessing a zero
 	    sized allocation.
+	  - Fixed i2d_ASN1_OBJECT() with an output buffer pointing to NULL.
 
 3.9.0 - Development release
 

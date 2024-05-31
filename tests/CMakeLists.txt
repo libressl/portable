@@ -323,6 +323,9 @@ add_executable(cttest cttest.c)
 target_link_libraries(cttest ${OPENSSL_TEST_LIBS})
 set_source_files_properties(cttest.c PROPERTIES COMPILE_FLAGS
 	-DCTPATH=\\"${CMAKE_CURRENT_SOURCE_DIR}\\")
+if(EMSCRIPTEN)
+	set_target_properties(cttest PROPERTIES LINK_FLAGS "--preload-file ${TEST_SOURCE_DIR}")
+endif()
 add_platform_test(cttest cttest)
 
 # destest

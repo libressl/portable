@@ -774,12 +774,16 @@ if(NOT EMSCRIPTEN)
 endif()
 
 # testrsa
-if(NOT MSVC)
-	add_test(NAME testrsa COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/testrsa.sh)
-else()
-	add_test(NAME testrsa COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/testrsa.bat $<TARGET_FILE:openssl>)
+# testrsa doesn't have an executable instead it uses openssl executable which access various files for IO.
+# adding such files to --preload-file is infeasible.
+if(NOT EMSCRIPTEN)
+	if(NOT MSVC)
+		add_test(NAME testrsa COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/testrsa.sh)
+	else()
+		add_test(NAME testrsa COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/testrsa.bat $<TARGET_FILE:openssl>)
+	endif()
+	set_tests_properties(testrsa PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 endif()
-set_tests_properties(testrsa PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 
 # timingsafe
 add_executable(timingsafe timingsafe.c)

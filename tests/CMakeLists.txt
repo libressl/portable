@@ -252,7 +252,9 @@ add_platform_test(bn_to_string bn_to_string)
 # bn_unit
 add_executable(bn_unit bn_unit.c)
 target_link_libraries(bn_unit ${OPENSSL_TEST_LIBS})
-set_target_properties(bn_unit PROPERTIES LINK_FLAGS "-sALLOW_MEMORY_GROWTH")
+if(EMSCRIPTEN)
+	set_target_properties(bn_unit PROPERTIES LINK_FLAGS "-sALLOW_MEMORY_GROWTH")
+endif()
 add_platform_test(bn_unit bn_unit)
 
 # bn_word

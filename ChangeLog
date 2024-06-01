@@ -63,6 +63,8 @@ LibreSSL Portable Release Notes:
 	* Testing and proactive security
 	  - Switched the remaining tests to new certs.
 	* Compatibility changes
+	  - The one-step hashing functions, MD4(), MD5(), RIPEMD160(), SHA1(),
+	    all SHA-2, and HMAC() no longer support returning a static buffer.
 	  - Removed workaround for F5 middle boxes.
 	  - Removed the useless pem2.h, a public header that was added since
 	    it was too hard to add a prototype to one file.

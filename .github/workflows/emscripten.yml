@@ -31,7 +31,7 @@ jobs:
         run: "./autogen.sh"
 
       - name: "Configure CMake"
-        run: cmake -Bbuild -DCMAKE_CROSSCOMPILING_EMULATOR=$EMSDK/node/18.20.3_64bit/bin/node -DCMAKE_TOOLCHAIN_FILE=$EMSDK/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake -DENABLE_ASM=OFF
+        run: emcmake cmake -Bbuild
 
       - name: "Build"
         run: cmake --build build --config Release
@@ -59,7 +59,7 @@ jobs:
         run: "./autogen.sh"
 
       - name: "Configure CMake"
-        run: cmake -Bbuild -DCMAKE_CROSSCOMPILING_EMULATOR=$EMSDK/node/18.20.3_64bit/bin/node -DCMAKE_TOOLCHAIN_FILE=$EMSDK/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake -DENABLE_ASM=OFF
+        run: emcmake cmake -Bbuild
 
       - name: "Build"
         run: cmake --build build --config Release

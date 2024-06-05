@@ -17,6 +17,7 @@ noinst_HEADERS += compat/poll.h
 noinst_HEADERS += compat/pthread.h
 noinst_HEADERS += compat/readpassphrase.h
 noinst_HEADERS += compat/resolv.h
+noinst_HEADERS += compat/stdint.h
 noinst_HEADERS += compat/stdio.h
 noinst_HEADERS += compat/stdlib.h
 noinst_HEADERS += compat/string.h

@@ -857,6 +857,7 @@ add_platform_test(x509_algor x509_algor)
 # x509_asn1
 add_executable(x509_asn1 x509_asn1.c)
 target_link_libraries(x509_asn1 ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(x509_asn1)
 add_platform_test(x509_asn1 x509_asn1)
 
 # x509_extensions_test

@@ -744,34 +744,26 @@ else()
 endif()
 set_tests_properties(ssltest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 
-# testdsa
-# testdsa doesn't have an executable instead it uses openssl executable which access various files for IO.
-# adding such files to --preload-file is infeasible.
+# testdsa, testenc, testrsa don't have an executable instead it uses openssl executable which
+# access various files for IO. adding such files to --preload-file is infeasible.
 if(NOT EMSCRIPTEN)
+	# testdsa
 	if(NOT MSVC)
 		add_test(NAME testdsa COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/testdsa.sh)
 	else()
 		add_test(NAME testdsa COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/testdsa.bat $<TARGET_FILE:openssl>)
 	endif()
 	set_tests_properties(testdsa PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
-endif()
 
-# testenc
-# testenc doesn't have an executable instead it uses openssl executable which access various files for IO.
-# adding such files to --preload-file is infeasible.
-if(NOT EMSCRIPTEN)
+	# testenc
 	if(NOT MSVC)
 		add_test(NAME testenc COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/testenc.sh)
 	else()
 		add_test(NAME testenc COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/testenc.bat $<TARGET_FILE:openssl>)
 	endif()
 	set_tests_properties(testenc PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
-endif()
 
-# testrsa
-# testrsa doesn't have an executable instead it uses openssl executable which access various files for IO.
-# adding such files to --preload-file is infeasible.
-if(NOT EMSCRIPTEN)
+	# testrsa
 	if(NOT MSVC)
 		add_test(NAME testrsa COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/testrsa.sh)
 	else()

@@ -22,6 +22,13 @@ add_definitions(-D_PATH_SSL_CA_FILE=\"${CMAKE_CURRENT_SOURCE_DIR}/../cert.pem\")
 
 file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR} TEST_SOURCE_DIR)
 
+function(prepare_emscripten_test_target TARGET_NAME)
+	if(EMSCRIPTEN)
+		set_target_properties(${TARGET_NAME} PROPERTIES LINK_FLAGS
+			"-sALLOW_MEMORY_GROWTH --preload-file ${TEST_SOURCE_DIR} ")
+	endif()
+endfunction()
+
 function(add_platform_test TEST_NAME)
 	if (EMSCRIPTEN)
 		add_test(NAME ${TEST_NAME} COMMAND node ${ARGN})
@@ -33,9 +40,7 @@ endfunction()
 # aeadtest
 add_executable(aeadtest aeadtest.c)
 target_link_libraries(aeadtest ${OPENSSL_TEST_LIBS})
-if(EMSCRIPTEN)
-	set_target_properties(aeadtest PROPERTIES LINK_FLAGS "--preload-file ${TEST_SOURCE_DIR}")
-endif()
+prepare_emscripten_test_target(aeadtest)
 if(NOT WIN32)
 	add_test(NAME aeadtest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/aeadtest.sh)
 	set_tests_properties(aeadtest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
@@ -58,9 +63,7 @@ add_executable(apitest apitest.c)
 target_link_libraries(apitest ${OPENSSL_TEST_LIBS})
 set_source_files_properties(apitest.c PROPERTIES COMPILE_FLAGS
 	-DCERTSDIR=\\"${CMAKE_CURRENT_SOURCE_DIR}\\")
-if(EMSCRIPTEN)
-	set_target_properties(apitest PROPERTIES LINK_FLAGS "--preload-file ${TEST_SOURCE_DIR}")
-endif()
+prepare_emscripten_test_target(apitest)
 add_platform_test(apitest apitest)
 
 # arc4randomforktest
@@ -123,6 +126,7 @@ endif()
 # asn1x509
 add_executable(asn1x509 asn1x509.c)
 target_link_libraries(asn1x509 ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(asn1x509)
 add_platform_test(asn1x509 asn1x509)
 
 # asn1_string_to_utf8
@@ -153,6 +157,7 @@ add_platform_test(bio_chain bio_chain)
 # bio_dump
 add_executable(bio_dump bio_dump.c)
 target_link_libraries(bio_dump ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(bio_dump)
 add_platform_test(bio_dump bio_dump)
 
 # bio_host
@@ -166,6 +171,7 @@ endif()
 # bio_mem
 add_executable(bio_mem bio_mem.c)
 target_link_libraries(bio_mem ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(bio_mem)
 add_platform_test(bio_mem bio_mem)
 
 # bn_add_sub
@@ -198,6 +204,7 @@ add_platform_test(bn_gcd bn_gcd)
 # bn_isqrt
 add_executable(bn_isqrt bn_isqrt.c)
 target_link_libraries(bn_isqrt ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(bn_isqrt)
 add_platform_test(bn_isqrt bn_isqrt)
 
 # bn_mod_exp
@@ -225,6 +232,7 @@ add_platform_test(bn_mont bn_mont)
 # bn_primes
 add_executable(bn_primes bn_primes.c)
 target_link_libraries(bn_primes ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(bn_primes)
 add_platform_test(bn_primes bn_primes)
 
 # bn_print
@@ -235,6 +243,7 @@ add_platform_test(bn_print bn_print)
 # bn_shift
 add_executable(bn_shift bn_shift.c)
 target_link_libraries(bn_shift ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(bn_shift)
 add_platform_test(bn_shift bn_shift)
 
 # bn_test
@@ -252,9 +261,7 @@ add_platform_test(bn_to_string bn_to_string)
 # bn_unit
 add_executable(bn_unit bn_unit.c)
 target_link_libraries(bn_unit ${OPENSSL_TEST_LIBS})
-if(EMSCRIPTEN)
-	set_target_properties(bn_unit PROPERTIES LINK_FLAGS "-sALLOW_MEMORY_GROWTH")
-endif()
+prepare_emscripten_test_target(bn_unit)
 add_platform_test(bn_unit bn_unit)
 
 # bn_word
@@ -303,6 +310,7 @@ add_platform_test(cipherstest cipherstest)
 # cmstest
 add_executable(cmstest cmstest.c)
 target_link_libraries(cmstest ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(cmstest)
 add_platform_test(cmstest cmstest)
 
 # configtest
@@ -325,9 +333,7 @@ add_executable(cttest cttest.c)
 target_link_libraries(cttest ${OPENSSL_TEST_LIBS})
 set_source_files_properties(cttest.c PROPERTIES COMPILE_FLAGS
 	-DCTPATH=\\"${CMAKE_CURRENT_SOURCE_DIR}\\")
-if(EMSCRIPTEN)
-	set_target_properties(cttest PROPERTIES LINK_FLAGS "--preload-file ${TEST_SOURCE_DIR}")
-endif()
+prepare_emscripten_test_target(cttest)
 add_platform_test(cttest cttest)
 
 # destest
@@ -367,6 +373,7 @@ add_platform_test(ec_asn1_test ec_asn1_test)
 # ec_point_conversion
 add_executable(ec_point_conversion ec_point_conversion.c)
 target_link_libraries(ec_point_conversion ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(ec_point_conversion)
 add_platform_test(ec_point_conversion ec_point_conversion)
 
 # ecdhtest
@@ -407,9 +414,7 @@ add_platform_test(evp_pkey_cleanup evp_pkey_cleanup)
 # evptest
 add_executable(evptest evptest.c)
 target_link_libraries(evptest ${OPENSSL_TEST_LIBS})
-if(EMSCRIPTEN)
-	set_target_properties(evptest PROPERTIES LINK_FLAGS "--preload-file ${TEST_SOURCE_DIR}")
-endif()
+prepare_emscripten_test_target(evptest)
 add_platform_test(evptest evptest ${CMAKE_CURRENT_SOURCE_DIR}/evptests.txt)
 
 # evp_test
@@ -489,9 +494,7 @@ add_platform_test(key_schedule key_schedule)
 add_executable(keypairtest keypairtest.c)
 target_link_libraries(keypairtest ${LIBTLS_TEST_LIBS})
 target_include_directories(keypairtest BEFORE PUBLIC ../tls)
-if(EMSCRIPTEN)
-	set_target_properties(keypairtest PROPERTIES LINK_FLAGS "--preload-file ${TEST_SOURCE_DIR}")
-endif()
+prepare_emscripten_test_target(keypairtest)
 add_platform_test(keypairtest keypairtest
 	${CMAKE_CURRENT_SOURCE_DIR}/ca-root-rsa.pem
 	${CMAKE_CURRENT_SOURCE_DIR}/server1-rsa.pem
@@ -500,6 +503,7 @@ add_platform_test(keypairtest keypairtest
 # lhash_test
 add_executable(lhash_test lhash_test.c)
 target_link_libraries(lhash_test ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(lhash_test)
 add_platform_test(lhash_test lhash_test)
 
 # md_test
@@ -531,6 +535,7 @@ add_platform_test(optionstest optionstest)
 # pbkdf2
 add_executable(pbkdf2 pbkdf2.c)
 target_link_libraries(pbkdf2 ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(pbkdf2)
 add_platform_test(pbkdf2 pbkdf2)
 
 # pidwraptest
@@ -545,6 +550,7 @@ endif()
 # pkcs7test
 add_executable(pkcs7test pkcs7test.c)
 target_link_libraries(pkcs7test ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(pkcs7test)
 add_platform_test(pkcs7test pkcs7test)
 
 # poly1305test
@@ -557,9 +563,7 @@ add_executable(policy policy.c)
 set_source_files_properties(policy.c PROPERTIES COMPILE_FLAGS
 	-DCERTSDIR=\\"${CMAKE_CURRENT_SOURCE_DIR}\\")
 target_link_libraries(policy ${OPENSSL_TEST_LIBS})
-if(EMSCRIPTEN)
-	set_target_properties(policy PROPERTIES LINK_FLAGS "--preload-file ${TEST_SOURCE_DIR}")
-endif()
+prepare_emscripten_test_target(policy)
 add_platform_test(policy policy)
 
 # pq_test
@@ -577,9 +581,7 @@ set_tests_properties(pq_test PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 set(QUICTEST_SRC quictest.c)
 add_executable(quictest ${QUICTEST_SRC})
 target_link_libraries(quictest ${OPENSSL_TEST_LIBS})
-if(EMSCRIPTEN)
-	set_target_properties(quictest PROPERTIES LINK_FLAGS "--preload-file ${TEST_SOURCE_DIR}")
-endif()
+prepare_emscripten_test_target(quictest)
 if(NOT MSVC)
 	add_test(NAME quictest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/quictest.sh)
 else()
@@ -645,9 +647,7 @@ add_platform_test(rsa_test rsa_test)
 # servertest
 add_executable(servertest servertest.c)
 target_link_libraries(servertest ${OPENSSL_TEST_LIBS})
-if(EMSCRIPTEN)
-	set_target_properties(servertest PROPERTIES LINK_FLAGS "--preload-file ${TEST_SOURCE_DIR}")
-endif()
+prepare_emscripten_test_target(servertest)
 if(NOT MSVC)
 	add_test(NAME servertest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/servertest.sh)
 else()
@@ -664,9 +664,7 @@ add_platform_test(sha_test sha_test)
 set(SHUTDOWNTEST_SRC shutdowntest.c)
 add_executable(shutdowntest ${SHUTDOWNTEST_SRC})
 target_link_libraries(shutdowntest ${OPENSSL_TEST_LIBS})
-if(EMSCRIPTEN)
-	set_target_properties(shutdowntest PROPERTIES LINK_FLAGS "--preload-file ${TEST_SOURCE_DIR}")
-endif()
+prepare_emscripten_test_target(shutdowntest)
 if(NOT MSVC)
 	add_test(NAME shutdowntest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/shutdowntest.sh)
 else()
@@ -712,9 +710,7 @@ add_executable(ssl_get_shared_ciphers ssl_get_shared_ciphers.c)
 set_source_files_properties(ssl_get_shared_ciphers.c PROPERTIES COMPILE_FLAGS
 	-DCERTSDIR=\\"${CMAKE_CURRENT_SOURCE_DIR}\\")
 target_link_libraries(ssl_get_shared_ciphers ${OPENSSL_TEST_LIBS})
-if(EMSCRIPTEN)
-	set_target_properties(ssl_get_shared_ciphers PROPERTIES LINK_FLAGS "--preload-file ${TEST_SOURCE_DIR}")
-endif()
+prepare_emscripten_test_target(ssl_get_shared_ciphers)
 add_platform_test(ssl_get_shared_ciphers ssl_get_shared_ciphers)
 
 # ssl_methods
@@ -740,9 +736,7 @@ add_platform_test(ssl_versions ssl_versions)
 # ssltest
 add_executable(ssltest ssltest.c)
 target_link_libraries(ssltest ${OPENSSL_TEST_LIBS})
-if(EMSCRIPTEN)
-	set_target_properties(ssltest PROPERTIES LINK_FLAGS "--preload-file ${TEST_SOURCE_DIR}")
-endif()
+prepare_emscripten_test_target(ssltest)
 if(NOT MSVC)
 	add_test(NAME ssltest COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/ssltest.sh)
 else()
@@ -799,6 +793,7 @@ add_platform_test(tlsexttest tlsexttest)
 # tlslegacytest
 add_executable(tlslegacytest tlslegacytest.c)
 target_link_libraries(tlslegacytest ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(tlslegacytest)
 add_platform_test(tlslegacytest tlslegacytest)
 
 # tlstest

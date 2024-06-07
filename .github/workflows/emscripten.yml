@@ -61,7 +61,7 @@ jobs:
       - name: "Configure CMake"
         run: emcmake cmake -Bbuild
         env:
-          CFLAGS: "-ggdb -fsanitize=address"
+          CFLAGS: "-gsource-map -fsanitize=address"
           LDFLAGS: "-fsanitize=address"
 
       - name: "Build"

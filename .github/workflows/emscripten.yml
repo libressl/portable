@@ -25,10 +25,10 @@ jobs:
       - name: "Setup emsdk"
         uses: mymindstorm/setup-emsdk@v14
         with:
-          version: 3.1.60
+          version: "3.1.60"
 
       - name: "Prepare repository"
-        run: "./autogen.sh"
+        run: ./autogen.sh
 
       - name: "Configure CMake"
         run: emcmake cmake -Bbuild
@@ -53,13 +53,16 @@ jobs:
       - name: "Setup emsdk"
         uses: mymindstorm/setup-emsdk@v14
         with:
-          version: 3.1.60
+          version: "3.1.60"
 
       - name: "Prepare repository"
-        run: "./autogen.sh"
+        run: ./autogen.sh
 
       - name: "Configure CMake"
         run: emcmake cmake -Bbuild
+        env:
+          CFLAGS: "-ggdb -fsanitize=address"
+          LDFLAGS: "-fsanitize=address"
 
       - name: "Build"
         run: cmake --build build --config Release

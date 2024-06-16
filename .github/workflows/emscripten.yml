@@ -1,4 +1,4 @@
-# GitHub Actions workflow to run tests on Linux.
+# GitHub Actions workflow to run for Emscripten.
 name: "Emscripten"
 
 on:

@@ -31,6 +31,7 @@ LibreSSL Portable Release Notes:
 4.0.0 - In development
 
 	* Portable changes
+	  - Added initial Emscripten support in CMake builds
 	  - Removed timegm() compatibility layer since all uses were replaced
 	    with OPENSSL_timegm(). Cleaned up the corresponding test harness.
 	* Internal improvements

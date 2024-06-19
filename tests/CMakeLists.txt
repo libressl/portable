@@ -744,8 +744,8 @@ else()
 endif()
 set_tests_properties(ssltest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 
-# testdsa, testenc, testrsa don't have an executable instead it uses openssl executable which
-# access various files for IO. adding such files to --preload-file is infeasible.
+# testdsa, testenc, testrsa don't have an executable instead they use openssl executable which
+# access various files for IO. Adding such files to --preload-file is infeasible.
 if(NOT EMSCRIPTEN)
 	# testdsa
 	if(NOT MSVC)

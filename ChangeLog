@@ -59,6 +59,9 @@ LibreSSL Portable Release Notes:
 	  - Rewrote various BN conversion functions.
 	  - Improved certification request internals.
 	  - Removed unused DSA methods.
+	  - Improved X.509v3 extension internals. Fixed various bugs and leaks
+	    in X509V3_add1_i2d() and X509V3_get_d2i(). Their implementations
+	    now vaguely resemble code.
 	* Documentation improvements
 	  - Removed documentation of no longer existing API.
 	* Testing and proactive security

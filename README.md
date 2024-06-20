@@ -44,6 +44,7 @@ At the time of this writing, LibreSSL is known to build and work on:
 * Solaris 11 and later
 * Mac OS X (tested with 10.8 and later)
 * AIX (5.3 and later)
+* Emscripten (3.1.44 and later)
 
 LibreSSL also supports the following Windows environments:
 
@@ -157,6 +158,18 @@ make
 LibreSSL builds against relatively recent versions of [MinGW-w64](https://www.mingw-w64.org/), not to be
 confused with the original mingw.org project. MinGW-w64 3.2 or later
 should work. See [README.mingw.md](README.mingw.md) for more information.
+
+### Emscripten
+
+When configuring LibreSSL for use with Emscripten, make sure to prepend
+`emcmake` to your `cmake` configuration command. Once configured, you can
+proceed with your usual `cmake` commands. For example:
+
+```sh
+emcmake cmake . -Bbuild
+cmake --build build --config Release
+ctest --test-dir build -C Release --output-on-failure
+```
 
 # Using LibreSSL
 

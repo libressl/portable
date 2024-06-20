@@ -159,6 +159,18 @@ LibreSSL builds against relatively recent versions of [MinGW-w64](https://www.mi
 confused with the original mingw.org project. MinGW-w64 3.2 or later
 should work. See [README.mingw.md](README.mingw.md) for more information.
 
+### Emscripten
+
+When configuring LibreSSL for use with Emscripten, make sure to prepend
+`emcmake` to your `cmake` configuration command. Once configured, you can
+proceed with your usual `cmake` commands. For example:
+
+```sh
+emcmake cmake . -Bbuild
+cmake --build build --config Release
+ctest --test-dir build -C Release --output-on-failure
+```
+
 # Using LibreSSL
 
 ## CMake

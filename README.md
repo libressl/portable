@@ -44,6 +44,7 @@ At the time of this writing, LibreSSL is known to build and work on:
 * Solaris 11 and later
 * Mac OS X (tested with 10.8 and later)
 * AIX (5.3 and later)
+* Emscripten (3.1.44 and later)
 
 LibreSSL also supports the following Windows environments:
 

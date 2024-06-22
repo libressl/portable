@@ -62,6 +62,7 @@ LibreSSL Portable Release Notes:
 	  - Improved X.509v3 extension internals. Fixed various bugs and leaks
 	    in X509V3_add1_i2d() and X509V3_get_d2i(). Their implementations
 	    now vaguely resemble code.
+	  - Rewrote BN_bn2mpi() using CBB.
 	* Documentation improvements
 	  - Removed documentation of no longer existing API.
 	* Testing and proactive security

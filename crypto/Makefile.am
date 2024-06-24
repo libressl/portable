@@ -565,6 +565,7 @@ libcrypto_la_SOURCES += engine/engine_stubs.c
 libcrypto_la_SOURCES += err/err.c
 libcrypto_la_SOURCES += err/err_all.c
 libcrypto_la_SOURCES += err/err_prn.c
+noinst_HEADERS += err/err_local.h
 
 # evp
 libcrypto_la_SOURCES += evp/bio_b64.c

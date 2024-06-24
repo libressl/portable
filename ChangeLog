@@ -63,6 +63,7 @@ LibreSSL Portable Release Notes:
 	    in X509V3_add1_i2d() and X509V3_get_d2i(). Their implementations
 	    now vaguely resemble code.
 	  - Rewrote BN_bn2mpi() using CBB.
+	  - Made most error string tables const.
 	* Documentation improvements
 	  - Removed documentation of no longer existing API.
 	* Testing and proactive security

@@ -98,6 +98,10 @@ LibreSSL Portable Release Notes:
 	    to zero, which could lead to a crash due to accessing a zero
 	    sized allocation.
 	  - Fixed i2d_ASN1_OBJECT() with an output buffer pointing to NULL.
+	  - Implemented RSA key exchange in constant time. This is done by
+	    decrypting with RSA_NO_PADDING and checking the padding in libssl
+	    in constant time. This is possible because the pre-master secret
+	    is of known length based on the size of the RSA key.
 
 3.9.0 - Development release
 

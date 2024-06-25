@@ -65,6 +65,7 @@ target_include_directories(ssl_obj
 	PRIVATE
 		.
 		hidden
+		../crypto
 		../crypto/bio
 		../include/compat
 	PUBLIC

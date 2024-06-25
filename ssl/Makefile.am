@@ -2,6 +2,7 @@ include $(top_srcdir)/Makefile.am.common
 
 -include $(abs_top_builddir)/crypto/libcrypto_la_objects.mk
 
+AM_CPPFLAGS += -I$(top_srcdir)/crypto
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/bio
 
 noinst_LTLIBRARIES = libbs.la

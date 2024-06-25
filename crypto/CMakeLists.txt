@@ -826,6 +826,7 @@ target_include_directories(crypto_obj
 		ec
 		ecdh
 		ecdsa
+		err
 		evp
 		hidden
 		hmac

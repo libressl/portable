@@ -11,6 +11,7 @@ AM_CPPFLAGS += -I$(top_srcdir)/crypto/dsa
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/ec
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/ecdh
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/ecdsa
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/err
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/evp
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/hmac
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/lhash

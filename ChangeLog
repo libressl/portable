@@ -64,6 +64,7 @@ LibreSSL Portable Release Notes:
 	    now vaguely resemble code.
 	  - Rewrote BN_bn2mpi() using CBB.
 	  - Made most error string tables const.
+	  - Removed handling for SSLv2 client hello messages.
 	* Documentation improvements
 	  - Removed documentation of no longer existing API.
 	* Testing and proactive security
@@ -102,6 +103,9 @@ LibreSSL Portable Release Notes:
 	    decrypting with RSA_NO_PADDING and checking the padding in libssl
 	    in constant time. This is possible because the pre-master secret
 	    is of known length based on the size of the RSA key.
+	  - Rewrote SSL_select_next_proto() using CBS, also fixing a buffer
+	    overread that wasn't reachable when used as intended from an
+	    ALPN callback.
 
 3.9.0 - Development release
 

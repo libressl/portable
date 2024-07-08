@@ -42,7 +42,6 @@ set(
 	sess_id.c
 	smime.c
 	speed.c
-	spkac.c
 	ts.c
 	verify.c
 	version.c

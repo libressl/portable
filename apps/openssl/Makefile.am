@@ -58,7 +58,6 @@ openssl_SOURCES += s_time.c
 openssl_SOURCES += sess_id.c
 openssl_SOURCES += smime.c
 openssl_SOURCES += speed.c
-openssl_SOURCES += spkac.c
 openssl_SOURCES += ts.c
 openssl_SOURCES += verify.c
 openssl_SOURCES += version.c

@@ -107,6 +107,8 @@ LibreSSL Portable Release Notes:
 	  - Rewrote SSL_select_next_proto() using CBS, also fixing a buffer
 	    overread that wasn't reachable when used as intended from an
 	    ALPN callback.
+	  - Avoid pushing a spurious error onto the error stack in
+	    ssl_sigalg_select().
 
 3.9.0 - Development release
 

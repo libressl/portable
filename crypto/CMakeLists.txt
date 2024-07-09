@@ -485,13 +485,13 @@ set(
 	evp/pmeth_gn.c
 	evp/pmeth_lib.c
 	hkdf/hkdf.c
-	hkdf/tls1_prf.c
 	hmac/hm_ameth.c
 	hmac/hm_pmeth.c
 	hmac/hmac.c
 	idea/idea.c
 	kdf/hkdf_evp.c
 	kdf/kdf_err.c
+	kdf/tls1_prf.c
 	lhash/lhash.c
 	md4/md4.c
 	md5/md5.c

@@ -485,6 +485,7 @@ set(
 	evp/pmeth_gn.c
 	evp/pmeth_lib.c
 	hkdf/hkdf.c
+	hkdf/tls1_prf.c
 	hmac/hm_ameth.c
 	hmac/hm_pmeth.c
 	hmac/hmac.c

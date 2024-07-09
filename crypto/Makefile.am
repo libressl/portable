@@ -687,6 +687,7 @@ noinst_HEADERS += idea/idea_local.h
 # kdf
 libcrypto_la_SOURCES += kdf/hkdf_evp.c
 libcrypto_la_SOURCES += kdf/kdf_err.c
+libcrypto_la_SOURCES += kdf/tls1_prf.c
 
 # lhash
 libcrypto_la_SOURCES += lhash/lhash.c

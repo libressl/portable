@@ -83,6 +83,7 @@ LibreSSL Portable Release Notes:
 	    STORE_METHOD, and SSL_AEAD_CTX.
 	  - i2d_ASN1_OBJECT() now returns -1 on error like most other i2d_*.
 	  - SPKAC support was removed from openssl(1)
+	  - Added TLS1-PRF support to the EVP interface.
 	* Bug fixes
 	  - Made ASN1_TIME_set_string() and ASN1_TIME_set_string_X509() match
 	    their documentation. They always set an RFC 5280 conformant time.

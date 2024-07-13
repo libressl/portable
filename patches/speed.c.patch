@@ -1,4 +1,4 @@
---- apps/openssl/speed.c.orig	Sat Jul 13 10:21:42 2024
+--- apps/openssl/speed.c.orig	Sat Jul 13 11:02:51 2024
 +++ apps/openssl/speed.c	Sat Jul 13 10:27:25 2024
 @@ -161,7 +161,16 @@
  pkey_print_message(const char *str, const char *str2,
@@ -17,19 +17,17 @@
  
  #define ALGOR_NUM	32
  #define SIZE_NUM	5
-@@ -430,9 +439,11 @@
+@@ -430,8 +439,10 @@
  	const EVP_CIPHER *evp_cipher = NULL;
  	const EVP_MD *evp_md = NULL;
  	int decrypt = 0;
 +#ifndef _WIN32
  	int multi = 0;
--	const char *errstr = NULL;
  	struct sigaction sa;
 +#endif
-+	const char *errstr = NULL;
+ 	const char *errstr = NULL;
  
  	if (pledge("stdio proc", NULL) == -1) {
- 		perror("pledge");
 @@ -506,6 +517,7 @@
  			decrypt = 1;
  			j--;	/* Otherwise, -decrypt gets confused with an

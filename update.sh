@@ -140,7 +140,7 @@ copy_hdrs $libcrypto_src "stack/stack.h lhash/lhash.h stack/safestack.h
 	camellia/camellia.h curve25519/curve25519.h
 	ct/ct.h kdf/kdf.h"
 
-copy_hdrs $libssl_src "srtp.h ssl.h ssl2.h ssl3.h ssl23.h tls1.h dtls1.h"
+copy_hdrs $libssl_src "srtp.h ssl.h ssl3.h tls1.h dtls1.h"
 
 # override upstream opensslv.h if a local version exists
 if [ -f patches/opensslv.h ]; then

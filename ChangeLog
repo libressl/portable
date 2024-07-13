@@ -88,6 +88,7 @@ LibreSSL Portable Release Notes:
 	  - Added TLS1-PRF support to the EVP interface.
 	  - Cleaned up various X509v3_* extension API.
 	  - Unified the X.509v3 extension methods.
+	  - Removed ssl2.h and ssl23.h.
 	* Bug fixes
 	  - Made ASN1_TIME_set_string() and ASN1_TIME_set_string_X509() match
 	    their documentation. They always set an RFC 5280 conformant time.

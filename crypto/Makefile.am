@@ -691,7 +691,6 @@ libcrypto_la_SOURCES += kdf/tls1_prf.c
 
 # lhash
 libcrypto_la_SOURCES += lhash/lhash.c
-noinst_HEADERS += lhash/lhash_local.h
 
 # md4
 libcrypto_la_SOURCES += md4/md4.c

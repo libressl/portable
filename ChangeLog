@@ -66,6 +66,8 @@ LibreSSL Portable Release Notes:
 	  - Made most error string tables const.
 	  - Removed handling for SSLv2 client hello messages.
 	  - Improvements in the openssl(1) speed app's signal handler.
+	  - Cleaned up various X509v3_* extension API.
+	  - Unified the X.509v3 extension methods.
 	  - Added support for TLS PRF in the EVP KDF API.
 	* Documentation improvements
 	  - Removed documentation of no longer existing API.
@@ -86,9 +88,8 @@ LibreSSL Portable Release Notes:
 	  - i2d_ASN1_OBJECT() now returns -1 on error like most other i2d_*.
 	  - SPKAC support was removed from openssl(1)
 	  - Added TLS1-PRF support to the EVP interface.
-	  - Cleaned up various X509v3_* extension API.
-	  - Unified the X.509v3 extension methods.
 	  - Removed ssl2.h and ssl23.h.
+	  - Support for attributes in EVP_PKEYs was removed.
 	* Bug fixes
 	  - Made ASN1_TIME_set_string() and ASN1_TIME_set_string_X509() match
 	    their documentation. They always set an RFC 5280 conformant time.

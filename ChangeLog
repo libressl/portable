@@ -69,6 +69,7 @@ LibreSSL Portable Release Notes:
 	  - Cleaned up various X509v3_* extension API.
 	  - Unified the X.509v3 extension methods.
 	  - Added support for TLS PRF in the EVP KDF API.
+	  - Cleaned up cipher handling in SSL_SESSION.
 	* Documentation improvements
 	  - Removed documentation of no longer existing API.
 	* Testing and proactive security

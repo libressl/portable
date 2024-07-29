@@ -657,8 +657,6 @@ set(
 	x509/x_all.c
 )
 
-set(COMPAT_SRC empty.c)
-
 if(UNIX)
 	set(CRYPTO_SRC ${CRYPTO_SRC} crypto_lock.c)
 	set(CRYPTO_SRC ${CRYPTO_SRC} bio/b_posix.c)
@@ -866,7 +864,7 @@ elseif(HOST_X86_64)
 	target_include_directories(crypto_obj PRIVATE bn/arch/amd64)
 endif()
 
-add_library(crypto $<TARGET_OBJECTS:crypto_obj> $<TARGET_OBJECTS:compat_obj> empty.c)
+add_library(crypto $<TARGET_OBJECTS:crypto_obj> $<TARGET_OBJECTS:compat_obj>)
 
 export_symbol(crypto ${CMAKE_CURRENT_BINARY_DIR}/crypto_p.sym)
 target_link_libraries(crypto ${PLATFORM_LIBS})

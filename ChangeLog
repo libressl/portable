@@ -71,6 +71,9 @@ LibreSSL Portable Release Notes:
 	  - Added support for TLS PRF in the EVP KDF API.
 	  - Cleaned up cipher handling in SSL_SESSION.
 	  - Removed get_cipher from SSL_METHOD.
+	  - Rewrote CRYPTO_EX_DATA from scratch. The only intentional change of
+	    behavior is that there is now a hard limit on the number of indexes
+	    that can be allocated.
 	* Documentation improvements
 	  - Removed documentation of no longer existing API.
 	* Testing and proactive security

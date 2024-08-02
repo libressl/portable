@@ -34,6 +34,7 @@ LibreSSL Portable Release Notes:
 	  - Added initial Emscripten support in CMake builds
 	  - Removed timegm() compatibility layer since all uses were replaced
 	    with OPENSSL_timegm(). Cleaned up the corresponding test harness.
+	  - Fixed pipe2 detection to use check_symbol_exists()
 	* Internal improvements
 	  - Cleaned up parts of the conf directory. Simplified some logic,
 	    fixed memory leaks.

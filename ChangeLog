@@ -80,8 +80,8 @@ LibreSSL Portable Release Notes:
 	  - Switched the remaining tests to new certs.
 	* Compatibility changes
 	  - Protocol parsing in libtls was changed. The no longer supported
-	    TLSv1.1 and TLSv1.0 protocols are now completely ignored and no
-	    longer enable or disable TLSv1.2 in surprising ways.
+	    TLSv1.1 and TLSv1.0 protocols are completely ignored and no longer
+	    enable or disable TLSv1.2 in surprising ways.
 	  - The one-step hashing functions, MD4(), MD5(), RIPEMD160(), SHA1(),
 	    all SHA-2, and HMAC() no longer support returning a static buffer.
 	    Callers must pass in a correctly sized buffer.

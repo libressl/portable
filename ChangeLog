@@ -71,11 +71,17 @@ LibreSSL Portable Release Notes:
 	  - Added support for TLS PRF in the EVP KDF API.
 	  - Cleaned up cipher handling in SSL_SESSION.
 	  - Removed get_cipher from SSL_METHOD.
+	  - Rewrote CRYPTO_EX_DATA from scratch. The only intentional change of
+	    behavior is that there is now a hard limit on the number of indexes
+	    that can be allocated.
 	* Documentation improvements
 	  - Removed documentation of no longer existing API.
 	* Testing and proactive security
 	  - Switched the remaining tests to new certs.
 	* Compatibility changes
+	  - Protocol parsing in libtls was changed. The no longer supported
+	    TLSv1.1 and TLSv1.0 protocols are now completely ignored and no
+	    longer enable or disable TLSv1.2 in surprising ways.
 	  - The one-step hashing functions, MD4(), MD5(), RIPEMD160(), SHA1(),
 	    all SHA-2, and HMAC() no longer support returning a static buffer.
 	    Callers must pass in a correctly sized buffer.

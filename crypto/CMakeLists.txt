@@ -221,9 +221,9 @@ set(
 	${CRYPTO_SRC}
 	cpt_err.c
 	cryptlib.c
+	crypto_ex_data.c
 	crypto_init.c
 	cversion.c
-	ex_data.c
 	malloc-wrapper.c
 	mem_clr.c
 	mem_dbg.c

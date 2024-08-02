@@ -34,7 +34,6 @@ LibreSSL Portable Release Notes:
 	  - Added initial Emscripten support in CMake builds
 	  - Removed timegm() compatibility layer since all uses were replaced
 	    with OPENSSL_timegm(). Cleaned up the corresponding test harness.
-	  - Fixed pipe2 detection to use check_symbol_exists()
 	* Internal improvements
 	  - Cleaned up parts of the conf directory. Simplified some logic,
 	    fixed memory leaks.
@@ -80,6 +79,9 @@ LibreSSL Portable Release Notes:
 	* Testing and proactive security
 	  - Switched the remaining tests to new certs.
 	* Compatibility changes
+	  - Protocol parsing in libtls was changed. The no longer supported
+	    TLSv1.1 and TLSv1.0 protocols are now completely ignored and no
+	    longer enable or disable TLSv1.2 in surprising ways.
 	  - The one-step hashing functions, MD4(), MD5(), RIPEMD160(), SHA1(),
 	    all SHA-2, and HMAC() no longer support returning a static buffer.
 	    Callers must pass in a correctly sized buffer.

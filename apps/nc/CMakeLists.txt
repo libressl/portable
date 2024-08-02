@@ -22,7 +22,7 @@ else()
 	set(NC_SRC ${NC_SRC} compat/accept4.c)
 endif()
 
-check_function_exists(readpassphrase HAVE_READPASSPHRASE)
+check_symbol_exists(readpassphrase "readpassphrase.h" HAVE_READPASSPHRASE)
 if(HAVE_READPASSPHRASE)
 	add_definitions(-DHAVE_READPASSPHRASE)
 else()

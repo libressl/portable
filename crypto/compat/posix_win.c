@@ -41,6 +41,16 @@ posix_fopen(const char *path, const char *mode)
 	return fopen(path, mode);
 }
 
+static int
+oddify_fd(int fd)
+{
+	if (fd & 1) /* also catches an eventual -1 from using up all descriptors */
+		return fd;
+	int clone = oddify_fd(dup(fd));
+	close(fd);
+	return clone;
+}
+
 int
 posix_open(const char *path, ...)
 {
@@ -60,7 +70,7 @@ posix_open(const char *path, ...)
 		flags |= O_NOINHERIT;
 	}
 	flags &= ~O_NONBLOCK;
-	return open(path, flags, mode);
+	return oddify_fd(open(path, flags, mode));
 }
 
 char *
@@ -148,50 +158,10 @@ wsa_errno(int err)
 	return -1;
 }
 
-/*
- * Employ a similar trick to cpython (pycore_fileutils.h) where the CRT report
- * handler is disabled while checking if a descriptor is a socket or a file
- */
-#if defined _MSC_VER && _MSC_VER >= 1900
-
-#include <crtdbg.h>
-#include <stdlib.h>
-
-static void noop_handler(const wchar_t *expression,	const wchar_t *function,
-    const wchar_t *file, unsigned int line, uintptr_t pReserved)
-{
-	return;
-}
-
-#define BEGIN_SUPPRESS_IPH \
-	const int old_report_mode = _CrtSetReportMode(_CRT_ASSERT, 0); \
-	const _invalid_parameter_handler old_handler = _set_thread_local_invalid_parameter_handler(noop_handler)
-#define END_SUPPRESS_IPH \
-	(void)old_report_mode; /* Silence warning in release mode when _CrtSetReportMode compiles to void. */ \
-	_CrtSetReportMode(_CRT_ASSERT, old_report_mode); \
-	_set_thread_local_invalid_parameter_handler(old_handler)
-
-#else
-
-#define BEGIN_SUPPRESS_IPH
-#define END_SUPPRESS_IPH
-
-#endif
-
 static int
 is_socket(int fd)
 {
-	intptr_t hd;
-
-	BEGIN_SUPPRESS_IPH;
-	hd = _get_osfhandle(fd);
-	END_SUPPRESS_IPH;
-
-	if (hd == (intptr_t)INVALID_HANDLE_VALUE) {
-		return 1; /* fd is not file descriptor */
-	}
-
-	return 0;
+	return (fd & 1) == 0; /* daringly assumes that any valid socket is even */
 }
 
 int

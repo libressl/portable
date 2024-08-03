@@ -79,9 +79,9 @@ LibreSSL Portable Release Notes:
 	* Testing and proactive security
 	  - Switched the remaining tests to new certs.
 	* Compatibility changes
-	  - Protocol parsing in libtls was changed. The no longer supported
-	    TLSv1.1 and TLSv1.0 protocols are completely ignored and no longer
-	    enable or disable TLSv1.2 in surprising ways.
+	  - Protocol parsing in libtls was changed. The unsupported TLSv1.1
+	    and TLSv1.0 protocols are ignored and no longer enable or disable
+	    TLSv1.2 in surprising ways.
 	  - The one-step hashing functions, MD4(), MD5(), RIPEMD160(), SHA1(),
 	    all SHA-2, and HMAC() no longer support returning a static buffer.
 	    Callers must pass in a correctly sized buffer.
@@ -98,6 +98,7 @@ LibreSSL Portable Release Notes:
 	  - Added TLS1-PRF support to the EVP interface.
 	  - Removed ssl2.h and ssl23.h.
 	  - Support for attributes in EVP_PKEYs was removed.
+	  - Added SSL_CTX_set1_cert_store()
 	* Bug fixes
 	  - Made ASN1_TIME_set_string() and ASN1_TIME_set_string_X509() match
 	    their documentation. They always set an RFC 5280 conformant time.

@@ -1,5 +1,5 @@
---- openbsd/src/lib/libssl/hidden/ssl_namespace.h	2023-03-15 11:41:52.481641800 -0600
-+++ ssl/hidden/ssl_namespace.h	2023-03-15 17:28:04.685309300 -0600
+--- ssl/hidden/ssl_namespace.h.orig	Fri Aug  2 23:52:55 2024
++++ ssl/hidden/ssl_namespace.h	Fri Aug  2 23:53:17 2024
 @@ -23,6 +23,11 @@
   * and we alias that to the normal name.
   */
@@ -12,7 +12,7 @@
  #ifdef LIBRESSL_NAMESPACE
  #define LSSL_UNUSED(x)		typeof(x) x __attribute__((deprecated))
  #define LSSL_USED(x)		__attribute__((visibility("hidden")))	\
-@@ -33,5 +38,6 @@
+@@ -37,5 +42,6 @@
  #define LSSL_USED(x)
  #define LSSL_ALIAS(x)		asm("")
  #endif

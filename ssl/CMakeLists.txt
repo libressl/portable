@@ -104,6 +104,28 @@ target_include_directories(
 	$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
+if(HOST_AARCH64)
+	target_include_directories(ssl_obj PRIVATE ../crypto/arch/aarch64/)
+elseif(HOST_ARM)
+	target_include_directories(ssl_obj PRIVATE ../crypto/arch/arm/)
+elseif(HOST_I386)
+	target_include_directories(ssl_obj PRIVATE ../crypto/arch/i386/)
+elseif(HOST_MIPS64)
+	target_include_directories(ssl_obj PRIVATE ../crypto/arch/mips64)
+elseif(HOST_MIPS)
+	# XXX - can this go away? the directory doesn't exist...
+elseif(HOST_POWERPC)
+	target_include_directories(ssl_obj PRIVATE ../crypto/arch/powerpc)
+elseif(HOST_POWERPC64)
+	target_include_directories(ssl_obj PRIVATE ../crypto/arch/powerpc64)
+elseif(HOST_RISCV64)
+	target_include_directories(ssl_obj PRIVATE ../crypto/arch/riscv64)
+elseif(HOST_SPARC64)
+	target_include_directories(ssl_obj PRIVATE ../crypto/arch/sparc64)
+elseif(HOST_X86_64)
+	target_include_directories(ssl_obj PRIVATE ../crypto/arch/amd64)
+endif()
+
 install(
 	TARGETS ssl
 	EXPORT SSL-target

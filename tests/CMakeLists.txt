@@ -18,6 +18,28 @@ include_directories(
 	../include/compat
 )
 
+if(HOST_AARCH64)
+	include_directories(../crypto/arch/aarch64/)
+elseif(HOST_ARM)
+	include_directories(../crypto/arch/arm/)
+elseif(HOST_I386)
+	include_directories(../crypto/arch/i386/)
+elseif(HOST_MIPS64)
+	include_directories(../crypto/arch/mips64)
+elseif(HOST_MIPS)
+	# XXX - can this go away? the directory doesn't exist...
+elseif(HOST_POWERPC)
+	include_directories(../crypto/arch/powerpc)
+elseif(HOST_POWERPC64)
+	include_directories(../crypto/arch/powerpc64)
+elseif(HOST_RISCV64)
+	include_directories(../crypto/arch/riscv64)
+elseif(HOST_SPARC64)
+	include_directories(../crypto/arch/sparc64)
+elseif(HOST_X86_64)
+	include_directories(../crypto/arch/amd64)
+endif()
+
 add_definitions(-D_PATH_SSL_CA_FILE=\"${CMAKE_CURRENT_SOURCE_DIR}/../cert.pem\")
 
 file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR} TEST_SOURCE_DIR)

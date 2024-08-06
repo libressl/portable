@@ -74,6 +74,7 @@ LibreSSL Portable Release Notes:
 	  - Rewrote CRYPTO_EX_DATA from scratch. The only intentional change of
 	    behavior is that there is now a hard limit on the number of indexes
 	    that can be allocated.
+	  - Removed bogus connect() call from netcat.
 	* Documentation improvements
 	  - Removed documentation of no longer existing API.
 	* Testing and proactive security

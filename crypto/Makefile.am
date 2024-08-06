@@ -359,55 +359,74 @@ noinst_HEADERS += bn/bn_prime.h
 noinst_HEADERS += bn/s2n_bignum.h
 noinst_HEADERS += bn/s2n_bignum_internal.h
 
-# bn/arch
+# arch, bn/arch
 if HOST_AARCH64
+libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/arch/aarch64/
 libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/aarch64/
 endif
+noinst_HEADERS += arch/aarch64/crypto_arch.h
 noinst_HEADERS += bn/arch/aarch64/bn_arch.h
 
 if HOST_ARM
+libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/arch/arm/
 libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/arm/
 endif
+noinst_HEADERS += arch/arm/crypto_arch.h
 noinst_HEADERS += bn/arch/arm/bn_arch.h
 
 if HOST_I386
+libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/arch/i386/
 libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/i386/
 endif
+noinst_HEADERS += arch/i386/crypto_arch.h
 noinst_HEADERS += bn/arch/i386/bn_arch.h
 
+# XXX - do we still need this?
 if HOST_MIPS
 libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/mips/
 endif
 noinst_HEADERS += bn/arch/mips/bn_arch.h
 
 if HOST_MIPS64
+libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/arch/mips64/
 libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/mips64/
 endif
+noinst_HEADERS += arch/mips64/crypto_arch.h
 noinst_HEADERS += bn/arch/mips64/bn_arch.h
 
 if HOST_POWERPC
+libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/arch/powerpc/
 libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/powerpc/
 endif
+noinst_HEADERS += arch/powerpc/crypto_arch.h
 noinst_HEADERS += bn/arch/powerpc/bn_arch.h
 
 if HOST_POWERPC64
+libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/arch/powerpc64/
 libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/powerpc64/
 endif
+noinst_HEADERS += arch/powerpc64/crypto_arch.h
 noinst_HEADERS += bn/arch/powerpc64/bn_arch.h
 
 if HOST_RISCV64
+libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/arch/riscv64/
 libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/riscv64/
 endif
+noinst_HEADERS += arch/riscv64/crypto_arch.h
 noinst_HEADERS += bn/arch/riscv64/bn_arch.h
 
 if HOST_SPARC64
+libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/arch/sparc64/
 libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/sparc64/
 endif
+noinst_HEADERS += arch/sparc64/crypto_arch.h
 noinst_HEADERS += bn/arch/sparc64/bn_arch.h
 
 if HOST_X86_64
+libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/arch/amd64/
 libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/amd64/
 endif
+noinst_HEADERS += arch/amd64/crypto_arch.h
 noinst_HEADERS += bn/arch/amd64/bn_arch.h
 
 # buffer

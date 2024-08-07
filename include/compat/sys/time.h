@@ -8,6 +8,15 @@
 
 #ifdef _MSC_VER
 #include <winsock2.h>
+
+#define timeval libressl_timeval
+#define gettimeofday libressl_gettimeofday
+
+struct timeval {
+	long long	tv_sec;
+	long		tv_usec;
+};
+
 int gettimeofday(struct timeval *tp, void *tzp);
 #else
 #include_next <sys/time.h>

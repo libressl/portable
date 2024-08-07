@@ -9,6 +9,8 @@
 
 #define NO_REDEF_POSIX_FUNCTIONS
 
+#include <sys/time.h>
+
 #include <ws2tcpip.h>
 #include <windows.h>
 
@@ -306,7 +308,7 @@ int gettimeofday(struct timeval * tp, struct timezone * tzp)
 	time = ((uint64_t)file_time.dwLowDateTime);
 	time += ((uint64_t)file_time.dwHighDateTime) << 32;
 
-	tp->tv_sec = (long)((time - EPOCH) / 10000000L);
+	tp->tv_sec = (long long)((time - EPOCH) / 10000000L);
 	tp->tv_usec = (long)(system_time.wMilliseconds * 1000);
 	return 0;
 }

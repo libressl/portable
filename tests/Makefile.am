@@ -19,6 +19,47 @@ AM_CPPFLAGS += -I $(top_srcdir)/apps/openssl
 AM_CPPFLAGS += -I $(top_srcdir)/apps/openssl/compat
 AM_CPPFLAGS += -D_PATH_SSL_CA_FILE=\"$(top_srcdir)/cert.pem\"
 
+# arch
+if HOST_AARCH64
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/arch/aarch64/
+endif
+
+if HOST_ARM
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/arch/arm/
+endif
+
+if HOST_I386
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/arch/i386/
+endif
+
+# XXX - do we still need this?
+if HOST_MIPS
+endif
+
+if HOST_MIPS64
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/arch/mips64/
+endif
+
+if HOST_POWERPC
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/arch/powerpc/
+endif
+
+if HOST_POWERPC64
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/arch/powerpc64/
+endif
+
+if HOST_RISCV64
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/arch/riscv64/
+endif
+
+if HOST_SPARC64
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/arch/sparc64/
+endif
+
+if HOST_X86_64
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/arch/amd64/
+endif
+
 noinst_LTLIBRARIES = libtest.la
 libtest_la_LIBADD = $(libcrypto_la_objects)
 libtest_la_LIBADD += $(libcompat_la_objects)

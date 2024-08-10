@@ -135,7 +135,7 @@ copy_hdrs $libcrypto_src "stack/stack.h lhash/lhash.h stack/safestack.h
 	bio/bio.h cast/cast.h cmac/cmac.h cms/cms.h conf/conf_api.h des/des.h dh/dh.h
 	dsa/dsa.h engine/engine.h ui/ui.h pkcs12/pkcs12.h ts/ts.h
 	md4/md4.h ripemd/ripemd.h whrlpool/whrlpool.h idea/idea.h
-	rc2/rc2.h rc4/rc4.h ui/ui_compat.h txt_db/txt_db.h
+	rc2/rc2.h rc4/rc4.h txt_db/txt_db.h
 	sm3/sm3.h sm4/sm4.h chacha/chacha.h evp/evp.h poly1305/poly1305.h
 	camellia/camellia.h curve25519/curve25519.h
 	ct/ct.h kdf/kdf.h"

@@ -97,7 +97,7 @@ LibreSSL Portable Release Notes:
 	  - i2d_ASN1_OBJECT() now returns -1 on error like most other i2d_*.
 	  - SPKAC support was removed from openssl(1)
 	  - Added TLS1-PRF support to the EVP interface.
-	  - Removed ssl2.h and ssl23.h.
+	  - Removed ssl2.h, ssl23.h, and ui_compat.h.
 	  - Support for attributes in EVP_PKEYs was removed.
 	  - Added SSL_CTX_set1_cert_store()
 	* Bug fixes

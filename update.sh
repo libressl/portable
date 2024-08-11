@@ -170,6 +170,8 @@ for i in $libcrypto_src/arch/*; do
 	arch=`basename $i`
 	mkdir -p include/arch/$arch
 	$CP $libcrypto_src/arch/$arch/opensslconf.h include/arch/$arch/
+	mkdir -p crypto/arch/$arch
+	$CP $libcrypto_src/arch/$arch/crypto_arch.h crypto/arch/$arch/
 done
 
 for i in $libcrypto_src/bn/arch/*; do
@@ -333,7 +335,7 @@ done
 echo "copying libssl source"
 rm -f ssl/*.c ssl/*.h
 touch ssl/empty.c
-for i in `awk '/SOURCES|HEADERS/ { print $3 }' ssl/Makefile.am` ; do
+for i in `awk '/SOURCES|HEADERS/ { if ($3 !~ /.*crypto_arch.*/) print $3 }' ssl/Makefile.am` ; do
 	dir=`dirname $i`
 	mkdir -p ssl/$dir
 	$CP $libssl_src/$i ssl/$i

@@ -114,3 +114,53 @@ noinst_HEADERS += tls12_internal.h
 noinst_HEADERS += tls13_internal.h
 noinst_HEADERS += tls13_handshake.h
 noinst_HEADERS += tls13_record.h
+
+# arch
+if HOST_AARCH64
+libssl_la_CPPFLAGS += -I$(top_srcdir)/crypto/arch/aarch64/
+endif
+noinst_HEADERS += $(top_srcdir)/crypto/arch/aarch64/crypto_arch.h
+
+if HOST_ARM
+libssl_la_CPPFLAGS += -I$(top_srcdir)/crypto/arch/arm/
+endif
+noinst_HEADERS += $(top_srcdir)/crypto/arch/arm/crypto_arch.h
+
+if HOST_I386
+libssl_la_CPPFLAGS += -I$(top_srcdir)/crypto/arch/i386/
+endif
+noinst_HEADERS += $(top_srcdir)/crypto/arch/i386/crypto_arch.h
+
+# XXX - do we still need this?
+if HOST_MIPS
+endif
+
+if HOST_MIPS64
+libssl_la_CPPFLAGS += -I$(top_srcdir)/crypto/arch/mips64/
+endif
+noinst_HEADERS += $(top_srcdir)/crypto/arch/mips64/crypto_arch.h
+
+if HOST_POWERPC
+libssl_la_CPPFLAGS += -I$(top_srcdir)/crypto/arch/powerpc/
+endif
+noinst_HEADERS += $(top_srcdir)/crypto/arch/powerpc/crypto_arch.h
+
+if HOST_POWERPC64
+libssl_la_CPPFLAGS += -I$(top_srcdir)/crypto/arch/powerpc64/
+endif
+noinst_HEADERS += $(top_srcdir)/crypto/arch/powerpc64/crypto_arch.h
+
+if HOST_RISCV64
+libssl_la_CPPFLAGS += -I$(top_srcdir)/crypto/arch/riscv64/
+endif
+noinst_HEADERS += $(top_srcdir)/crypto/arch/riscv64/crypto_arch.h
+
+if HOST_SPARC64
+libssl_la_CPPFLAGS += -I$(top_srcdir)/crypto/arch/sparc64/
+endif
+noinst_HEADERS += $(top_srcdir)/crypto/arch/sparc64/crypto_arch.h
+
+if HOST_X86_64
+libssl_la_CPPFLAGS += -I$(top_srcdir)/crypto/arch/amd64/
+endif
+noinst_HEADERS += $(top_srcdir)/crypto/arch/amd64/crypto_arch.h

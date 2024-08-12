@@ -34,6 +34,7 @@ LibreSSL Portable Release Notes:
 	  - Added initial Emscripten support in CMake builds
 	  - Removed timegm() compatibility layer since all uses were replaced
 	    with OPENSSL_timegm(). Cleaned up the corresponding test harness.
+	  - The mips32 platform is no longer actively supported.
 	* Internal improvements
 	  - Cleaned up parts of the conf directory. Simplified some logic,
 	    fixed memory leaks.
@@ -75,6 +76,8 @@ LibreSSL Portable Release Notes:
 	    behavior is that there is now a hard limit on the number of indexes
 	    that can be allocated.
 	  - Removed bogus connect() call from netcat.
+	* New features
+	  - Added CRLfile option to the cms command of openssl(1).
 	* Documentation improvements
 	  - Removed documentation of no longer existing API.
 	* Testing and proactive security

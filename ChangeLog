@@ -77,7 +77,8 @@ LibreSSL Portable Release Notes:
 	    that can be allocated.
 	  - Removed bogus connect() call from netcat.
 	* New features
-	  - Added CRLfile option to the cms command of openssl(1).
+	  - Added CRLfile option to the cms command of openssl(1) to specify
+	    additional CRLs for use during verification.
 	* Documentation improvements
 	  - Removed documentation of no longer existing API.
 	* Testing and proactive security

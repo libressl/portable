@@ -31,7 +31,7 @@ LibreSSL Portable Release Notes:
 4.0.0 - In development
 
 	* Portable changes
-	  - Added initial Emscripten support in CMake builds
+	  - Added initial Emscripten support in CMake builds.
 	  - Removed timegm() compatibility layer since all uses were replaced
 	    with OPENSSL_timegm(). Cleaned up the corresponding test harness.
 	  - The mips32 platform is no longer actively supported.
@@ -99,11 +99,12 @@ LibreSSL Portable Release Notes:
 	  - Removed typdefs for COMP_CTX, COMP_METHOD, X509_CRL_METHOD, STORE,
 	    STORE_METHOD, and SSL_AEAD_CTX.
 	  - i2d_ASN1_OBJECT() now returns -1 on error like most other i2d_*.
-	  - SPKAC support was removed from openssl(1)
+	  - SPKAC support was removed from openssl(1).
 	  - Added TLS1-PRF support to the EVP interface.
 	  - Removed ssl2.h, ssl23.h, and ui_compat.h.
 	  - Support for attributes in EVP_PKEYs was removed.
-	  - Added SSL_CTX_set1_cert_store()
+	  - SSL_CTX_set1_cert_store() and SSL_CIPHER_get_handshake_digest()
+	    were added to libssl.
 	* Bug fixes
 	  - Made ASN1_TIME_set_string() and ASN1_TIME_set_string_X509() match
 	    their documentation. They always set an RFC 5280 conformant time.

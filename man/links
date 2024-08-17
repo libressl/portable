@@ -2230,14 +2230,6 @@ X509_STORE_set1_param.3,X509_STORE_set_purpose.3
 X509_STORE_set1_param.3,X509_STORE_set_trust.3
 X509_STORE_set_verify_cb_func.3,X509_STORE_get_verify_cb.3
 X509_STORE_set_verify_cb_func.3,X509_STORE_set_verify_cb.3
-X509_TRUST_set.3,X509_TRUST_add.3
-X509_TRUST_set.3,X509_TRUST_cleanup.3
-X509_TRUST_set.3,X509_TRUST_get0.3
-X509_TRUST_set.3,X509_TRUST_get0_name.3
-X509_TRUST_set.3,X509_TRUST_get_by_id.3
-X509_TRUST_set.3,X509_TRUST_get_count.3
-X509_TRUST_set.3,X509_TRUST_get_flags.3
-X509_TRUST_set.3,X509_TRUST_get_trust.3
 X509_VERIFY_PARAM_new.3,X509_VERIFY_PARAM_add0_table.3
 X509_VERIFY_PARAM_new.3,X509_VERIFY_PARAM_free.3
 X509_VERIFY_PARAM_new.3,X509_VERIFY_PARAM_get0.3
@@ -2273,7 +2265,6 @@ X509_check_host.3,X509_check_email.3
 X509_check_host.3,X509_check_ip.3
 X509_check_host.3,X509_check_ip_asc.3
 X509_check_private_key.3,X509_REQ_check_private_key.3
-X509_check_trust.3,X509_TRUST_set_default.3
 X509_cmp.3,X509_CRL_cmp.3
 X509_cmp.3,X509_CRL_match.3
 X509_cmp.3,X509_NAME_cmp.3

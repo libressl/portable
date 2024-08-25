@@ -105,6 +105,10 @@ LibreSSL Portable Release Notes:
 	  - Support for attributes in EVP_PKEYs was removed.
 	  - SSL_CTX_set1_cert_store() and SSL_CIPHER_get_handshake_digest()
 	    were added to libssl.
+	  - The completely broken UI_UTIL password API was removed.
+	  - The OpenSSL pkcs12 command PKCS12_create() no longer supports
+	    setting the Microsoft-specific Local Key Set and Cryptographic
+	    Service Provider attributes.
 	* Bug fixes
 	  - Made ASN1_TIME_set_string() and ASN1_TIME_set_string_X509() match
 	    their documentation. They always set an RFC 5280 conformant time.

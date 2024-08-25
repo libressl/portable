@@ -106,7 +106,7 @@ LibreSSL Portable Release Notes:
 	  - SSL_CTX_set1_cert_store() and SSL_CIPHER_get_handshake_digest()
 	    were added to libssl.
 	  - The completely broken UI_UTIL password API was removed.
-	  - The OpenSSL pkcs12 command PKCS12_create() no longer supports
+	  - The OpenSSL pkcs12 command and PKCS12_create() no longer support
 	    setting the Microsoft-specific Local Key Set and Cryptographic
 	    Service Provider attributes.
 	* Bug fixes

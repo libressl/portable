@@ -23,7 +23,7 @@ jobs:
     container:
       image: fedora:rawhide
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Install dependencies
       run: |
         dnf -y install git make clang cmake ninja-build autoconf automake libtool diffutils patch

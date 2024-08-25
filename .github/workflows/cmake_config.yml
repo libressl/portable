@@ -37,7 +37,7 @@ jobs:
         if: runner.os == 'macOS'
         run: brew install automake libtool
 
-      - uses: actions/checkout@main
+      - uses: actions/checkout@v4
 
       - name: Prepare source tree for build (Windows)
         if: runner.os == 'Windows'

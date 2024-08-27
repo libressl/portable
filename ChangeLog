@@ -76,6 +76,8 @@ LibreSSL Portable Release Notes:
 	    behavior is that there is now a hard limit on the number of indexes
 	    that can be allocated.
 	  - Removed bogus connect() call from netcat.
+	  - Uses of atoi() and strtol() in libcrypto were replaced with
+	    strtonum().
 	* New features
 	  - Added CRLfile option to the cms command of openssl(1) to specify
 	    additional CRLs for use during verification.

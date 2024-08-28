@@ -621,6 +621,7 @@ set(
 	x509/x509_r2x.c
 	x509/x509_req.c
 	x509/x509_set.c
+	x509/x509_siginfo.c
 	x509/x509_skey.c
 	x509/x509_trs.c
 	x509/x509_txt.c

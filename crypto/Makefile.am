@@ -922,6 +922,7 @@ libcrypto_la_SOURCES += x509/x509_purp.c
 libcrypto_la_SOURCES += x509/x509_r2x.c
 libcrypto_la_SOURCES += x509/x509_req.c
 libcrypto_la_SOURCES += x509/x509_set.c
+libcrypto_la_SOURCES += x509/x509_siginfo.c
 libcrypto_la_SOURCES += x509/x509_skey.c
 libcrypto_la_SOURCES += x509/x509_trs.c
 libcrypto_la_SOURCES += x509/x509_txt.c

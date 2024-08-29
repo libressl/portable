@@ -109,7 +109,6 @@ tests/ctlog.conf
 tests/*.crt
 tests/ec_point_conversion*
 tests/ecc_cdh*
-tests/evp_pkey_check*
 tests/evp_pkey_cleanup*
 tests/explicit_bzero*
 tests/freenull*

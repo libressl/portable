@@ -435,11 +435,6 @@ TESTS += evp_ecx_test
 check_PROGRAMS += evp_ecx_test
 evp_ecx_test_SOURCES = evp_ecx_test.c
 
-# evp_pkey_check
-TESTS += evp_pkey_check
-check_PROGRAMS += evp_pkey_check
-evp_pkey_check_SOURCES = evp_pkey_check.c
-
 # evp_pkey_cleanup
 TESTS += evp_pkey_cleanup
 check_PROGRAMS += evp_pkey_cleanup

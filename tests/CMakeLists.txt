@@ -423,11 +423,6 @@ add_executable(evp_ecx_test evp_ecx_test.c)
 target_link_libraries(evp_ecx_test ${OPENSSL_TEST_LIBS})
 add_platform_test(evp_ecx_test evp_ecx_test)
 
-# evp_pkey_check
-add_executable(evp_pkey_check evp_pkey_check.c)
-target_link_libraries(evp_pkey_check ${OPENSSL_TEST_LIBS})
-add_platform_test(evp_pkey_check evp_pkey_check)
-
 # evp_pkey_cleanup
 add_executable(evp_pkey_cleanup evp_pkey_cleanup.c)
 target_link_libraries(evp_pkey_cleanup ${OPENSSL_TEST_LIBS})

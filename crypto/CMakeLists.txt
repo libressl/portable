@@ -359,25 +359,11 @@ set(
 	ct/ct_x509v3.c
 	curve25519/curve25519-generic.c
 	curve25519/curve25519.c
-	des/cbc_cksm.c
-	des/cbc_enc.c
-	des/cfb64ede.c
-	des/cfb64enc.c
-	des/cfb_enc.c
+	des/des.c
+	des/des_cksum.c
 	des/des_enc.c
-	des/ecb3_enc.c
-	des/ecb_enc.c
-	des/ede_cbcm_enc.c
-	des/fcrypt.c
-	des/fcrypt_b.c
-	des/ofb64ede.c
-	des/ofb64enc.c
-	des/ofb_enc.c
-	des/pcbc_enc.c
-	des/qud_cksm.c
-	des/set_key.c
-	des/str2key.c
-	des/xcbc_enc.c
+	des/des_fcrypt.c
+	des/des_key.c
 	dh/dh_ameth.c
 	dh/dh_asn1.c
 	dh/dh_check.c

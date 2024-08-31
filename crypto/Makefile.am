@@ -504,27 +504,12 @@ noinst_HEADERS += curve25519/curve25519_internal.h
 
 
 # des
-libcrypto_la_SOURCES += des/cbc_cksm.c
-libcrypto_la_SOURCES += des/cbc_enc.c
-libcrypto_la_SOURCES += des/cfb64ede.c
-libcrypto_la_SOURCES += des/cfb64enc.c
-libcrypto_la_SOURCES += des/cfb_enc.c
+libcrypto_la_SOURCES += des/des.c
+libcrypto_la_SOURCES += des/des_cksum.c
 libcrypto_la_SOURCES += des/des_enc.c
-libcrypto_la_SOURCES += des/ecb3_enc.c
-libcrypto_la_SOURCES += des/ecb_enc.c
-libcrypto_la_SOURCES += des/ede_cbcm_enc.c
-libcrypto_la_SOURCES += des/fcrypt.c
-libcrypto_la_SOURCES += des/fcrypt_b.c
-libcrypto_la_SOURCES += des/ofb64ede.c
-libcrypto_la_SOURCES += des/ofb64enc.c
-libcrypto_la_SOURCES += des/ofb_enc.c
-libcrypto_la_SOURCES += des/pcbc_enc.c
-libcrypto_la_SOURCES += des/qud_cksm.c
-libcrypto_la_SOURCES += des/set_key.c
-libcrypto_la_SOURCES += des/str2key.c
-libcrypto_la_SOURCES += des/xcbc_enc.c
+libcrypto_la_SOURCES += des/des_fcrypt.c
+libcrypto_la_SOURCES += des/des_key.c
 noinst_HEADERS += des/des_local.h
-noinst_HEADERS += des/spr.h
 
 # dh
 libcrypto_la_SOURCES += dh/dh_ameth.c

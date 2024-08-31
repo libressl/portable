@@ -874,7 +874,6 @@ endif
 if HOST_WIN
 libcrypto_la_SOURCES += ui/ui_openssl_win.c
 endif
-libcrypto_la_SOURCES += ui/ui_util.c
 noinst_HEADERS += ui/ui_local.h
 
 # x509

@@ -578,7 +578,6 @@ set(
 	ui/ui_err.c
 	ui/ui_lib.c
 	ui/ui_null.c
-	ui/ui_util.c
 	x509/by_dir.c
 	x509/by_file.c
 	x509/by_mem.c

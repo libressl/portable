@@ -791,8 +791,6 @@ ERR_load_strings.3,ERR_PACK.3
 ERR_load_strings.3,ERR_get_next_error_library.3
 ERR_print_errors.3,ERR_print_errors_cb.3
 ERR_print_errors.3,ERR_print_errors_fp.3
-ERR_put_error.3,ERR_add_error_data.3
-ERR_put_error.3,ERR_add_error_vdata.3
 ERR_remove_state.3,ERR_remove_thread_state.3
 ERR_set_mark.3,ERR_pop_to_mark.3
 ESS_SIGNING_CERT_new.3,ESS_CERT_ID_free.3
@@ -1205,7 +1203,6 @@ HMAC.3,HMAC_CTX_new.3
 HMAC.3,HMAC_CTX_reset.3
 HMAC.3,HMAC_CTX_set_flags.3
 HMAC.3,HMAC_Final.3
-HMAC.3,HMAC_Init.3
 HMAC.3,HMAC_Init_ex.3
 HMAC.3,HMAC_Update.3
 HMAC.3,HMAC_size.3

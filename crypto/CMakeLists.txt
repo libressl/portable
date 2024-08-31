@@ -800,6 +800,7 @@ target_include_directories(crypto_obj
 		bio
 		bn
 		bytestring
+		conf
 		dh
 		dsa
 		curve25519

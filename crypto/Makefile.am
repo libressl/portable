@@ -5,6 +5,7 @@ AM_CPPFLAGS += -I$(top_srcdir)/crypto/asn1
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/bio
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/bn
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/bytestring
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/conf
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/curve25519
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/dh
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/dsa
@@ -481,6 +482,7 @@ libcrypto_la_SOURCES += conf/conf_mall.c
 libcrypto_la_SOURCES += conf/conf_mod.c
 libcrypto_la_SOURCES += conf/conf_sap.c
 noinst_HEADERS += conf/conf_def.h
+noinst_HEADERS += conf/conf_local.h
 
 # ct
 libcrypto_la_SOURCES += ct/ct_b64.c
@@ -647,7 +649,6 @@ noinst_HEADERS += hidden/openssl/chacha.h
 noinst_HEADERS += hidden/openssl/cmac.h
 noinst_HEADERS += hidden/openssl/cms.h
 noinst_HEADERS += hidden/openssl/conf.h
-noinst_HEADERS += hidden/openssl/conf_api.h
 noinst_HEADERS += hidden/openssl/crypto.h
 noinst_HEADERS += hidden/openssl/ct.h
 noinst_HEADERS += hidden/openssl/curve25519.h

@@ -623,7 +623,6 @@ libcrypto_la_SOURCES += evp/m_sha1.c
 libcrypto_la_SOURCES += evp/m_sha3.c
 libcrypto_la_SOURCES += evp/m_sigver.c
 libcrypto_la_SOURCES += evp/m_sm3.c
-libcrypto_la_SOURCES += evp/m_wp.c
 libcrypto_la_SOURCES += evp/p_legacy.c
 libcrypto_la_SOURCES += evp/p_lib.c
 libcrypto_la_SOURCES += evp/p_sign.c
@@ -685,7 +684,6 @@ noinst_HEADERS += hidden/openssl/stack.h
 noinst_HEADERS += hidden/openssl/ts.h
 noinst_HEADERS += hidden/openssl/txt_db.h
 noinst_HEADERS += hidden/openssl/ui.h
-noinst_HEADERS += hidden/openssl/whrlpool.h
 noinst_HEADERS += hidden/openssl/x509.h
 noinst_HEADERS += hidden/openssl/x509_vfy.h
 noinst_HEADERS += hidden/openssl/x509v3.h
@@ -877,9 +875,6 @@ libcrypto_la_SOURCES += ui/ui_openssl_win.c
 endif
 libcrypto_la_SOURCES += ui/ui_util.c
 noinst_HEADERS += ui/ui_local.h
-
-# whrlpool
-libcrypto_la_SOURCES += whrlpool/whirlpool.c
 
 # x509
 libcrypto_la_SOURCES += x509/by_dir.c

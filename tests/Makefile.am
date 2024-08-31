@@ -831,11 +831,6 @@ TESTS += verifytest
 check_PROGRAMS += verifytest
 verifytest_SOURCES = verifytest.c
 
-# whirlpool
-TESTS += whirlpool_test
-check_PROGRAMS += whirlpool_test
-whirlpool_test_SOURCES = whirlpool_test.c
-
 # x25519test
 TESTS += x25519test
 check_PROGRAMS += x25519test

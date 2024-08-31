@@ -456,7 +456,6 @@ set(
 	evp/m_sha3.c
 	evp/m_sigver.c
 	evp/m_sm3.c
-	evp/m_wp.c
 	evp/p_legacy.c
 	evp/p_lib.c
 	evp/p_sign.c
@@ -580,7 +579,6 @@ set(
 	ui/ui_lib.c
 	ui/ui_null.c
 	ui/ui_util.c
-	whrlpool/whirlpool.c
 	x509/by_dir.c
 	x509/by_file.c
 	x509/by_mem.c

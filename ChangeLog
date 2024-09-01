@@ -89,14 +89,25 @@ LibreSSL Portable Release Notes:
 	  - Protocol parsing in libtls was changed. The unsupported TLSv1.1
 	    and TLSv1.0 protocols are ignored and no longer enable or disable
 	    TLSv1.2 in surprising ways.
+	  - The dangerous EVP_PKEY*_check(3) family of functions was removed.
+	    The openssl(1) pkey and pkeyparam commands no longer support the
+	    -check and -pubcheck flags.
 	  - The one-step hashing functions, MD4(), MD5(), RIPEMD160(), SHA1(),
 	    all SHA-2, and HMAC() no longer support returning a static buffer.
 	    Callers must pass in a correctly sized buffer.
+	  - Support for Whirlpool was removed. Applications still using this
+	    should honor OPENSSL_NO_WHIRLPOOL.
 	  - Removed workaround for F5 middle boxes.
 	  - Removed the useless pem2.h, a public header that was added since
-	    it was too hard to add a prototype to one file.
+	    it was too hard to add a single prototype to one file.
+	  - Removed conf_api.h and the public API therein.
+	  - Numerous conf and attribute functions were removed. Some unused
+	    types were removed, others were made opaque.
 	  - Only specified versions can be set on certs, CRLs and CSRs.
-	  - Prepared X509_REQ_{get,set}_extension_nids() for removal.
+	  - Removed the deprecated HMAC_Init() function.
+	  - Removed OPENSSL_load_builtin_modules().
+	  - Removed X509_REQ_{get,set}_extension_nids().
+	  - X509_check_trust() and was removed, X509_VAL was made opaque.
 	  - Removed unused PEM_USER and PEM_CTX types from pem.h.
 	  - Removed typdefs for COMP_CTX, COMP_METHOD, X509_CRL_METHOD, STORE,
 	    STORE_METHOD, and SSL_AEAD_CTX.

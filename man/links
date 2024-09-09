@@ -2343,14 +2343,6 @@ X509_sign.3,X509_REQ_verify.3
 X509_sign.3,X509_sign_ctx.3
 X509_sign.3,X509_verify.3
 X509_signature_dump.3,X509_signature_print.3
-X509at_add1_attr.3,X509at_add1_attr_by_NID.3
-X509at_add1_attr.3,X509at_add1_attr_by_OBJ.3
-X509at_add1_attr.3,X509at_add1_attr_by_txt.3
-X509at_add1_attr.3,X509at_delete_attr.3
-X509at_get_attr.3,X509at_get0_data_by_OBJ.3
-X509at_get_attr.3,X509at_get_attr_by_NID.3
-X509at_get_attr.3,X509at_get_attr_by_OBJ.3
-X509at_get_attr.3,X509at_get_attr_count.3
 X509v3_addr_add_inherit.3,X509v3_addr_add_prefix.3
 X509v3_addr_add_inherit.3,X509v3_addr_add_range.3
 X509v3_addr_add_inherit.3,X509v3_addr_canonize.3

@@ -148,6 +148,7 @@ LibreSSL Portable Release Notes:
 	    ALPN callback.
 	  - Avoid pushing a spurious error onto the error stack in
 	    ssl_sigalg_select().
+	  - Made fatal alerts fatal in QUIC.
 
 3.9.0 - Development release
 

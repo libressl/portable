@@ -69,7 +69,6 @@ LibreSSL Portable Release Notes:
 	  - Improvements in the openssl(1) speed app's signal handler.
 	  - Cleaned up various X509v3_* extension API.
 	  - Unified the X.509v3 extension methods.
-	  - Added support for TLS PRF in the EVP KDF API.
 	  - Cleaned up cipher handling in SSL_SESSION.
 	  - Removed get_cipher from SSL_METHOD.
 	  - Rewrote CRYPTO_EX_DATA from scratch. The only intentional change of
@@ -78,11 +77,18 @@ LibreSSL Portable Release Notes:
 	  - Removed bogus connect() call from netcat.
 	  - Uses of atoi() and strtol() in libcrypto were replaced with
 	    strtonum().
+	  - Introduced crypto_arch.h which will contain the architecture
+	    dependent code and defines rather than the public opensslconf.h.
+	  - OPENSSL_cpu_caps() is now architecture independent.
+	  - Reorganized the DES implementation to use fewer files and removed
+	    optimizations for ancient processors and compilers.
 	* New features
 	  - Added CRLfile option to the cms command of openssl(1) to specify
 	    additional CRLs for use during verification.
 	* Documentation improvements
 	  - Removed documentation of no longer existing API.
+	  - Unified the description of the obsolete ENGINE parameter that
+	    needs to remain in many functions and should always be NULL.
 	* Testing and proactive security
 	  - Switched the remaining tests to new certs.
 	* Compatibility changes
@@ -101,21 +107,22 @@ LibreSSL Portable Release Notes:
 	  - Removed the useless pem2.h, a public header that was added since
 	    it was too hard to add a single prototype to one file.
 	  - Removed conf_api.h and the public API therein.
+	  - Removed ssl2.h, ssl23.h and ui_compat.h.
 	  - Numerous conf and attribute functions were removed. Some unused
 	    types were removed, others were made opaque.
-	  - Only specified versions can be set on certs, CRLs and CSRs.
 	  - Removed the deprecated HMAC_Init() function.
 	  - Removed OPENSSL_load_builtin_modules().
 	  - Removed X509_REQ_{get,set}_extension_nids().
 	  - X509_check_trust() and was removed, X509_VAL was made opaque.
+	  - Only specified versions can be set on certs, CRLs and CSRs.
 	  - Removed unused PEM_USER and PEM_CTX types from pem.h.
 	  - Removed typdefs for COMP_CTX, COMP_METHOD, X509_CRL_METHOD, STORE,
 	    STORE_METHOD, and SSL_AEAD_CTX.
 	  - i2d_ASN1_OBJECT() now returns -1 on error like most other i2d_*.
 	  - SPKAC support was removed from openssl(1).
 	  - Added TLS1-PRF support to the EVP interface.
-	  - Removed ssl2.h, ssl23.h, and ui_compat.h.
 	  - Support for attributes in EVP_PKEYs was removed.
+	  - The X509at_* API is no longer public.
 	  - SSL_CTX_set1_cert_store() and SSL_CIPHER_get_handshake_digest()
 	    were added to libssl.
 	  - The completely broken UI_UTIL password API was removed.

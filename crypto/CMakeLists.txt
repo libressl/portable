@@ -844,15 +844,13 @@ add_library(crypto $<TARGET_OBJECTS:crypto_obj> $<TARGET_OBJECTS:compat_obj> emp
 
 export_symbol(crypto ${CMAKE_CURRENT_BINARY_DIR}/crypto_p.sym)
 target_link_libraries(crypto ${PLATFORM_LIBS})
-if (WIN32)
-	set(CRYPTO_POSTFIX -${CRYPTO_MAJOR_VERSION} PARENT_SCOPE)
-endif()
 set_target_properties(crypto PROPERTIES
-	OUTPUT_NAME crypto${CRYPTO_POSTFIX}
-	ARCHIVE_OUTPUT_NAME crypto${CRYPTO_POSTFIX}
+	OUTPUT_NAME crypto
+	ARCHIVE_OUTPUT_NAME crypto
 	EXPORT_NAME Crypto
 	VERSION ${CRYPTO_VERSION}
 	SOVERSION ${CRYPTO_MAJOR_VERSION}
+	DLL_NAME_WITH_SOVERSION TRUE
 )
 
 target_include_directories(

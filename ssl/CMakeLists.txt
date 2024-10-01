@@ -86,15 +86,13 @@ endif()
 
 export_symbol(ssl ${CMAKE_CURRENT_SOURCE_DIR}/ssl.sym)
 target_link_libraries(ssl crypto ${PLATFORM_LIBS})
-if (WIN32)
-	set(SSL_POSTFIX -${SSL_MAJOR_VERSION} PARENT_SCOPE)
-endif()
 set_target_properties(ssl PROPERTIES
-	OUTPUT_NAME ssl${SSL_POSTFIX}
-	ARCHIVE_OUTPUT_NAME ssl${SSL_POSTFIX}
+	OUTPUT_NAME ssl
+	ARCHIVE_OUTPUT_NAME ssl
 	EXPORT_NAME SSL
 	VERSION ${SSL_VERSION}
 	SOVERSION ${SSL_MAJOR_VERSION}
+	DLL_NAME_WITH_SOVERSION TRUE
 )
 
 target_include_directories(

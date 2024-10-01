@@ -50,7 +50,7 @@ jobs:
 
       - name: "Configure CMake"
         shell: cmd
-        run: cmake -Bbuild -G "${{ matrix.generator }}" -A ${{ matrix.arch }} DBUILD_SHARED_LIBS=${{ matrix.shared }} -DCMAKE_INSTALL_PREFIX=../local
+        run: cmake -Bbuild -G "${{ matrix.generator }}" -A ${{ matrix.arch }} -D BUILD_SHARED_LIBS=${{ matrix.shared }} -D CMAKE_INSTALL_PREFIX=../local
 
       - name: "Build"
         shell: cmd

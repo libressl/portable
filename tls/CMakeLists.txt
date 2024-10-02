@@ -64,10 +64,10 @@ set_target_properties(tls PROPERTIES
 	EXPORT_NAME TLS
 	VERSION ${TLS_VERSION}
 	SOVERSION ${TLS_MAJOR_VERSION}
-	if(NOT CMAKE_VERSION VERSION_LESS 3.27.0)
-		DLL_NAME_WITH_SOVERSION TRUE
-	endif()
 )
+if(NOT CMAKE_VERSION VERSION_LESS 3.27.0)
+	set_target_properties(tls PROPERTIES DLL_NAME_WITH_SOVERSION TRUE)
+endif()
 
 target_include_directories(
 	tls

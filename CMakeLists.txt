@@ -296,7 +296,7 @@ if(HAVE_GETPROGNAME)
 	add_definitions(-DHAVE_GETPROGNAME)
 endif()
 
-check_symbol_exists(syslog_r "syslog.h" "stdarg.h" HAVE_SYSLOG_R)
+check_symbol_exists(syslog_r "syslog.h;stdarg.h" HAVE_SYSLOG_R)
 if(HAVE_SYSLOG_R)
 	add_definitions(-DHAVE_SYSLOG_R)
 endif()

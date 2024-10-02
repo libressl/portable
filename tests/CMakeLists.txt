@@ -693,7 +693,7 @@ set_tests_properties(shutdowntest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_D
 # Emscripten does not support socketpair syscall.
 if(NOT (CMAKE_SYSTEM_NAME MATCHES "WindowsStore" OR EMSCRIPTEN))
 	set(SIGNERTEST_SRC signertest.c)
-	check_symbol_exists(pipe2 "fcntl.h unistd.h" HAVE_PIPE2)
+	check_symbol_exists(pipe2 "fcntl.h;unistd.h" HAVE_PIPE2)
 	if(HAVE_PIPE2)
 		add_definitions(-DHAVE_PIPE2)
 	else()
@@ -809,7 +809,7 @@ add_platform_test(tlslegacytest tlslegacytest)
 # Emscripten does not support socketpair syscall.
 if(NOT (CMAKE_SYSTEM_NAME MATCHES "WindowsStore" OR EMSCRIPTEN))
 	set(TLSTEST_SRC tlstest.c)
-	check_symbol_exists(pipe2 "fcntl.h unistd.h" HAVE_PIPE2)
+	check_symbol_exists(pipe2 "fcntl.h;unistd.h" HAVE_PIPE2)
 	if(HAVE_PIPE2)
 		add_definitions(-DHAVE_PIPE2)
 	else()

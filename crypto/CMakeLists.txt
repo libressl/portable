@@ -850,10 +850,10 @@ set_target_properties(crypto PROPERTIES
 	EXPORT_NAME Crypto
 	VERSION ${CRYPTO_VERSION}
 	SOVERSION ${CRYPTO_MAJOR_VERSION}
-	if(NOT CMAKE_VERSION VERSION_LESS 3.27.0)
-		DLL_NAME_WITH_SOVERSION TRUE
-	endif()
 )
+if(NOT CMAKE_VERSION VERSION_LESS 3.27.0)
+	set_target_properties(crypto PROPERTIES DLL_NAME_WITH_SOVERSION TRUE)
+endif()
 
 target_include_directories(
 	crypto

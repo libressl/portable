@@ -92,10 +92,10 @@ set_target_properties(ssl PROPERTIES
 	EXPORT_NAME SSL
 	VERSION ${SSL_VERSION}
 	SOVERSION ${SSL_MAJOR_VERSION}
-	if(NOT CMAKE_VERSION VERSION_LESS 3.27.0)
-		DLL_NAME_WITH_SOVERSION TRUE
-	endif()
 )
+if(NOT CMAKE_VERSION VERSION_LESS 3.27.0)
+	set_target_properties(ssl PROPERTIES DLL_NAME_WITH_SOVERSION TRUE)
+endif()
 
 target_include_directories(
 	ssl

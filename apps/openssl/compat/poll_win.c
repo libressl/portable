@@ -253,7 +253,7 @@ poll(struct pollfd *pfds, nfds_t nfds, int timeout_ms)
 		timeout_ms = INFINITE;
 
 	do {
-		struct timeval tv;
+		TIMEVAL tv;
 		tv.tv_sec = 0;
 		tv.tv_usec = looptime_ms * 1000;
 		int handle_signaled = 0;

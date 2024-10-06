@@ -248,9 +248,9 @@ poll(struct pollfd *pfds, nfds_t nfds, int timeout_ms)
 	timespent_ms = 0;
 	wait_rc = WAIT_FAILED;
 
-	if (timeout_ms < 0)
+	looptime_ms = (timeout_ms > 100 || timeout_ms == -1) ? 100 : timeout_ms;
+	if (timeout_ms == -1)
 		timeout_ms = INFINITE;
-	looptime_ms = timeout_ms > 100 ? 100 : timeout_ms;
 
 	do {
 		struct timeval tv;

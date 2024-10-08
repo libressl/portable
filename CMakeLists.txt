@@ -3,7 +3,7 @@ if(MSVC)
 	cmake_policy(SET CMP0091 NEW)
 endif()
 
-project (LibreSSL C ASM)
+project(LibreSSL LANGUAGES C ASM)
 
 include(CheckFunctionExists)
 include(CheckSymbolExists)

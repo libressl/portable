@@ -418,6 +418,11 @@ add_executable(ed25519test ed25519test.c)
 target_link_libraries(ed25519test ${OPENSSL_TEST_LIBS})
 add_platform_test(ed25519test ed25519test)
 
+# err_test
+add_executable(err_test err_test.c)
+target_link_libraries(err_test ${OPENSSL_TEST_LIBS})
+add_platform_test(err_test err_test)
+
 # evp_ecx_test
 add_executable(evp_ecx_test evp_ecx_test.c)
 target_link_libraries(evp_ecx_test ${OPENSSL_TEST_LIBS})

@@ -430,6 +430,11 @@ TESTS += ed25519test
 check_PROGRAMS += ed25519test
 ed25519test_SOURCES = ed25519test.c
 
+# err_test
+TESTS += err_test
+check_PROGRAMS += err_test
+err_test_SOURCES = err_test.c
+
 # evp_ecx_test
 TESTS += evp_ecx_test
 check_PROGRAMS += evp_ecx_test

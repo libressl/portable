@@ -36,7 +36,7 @@ LibreSSL Portable Release Notes:
 	  - Added an OPENSSL_INIT_NO_ATEXIT flag for OPENSSL_init_crypto().
 	    It has no effect since LibreSSL doesn't call atexit().
 
-4.0.0 - To be released soon...
+4.0.0 - Stable release
 
 	* Portable changes
 	  - Added initial Emscripten support in CMake builds.

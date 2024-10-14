@@ -29,6 +29,7 @@ history is also available from Git.
 LibreSSL Portable Release Notes:
 
 4.1.0 - In development
+
 	* Portable changes
 	  - Fixed CMake builds on FreeBSD.
 	* Internal improvements
@@ -45,6 +46,7 @@ LibreSSL Portable Release Notes:
 	  - Removed timegm() compatibility layer since all uses were replaced
 	    with OPENSSL_timegm(). Cleaned up the corresponding test harness.
 	  - The mips32 platform is no longer actively supported.
+	  - Fixed Windows support for dates beyond 2038.
 	* Internal improvements
 	  - Cleaned up parts of the conf directory. Simplified some logic,
 	    fixed memory leaks.

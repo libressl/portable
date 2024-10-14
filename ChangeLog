@@ -28,13 +28,14 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
-4.0.0 - In development
+4.0.0 - Stable release
 
 	* Portable changes
 	  - Added initial Emscripten support in CMake builds.
 	  - Removed timegm() compatibility layer since all uses were replaced
 	    with OPENSSL_timegm(). Cleaned up the corresponding test harness.
 	  - The mips32 platform is no longer actively supported.
+	  - Fixed Windows support for dates beyond 2038.
 	* Internal improvements
 	  - Cleaned up parts of the conf directory. Simplified some logic,
 	    fixed memory leaks.

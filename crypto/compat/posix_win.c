@@ -163,6 +163,9 @@ wsa_errno(int err)
 static int
 is_socket(int fd)
 {
+	/* Border case: Don't break std* file descriptors */
+	if (fd < 3)
+		return 0;
 	return (fd & 1) == 0; /* daringly assumes that any valid socket is even */
 }
 

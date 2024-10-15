@@ -291,7 +291,7 @@ uid_t getuid(void)
 
 #ifdef _MSC_VER
 struct timezone;
-int gettimeofday(struct timeval * tp, struct timezone * tzp)
+int gettimeofday(struct timeval *tp, void *tzp)
 {
 	/*
 	 * Note: some broken versions only have 8 trailing zero's, the correct

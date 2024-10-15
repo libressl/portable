@@ -1,0 +1,71 @@
+# GitHub Actions workflow to run tests on a FreeBSD VM.
+name: "FreeBSD"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *" # At 00:00 daily.
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.event.number || github.ref }}"
+  cancel-in-progress: true
+
+env:
+  FREEBSD_VERSION: "14.1"
+
+jobs:
+  autoconf:
+    name: "autoconf"
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'libressl' || github.event_name != 'schedule'
+    permissions:
+      contents: read
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "Setup"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y automake autoconf libtool
+          ./autogen.sh
+
+      - name: "Build on VM"
+        uses: vmactions/freebsd-vm@v1
+        with:
+          release: "${{ env.FREEBSD_VERSION }}"
+          copyback: false
+          prepare: |
+            pkg install -y autoconf automake libtool
+          run: |
+            ./configure
+            make -j2 check || (cat tests/test-suite.log && exit 1)
+
+  cmake:
+    name: "cmake"
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'libressl' || github.event_name != 'schedule'
+    permissions:
+      contents: read
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "Setup"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y automake autoconf libtool
+          ./autogen.sh
+
+      - name: "Build on VM"
+        uses: vmactions/freebsd-vm@v1
+        with:
+          release: "${{ env.FREEBSD_VERSION }}"
+          copyback: false
+          prepare: |
+            pkg install -y cmake ninja
+          run: |
+            export CTEST_OUTPUT_ON_FAILURE=1
+            cmake -G Ninja -B build
+            ninja -C build
+            ninja -C build test

@@ -29,6 +29,8 @@ history is also available from Git.
 LibreSSL Portable Release Notes:
 
 4.1.0 - In development
+	* Portable changes
+	  - Fixed CMake builds on FreeBSD.
 	* Internal improvements
 	  - Cleaned up the error implementation.
 	  - Many bug fixes and simplifications in the EC ASN.1 code.

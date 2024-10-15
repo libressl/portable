@@ -89,6 +89,10 @@ if(CMAKE_SYSTEM_NAME MATCHES "Linux")
 	set(PLATFORM_LIBS ${PLATFORM_LIBS} pthread)
 endif()
 
+if(CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
+	set(PLATFORM_LIBS ${PLATFORM_LIBS} pthread)
+endif()
+
 if(WIN32)
 	set(BUILD_NC false)
 	if(MINGW)

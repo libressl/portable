@@ -35,6 +35,7 @@ LibreSSL Portable Release Notes:
 	* Internal improvements
 	  - Cleaned up the error implementation.
 	  - Many bug fixes and simplifications in the EC ASN.1 code.
+	  - Reworked CPU capabilities detection.
 	* Compatibility changes
 	  - Added an OPENSSL_INIT_NO_ATEXIT flag for OPENSSL_init_crypto().
 	    It has no effect since LibreSSL doesn't call atexit().

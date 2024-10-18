@@ -172,6 +172,10 @@ for i in $libcrypto_src/arch/*; do
 	$CP $libcrypto_src/arch/$arch/opensslconf.h include/arch/$arch/
 	mkdir -p crypto/arch/$arch
 	$CP $libcrypto_src/arch/$arch/crypto_arch.h crypto/arch/$arch/
+	crypto_cpu_caps=$libcrypto_src/arch/$arch/crypto_cpu_caps.c
+	if [ -f "$crypto_cpu_caps" ]; then
+		$CP "$crypto_cpu_caps" crypto/arch/$arch/
+	fi
 done
 
 for i in $libcrypto_src/bn/arch/*; do
@@ -282,7 +286,6 @@ for abi in elf macosx masm mingw64; do
 	gen_asm_stdout $abi sha/asm/sha1-x86_64.pl       sha/sha1-$abi-x86_64.S
 	gen_asm        $abi sha/asm/sha512-x86_64.pl     sha/sha256-$abi-x86_64.S
 	gen_asm        $abi sha/asm/sha512-x86_64.pl     sha/sha512-$abi-x86_64.S
-	gen_asm        $abi x86_64cpuid.pl               cpuid-$abi-x86_64.S
 done
 
 # copy libtls source

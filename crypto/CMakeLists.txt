@@ -38,7 +38,6 @@ if(HOST_ASM_ELF_X86_64)
 		sha/sha1-elf-x86_64.S
 		sha/sha256-elf-x86_64.S
 		sha/sha512-elf-x86_64.S
-		cpuid-elf-x86_64.S
 
 		bn/arch/amd64/bignum_add.S
 		bn/arch/amd64/bignum_cmadd.S
@@ -66,7 +65,6 @@ if(HOST_ASM_ELF_X86_64)
 	add_definitions(-DSHA256_ASM)
 	add_definitions(-DSHA512_ASM)
 	add_definitions(-DWHIRLPOOL_ASM)
-	add_definitions(-DOPENSSL_CPUID_OBJ)
 	set(CRYPTO_SRC ${CRYPTO_SRC} ${ASM_X86_64_ELF_SRC})
 endif()
 
@@ -86,7 +84,6 @@ if(HOST_ASM_MACOSX_X86_64)
 		sha/sha1-macosx-x86_64.S
 		sha/sha256-macosx-x86_64.S
 		sha/sha512-macosx-x86_64.S
-		cpuid-macosx-x86_64.S
 
 		bn/arch/amd64/bignum_add.S
 		bn/arch/amd64/bignum_cmadd.S
@@ -114,7 +111,6 @@ if(HOST_ASM_MACOSX_X86_64)
 	add_definitions(-DSHA256_ASM)
 	add_definitions(-DSHA512_ASM)
 	add_definitions(-DWHIRLPOOL_ASM)
-	add_definitions(-DOPENSSL_CPUID_OBJ)
 	set(CRYPTO_SRC ${CRYPTO_SRC} ${ASM_X86_64_MACOSX_SRC})
 	set_property(SOURCE ${ASM_X86_64_MACOSX_SRC} PROPERTY XCODE_EXPLICIT_FILE_TYPE "sourcecode.asm")
 endif()
@@ -135,7 +131,6 @@ if(HOST_ASM_MASM_X86_64)
 		sha/sha1-masm-x86_64.S
 		sha/sha256-masm-x86_64.S
 		sha/sha512-masm-x86_64.S
-		cpuid-masm-x86_64.S
 	)
 	add_definitions(-Dendbr64=)
 	add_definitions(-DAES_ASM)
@@ -151,7 +146,6 @@ if(HOST_ASM_MASM_X86_64)
 	add_definitions(-DSHA256_ASM)
 	add_definitions(-DSHA512_ASM)
 	add_definitions(-DWHIRLPOOL_ASM)
-	add_definitions(-DOPENSSL_CPUID_OBJ)
 	set(CRYPTO_SRC ${CRYPTO_SRC} ${ASM_X86_64_MASM_SRC})
 	set_property(SOURCE ${ASM_X86_64_MASM_SRC} PROPERTY LANGUAGE ASM_MASM)
 endif()
@@ -172,7 +166,6 @@ if(HOST_ASM_MINGW64_X86_64)
 		sha/sha1-mingw64-x86_64.S
 		sha/sha256-mingw64-x86_64.S
 		sha/sha512-mingw64-x86_64.S
-		cpuid-mingw64-x86_64.S
 	)
 	add_definitions(-Dendbr32=endbr64)
 	add_definitions(-DAES_ASM)
@@ -188,8 +181,11 @@ if(HOST_ASM_MINGW64_X86_64)
 	add_definitions(-DSHA256_ASM)
 	add_definitions(-DSHA512_ASM)
 	add_definitions(-DWHIRLPOOL_ASM)
-	add_definitions(-DOPENSSL_CPUID_OBJ)
 	set(CRYPTO_SRC ${CRYPTO_SRC} ${ASM_X86_64_MINGW64_SRC})
+endif()
+
+if(HOST_X86_64)
+	set(CRYPTO_SRC ${CRYPTO_SRC} arch/amd64/crypto_cpu_caps.c)
 endif()
 
 set(

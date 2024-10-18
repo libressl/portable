@@ -39,6 +39,8 @@ LibreSSL Portable Release Notes:
 	* Compatibility changes
 	  - Added an OPENSSL_INIT_NO_ATEXIT flag for OPENSSL_init_crypto().
 	    It has no effect since LibreSSL doesn't call atexit().
+	  - Elliptic curve parameters are only accepted if they encode a
+	    builtin curve.
 
 4.0.0 - Stable release
 

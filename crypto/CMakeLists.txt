@@ -382,7 +382,6 @@ set(
 	ec/ec_asn1.c
 	ec/ec_check.c
 	ec/ec_curve.c
-	ec/ec_cvt.c
 	ec/ec_err.c
 	ec/ec_key.c
 	ec/ec_kmeth.c

@@ -205,6 +205,9 @@ endif
 if HOST_X86_64
 libcrypto_la_SOURCES += arch/amd64/crypto_cpu_caps.c
 endif
+if HOST_I386
+libcrypto_la_SOURCES += arch/i386/crypto_cpu_caps.c
+endif
 
 libcrypto_la_SOURCES += cpt_err.c
 libcrypto_la_SOURCES += cryptlib.c

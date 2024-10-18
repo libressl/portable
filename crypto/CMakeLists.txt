@@ -186,6 +186,8 @@ endif()
 
 if(HOST_X86_64)
 	set(CRYPTO_SRC ${CRYPTO_SRC} arch/amd64/crypto_cpu_caps.c)
+if(HOST_I386)
+	set(CRYPTO_SRC ${CRYPTO_SRC} arch/i386/crypto_cpu_caps.c)
 endif()
 
 set(

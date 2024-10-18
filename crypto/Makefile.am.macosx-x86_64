@@ -41,6 +41,5 @@ libcrypto_la_CPPFLAGS += -DRSA_ASM
 libcrypto_la_CPPFLAGS += -DSHA1_ASM
 libcrypto_la_CPPFLAGS += -DSHA256_ASM
 libcrypto_la_CPPFLAGS += -DSHA512_ASM
-libcrypto_la_CPPFLAGS += -DWHIRLPOOL_ASM
 libcrypto_la_SOURCES += $(ASM_X86_64_MACOSX)
 endif

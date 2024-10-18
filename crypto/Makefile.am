@@ -478,7 +478,6 @@ libcrypto_la_SOURCES += conf/conf_api.c
 libcrypto_la_SOURCES += conf/conf_def.c
 libcrypto_la_SOURCES += conf/conf_err.c
 libcrypto_la_SOURCES += conf/conf_lib.c
-libcrypto_la_SOURCES += conf/conf_mall.c
 libcrypto_la_SOURCES += conf/conf_mod.c
 libcrypto_la_SOURCES += conf/conf_sap.c
 noinst_HEADERS += conf/conf_def.h

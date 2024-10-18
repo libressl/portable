@@ -340,7 +340,6 @@ set(
 	conf/conf_def.c
 	conf/conf_err.c
 	conf/conf_lib.c
-	conf/conf_mall.c
 	conf/conf_mod.c
 	conf/conf_sap.c
 	ct/ct_b64.c

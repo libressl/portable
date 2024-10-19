@@ -373,7 +373,6 @@ set(
 	dsa/dsa_prn.c
 	ec/ec_ameth.c
 	ec/ec_asn1.c
-	ec/ec_check.c
 	ec/ec_curve.c
 	ec/ec_err.c
 	ec/ec_key.c

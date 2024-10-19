@@ -544,7 +544,6 @@ noinst_HEADERS += dsa/dsa_local.h
 # ec
 libcrypto_la_SOURCES += ec/ec_ameth.c
 libcrypto_la_SOURCES += ec/ec_asn1.c
-libcrypto_la_SOURCES += ec/ec_check.c
 libcrypto_la_SOURCES += ec/ec_curve.c
 libcrypto_la_SOURCES += ec/ec_err.c
 libcrypto_la_SOURCES += ec/ec_key.c

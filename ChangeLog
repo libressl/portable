@@ -35,6 +35,7 @@ LibreSSL Portable Release Notes:
 	* Internal improvements
 	  - Cleaned up the error implementation.
 	  - Many bug fixes and simplifications in the EC ASN.1 code.
+	  - Corrected several DER encoding bugs for EC keys and parameters.
 	  - Polished EC_POINT_{oct2point,point2oct}() internals.
 	  - Reworked CPU capabilities detection.
 	* Compatibility changes

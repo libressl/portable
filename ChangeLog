@@ -32,6 +32,7 @@ LibreSSL Portable Release Notes:
 
 	* Portable changes
 	  - Fixed CMake builds on FreeBSD.
+	  - Fixed the --prefix option for cmake --install.
 	* Internal improvements
 	  - Cleaned up the error implementation.
 	  - Many bug fixes and simplifications in the EC ASN.1 code.

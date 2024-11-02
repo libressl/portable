@@ -380,11 +380,9 @@ set(
 	ec/ec_kmeth.c
 	ec/ec_lib.c
 	ec/ec_mult.c
-	ec/ec_oct.c
 	ec/ec_pmeth.c
 	ec/eck_prn.c
 	ec/ecp_mont.c
-	ec/ecp_oct.c
 	ec/ecp_smpl.c
 	ec/ecx_methods.c
 	ecdh/ecdh.c

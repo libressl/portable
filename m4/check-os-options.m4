@@ -132,7 +132,7 @@ char buf[1]; getentropy(buf, 1);
 		AC_SUBST([PLATFORM_LDADD], ['-ldl -lmd -lnsl -lsocket'])
 		;;
 	*)
-		HOST_OS=$host_os
+		HOST_OS=unsupported
 		HOST_ABI=elf
 		;;
 esac

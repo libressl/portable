@@ -159,3 +159,7 @@ AM_CONDITIONAL([ENABLE_LIBTLS_ONLY], [test "x$enable_libtls_only" = xyes])
 AC_REQUIRE_AUX_FILE([tap-driver.sh])
 
 AC_OUTPUT
+
+if test "$HOST_OS" = "unsupported"; then
+       AC_MSG_WARN([unsupported platform: $host_os])
+fi

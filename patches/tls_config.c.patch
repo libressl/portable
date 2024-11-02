@@ -1,0 +1,21 @@
+--- tls/tls_config.c.orig	2024-11-02 21:19:47.090322191 +0100
++++ tls/tls_config.c	2024-11-02 21:38:22.527071689 +0100
+@@ -20,6 +20,7 @@
+ #include <ctype.h>
+ #include <errno.h>
+ #include <fcntl.h>
++#include <inttypes.h>
+ #include <pthread.h>
+ #include <stdlib.h>
+ #include <string.h>
+@@ -742,8 +743,8 @@
+ 
+ 	if (sb.st_uid != getuid()) {
+ 		tls_config_set_errorx(config, TLS_ERROR_UNKNOWN,
+-		    "session file has incorrect owner (uid %u != %u)",
+-		    sb.st_uid, getuid());
++		    "session file has incorrect owner (uid %" PRIu64" != %" PRIu64 ")",
++		    (uint64_t)sb.st_uid, (uint64_t)getuid());
+ 		return (-1);
+ 	}
+ 	mugo = sb.st_mode & (S_IRWXU|S_IRWXG|S_IRWXO);

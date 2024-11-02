@@ -390,6 +390,7 @@ add_platform_test(ecc_cdh ecc_cdh)
 # ec_asn1_test
 add_executable(ec_asn1_test ec_asn1_test.c)
 target_link_libraries(ec_asn1_test ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(ec_asn1_test)
 add_platform_test(ec_asn1_test ec_asn1_test)
 
 # ec_point_conversion

@@ -39,12 +39,14 @@ LibreSSL Portable Release Notes:
 	  - Corrected DER encoding for EC keys and parameters.
 	  - Polished EC_POINT_{oct2point,point2oct}() internals.
 	  - Reworked CPU capabilities detection.
-	  - Plugged a leak in eckey_compute_pubkey().
+	  - Improved the code setting EC points via compressed coordinates.
 	* Compatibility changes
 	  - Added an OPENSSL_INIT_NO_ATEXIT flag for OPENSSL_init_crypto().
 	    It has no effect since LibreSSL doesn't call atexit().
 	  - Elliptic curve parameters are only accepted if they encode a
 	    built-in curve.
+	* Bug fixes
+	  - Plugged a leak in eckey_compute_pubkey().
 
 4.0.0 - Stable release
 

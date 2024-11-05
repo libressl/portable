@@ -189,15 +189,11 @@ endif()
 set(
 	CRYPTO_SRC
 	${CRYPTO_SRC}
-	cpt_err.c
-	cryptlib.c
+	crypto_err.c
 	crypto_ex_data.c
 	crypto_init.c
-	cversion.c
+	crypto_legacy.c
 	malloc-wrapper.c
-	mem_clr.c
-	mem_dbg.c
-	o_fips.c
 	aes/aes.c
 	aes/aes_core.c
 	aes/aes_ige.c

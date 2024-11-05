@@ -209,20 +209,16 @@ if HOST_I386
 libcrypto_la_SOURCES += arch/i386/crypto_cpu_caps.c
 endif
 
-libcrypto_la_SOURCES += cpt_err.c
-libcrypto_la_SOURCES += cryptlib.c
+libcrypto_la_SOURCES += crypto_err.c
 libcrypto_la_SOURCES += crypto_ex_data.c
 libcrypto_la_SOURCES += crypto_init.c
+libcrypto_la_SOURCES += crypto_legacy.c
 if !HOST_WIN
 libcrypto_la_SOURCES += crypto_lock.c
 else
 libcrypto_la_SOURCES += compat/crypto_lock_win.c
 endif
-libcrypto_la_SOURCES += cversion.c
 libcrypto_la_SOURCES += malloc-wrapper.c
-libcrypto_la_SOURCES += mem_clr.c
-libcrypto_la_SOURCES += mem_dbg.c
-libcrypto_la_SOURCES += o_fips.c
 noinst_HEADERS += arm_arch.h
 noinst_HEADERS += constant_time.h
 noinst_HEADERS += crypto_internal.h

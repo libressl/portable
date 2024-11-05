@@ -225,7 +225,6 @@ libcrypto_la_SOURCES += mem_dbg.c
 libcrypto_la_SOURCES += o_fips.c
 noinst_HEADERS += arm_arch.h
 noinst_HEADERS += constant_time.h
-noinst_HEADERS += cryptlib.h
 noinst_HEADERS += crypto_internal.h
 noinst_HEADERS += crypto_local.h
 noinst_HEADERS += x86_arch.h

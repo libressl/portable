@@ -39,7 +39,7 @@ LibreSSL Portable Release Notes:
 	  - Corrected DER encoding for EC keys and parameters.
 	  - Polished EC_POINT_{oct2point,point2oct}() internals.
 	  - Reworked CPU capabilities detection.
-	  - Improved the code setting EC points via compressed coordinates.
+	  - Improved the code setting compressed coordinates for EC points.
 	* Compatibility changes
 	  - Added an OPENSSL_INIT_NO_ATEXIT flag for OPENSSL_init_crypto().
 	    It has no effect since LibreSSL doesn't call atexit().

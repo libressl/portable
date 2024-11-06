@@ -193,7 +193,7 @@ set(
 	crypto_ex_data.c
 	crypto_init.c
 	crypto_legacy.c
-	malloc-wrapper.c
+	crypto_memory.c
 	aes/aes.c
 	aes/aes_core.c
 	aes/aes_ige.c

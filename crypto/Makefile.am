@@ -218,7 +218,7 @@ libcrypto_la_SOURCES += crypto_lock.c
 else
 libcrypto_la_SOURCES += compat/crypto_lock_win.c
 endif
-libcrypto_la_SOURCES += malloc-wrapper.c
+libcrypto_la_SOURCES += crypto_memory.c
 noinst_HEADERS += arm_arch.h
 noinst_HEADERS += constant_time.h
 noinst_HEADERS += crypto_internal.h

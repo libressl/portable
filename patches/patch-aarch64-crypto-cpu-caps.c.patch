@@ -1,0 +1,39 @@
+Disable feature detection until we find a more portable way.
+
+--- crypto/arch/aarch64/crypto_cpu_caps.c	Fri Nov  8 09:23:31 2024
+--- crypto/arch/aarch64/crypto_cpu_caps.c	Fri Nov  8 09:02:47 2024
+@@ -16,9 +16,12 @@
+  */
+ 
+ #include <sys/types.h>
++
++#if defined(__OpenBSD__)
+ #include <sys/sysctl.h>
+ 
+ #include <machine/cpu.h>
++#endif
+ 
+ #include <stddef.h>
+ #include <stdio.h>
+@@ -66,6 +69,7 @@
+ 	return caps;
+ }
+ 
++#if defined(__OpenBSD__)
+ static int
+ read_isar0(uint64_t *isar0)
+ {
+@@ -83,6 +87,13 @@
+ 
+ 	return 1;
+ }
++#else
++static int
++read_isar0(uint64_t *isar0)
++{
++	return 0;
++}
++#endif
+ 
+ void
+ crypto_cpu_caps_init(void)

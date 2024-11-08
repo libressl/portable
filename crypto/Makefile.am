@@ -202,6 +202,9 @@ endif
 endif
 endif
 
+if HOST_AARCH64
+libcrypto_la_SOURCES += arch/aarch64/crypto_cpu_caps.c
+endif
 if HOST_X86_64
 libcrypto_la_SOURCES += arch/amd64/crypto_cpu_caps.c
 endif

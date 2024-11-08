@@ -10,7 +10,6 @@ ASM_X86_64_MASM += md5/md5-masm-x86_64.S
 ASM_X86_64_MASM += modes/ghash-masm-x86_64.S
 ASM_X86_64_MASM += rc4/rc4-masm-x86_64.S
 ASM_X86_64_MASM += sha/sha1-masm-x86_64.S
-ASM_X86_64_MASM += sha/sha256-masm-x86_64.S
 ASM_X86_64_MASM += sha/sha512-masm-x86_64.S
 
 EXTRA_DIST += $(ASM_X86_64_MASM)
@@ -26,7 +25,6 @@ libcrypto_la_CPPFLAGS += -DMD5_ASM
 libcrypto_la_CPPFLAGS += -DGHASH_ASM
 libcrypto_la_CPPFLAGS += -DRSA_ASM
 libcrypto_la_CPPFLAGS += -DSHA1_ASM
-libcrypto_la_CPPFLAGS += -DSHA256_ASM
 libcrypto_la_CPPFLAGS += -DSHA512_ASM
 libcrypto_la_SOURCES += $(ASM_X86_64_MASM)
 endif

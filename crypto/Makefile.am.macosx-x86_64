@@ -10,7 +10,6 @@ ASM_X86_64_MACOSX += md5/md5-macosx-x86_64.S
 ASM_X86_64_MACOSX += modes/ghash-macosx-x86_64.S
 ASM_X86_64_MACOSX += rc4/rc4-macosx-x86_64.S
 ASM_X86_64_MACOSX += sha/sha1-macosx-x86_64.S
-ASM_X86_64_MACOSX += sha/sha256-macosx-x86_64.S
 ASM_X86_64_MACOSX += sha/sha512-macosx-x86_64.S
 
 ASM_X86_64_MACOSX += bn/arch/amd64/bignum_add.S
@@ -39,7 +38,6 @@ libcrypto_la_CPPFLAGS += -DMD5_ASM
 libcrypto_la_CPPFLAGS += -DGHASH_ASM
 libcrypto_la_CPPFLAGS += -DRSA_ASM
 libcrypto_la_CPPFLAGS += -DSHA1_ASM
-libcrypto_la_CPPFLAGS += -DSHA256_ASM
 libcrypto_la_CPPFLAGS += -DSHA512_ASM
 libcrypto_la_SOURCES += $(ASM_X86_64_MACOSX)
 endif

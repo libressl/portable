@@ -10,7 +10,6 @@ ASM_X86_64_MINGW64 += md5/md5-mingw64-x86_64.S
 ASM_X86_64_MINGW64 += modes/ghash-mingw64-x86_64.S
 ASM_X86_64_MINGW64 += rc4/rc4-mingw64-x86_64.S
 ASM_X86_64_MINGW64 += sha/sha1-mingw64-x86_64.S
-ASM_X86_64_MINGW64 += sha/sha256-mingw64-x86_64.S
 ASM_X86_64_MINGW64 += sha/sha512-mingw64-x86_64.S
 
 EXTRA_DIST += $(ASM_X86_64_MINGW64)
@@ -27,7 +26,6 @@ libcrypto_la_CPPFLAGS += -DMD5_ASM
 libcrypto_la_CPPFLAGS += -DGHASH_ASM
 libcrypto_la_CPPFLAGS += -DRSA_ASM
 libcrypto_la_CPPFLAGS += -DSHA1_ASM
-libcrypto_la_CPPFLAGS += -DSHA256_ASM
 libcrypto_la_CPPFLAGS += -DSHA512_ASM
 libcrypto_la_SOURCES += $(ASM_X86_64_MINGW64)
 endif

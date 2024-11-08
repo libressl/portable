@@ -14,3 +14,14 @@
  #define OPENSSL_THREADS
  
  #define OPENSSL_NO_BUF_FREELISTS
+--- tests/crypto_test.c.orig	Fri Nov  8 10:03:18 2024
++++ tests/crypto_test.c	Fri Nov  8 10:03:47 2024
+@@ -19,6 +19,8 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
++#include <openssl/opensslfeatures.h>
++
+ #include "crypto_internal.h"
+ 
+ static int

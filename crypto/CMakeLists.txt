@@ -372,8 +372,7 @@ set(
 	ec/ec_mult.c
 	ec/ec_pmeth.c
 	ec/eck_prn.c
-	ec/ecp_mont.c
-	ec/ecp_smpl.c
+	ec/ecp_methods.c
 	ec/ecx_methods.c
 	ecdh/ecdh.c
 	ecdsa/ecdsa.c

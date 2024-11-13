@@ -72,6 +72,13 @@ target_include_directories(ssl_obj
 		../include
 		${CMAKE_BINARY_DIR}/include)
 
+if(MSVC)
+	# "C4702" - unreachable code
+	set_source_files_properties(d1_pkt.c s3_cbc.c PROPERTIES
+		COMPILE_OPTIONS /wd4702
+	)
+endif()
+
 add_library(bs_obj OBJECT ${BS_SRC})
 target_include_directories(bs_obj
 	PRIVATE
@@ -157,4 +164,3 @@ if(BUILD_SHARED_LIBS)
 	add_library(ssl-static STATIC $<TARGET_OBJECTS:ssl_obj>)
 	target_link_libraries(ssl-static crypto-static ${PLATFORM_LIBS})
 endif()
-

@@ -162,17 +162,21 @@ if(MSVC)
 		set(MSVC_DISABLED_WARNINGS_LIST
 			"C4018" # 'expression' : signed/unsigned mismatch
 			"C4057" # 'operator' : 'identifier1' indirection to
-		        	# slightly different base types from 'identifier2'
+			        # slightly different base types from 'identifier2'
 			"C4100" # 'identifier' : unreferenced formal parameter
 			"C4127" # conditional expression is constant
+			"C4132" # 'object' : const object should be initialized
 			"C4146" # unary minus operator applied to unsigned type,
 			        # result still unsigned
+			"C4206" # nonstandard extension used : translation unit is empty
 			"C4244" # 'argument' : conversion from 'type1' to 'type2',
 			        # possible loss of data
 			"C4245" # 'conversion' : conversion from 'type1' to 'type2',
 			        # signed/unsigned mismatch
 			"C4267" # 'var' : conversion from 'size_t' to 'type',
 			        # possible loss of data
+			"C4295" # 'array' : array is too small to include a terminating
+			        # null character
 			"C4389" # 'operator' : signed/unsigned mismatch
 			"C4706" # assignment within conditional expression
 			"C4996" # The POSIX name for this item is deprecated.

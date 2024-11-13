@@ -814,6 +814,17 @@ elseif(HOST_X86_64)
 	target_include_directories(crypto_obj PRIVATE bn/arch/amd64)
 endif()
 
+if(MSVC)
+	# "C4701" - Potentially uninitialized local variable 'name' used
+	set_source_files_properties(bn/bn_convert.c pem/pem_lib.c PROPERTIES
+		COMPILE_OPTIONS /wd4701
+	)
+	# "C4702" - unreachable code
+	set_source_files_properties(pkcs7/pk7_doit.c PROPERTIES
+		COMPILE_OPTIONS /wd4702
+	)
+endif()
+
 add_library(crypto $<TARGET_OBJECTS:crypto_obj> $<TARGET_OBJECTS:compat_obj> empty.c)
 
 export_symbol(crypto ${CMAKE_CURRENT_BINARY_DIR}/crypto_p.sym)
@@ -867,4 +878,3 @@ if(BUILD_SHARED_LIBS)
 	add_library(crypto-static STATIC $<TARGET_OBJECTS:crypto_obj>)
 	target_link_libraries(crypto-static ${PLATFORM_LIBS})
 endif()
-

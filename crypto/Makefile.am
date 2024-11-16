@@ -546,7 +546,6 @@ libcrypto_la_SOURCES += ec/ec_convert.c
 libcrypto_la_SOURCES += ec/ec_curve.c
 libcrypto_la_SOURCES += ec/ec_err.c
 libcrypto_la_SOURCES += ec/ec_key.c
-libcrypto_la_SOURCES += ec/ec_kmeth.c
 libcrypto_la_SOURCES += ec/ec_lib.c
 libcrypto_la_SOURCES += ec/ec_mult.c
 libcrypto_la_SOURCES += ec/ec_pmeth.c

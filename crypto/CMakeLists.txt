@@ -367,7 +367,6 @@ set(
 	ec/ec_curve.c
 	ec/ec_err.c
 	ec/ec_key.c
-	ec/ec_kmeth.c
 	ec/ec_lib.c
 	ec/ec_mult.c
 	ec/ec_pmeth.c

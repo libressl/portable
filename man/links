@@ -1054,7 +1054,6 @@ EVP_PKEY_meth_new.3,EVP_PKEY_meth_set_verifyctx.3
 EVP_PKEY_new.3,EVP_PKEY_free.3
 EVP_PKEY_new.3,EVP_PKEY_get_raw_private_key.3
 EVP_PKEY_new.3,EVP_PKEY_get_raw_public_key.3
-EVP_PKEY_new.3,EVP_PKEY_new_CMAC_key.3
 EVP_PKEY_new.3,EVP_PKEY_new_mac_key.3
 EVP_PKEY_new.3,EVP_PKEY_new_raw_private_key.3
 EVP_PKEY_new.3,EVP_PKEY_new_raw_public_key.3

@@ -50,6 +50,8 @@ LibreSSL Portable Release Notes:
 	    built-in curve.
 	* Bug fixes
 	  - Plugged a leak in eckey_compute_pubkey().
+	* Testing and proactive security
+	  - Improved regress coverage of the EC code.
 
 4.0.0 - Stable release
 

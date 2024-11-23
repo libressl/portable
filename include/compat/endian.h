@@ -101,6 +101,8 @@
 #endif
 
 #define htobe64(x) ntohll((x))
+#define htole64(x) (x)
+#define le64toh(x) (x)
 #endif /* _WIN32 && !HAVE_ENDIAN_H */
 
 #ifdef __linux__
@@ -151,6 +153,8 @@
 #define htole32(x) LE_32(x)
 #define htobe32(x) BE_32(x)
 #define be64toh(x) BE_64(x)
+#define le64toh(x) LE_64(x)
+#define htole64(x) LE_64(x)
 #define htobe64(x) BE_64(x)
 #endif
 

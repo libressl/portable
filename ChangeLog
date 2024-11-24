@@ -48,6 +48,9 @@ LibreSSL Portable Release Notes:
 	    It has no effect since LibreSSL doesn't call atexit().
 	  - Elliptic curve parameters are only accepted if they encode a
 	    built-in curve.
+	  - All elliptic curves over fields with less than 224 bits and a
+	    few more were removed from the built-in curves. This includes
+	    all WTLS curves and P-192.
 	* Bug fixes
 	  - Plugged a leak in eckey_compute_pubkey().
 	* Testing and proactive security

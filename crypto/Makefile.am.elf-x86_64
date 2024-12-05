@@ -9,7 +9,6 @@ ASM_X86_64_ELF += bn/mont5-elf-x86_64.S
 ASM_X86_64_ELF += md5/md5-elf-x86_64.S
 ASM_X86_64_ELF += modes/ghash-elf-x86_64.S
 ASM_X86_64_ELF += rc4/rc4-elf-x86_64.S
-ASM_X86_64_ELF += sha/sha1-elf-x86_64.S
 
 ASM_X86_64_ELF += bn/arch/amd64/bignum_add.S
 ASM_X86_64_ELF += bn/arch/amd64/bignum_cmadd.S
@@ -36,6 +35,5 @@ libcrypto_la_CPPFLAGS += -DOPENSSL_BN_ASM_MONT5
 libcrypto_la_CPPFLAGS += -DMD5_ASM
 libcrypto_la_CPPFLAGS += -DGHASH_ASM
 libcrypto_la_CPPFLAGS += -DRSA_ASM
-libcrypto_la_CPPFLAGS += -DSHA1_ASM
 libcrypto_la_SOURCES += $(ASM_X86_64_ELF)
 endif

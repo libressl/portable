@@ -1478,6 +1478,12 @@ RAND_load_file.3,RAND_file_name.3
 RAND_load_file.3,RAND_write_file.3
 RAND_set_rand_method.3,RAND_SSLeay.3
 RAND_set_rand_method.3,RAND_get_rand_method.3
+RC2_encrypt.3,RC2_cbc_encrypt.3
+RC2_encrypt.3,RC2_cfb64_encrypt.3
+RC2_encrypt.3,RC2_decrypt.3
+RC2_encrypt.3,RC2_ecb_encrypt.3
+RC2_encrypt.3,RC2_ofb64_encrypt.3
+RC2_encrypt.3,RC2_set_key.3
 RC4.3,RC4_set_key.3
 RIPEMD160.3,RIPEMD160_Final.3
 RIPEMD160.3,RIPEMD160_Init.3

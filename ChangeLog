@@ -53,6 +53,9 @@ LibreSSL Portable Release Notes:
 	  - All elliptic curves over fields with less than 224 bits and a
 	    few more were removed from the built-in curves. This includes
 	    all WTLS curves and P-192.
+	* New features
+	  - libtls has a new tls_peer_cert_common_name() API call to retrieve
+	    the peer's common name without having to inspect the PEM.
 	* Bug fixes
 	  - Plugged a leak in eckey_compute_pubkey().
 	* Testing and proactive security

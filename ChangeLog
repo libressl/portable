@@ -41,7 +41,9 @@ LibreSSL Portable Release Notes:
 	  - Rewrote the wNAF code for fast ECDSA verification.
 	  - Reworked CPU capabilities detection for amd64 and aarch64.
 	  - Improved the code setting compressed coordinates for EC points.
-	  - Added new SHA-256 assembly implementation for amd64.
+	  - New SHA-1, SHA-256 and SHA-512 assembly implementations for amd64.
+	    These make use of the SHA-NI instruction if it is available and
+	    replace the perl-generated assembly optimized for museum pieces.
 	  - Rewrote BN_bn2binpad() and its lebin siblings.
 	* Compatibility changes
 	  - Added an OPENSSL_INIT_NO_ATEXIT flag for OPENSSL_init_crypto().

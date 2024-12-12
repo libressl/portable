@@ -39,8 +39,8 @@ LibreSSL Portable Release Notes:
 	  - Corrected DER encoding for EC keys and parameters.
 	  - Polished EC_POINT_{oct2point,point2oct}() internals.
 	  - Rewrote the wNAF code for fast ECDSA verification.
-	  - Reworked CPU capabilities detection for amd64 and aarch64.
 	  - Improved the code setting compressed coordinates for EC points.
+	  - Reworked CPU capabilities detection for amd64 and aarch64.
 	  - New SHA-1, SHA-256 and SHA-512 assembly implementations for amd64.
 	    These make use of the SHA-NI instruction if it is available and
 	    replace the perl-generated assembly optimized for museum pieces.

@@ -16,6 +16,7 @@ AM_CPPFLAGS += -I$(top_srcdir)/crypto/err
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/evp
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/hmac
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/lhash
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/mlkem
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/modes
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/ocsp
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/pkcs12
@@ -696,6 +697,11 @@ libcrypto_la_SOURCES += md4/md4.c
 
 # md5
 libcrypto_la_SOURCES += md5/md5.c
+
+# mlkem
+libcrypto_la_SOURCES += mlkem/mlkem768.c
+libcrypto_la_SOURCES += mlkem/mlkem1024.c
+noinst_HEADERS += mlkem/mlkem_internal.h
 
 # modes
 libcrypto_la_SOURCES += modes/cbc128.c

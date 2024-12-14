@@ -416,6 +416,8 @@ set(
 	lhash/lhash.c
 	md4/md4.c
 	md5/md5.c
+	mlkem/mlkem768.c
+	mlkem/mlkem1024.c
 	modes/cbc128.c
 	modes/ccm128.c
 	modes/cfb128.c
@@ -753,6 +755,7 @@ target_include_directories(crypto_obj
 		hidden
 		hmac
 		lhash
+		mlkem
 		modes
 		ocsp
 		pkcs12

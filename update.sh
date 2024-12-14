@@ -347,7 +347,7 @@ $GREP '^[A-Za-z0-9_]' < $libssl_src/Symbols.list > ssl/ssl.sym
 # copy libcrypto tests
 echo "copying tests"
 touch tests/empty.c
-for i in `find $libcrypto_regress -name '*.c'`; do
+for i in `find $libcrypto_regress -name '*.[ch]'`; do
 	 $CP "$i" tests
 done
 $CP $libcrypto_regress/evp/evptests.txt tests

@@ -936,13 +936,6 @@ EVP_EncryptInit.3,EVP_idea_cfb.3
 EVP_EncryptInit.3,EVP_idea_cfb64.3
 EVP_EncryptInit.3,EVP_idea_ecb.3
 EVP_EncryptInit.3,EVP_idea_ofb.3
-EVP_EncryptInit.3,EVP_rc2_40_cbc.3
-EVP_EncryptInit.3,EVP_rc2_64_cbc.3
-EVP_EncryptInit.3,EVP_rc2_cbc.3
-EVP_EncryptInit.3,EVP_rc2_cfb.3
-EVP_EncryptInit.3,EVP_rc2_cfb64.3
-EVP_EncryptInit.3,EVP_rc2_ecb.3
-EVP_EncryptInit.3,EVP_rc2_ofb.3
 EVP_MD_CTX_ctrl.3,EVP_MD_CTX_clear_flags.3
 EVP_MD_CTX_ctrl.3,EVP_MD_CTX_md_data.3
 EVP_MD_CTX_ctrl.3,EVP_MD_CTX_pkey_ctx.3
@@ -1140,6 +1133,12 @@ EVP_des_cbc.3,EVP_des_ede_ecb.3
 EVP_des_cbc.3,EVP_des_ede_ofb.3
 EVP_des_cbc.3,EVP_des_ofb.3
 EVP_des_cbc.3,EVP_desx_cbc.3
+EVP_rc2_cbc.3,EVP_rc2_40_cbc.3
+EVP_rc2_cbc.3,EVP_rc2_64_cbc.3
+EVP_rc2_cbc.3,EVP_rc2_cfb.3
+EVP_rc2_cbc.3,EVP_rc2_cfb64.3
+EVP_rc2_cbc.3,EVP_rc2_ecb.3
+EVP_rc2_cbc.3,EVP_rc2_ofb.3
 EVP_rc4.3,EVP_rc4_40.3
 EVP_rc4.3,EVP_rc4_hmac_md5.3
 EVP_sha1.3,EVP_md4.3
@@ -2735,6 +2734,7 @@ tls_conn_version.3,tls_conn_cipher_strength.3
 tls_conn_version.3,tls_conn_servername.3
 tls_conn_version.3,tls_conn_session_resumed.3
 tls_conn_version.3,tls_peer_cert_chain_pem.3
+tls_conn_version.3,tls_peer_cert_common_name.3
 tls_conn_version.3,tls_peer_cert_contains_name.3
 tls_conn_version.3,tls_peer_cert_hash.3
 tls_conn_version.3,tls_peer_cert_issuer.3

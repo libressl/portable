@@ -12,7 +12,9 @@ AM_CPPFLAGS += -I $(top_srcdir)/crypto/bio
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/bn
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/curve25519
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/evp
+AM_CPPFLAGS += -I $(top_srcdir)/crypto/mlkem
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/modes
+AM_CPPFLAGS += -I $(top_srcdir)/crypto/sha
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/x509
 AM_CPPFLAGS += -I $(top_srcdir)/ssl
 AM_CPPFLAGS += -I $(top_srcdir)/apps/openssl
@@ -541,6 +543,83 @@ lhash_test_SOURCES = lhash_test.c
 TESTS += md_test
 check_PROGRAMS += md_test
 md_test_SOURCES = md_test.c
+
+noinst_HEADERS += mlkem_tests_util.h
+
+# mlkem1024_decap_tests
+TESTS += mlkem1024_decap_tests.sh
+check_PROGRAMS += mlkem1024_decap_tests
+mlkem1024_decap_tests_SOURCES = mlkem1024_decap_tests.c mlkem_tests_util.c
+EXTRA_DIST += mlkem1024_decap_tests.sh
+EXTRA_DIST += mlkem1024_decap_tests.txt
+
+# mlkem1024_encap_tests
+TESTS += mlkem1024_encap_tests.sh
+check_PROGRAMS += mlkem1024_encap_tests
+mlkem1024_encap_tests_SOURCES = mlkem1024_encap_tests.c mlkem_tests_util.c
+EXTRA_DIST += mlkem1024_encap_tests.sh
+EXTRA_DIST += mlkem1024_encap_tests.txt
+
+# mlkem1024_keygen_tests
+TESTS += mlkem1024_keygen_tests.sh
+check_PROGRAMS += mlkem1024_keygen_tests
+mlkem1024_keygen_tests_SOURCES = mlkem1024_keygen_tests.c mlkem_tests_util.c
+EXTRA_DIST += mlkem1024_keygen_tests.sh
+EXTRA_DIST += mlkem1024_keygen_tests.txt
+
+# mlkem1024_nist_decap_tests
+TESTS += mlkem1024_nist_decap_tests.sh
+check_PROGRAMS += mlkem1024_nist_decap_tests
+mlkem1024_nist_decap_tests_SOURCES = mlkem1024_nist_decap_tests.c mlkem_tests_util.c
+EXTRA_DIST += mlkem1024_nist_decap_tests.sh
+EXTRA_DIST += mlkem1024_nist_decap_tests.txt
+
+# mlkem1024_nist_keygen_tests
+TESTS += mlkem1024_nist_keygen_tests.sh
+check_PROGRAMS += mlkem1024_nist_keygen_tests
+mlkem1024_nist_keygen_tests_SOURCES = mlkem1024_nist_keygen_tests.c mlkem_tests_util.c
+EXTRA_DIST += mlkem1024_nist_keygen_tests.sh
+EXTRA_DIST += mlkem1024_nist_keygen_tests.txt
+
+# mlkem768_decap_tests
+TESTS += mlkem768_decap_tests.sh
+check_PROGRAMS += mlkem768_decap_tests
+mlkem768_decap_tests_SOURCES = mlkem768_decap_tests.c mlkem_tests_util.c
+EXTRA_DIST += mlkem768_decap_tests.sh
+EXTRA_DIST += mlkem768_decap_tests.txt
+
+# mlkem768_encap_tests
+TESTS += mlkem768_encap_tests.sh
+check_PROGRAMS += mlkem768_encap_tests
+mlkem768_encap_tests_SOURCES = mlkem768_encap_tests.c mlkem_tests_util.c
+EXTRA_DIST += mlkem768_encap_tests.sh
+EXTRA_DIST += mlkem768_encap_tests.txt
+
+# mlkem768_iteration_test
+TESTS += mlkem768_iteration_test
+check_PROGRAMS += mlkem768_iteration_test
+mlkem768_iteration_test_SOURCES = mlkem768_iteration_test.c mlkem_tests_util.c
+
+# mlkem768_keygen_tests
+TESTS += mlkem768_keygen_tests.sh
+check_PROGRAMS += mlkem768_keygen_tests
+mlkem768_keygen_tests_SOURCES = mlkem768_keygen_tests.c mlkem_tests_util.c
+EXTRA_DIST += mlkem768_keygen_tests.sh
+EXTRA_DIST += mlkem768_keygen_tests.txt
+
+# mlkem768_nist_decap_tests
+TESTS += mlkem768_nist_decap_tests.sh
+check_PROGRAMS += mlkem768_nist_decap_tests
+mlkem768_nist_decap_tests_SOURCES = mlkem768_nist_decap_tests.c mlkem_tests_util.c
+EXTRA_DIST += mlkem768_nist_decap_tests.sh
+EXTRA_DIST += mlkem768_nist_decap_tests.txt
+
+# mlkem768_nist_keygen_tests
+TESTS += mlkem768_nist_keygen_tests.sh
+check_PROGRAMS += mlkem768_nist_keygen_tests
+mlkem768_nist_keygen_tests_SOURCES = mlkem768_nist_keygen_tests.c mlkem_tests_util.c
+EXTRA_DIST += mlkem768_nist_keygen_tests.sh
+EXTRA_DIST += mlkem768_nist_keygen_tests.txt
 
 # objectstest
 TESTS += objectstest

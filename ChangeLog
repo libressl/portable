@@ -56,6 +56,7 @@ LibreSSL Portable Release Notes:
 	* New features
 	  - libtls has a new tls_peer_cert_common_name() API call to retrieve
 	    the peer's common name without having to inspect the PEM.
+	  - Imported ML-KEM 768 and 1024 from BoringSSL with matching API.
 	* Bug fixes
 	  - Plugged a leak in eckey_compute_pubkey().
 	* Testing and proactive security

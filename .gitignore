@@ -115,6 +115,9 @@ tests/freenull*
 tests/gost2814789t*
 tests/key_schedule*
 tests/lhash_test*
+tests/mlkem*.c
+tests/mlkem*.h
+tests/mlkem*.txt
 tests/mont*
 tests/policy*
 tests/rfc3779*

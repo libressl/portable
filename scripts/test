@@ -2,7 +2,10 @@
 set -e
 set -x
 
-unset CC
+if [ "$ARCH" = "mingw32" ] || [ "$ARCH" = "mingw64" ] || [ "$ARCH" = "arm32" ]; then
+	unset CC
+fi
+
 ENABLE_ASM="${ENABLE_ASM:=ON}"
 
 if type apt-get >/dev/null 2>&1; then

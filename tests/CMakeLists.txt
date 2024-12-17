@@ -548,6 +548,12 @@ target_link_libraries(mlkem1024_encap_tests ${OPENSSL_TEST_LIBS})
 prepare_emscripten_test_target(mlkem1024_encap_tests)
 add_platform_test(mlkem1024_encap_tests mlkem1024_encap_tests ${CMAKE_CURRENT_SOURCE_DIR}/mlkem1024_encap_tests.txt)
 
+# mlkem1024_iteration_test
+add_executable(mlkem1024_iteration_test mlkem1024_iteration_test.c mlkem_tests_util.c)
+target_link_libraries(mlkem1024_iteration_test ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(mlkem1024_iteration_test)
+add_platform_test(mlkem1024_iteration_test mlkem1024_iteration_test)
+
 # mlkem1024_keygen_tests
 add_executable(mlkem1024_keygen_tests mlkem1024_keygen_tests.c mlkem_tests_util.c)
 target_link_libraries(mlkem1024_keygen_tests ${OPENSSL_TEST_LIBS})
@@ -601,6 +607,12 @@ add_executable(mlkem768_nist_keygen_tests mlkem768_nist_keygen_tests.c mlkem_tes
 target_link_libraries(mlkem768_nist_keygen_tests ${OPENSSL_TEST_LIBS})
 prepare_emscripten_test_target(mlkem768_nist_keygen_tests)
 add_platform_test(mlkem768_nist_keygen_tests mlkem768_nist_keygen_tests ${CMAKE_CURRENT_SOURCE_DIR}/mlkem768_nist_keygen_tests.txt)
+
+# mlkem_unittest
+add_executable(mlkem_unittest mlkem_unittest.c mlkem_tests_util.c)
+target_link_libraries(mlkem_unittest ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(mlkem_unittest)
+add_platform_test(mlkem_unittest mlkem_unittest)
 
 # objectstest
 add_executable(objectstest objectstest.c)

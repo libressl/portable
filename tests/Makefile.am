@@ -560,6 +560,11 @@ mlkem1024_encap_tests_SOURCES = mlkem1024_encap_tests.c mlkem_tests_util.c
 EXTRA_DIST += mlkem1024_encap_tests.sh
 EXTRA_DIST += mlkem1024_encap_tests.txt
 
+# mlkem1024_iteration_test
+TESTS += mlkem1024_iteration_test
+check_PROGRAMS += mlkem1024_iteration_test
+mlkem1024_iteration_test_SOURCES = mlkem1024_iteration_test.c mlkem_tests_util.c
+
 # mlkem1024_keygen_tests
 TESTS += mlkem1024_keygen_tests.sh
 check_PROGRAMS += mlkem1024_keygen_tests
@@ -620,6 +625,11 @@ check_PROGRAMS += mlkem768_nist_keygen_tests
 mlkem768_nist_keygen_tests_SOURCES = mlkem768_nist_keygen_tests.c mlkem_tests_util.c
 EXTRA_DIST += mlkem768_nist_keygen_tests.sh
 EXTRA_DIST += mlkem768_nist_keygen_tests.txt
+
+# mlkem_unittest
+TESTS += mlkem_unittest
+check_PROGRAMS += mlkem_unittest
+mlkem_unittest_SOURCES = mlkem_unittest.c mlkem_tests_util.c
 
 # objectstest
 TESTS += objectstest

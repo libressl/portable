@@ -2,6 +2,10 @@
 set -e
 set -x
 
+if [ "$ARCH" = "" ]; then
+	ARCH=`uname -m`
+fi
+
 if [ "$ARCH" = "mingw32" -o "$ARCH" = "mingw64" -o "$ARCH" = "arm32" ]; then
 	unset CC
 fi
@@ -17,10 +21,6 @@ fi
 ./autogen.sh
 
 VERSION=`cat VERSION`
-
-if [ "$ARCH" = "" ]; then
-	ARCH=`uname -m`
-fi
 
 # test macOS
 if [ `uname` = "Darwin" ]; then

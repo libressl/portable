@@ -32,6 +32,9 @@ jobs:
           - os: "ubuntu-22.04"
             arch: "native"
             compiler: "clang"
+          - os: "ubuntu-24.04"
+            arch: "native"
+            compiler: "clang"
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v4

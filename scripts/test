@@ -2,7 +2,7 @@
 set -e
 set -x
 
-if [ "$ARCH" = "mingw32" ] || [ "$ARCH" = "mingw64" ] || [ "$ARCH" = "arm32" ]; then
+if [ "$ARCH" = "mingw32" -o "$ARCH" = "mingw64" -o "$ARCH" = "arm32" ]; then
 	unset CC
 fi
 

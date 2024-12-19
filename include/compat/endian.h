@@ -62,7 +62,7 @@
 #endif
 #endif
 
-#if defined(__APPLE__) && !defined(HAVE_ENDIAN_H)
+#if defined(__APPLE__)
 #include <libkern/OSByteOrder.h>
 #define be16toh(x) OSSwapBigToHostInt16((x))
 #define htobe16(x) OSSwapHostToBigInt16((x))

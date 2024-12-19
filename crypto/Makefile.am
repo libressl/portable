@@ -134,6 +134,14 @@ if !HAVE_FREEZERO
 libcompat_la_SOURCES += compat/freezero.c
 endif
 
+if !HAVE_GETDELIM
+libcompat_la_SOURCES += compat/getdelim.c
+endif
+
+if !HAVE_GETLINE
+libcompat_la_SOURCES += compat/getline.c
+endif
+
 if !HAVE_GETPAGESIZE
 libcompat_la_SOURCES += compat/getpagesize.c
 endif

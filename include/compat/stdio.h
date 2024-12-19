@@ -18,6 +18,18 @@
 #include_next <stdio.h>
 #endif
 
+#ifndef HAVE_GETDELIM
+#include <sys/types.h>
+#define getdelim libressl_getdelim
+ssize_t getdelim(char **buf, size_t *bufsiz, int delimiter, FILE *fp);
+#endif
+
+#ifndef HAVE_GETLINE
+#include <sys/types.h>
+#define getline libressl_getline
+ssize_t getline(char **buf, size_t *bufsiz, FILE *fp);
+#endif
+
 #ifndef HAVE_ASPRINTF
 #include <stdarg.h>
 #define vasprintf libressl_vasprintf

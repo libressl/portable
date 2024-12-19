@@ -214,6 +214,16 @@ if(HAVE_ASPRINTF)
 	add_definitions(-DHAVE_ASPRINTF)
 endif()
 
+check_symbol_exists(getdelim "stdio.h" HAVE_GETDELIM)
+if(HAVE_GETDELIM)
+	add_definitions(-DHAVE_GETDELIM)
+endif()
+
+check_symbol_exists(getline "stdio.h" HAVE_GETLINE)
+if(HAVE_GETLINE)
+	add_definitions(-DHAVE_GETLINE)
+endif()
+
 check_symbol_exists(getopt "unistd.h" HAVE_GETOPT)
 if(HAVE_GETOPT)
 	add_definitions(-DHAVE_GETOPT)

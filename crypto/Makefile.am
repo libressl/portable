@@ -655,6 +655,7 @@ noinst_HEADERS += hidden/openssl/idea.h
 noinst_HEADERS += hidden/openssl/lhash.h
 noinst_HEADERS += hidden/openssl/md4.h
 noinst_HEADERS += hidden/openssl/md5.h
+noinst_HEADERS += hidden/openssl/mlkem.h
 noinst_HEADERS += hidden/openssl/modes.h
 noinst_HEADERS += hidden/openssl/objects.h
 noinst_HEADERS += hidden/openssl/ocsp.h

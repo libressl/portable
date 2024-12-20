@@ -6,6 +6,7 @@ include_directories(
 	../crypto/asn1
 	../crypto/bio
 	../crypto/bn
+	../crypto/bytestring
 	../crypto/curve25519
 	../crypto/evp
 	../crypto/mlkem

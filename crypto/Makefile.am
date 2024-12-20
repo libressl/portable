@@ -709,6 +709,7 @@ libcrypto_la_SOURCES += md5/md5.c
 # mlkem
 libcrypto_la_SOURCES += mlkem/mlkem768.c
 libcrypto_la_SOURCES += mlkem/mlkem1024.c
+noinst_HEADERS += mlkem/mlkem.h
 noinst_HEADERS += mlkem/mlkem_internal.h
 
 # modes

@@ -537,77 +537,21 @@ add_executable(md_test md_test.c)
 target_link_libraries(md_test ${OPENSSL_TEST_LIBS})
 add_platform_test(md_test md_test)
 
-# mlkem1024_decap_tests
-add_executable(mlkem1024_decap_tests mlkem1024_decap_tests.c mlkem_tests_util.c)
-target_link_libraries(mlkem1024_decap_tests ${OPENSSL_TEST_LIBS})
-prepare_emscripten_test_target(mlkem1024_decap_tests)
-add_platform_test(mlkem1024_decap_tests mlkem1024_decap_tests ${CMAKE_CURRENT_SOURCE_DIR}/mlkem1024_decap_tests.txt)
+# mlkem_tests
+add_executable(mlkem_tests mlkem_tests.c mlkem_tests_util.c parse_test_file.c)
+target_link_libraries(mlkem_tests ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(mlkem_tests)
+if(NOT WIN32)
+	add_test(NAME mlkem_tests COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/mlkem_tests.sh)
+	set_tests_properties(mlkem_tests PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
+endif()
+# XXX - add tests for Windows
 
-# mlkem1024_encap_tests
-add_executable(mlkem1024_encap_tests mlkem1024_encap_tests.c mlkem_tests_util.c)
-target_link_libraries(mlkem1024_encap_tests ${OPENSSL_TEST_LIBS})
-prepare_emscripten_test_target(mlkem1024_encap_tests)
-add_platform_test(mlkem1024_encap_tests mlkem1024_encap_tests ${CMAKE_CURRENT_SOURCE_DIR}/mlkem1024_encap_tests.txt)
-
-# mlkem1024_iteration_test
-add_executable(mlkem1024_iteration_test mlkem1024_iteration_test.c mlkem_tests_util.c)
-target_link_libraries(mlkem1024_iteration_test ${OPENSSL_TEST_LIBS})
-prepare_emscripten_test_target(mlkem1024_iteration_test)
-add_platform_test(mlkem1024_iteration_test mlkem1024_iteration_test)
-
-# mlkem1024_keygen_tests
-add_executable(mlkem1024_keygen_tests mlkem1024_keygen_tests.c mlkem_tests_util.c)
-target_link_libraries(mlkem1024_keygen_tests ${OPENSSL_TEST_LIBS})
-prepare_emscripten_test_target(mlkem1024_keygen_tests)
-add_platform_test(mlkem1024_keygen_tests mlkem1024_keygen_tests ${CMAKE_CURRENT_SOURCE_DIR}/mlkem1024_keygen_tests.txt)
-
-# mlkem1024_nist_decap_tests
-add_executable(mlkem1024_nist_decap_tests mlkem1024_nist_decap_tests.c mlkem_tests_util.c)
-target_link_libraries(mlkem1024_nist_decap_tests ${OPENSSL_TEST_LIBS})
-prepare_emscripten_test_target(mlkem1024_nist_decap_tests)
-add_platform_test(mlkem1024_nist_decap_tests mlkem1024_nist_decap_tests ${CMAKE_CURRENT_SOURCE_DIR}/mlkem1024_nist_decap_tests.txt)
-
-# mlkem1024_nist_keygen_tests
-add_executable(mlkem1024_nist_keygen_tests mlkem1024_nist_keygen_tests.c mlkem_tests_util.c)
-target_link_libraries(mlkem1024_nist_keygen_tests ${OPENSSL_TEST_LIBS})
-prepare_emscripten_test_target(mlkem1024_nist_keygen_tests)
-add_platform_test(mlkem1024_nist_keygen_tests mlkem1024_nist_keygen_tests ${CMAKE_CURRENT_SOURCE_DIR}/mlkem1024_nist_keygen_tests.txt)
-
-# mlkem768_decap_tests
-add_executable(mlkem768_decap_tests mlkem768_decap_tests.c mlkem_tests_util.c)
-target_link_libraries(mlkem768_decap_tests ${OPENSSL_TEST_LIBS})
-prepare_emscripten_test_target(mlkem768_decap_tests)
-add_platform_test(mlkem768_decap_tests mlkem768_decap_tests ${CMAKE_CURRENT_SOURCE_DIR}/mlkem768_decap_tests.txt)
-
-# mlkem768_encap_tests
-add_executable(mlkem768_encap_tests mlkem768_encap_tests.c mlkem_tests_util.c)
-target_link_libraries(mlkem768_encap_tests ${OPENSSL_TEST_LIBS})
-prepare_emscripten_test_target(mlkem768_encap_tests)
-add_platform_test(mlkem768_encap_tests mlkem768_encap_tests ${CMAKE_CURRENT_SOURCE_DIR}/mlkem768_encap_tests.txt)
-
-# mlkem768_iteration_test
-add_executable(mlkem768_iteration_test mlkem768_iteration_test.c mlkem_tests_util.c)
-target_link_libraries(mlkem768_iteration_test ${OPENSSL_TEST_LIBS})
-prepare_emscripten_test_target(mlkem768_iteration_test)
-add_platform_test(mlkem768_iteration_test mlkem768_iteration_test)
-
-# mlkem768_keygen_tests
-add_executable(mlkem768_keygen_tests mlkem768_keygen_tests.c mlkem_tests_util.c)
-target_link_libraries(mlkem768_keygen_tests ${OPENSSL_TEST_LIBS})
-prepare_emscripten_test_target(mlkem768_keygen_tests)
-add_platform_test(mlkem768_keygen_tests mlkem768_keygen_tests ${CMAKE_CURRENT_SOURCE_DIR}/mlkem768_keygen_tests.txt)
-
-# mlkem768_nist_decap_tests
-add_executable(mlkem768_nist_decap_tests mlkem768_nist_decap_tests.c mlkem_tests_util.c)
-target_link_libraries(mlkem768_nist_decap_tests ${OPENSSL_TEST_LIBS})
-prepare_emscripten_test_target(mlkem768_nist_decap_tests)
-add_platform_test(mlkem768_nist_decap_tests mlkem768_nist_decap_tests ${CMAKE_CURRENT_SOURCE_DIR}/mlkem768_nist_decap_tests.txt)
-
-# mlkem768_nist_keygen_tests
-add_executable(mlkem768_nist_keygen_tests mlkem768_nist_keygen_tests.c mlkem_tests_util.c)
-target_link_libraries(mlkem768_nist_keygen_tests ${OPENSSL_TEST_LIBS})
-prepare_emscripten_test_target(mlkem768_nist_keygen_tests)
-add_platform_test(mlkem768_nist_keygen_tests mlkem768_nist_keygen_tests ${CMAKE_CURRENT_SOURCE_DIR}/mlkem768_nist_keygen_tests.txt)
+# mlkem_iteration_tests
+add_executable(mlkem_iteration_tests mlkem_iteration_tests.c mlkem_tests_util.c)
+target_link_libraries(mlkem_iteration_tests ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(mlkem_iteration_tests)
+add_platform_test(mlkem_iteration_tests mlkem_iteration_tests)
 
 # mlkem_unittest
 add_executable(mlkem_unittest mlkem_unittest.c mlkem_tests_util.c)

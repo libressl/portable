@@ -117,6 +117,7 @@ tests/key_schedule*
 tests/lhash_test*
 tests/mlkem*
 tests/mont*
+tests/parse*
 tests/policy*
 tests/rfc3779*
 tests/rfc5280time*

@@ -25,3 +25,14 @@
  #include <endian.h>
  #include <stddef.h>
  #include <stdint.h>
+--- tests/parse_test_file.h.orig	Thu Dec 26 01:13:00 2024
++++ tests/parse_test_file.h	Thu Dec 26 01:13:27 2024
+@@ -22,6 +22,8 @@
+ #include <stdint.h>
+ #include <stdio.h>
+ 
++#include <openssl/opensslfeatures.h>
++
+ #include "bytestring.h"
+ 
+ #if defined(__cplusplus)

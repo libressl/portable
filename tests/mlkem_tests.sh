@@ -4,6 +4,8 @@ set -e
 TEST=./mlkem_tests
 if [ -e ./mlkem_tests.exe ]; then
 	TEST=./mlkem_tests.exe
+elif [ -e ./mlkem_tests.js ]; then
+	TEST="node ./mlkem_tests.js"
 fi
 
 if [ -z $srcdir ]; then

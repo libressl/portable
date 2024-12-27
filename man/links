@@ -2352,6 +2352,8 @@ X509v3_get_ext_by_NID.3,X509v3_get_ext.3
 X509v3_get_ext_by_NID.3,X509v3_get_ext_by_OBJ.3
 X509v3_get_ext_by_NID.3,X509v3_get_ext_by_critical.3
 X509v3_get_ext_by_NID.3,X509v3_get_ext_count.3
+a2i_ipadd.3,a2i_IPADDRESS.3
+a2i_ipadd.3,a2i_IPADDRESS_NC.3
 bn_dump.3,bn_add_words.3
 bn_dump.3,bn_div_words.3
 bn_dump.3,bn_expand.3

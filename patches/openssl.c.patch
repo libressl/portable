@@ -1,6 +1,6 @@
---- apps/openssl/openssl.c.orig	Fri Aug  2 23:52:59 2024
-+++ apps/openssl/openssl.c	Fri Aug  2 23:53:17 2024
-@@ -347,7 +347,9 @@ BIO *bio_err = NULL;
+--- apps/openssl/openssl.c.orig	Thu Jan  2 08:27:54 2025
++++ apps/openssl/openssl.c	Thu Jan  2 08:28:04 2025
+@@ -344,7 +344,9 @@ BIO *bio_err = NULL;
  static void
  openssl_startup(void)
  {

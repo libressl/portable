@@ -88,11 +88,6 @@ endif
 endif
 
 noinst_HEADERS = apps.h
-noinst_HEADERS += progs.h
-noinst_HEADERS += s_apps.h
-noinst_HEADERS += testdsa.h
-noinst_HEADERS += testrsa.h
-noinst_HEADERS += timeouts.h
 
 EXTRA_DIST = CMakeLists.txt
 

@@ -710,6 +710,11 @@ TESTS += rmd_test
 check_PROGRAMS += rmd_test
 rmd_test_SOURCES = rmd_test.c
 
+# rsa_method_test
+TESTS += rsa_method_test
+check_PROGRAMS += rsa_method_test
+rsa_method_test_SOURCES = rsa_method_test.c
+
 # rsa_padding_test
 TESTS += rsa_padding_test
 check_PROGRAMS += rsa_padding_test

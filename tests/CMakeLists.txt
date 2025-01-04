@@ -680,6 +680,11 @@ add_executable(rmd_test rmd_test.c)
 target_link_libraries(rmd_test ${OPENSSL_TEST_LIBS})
 add_platform_test(rmd_test rmd_test)
 
+# rsa_method_test
+add_executable(rsa_method_test rsa_method_test.c)
+target_link_libraries(rsa_method_test ${OPENSSL_TEST_LIBS})
+add_platform_test(rsa_method_test rsa_method_test)
+
 # rsa_padding_test
 add_executable(rsa_padding_test rsa_padding_test.c)
 target_link_libraries(rsa_padding_test ${OPENSSL_TEST_LIBS})

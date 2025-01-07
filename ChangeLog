@@ -46,6 +46,7 @@ LibreSSL Portable Release Notes:
 	    replace the perl-generated assembly optimized for museum pieces.
 	  - Rewrote BN_bn2binpad() and its lebin siblings.
 	  - The BIGNUMs in EC_GROUP and EC_POINT are now heap allocated.
+	  - Rewrote TS_ASN1_INTEGER_print_bio().
 	* Compatibility changes
 	  - Added an OPENSSL_INIT_NO_ATEXIT flag for OPENSSL_init_crypto().
 	    It has no effect since LibreSSL doesn't call atexit().

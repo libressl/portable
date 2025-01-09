@@ -13,7 +13,7 @@ jobs:
         shell: bash
     strategy:
       matrix:
-        os: [windows-latest, macos-latest, ubuntu-latest]
+        os: [windows-latest, macos-latest, ubuntu-24.04]
     runs-on: ${{ matrix.os }}
     continue-on-error: false
     name: ${{ matrix.os }}

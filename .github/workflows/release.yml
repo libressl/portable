@@ -15,7 +15,7 @@ permissions:
 jobs:
   release:
     name: "Release"
-    runs-on: "ubuntu-latest"
+    runs-on: "ubuntu-24.04"
     outputs:
       upload_url: "${{ steps.create_release.outputs.upload_url }}"
     steps:

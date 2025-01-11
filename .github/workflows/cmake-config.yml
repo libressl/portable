@@ -1,0 +1,98 @@
+# GitHub Actions workflow to check CMake config.
+name: "CMake Check"
+
+on:
+  push: {}
+  pull_request: {}
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.event.number || github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: "${{ matrix.os }}"
+    runs-on: "${{ matrix.os }}"
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ "windows-2022", "macos-14", "ubuntu-24.04" ]
+    defaults:
+      run:
+        shell: "bash"
+    permissions:
+      contents: read
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "Setup Windows dependencies"
+        if: runner.os == 'Windows'
+        uses: msys2/setup-msys2@v2
+        with:
+          update: true
+          install: >-
+            autoconf
+            automake
+            diffutils
+            libtool
+            gcc
+            git
+            patch
+            perl
+
+      - name: "Setup macOS dependencies"
+        if: runner.os == 'macOS'
+        run: brew install automake libtool
+
+      - name: "Prepare source tree for build (Windows)"
+        if: runner.os == 'Windows'
+        shell: "msys2 {0}"
+        run: ./autogen.sh
+
+      - name: "Prepare source tree for build (Unix)"
+        if: runner.os != 'Windows'
+        run: ./autogen.sh
+
+      - name: "Configure"
+        run: |
+          cmake -S . \
+            -B build \
+            -D CMAKE_BUILD_TYPE=Release \
+            -D CMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/../local
+
+      - name: "Build"
+        run: cmake --build build --config Release --verbose
+
+      - name: "Install"
+        run: cmake --install build --config Release
+
+      - name: "Consume from the build directory - Configure"
+        run: |
+          cmake -S tests/cmake \
+            -B consumer-build \
+            -D CMAKE_BUILD_TYPE=Release \
+            -D LibreSSL_DIR=$GITHUB_WORKSPACE/build
+
+      - name: "Consume from the build directory - Build"
+        run: cmake --build consumer-build --config Release --verbose
+
+      - name: "Consume from the install directory (CMAKE_PREFIX_PATH) - Configure"
+        run: |
+          cmake -S tests/cmake \
+            -B consumer-install-prefix \
+            -D CMAKE_BUILD_TYPE=Release \
+            -D CMAKE_PREFIX_PATH=$GITHUB_WORKSPACE/../local
+
+      - name: "Consume from the install directory (CMAKE_PREFIX_PATH) - Build"
+        run: cmake --build consumer-install-prefix --config Release --verbose
+
+      - name: "Consume from the install directory (LibreSSL_DIR) - Configure"
+        run: |
+          cmake -S tests/cmake \
+            -B consumer-install-dir \
+            -D CMAKE_BUILD_TYPE=Release \
+            -D LibreSSL_DIR=$GITHUB_WORKSPACE/../local/lib/cmake/LibreSSL
+
+      - name: "Consume from the install directory (LibreSSL_DIR) - Build"
+        run: cmake --build consumer-install-dir --config Release --verbose

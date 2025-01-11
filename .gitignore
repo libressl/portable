@@ -39,6 +39,7 @@ Makefile.in
 
 # CMake stuff
 build
+cmake-build-debug/
 
 # Libtool stuff
 .libs

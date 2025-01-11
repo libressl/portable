@@ -1,5 +1,5 @@
-# GitHub Actions workflow to test CMake config.
-name: "CMake Config"
+# GitHub Actions workflow to check CMake config.
+name: "CMake Check"
 
 on:
   push: {}
@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
   check:
-    name: "Check (${{ matrix.os }})"
+    name: "${{ matrix.os }}"
     runs-on: "${{ matrix.os }}"
     strategy:
       fail-fast: true

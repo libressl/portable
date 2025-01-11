@@ -1,7 +1,7 @@
 Because this project is maintained both in the OpenBSD tree using CVS and in
 Git, it can be confusing following all of the changes.
 
-Most of the libssl and libcrypto source code is is here in OpenBSD CVS:
+Most of the libssl and libcrypto source code is here in OpenBSD CVS:
 
 	https://cvsweb.openbsd.org/cgi-bin/cvsweb/src/lib/libssl/
 

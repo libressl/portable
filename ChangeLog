@@ -47,6 +47,7 @@ LibreSSL Portable Release Notes:
 	  - Rewrote BN_bn2binpad() and its lebin siblings.
 	  - The BIGNUMs in EC_GROUP and EC_POINT are now heap allocated.
 	  - Rewrote TS_ASN1_INTEGER_print_bio().
+	  - Improved bit counter handling in MD5.
 	* Compatibility changes
 	  - Added an OPENSSL_INIT_NO_ATEXIT flag for OPENSSL_init_crypto().
 	    It has no effect since LibreSSL doesn't call atexit().
@@ -63,6 +64,8 @@ LibreSSL Portable Release Notes:
 	  - Imported ML-KEM 768 and 1024 from BoringSSL.
 	* Bug fixes
 	  - Plugged a leak in eckey_compute_pubkey().
+	  - Again allow the magic values -1, -2 and -3 for the salt length
+	    of an RSA-PSS key in the EVP_PKEY_CTX_ctrl_str() interface.
 	* Testing and proactive security
 	  - Improved regress coverage of the EC code.
 

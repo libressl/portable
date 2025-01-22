@@ -280,7 +280,6 @@ for abi in elf macosx masm mingw64; do
 	gen_asm_stdout $abi bn/asm/modexp512-x86_64.pl   bn/modexp512-$abi-x86_64.S
 	gen_asm_stdout $abi bn/asm/x86_64-mont.pl        bn/mont-$abi-x86_64.S
 	gen_asm_stdout $abi bn/asm/x86_64-mont5.pl       bn/mont5-$abi-x86_64.S
-	gen_asm_stdout $abi md5/asm/md5-x86_64.pl        md5/md5-$abi-x86_64.S
 	gen_asm_stdout $abi modes/asm/ghash-x86_64.pl    modes/ghash-$abi-x86_64.S
 	gen_asm_stdout $abi rc4/asm/rc4-x86_64.pl        rc4/rc4-$abi-x86_64.S
 done

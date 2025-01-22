@@ -32,7 +32,6 @@ if(HOST_ASM_ELF_X86_64)
 		bn/modexp512-elf-x86_64.S
 		bn/mont-elf-x86_64.S
 		bn/mont5-elf-x86_64.S
-		md5/md5-elf-x86_64.S
 		modes/ghash-elf-x86_64.S
 		rc4/rc4-elf-x86_64.S
 
@@ -55,7 +54,6 @@ if(HOST_ASM_ELF_X86_64)
 	add_definitions(-DOPENSSL_IA32_SSE2)
 	add_definitions(-DOPENSSL_BN_ASM_MONT)
 	add_definitions(-DOPENSSL_BN_ASM_MONT5)
-	add_definitions(-DMD5_ASM)
 	add_definitions(-DGHASH_ASM)
 	add_definitions(-DRSA_ASM)
 	set(CRYPTO_SRC ${CRYPTO_SRC} ${ASM_X86_64_ELF_SRC})
@@ -71,7 +69,6 @@ if(HOST_ASM_MACOSX_X86_64)
 		bn/modexp512-macosx-x86_64.S
 		bn/mont-macosx-x86_64.S
 		bn/mont5-macosx-x86_64.S
-		md5/md5-macosx-x86_64.S
 		modes/ghash-macosx-x86_64.S
 		rc4/rc4-macosx-x86_64.S
 
@@ -94,7 +91,6 @@ if(HOST_ASM_MACOSX_X86_64)
 	add_definitions(-DOPENSSL_IA32_SSE2)
 	add_definitions(-DOPENSSL_BN_ASM_MONT)
 	add_definitions(-DOPENSSL_BN_ASM_MONT5)
-	add_definitions(-DMD5_ASM)
 	add_definitions(-DGHASH_ASM)
 	add_definitions(-DRSA_ASM)
 	set(CRYPTO_SRC ${CRYPTO_SRC} ${ASM_X86_64_MACOSX_SRC})
@@ -111,7 +107,6 @@ if(HOST_ASM_MASM_X86_64)
 		#bn/modexp512-masm-x86_64.S
 		#bn/mont-masm-x86_64.S
 		#bn/mont5-masm-x86_64.S
-		md5/md5-masm-x86_64.S
 		modes/ghash-masm-x86_64.S
 		rc4/rc4-masm-x86_64.S
 	)
@@ -122,7 +117,6 @@ if(HOST_ASM_MASM_X86_64)
 	add_definitions(-DOPENSSL_IA32_SSE2)
 	#add_definitions(-DOPENSSL_BN_ASM_MONT)
 	#add_definitions(-DOPENSSL_BN_ASM_MONT5)
-	add_definitions(-DMD5_ASM)
 	add_definitions(-DGHASH_ASM)
 	add_definitions(-DRSA_ASM)
 	set(CRYPTO_SRC ${CRYPTO_SRC} ${ASM_X86_64_MASM_SRC})
@@ -139,7 +133,6 @@ if(HOST_ASM_MINGW64_X86_64)
 		#bn/modexp512-mingw64-x86_64.S
 		#bn/mont-mingw64-x86_64.S
 		#bn/mont5-mingw64-x86_64.S
-		md5/md5-mingw64-x86_64.S
 		modes/ghash-mingw64-x86_64.S
 		rc4/rc4-mingw64-x86_64.S
 	)
@@ -150,7 +143,6 @@ if(HOST_ASM_MINGW64_X86_64)
 	add_definitions(-DOPENSSL_IA32_SSE2)
 	#add_definitions(-DOPENSSL_BN_ASM_MONT)
 	#add_definitions(-DOPENSSL_BN_ASM_MONT5)
-	add_definitions(-DMD5_ASM)
 	add_definitions(-DGHASH_ASM)
 	add_definitions(-DRSA_ASM)
 	set(CRYPTO_SRC ${CRYPTO_SRC} ${ASM_X86_64_MINGW64_SRC})

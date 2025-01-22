@@ -49,6 +49,7 @@ LibreSSL Portable Release Notes:
 	  - Rewrote TS_ASN1_INTEGER_print_bio().
 	  - Improved bit counter handling in MD5.
 	  - Simplified and cleaned up the BN_RECP_CTX internals.
+	  - Improved SM4 to match other symmetric ciphers more closely.
 	* Compatibility changes
 	  - Added an OPENSSL_INIT_NO_ATEXIT flag for OPENSSL_init_crypto().
 	    It has no effect since LibreSSL doesn't call atexit().

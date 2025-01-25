@@ -63,6 +63,7 @@ LibreSSL Portable Release Notes:
 	    sign and verify handlers set with RSA_meth_set_{sign,verify}.
 	  - Removed the -C option to generate "C code" from the openssl(1)
 	    dh, dhparam, dsaparam, ecparam, and x509 subcommands.
+	  - Removed #error in headers when OPENSSL_NO_* is defined.
 	* New features
 	  - libtls has a new tls_peer_cert_common_name() API call to retrieve
 	    the peer's common name without having to inspect the PEM.

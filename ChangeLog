@@ -44,6 +44,7 @@ LibreSSL Portable Release Notes:
 	  - New SHA-1, SHA-256 and SHA-512 assembly implementations for amd64.
 	    These make use of the SHA-NI instruction if it is available and
 	    replace the perl-generated assembly optimized for museum pieces.
+	  - New simplified, readable MD5 implementation for amd64.
 	  - Rewrote BN_bn2binpad() and its lebin siblings.
 	  - The BIGNUMs in EC_GROUP and EC_POINT are now heap allocated.
 	  - Rewrote TS_ASN1_INTEGER_print_bio().

@@ -51,6 +51,7 @@ LibreSSL Portable Release Notes:
 	  - Improved bit counter handling in MD5.
 	  - Simplified and cleaned up the BN_RECP_CTX internals.
 	  - Improved SM4 to match other symmetric ciphers more closely.
+	  - Rewrote X509_NAME_oneline() and X509_NAME_print() using CBS/CBB.
 	* Compatibility changes
 	  - Added an OPENSSL_INIT_NO_ATEXIT flag for OPENSSL_init_crypto().
 	    It has no effect since LibreSSL doesn't call atexit().

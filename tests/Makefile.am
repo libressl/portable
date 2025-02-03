@@ -688,6 +688,12 @@ TESTS += record_layer_test
 check_PROGRAMS += record_layer_test
 record_layer_test_SOURCES = record_layer_test.c
 
+# renegotiation_test
+TESTS += renegotiation_test.sh
+check_PROGRAMS += renegotiation_test
+renegotiation_test_SOURCES = renegotiation_test.c
+EXTRA_DIST += renegotiation_test.sh renegotiation_test.bat
+
 # rfc3779
 TESTS += rfc3779
 rfc3779_CPPFLAGS = $(AM_CPPFLAGS)

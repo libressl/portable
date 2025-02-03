@@ -662,6 +662,18 @@ add_executable(record_layer_test record_layer_test.c)
 target_link_libraries(record_layer_test ${OPENSSL_TEST_LIBS})
 add_platform_test(record_layer_test record_layer_test)
 
+# renegotiation_test
+set(RENEGOTIATION_TEST_SRC renegotiation_test.c)
+add_executable(renegotiation_test ${RENEGOTIATION_TEST_SRC})
+target_link_libraries(renegotiation_test ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(renegotiation_test)
+if(NOT MSVC)
+	add_test(NAME renegotiation_test COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/renegotiation_test.sh)
+else()
+	add_test(NAME renegotiation_test COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/renegotiation_test.bat $<TARGET_FILE:renegotiation_test>)
+endif()
+set_tests_properties(renegotiation_test PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
+
 # rfc3779
 add_executable(rfc3779 rfc3779.c)
 target_link_libraries(rfc3779 ${OPENSSL_TEST_LIBS})

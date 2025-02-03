@@ -120,6 +120,7 @@ tests/mlkem*
 tests/mont*
 tests/parse*
 tests/policy*
+tests/renegotiation_test*
 tests/rfc3779*
 tests/rfc5280time*
 tests/ssl_get_shared_ciphers*

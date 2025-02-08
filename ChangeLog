@@ -52,11 +52,15 @@ LibreSSL Portable Release Notes:
 	  - Simplified and cleaned up the BN_RECP_CTX internals.
 	  - Improved SM4 to match other symmetric ciphers more closely.
 	  - Rewrote X509_NAME_oneline() and X509_NAME_print() using CBS/CBB.
+	  - CRLs are now cached in the issuer cache like certificates.
 	* Compatibility changes
 	  - Added an OPENSSL_INIT_NO_ATEXIT flag for OPENSSL_init_crypto().
 	    It has no effect since LibreSSL doesn't call atexit().
 	  - Elliptic curve parameters are only accepted if they encode a
 	    built-in curve.
+	  - EC_METHOD is no longer public and the API exposing it has been
+	    removed. This includes EC_GROUP_new(), EC_GFp_mont_method(),
+	    EC_GROUP_get_method_of() and EC_METHOD_get_field_type().
 	  - All elliptic curves over fields with less than 224 bits and a
 	    few more were removed from the built-in curves. This includes
 	    all WTLS curves and P-192.

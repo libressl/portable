@@ -22,13 +22,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-20.04", "ubuntu-22.04", "ubuntu-24.04"]
+        os: ["ubuntu-22.04", "ubuntu-24.04"]
         arch: ["native", "arm32", "arm64", "mingw32", "mingw64", "mips64"]
         compiler: ["gcc"]
         include:
-          - os: "ubuntu-20.04"
-            arch: "native"
-            compiler: "clang"
           - os: "ubuntu-22.04"
             arch: "native"
             compiler: "clang"

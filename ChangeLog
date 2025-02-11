@@ -69,7 +69,7 @@ LibreSSL Portable Release Notes:
 	    built-in curve.
 	  - EC_METHOD is no longer public and the API exposing it has been
 	    removed. This includes EC_GROUP_new(), EC_GFp_mont_method(),
-	    EC_GROUP_get_method_of() and EC_METHOD_get_field_type().
+	    EC_GROUP_method_of() and EC_METHOD_get_field_type().
 	  - All elliptic curves over fields with less than 224 bits and a
 	    few more were removed from the built-in curves. This includes
 	    all WTLS curves and P-192.

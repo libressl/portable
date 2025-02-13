@@ -53,6 +53,8 @@ LibreSSL Portable Release Notes:
 	  - Improved SM4 to match other symmetric ciphers more closely.
 	  - Rewrote X509_NAME_oneline() and X509_NAME_print() using CBS/CBB.
 	  - CRLs are now cached in the issuer cache like certificates.
+	  - Replaced combinations of BN_MONT_CTX_new/set with an internal
+	    BN_MONT_CTX_create().
 	* Compatibility changes
 	  - Added an OPENSSL_INIT_NO_ATEXIT flag for OPENSSL_init_crypto().
 	    It has no effect since LibreSSL doesn't call atexit().

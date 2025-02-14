@@ -13,9 +13,6 @@ if HOST_ASM_ELF_ARM
 libcrypto_la_CPPFLAGS += -DAES_ASM
 libcrypto_la_CPPFLAGS += -DOPENSSL_BN_ASM_MONT
 libcrypto_la_CPPFLAGS += -DGHASH_ASM
-libcrypto_la_CPPFLAGS += -DSHA1_ASM
-libcrypto_la_CPPFLAGS += -DSHA256_ASM
-libcrypto_la_CPPFLAGS += -DSHA512_ASM
 libcrypto_la_CPPFLAGS += -DOPENSSL_CPUID_OBJ
 libcrypto_la_SOURCES += $(ASM_ARM_ELF)
 endif

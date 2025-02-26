@@ -55,6 +55,9 @@ LibreSSL Portable Release Notes:
 	  - CRLs are now cached in the issuer cache like certificates.
 	  - Replaced combinations of BN_MONT_CTX_new/set with an internal
 	    BN_MONT_CTX_create().
+	  - Replaced BN_bn2hex() reimplementation in openssl(1) ca with
+	    a poper API call.
+	  - Fixed integer overflows due to signed shift in obj_dat.c.
 	* Compatibility changes
 	  - Added an OPENSSL_INIT_NO_ATEXIT flag for OPENSSL_init_crypto().
 	    It has no effect since LibreSSL doesn't call atexit().

@@ -12,6 +12,7 @@ AM_CPPFLAGS += -I $(top_srcdir)/crypto/bio
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/bn
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/bytestring
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/curve25519
+AM_CPPFLAGS += -I $(top_srcdir)/crypto/ec
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/evp
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/mlkem
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/modes

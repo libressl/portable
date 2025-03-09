@@ -8,6 +8,7 @@ include_directories(
 	../crypto/bn
 	../crypto/bytestring
 	../crypto/curve25519
+	../crypto/ec
 	../crypto/evp
 	../crypto/mlkem
 	../crypto/modes

@@ -931,6 +931,11 @@ add_executable(x509_info x509_info.c)
 target_link_libraries(x509_info ${OPENSSL_TEST_LIBS})
 add_platform_test(x509_info x509_info)
 
+# x509_name_test
+add_executable(x509_name_test x509_name_test.c)
+target_link_libraries(x509_name_test ${OPENSSL_TEST_LIBS})
+add_platform_test(x509_name_test x509_name_test)
+
 # x509name
 add_executable(x509name x509name.c)
 target_link_libraries(x509name ${OPENSSL_TEST_LIBS})

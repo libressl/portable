@@ -910,6 +910,11 @@ TESTS += x509_info
 check_PROGRAMS += x509_info
 x509_info_SOURCES = x509_info.c
 
+# x509_name_test
+TESTS += x509_name_test
+check_PROGRAMS += x509_name_test
+x509_name_test_SOURCES = x509_name_test.c
+
 # x509name
 TESTS += x509name
 check_PROGRAMS += x509name

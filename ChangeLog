@@ -89,6 +89,7 @@ LibreSSL Portable Release Notes:
 	  - X509_NAME_print() and X509_OBJECT_up_ref_count() are no longer public.
 	  - const corrected UI_OpenSSL() and BN_MONT_CTX_copy().
 	  - Support OPENSSL_NO_FILENAMES.
+	  - Support SSL_OP_NO_RENEGOTIATION and SSL_OP_ALLOW_CLIENT_RENEGOTIATION.
 	* New features
 	  - libtls has a new tls_peer_cert_common_name() API call to retrieve
 	    the peer's common name without having to inspect the PEM.

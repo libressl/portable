@@ -46,8 +46,9 @@ LibreSSL Portable Release Notes:
 	    These make use of the SHA-NI instruction if it is available and
 	    replace the perl-generated assembly optimized for museum pieces.
 	    These are not yet enabled in libressl-portable.
-	  - New SHA-256 assembly implementation for aarch64 making use of the
-	    ARM Cryptographic Extension (CE). Not yet enabled in portable.
+	  - New SHA-256 and SHA-512 assembly implementations for aarch64
+	    making use of the ARM Cryptographic Extension (CE). Not yet
+	    enabled in libressl-portable.
 	  - New simplified, readable MD5 implementation for amd64.
 	  - Rewrote BN_bn2binpad() and its lebin siblings.
 	  - The BIGNUMs in EC_GROUP and EC_POINT are now heap allocated.

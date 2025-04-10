@@ -131,6 +131,11 @@ libssl_la_CPPFLAGS += -I$(top_srcdir)/crypto/arch/i386/
 endif
 noinst_HEADERS += $(top_srcdir)/crypto/arch/i386/crypto_arch.h
 
+if HOST_LOONGARCH64
+libssl_la_CPPFLAGS += -I$(top_srcdir)/crypto/arch/loongarch64/
+endif
+noinst_HEADERS += $(top_srcdir)/crypto/arch/loongarch64/crypto_arch.h
+
 # XXX - do we still need this?
 if HOST_MIPS
 endif

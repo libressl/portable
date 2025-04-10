@@ -396,6 +396,13 @@ endif
 noinst_HEADERS += arch/i386/crypto_arch.h
 noinst_HEADERS += bn/arch/i386/bn_arch.h
 
+if HOST_LOONGARCH64
+libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/arch/loongarch64/
+libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/loongarch64/
+endif
+noinst_HEADERS += arch/loongarch64/crypto_arch.h
+noinst_HEADERS += bn/arch/loongarch64/bn_arch.h
+
 # XXX - do we still need this?
 if HOST_MIPS
 libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/mips/

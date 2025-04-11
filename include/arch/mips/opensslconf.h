@@ -1,14 +1,21 @@
 #include <openssl/opensslfeatures.h>
 /* crypto/opensslconf.h.in */
 
-#if defined(HEADER_CRYPTLIB_H) && !defined(OPENSSLDIR)
+#if defined(HEADER_CRYPTO_LOCAL_H) && !defined(OPENSSLDIR)
 #define OPENSSLDIR "/etc/ssl"
 #endif
 
-#undef OPENSSL_UNISTD
-#define OPENSSL_UNISTD <unistd.h>
-
 #undef OPENSSL_EXPORT_VAR_AS_FUNCTION
+
+#ifndef OPENSSL_FILE
+#ifdef OPENSSL_NO_FILENAMES
+#define OPENSSL_FILE ""
+#define OPENSSL_LINE 0
+#else
+#define OPENSSL_FILE __FILE__
+#define OPENSSL_LINE __LINE__
+#endif
+#endif
 
 #if defined(HEADER_IDEA_H) && !defined(IDEA_INT)
 #define IDEA_INT unsigned int
@@ -66,13 +73,6 @@
 #define THIRTY_TWO_BIT
 #undef SIXTEEN_BIT
 #undef EIGHT_BIT
-#endif
-
-#if defined(HEADER_RC4_LOCL_H) && !defined(CONFIG_HEADER_RC4_LOCL_H)
-#define CONFIG_HEADER_RC4_LOCL_H
-/* if this is defined data[i] is used instead of *data, this is a %20
- * speedup on x86 */
-#define RC4_INDEX
 #endif
 
 #if defined(HEADER_BF_LOCL_H) && !defined(CONFIG_HEADER_BF_LOCL_H)

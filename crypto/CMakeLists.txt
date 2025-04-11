@@ -781,7 +781,7 @@ elseif(HOST_MIPS64)
 	target_include_directories(crypto_obj PRIVATE arch/mips64)
 	target_include_directories(crypto_obj PRIVATE bn/arch/mips64)
 elseif(HOST_MIPS)
-	# XXX - can this go away? the directory doesn't exist...
+	target_include_directories(crypto_obj PRIVATE arch/mips)
 	target_include_directories(crypto_obj PRIVATE bn/arch/mips)
 elseif(HOST_POWERPC)
 	target_include_directories(crypto_obj PRIVATE arch/powerpc)

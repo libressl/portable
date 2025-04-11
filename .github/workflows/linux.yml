@@ -23,7 +23,7 @@ jobs:
       fail-fast: false
       matrix:
         os: ["ubuntu-22.04", "ubuntu-24.04"]
-        arch: ["native", "arm32", "arm64", "mingw32", "mingw64", "mips64"]
+        arch: ["native", "arm32", "arm64", "mingw32", "mingw64", "mips32", "mips64"]
         compiler: ["gcc"]
         include:
           - os: "ubuntu-22.04"

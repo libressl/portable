@@ -403,10 +403,11 @@ endif
 noinst_HEADERS += arch/loongarch64/crypto_arch.h
 noinst_HEADERS += bn/arch/loongarch64/bn_arch.h
 
-# XXX - do we still need this?
 if HOST_MIPS
+libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/arch/mips/
 libcrypto_la_CPPFLAGS += -I$(top_srcdir)/crypto/bn/arch/mips/
 endif
+noinst_HEADERS += arch/mips/crypto_arch.h
 noinst_HEADERS += bn/arch/mips/bn_arch.h
 
 if HOST_MIPS64

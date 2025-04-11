@@ -63,6 +63,10 @@ LibreSSL Portable Release Notes:
 	  - Replaced BN_bn2hex() reimplementation in openssl(1) ca with
 	    a poper API call.
 	  - Fixed integer overflows due to signed shift in obj_dat.c.
+	  - Fixed a few memory leaks in legacy code.
+	  - Improved some X509_VERIFY_PARAM internals and avoid an out of
+	    bounds read from public API.
+	  - Imported ML-KEM 768 and 1024 from BoringSSL (not yet public API).
 	* Compatibility changes
 	  - Added an OPENSSL_INIT_NO_ATEXIT flag for OPENSSL_init_crypto().
 	    It has no effect since LibreSSL doesn't call atexit().
@@ -71,6 +75,9 @@ LibreSSL Portable Release Notes:
 	  - EC_METHOD is no longer public and the API exposing it has been
 	    removed. This includes EC_GROUP_new(), EC_GFp_mont_method(),
 	    EC_GROUP_method_of() and EC_METHOD_get_field_type().
+	  - The precomputation stubs for EC_GROUP were removed.
+	  - The API setting Jacobian projective coordinates for a point was
+	    removed as were EC_POINTs_{mul,make_affine}().
 	  - All elliptic curves over fields with less than 224 bits and a
 	    few more were removed from the built-in curves. This includes
 	    all WTLS curves and P-192.
@@ -79,26 +86,24 @@ LibreSSL Portable Release Notes:
 	  - Removed the -C option to generate "C code" from the openssl(1)
 	    dh, dhparam, dsaparam, ecparam, and x509 subcommands.
 	  - Removed #error in headers when OPENSSL_NO_* is defined.
-	  - EC_METHOD is no longer public and all public API directly using
-	    it was removed. This includes EC_GROUP_new(), EC_GFp_mont_method()
-	    EC_{GROUP,POINT}_method_of() and EC_METHOD_get_field_type().
-	  - The precomputation stubs for EC_GROUP were removed.
-	  - The API setting Jacobian projective coordinates for a point was
-	    removed as were EC_POINTs_{mul,make_affine}().
 	  - CRYPTO_set_mem_functions() now matches OpenSSL 1.1 and
 	    CRYPTO_set_mem_ex_functions() was removed.
-	  - X509_NAME_print() and X509_OBJECT_up_ref_count() are no longer public.
+	  - The tls_session_secret_cb_fn type now matches OpenSSL 1.1.
+	  - Unexport X509_NAME_print() and X509_OBJECT_up_ref_count().
 	  - const corrected UI_OpenSSL() and BN_MONT_CTX_copy().
 	  - Support OPENSSL_NO_FILENAMES.
 	  - Support SSL_OP_NO_RENEGOTIATION and SSL_OP_ALLOW_CLIENT_RENEGOTIATION.
+	  - Export PKCS12_key_gen_uni() again.
 	* New features
 	  - libtls has a new tls_peer_cert_common_name() API call to retrieve
 	    the peer's common name without having to inspect the PEM.
-	  - Imported ML-KEM 768 and 1024 from BoringSSL (not yet public API).
 	* Bug fixes
 	  - Plugged a leak in eckey_compute_pubkey().
 	  - Again allow the magic values -1, -2 and -3 for the salt length
 	    of an RSA-PSS key in the EVP_PKEY_CTX_ctrl_str() interface.
+	* Documentation
+	  - The remaining undocumented public EVP API is now documented.
+	    Reorganization of existing documentation for clarity and accuracy.
 	* Testing and proactive security
 	  - Improved regress coverage of the EC code.
 

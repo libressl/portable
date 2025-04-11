@@ -35,6 +35,22 @@ static int setfl(int fd, int flag)
 	return rc;
 }
 
+/*
+ * Have open() temporarily use up file descriptors until reaching beyond the
+ * allocated sockets, then leak the ones conflicting with any of the latter.
+ */
+static void create_issue_1069_sentinels(int socket_vector[2])
+{
+	int fd = open("CONIN$", O_RDONLY);
+	if (fd == -1 || fd > socket_vector[0] && fd > socket_vector[1]) {
+		return;
+	}
+	create_issue_1069_sentinels(socket_vector);
+	if (fd != socket_vector[0] && fd != socket_vector[1]) {
+		close(fd);
+	}
+}
+
 int socketpair(int domain, int type, int protocol, int socket_vector[2])
 {
 	if (domain != AF_UNIX || !(type & SOCK_STREAM) || protocol != PF_UNSPEC)
@@ -85,6 +101,9 @@ int socketpair(int domain, int type, int protocol, int socket_vector[2])
 		goto err;
 
 	closesocket(listener);
+
+	create_issue_1069_sentinels(socket_vector);
+
 	return 0;
 
 err:

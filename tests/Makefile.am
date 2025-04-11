@@ -40,8 +40,8 @@ if HOST_LOONGARCH64
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/arch/loongarch64/
 endif
 
-# XXX - do we still need this?
 if HOST_MIPS
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/arch/mips/
 endif
 
 if HOST_MIPS64

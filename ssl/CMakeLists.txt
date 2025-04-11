@@ -122,7 +122,7 @@ elseif(HOST_LOONGARCH64)
 elseif(HOST_MIPS64)
 	target_include_directories(ssl_obj PRIVATE ../crypto/arch/mips64)
 elseif(HOST_MIPS)
-	# XXX - can this go away? the directory doesn't exist...
+	target_include_directories(ssl_obj PRIVATE ../crypto/arch/mips)
 elseif(HOST_POWERPC)
 	target_include_directories(ssl_obj PRIVATE ../crypto/arch/powerpc)
 elseif(HOST_POWERPC64)

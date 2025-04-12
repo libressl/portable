@@ -72,10 +72,6 @@ endforeach()
 
 set(BUILD_NC true)
 
-if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
-	add_definitions(-fno-common)
-endif()
-
 if(CMAKE_SYSTEM_NAME MATCHES "OpenBSD")
 	add_definitions(-DHAVE_ATTRIBUTE__BOUNDED__)
 	add_definitions(-DHAVE_ATTRIBUTE__DEAD__)

@@ -36,6 +36,10 @@ jobs:
       - name: "Checkout repository"
         uses: actions/checkout@v4
 
+      - name: "Add universe repository"
+        if: matrix.arch == 'loong64'
+        run: sudo add-apt-repository universe
+
       - name: "Run tests"
         run: ./scripts/test
         env:

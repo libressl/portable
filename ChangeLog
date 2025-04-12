@@ -32,6 +32,7 @@ LibreSSL Portable Release Notes:
 
 	* Portable changes
 	  - Added initial experimental support for loongarch64.
+	  - Fixed compilation for mips32 and reenable CI.
 	  - Fixed CMake builds on FreeBSD.
 	  - Fixed the --prefix option for cmake --install.
 	  - Fixed tests for MinGW due to missing sh(1).

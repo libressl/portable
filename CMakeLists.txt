@@ -72,10 +72,6 @@ endforeach()
 
 set(BUILD_NC true)
 
-if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
-	add_definitions(-fno-common)
-endif()
-
 if(CMAKE_SYSTEM_NAME MATCHES "OpenBSD")
 	add_definitions(-DHAVE_ATTRIBUTE__BOUNDED__)
 	add_definitions(-DHAVE_ATTRIBUTE__DEAD__)
@@ -131,7 +127,7 @@ add_definitions(-D__END_HIDDEN_DECLS=)
 set(CMAKE_POSITION_INDEPENDENT_CODE true)
 
 if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID MATCHES "Clang")
-	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-pointer-sign")
+	add_compile_options(-Wno-pointer-sign)
 endif()
 
 if(WIN32)

@@ -36,6 +36,10 @@ if HOST_I386
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/arch/i386/
 endif
 
+if HOST_LOONGARCH64
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/arch/loongarch64/
+endif
+
 # XXX - do we still need this?
 if HOST_MIPS
 endif

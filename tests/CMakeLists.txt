@@ -30,6 +30,8 @@ elseif(HOST_I386)
 	include_directories(../crypto/arch/i386/)
 elseif(HOST_MIPS64)
 	include_directories(../crypto/arch/mips64)
+elseif(HOST_LOONGARCH64)
+	include_directories(../crypto/arch/loongarch64)
 elseif(HOST_MIPS)
 	# XXX - can this go away? the directory doesn't exist...
 elseif(HOST_POWERPC)

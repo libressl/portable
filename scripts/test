@@ -134,7 +134,7 @@ elif [ "$ARCH" = "arm32" -o "$ARCH" = "arm64" ]; then
 
 elif [ "$ARCH" = "loong64" ]; then
 	sudo apt install -y qemu-user-static binfmt-support g++-14-loongarch64-linux-gnu
-	sudo ln -sf /usr/loongarch64-linux-gnu/lib/ld-linux-loongarch-lp64d.so.1 /lib
+	sudo ln -sf /usr/loongarch64-linux-gnu/lib64/ld-linux-loongarch-lp64d.so.1 /lib64
 
 	CC=loongarch64-linux-gnu-gcc-14
 	CXX=loongarch64-linux-gnu++-14

@@ -40,7 +40,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: "Run tests"
-        run: ./scripts/test || cat tests/test-suite.log
+        run: ./scripts/test || (status=$?; cat tests/test-suite.log; exit $status)
         env:
           ARCH: "${{ matrix.arch }}"
           CC: "${{ matrix.compiler }}"

@@ -132,6 +132,21 @@ elif [ "$ARCH" = "arm32" -o "$ARCH" = "arm64" ]; then
 
 	file apps/openssl/.libs/openssl
 
+elif [ "$ARCH" = "loong64" ]; then
+	sudo apt install -y qemu-user-static binfmt-support g++-14-loongarch64-linux-gnu
+	sudo ln -sf /usr/loongarch64-linux-gnu/lib/ld-linux-loongarch-lp64d.so.1 /lib
+
+	CC=loongarch64-linux-gnu-gcc-14
+	CXX=loongarch64-linux-gnu++-14
+	AR=loongarch64-linux-gnu-ar
+	STRIP=loongarch64-linux-gnu-strip-14
+	RANLIB=loongarch64-linux-gnu-ranlib
+
+	./configure --host=loongarch64-linux-gnu
+	LD_LIBRARY_PATH=/usr/loongarch64-linux-gnu/lib make -j 4 check
+
+	file apps/openssl/openssl
+
 elif [ "$ARCH" = "mips32" -o "$ARCH" = "mips64" ]; then
 	sudo apt-get install -y qemu-user-static binfmt-support
 

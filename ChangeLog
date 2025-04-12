@@ -31,6 +31,7 @@ LibreSSL Portable Release Notes:
 4.1.0 - In development
 
 	* Portable changes
+	  - Added initial experimental support for loongarch64.
 	  - Fixed CMake builds on FreeBSD.
 	  - Fixed the --prefix option for cmake --install.
 	  - Fixed tests for MinGW due to missing sh(1).

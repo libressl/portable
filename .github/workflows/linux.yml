@@ -32,12 +32,15 @@ jobs:
           - os: "ubuntu-24.04"
             arch: "native"
             compiler: "clang"
+          - os: "ubuntu-24.04" # loong64
+            arch: "loong64"
+            compiler: "gcc"
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v4
 
       - name: "Run tests"
-        run: ./scripts/test
+        run: ./scripts/test || (status=$?; cat tests/test-suite.log; exit $status)
         env:
           ARCH: "${{ matrix.arch }}"
           CC: "${{ matrix.compiler }}"

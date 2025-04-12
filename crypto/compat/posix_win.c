@@ -22,6 +22,20 @@
 #include <string.h>
 #include <unistd.h>
 
+#include <sys/stat.h>
+
+static int
+is_socket(int fd)
+{
+	return (fd & 0x80000000) == 0;
+}
+
+static int
+get_real_fd(int fd)
+{
+	return (fd & 0x7fffffff);
+}
+
 void
 posix_perror(const char *s)
 {
@@ -43,14 +57,10 @@ posix_fopen(const char *path, const char *mode)
 	return fopen(path, mode);
 }
 
-static int
-oddify_fd(int fd)
+int
+posix_fstat(int fd, struct stat *statbuf)
 {
-	if (fd & 1) /* also catches an eventual -1 from using up all descriptors */
-		return fd;
-	int clone = oddify_fd(dup(fd));
-	close(fd);
-	return clone;
+	return fstat(get_real_fd(fd), statbuf);
 }
 
 int
@@ -72,7 +82,11 @@ posix_open(const char *path, ...)
 		flags |= O_NOINHERIT;
 	}
 	flags &= ~O_NONBLOCK;
-	return oddify_fd(open(path, flags, mode));
+
+	const int fh = open(path, flags, mode);
+
+	// Set high bit to mark file descriptor as a file handle
+	return fh + 0x80000000;
 }
 
 char *
@@ -160,15 +174,6 @@ wsa_errno(int err)
 	return -1;
 }
 
-static int
-is_socket(int fd)
-{
-	/* Border case: Don't break std* file descriptors */
-	if (fd < 3)
-		return 0;
-	return (fd & 1) == 0; /* daringly assumes that any valid socket is even */
-}
-
 int
 posix_connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen)
 {
@@ -182,14 +187,13 @@ int
 posix_close(int fd)
 {
 	int rc;
-
 	if (is_socket(fd)) {
 		if ((rc = closesocket(fd)) == SOCKET_ERROR) {
 			int err = WSAGetLastError();
 			rc = wsa_errno(err);
 		}
 	} else {
-		rc = close(fd);
+		rc = close(get_real_fd(fd));
 	}
 	return rc;
 }
@@ -198,14 +202,13 @@ ssize_t
 posix_read(int fd, void *buf, size_t count)
 {
 	ssize_t rc;
-
 	if (is_socket(fd)) {
 		if ((rc = recv(fd, buf, count, 0)) == SOCKET_ERROR) {
 			int err = WSAGetLastError();
 			rc = wsa_errno(err);
 		}
 	} else {
-		rc = read(fd, buf, count);
+		rc = read(get_real_fd(fd), buf, count);
 	}
 	return rc;
 }
@@ -219,7 +222,7 @@ posix_write(int fd, const void *buf, size_t count)
 			rc = wsa_errno(WSAGetLastError());
 		}
 	} else {
-		rc = write(fd, buf, count);
+		rc = write(get_real_fd(fd), buf, count);
 	}
 	return rc;
 }

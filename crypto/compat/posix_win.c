@@ -27,6 +27,11 @@
 static int
 is_socket(int fd)
 {
+	// Border case: Don't break std* file descriptors
+	if (fd < 3)
+		return 0;
+
+	// All locally-allocated file descriptors will have the high bit set
 	return (fd & 0x80000000) == 0;
 }
 

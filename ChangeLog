@@ -65,7 +65,6 @@ LibreSSL Portable Release Notes:
 	  - Replaced BN_bn2hex() reimplementation in openssl(1) ca with
 	    a poper API call.
 	  - Fixed integer overflows due to signed shift in obj_dat.c.
-	  - Fixed a few memory leaks in legacy code.
 	  - Improved some X509_VERIFY_PARAM internals and avoid an out of
 	    bounds read from public API.
 	  - Imported ML-KEM 768 and 1024 from BoringSSL (not yet public API).
@@ -103,9 +102,10 @@ LibreSSL Portable Release Notes:
 	  - Plugged a leak in eckey_compute_pubkey().
 	  - Again allow the magic values -1, -2 and -3 for the salt length
 	    of an RSA-PSS key in the EVP_PKEY_CTX_ctrl_str() interface.
+	  - Fixed a few memory leaks in legacy code.
 	* Documentation
 	  - The remaining undocumented public EVP API is now documented.
-	    Reorganization of existing documentation for clarity and accuracy.
+	  - Reorganization of existing documentation for clarity and accuracy.
 	* Testing and proactive security
 	  - Improved regress coverage of the EC code.
 

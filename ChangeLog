@@ -63,7 +63,7 @@ LibreSSL Portable Release Notes:
 	  - Replaced combinations of BN_MONT_CTX_new/set with an internal
 	    BN_MONT_CTX_create().
 	  - Replaced BN_bn2hex() reimplementation in openssl(1) ca with
-	    a poper API call.
+	    a proper API call.
 	  - Fixed integer overflows due to signed shift in obj_dat.c.
 	  - Improved some X509_VERIFY_PARAM internals and avoid an out of
 	    bounds read from public API.

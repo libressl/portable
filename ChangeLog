@@ -28,7 +28,7 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
-4.1.0 - In development
+4.1.0 - Stable release
 
 	* Portable changes
 	  - Added initial experimental support for loongarch64.

@@ -6,7 +6,7 @@ openbsd_branch=`cat OPENBSD_BRANCH`
 # pull in latest upstream code
 echo "pulling upstream openbsd source"
 if [ ! -d openbsd ]; then
-	LIBRESSL_GIT_OPTIONS="${LIBRESSL_GIT_OPTIONS:- --depth=8}"
+	#LIBRESSL_GIT_OPTIONS="${LIBRESSL_GIT_OPTIONS:- --depth=8}"
 	LIBRESSL_GIT="${LIBRESSL_GIT:- https://github.com/libressl}"
 	git clone $LIBRESSL_GIT_OPTIONS $LIBRESSL_GIT/openbsd
 fi

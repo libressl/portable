@@ -28,7 +28,26 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
-4.1.0 - In development
+4.2.0 - In development
+
+	* Portable changes
+	* Internal improvements
+	  - Cleaned up code implementing block cipher modes of operation.
+	    Includes untangling a horrible #ifdef mess and removing a few
+	    instances of undefined behavior.
+	  - Removed assembly implementations of AES using bit slicing (BS-AES)
+	    and vector permutation (VP-AES).
+	  - Removed OPENSSL_SMALL_FOOTPRINT and OPENSSL_FIPSAPI
+	* Compatibility changes
+	  - Removed the -msie_hack option from the openssl(1) ca subcommand.
+	* New features
+	* Bug fixes
+	* Documentation
+	  - Rewrote most of the EC documentation from scratch to be at least
+	    somewhat accurate and intelligible.
+	* Testing and proactive security
+
+4.1.0 - Stable release
 
 	* Portable changes
 	  - Added initial experimental support for loongarch64.

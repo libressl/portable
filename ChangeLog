@@ -37,7 +37,7 @@ LibreSSL Portable Release Notes:
 	    instances of undefined behavior.
 	  - Removed assembly implementations of AES using bit slicing (BS-AES)
 	    and vector permutation (VP-AES).
-	  - Removed OPENSSL_SMALL_FOOTPRINT and OPENSSL_FIPSAPI
+	  - Removed OPENSSL_SMALL_FOOTPRINT and OPENSSL_FIPSAPI.
 	* Compatibility changes
 	  - Removed the -msie_hack option from the openssl(1) ca subcommand.
 	* New features

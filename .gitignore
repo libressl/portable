@@ -238,8 +238,8 @@ include/openssl/*.h
 !/apps/openssl/certhash_win.c
 
 /crypto/*
-/crypto/arch/
 !/crypto/Makefile.am.*
+/crypto/arch/
 !/crypto/arch/mips/*
 !/crypto/arch/loongarch64/*
 !/crypto/compat/

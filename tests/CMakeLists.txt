@@ -620,13 +620,7 @@ add_platform_test(policy policy)
 # pq_test
 add_executable(pq_test pq_test.c)
 target_link_libraries(pq_test ${OPENSSL_TEST_LIBS})
-if(NOT WIN32)
-	add_test(NAME pq_test COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/pq_test.sh)
-else()
-	add_test(NAME pq_test COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/pq_test.bat
-		$<TARGET_FILE:pq_test>)
-endif()
-set_tests_properties(pq_test PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
+add_platform_test(pq_test pq_test)
 
 # quictest
 set(QUICTEST_SRC quictest.c)

@@ -656,11 +656,9 @@ EXTRA_DIST += policy_root2.pem
 EXTRA_DIST += policy_root_cross_inhibit_mapping.pem
 
 # pq_test
-TESTS += pq_test.sh
+TESTS += pq_test
 check_PROGRAMS += pq_test
 pq_test_SOURCES = pq_test.c
-EXTRA_DIST += pq_test.sh pq_test.bat
-EXTRA_DIST += pq_expected.txt
 
 # quictest
 TESTS += quictest.sh

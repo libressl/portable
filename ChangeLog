@@ -40,6 +40,8 @@ LibreSSL Portable Release Notes:
 	  - Removed OPENSSL_SMALL_FOOTPRINT and OPENSSL_FIPSAPI.
 	* Compatibility changes
 	  - Removed the -msie_hack option from the openssl(1) ca subcommand.
+	  - Removed parameters of the 239-bit prime curves from X9.62, H.5.2:
+	    prime239v1, prime239v2, prime239v3.
 	* New features
 	* Bug fixes
 	* Documentation

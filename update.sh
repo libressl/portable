@@ -376,7 +376,6 @@ done
 $CP $libssl_regress/unit/tests.h tests
 $CP $libssl_regress/certs/*.pem tests
 $CP $libssl_regress/certs/*.crl tests
-$CP $libssl_regress/pqueue/expected.txt tests/pq_expected.txt
 
 # copy libtls tests
 for i in `find $libtls_regress -name '*.c'`; do

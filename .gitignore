@@ -239,8 +239,9 @@ include/openssl/*.h
 
 /crypto/*
 !/crypto/Makefile.am.*
-!/crypto/arch/
+/crypto/arch/
 !/crypto/arch/mips/*
+!/crypto/arch/loongarch64/*
 !/crypto/compat/
 /crypto/compat/*
 !/crypto/compat/arc4random.h

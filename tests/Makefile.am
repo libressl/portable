@@ -917,11 +917,6 @@ TESTS += x509_name_test
 check_PROGRAMS += x509_name_test
 x509_name_test_SOURCES = x509_name_test.c
 
-# x509name
-TESTS += x509name
-check_PROGRAMS += x509name
-x509name_SOURCES = x509name.c
-
 # x509req_ext
 TESTS += x509req_ext
 check_PROGRAMS += x509req_ext

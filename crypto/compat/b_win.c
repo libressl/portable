@@ -8,7 +8,8 @@
 #include <ws2tcpip.h>
 
 #include <openssl/bio.h>
-#include <openssl/err.h>
+
+#include "err_local.h"
 
 int
 BIO_sock_init(void)

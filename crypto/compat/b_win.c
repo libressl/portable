@@ -8,7 +8,8 @@
 #include <ws2tcpip.h>
 
 #include <openssl/bio.h>
-#include <openssl/err.h>
+
+#include "err_local.h"
 
 int
 BIO_sock_init(void)
@@ -29,7 +30,7 @@ BIO_sock_init(void)
 		}
 		wsa_init_done = 1;
 	}
- 	return (1);
+	return (1);
 }
 
 void

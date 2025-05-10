@@ -30,7 +30,7 @@ BIO_sock_init(void)
 		}
 		wsa_init_done = 1;
 	}
- 	return (1);
+	return (1);
 }
 
 void

@@ -213,10 +213,14 @@ if HOST_AARCH64
 if HOST_DARWIN
 libcrypto_la_SOURCES += arch/aarch64/crypto_cpu_caps_apple.c
 else
+if HOST_LINUX
+libcrypto_la_SOURCES += arch/aarch64/crypto_cpu_caps_linux.c
+else
 if HOST_OPENBSD
 libcrypto_la_SOURCES += arch/aarch64/crypto_cpu_caps.c
 else
 libcrypto_la_SOURCES += arch/aarch64/crypto_cpu_caps_none.c
+endif
 endif
 endif
 endif

@@ -240,7 +240,8 @@ include/openssl/*.h
 /crypto/*.c
 /crypto/*.h
 /crypto/aes/
-/crypto/arch/aarch64/
+/crypto/arch/aarch64/crypto_arch.h
+/crypto/arch/aarch64/crypto_cpu_caps.c
 /crypto/arch/alpha/
 /crypto/arch/amd64/
 /crypto/arch/arm/

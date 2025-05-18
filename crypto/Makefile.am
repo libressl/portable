@@ -51,10 +51,8 @@ crypto_portable.sym: crypto.sym  Makefile
 	-echo "generating crypto_portable.sym ..."
 	-cp $(top_srcdir)/crypto/crypto.sym crypto_portable.sym
 	-chmod u+w crypto_portable.sym
-if HOST_WIN
 	-grep -v BIO_s_log crypto_portable.sym > crypto_portable.sym.tmp
 	-mv crypto_portable.sym.tmp crypto_portable.sym
-endif
 
 libcrypto_la_objects.mk: Makefile
 	@echo "libcrypto_la_objects= $(libcrypto_la_OBJECTS)" \
@@ -334,9 +332,6 @@ libcrypto_la_SOURCES += bio/bss_conn.c
 libcrypto_la_SOURCES += bio/bss_dgram.c
 libcrypto_la_SOURCES += bio/bss_fd.c
 libcrypto_la_SOURCES += bio/bss_file.c
-if !HOST_WIN
-libcrypto_la_SOURCES += bio/bss_log.c
-endif
 libcrypto_la_SOURCES += bio/bss_mem.c
 libcrypto_la_SOURCES += bio/bss_null.c
 libcrypto_la_SOURCES += bio/bss_sock.c

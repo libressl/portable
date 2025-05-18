@@ -210,6 +210,7 @@ gen_asm_stdout() {
 	EOF
 	if [ $1 = "masm" ]; then
 		fixup_masm crypto/$3.tmp crypto/$3
+		rm crypto/$3.tmp
 	else
 		$MV crypto/$3.tmp crypto/$3
 	fi
@@ -238,6 +239,7 @@ gen_asm() {
 	EOF
 	if [ $1 = "masm" ]; then
 		fixup_masm crypto/$3.tmp crypto/$3
+		rm crypto/$3.tmp
 	else
 		$MV crypto/$3.tmp crypto/$3
 	fi

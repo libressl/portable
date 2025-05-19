@@ -38,7 +38,7 @@ Makefile
 Makefile.in
 
 # CMake stuff
-build
+build*
 cmake-build-debug/
 
 # Libtool stuff
@@ -204,6 +204,7 @@ ssl/VERSION
 tls/VERSION
 libtls-standalone/VERSION
 
+crypto/*.mk
 ssl/hidden
 ssl/*.c
 ssl/*.h

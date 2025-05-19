@@ -211,7 +211,7 @@ endif
 
 if HOST_AARCH64
 if HOST_DARWIN
-libcrypto_la_SOURCES += arch/aarch64/crypto_cpu_caps_apple.c
+libcrypto_la_SOURCES += arch/aarch64/crypto_cpu_caps_darwin.c
 else
 if HOST_LINUX
 libcrypto_la_SOURCES += arch/aarch64/crypto_cpu_caps_linux.c

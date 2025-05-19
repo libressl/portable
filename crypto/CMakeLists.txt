@@ -147,7 +147,7 @@ endif()
 
 if(HOST_AARCH64)
 	if(APPLE)
-		set(CRYPTO_SRC ${CRYPTO_SRC} arch/aarch64/crypto_cpu_caps_apple.c)
+		set(CRYPTO_SRC ${CRYPTO_SRC} arch/aarch64/crypto_cpu_caps_darwin.c)
 	elseif(LINUX)
 		set(CRYPTO_SRC ${CRYPTO_SRC} arch/aarch64/crypto_cpu_caps_linux.c)
 	elseif(CMAKE_SYSTEM_NAME STREQUAL "OpenBSD")

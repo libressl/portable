@@ -89,7 +89,6 @@ libcrypto_la_LIBADD += libcompatnoopt.la
 endif
 libcrypto_la_CPPFLAGS = -I$(top_srcdir)/crypto/hidden ${AM_CPPFLAGS}
 libcrypto_la_CPPFLAGS += -DLIBRESSL_INTERNAL
-libcrypto_la_CPPFLAGS += -DOPENSSL_NO_HW_PADLOCK
 
 if OPENSSLDIR_DEFINED
 libcrypto_la_CPPFLAGS += -DOPENSSLDIR=\"@OPENSSLDIR@\"
@@ -200,20 +199,24 @@ include Makefile.am.arc4random
 libcrypto_la_SOURCES =
 EXTRA_libcrypto_la_SOURCES =
 
+include Makefile.am.darwin-x86_64
 include Makefile.am.elf-mips
 include Makefile.am.elf-mips64
 include Makefile.am.elf-x86_64
-include Makefile.am.macosx-x86_64
 include Makefile.am.masm-x86_64
 include Makefile.am.mingw64-x86_64
 
+if !HOST_ASM_ELF_AARCH64
 if !HOST_ASM_ELF_MIPS
 if !HOST_ASM_ELF_MIPS64
 if !HOST_ASM_ELF_X86_64
-if !HOST_ASM_MACOSX_X86_64
+if !HOST_ASM_DARWIN_AARCH64
+if !HOST_ASM_DARWIN_X86_64
 if !HOST_ASM_MASM_X86_64
 if !HOST_ASM_MINGW64_X86_64
 libcrypto_la_CPPFLAGS += -DOPENSSL_NO_ASM
+endif
+endif
 endif
 endif
 endif
@@ -224,12 +227,26 @@ endif
 if HOST_AARCH64
 if HOST_DARWIN
 libcrypto_la_SOURCES += arch/aarch64/crypto_cpu_caps_darwin.c
+#libcrypto_la_SOURCES += sha/sha256_aarch64_intrinsic.c
+libcrypto_la_SOURCES += sha/sha256_aarch64_ce.S
+libcrypto_la_SOURCES += sha/sha256_aarch64.c
+#libcrypto_la_SOURCES += sha/sha512_aarch64_intrinsic.c
+libcrypto_la_SOURCES += sha/sha512_aarch64_ce.S
+libcrypto_la_SOURCES += sha/sha512_aarch64.c
 else
 if HOST_LINUX
 libcrypto_la_SOURCES += arch/aarch64/crypto_cpu_caps_linux.c
+libcrypto_la_SOURCES += sha/sha256_aarch64_intrinsic.c
+libcrypto_la_SOURCES += sha/sha256_aarch64.c
+libcrypto_la_SOURCES += sha/sha512_aarch64_intrinsic.c
+libcrypto_la_SOURCES += sha/sha512_aarch64.c
 else
 if HOST_OPENBSD
 libcrypto_la_SOURCES += arch/aarch64/crypto_cpu_caps.c
+libcrypto_la_SOURCES += sha/sha256_aarch64_intrinsic.c
+libcrypto_la_SOURCES += sha/sha256_aarch64.c
+libcrypto_la_SOURCES += sha/sha512_aarch64_intrinsic.c
+libcrypto_la_SOURCES += sha/sha512_aarch64.c
 else
 libcrypto_la_SOURCES += arch/aarch64/crypto_cpu_caps_none.c
 endif
@@ -240,6 +257,7 @@ endif
 if HOST_X86_64
 libcrypto_la_SOURCES += arch/amd64/crypto_cpu_caps.c
 endif
+
 if HOST_I386
 libcrypto_la_SOURCES += arch/i386/crypto_cpu_caps.c
 endif

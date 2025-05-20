@@ -32,7 +32,7 @@ case $host_os in
 		;;
 	*darwin*)
 		HOST_OS=darwin
-		HOST_ABI=macosx
+		HOST_ABI=macho
 		#
 		# Don't use arc4random on systems before 10.12 because of
 		# weak seed on failure to open /dev/random, based on latest
@@ -105,6 +105,9 @@ char buf[1]; getentropy(buf, 1);
 		HOST_OS=linux
 		HOST_ABI=elf
 		CPPFLAGS="$CPPFLAGS -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
+		if test "$host_cpu" = "aarch64" ; then
+			CFLAGS="$CFLAGS -march=armv8-a+crc+crypto+sha3"
+		fi
 		;;
 	*midipix*)
 		HOST_OS=midipix

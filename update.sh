@@ -274,6 +274,12 @@ gen_asm_mips 64 sha sha1-mips   sha1-mips64
 gen_asm_mips 64 sha sha512-mips sha256-mips64
 gen_asm_mips 64 sha sha512-mips sha512-mips64
 
+echo copying aarch64 ASM sources
+$CP $libcrypto_src/sha/sha256_aarch64.c crypto/sha
+$CP $libcrypto_src/sha/sha256_aarch64_ce.S crypto/sha
+$CP $libcrypto_src/sha/sha512_aarch64.c crypto/sha
+$CP $libcrypto_src/sha/sha512_aarch64_ce.S crypto/sha
+
 for abi in elf macosx masm mingw64; do
 	echo generating x86_64 ASM source for $abi
 

@@ -261,6 +261,12 @@ gen_asm_mips 64 sha sha1-mips   sha1-mips64
 gen_asm_mips 64 sha sha512-mips sha256-mips64
 gen_asm_mips 64 sha sha512-mips sha512-mips64
 
+echo copying aarch64 ASM sources
+$CP $libcrypto_src/sha/sha256_aarch64.c crypto/sha
+$CP $libcrypto_src/sha/sha256_aarch64_ce.S crypto/sha
+$CP $libcrypto_src/sha/sha512_aarch64.c crypto/sha
+$CP $libcrypto_src/sha/sha512_aarch64_ce.S crypto/sha
+
 echo generating arm ASM source for elf
 gen_asm_stdout elf aes/asm/aes-armv4.pl        aes/aes-elf-armv4.S
 gen_asm_stdout elf bn/asm/armv4-mont.pl        bn/mont-elf-armv4.S

@@ -73,13 +73,14 @@ AC_ARG_ENABLE([tests],
        [enable_tests="yes"])
 AM_CONDITIONAL([ENABLE_TESTS], [test "x$enable_tests" = xyes])
 
+# Conditionally enable assembly by default
 AS_CASE([$host_cpu],
 	[arm64], [host_cpu=aarch64],
 	[*arm*], [host_cpu=arm],
 	[*amd64*], [host_cpu=x86_64 HOSTARCH=intel],
 	[i?86], [host_cpu=i386 HOSTARCH=intel enable_asm=no],
-	[mips64*], [host_cpu=mips64 enable_asm=no],
-	[mips*], [host_cpu=mips enable_asm=no],
+	[mips64*], [host_cpu=mips64],
+	[mips*], [host_cpu=mips],
 	[powerpc*], [host_cpu=powerpc],
 	[ppc64*], [host_cpu=powerpc64],
 	[x86_64], [HOSTARCH=intel]
@@ -111,23 +112,27 @@ int main() {return 0;}
 ])
 
 AC_ARG_ENABLE([asm], AS_HELP_STRING([--disable-asm], [Disable assembly]))
-AM_CONDITIONAL([OPENSSL_NO_ASM], [test "x$enable_asm" = "xno"])
 
-# Conditionally enable assembly by default
+AM_CONDITIONAL([HOST_ASM_DARWIN_AARCH64],
+    [test "$HOST_ABI" = "macho" -a "$host_cpu" = "aarch64" -a "x$enable_asm" != "xno"])
+AM_CONDITIONAL([HOST_ASM_DARWIN_X86_64],
+    [test "$HOST_ABI" = "macho" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
+AM_CONDITIONAL([HOST_ASM_ELF_AARCH64],
+    [test "$HOST_ABI" = "elf" -a "$host_cpu" = "aarch64" -a "x$enable_asm" != "xno"])
 AM_CONDITIONAL([HOST_ASM_ELF_ARM],
-    [test "x$HOST_ABI" = "xelf" -a "$host_cpu" = "arm" -a "x$enable_asm" != "xno"])
+    [test "$HOST_ABI" = "elf" -a "$host_cpu" = "arm" -a "x$enable_asm" != "xno"])
 AM_CONDITIONAL([HOST_ASM_ELF_MIPS],
-    [test "x$HOST_ABI" = "xelf" -a "$host_cpu" = "mips" -a "x$enable_asm" != "xno"])
+    [test "$HOST_ABI" = "elf" -a "$host_cpu" = "mips" -a "x$enable_asm" != "xno"])
 AM_CONDITIONAL([HOST_ASM_ELF_MIPS64],
-    [test "x$HOST_ABI" = "xelf" -a "$host_cpu" = "mips64" -a "x$enable_asm" != "xno"])
+    [test "$HOST_ABI" = "elf" -a "$host_cpu" = "mips64" -a "x$enable_asm" != "xno"])
 AM_CONDITIONAL([HOST_ASM_ELF_X86_64],
-    [test "x$HOST_ABI" = "xelf" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
-AM_CONDITIONAL([HOST_ASM_MACOSX_X86_64],
-    [test "x$HOST_ABI" = "xmacosx" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
+    [test "$HOST_ABI" = "elf" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
 AM_CONDITIONAL([HOST_ASM_MASM_X86_64],
-    [test "x$HOST_ABI" = "xmasm" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
+    [test "$HOST_ABI" = "masm" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
 AM_CONDITIONAL([HOST_ASM_MINGW64_X86_64],
-    [test "x$HOST_ABI" = "xmingw64" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
+    [test "$HOST_ABI" = "mingw64" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
+
+AM_CONDITIONAL([OPENSSL_NO_ASM], [test "x$enable_asm" = "xno"])
 
 AC_CONFIG_FILES([
 	Makefile

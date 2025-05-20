@@ -120,7 +120,6 @@ if(CMAKE_SYSTEM_NAME MATCHES "SunOS")
 endif()
 
 add_definitions(-DLIBRESSL_INTERNAL)
-add_definitions(-DOPENSSL_NO_HW_PADLOCK)
 add_definitions(-D__BEGIN_HIDDEN_DECLS=)
 add_definitions(-D__END_HIDDEN_DECLS=)
 

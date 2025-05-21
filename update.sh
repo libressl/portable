@@ -428,7 +428,11 @@ if [ -x /opt/freeware/bin/patch ]; then
     PATCH=/opt/freeware/bin/patch
 fi
 for i in patches/*.patch; do
-    $PATCH -p0 < $i
+    if [ $i = "patches/sha_aarch64_fixes.patch" ]; then
+        $PATCH -p1 < $i
+    else
+        $PATCH -p0 < $i
+    fi
 done
 
 # copy manpages

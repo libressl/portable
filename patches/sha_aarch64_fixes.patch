@@ -1,0 +1,263 @@
+commit ecff4570f5ce72b0cef665dc6b9326876e809f54
+Author: Brent Cook <busterb@gmail.com>
+Date:   Thu May 22 00:16:47 2025 +0900
+
+    wip
+
+--- a/crypto/arch/aarch64/crypto_arch.h
++++ b/crypto/arch/aarch64/crypto_arch.h
+@@ -15,14 +15,14 @@
+  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+  */
+ 
+-#include <stdint.h>
+-
+ #ifndef HEADER_CRYPTO_ARCH_H
+ #define HEADER_CRYPTO_ARCH_H
+ 
+ #define HAVE_CRYPTO_CPU_CAPS_INIT
+ 
+ #ifndef __ASSEMBLER__
++#include <stdint.h>
++
+ extern uint64_t crypto_cpu_caps_aarch64;
+ #endif
+ 
+@@ -33,6 +33,26 @@ extern uint64_t crypto_cpu_caps_aarch64;
+ #define CRYPTO_CPU_CAPS_AARCH64_SHA512	(1ULL << 4)
+ #define CRYPTO_CPU_CAPS_AARCH64_SHA3	(1ULL << 5)
+ 
++#if defined(__APPLE__)
++#define ASM_ENDL %%
++#define ASM_SYMBOL(NAME) _##NAME
++#define ASM_TYPE_FUNCTION(NAME)
++#define ASM_TYPE_OBJECT(NAME)
++#define ASM_PAGE(NAME) NAME@PAGE
++#define ASM_PAGEOFF(NAME) NAME@PAGEOFF
++#define ASM_SECTION_RODATA .data
++#define ASM_SIZE(NAME)
++#else
++#define ASM_ENDL ;
++#define ASM_SYMBOL(NAME) NAME
++#define ASM_TYPE_FUNCTION(NAME) .type NAME,@function
++#define ASM_TYPE_OBJECT(NAME) .type NAME,@object
++#define ASM_PAGE(NAME) NAME
++#define ASM_PAGEOFF(NAME) :lo12:NAME
++#define ASM_SECTION_RODATA .rodata
++#define ASM_SIZE(NAME) .size NAME,.-NAME
++#endif
++
+ #ifndef OPENSSL_NO_ASM
+ 
+ #define HAVE_SHA256_BLOCK_DATA_ORDER
+diff --git a/crypto/sha/sha256_aarch64_ce.S b/crypto/sha/sha256_aarch64_ce.S
+index 15726827e..fdc9aedaa 100644
+--- a/crypto/sha/sha256_aarch64_ce.S
++++ b/crypto/sha/sha256_aarch64_ce.S
+@@ -15,6 +15,8 @@
+  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+  */
+ 
++#include <crypto_arch.h>
++
+ /*
+  * SHA-256 implementation using the ARM Cryptographic Extension (CE).
+  *
+@@ -64,8 +66,8 @@
+  *   W0:W1:W2:W3 = sigma1(W14:W15:W0:W1) + W9:W10:W12:W13 + W0:W1:W2:W3
+  */
+ #define sha256_message_schedule_update(m0, m1, m2, m3) \
+-	sha256su0 m0.4s, m1.4s;						\
+-	sha256su1 m0.4s, m2.4s, m3.4s;
++	sha256su0 m0.4s, m1.4s				ASM_ENDL \
++	sha256su1 m0.4s, m2.4s, m3.4s
+ 
+ /*
+  * Compute four SHA-256 rounds by adding W0:W1:W2:W3 + K0:K1:K2:K3, then
+@@ -73,13 +75,13 @@
+  * sha256h/sha256h2.
+  */
+ #define sha256_round(h0, h1, w, k) \
+-	add	tmp0.4s, w.4s, k.4s;		/* Tt = Wt + Kt */	\
+-	mov	tmp1.4s, h0.4s;						\
+-	sha256h	h0, h1, tmp0.4s;					\
+-	sha256h2 h1, tmp1, tmp0.4s;
++	add	tmp0.4s, w.4s, k.4s	/* Tt = Wt + Kt */ ASM_ENDL \
++	mov	tmp1.4s, h0.4s	 			   ASM_ENDL \
++	sha256h	h0, h1, tmp0.4s 			   ASM_ENDL \
++	sha256h2 h1, tmp1, tmp0.4s
+ 
+ #define sha256_round_update(h0, h1, m0, m1, m2, m3, k) \
+-	sha256_message_schedule_update(m0, m1, m2, m3)			\
++	sha256_message_schedule_update(m0, m1, m2, m3)  ASM_ENDL \
+ 	sha256_round(h0, h1, m0, k)
+ 
+ .arch	armv8-a+sha2
+@@ -87,17 +89,17 @@
+ .text
+ 
+ /*
+- * void sha256_block_ce(SHA256_CTX *ctx, const void *in, size_t num);
++ * void sha256_block_ce(SHA256_CTX *ctx, const void *in, size_t num)
+  *
+  * Standard ARM ABI: x0 = ctx, x1 = in, x2 = num
+  */
+-.globl	sha256_block_ce
+-.type   sha256_block_ce,@function
+-sha256_block_ce:
++.globl	ASM_SYMBOL(sha256_block_ce)
++ASM_TYPE_FUNCTION(ASM_SYMBOL(sha256_block_ce))
++ASM_SYMBOL(sha256_block_ce):
+ 
+ 	/* Address of SHA-256 constants. */
+-	adrp	k256_base, K256
+-	add	k256_base, k256_base, :lo12:K256
++	adrp	k256_base, ASM_PAGE(K256)
++	add	k256_base, k256_base, ASM_PAGEOFF(K256)
+ 
+ 	/*
+ 	 * Load current hash state from context.
+@@ -109,8 +111,8 @@ block_loop:
+ 	mov	k256, k256_base
+ 
+ 	/* Copy current hash state. */
+-	mov	hs0.4s, hc0.4s
+-	mov	hs1.4s, hc1.4s
++	mov	hs0.16b, hc0.16b
++	mov	hs1.16b, hc1.16b
+ 
+ 	/* Load and byte swap message schedule. */
+ 	ld1	{w0.16b, w1.16b, w2.16b, w3.16b}, [in], #64
+@@ -166,9 +168,9 @@ block_loop:
+ /*
+  * SHA-256 constants - see FIPS 180-4 section 4.2.3.
+  */
+-.rodata
++ASM_SECTION_RODATA
+ .align	4
+-.type	K256,@object
++ASM_TYPE_OBJECT(K256)
+ K256:
+ .long	0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5
+ .long	0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5
+@@ -186,4 +188,4 @@ K256:
+ .long	0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3
+ .long	0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208
+ .long	0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+-.size	K256,.-K256
++ASM_SIZE(K256)
+diff --git a/crypto/sha/sha512_aarch64_ce.S b/crypto/sha/sha512_aarch64_ce.S
+index 89109a78b..7616ffc88 100644
+--- a/crypto/sha/sha512_aarch64_ce.S
++++ b/crypto/sha/sha512_aarch64_ce.S
+@@ -15,6 +15,8 @@
+  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+  */
+ 
++#include <crypto_arch.h>
++
+ /*
+  * SHA-512 implementation using the ARM Cryptographic Extension (CE).
+  *
+@@ -97,9 +99,9 @@
+  *   W0 = sigma1(W14) + W9 + sigma0(W1) + W0
+  */
+ #define sha512_message_schedule_update(m0, m1, m4, m5, m7) \
+-	sha512su0 m0.2d, m1.2d;			/* W0 += sigma0(W1) */	\
+-	ext	tmp2.16b, m4.16b, m5.16b, #8;	/* W9:W10 */		\
+-	sha512su1 m0.2d, m7.2d, tmp2.2d;	/* W0 += sigma1(W14) + W9 */
++	sha512su0 m0.2d, m1.2d			/* W0 += sigma0(W1) */  ASM_ENDL \
++	ext	tmp2.16b, m4.16b, m5.16b, 8	/* W9:W10 */            ASM_ENDL \
++	sha512su1 m0.2d, m7.2d, tmp2.2d	/* W0 += sigma1(W14) + W9 */    ASM_ENDL
+ 
+ /*
+  * Compute two SHA-512 rounds by adding W0:W1 + K0:K1, then computing T1 for two
+@@ -111,7 +113,7 @@
+  *
+  *   T1 = h + Sigma1(e) + Ch(e, f, g) + Kt + Wt
+  *   T2 = Sigma0(a) + Maj(a, b, c)
+- * 
++ *
+  *   h = g
+  *   g = f
+  *   f = e
+@@ -122,28 +124,28 @@
+  *   a = T1 + T2
+  *
+  * The inputs are:
+- * 
++ *
+  *   h0 = a:b
+  *   h1 = c:d
+  *   h2 = e:f
+  *   h3 = g:h
+  *
+  * Producing the following outputs:
+- * 
++ *
+  *   h4 = next a:b
+  *   h5 = next e:f
+  *
+  * These values are then rotated by the caller to perform the next two rounds.
+  */
+ #define sha512_round(h0, h1, h2, h3, h4, h5, w, k) \
+-	add	h4.2d, w.2d, k.2d;			/* W0:W1 += K0:K1 */	\
+-	ext	h4.16b, h4.16b, h4.16b, #8;		/* W1:W0 (swap) */	\
+-	add	h4.2d, h4.2d, h3.2d;			/* W1:W0 += g:h */	\
+-	ext	tmp0.16b, h2.16b, h3.16b, #8;		/* f:g */		\
+-	ext	tmp1.16b, h1.16b, h2.16b, #8;		/* d:e */		\
+-	sha512h	h4, tmp0, tmp1.2d;			/* T1 */		\
+-	add	h5.2d, h1.2d, h4.2d;			/* c:d + T1 */		\
+-	sha512h2 h4, h1, h0.2d;				/* T1 + T2 */
++	add	h4.2d, w.2d, k.2d			/* W0:W1 += K0:K1 */ ASM_ENDL \
++	ext	h4.16b, h4.16b, h4.16b, 8		/* W1:W0 (swap) */   ASM_ENDL \
++	add	h4.2d, h4.2d, h3.2d			/* W1:W0 += g:h */   ASM_ENDL \
++	ext	tmp0.16b, h2.16b, h3.16b, 8		/* f:g */            ASM_ENDL \
++	ext	tmp1.16b, h1.16b, h2.16b, 8		/* d:e */            ASM_ENDL \
++	sha512h	h4, tmp0, tmp1.2d			/* T1 */             ASM_ENDL \
++	add	h5.2d, h1.2d, h4.2d			/* c:d + T1 */       ASM_ENDL \
++	sha512h2 h4, h1, h0.2d				/* T1 + T2 */        ASM_ENDL
+ 
+ #define sha512_round_update(h0, h1, h2, h3, h4, h5, m0, m1, m2, m3, m4, k) \
+ 	sha512_message_schedule_update(m0, m1, m2, m3, m4) \
+@@ -158,8 +160,9 @@
+  *
+  * Standard ARM ABI: x0 = ctx, x1 = in, x2 = num
+  */
+-.globl	sha512_block_ce
+-sha512_block_ce:
++.globl	ASM_SYMBOL(sha512_block_ce)
++ASM_TYPE_FUNCTION(sha512_block_ce)
++ASM_SYMBOL(sha512_block_ce):
+ 
+ 	/* Save low 64 bits of v8 through v15 to the stack. */
+ 	sub	sp, sp, #32
+@@ -168,8 +171,8 @@ sha512_block_ce:
+ 	st4	{v12.d, v13.d, v14.d, v15.d}[0], [sp]
+ 
+ 	/* Address of SHA-512 constants. */
+-	adrp	k512_base, K512
+-	add	k512_base, k512_base, :lo12:K512
++	adrp	k512_base, ASM_PAGE(K512)
++	add	k512_base, k512_base, ASM_PAGEOFF(K512)
+ 
+ 	/*
+ 	 * Load current hash state from context.
+@@ -285,9 +288,9 @@ block_loop:
+ /*
+  * SHA-512 constants - see FIPS 180-4 section 4.2.3.
+  */
+-.rodata
++ASM_SECTION_RODATA
+ .align	4
+-.type	K512,@object
++ASM_TYPE_OBJECT(K512)
+ K512:
+ .quad	0x428a2f98d728ae22, 0x7137449123ef65cd, 0xb5c0fbcfec4d3b2f, 0xe9b5dba58189dbbc
+ .quad	0x3956c25bf348b538, 0x59f111f1b605d019, 0x923f82a4af194f9b, 0xab1c5ed5da6d8118
+@@ -309,4 +312,4 @@ K512:
+ .quad	0x06f067aa72176fba, 0x0a637dc5a2c898a6, 0x113f9804bef90dae, 0x1b710b35131c471b
+ .quad	0x28db77f523047d84, 0x32caab7b40c72493, 0x3c9ebe0a15c9bebc, 0x431d67c49c100d4c
+ .quad	0x4cc5d4becb3e42b6, 0x597f299cfc657e2a, 0x5fcb6fab3ad6faec, 0x6c44198c4a475817
+-.size	K512,.-K512
++ASM_SIZE(K512)

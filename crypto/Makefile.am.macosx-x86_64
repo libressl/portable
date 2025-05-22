@@ -1,7 +1,5 @@
 
 ASM_X86_64_MACOSX = aes/aes-macosx-x86_64.S
-ASM_X86_64_MACOSX += aes/bsaes-macosx-x86_64.S
-ASM_X86_64_MACOSX += aes/vpaes-macosx-x86_64.S
 ASM_X86_64_MACOSX += aes/aesni-macosx-x86_64.S
 ASM_X86_64_MACOSX += bn/modexp512-macosx-x86_64.S
 ASM_X86_64_MACOSX += bn/mont-macosx-x86_64.S

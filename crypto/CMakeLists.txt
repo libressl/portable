@@ -23,8 +23,6 @@ if(HOST_ASM_ELF_X86_64)
 	set(
 		ASM_X86_64_ELF_SRC
 		aes/aes-elf-x86_64.S
-		aes/bsaes-elf-x86_64.S
-		aes/vpaes-elf-x86_64.S
 		aes/aesni-elf-x86_64.S
 		bn/modexp512-elf-x86_64.S
 		bn/mont-elf-x86_64.S
@@ -60,8 +58,6 @@ if(HOST_ASM_MACOSX_X86_64)
 	set(
 		ASM_X86_64_MACOSX_SRC
 		aes/aes-macosx-x86_64.S
-		aes/bsaes-macosx-x86_64.S
-		aes/vpaes-macosx-x86_64.S
 		aes/aesni-macosx-x86_64.S
 		bn/modexp512-macosx-x86_64.S
 		bn/mont-macosx-x86_64.S
@@ -98,8 +94,6 @@ if(HOST_ASM_MASM_X86_64)
 	set(
 		ASM_X86_64_MASM_SRC
 		aes/aes-masm-x86_64.S
-		aes/bsaes-masm-x86_64.S
-		aes/vpaes-masm-x86_64.S
 		aes/aesni-masm-x86_64.S
 		#bn/modexp512-masm-x86_64.S
 		#bn/mont-masm-x86_64.S
@@ -124,8 +118,6 @@ if(HOST_ASM_MINGW64_X86_64)
 	set(
 		ASM_X86_64_MINGW64_SRC
 		aes/aes-mingw64-x86_64.S
-		aes/bsaes-mingw64-x86_64.S
-		aes/vpaes-mingw64-x86_64.S
 		aes/aesni-mingw64-x86_64.S
 		#bn/modexp512-mingw64-x86_64.S
 		#bn/mont-mingw64-x86_64.S

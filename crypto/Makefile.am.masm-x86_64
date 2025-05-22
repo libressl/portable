@@ -1,7 +1,5 @@
 
 ASM_X86_64_MASM = aes/aes-masm-x86_64.S
-ASM_X86_64_MASM += aes/bsaes-masm-x86_64.S
-ASM_X86_64_MASM += aes/vpaes-masm-x86_64.S
 ASM_X86_64_MASM += aes/aesni-masm-x86_64.S
 ASM_X86_64_MASM += bn/modexp512-masm-x86_64.S
 ASM_X86_64_MASM += bn/mont-masm-x86_64.S

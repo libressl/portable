@@ -276,8 +276,6 @@ for abi in elf macosx masm mingw64; do
 	echo generating x86_64 ASM source for $abi
 
 	gen_asm_stdout $abi aes/asm/aes-x86_64.pl        aes/aes-$abi-x86_64.S
-	gen_asm_stdout $abi aes/asm/vpaes-x86_64.pl      aes/vpaes-$abi-x86_64.S
-	gen_asm_stdout $abi aes/asm/bsaes-x86_64.pl      aes/bsaes-$abi-x86_64.S
 	gen_asm_stdout $abi aes/asm/aesni-x86_64.pl      aes/aesni-$abi-x86_64.S
 	gen_asm_stdout $abi bn/asm/modexp512-x86_64.pl   bn/modexp512-$abi-x86_64.S
 	gen_asm_stdout $abi bn/asm/x86_64-mont.pl        bn/mont-$abi-x86_64.S

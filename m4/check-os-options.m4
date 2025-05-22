@@ -105,8 +105,8 @@ char buf[1]; getentropy(buf, 1);
 		HOST_OS=linux
 		HOST_ABI=elf
 		CPPFLAGS="$CPPFLAGS -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
-		if [ "$host_cpu" = "aarch64" ]; then
-			CFLAGS="$CFLAGS -march=armv8-a+crc+crypto+sha3"
+		if test "$host_cpu" = "aarch64" ; then
+			CFLAGS="$CFLAGS -march=armv8-a+crc+crypto+sha2+sha3"
 		fi
 		;;
 	*midipix*)

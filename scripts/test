@@ -119,12 +119,12 @@ elif [ "$ARCH" = "arm32" -o "$ARCH" = "arm64" ]; then
 	sudo apt-get install -y qemu-user-static binfmt-support
 
 	if [ "$ARCH" = "arm32" ]; then
-		sudo apt-get install -y g++-arm-linux-gnueabihf
+		sudo apt-get install -y crossbuild-essential-armhf
 		sudo ln -sf /usr/arm-linux-gnueabihf/lib/ld-linux-armhf.so.3 /lib/
 		./configure --host=arm-linux-gnueabihf
 		LD_LIBRARY_PATH=/usr/arm-linux-gnueabihf/lib make -j 4 check
 	else
-		sudo apt-get install -y g++-aarch64-linux-gnu
+		sudo apt-get install -y crossbuild-essential-arm64
 		sudo ln -sf /usr/aarch64-linux-gnu/lib/ld-linux-aarch64.so.1 /lib/
 		./configure --host=aarch64-linux-gnu
 		LD_LIBRARY_PATH=/usr/aarch64-linux-gnu/lib make -j 4 check
@@ -151,12 +151,12 @@ elif [ "$ARCH" = "mips32" -o "$ARCH" = "mips64" ]; then
 	sudo apt-get install -y qemu-user-static binfmt-support
 
 	if [ "$ARCH" = "mips32" ]; then
-		sudo apt-get install -y g++-mips-linux-gnu
+		sudo apt-get install -y crossbuild-essential-mipsel
 		sudo ln -sf /usr/mipsel-linux-gnu/lib/ld.so.1 /lib/
 		./configure --host=mipsel-linux-gnu
 		LD_LIBRARY_PATH=/usr/mipsel-linux-gnu/lib make -j 4 check
 	else
-		sudo apt-get install -y g++-mips64el-linux-gnuabi64
+		sudo apt-get install -y crossbuild-essential-mips64el
 		sudo ln -sf /usr/mips64el-linux-gnuabi64/lib64/ld.so.1 /lib64
 		./configure --host=mips64el-linux-gnuabi64
 		LD_LIBRARY_PATH=/usr/mips64el-linux-gnuabi64/lib make -j 4 check

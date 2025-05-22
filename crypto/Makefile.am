@@ -227,25 +227,29 @@ endif
 if HOST_AARCH64
 if HOST_DARWIN
 libcrypto_la_SOURCES += arch/aarch64/crypto_cpu_caps_darwin.c
-#libcrypto_la_SOURCES += sha/sha256_aarch64_intrinsic.c
+libcrypto_la_SOURCES += sha/sha256_aarch64_intrinsic.c
 libcrypto_la_SOURCES += sha/sha256_aarch64_ce.S
-libcrypto_la_SOURCES += sha/sha256_aarch64.c
-#libcrypto_la_SOURCES += sha/sha512_aarch64_intrinsic.c
+libcrypto_la_SOURCES += sha/sha256_aarch64_test.c
+libcrypto_la_SOURCES += sha/sha512_aarch64_intrinsic.c
 libcrypto_la_SOURCES += sha/sha512_aarch64_ce.S
 libcrypto_la_SOURCES += sha/sha512_aarch64.c
 else
 if HOST_LINUX
 libcrypto_la_SOURCES += arch/aarch64/crypto_cpu_caps_linux.c
 libcrypto_la_SOURCES += sha/sha256_aarch64_intrinsic.c
+libcrypto_la_SOURCES += sha/sha256_aarch64_ce.S
 libcrypto_la_SOURCES += sha/sha256_aarch64.c
 libcrypto_la_SOURCES += sha/sha512_aarch64_intrinsic.c
+libcrypto_la_SOURCES += sha/sha512_aarch64_ce.S
 libcrypto_la_SOURCES += sha/sha512_aarch64.c
 else
 if HOST_OPENBSD
 libcrypto_la_SOURCES += arch/aarch64/crypto_cpu_caps.c
 libcrypto_la_SOURCES += sha/sha256_aarch64_intrinsic.c
+libcrypto_la_SOURCES += sha/sha256_aarch64_ce.S
 libcrypto_la_SOURCES += sha/sha256_aarch64.c
 libcrypto_la_SOURCES += sha/sha512_aarch64_intrinsic.c
+libcrypto_la_SOURCES += sha/sha512_aarch64_ce.S
 libcrypto_la_SOURCES += sha/sha512_aarch64.c
 else
 libcrypto_la_SOURCES += arch/aarch64/crypto_cpu_caps_none.c

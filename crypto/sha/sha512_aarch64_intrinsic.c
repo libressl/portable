@@ -62,7 +62,7 @@ static const uint64_t k512[] =
 #include <inttypes.h>
 
 void
-sha512_block_ce(SHA512_CTX *ctx, const void *in, size_t num)
+sha512_block_intrinsic(SHA512_CTX *ctx, const void *in, size_t num)
 {
 	uint64_t *state = (uint64_t *)ctx->h;
 	const uint8_t *data = in;

@@ -1,15 +1,7 @@
 #include <stdint.h>
 
-#if defined(__ARM_NEON) || defined(_MSC_VER) || defined(__GNUC__)
-# include <arm_neon.h>
-#endif
-
-/* GCC and LLVM Clang, but not Apple Clang */
-#if defined(__GNUC__) && !defined(__apple_build_version__)
-# if defined(__ARM_ACLE) || defined(__ARM_FEATURE_CRYPTO)
-#  include <arm_acle.h>
-# endif
-#endif
+#include <arm_neon.h>
+#include <arm_acle.h>
 
 #include <openssl/sha.h>
 

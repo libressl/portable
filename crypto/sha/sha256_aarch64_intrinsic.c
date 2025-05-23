@@ -26,15 +26,17 @@ static const uint32_t k256[] =
 };
 
 #define sha256_round(h0, h1, w, k) \
-		tmp0 = vaddq_u32(w, k); \
-		tmp1 = h0; \
+do { \
+		uint32x4_t tmp0 = vaddq_u32(w, k); \
+		uint32x4_t tmp1 = h0; \
 		h0 = vsha256hq_u32(h0, h1, tmp0); \
-		h1 = vsha256h2q_u32(h1, tmp1, tmp0);
+		h1 = vsha256h2q_u32(h1, tmp1, tmp0); \
+} while(0)
 
 #define sha256_round_update(h0, h1, m0, m1, m2, m3, k) \
 		m0 = vsha256su0q_u32(m0, m1); \
 		m0 = vsha256su1q_u32(m0, m2, m3); \
-		sha256_round(h0, h1, m0, k);
+		sha256_round(h0, h1, m0, k)
 
 void
 sha256_block_intrinsic(SHA256_CTX *ctx, const void *in, size_t num)
@@ -42,26 +44,19 @@ sha256_block_intrinsic(SHA256_CTX *ctx, const void *in, size_t num)
 	uint32_t *state = (uint32_t *)ctx->h;
 	const uint8_t *data = in;
 
-	uint32x4_t hs0, hs1, hc0, hc1;
-	uint32x4x4_t msg;
-	uint32x4_t tmp0, tmp1;
-
-	uint32x4x4_t k;
-
 	/* Load state */
-	hc0 = vld1q_u32(&state[0]);
-	hc1 = vld1q_u32(&state[4]);
+	uint32x4_t hc0 = vld1q_u32(&state[0]);
+	uint32x4_t hc1 = vld1q_u32(&state[4]);
+	volatile uint32x4x4_t k;
 
 	while (num >= 1)
 	{
-//		__builtin_debugtrap();
-
 		/* Copy current hash state. */
-		hs0 = hc0;
-		hs1 = hc1;
+		uint32x4_t hs0 = hc0;
+		uint32x4_t hs1 = hc1;
 
 		/* Load and byte swap message schedule */
-		msg = vld1q_u32_x4((const uint32_t *)data);
+		uint32x4x4_t msg = vld1q_u32_x4((const uint32_t *)data);
 		msg.val[0] = vreinterpretq_u32_u8(vrev32q_u8(vreinterpretq_u8_u32(msg.val[0])));
 		msg.val[1] = vreinterpretq_u32_u8(vrev32q_u8(vreinterpretq_u8_u32(msg.val[1])));
 		msg.val[2] = vreinterpretq_u32_u8(vrev32q_u8(vreinterpretq_u8_u32(msg.val[2])));
@@ -69,35 +64,31 @@ sha256_block_intrinsic(SHA256_CTX *ctx, const void *in, size_t num)
 
 		/* Rounds 0 through 15 (four rounds at a time). */
 		k = vld1q_u32_x4(k256);
-
-		sha256_round(hs0, hs1, msg.val[0], k.val[0])
-		sha256_round(hs0, hs1, msg.val[1], k.val[1])
-		sha256_round(hs0, hs1, msg.val[2], k.val[2])
-		sha256_round(hs0, hs1, msg.val[3], k.val[3])
+		sha256_round(hs0, hs1, msg.val[0], k.val[0]);
+		sha256_round(hs0, hs1, msg.val[1], k.val[1]);
+		sha256_round(hs0, hs1, msg.val[2], k.val[2]);
+		sha256_round(hs0, hs1, msg.val[3], k.val[3]);
 
 		/* Rounds 16 through 31 (four rounds at a time). */
 		k = vld1q_u32_x4(k256 + 16);
-
-		sha256_round_update(hs0, hs1, msg.val[0], msg.val[1], msg.val[2], msg.val[3], k.val[0])
-		sha256_round_update(hs0, hs1, msg.val[1], msg.val[2], msg.val[3], msg.val[0], k.val[1])
-		sha256_round_update(hs0, hs1, msg.val[2], msg.val[3], msg.val[0], msg.val[1], k.val[2])
-		sha256_round_update(hs0, hs1, msg.val[3], msg.val[0], msg.val[1], msg.val[2], k.val[3])
+		sha256_round_update(hs0, hs1, msg.val[0], msg.val[1], msg.val[2], msg.val[3], k.val[0]);
+		sha256_round_update(hs0, hs1, msg.val[1], msg.val[2], msg.val[3], msg.val[0], k.val[1]);
+		sha256_round_update(hs0, hs1, msg.val[2], msg.val[3], msg.val[0], msg.val[1], k.val[2]);
+		sha256_round_update(hs0, hs1, msg.val[3], msg.val[0], msg.val[1], msg.val[2], k.val[3]);
 
 		/* Rounds 32 through 47 (four rounds at a time). */
 		k = vld1q_u32_x4(k256 + 32);
-
-		sha256_round_update(hs0, hs1, msg.val[0], msg.val[1], msg.val[2], msg.val[3], k.val[0])
-		sha256_round_update(hs0, hs1, msg.val[1], msg.val[2], msg.val[3], msg.val[0], k.val[1])
-		sha256_round_update(hs0, hs1, msg.val[2], msg.val[3], msg.val[0], msg.val[1], k.val[2])
-		sha256_round_update(hs0, hs1, msg.val[3], msg.val[0], msg.val[1], msg.val[2], k.val[3])
+		sha256_round_update(hs0, hs1, msg.val[0], msg.val[1], msg.val[2], msg.val[3], k.val[0]);
+		sha256_round_update(hs0, hs1, msg.val[1], msg.val[2], msg.val[3], msg.val[0], k.val[1]);
+		sha256_round_update(hs0, hs1, msg.val[2], msg.val[3], msg.val[0], msg.val[1], k.val[2]);
+		sha256_round_update(hs0, hs1, msg.val[3], msg.val[0], msg.val[1], msg.val[2], k.val[3]);
 
 		/* Rounds 48 through 63 (four rounds at a time). */
 		k = vld1q_u32_x4(k256 + 48);
-
-		sha256_round_update(hs0, hs1, msg.val[0], msg.val[1], msg.val[2], msg.val[3], k.val[0])
-		sha256_round_update(hs0, hs1, msg.val[1], msg.val[2], msg.val[3], msg.val[0], k.val[1])
-		sha256_round_update(hs0, hs1, msg.val[2], msg.val[3], msg.val[0], msg.val[1], k.val[2])
-		sha256_round_update(hs0, hs1, msg.val[3], msg.val[0], msg.val[1], msg.val[2], k.val[3])
+		sha256_round_update(hs0, hs1, msg.val[0], msg.val[1], msg.val[2], msg.val[3], k.val[0]);
+		sha256_round_update(hs0, hs1, msg.val[1], msg.val[2], msg.val[3], msg.val[0], k.val[1]);
+		sha256_round_update(hs0, hs1, msg.val[2], msg.val[3], msg.val[0], msg.val[1], k.val[2]);
+		sha256_round_update(hs0, hs1, msg.val[3], msg.val[0], msg.val[1], msg.val[2], k.val[3]);
 
 		/* Add intermediate state to hash state. */
 		hc0 = vaddq_u32(hs0, hc0);

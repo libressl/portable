@@ -315,6 +315,7 @@ include/openssl/*.h
 /crypto/rsa/
 /crypto/sha/*
 !/crypto/sha/sha256_aarch64_test.c
+!/crypto/sha/sha512_aarch64_test.c
 /crypto/sm3/
 /crypto/sm4/
 /crypto/stack/

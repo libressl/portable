@@ -1,3 +1,21 @@
+/* $OpenBSD: $ */
+/*
+ * Copyright (c) 2023,2025 Joel Sing <jsing@openbsd.org>
+ * Copyright (c) 2025 Brent Cook <bcook@openbsd.org>
+ *
+ * Permission to use, copy, modify, and distribute this software for any
+ * purpose with or without fee is hereby granted, provided that the above
+ * copyright notice and this permission notice appear in all copies.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ * ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+ * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ */
+
 #include <stdint.h>
 
 #include <arm_neon.h>
@@ -5,6 +23,21 @@
 
 #include <openssl/sha.h>
 
+/*
+ * SHA-256 implementation using the ARM Cryptographic Extension (CE).
+ *
+ * There are four instructions that enable hardware acceleration of SHA-256,
+ * however the documentation for these is woefully inadequate:
+ *
+ *  sha256h:   hash update - part 1 (without a number to be inconsistent)
+ *  sha256h2:  hash update - part 2
+ *  sha256su0: message schedule update with sigma0 for four rounds
+ *  sha256su1: message schedule update with sigma1 for four rounds
+ */
+
+/*
+ * SHA-256 constants - see FIPS 180-4 section 4.2.3.
+ */
 static const uint32_t k256[] =
 {
 	0x428A2F98, 0x71374491, 0xB5C0FBCF, 0xE9B5DBA5,
@@ -25,6 +58,14 @@ static const uint32_t k256[] =
 	0x90BEFFFA, 0xA4506CEB, 0xBEF9A3F7, 0xC67178F2,
 };
 
+/*
+ * Update message schedule for m0 (W0:W1:W2:W3), using m1 (W4:W5:W6:W7),
+ * m2 (W8:W9:W10:11) and m3 (W12:W13:W14:W15). The sha256su0 instruction
+ * computes the sigma0 component of the message schedule update as:
+ *   W0:W1:W2:W3 = sigma0(W1:W2:W3:W4) + W0:W1:W2:W3
+ * while sha256su1 computes the sigma1 component and adds in W9 as:
+ *   W0:W1:W2:W3 = sigma1(W14:W15:W0:W1) + W9:W10:W12:W13 + W0:W1:W2:W3
+ */
 #define sha256_round(h0, h1, w, k) \
 do { \
 		uint32x4_t tmp0 = vaddq_u32(w, k); \
@@ -33,6 +74,11 @@ do { \
 		h1 = vsha256h2q_u32(h1, tmp1, tmp0); \
 } while(0)
 
+/*
+ * Compute four SHA-256 rounds by adding W0:W1:W2:W3 + K0:K1:K2:K3, then
+ * computing the remainder of each round (including the shuffle) via
+ * sha256h/sha256h2.
+ */
 #define sha256_round_update(h0, h1, m0, m1, m2, m3, k) \
 		m0 = vsha256su0q_u32(m0, m1); \
 		m0 = vsha256su1q_u32(m0, m2, m3); \

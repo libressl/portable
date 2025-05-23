@@ -33,9 +33,6 @@ static const uint64_t k512[] =
 };
 
 
-#include <stdio.h>
-#include <inttypes.h>
-
 void
 sha512_block_intrinsic(SHA512_CTX *ctx, const void *in, size_t num)
 {

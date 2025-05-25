@@ -114,8 +114,6 @@ AC_ARG_ENABLE([asm], AS_HELP_STRING([--disable-asm], [Disable assembly]))
 AM_CONDITIONAL([OPENSSL_NO_ASM], [test "x$enable_asm" = "xno"])
 
 # Conditionally enable assembly by default
-AM_CONDITIONAL([HOST_ASM_ELF_ARM],
-    [test "x$HOST_ABI" = "xelf" -a "$host_cpu" = "arm" -a "x$enable_asm" != "xno"])
 AM_CONDITIONAL([HOST_ASM_ELF_MIPS],
     [test "x$HOST_ABI" = "xelf" -a "$host_cpu" = "mips" -a "x$enable_asm" != "xno"])
 AM_CONDITIONAL([HOST_ASM_ELF_MIPS64],

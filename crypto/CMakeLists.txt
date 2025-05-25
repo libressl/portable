@@ -1,24 +1,5 @@
 add_definitions(-DLIBRESSL_CRYPTO_INTERNAL)
 
-if(HOST_ASM_ELF_ARMV4)
-	set(
-		ASM_ARMV4_ELF_SRC
-		aes/aes-elf-armv4.S
-		bn/mont-elf-armv4.S
-		sha/sha1-elf-armv4.S
-		sha/sha512-elf-armv4.S
-		sha/sha256-elf-armv4.S
-		modes/ghash-elf-armv4.S
-		armv4cpuid.S
-		armcap.c
-	)
-	add_definitions(-DAES_ASM)
-	add_definitions(-DOPENSSL_BN_ASM_MONT)
-	add_definitions(-DGHASH_ASM)
-	add_definitions(-DOPENSSL_CPUID_OBJ)
-	set(CRYPTO_SRC ${CRYPTO_SRC} ${ASM_ARMV4_ELF_SRC})
-endif()
-
 if(HOST_ASM_ELF_X86_64)
 	set(
 		ASM_X86_64_ELF_SRC

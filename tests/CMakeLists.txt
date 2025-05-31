@@ -539,9 +539,12 @@ prepare_emscripten_test_target(lhash_test)
 add_platform_test(lhash_test lhash_test)
 
 # md_test
-add_executable(md_test md_test.c ${TEST_HELPER_SRC})
-target_link_libraries(md_test ${OPENSSL_TEST_LIBS})
-add_platform_test(md_test md_test)
+# XXX - ftruncate and mkstemp missing from Windows
+if(NOT WIN32)
+	add_executable(md_test md_test.c ${TEST_HELPER_SRC})
+	target_link_libraries(md_test ${OPENSSL_TEST_LIBS})
+	add_platform_test(md_test md_test)
+endif()
 
 # mlkem_tests
 add_executable(mlkem_tests mlkem_tests.c mlkem_tests_util.c parse_test_file.c)
@@ -721,9 +724,12 @@ endif()
 set_tests_properties(servertest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 
 # sha_test
-add_executable(sha_test sha_test.c ${TEST_HELPER_SRC})
-target_link_libraries(sha_test ${OPENSSL_TEST_LIBS})
-add_platform_test(sha_test sha_test)
+# XXX - ftruncate and mkstemp missing from Windows
+if(NOT WIN32)
+	add_executable(sha_test sha_test.c ${TEST_HELPER_SRC})
+	target_link_libraries(sha_test ${OPENSSL_TEST_LIBS})
+	add_platform_test(sha_test sha_test)
+endif()
 
 # shutdowntest
 set(SHUTDOWNTEST_SRC shutdowntest.c)

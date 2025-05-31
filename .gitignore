@@ -133,6 +133,7 @@ tests/tls_ext_alpn*
 tests/tls_prf*
 tests/*test
 tests/tests.h
+tests/test.h
 tests/*test.c
 tests/pbkdf2*
 tests/*.pem
@@ -153,7 +154,7 @@ tests/x509req_ext*
 tests/client.c
 tests/init_pledge.c
 tests/server.c
-tests/util.c
+tests/*util.c
 tests/valid_handshakes_terminate*
 tests/handshake_table*
 

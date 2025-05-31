@@ -44,6 +44,6 @@
  
 +#include <openssl/opensslfeatures.h>
 +
+ #include <stddef.h>
  #include <stdint.h>
  
- struct test;

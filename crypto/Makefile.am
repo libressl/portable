@@ -565,13 +565,16 @@ libcrypto_la_SOURCES += ec/ec_asn1.c
 libcrypto_la_SOURCES += ec/ec_convert.c
 libcrypto_la_SOURCES += ec/ec_curve.c
 libcrypto_la_SOURCES += ec/ec_err.c
+libcrypto_la_SOURCES += ec/ec_field.c
 libcrypto_la_SOURCES += ec/ec_key.c
 libcrypto_la_SOURCES += ec/ec_lib.c
 libcrypto_la_SOURCES += ec/ec_mult.c
 libcrypto_la_SOURCES += ec/ec_pmeth.c
 libcrypto_la_SOURCES += ec/eck_prn.c
+libcrypto_la_SOURCES += ec/ecp_hp_methods.c
 libcrypto_la_SOURCES += ec/ecp_methods.c
 libcrypto_la_SOURCES += ec/ecx_methods.c
+noinst_HEADERS += ec/ec_internal.h
 noinst_HEADERS += ec/ec_local.h
 
 # ecdh

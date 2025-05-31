@@ -321,11 +321,13 @@ set(
 	ec/ec_convert.c
 	ec/ec_curve.c
 	ec/ec_err.c
+	ec/ec_field.c
 	ec/ec_key.c
 	ec/ec_lib.c
 	ec/ec_mult.c
 	ec/ec_pmeth.c
 	ec/eck_prn.c
+	ec/ecp_hp_methods.c
 	ec/ecp_methods.c
 	ec/ecx_methods.c
 	ecdh/ecdh.c

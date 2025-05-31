@@ -804,11 +804,7 @@ libcrypto_la_SOURCES += rand/rand_lib.c
 libcrypto_la_SOURCES += rand/randfile.c
 
 # rc2
-libcrypto_la_SOURCES += rc2/rc2_cbc.c
-libcrypto_la_SOURCES += rc2/rc2_ecb.c
-libcrypto_la_SOURCES += rc2/rc2_skey.c
-libcrypto_la_SOURCES += rc2/rc2cfb64.c
-libcrypto_la_SOURCES += rc2/rc2ofb64.c
+libcrypto_la_SOURCES += rc2/rc2.c
 noinst_HEADERS += rc2/rc2_local.h
 
 # rc4

@@ -38,19 +38,36 @@ LibreSSL Portable Release Notes:
 	  - Removed assembly implementations of AES using bit slicing (BS-AES)
 	    and vector permutation (VP-AES).
 	  - Removed OPENSSL_SMALL_FOOTPRINT and OPENSSL_FIPSAPI.
+	  - Lots of cleanup and removal of code with undefined behavior in
+	    the block cipher modes of operation implementations.
+	  - Implemented constant time EC field element operations to allow
+	    implementing elliptic curve operations without bignum arithmetic.
+	  - Implemented an EC method using homogeneous projective coordinates.
+	    This allows exception-free elliptic curve arithmetic in constant
+	    time.
+	  - Started cleaning up the openssl speed implementation.
+	  - The last SIGILL-based CPU capability detection was removed.
+	    Instead, capabilities are now detected using a constructor on
+	    library load, which improves the incomplete coverage by calls
+	    to OPENSSL_init_crypto() on various entry points.
 	* Compatibility changes
 	  - Removed the -msie_hack option from the openssl(1) ca subcommand.
 	  - Removed parameters of the 239-bit prime curves from X9.62, H.5.2:
 	    prime239v1, prime239v2, prime239v3.
 	  - Increased default MAC salt length used by PKCS12_set_mac(3) to 16 
 	    per recommendation of NIST SP 800-132.
+	  - Encrypted PKCS#8 key files now use a default password-based key
+	    derivation function that is acceptable in the present millenium.
 	  - Of the old *err() only PEMerr(), RSAerr(), and SSLerr() remain.
 	* New features
 	* Bug fixes
+	  - Avoid pointer arithmetic on NULL for memory BIOs.
 	* Documentation
 	  - Rewrote most of the EC documentation from scratch to be at least
 	    somewhat accurate and intelligible.
 	* Testing and proactive security
+	  - Added a testing framework that will help deduplicating lots of
+	    ad-hoc code in the regression tests.
 
 4.1.0 - Stable release
 

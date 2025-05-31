@@ -69,10 +69,6 @@ if HOST_X86_64
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/arch/amd64/
 endif
 
-# XXX - should probably be in their own static lib
-TEST_HELPER_SRC = test.c test_util.c
-noinst_HEADER = test.h
-
 noinst_LTLIBRARIES = libtest.la
 libtest_la_LIBADD = $(libcrypto_la_objects)
 libtest_la_LIBADD += $(libcompat_la_objects)
@@ -90,6 +86,11 @@ XFAIL_TESTS =
 check_PROGRAMS =
 EXTRA_DIST = CMakeLists.txt
 DISTCLEANFILES = pidwraptest.txt
+
+# XXX - should probably be in their own static lib
+TEST_HELPER_SRC = test.c test_util.c
+noinst_HEADERS = test.h
+EXTRA_DIST += $(TEST_HELPER_SRC)
 
 # aeadtest
 TESTS += aeadtest.sh

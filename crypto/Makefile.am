@@ -247,7 +247,6 @@ noinst_HEADERS += x86_arch.h
 # aes
 libcrypto_la_SOURCES += aes/aes.c
 libcrypto_la_SOURCES += aes/aes_core.c
-libcrypto_la_SOURCES += aes/aes_ige.c
 noinst_HEADERS += aes/aes_local.h
 
 # asn1

@@ -146,7 +146,6 @@ set(
 	crypto_memory.c
 	aes/aes.c
 	aes/aes_core.c
-	aes/aes_ige.c
 	asn1/a_bitstr.c
 	asn1/a_enum.c
 	asn1/a_int.c

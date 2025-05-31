@@ -227,6 +227,7 @@ set(
 	bio/bss_null.c
 	bio/bss_sock.c
 	bn/bn_add.c
+	bn/bn_add_sub.c
 	bn/bn_bpsw.c
 	bn/bn_const.c
 	bn/bn_convert.c

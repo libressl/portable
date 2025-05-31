@@ -347,6 +347,7 @@ noinst_HEADERS += bio/bio_local.h
 
 # bn
 libcrypto_la_SOURCES += bn/bn_add.c
+libcrypto_la_SOURCES += bn/bn_add_sub.c
 libcrypto_la_SOURCES += bn/bn_bpsw.c
 libcrypto_la_SOURCES += bn/bn_const.c
 libcrypto_la_SOURCES += bn/bn_convert.c

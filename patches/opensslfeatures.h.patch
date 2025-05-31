@@ -36,3 +36,14 @@
  #include "bytestring.h"
  
  #if defined(__cplusplus)
+--- tests/test.h.orig	Sat May 31 04:48:09 2025
++++ tests/test.h	Sat May 31 04:48:31 2025
+@@ -18,6 +18,8 @@
+ #ifndef HEADER_TEST_H
+ #define HEADER_TEST_H
+ 
++#include <openssl/opensslfeatures.h>
++
+ #include <stdint.h>
+ 
+ struct test;

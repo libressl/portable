@@ -83,8 +83,6 @@ if [ -x /opt/csw/bin/ggrep ]; then
 	GREP='/opt/csw/bin/ggrep'
 fi
 
-$CP $libssl_src/LICENSE COPYING
-
 $CP $libcrypto_src/opensslfeatures.h include/openssl
 $CP $libssl_src/pqueue.h include
 

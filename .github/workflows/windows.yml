@@ -21,14 +21,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["windows-2022", "windows-2019"]
+        os: ["windows-2022", "windows-2025"]
         arch: ["ARM64", "x64", "Win32"]
         shared: ["ON", "OFF"]
         include:
           - os: "windows-2022"
             generator: "Visual Studio 17 2022"
-          - os: "windows-2019"
-            generator: "Visual Studio 16 2019"
+          - os: "windows-2025"
+            # XXX - use appropriate value
+            generator: "Visual Studio 17 2022"
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v4

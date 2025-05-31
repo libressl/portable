@@ -65,6 +65,9 @@ function(add_platform_test TEST_NAME)
 	endif()
 endfunction()
 
+# XXX - should probably be in their own static lib
+set(TEST_HELPER_SRC test.c test_util.c)
+
 # aeadtest
 add_executable(aeadtest aeadtest.c)
 target_link_libraries(aeadtest ${OPENSSL_TEST_LIBS})
@@ -536,7 +539,7 @@ prepare_emscripten_test_target(lhash_test)
 add_platform_test(lhash_test lhash_test)
 
 # md_test
-add_executable(md_test md_test.c)
+add_executable(md_test md_test.c ${TEST_HELPER_SRC})
 target_link_libraries(md_test ${OPENSSL_TEST_LIBS})
 add_platform_test(md_test md_test)
 
@@ -718,7 +721,7 @@ endif()
 set_tests_properties(servertest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 
 # sha_test
-add_executable(sha_test sha_test.c)
+add_executable(sha_test sha_test.c ${TEST_HELPER_SRC})
 target_link_libraries(sha_test ${OPENSSL_TEST_LIBS})
 add_platform_test(sha_test sha_test)
 

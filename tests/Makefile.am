@@ -68,6 +68,10 @@ if HOST_X86_64
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/arch/amd64/
 endif
 
+# XXX - should probably be in their own static lib
+TEST_HELPER_SRC = test.c test_util.c
+noinst_HEADER = test.h
+
 noinst_LTLIBRARIES = libtest.la
 libtest_la_LIBADD = $(libcrypto_la_objects)
 libtest_la_LIBADD += $(libcompat_la_objects)
@@ -548,7 +552,7 @@ lhash_test_SOURCES = lhash_test.c
 # md_test
 TESTS += md_test
 check_PROGRAMS += md_test
-md_test_SOURCES = md_test.c
+md_test_SOURCES = md_test.c $(TEST_HELPER_SRC)
 
 noinst_HEADERS += mlkem_tests_util.h
 noinst_HEADERS += parse_test_file.h
@@ -745,7 +749,7 @@ EXTRA_DIST += servertest.sh servertest.bat
 # sha_test
 TESTS += sha_test
 check_PROGRAMS += sha_test
-sha_test_SOURCES = sha_test.c
+sha_test_SOURCES = sha_test.c $(TEST_HELPER_SRC)
 
 # shutdowntest
 TESTS += shutdowntest.sh

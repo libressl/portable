@@ -241,6 +241,7 @@ set(
 	bn/bn_lib.c
 	bn/bn_mod.c
 	bn/bn_mod_sqrt.c
+	bn/bn_mod_words.c
 	bn/bn_mont.c
 	bn/bn_mul.c
 	bn/bn_prime.c

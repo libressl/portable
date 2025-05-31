@@ -344,7 +344,7 @@ chachatest_SOURCES = chachatest.c
 TESTS += cipher_list
 check_PROGRAMS += cipher_list
 cipher_list_SOURCES = cipher_list.c
-noinst_HEADERS = tests.h
+noinst_HEADERS += tests.h
 
 # cipherstest
 TESTS += cipherstest

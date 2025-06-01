@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2015 Brent Cook
+# Copyright (c) 2014 Brent Cook
 #
 # Permission to use, copy, modify, and distribute this software for any
 # purpose with or without fee is hereby granted, provided that the above

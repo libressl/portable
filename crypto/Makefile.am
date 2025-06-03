@@ -56,13 +56,13 @@ crypto_portable.sym: crypto.sym  Makefile
 
 libcrypto_la_objects.mk: Makefile
 	@echo "libcrypto_la_objects= $(libcrypto_la_OBJECTS)" \
-	  | sed 's/  */ $$\(top_srcdir\)\/crypto\//g' \
+	  | sed 's/  */ $$\(top_builddir\)\/crypto\//g' \
 	  > libcrypto_la_objects.mk
 	@echo "libcompat_la_objects= $(libcompat_la_OBJECTS)" \
-	  | sed 's/compat\// $$\(top_srcdir\)\/crypto\/&/g' \
+	  | sed 's/compat\// $$\(top_builddir\)\/crypto\/&/g' \
 	  >> libcrypto_la_objects.mk
 	@echo "libcompatnoopt_la_objects= $(libcompatnoopt_la_OBJECTS)" \
-	  | sed 's/compat\// $$\(top_srcdir\)\/crypto\/&/g' \
+	  | sed 's/compat\// $$\(top_builddir\)\/crypto\/&/g' \
 	  >> libcrypto_la_objects.mk
 
 libcrypto_la_LDFLAGS = -version-info @LIBCRYPTO_VERSION@ -no-undefined -export-symbols crypto_portable.sym

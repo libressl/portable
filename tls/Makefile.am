@@ -16,7 +16,7 @@ EXTRA_libtls_la_DEPENDENCIES = libtls_la_objects.mk
 
 libtls_la_objects.mk: Makefile
 	@echo "libtls_la_objects= $(libtls_la_OBJECTS)" \
-	  | sed -e 's/ *$$//' -e 's/  */ $$\(top_srcdir\)\/tls\//g' \
+	  | sed -e 's/ *$$//' -e 's/  */ $$\(top_builddir\)\/tls\//g' \
 	  > libtls_la_objects.mk
 
 libtls_la_LDFLAGS = -version-info @LIBTLS_VERSION@ -no-undefined -export-symbols $(top_srcdir)/tls/tls.sym

@@ -41,7 +41,7 @@ EXTRA_libssl_la_DEPENDENCIES = libssl_la_objects.mk
 
 libssl_la_objects.mk: Makefile
 	@echo "libssl_la_objects= $(libssl_la_OBJECTS)" \
-	  | sed 's/  */ $$\(abs_top_builddir\)\/ssl\//g' \
+	  | sed 's/  */ $$\(top_builddir\)\/ssl\//g' \
 	  > libssl_la_objects.mk
 
 .PHONY: remove_bs_objects

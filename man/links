@@ -1174,11 +1174,6 @@ MD5.3,MD5_Update.3
 NAME_CONSTRAINTS_new.3,GENERAL_SUBTREE_free.3
 NAME_CONSTRAINTS_new.3,GENERAL_SUBTREE_new.3
 NAME_CONSTRAINTS_new.3,NAME_CONSTRAINTS_free.3
-OBJ_NAME_add.3,OBJ_NAME_cleanup.3
-OBJ_NAME_add.3,OBJ_NAME_get.3
-OBJ_NAME_add.3,OBJ_NAME_init.3
-OBJ_NAME_add.3,OBJ_NAME_new_index.3
-OBJ_NAME_add.3,OBJ_NAME_remove.3
 OBJ_create.3,OBJ_add_object.3
 OBJ_create.3,OBJ_cleanup.3
 OBJ_create.3,OBJ_create_objects.3
@@ -1263,7 +1258,6 @@ OPENSSL_VERSION_NUMBER.3,SSLeay.3
 OPENSSL_VERSION_NUMBER.3,SSLeay_version.3
 OPENSSL_config.3,OPENSSL_no_config.3
 OPENSSL_init_crypto.3,OPENSSL_init.3
-OPENSSL_load_builtin_modules.3,ASN1_add_oid_module.3
 OPENSSL_malloc.3,CRYPTO_free.3
 OPENSSL_malloc.3,CRYPTO_malloc.3
 OPENSSL_malloc.3,CRYPTO_strdup.3

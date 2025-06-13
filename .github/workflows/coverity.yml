@@ -31,7 +31,7 @@ jobs:
           PROJECT: "libressl-portable%2Fportable"
           COVERITY_SCAN_TOKEN: "${{ secrets.COVERITY_SCAN_TOKEN }}"
         run: |
-          wget -c -N https://scan.coverity.com/download/linux64 --post-data "token=$COVERITY_SCAN_TOKEN&project=$PROJECT" -O coverity_tool.tar.gz
+          wget -nv https://scan.coverity.com/download/linux64 --post-data "token=$COVERITY_SCAN_TOKEN&project=$PROJECT" -O coverity_tool.tar.gz
           mkdir coverity_tool
           tar xzf coverity_tool.tar.gz --strip 1 -C coverity_tool
 

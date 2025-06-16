@@ -147,8 +147,10 @@ if(HOST_AARCH64)
 	endif()
 elseif(HOST_X86_64)
 	set(CRYPTO_SRC ${CRYPTO_SRC} arch/amd64/crypto_cpu_caps.c)
+	set(CRYPTO_SRC ${CRYPTO_SRC} aes/aes_amd64.c)
 elseif(HOST_I386)
 	set(CRYPTO_SRC ${CRYPTO_SRC} arch/i386/crypto_cpu_caps.c)
+	set(CRYPTO_SRC ${CRYPTO_SRC} aes/aes_i386.c)
 endif()
 
 set(

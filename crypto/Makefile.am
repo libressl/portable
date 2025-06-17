@@ -239,11 +239,9 @@ endif
 
 if HOST_X86_64
 libcrypto_la_SOURCES += arch/amd64/crypto_cpu_caps.c
-libcrypto_la_SOURCES += aes/aes_amd64.c
 endif
 if HOST_I386
 libcrypto_la_SOURCES += arch/i386/crypto_cpu_caps.c
-libcrypto_la_SOURCES += aes/aes_i386.c
 endif
 
 libcrypto_la_SOURCES += crypto_err.c

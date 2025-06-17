@@ -18,11 +18,13 @@ ASM_X86_64_ELF += bn/arch/amd64/bignum_sqr_4_8_alt.S
 ASM_X86_64_ELF += bn/arch/amd64/bignum_sqr_8_16_alt.S
 ASM_X86_64_ELF += bn/arch/amd64/bignum_sub.S
 ASM_X86_64_ELF += bn/arch/amd64/word_clz.S
-ASM_X86_64_ELF += bn/arch/amd64/bn_arch.c
 
 EXTRA_DIST += $(ASM_X86_64_ELF)
 
 if HOST_ASM_ELF_X86_64
+libcrypto_la_SOURCES += aes/aes_amd64.c
+libcrypto_la_SOURCES += bn/arch/amd64/bn_arch.c
+
 libcrypto_la_CPPFLAGS += -DAES_ASM
 libcrypto_la_CPPFLAGS += -DBSAES_ASM
 libcrypto_la_CPPFLAGS += -DVPAES_ASM

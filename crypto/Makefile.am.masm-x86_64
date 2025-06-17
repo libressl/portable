@@ -10,6 +10,8 @@ ASM_X86_64_MASM += rc4/rc4-masm-x86_64.S
 EXTRA_DIST += $(ASM_X86_64_MASM)
 
 if HOST_ASM_MASM_X86_64
+libcrypto_la_SOURCES += aes/aes_amd64.c
+
 libcrypto_la_CPPFLAGS += -DAES_ASM
 libcrypto_la_CPPFLAGS += -DBSAES_ASM
 libcrypto_la_CPPFLAGS += -DVPAES_ASM

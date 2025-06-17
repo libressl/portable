@@ -16,6 +16,9 @@
 add_definitions(-DLIBRESSL_CRYPTO_INTERNAL)
 
 if(HOST_ASM_ELF_X86_64)
+	set(CRYPTO_SRC ${CRYPTO_SRC} aes/aes_amd64.c)
+	set(CRYPTO_SRC ${CRYPTO_SRC} bn/arch/amd64/bn_arch.c)
+
 	set(
 		ASM_X86_64_ELF_SRC
 		aes/aes-elf-x86_64.S
@@ -37,7 +40,6 @@ if(HOST_ASM_ELF_X86_64)
 		bn/arch/amd64/bignum_sqr_8_16_alt.S
 		bn/arch/amd64/bignum_sub.S
 		bn/arch/amd64/word_clz.S
-		bn/arch/amd64/bn_arch.c
 	)
 	add_definitions(-DAES_ASM)
 	add_definitions(-DBSAES_ASM)
@@ -51,6 +53,9 @@ if(HOST_ASM_ELF_X86_64)
 endif()
 
 if(HOST_ASM_MACOSX_X86_64)
+	set(CRYPTO_SRC ${CRYPTO_SRC} aes/aes_amd64.c)
+	set(CRYPTO_SRC ${CRYPTO_SRC} bn/arch/amd64/bn_arch.c)
+
 	set(
 		ASM_X86_64_MACOSX_SRC
 		aes/aes-macosx-x86_64.S
@@ -72,7 +77,6 @@ if(HOST_ASM_MACOSX_X86_64)
 		bn/arch/amd64/bignum_sqr_8_16_alt.S
 		bn/arch/amd64/bignum_sub.S
 		bn/arch/amd64/word_clz.S
-		bn/arch/amd64/bn_arch.c
 	)
 	add_definitions(-DAES_ASM)
 	add_definitions(-DBSAES_ASM)
@@ -87,6 +91,8 @@ if(HOST_ASM_MACOSX_X86_64)
 endif()
 
 if(HOST_ASM_MASM_X86_64)
+	set(CRYPTO_SRC ${CRYPTO_SRC} aes/aes_amd64.c)
+
 	set(
 		ASM_X86_64_MASM_SRC
 		aes/aes-masm-x86_64.S
@@ -111,6 +117,8 @@ if(HOST_ASM_MASM_X86_64)
 endif()
 
 if(HOST_ASM_MINGW64_X86_64)
+	set(CRYPTO_SRC ${CRYPTO_SRC} aes/aes_amd64.c)
+
 	set(
 		ASM_X86_64_MINGW64_SRC
 		aes/aes-mingw64-x86_64.S
@@ -147,10 +155,8 @@ if(HOST_AARCH64)
 	endif()
 elseif(HOST_X86_64)
 	set(CRYPTO_SRC ${CRYPTO_SRC} arch/amd64/crypto_cpu_caps.c)
-	set(CRYPTO_SRC ${CRYPTO_SRC} aes/aes_amd64.c)
 elseif(HOST_I386)
 	set(CRYPTO_SRC ${CRYPTO_SRC} arch/i386/crypto_cpu_caps.c)
-	set(CRYPTO_SRC ${CRYPTO_SRC} aes/aes_i386.c)
 endif()
 
 set(

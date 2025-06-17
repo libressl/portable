@@ -179,6 +179,10 @@ for i in `awk '/SOURCES|HEADERS/ { print $3 }' crypto/Makefile.am` ; do
 	fi
 done
 
+for arch in amd64 i386; do
+	$CP $libcrypto_src/aes/aes_${arch}.c crypto/aes/
+done
+
 for i in $libcrypto_src/arch/*; do
 	arch=`basename $i`
 	mkdir -p include/arch/$arch

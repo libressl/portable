@@ -19,7 +19,9 @@
 #include <stdint.h>
 
 #include <arm_neon.h>
+#ifndef _WIN32
 #include <arm_acle.h>
+#endif
 
 #include <openssl/sha.h>
 

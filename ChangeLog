@@ -37,6 +37,7 @@ LibreSSL Portable Release Notes:
 	    instances of undefined behavior.
 	  - Removed assembly implementations of AES using bit slicing (BS-AES)
 	    and vector permutation (VP-AES).
+	  - Integrated AES-NI into the AES API.
 	  - Removed OPENSSL_SMALL_FOOTPRINT and OPENSSL_FIPSAPI.
 	  - Lots of cleanup and removal of code with undefined behavior in
 	    the block cipher modes of operation implementations.
@@ -60,6 +61,7 @@ LibreSSL Portable Release Notes:
 	    derivation function that is acceptable in the present millenium.
 	  - Of the old *err() only PEMerr(), RSAerr(), and SSLerr() remain.
 	* New features
+	  - Allow specifying ALPN in nc(1) via -Talpn="http/1.1,http:/1.0".
 	* Bug fixes
 	  - Avoid pointer arithmetic on NULL for memory BIOs.
 	* Documentation

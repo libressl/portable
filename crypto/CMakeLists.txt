@@ -741,6 +741,7 @@ add_library(crypto_obj OBJECT ${CRYPTO_SRC})
 target_include_directories(crypto_obj
 	PRIVATE
 		.
+		aes
 		asn1
 		bio
 		bn

@@ -16,6 +16,7 @@
 include $(top_srcdir)/Makefile.am.common
 
 AM_CPPFLAGS += -DLIBRESSL_CRYPTO_INTERNAL
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/aes
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/asn1
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/bio
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/bn

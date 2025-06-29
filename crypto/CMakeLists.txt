@@ -18,6 +18,7 @@ add_definitions(-DLIBRESSL_CRYPTO_INTERNAL)
 if(HOST_ASM_ELF_X86_64)
 	set(CRYPTO_SRC ${CRYPTO_SRC} aes/aes_amd64.c)
 	set(CRYPTO_SRC ${CRYPTO_SRC} bn/arch/amd64/bn_arch.c)
+	set(CRYPTO_SRC ${CRYPTO_SRC} modes/gcm128_amd64.c)
 
 	set(
 		ASM_X86_64_ELF_SRC
@@ -55,6 +56,7 @@ endif()
 if(HOST_ASM_MACOSX_X86_64)
 	set(CRYPTO_SRC ${CRYPTO_SRC} aes/aes_amd64.c)
 	set(CRYPTO_SRC ${CRYPTO_SRC} bn/arch/amd64/bn_arch.c)
+	set(CRYPTO_SRC ${CRYPTO_SRC} modes/gcm128_amd64.c)
 
 	set(
 		ASM_X86_64_MACOSX_SRC
@@ -92,6 +94,7 @@ endif()
 
 if(HOST_ASM_MASM_X86_64)
 	set(CRYPTO_SRC ${CRYPTO_SRC} aes/aes_amd64.c)
+	set(CRYPTO_SRC ${CRYPTO_SRC} modes/gcm128_amd64.c)
 
 	set(
 		ASM_X86_64_MASM_SRC
@@ -118,6 +121,7 @@ endif()
 
 if(HOST_ASM_MINGW64_X86_64)
 	set(CRYPTO_SRC ${CRYPTO_SRC} aes/aes_amd64.c)
+	set(CRYPTO_SRC ${CRYPTO_SRC} modes/gcm128_amd64.c)
 
 	set(
 		ASM_X86_64_MINGW64_SRC

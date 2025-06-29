@@ -181,6 +181,7 @@ done
 
 for arch in amd64 i386; do
 	$CP $libcrypto_src/aes/aes_${arch}.c crypto/aes/
+	$CP $libcrypto_src/modes/gcm128_${arch}.c crypto/modes/
 done
 
 for i in $libcrypto_src/arch/*; do

@@ -11,6 +11,7 @@ EXTRA_DIST += $(ASM_X86_64_MINGW64)
 
 if HOST_ASM_MINGW64_X86_64
 libcrypto_la_SOURCES += aes/aes_amd64.c
+libcrypto_la_SOURCES += modes/gcm128_amd64.c
 
 libcrypto_la_CPPFLAGS += -Dendbr32=endbr64
 libcrypto_la_CPPFLAGS += -DAES_ASM

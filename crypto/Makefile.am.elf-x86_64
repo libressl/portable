@@ -24,6 +24,7 @@ EXTRA_DIST += $(ASM_X86_64_ELF)
 if HOST_ASM_ELF_X86_64
 libcrypto_la_SOURCES += aes/aes_amd64.c
 libcrypto_la_SOURCES += bn/arch/amd64/bn_arch.c
+libcrypto_la_SOURCES += modes/gcm128_amd64.c
 
 libcrypto_la_CPPFLAGS += -DAES_ASM
 libcrypto_la_CPPFLAGS += -DBSAES_ASM

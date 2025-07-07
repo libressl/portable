@@ -67,6 +67,7 @@ noinst_HEADERS += arch/amd64/opensslconf.h
 noinst_HEADERS += arch/arm/opensslconf.h
 noinst_HEADERS += arch/hppa/opensslconf.h
 noinst_HEADERS += arch/i386/opensslconf.h
+noinst_HEADERS += arch/loongarch64/opensslconf.h
 noinst_HEADERS += arch/m88k/opensslconf.h
 noinst_HEADERS += arch/mips/opensslconf.h
 noinst_HEADERS += arch/mips64/opensslconf.h

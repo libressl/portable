@@ -143,7 +143,7 @@ add_definitions(-D__END_HIDDEN_DECLS=)
 set(CMAKE_POSITION_INDEPENDENT_CODE true)
 
 if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID MATCHES "Clang")
-	add_compile_options(-Wno-pointer-sign)
+	add_compile_options($<$<COMPILE_LANGUAGE:C>:-Wno-pointer-sign>)
 endif()
 
 if(WIN32)

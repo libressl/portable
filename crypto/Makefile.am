@@ -317,7 +317,6 @@ libcrypto_la_SOURCES += asn1/x_crl.c
 libcrypto_la_SOURCES += asn1/x_exten.c
 libcrypto_la_SOURCES += asn1/x_long.c
 libcrypto_la_SOURCES += asn1/x_name.c
-libcrypto_la_SOURCES += asn1/x_pkey.c
 libcrypto_la_SOURCES += asn1/x_pubkey.c
 libcrypto_la_SOURCES += asn1/x_req.c
 libcrypto_la_SOURCES += asn1/x_sig.c

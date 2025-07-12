@@ -224,7 +224,6 @@ set(
 	asn1/x_exten.c
 	asn1/x_long.c
 	asn1/x_name.c
-	asn1/x_pkey.c
 	asn1/x_pubkey.c
 	asn1/x_req.c
 	asn1/x_sig.c

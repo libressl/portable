@@ -222,7 +222,6 @@ set(
 	asn1/x_bignum.c
 	asn1/x_crl.c
 	asn1/x_exten.c
-	asn1/x_info.c
 	asn1/x_long.c
 	asn1/x_name.c
 	asn1/x_pkey.c

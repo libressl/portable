@@ -467,6 +467,7 @@ add_platform_test(evptest evptest ${CMAKE_CURRENT_SOURCE_DIR}/evptests.txt)
 # evp_test
 add_executable(evp_test evp_test.c)
 target_link_libraries(evp_test ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(evp_test)
 add_platform_test(evp_test evp_test)
 
 # exdata_test

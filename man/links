@@ -1289,7 +1289,6 @@ OpenSSL_add_all_algorithms.3,OpenSSL_add_all_digests.3
 OpenSSL_add_all_algorithms.3,SSLeay_add_all_algorithms.3
 PEM_ASN1_read.3,PEM_ASN1_read_bio.3
 PEM_ASN1_read.3,d2i_of_void.3
-PEM_X509_INFO_read.3,PEM_X509_INFO_read_bio.3
 PEM_read.3,PEM_def_callback.3
 PEM_read.3,PEM_do_header.3
 PEM_read.3,PEM_get_EVP_CIPHER_INFO.3
@@ -2034,7 +2033,6 @@ X509_OBJECT_get0_X509.3,X509_OBJECT_idx_by_subject.3
 X509_OBJECT_get0_X509.3,X509_OBJECT_new.3
 X509_OBJECT_get0_X509.3,X509_OBJECT_retrieve_by_subject.3
 X509_OBJECT_get0_X509.3,X509_OBJECT_retrieve_match.3
-X509_PKEY_new.3,X509_PKEY_free.3
 X509_PUBKEY_new.3,X509_PUBKEY_free.3
 X509_PUBKEY_new.3,X509_PUBKEY_get.3
 X509_PUBKEY_new.3,X509_PUBKEY_get0.3

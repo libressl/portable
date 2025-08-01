@@ -378,6 +378,16 @@ if(HAVE_NETINET_IP_H)
 	add_definitions(-DHAVE_NETINET_IP_H)
 endif()
 
+check_include_files(resolv.h HAVE_RESOLV_H)
+if(HAVE_RESOLV_H)
+	add_definitions(-DHAVE_RESOLV_H)
+endif()
+
+check_include_files(arpa/nameser.h HAVE_ARPA_NAMESER_H)
+if(HAVE_ARPA_NAMESER_H)
+	add_definitions(-DHAVE_ARPA_NAMESER_H)
+endif()
+
 # This isn't ready for universal binaries yet, since we do conditional
 # compilation based on the architecture, but this makes cross compiling for a
 # single architecture work on macOS at least.

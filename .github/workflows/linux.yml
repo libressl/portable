@@ -35,6 +35,13 @@ jobs:
           - os: "ubuntu-24.04" # loong64
             arch: "loong64"
             compiler: "gcc"
+          - os: "ubuntu-24.04-arm"
+            arch: "native"
+            compiler: "gcc"
+          - os: "ubuntu-24.04-arm"
+            arch: "native"
+            compiler: "clang"
+
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v4
@@ -47,8 +54,8 @@ jobs:
 
   # Test ASAN with and without ASM enabled.
   test-asan:
-    name: "ASAN (${{ matrix.asm == 'ON' && 'asm' || 'no-asm' }})"
-    runs-on: "ubuntu-24.04"
+    name: "${{ matrix.os }} - ASAN (${{ matrix.asm == 'ON' && 'asm' || 'no-asm' }})"
+    runs-on: "${{ matrix.os }}"
     if: ${{ github.repository_owner == 'libressl' || github.event_name != 'schedule' }}
     permissions:
       contents: read
@@ -56,6 +63,7 @@ jobs:
       fail-fast: false
       matrix:
         asm: [ON, OFF]
+        os: ["ubuntu-24.04", "ubuntu-24.04-arm"]
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v4

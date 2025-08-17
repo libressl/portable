@@ -1,0 +1,11 @@
+--- crypto/mlkem/mlkem_internal.h.orig	Sun Aug 17 13:20:18 2025
++++ crypto/mlkem/mlkem_internal.h	Sun Aug 17 13:20:37 2025
+@@ -19,7 +19,7 @@
+ #define OPENSSL_HEADER_CRYPTO_MLKEM_INTERNAL_H
+ 
+ #include "bytestring.h"
+-#include "mlkem.h"
++#include <openssl/mlkem.h>
+ 
+ #if defined(__cplusplus)
+ extern "C" {

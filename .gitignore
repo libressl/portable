@@ -108,6 +108,7 @@ tests/constraints*
 tests/crypto_test*
 tests/ctlog.conf
 tests/*.crt
+tests/ec_arithmetic*
 tests/ec_point_conversion*
 tests/ecc_cdh*
 tests/evp_pkey_cleanup*

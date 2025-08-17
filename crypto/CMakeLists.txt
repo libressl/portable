@@ -33,11 +33,21 @@ if(HOST_ASM_ELF_X86_64)
 		bn/arch/amd64/bignum_add.S
 		bn/arch/amd64/bignum_cmadd.S
 		bn/arch/amd64/bignum_cmul.S
+		bn/arch/amd64/bignum_modadd.S
+		bn/arch/amd64/bignum_modsub.S
 		bn/arch/amd64/bignum_mul.S
+		bn/arch/amd64/bignum_mul_4_8.S
 		bn/arch/amd64/bignum_mul_4_8_alt.S
+		bn/arch/amd64/bignum_mul_6_12.S
+		bn/arch/amd64/bignum_mul_6_12_alt.S
+		bn/arch/amd64/bignum_mul_8_16.S
 		bn/arch/amd64/bignum_mul_8_16_alt.S
 		bn/arch/amd64/bignum_sqr.S
+		bn/arch/amd64/bignum_sqr_4_8.S
 		bn/arch/amd64/bignum_sqr_4_8_alt.S
+		bn/arch/amd64/bignum_sqr_6_12.S
+		bn/arch/amd64/bignum_sqr_6_12_alt.S
+		bn/arch/amd64/bignum_sqr_8_16.S
 		bn/arch/amd64/bignum_sqr_8_16_alt.S
 		bn/arch/amd64/bignum_sub.S
 		bn/arch/amd64/word_clz.S
@@ -71,11 +81,21 @@ if(HOST_ASM_MACOSX_X86_64)
 		bn/arch/amd64/bignum_add.S
 		bn/arch/amd64/bignum_cmadd.S
 		bn/arch/amd64/bignum_cmul.S
+		bn/arch/amd64/bignum_modadd.S
+		bn/arch/amd64/bignum_modsub.S
 		bn/arch/amd64/bignum_mul.S
+		bn/arch/amd64/bignum_mul_4_8.S
 		bn/arch/amd64/bignum_mul_4_8_alt.S
+		bn/arch/amd64/bignum_mul_6_12.S
+		bn/arch/amd64/bignum_mul_6_12_alt.S
+		bn/arch/amd64/bignum_mul_8_16.S
 		bn/arch/amd64/bignum_mul_8_16_alt.S
 		bn/arch/amd64/bignum_sqr.S
+		bn/arch/amd64/bignum_sqr_4_8.S
 		bn/arch/amd64/bignum_sqr_4_8_alt.S
+		bn/arch/amd64/bignum_sqr_6_12.S
+		bn/arch/amd64/bignum_sqr_6_12_alt.S
+		bn/arch/amd64/bignum_sqr_8_16.S
 		bn/arch/amd64/bignum_sqr_8_16_alt.S
 		bn/arch/amd64/bignum_sub.S
 		bn/arch/amd64/word_clz.S

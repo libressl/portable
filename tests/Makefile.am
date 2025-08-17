@@ -577,7 +577,7 @@ noinst_HEADERS += parse_test_file.h
 # mlkem_tests
 TESTS += mlkem_tests.sh
 check_PROGRAMS += mlkem_tests
-mlkem_tests_SOURCES = mlkem_tests.c mlkem_tests_util.c parse_test_file.c
+mlkem_tests_SOURCES = mlkem_tests.c parse_test_file.c
 EXTRA_DIST += mlkem_tests.sh
 EXTRA_DIST += mlkem768_decap_tests.txt
 EXTRA_DIST += mlkem768_encap_tests.txt
@@ -589,6 +589,7 @@ EXTRA_DIST += mlkem1024_encap_tests.txt
 EXTRA_DIST += mlkem1024_keygen_tests.txt
 EXTRA_DIST += mlkem1024_nist_decap_tests.txt
 EXTRA_DIST += mlkem1024_nist_keygen_tests.txt
+# XXX - add tests for Windows
 
 # mlkem_iteration_tests
 TESTS += mlkem_iteration_tests

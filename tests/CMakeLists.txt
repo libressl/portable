@@ -563,7 +563,7 @@ if(NOT WIN32)
 endif()
 
 # mlkem_tests
-add_executable(mlkem_tests mlkem_tests.c mlkem_tests_util.c parse_test_file.c)
+add_executable(mlkem_tests mlkem_tests.c parse_test_file.c)
 target_link_libraries(mlkem_tests ${OPENSSL_TEST_LIBS})
 prepare_emscripten_test_target(mlkem_tests)
 if(NOT WIN32)

@@ -1,22 +1,25 @@
---- crypto/hidden/crypto_namespace.h.orig	Fri Aug  2 23:52:55 2024
-+++ crypto/hidden/crypto_namespace.h	Fri Aug  2 23:53:17 2024
-@@ -24,6 +24,12 @@
+--- crypto/hidden/crypto_namespace.h.orig	Sun Aug 17 13:14:19 2025
++++ crypto/hidden/crypto_namespace.h	Mon Aug 18 04:10:42 2025
+@@ -24,6 +24,10 @@
   * external calls use the latter name.
   */
  
 +#ifdef _MSC_VER
-+# define LCRYPTO_UNUSED(x)
-+# define LCRYPTO_USED(x)
-+# define LCRYPTO_ALIAS1(pre, x)
-+# define LCRYPTO_ALIAS(x)
-+#else
++#undef LIBRESSL_NAMESPACE
++#endif
++
  #ifdef LIBRESSL_NAMESPACE
  #ifdef LIBRESSL_CRYPTO_NAMESPACE
  #  define LCRYPTO_UNUSED(x)	__attribute__((deprecated))		\
-@@ -47,5 +53,6 @@
+@@ -45,7 +49,11 @@
+ # define LCRYPTO_UNUSED(x)
+ # define LCRYPTO_USED(x)
  # define LCRYPTO_ALIAS1(pre,x)
++#ifdef _MSC_VER
++# define LCRYPTO_ALIAS(x)
++#else
  # define LCRYPTO_ALIAS(x)	asm("")
- #endif
 +#endif /* _MSC_VER */
+ #endif
  
  #endif	/* _LIBCRYPTO_CRYPTO_NAMESPACE_H_ */

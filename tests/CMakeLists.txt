@@ -566,11 +566,13 @@ endif()
 add_executable(mlkem_tests mlkem_tests.c parse_test_file.c)
 target_link_libraries(mlkem_tests ${OPENSSL_TEST_LIBS})
 prepare_emscripten_test_target(mlkem_tests)
-if(NOT WIN32)
+if(NOT MSVC)
 	add_test(NAME mlkem_tests COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/mlkem_tests.sh)
 	set_tests_properties(mlkem_tests PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
+else()
+	add_test(NAME mlkem_tests COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/mlkem_tests.bat $<TARGET_FILE:mlkem_tests>)
 endif()
-# XXX - add tests for Windows
+set_tests_properties(mlkem_tests PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 
 # mlkem_iteration_tests
 add_executable(mlkem_iteration_tests mlkem_iteration_tests.c mlkem_tests_util.c)

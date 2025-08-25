@@ -1,6 +1,6 @@
---- crypto/arch/amd64/crypto_arch.h.orig	Wed Jul 23 08:15:02 2025
-+++ crypto/arch/amd64/crypto_arch.h	Wed Jul 23 08:15:20 2025
-@@ -47,6 +47,7 @@ extern uint64_t crypto_cpu_caps_amd64;
+--- crypto/arch/amd64/crypto_arch.h.orig	Sun Aug 17 13:14:19 2025
++++ crypto/arch/amd64/crypto_arch.h	Sun Aug 24 23:47:56 2025
+@@ -48,6 +48,7 @@ extern uint64_t crypto_cpu_caps_amd64;
  #define HAVE_RC4_INTERNAL
  #define HAVE_RC4_SET_KEY_INTERNAL
  
@@ -8,7 +8,7 @@
  #define HAVE_SHA1_BLOCK_DATA_ORDER
  #define HAVE_SHA1_BLOCK_GENERIC
  
-@@ -55,6 +56,7 @@ extern uint64_t crypto_cpu_caps_amd64;
+@@ -56,6 +57,7 @@ extern uint64_t crypto_cpu_caps_amd64;
  
  #define HAVE_SHA512_BLOCK_DATA_ORDER
  #define HAVE_SHA512_BLOCK_GENERIC

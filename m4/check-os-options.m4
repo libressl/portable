@@ -89,14 +89,14 @@ char buf[1]; getentropy(buf, 1);
 		;;
 	*hpux*)
 		HOST_OS=hpux;
-		if test "echo $host_os | cut -c 1-4" = "ia64" ; then
-			if test "echo $CC | cut -d ' ' -f 1" = "gcc" ; then
+		if test "`echo $host_os | cut -c 1-4`" = "ia64" ; then
+			if test "`echo $CC | cut -d ' ' -f 1`" = "gcc" ; then
 				CFLAGS="$CFLAGS -mlp64"
 			else
 				CFLAGS="+DD64"
 			fi
 		fi
-		if ! test "echo $CC | cut -d ' ' -f 1" = "gcc" ; then
+		if ! test "`echo $CC | cut -d ' ' -f 1`" = "gcc" ; then
 			CFLAGS="-g -O2 +Otype_safety=off $CFLAGS $USER_CFLAGS"
 		fi
 		CPPFLAGS="$CPPFLAGS -D_XOPEN_SOURCE=600 -D__STRICT_ALIGNMENT"

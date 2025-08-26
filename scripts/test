@@ -191,7 +191,7 @@ elif [ "$ARCH" = "android" ]; then
 
 		(
 		 build_dir=build-$NAL_$ABI
-		 rm -fr $build_dir include/openssl/opensslconf.h
+		 rm -fr $build_dir
 		 mkdir $build_dir
 		 cd $build_dir
 		 echo "##### cmake -GNinja -DCMAKE_MAKE_PROGRAM=ninja -DANDROID_NDK=$ANDROID_NDK_HOME -DCMAKE_TOOLCHAIN_FILE=$TC_FILE -DANDROID_ABI=$ABI -DANDROID_NATIVE_API_LEVEL=$NAL .."

@@ -98,6 +98,7 @@ if [ -x /opt/csw/bin/ggrep ]; then
 	GREP='/opt/csw/bin/ggrep'
 fi
 
+$CP $libcrypto_src/opensslconf.h include/openssl
 $CP $libcrypto_src/opensslfeatures.h include/openssl
 $CP $libssl_src/pqueue.h include
 
@@ -186,8 +187,6 @@ done
 
 for i in $libcrypto_src/arch/*; do
 	arch=`basename $i`
-	mkdir -p include/arch/$arch
-	$CP $libcrypto_src/arch/$arch/opensslconf.h include/arch/$arch/
 	mkdir -p crypto/arch/$arch
 	$CP $libcrypto_src/arch/$arch/crypto_arch.h crypto/arch/$arch/
 	crypto_cpu_caps=$libcrypto_src/arch/$arch/crypto_cpu_caps.c

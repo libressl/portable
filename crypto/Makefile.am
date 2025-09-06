@@ -739,8 +739,7 @@ libcrypto_la_SOURCES += md5/md5.c
 
 # mlkem
 libcrypto_la_SOURCES += mlkem/mlkem.c
-libcrypto_la_SOURCES += mlkem/mlkem1024.c
-libcrypto_la_SOURCES += mlkem/mlkem768.c
+libcrypto_la_SOURCES += mlkem/mlkem_internal.c
 libcrypto_la_SOURCES += mlkem/mlkem_key.c
 noinst_HEADERS += mlkem/mlkem_internal.h
 

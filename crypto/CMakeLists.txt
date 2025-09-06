@@ -437,8 +437,7 @@ set(
 	md4/md4.c
 	md5/md5.c
 	mlkem/mlkem.c
-	mlkem/mlkem1024.c
-	mlkem/mlkem768.c
+	mlkem/mlkem_internal.c
 	mlkem/mlkem_key.c
 	modes/cbc128.c
 	modes/ccm128.c

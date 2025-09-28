@@ -51,6 +51,12 @@ LibreSSL Portable Release Notes:
 	    Instead, capabilities are now detected using a constructor on
 	    library load, which improves the incomplete coverage by calls
 	    to OPENSSL_init_crypto() on various entry points.
+	  - Rework and simplify AES handling in EVP. In particular, AES-NI
+	    is now handled in the AES internal code and no longer requires
+	    the use of EVP.
+	  - Added a public API for ML-KEM. This is not yet documented in a
+	    manpage and may not be in its final form. This will be used to
+	    support X25519MLKEM768 in libssl.
 	* Compatibility changes
 	  - Removed the -msie_hack option from the openssl(1) ca subcommand.
 	  - Removed parameters of the 239-bit prime curves from X9.62, H.5.2:
@@ -59,17 +65,29 @@ LibreSSL Portable Release Notes:
 	    per recommendation of NIST SP 800-132.
 	  - Encrypted PKCS#8 key files now use a default password-based key
 	    derivation function that is acceptable in the present millenium.
+	  - const corrected EVP_PKEY_get{0,1}_{DH,DSA,EC_KEY,RSA}().
+	  - X509_CRL_verify() now checks that the AlgorithmIdentifiers in the
+	    signature and the tbsCertList are identical.
 	  - Of the old *err() only PEMerr(), RSAerr(), and SSLerr() remain.
+	  - Removed BIO_s_log(), X509_PKEY_{new,free}(), PEM_X509_INFO_read()
+	    and PEM_X509_INFO_write_bio().
+	  - Re-expose the ASN.1 Boolean template items.
+	  - opensslconf.h is now machine-independent.
 	* New features
 	  - Allow specifying ALPN in nc(1) via -Talpn="http/1.1,http:/1.0".
 	* Bug fixes
 	  - Avoid pointer arithmetic on NULL for memory BIOs.
+	  - Fix leaks and use-after-frees in PKCS7 attribute handling.
 	* Documentation
 	  - Rewrote most of the EC documentation from scratch to be at least
 	    somewhat accurate and intelligible.
+	  - Updated documentation for SMIME_{read,write}* to match reality.
 	* Testing and proactive security
 	  - Added a testing framework that will help deduplicating lots of
 	    ad-hoc code in the regression tests.
+	  - Converted the Wycheproof testing framework to use testvectors_v1.
+	    This in combination with a few new tests significantly increases
+	    regress coverage.
 
 4.1.0 - Stable release
 

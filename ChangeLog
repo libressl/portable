@@ -78,6 +78,11 @@ LibreSSL Portable Release Notes:
 	* Bug fixes
 	  - Avoid pointer arithmetic on NULL for memory BIOs.
 	  - Fix leaks and use-after-frees in PKCS7 attribute handling.
+	  - Ensure p and q in RSA private key have a minimum distance of
+	    2^(bits/2 - 100) as specified in NIST SP 800-56B Revision 2.
+	* Security fixes
+	  - Fix out-of-bounds read and write, memory leaks and incorrect
+	    error check for CMS enveloped data.
 	* Documentation
 	  - Rewrote most of the EC documentation from scratch to be at least
 	    somewhat accurate and intelligible.

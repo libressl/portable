@@ -28,6 +28,12 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+4.0.1 - Security release
+
+	* An incorrect length check can result in a 4-byte overwrite and an 8-byte
+	  overread. From Stanislav Fort and Viktor Dukhovni via OpenSSL.
+	  CVE-2025-9230.
+
 4.0.0 - Stable release
 
 	* Portable changes

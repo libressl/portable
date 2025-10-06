@@ -37,15 +37,12 @@ LibreSSL Portable Release Notes:
 	    instances of undefined behavior.
 	  - Removed assembly implementations of AES using bit slicing (BS-AES)
 	    and vector permutation (VP-AES).
-	  - Integrated AES-NI into the AES API.
 	  - Removed OPENSSL_SMALL_FOOTPRINT and OPENSSL_FIPSAPI.
-	  - Lots of cleanup and removal of code with undefined behavior in
-	    the block cipher modes of operation implementations.
 	  - Implemented constant time EC field element operations to allow
-	    implementing elliptic curve operations without bignum arithmetic.
+	    elliptic curve operations without bignum arithmetic.
 	  - Implemented an EC method using homogeneous projective coordinates.
-	    This allows exception-free elliptic curve arithmetic in constant
-	    time.
+	    This will allow exception-free elliptic curve arithmetic in
+	    constant time in future releases.
 	  - Started cleaning up the openssl speed implementation.
 	  - The last SIGILL-based CPU capability detection was removed.
 	    Instead, capabilities are now detected using a constructor on

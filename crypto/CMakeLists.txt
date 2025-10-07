@@ -624,6 +624,10 @@ if(NOT HAVE_FREEZERO)
 	set(COMPAT_SRC ${COMPAT_SRC} compat/freezero.c)
 endif()
 
+if(NOT HAVE_FTRUNCATE)
+	set(COMPAT_SRC ${COMPAT_SRC} compat/ftruncate.c)
+endif()
+
 if(NOT HAVE_GETDELIM)
 	set(COMPAT_SRC ${COMPAT_SRC} compat/getdelim.c)
 endif()

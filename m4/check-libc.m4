@@ -22,7 +22,7 @@ AC_CHECK_HEADERS([netinet/ip.h], [], [],
 ])
 AC_HEADER_RESOLV
 # Check for general libc functions
-AC_CHECK_FUNCS([asprintf freezero getdelim getline memmem])
+AC_CHECK_FUNCS([asprintf freezero ftruncate getdelim getline memmem])
 AC_CHECK_FUNCS([readpassphrase reallocarray recallocarray])
 AC_CHECK_FUNCS([strcasecmp strlcat strlcpy strndup strnlen strsep strtonum])
 AC_CHECK_FUNCS([timegm _mkgmtime timespecsub])
@@ -39,6 +39,7 @@ AC_CACHE_CHECK([for getpagesize], ac_cv_func_getpagesize, [
 ])
 AM_CONDITIONAL([HAVE_ASPRINTF], [test "x$ac_cv_func_asprintf" = xyes])
 AM_CONDITIONAL([HAVE_FREEZERO], [test "x$ac_cv_func_freezero" = xyes])
+AM_CONDITIONAL([HAVE_FTRUNCATE], [test "x$ac_cv_func_ftruncate" = xyes])
 AM_CONDITIONAL([HAVE_GETDELIM], [test "x$ac_cv_func_getdelim" = xyes])
 AM_CONDITIONAL([HAVE_GETLINE], [test "x$ac_cv_func_getline" = xyes])
 AM_CONDITIONAL([HAVE_GETPAGESIZE], [test "x$ac_cv_func_getpagesize" = xyes])

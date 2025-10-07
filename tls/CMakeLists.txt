@@ -37,7 +37,6 @@ if(WIN32)
 		${TLS_SRC}
 	)
 
-	set(TLS_COMPAT_SRC ${TLS_COMPAT_SRC} compat/ftruncate.c)
 	set(TLS_COMPAT_SRC ${TLS_COMPAT_SRC} compat/pread.c)
 	set(TLS_COMPAT_SRC ${TLS_COMPAT_SRC} compat/pwrite.c)
 endif()

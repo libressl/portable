@@ -226,6 +226,11 @@ if(HAVE_ASPRINTF)
 	add_definitions(-DHAVE_ASPRINTF)
 endif()
 
+check_symbol_exists(ftruncate "unistd.h" HAVE_FTRUNCATE)
+if(HAVE_FTRUNCATE)
+	add_definitions(-DHAVE_FTRUNCATE)
+endif()
+
 check_symbol_exists(getdelim "stdio.h" HAVE_GETDELIM)
 if(HAVE_GETDELIM)
 	add_definitions(-DHAVE_GETDELIM)

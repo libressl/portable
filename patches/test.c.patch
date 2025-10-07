@@ -1,0 +1,11 @@
+--- tests/test.c.orig	2025-10-07 09:57:42.853015505 -0500
++++ tests/test.c	2025-10-07 09:58:08.872499852 -0500
+@@ -67,7 +67,7 @@
+ 		return t;
+ 
+ 	/* Create a temporary file for logging in non-verbose mode */
+-	if ((tmp_file = strdup("/tmp/libressl-test.XXXXXXXX")) == NULL)
++	if ((tmp_file = strdup("libressl-test.XXXXXXXX")) == NULL)
+ 		err(1, "strdup");
+ 	if ((out_fd = mkstemp(tmp_file)) == -1)
+ 		err(1, "mkstemp");

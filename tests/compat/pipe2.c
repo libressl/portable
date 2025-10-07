@@ -42,7 +42,7 @@ static int setfl(int fd, int flag)
 static void create_issue_1069_sentinels(int socket_vector[2])
 {
 	int fd = open("CONIN$", O_RDONLY);
-	if (fd == -1 || fd > socket_vector[0] && fd > socket_vector[1]) {
+	if (fd == -1 || (fd > socket_vector[0] && fd > socket_vector[1])) {
 		return;
 	}
 	create_issue_1069_sentinels(socket_vector);

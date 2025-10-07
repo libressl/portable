@@ -82,6 +82,9 @@ endfunction()
 
 # XXX - should probably be in their own static lib
 set(TEST_HELPER_SRC test.c test_util.c)
+if(WIN32)
+	set(TEST_HELPER_SRC ${TEST_HELPER_SRC} compat/mkstemp.c)
+endif()
 
 # aeadtest
 add_executable(aeadtest aeadtest.c)
@@ -555,12 +558,9 @@ prepare_emscripten_test_target(lhash_test)
 add_platform_test(lhash_test lhash_test)
 
 # md_test
-# XXX - ftruncate and mkstemp missing from Windows
-if(NOT WIN32)
-	add_executable(md_test md_test.c ${TEST_HELPER_SRC})
-	target_link_libraries(md_test ${OPENSSL_TEST_LIBS})
-	add_platform_test(md_test md_test)
-endif()
+add_executable(md_test md_test.c ${TEST_HELPER_SRC})
+target_link_libraries(md_test ${OPENSSL_TEST_LIBS})
+add_platform_test(md_test md_test)
 
 # mlkem_tests
 add_executable(mlkem_tests mlkem_tests.c parse_test_file.c)
@@ -742,12 +742,9 @@ endif()
 set_tests_properties(servertest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 
 # sha_test
-# XXX - ftruncate and mkstemp missing from Windows
-if(NOT WIN32)
-	add_executable(sha_test sha_test.c ${TEST_HELPER_SRC})
-	target_link_libraries(sha_test ${OPENSSL_TEST_LIBS})
-	add_platform_test(sha_test sha_test)
-endif()
+add_executable(sha_test sha_test.c ${TEST_HELPER_SRC})
+target_link_libraries(sha_test ${OPENSSL_TEST_LIBS})
+add_platform_test(sha_test sha_test)
 
 # shutdowntest
 set(SHUTDOWNTEST_SRC shutdowntest.c)

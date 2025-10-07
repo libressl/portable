@@ -45,6 +45,8 @@ static inline unsigned int sleep(unsigned int seconds)
        Sleep(seconds * 1000);
        return seconds;
 }
+
+int mkstemp(char *template);
 #endif
 
 int ftruncate(int fd, off_t length);

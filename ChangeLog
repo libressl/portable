@@ -31,6 +31,12 @@ LibreSSL Portable Release Notes:
 4.2.0 - In development
 
 	* Portable changes
+	  - Added explicit OpenBSD/ISC license to build system / scripts.
+	  - Compilation on more generic CPU targets works due to removal of
+	    architecture-specific public header files.
+	  - Linking now uses relative paths, allowing deeper build paths.
+	  - Fixed Windows builds with Clang and CMake.
+	  - Fixed error handling with nc listening for connections from Windows.
 	* Internal improvements
 	  - Cleaned up code implementing block cipher modes of operation.
 	    Includes untangling a horrible #ifdef mess and removing a few

@@ -28,7 +28,7 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
-4.2.0 - In development
+4.2.0 - Stable release
 
 	* Portable changes
 	  - Added explicit OpenBSD/ISC license to build system / scripts.
@@ -37,6 +37,7 @@ LibreSSL Portable Release Notes:
 	  - Fixed builds in deep paths by using relative paths for linking.
 	  - Fixed Windows builds with Clang and CMake.
 	  - Fixed Windows error handling accepting connections with nc.
+	  - Fixed 32-bit ARM builds on Darwin.
 	* Internal improvements
 	  - Cleaned up code implementing block cipher modes of operation.
 	    Includes untangling a horrible #ifdef mess and removing a few

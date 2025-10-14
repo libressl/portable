@@ -34,10 +34,6 @@ jobs:
       - name: "Run rust-openssl tests"
         run: |
           cd rust-openssl
-
-          # apply patch - see #1187
-          curl -L https://raw.githubusercontent.com/openbsd/ports/refs/heads/master/security/rust-openssl-tests/patches/patch-openssl-sys_src_handwritten_evp_rs | patch -p0
-
           # instead of erroring use the last supported version
           ed -s openssl-sys/build/main.rs <<-EOF
           /_ => version_error/-1

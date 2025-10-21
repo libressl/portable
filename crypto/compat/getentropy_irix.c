@@ -46,8 +46,6 @@ getentropy(void *buf, size_t len)
     long nprocs = sysmp(MP_NPROCS);
     unsigned long tsc = 0;
 
-    syssgi(SGI_CYCLECNTR, &tsc);
-
     uname(&un);
     gettimeofday(&tv, NULL);
 

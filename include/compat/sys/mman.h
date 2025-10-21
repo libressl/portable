@@ -11,8 +11,8 @@
 #ifndef MAP_ANON
 #ifdef MAP_ANONYMOUS
 #define MAP_ANON MAP_ANONYMOUS
-#else
-#error "System does not support mapping anonymous pages?"
+#else 
+#warning "System does not support mapping anonymous pages. Build may fail" /* Warn, don't error out. arc4random_irix doesn't use anonymous pages */
 #endif
 #endif
 

@@ -11,8 +11,10 @@
 #ifndef MAP_ANON
 #ifdef MAP_ANONYMOUS
 #define MAP_ANON MAP_ANONYMOUS
-#else 
-#warning "System does not support mapping anonymous pages. Build may fail" /* Warn, don't error out. arc4random_irix doesn't use anonymous pages */
+#elif defined(__sgi) /* IRIX has a workaround */
+#warning "SGI IRIX detected. Does not support anonymous pages. Proceeding." 
+#else
+#error "System does not support mapping anonymous pages!" 
 #endif
 #endif
 

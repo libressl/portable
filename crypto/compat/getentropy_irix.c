@@ -121,9 +121,9 @@ getentropy(void *buf, size_t len)
         remaining -= take;
     }
     /* cleanup */
-    memset(pool, 0, sizeof(pool));
-    memset(digest, 0, sizeof(digest));
-    memset(&ctx, 0, sizeof(ctx));
+    explicit_bzero(pool, sizeof(pool));
+    explicit_bzero(digest, sizeof(digest));
+    explicit_bzero(&ctx, sizeof(ctx));
 
     errno = save_errno;
     return (0);

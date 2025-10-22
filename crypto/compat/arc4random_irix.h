@@ -1,7 +1,21 @@
-
 /*
- * Stub functions for portability.
- */
+ * Copyright (c) 2025 Kazuo Kuroi (kazuo@irixnet.org)
+ *
+ * Permission to use, copy, modify, and distribute this software for any
+ * purpose with or without fee is hereby granted, provided that the above
+ * copyright notice and this permission notice appear in all copies.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ * ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+ * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ *
+ *
+ * arc4random_irix.h --  stub functions for portability to SGI IRIX. 
+ */ 
 
 #include <sys/mman.h>
 
@@ -47,20 +61,31 @@ _rs_forkdetect(void)
 static inline int
 _rs_allocate(struct _rs **rsp, struct _rsx **rsxp)
 {
-        int fd;
-        fd = open("/dev/zero", O_RDWR);
-        if ((*rsp = mmap(NULL, sizeof(**rsp), PROT_READ|PROT_WRITE,
-            MAP_PRIVATE, fd, 0)) == MAP_FAILED)
-                return (-1);
+    int fd;
 
-        if ((*rsxp = mmap(NULL, sizeof(**rsxp), PROT_READ|PROT_WRITE,
-            MAP_PRIVATE, fd, 0)) == MAP_FAILED) {
-                munmap(*rsp, sizeof(**rsp));
-                *rsp = NULL;
-                return (-1);
-        }
+    fd = open("/dev/zero", O_RDWR);
+    if (fd == -1)
+        return (-1);
+
+    *rsp = mmap(NULL, sizeof(**rsp), PROT_READ | PROT_WRITE,
+        MAP_PRIVATE, fd, 0);
+    if (*rsp == MAP_FAILED) {
         close(fd);
+        return (-1);
+    }
 
-        _ARC4_ATFORK(_rs_forkhandler);
-        return (0);
+    *rsxp = mmap(NULL, sizeof(**rsxp), PROT_READ | PROT_WRITE,
+        MAP_PRIVATE, fd, 0);
+    if (*rsxp == MAP_FAILED) {
+        munmap(*rsp, sizeof(**rsp));
+        *rsp = NULL;
+        close(fd);
+        return (-1);
+    }
+
+    close(fd);
+
+    _ARC4_ATFORK(_rs_forkhandler);
+    return (0);
 }
+

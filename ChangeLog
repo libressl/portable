@@ -28,6 +28,17 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+4.3.0 - In development
+
+	* Internal improvements
+	  - Remove the unused sequence number from X509_REVOKED.
+	  - Replace a call to atoi() with strtonum() in nc(1) and replace a
+	    misleading use of ntohs() with htons().
+	* Bug fixes
+	  - Ensure the group selected by a TLSv1.3 server for a
+	    HelloRetryRequest is not one for which the client has
+	    already sent a key share.
+
 4.2.0 - Stable release
 
 	* Portable changes

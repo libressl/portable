@@ -28,6 +28,17 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+4.2.1 -  Bug and reliability fixes
+
+	* Reliability fix
+	  - Ensure the group selected by a TLSv1.3 server for a
+	    HelloRetryRequest is not one for which the client has
+	    already sent a key share.
+	    Thanks to dzwdz for identifying and reporting the issue.
+	* Portable changes
+	  - Add missing files for Windows to the release tarball
+	    Thanks to Markus Friedl and Tess Gauthier.
+
 4.2.0 - Stable release
 
 	* Portable changes

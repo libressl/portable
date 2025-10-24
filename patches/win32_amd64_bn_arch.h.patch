@@ -1,8 +1,8 @@
 We should consider a OPENSSL_NO_BN_ASM if we can't figure
 out how to fix BIGNUM on this OS
 
---- crypto/bn/arch/amd64/bn_arch.h.orig	Sun Aug 17 13:14:19 2025
-+++ crypto/bn/arch/amd64/bn_arch.h	Sun Aug 24 23:47:56 2025
+--- crypto/bn/arch/amd64/bn_arch.h.orig	Fri Oct 24 07:06:10 2025
++++ crypto/bn/arch/amd64/bn_arch.h	Fri Oct 24 07:06:22 2025
 @@ -20,8 +20,14 @@
  #ifndef HEADER_BN_ARCH_H
  #define HEADER_BN_ARCH_H
@@ -18,7 +18,7 @@ out how to fix BIGNUM on this OS
  #define HAVE_BN_ADD
  #define HAVE_BN_ADD_WORDS
  
-@@ -109,6 +115,7 @@ bn_subw(BN_ULONG a, BN_ULONG b, BN_ULONG *out_borrow, 
+@@ -110,6 +116,7 @@ bn_subw(BN_ULONG a, BN_ULONG b, BN_ULONG *out_borrow, 
  }
  
  #endif /* __GNUC__ */

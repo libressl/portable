@@ -35,9 +35,6 @@ LibreSSL Portable Release Notes:
 	    HelloRetryRequest is not one for which the client has
 	    already sent a key share.
 	    Thanks to dzwdz for identifying and reporting the issue.
-	* Portable changes
-	  - Add missing files for Windows to the release tarball
-	    Thanks to Markus Friedl and Tess Gauthier.
 
 4.1.1 - Security release
 

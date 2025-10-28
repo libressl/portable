@@ -233,10 +233,14 @@ else
 if HOST_LINUX
 libcrypto_la_SOURCES += arch/aarch64/crypto_cpu_caps_linux.c
 else
+if HOST_WIN
+libcrypto_la_SOURCES += arch/aarch64/crypto_cpu_caps_windows.c
+else
 if HOST_OPENBSD
 libcrypto_la_SOURCES += arch/aarch64/crypto_cpu_caps.c
 else
 libcrypto_la_SOURCES += arch/aarch64/crypto_cpu_caps_none.c
+endif
 endif
 endif
 endif

@@ -106,6 +106,8 @@ DISTCLEANFILES = pidwraptest.txt
 TEST_HELPER_SRC = test.c test_util.c
 noinst_HEADERS = test.h
 EXTRA_DIST += $(TEST_HELPER_SRC)
+# Needed by test helper on MSVC
+EXTRA_DIST += compat/mkstemp.c
 
 # aeadtest
 TESTS += aeadtest.sh

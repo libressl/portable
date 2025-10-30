@@ -11,8 +11,10 @@
 #ifndef MAP_ANON
 #ifdef MAP_ANONYMOUS
 #define MAP_ANON MAP_ANONYMOUS
+#elif defined(__sgi) /* IRIX has a workaround */
+#warning "SGI IRIX detected. Does not support anonymous pages. Proceeding." 
 #else
-#error "System does not support mapping anonymous pages?"
+#error "System does not support mapping anonymous pages?" 
 #endif
 #endif
 

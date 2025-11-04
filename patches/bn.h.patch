@@ -1,5 +1,5 @@
 --- include/openssl/bn.h.orig	Tue Nov  4 00:08:07 2025
-+++ include/openssl/bn.h	Wed Nov  5 00:18:05 2025
++++ include/openssl/bn.h	Wed Nov  5 01:12:52 2025
 @@ -125,6 +125,8 @@
  #ifndef HEADER_BN_H
  #define HEADER_BN_H
@@ -32,8 +32,8 @@
 -#define BN_DEC_CONV	(10000000000000000000UL)
 -#define BN_DEC_FMT1	"%lu"
 -#define BN_DEC_FMT2	"%019lu"
-+#define BN_MASK2	0xffffffffffffffffULL
-+#define BN_DEC_CONV	10000000000000000000ULL
++#define BN_MASK2	UINT64_C(0xffffffffffffffff)
++#define BN_DEC_CONV	UINT64_C(10000000000000000000)
 +#define BN_DEC_FMT1	("%" PRIu64)
 +#define BN_DEC_FMT2	("%019" PRIu64)
  #define BN_DEC_NUM	19
@@ -62,9 +62,9 @@
 -#define BN_DEC_CONV	(1000000000L)
 -#define BN_DEC_FMT1	"%u"
 -#define BN_DEC_FMT2	"%09u"
-+#define BN_MASK		0xffffffffffffffffULL
-+#define BN_MASK2	0xffffffffUL
-+#define BN_DEC_CONV	1000000000UL
++#define BN_MASK		UINT64_C(0xffffffffffffffff)
++#define BN_MASK2	UINT32_C(0xffffffff)
++#define BN_DEC_CONV	UINT32_C(1000000000)
 +#define BN_DEC_FMT1	("%" PRIu32)
 +#define BN_DEC_FMT2	("%09" PRIu32)
  #define BN_DEC_NUM	9

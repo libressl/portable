@@ -1,0 +1,11 @@
+--- tests/bn_print.c.orig	Wed Nov  5 00:35:58 2025
++++ tests/bn_print.c	Wed Nov  5 00:36:19 2025
+@@ -51,7 +51,7 @@ const struct print_test {
+ 		.desc = "minus one",
+ 		.want = "    mana mana -1 (-0x1)\n",
+ 	},
+-#ifdef _LP64
++#if BN_BYTES == 8
+ 	{
+ 		.desc = "largest word",
+ 		.want = "    mana mana 18446744073709551615 "

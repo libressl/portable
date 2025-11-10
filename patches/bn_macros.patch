@@ -1,0 +1,129 @@
+diff --git include/openssl/bn.h include/openssl/bn.h
+index e64fcf355f..be6be8c219 100644
+--- include/openssl/bn.h
++++ include/openssl/bn.h
+@@ -143,42 +143,17 @@
+ #if defined(_LP64) || defined(_WIN64)
+ #undef	BN_LLONG
+ #define BN_ULONG	uint64_t
+-#define BN_LONG		int64_t
+-#define BN_BITS		128
+ #define BN_BYTES	8
+ #define BN_BITS2	64
+-#define BN_BITS4	32
+-#define BN_MASK2	UINT64_C(0xffffffffffffffff)
+-#define BN_MASK2l	UINT64_C(0xffffffff)
+-#define BN_MASK2h	UINT64_C(0xffffffff00000000)
+-#define BN_MASK2h1	UINT64_C(0xffffffff80000000)
+-#define BN_TBIT		UINT64_C(0x8000000000000000)
+-#define BN_DEC_CONV	UINT64_C(10000000000000000000)
+ #define BN_DEC_FMT1	"%" PRIu64
+-#define BN_DEC_FMT2	"%019" PRIu64
+-#define BN_DEC_NUM	19
+ #define BN_HEX_FMT1	"%" PRIX64
+-#define BN_HEX_FMT2	"%016" PRIX64
+ #else
+ #define BN_ULLONG	uint64_t
+ #define	BN_LLONG
+ #define BN_ULONG	uint32_t
+-#define BN_LONG		int32_t
+-#define BN_BITS		64
+ #define BN_BYTES	4
+ #define BN_BITS2	32
+-#define BN_BITS4	16
+-#define BN_MASK		UINT64_C(0xffffffffffffffff)
+-#define BN_MASK2	UINT32_C(0xffffffff)
+-#define BN_MASK2l	UINT32_C(0xffff)
+-#define BN_MASK2h1	UINT32_C(0xffff8000)
+-#define BN_MASK2h	UINT32_C(0xffff0000)
+-#define BN_TBIT		UINT32_C(0x80000000)
+-#define BN_DEC_CONV	UINT32_C(1000000000)
+ #define BN_DEC_FMT1	"%" PRIu32
+-#define BN_DEC_FMT2	"%09" PRIu32
+-#define BN_DEC_NUM	9
+ #define BN_HEX_FMT1	"%" PRIX32
+-#define BN_HEX_FMT2	"%08" PRIX32
+ #endif
+ 
+diff --git crypto/bn/bn_convert.c crypto/bn/bn_convert.c
+index ca5c7d7865..6949cab91c 100644
+--- crypto/bn/bn_convert.c
++++ crypto/bn/bn_convert.c
+@@ -71,6 +71,14 @@
+ #include "crypto_internal.h"
+ #include "err_local.h"
+ 
++#if BN_BYTES == 8
++#define BN_DEC_CONV	UINT64_C(10000000000000000000)
++#define BN_DEC_NUM	19
++#else
++#define BN_DEC_CONV	UINT32_C(1000000000)
++#define BN_DEC_NUM	9
++#endif
++
+ static int bn_dec2bn_cbs(BIGNUM **bnp, CBS *cbs);
+ static int bn_hex2bn_cbs(BIGNUM **bnp, CBS *cbs);
+ 
+diff --git crypto/bn/bn_local.h crypto/bn/bn_local.h
+index a7d61f1b03..1a90de2a19 100644
+--- crypto/bn/bn_local.h
++++ crypto/bn/bn_local.h
+@@ -116,6 +116,20 @@
+ 
+ #include <openssl/bn.h>
+ 
++#if BN_BYTES == 8
++#define BN_MASK2	UINT64_C(0xffffffffffffffff)
++#define BN_MASK2l	UINT64_C(0xffffffff)
++#define BN_MASK2h	UINT64_C(0xffffffff00000000)
++#define BN_BITS		128
++#define BN_BITS4	32
++#else
++#define BN_MASK2	UINT32_C(0xffffffff)
++#define BN_MASK2l	UINT32_C(0xffff)
++#define BN_MASK2h	UINT32_C(0xffff0000)
++#define BN_BITS		64
++#define BN_BITS4	16
++#endif
++
+ __BEGIN_HIDDEN_DECLS
+ 
+ struct bignum_st {
+diff --git crypto/ec/ec_internal.h crypto/ec/ec_internal.h
+index 327d9ea94d..bfc1a32db3 100644
+--- crypto/ec/ec_internal.h
++++ crypto/ec/ec_internal.h
+@@ -24,7 +24,7 @@
+ #define EC_FIELD_ELEMENT_MAX_BYTES \
+     (EC_FIELD_ELEMENT_MAX_BITS + 7) / 8
+ #define EC_FIELD_ELEMENT_MAX_WORDS \
+-    ((EC_FIELD_ELEMENT_MAX_BYTES + BN_BYTES - 1) / BN_BYTES)
++    ((EC_FIELD_ELEMENT_MAX_BYTES + sizeof(BN_ULONG) - 1) / sizeof(BN_ULONG))
+ 
+ typedef struct {
+ 	BN_ULONG w[EC_FIELD_ELEMENT_MAX_WORDS];
+diff --git crypto/bn/bn_internal.h crypto/bn/bn_internal.h
+index 8b5145e225..6058c53cd3 100644
+--- crypto/bn/bn_internal.h
++++ crypto/bn/bn_internal.h
+@@ -18,6 +18,7 @@
+ #include <openssl/bn.h>
+ 
+ #include "bn_arch.h"
++#include "bn_local.h"
+ 
+ #ifndef HEADER_BN_INTERNAL_H
+ #define HEADER_BN_INTERNAL_H
+diff --git tests/bn_word.c tests/bn_word.c
+index 2ec518ed1b..4a1edc6906 100644
+--- tests/bn_word.c
++++ tests/bn_word.c
+@@ -20,6 +20,8 @@
+ 
+ #include <openssl/bn.h>
+ 
++#include "bn_local.h"
++
+ struct bn_word_test {
+ 	const char *in_hex;
+ 	BN_ULONG in_word;

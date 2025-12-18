@@ -44,6 +44,10 @@
 #define	IPTOS_DSCP_AF43		0x98
 #endif
 
+#ifndef IPTOS_DSCP_VA
+#define	IPTOS_DSCP_VA		0xb0
+#endif
+
 #ifndef IPTOS_DSCP_EF
 #define	IPTOS_DSCP_EF		0xb8
 #endif

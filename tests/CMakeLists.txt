@@ -354,6 +354,7 @@ add_platform_test(cipherstest cipherstest)
 ## clienttest
 add_executable(clienttest clienttest.c)
 target_link_libraries(clienttest ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(clienttest)
 add_platform_test(clienttest clienttest)
 
 # cmstest

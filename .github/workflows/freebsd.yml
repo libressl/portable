@@ -22,7 +22,7 @@ jobs:
       contents: read
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v4
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - name: "Setup"
         run: |
@@ -31,7 +31,7 @@ jobs:
           ./autogen.sh
 
       - name: "Build on VM"
-        uses: vmactions/freebsd-vm@v1
+        uses: vmactions/freebsd-vm@670398e4236735b8b65805c3da44b7a511fb8b27 # v1.3.0
         with:
           release: "${{ env.FREEBSD_VERSION }}"
           copyback: false
@@ -49,7 +49,7 @@ jobs:
       contents: read
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v4
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - name: "Setup"
         run: |
@@ -58,7 +58,7 @@ jobs:
           ./autogen.sh
 
       - name: "Build on VM"
-        uses: vmactions/freebsd-vm@v1
+        uses: vmactions/freebsd-vm@670398e4236735b8b65805c3da44b7a511fb8b27 # v1.3.0
         with:
           release: "${{ env.FREEBSD_VERSION }}"
           copyback: false

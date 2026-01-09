@@ -37,6 +37,8 @@ LibreSSL Portable Release Notes:
 	* Compatibility changes
 	  - Expose X509_VERIFY_PARAM_set_hostflags() as a public symbol.
 	  - Provide SSL_SESSION_dup().
+	* New features: support for MLKEM768_X25519 keyshare in TLS.
+	  https://datatracker.ietf.org/doc/draft-ietf-tls-ecdhe-mlkem/
 	* Bug fixes
 	  - Ensure the group selected by a TLSv1.3 server for a
 	    HelloRetryRequest is not one for which the client has

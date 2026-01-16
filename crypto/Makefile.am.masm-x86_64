@@ -14,9 +14,6 @@ libcrypto_la_SOURCES += aes/aes_amd64.c
 libcrypto_la_SOURCES += modes/gcm128_amd64.c
 
 libcrypto_la_CPPFLAGS += -DAES_ASM
-libcrypto_la_CPPFLAGS += -DBSAES_ASM
-libcrypto_la_CPPFLAGS += -DVPAES_ASM
-libcrypto_la_CPPFLAGS += -DOPENSSL_IA32_SSE2
 libcrypto_la_CPPFLAGS += -DOPENSSL_BN_ASM_MONT
 libcrypto_la_CPPFLAGS += -DOPENSSL_BN_ASM_MONT5
 libcrypto_la_CPPFLAGS += -DGHASH_ASM

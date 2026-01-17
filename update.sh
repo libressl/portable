@@ -170,41 +170,21 @@ echo "LibreSSL version `cat VERSION`"
 echo copying libcrypto source
 rm -f crypto/*.c crypto/*.h
 touch crypto/empty.c
-for i in `awk '/SOURCES|HEADERS/ { print $3 }' crypto/Makefile.am` ; do
+crypto_files=`awk '/^ASM|SOURCES|HEADERS/ { print $3 }' crypto/Makefile.am* | grep -v '^\$(' | sort | uniq`
+for i in $crypto_files; do
 	dir=`dirname $i`
 	mkdir -p crypto/$dir
 	if [ $dir != "compat" ]; then
-		if [ -e $libcrypto_src/$i ]; then
+		if [ -f $libcrypto_src/$i ]; then
 			$CP $libcrypto_src/$i crypto/$i
 		fi
 	fi
 done
 
-for arch in amd64 i386; do
-	$CP $libcrypto_src/aes/aes_${arch}.c crypto/aes/
-	$CP $libcrypto_src/modes/gcm128_${arch}.c crypto/modes/
-done
-
-for i in $libcrypto_src/arch/*; do
-	arch=`basename $i`
-	mkdir -p crypto/arch/$arch
-	$CP $libcrypto_src/arch/$arch/crypto_arch.h crypto/arch/$arch/
-	crypto_cpu_caps=$libcrypto_src/arch/$arch/crypto_cpu_caps.c
-	if [ -f "$crypto_cpu_caps" ]; then
-		$CP "$crypto_cpu_caps" crypto/arch/$arch/
-	fi
-done
-
-for i in $libcrypto_src/bn/arch/*; do
-	arch=`basename $i`
-	mkdir -p crypto/bn/arch/$arch
-	$CP $libcrypto_src/bn/arch/$arch/* crypto/bn/arch/$arch/
-done
-
 $CP crypto/compat/b_win.c crypto/bio
 $CP crypto/compat/ui_openssl_win.c crypto/ui
 # add the libcrypto symbol export list
-$GREP -v OPENSSL_ia32cap_P $libcrypto_src/Symbols.list | $GREP '^[A-Za-z0-9_]' > crypto/crypto.sym
+$GREP '^[A-Za-z0-9_]' $libcrypto_src/Symbols.list > crypto/crypto.sym
 
 fixup_masm() {
 	cpp -I./crypto -I./include/compat -D_MSC_VER -U__CET__ $1 \

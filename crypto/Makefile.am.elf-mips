@@ -8,7 +8,11 @@ ASM_MIPS_ELF += sha/sha256-mips.S
 EXTRA_DIST += $(ASM_MIPS_ELF)
 
 if HOST_ASM_ELF_MIPS
-libcrypto_la_CPPFLAGS += -DAES_ASM
+libcrypto_la_CPPFLAGS += -DLIBRESSL_USE_AES_ASSEMBLY
+libcrypto_la_CPPFLAGS += -DLIBRESSL_USE_BN_ASSEMBLY
+libcrypto_la_CPPFLAGS += -DLIBRESSL_USE_SHA_ASSEMBLY
+
 libcrypto_la_CPPFLAGS += -DOPENSSL_BN_ASM_MONT
+
 libcrypto_la_SOURCES += $(ASM_MIPS_ELF)
 endif

@@ -14,10 +14,14 @@ libcrypto_la_SOURCES += aes/aes_amd64.c
 libcrypto_la_SOURCES += modes/gcm128_amd64.c
 
 libcrypto_la_CPPFLAGS += -Dendbr32=endbr64
-libcrypto_la_CPPFLAGS += -DAES_ASM
+
+libcrypto_la_CPPFLAGS += -DLIBRESSL_USE_AES_ASSEMBLY
+libcrypto_la_CPPFLAGS += -DLIBRESSL_USE_BN_ASSEMBLY
+libcrypto_la_CPPFLAGS += -DLIBRESSL_USE_GCM_ASSEMBLY
+libcrypto_la_CPPFLAGS += -DLIBRESSL_USE_RC4_ASSEMBLY
+
 #libcrypto_la_CPPFLAGS += -DOPENSSL_BN_ASM_MONT
 #libcrypto_la_CPPFLAGS += -DOPENSSL_BN_ASM_MONT5
-libcrypto_la_CPPFLAGS += -DGHASH_ASM
-libcrypto_la_CPPFLAGS += -DRSA_ASM
+
 libcrypto_la_SOURCES += $(ASM_X86_64_MINGW64)
 endif

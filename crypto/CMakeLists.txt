@@ -19,6 +19,7 @@ if(HOST_ASM_ELF_X86_64)
 	set(CRYPTO_SRC ${CRYPTO_SRC} aes/aes_amd64.c)
 	set(CRYPTO_SRC ${CRYPTO_SRC} bn/arch/amd64/bn_arch.c)
 	set(CRYPTO_SRC ${CRYPTO_SRC} modes/gcm128_amd64.c)
+	set(CRYPTO_SRC ${CRYPTO_SRC} sha/sha1_amd64.c sha/sha256_amd64.c sha/sha512_amd64.c)
 
 	set(
 		ASM_X86_64_ELF_SRC
@@ -51,11 +52,18 @@ if(HOST_ASM_ELF_X86_64)
 		bn/arch/amd64/bignum_sqr_8_16_alt.S
 		bn/arch/amd64/bignum_sub.S
 		bn/arch/amd64/word_clz.S
+
+		sha/sha1_amd64_shani.S
+		sha/sha1_amd64_generic.S
+		sha/sha256_amd64_generic.S
+		sha/sha256_amd64_shani.S
+		sha/sha512_amd64_generic.S
 	)
 	add_definitions(-DLIBRESSL_USE_AES_ASSEMBLY)
 	add_definitions(-DLIBRESSL_USE_BN_ASSEMBLY)
 	add_definitions(-DLIBRESSL_USE_GCM_ASSEMBLY)
 	add_definitions(-DLIBRESSL_USE_RC4_ASSEMBLY)
+	add_definitions(-DLIBRESSL_USE_SHA_ASSEMBLY)
 	add_definitions(-DOPENSSL_BN_ASM_MONT)
 	add_definitions(-DOPENSSL_BN_ASM_MONT5)
 	set(CRYPTO_SRC ${CRYPTO_SRC} ${ASM_X86_64_ELF_SRC})

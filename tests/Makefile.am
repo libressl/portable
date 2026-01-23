@@ -265,6 +265,11 @@ TESTS += bn_convert
 check_PROGRAMS += bn_convert
 bn_convert_SOURCES = bn_convert.c
 
+# bn_ffdh
+TESTS += bn_ffdh
+check_PROGRAMS += bn_ffdh
+bn_ffdh_SOURCES = bn_ffdh.c
+
 # bn_gcd
 TESTS += bn_gcd
 check_PROGRAMS += bn_gcd

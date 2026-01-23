@@ -244,12 +244,12 @@ target_link_libraries(bn_convert ${OPENSSL_TEST_LIBS})
 add_platform_test(bn_convert bn_convert)
 
 # bn_ffdh
-add_executable(bn_ffdh bn_cmp.c)
+add_executable(bn_ffdh bn_ffdh.c)
 target_link_libraries(bn_ffdh ${OPENSSL_TEST_LIBS})
 add_platform_test(bn_ffdh bn_ffdh)
 
 # bn_gcd
-add_executable(bn_gcd bn_cmp.c)
+add_executable(bn_gcd bn_gcd.c)
 target_link_libraries(bn_gcd ${OPENSSL_TEST_LIBS})
 add_platform_test(bn_gcd bn_gcd)
 

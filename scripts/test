@@ -12,6 +12,33 @@ fi
 
 ENABLE_ASM="${ENABLE_ASM:=ON}"
 
+# setup_cross_compiler sets up environment variables for cross-compilation with the given prefix.
+setup_cross_compiler() {
+	cross_prefix=$1
+
+	# Use unversioned symlink if available, otherwise find versioned binary
+	if command -v "${cross_prefix}-gcc" >/dev/null 2>&1; then
+		CC=${cross_prefix}-gcc
+		CXX=${cross_prefix}-g++
+	else
+		gcc_ver=$(find /usr/bin -maxdepth 1 -name "${cross_prefix}-gcc-[0-9]*" 2>/dev/null \
+			| sed "s/.*${cross_prefix}-gcc-//" | sort -V | tail -1)
+		CC=${cross_prefix}-gcc-${gcc_ver}
+		CXX=${cross_prefix}-g++-${gcc_ver}
+	fi
+
+	if ! command -v "${CC}" >/dev/null 2>&1; then
+		echo "##### Error: ${CC} not found in PATH"
+		exit 1
+	fi
+
+	AR=${cross_prefix}-ar
+	STRIP=${cross_prefix}-strip
+	RANLIB=${cross_prefix}-ranlib
+
+	echo "##### Using $($CC --version | head -1)"
+}
+
 if type apt-get >/dev/null 2>&1; then
 	sudo apt-get update
 	sudo apt-get install -y cmake ninja-build
@@ -87,7 +114,7 @@ elif [ "$ARCH" = "native" ]; then
 		ninja test
 	)
 
-elif [ "$ARCH" = "mingw32" -o "$ARCH" = "mingw64" ]; then
+elif [ "$ARCH" = "mingw32" ] || [ "$ARCH" = "mingw64" ]; then
 	CPU=i686
 	if [ "$ARCH" = "mingw64" ]; then
 		CPU=x86_64
@@ -115,54 +142,57 @@ elif [ "$ARCH" = "mingw32" -o "$ARCH" = "mingw64" ]; then
 	 ninja -j 4
 	)
 
-elif [ "$ARCH" = "arm32" -o "$ARCH" = "arm64" ]; then
+elif [ "$ARCH" = "arm32" ] || [ "$ARCH" = "arm64" ]; then
 	sudo apt-get install -y qemu-user-static binfmt-support
 
 	if [ "$ARCH" = "arm32" ]; then
 		sudo apt-get install -y g++-arm-linux-gnueabihf
 		sudo ln -sf /usr/arm-linux-gnueabihf/lib/ld-linux-armhf.so.3 /lib/
+		setup_cross_compiler arm-linux-gnueabihf
+
 		./configure --host=arm-linux-gnueabihf
 		LD_LIBRARY_PATH=/usr/arm-linux-gnueabihf/lib make -j 4 check
 	else
 		sudo apt-get install -y g++-aarch64-linux-gnu
 		sudo ln -sf /usr/aarch64-linux-gnu/lib/ld-linux-aarch64.so.1 /lib/
+		setup_cross_compiler aarch64-linux-gnu
+
 		./configure --host=aarch64-linux-gnu
 		LD_LIBRARY_PATH=/usr/aarch64-linux-gnu/lib make -j 4 check
 	fi
 
-	file apps/openssl/.libs/openssl
+	file apps/openssl/openssl
 
 elif [ "$ARCH" = "loong64" ]; then
 	sudo apt install -y qemu-user-static binfmt-support g++-14-loongarch64-linux-gnu
 	sudo ln -sf /usr/loongarch64-linux-gnu/lib64/ld-linux-loongarch-lp64d.so.1 /lib64
-
-	CC=loongarch64-linux-gnu-gcc-14
-	CXX=loongarch64-linux-gnu++-14
-	AR=loongarch64-linux-gnu-ar
-	STRIP=loongarch64-linux-gnu-strip-14
-	RANLIB=loongarch64-linux-gnu-ranlib
+	setup_cross_compiler loongarch64-linux-gnu
 
 	./configure --host=loongarch64-linux-gnu
 	LD_LIBRARY_PATH=/usr/loongarch64-linux-gnu/lib make -j 4 check
 
 	file apps/openssl/openssl
 
-elif [ "$ARCH" = "mips32" -o "$ARCH" = "mips64" ]; then
+elif [ "$ARCH" = "mips32" ] || [ "$ARCH" = "mips64" ]; then
 	sudo apt-get install -y qemu-user-static binfmt-support
 
 	if [ "$ARCH" = "mips32" ]; then
 		sudo apt-get install -y g++-mips-linux-gnu
-		sudo ln -sf /usr/mipsel-linux-gnu/lib/ld.so.1 /lib/
-		./configure --host=mipsel-linux-gnu
-		LD_LIBRARY_PATH=/usr/mipsel-linux-gnu/lib make -j 4 check
+		sudo ln -sf /usr/mips-linux-gnu/lib/ld.so.1 /lib/
+		setup_cross_compiler mips-linux-gnu
+
+		./configure --host=mips-linux-gnu
+		LD_LIBRARY_PATH=/usr/mips-linux-gnu/lib make -j 4 check
 	else
 		sudo apt-get install -y g++-mips64el-linux-gnuabi64
 		sudo ln -sf /usr/mips64el-linux-gnuabi64/lib64/ld.so.1 /lib64
+		setup_cross_compiler mips64el-linux-gnuabi64
+
 		./configure --host=mips64el-linux-gnuabi64
 		LD_LIBRARY_PATH=/usr/mips64el-linux-gnuabi64/lib make -j 4 check
 	fi
 
-	file apps/openssl/.libs/openssl
+	file apps/openssl/openssl
 
 elif [ "$ARCH" = "android" ]; then
 	export TC_FILE=$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake

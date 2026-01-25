@@ -16,20 +16,19 @@ ENABLE_ASM="${ENABLE_ASM:=ON}"
 setup_cross_compiler() {
 	cross_prefix=$1
 
-	# Use unversioned symlink if available, otherwise find versioned binary
-	if command -v "${cross_prefix}-gcc" >/dev/null 2>&1; then
-		CC=${cross_prefix}-gcc
-		CXX=${cross_prefix}-g++
-	else
-		gcc_ver=$(find /usr/bin -name "${cross_prefix}-gcc-[0-9]*" -prune 2>/dev/null \
-			| sed "s/.*${cross_prefix}-gcc-//" | sort -n | tail -n 1)
-		CC=${cross_prefix}-gcc-${gcc_ver}
-		CXX=${cross_prefix}-g++-${gcc_ver}
-	fi
-
+	CC=${cross_prefix}-gcc
+	CXX=${cross_prefix}-g++
 	AR=${cross_prefix}-ar
 	STRIP=${cross_prefix}-strip
 	RANLIB=${cross_prefix}-ranlib
+
+	# If the unversioned symlink for gcc doesn't exist, find versioned binary.
+	if ! command -v "$CC" >/dev/null 2>&1; then
+		gcc_ver=$(find /usr/bin -name "${CC}-[0-9]*" -prune 2>/dev/null \
+			| sed "s/.*${CC}-//" | sort -n | tail -n 1)
+		CC=${CC}-${gcc_ver}
+		CXX=${CXX}-${gcc_ver}
+	fi
 
 	# Check all binaries actually exist.
 	for c in "$CC" "$CXX" "$AR" "$STRIP" "$RANLIB"; do
@@ -39,7 +38,7 @@ setup_cross_compiler() {
 		fi
 	done
 
-	echo "##### Using $($CC --version | head -1)"
+	echo "##### Using $($CC --version | head -n 1)"
 }
 
 if type apt-get >/dev/null 2>&1; then

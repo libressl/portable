@@ -21,8 +21,8 @@ setup_cross_compiler() {
 		CC=${cross_prefix}-gcc
 		CXX=${cross_prefix}-g++
 	else
-		gcc_ver=$(find /usr/bin -maxdepth 1 -name "${cross_prefix}-gcc-[0-9]*" 2>/dev/null \
-			| sed "s/.*${cross_prefix}-gcc-//" | sort -V | tail -1)
+		gcc_ver=$(find /usr/bin -name "${cross_prefix}-gcc-[0-9]*" -prune 2>/dev/null \
+			| sed "s/.*${cross_prefix}-gcc-//" | sort -n | tail -n 1)
 		CC=${cross_prefix}-gcc-${gcc_ver}
 		CXX=${cross_prefix}-g++-${gcc_ver}
 	fi

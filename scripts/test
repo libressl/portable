@@ -27,14 +27,17 @@ setup_cross_compiler() {
 		CXX=${cross_prefix}-g++-${gcc_ver}
 	fi
 
-	if ! command -v "${CC}" >/dev/null 2>&1; then
-		echo "##### Error: ${CC} not found in PATH"
-		exit 1
-	fi
-
 	AR=${cross_prefix}-ar
 	STRIP=${cross_prefix}-strip
 	RANLIB=${cross_prefix}-ranlib
+
+	# Check all binaries actually exist.
+	for c in "$CC" "$CXX" "$AR" "$STRIP" "$RANLIB"; do
+		if ! command -v "$c" >/dev/null 2>&1; then
+			echo "##### Error: $c not found"
+			exit 1
+		fi
+	done
 
 	echo "##### Using $($CC --version | head -1)"
 }

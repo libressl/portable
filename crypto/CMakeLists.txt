@@ -15,6 +15,18 @@
 
 add_definitions(-DLIBRESSL_CRYPTO_INTERNAL)
 
+if(HOST_ASM_ELF_AARCH64)
+	set(CRYPTO_SRC ${CRYPTO_SRC} sha/sha1_aarch64.c sha/sha256_aarch64.c sha/sha512_aarch64.c)
+
+	set(
+		ASM_AARCH64_ELF_SRC
+		sha/sha1_aarch64_ce.S
+		sha/sha256_aarch64_ce.S
+		sha/sha256_aarch64_ce.S
+	)
+	set(CRYPTO_SRC ${CRYPTO_SRC} ${ASM_AARCH64_ELF_SRC})
+endif()
+
 if(HOST_ASM_ELF_X86_64)
 	set(CRYPTO_SRC ${CRYPTO_SRC} aes/aes_amd64.c)
 	set(CRYPTO_SRC ${CRYPTO_SRC} bn/arch/amd64/bn_arch.c)

@@ -1,0 +1,15 @@
+ASM_AARCH64_ELF = sha/sha1_aarch64_ce.S
+ASM_AARCH64_ELF += sha/sha256_aarch64_ce.S
+ASM_AARCH64_ELF += sha/sha512_aarch64_ce.S
+
+EXTRA_DIST += $(ASM_AARCH64_ELF)
+
+if HOST_ASM_ELF_AARCH64
+libcrypto_la_SOURCES += sha/sha1_aarch64.c
+libcrypto_la_SOURCES += sha/sha256_aarch64.c
+libcrypto_la_SOURCES += sha/sha512_aarch64.c
+
+libcrypto_la_CPPFLAGS += -DLIBRESSL_USE_SHA_ASSEMBLY
+
+libcrypto_la_SOURCES += $(ASM_AARCH64_ELF)
+endif

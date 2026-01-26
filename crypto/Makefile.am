@@ -205,6 +205,7 @@ include Makefile.am.arc4random
 libcrypto_la_SOURCES =
 EXTRA_libcrypto_la_SOURCES =
 
+include Makefile.am.elf-aarch64
 include Makefile.am.elf-mips
 include Makefile.am.elf-mips64
 include Makefile.am.elf-x86_64
@@ -212,6 +213,7 @@ include Makefile.am.macosx-x86_64
 include Makefile.am.masm-x86_64
 include Makefile.am.mingw64-x86_64
 
+if !HOST_ASM_ELF_AARCH64
 if !HOST_ASM_ELF_MIPS
 if !HOST_ASM_ELF_MIPS64
 if !HOST_ASM_ELF_X86_64
@@ -219,6 +221,7 @@ if !HOST_ASM_MACOSX_X86_64
 if !HOST_ASM_MASM_X86_64
 if !HOST_ASM_MINGW64_X86_64
 libcrypto_la_CPPFLAGS += -DOPENSSL_NO_ASM
+endif
 endif
 endif
 endif

@@ -27,6 +27,9 @@
 #elif defined(__sun)
 #include "arc4random_solaris.h"
 
+#elif defined(__sgi)
+#include "arc4random_irix.h"
+
 #elif defined(_WIN32)
 #include "arc4random_win.h"
 

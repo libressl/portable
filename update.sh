@@ -416,27 +416,27 @@ echo "if !ENABLE_LIBTLS_ONLY" >> man/Makefile.am
 echo dist_man3_MANS = >> man/Makefile.am
 echo dist_man5_MANS = >> man/Makefile.am
 (cd man
-	for i in `ls -1 $libssl_src/man/*.3 | sort`; do
+	ls -1 "$libssl_src"/man/*.3 | sort | while IFS= read -r i; do
 		NAME=`basename "$i"`
-		$CP $i .
+		$CP "$i" .
 		echo "dist_man3_MANS += $NAME" >> Makefile.am
 	done
 
-	for i in `ls -1 $libcrypto_src/man/*.3 | sort`; do
+	ls -1 "$libcrypto_src"/man/*.3 | sort | while IFS= read -r i; do
 		NAME=`basename "$i"`
-		$CP $i .
+		$CP "$i" .
 		echo "dist_man3_MANS += $NAME" >> Makefile.am
 	done
 
-	for i in `ls -1 $libtls_src/man/*.3 | sort`; do
+	ls -1 "$libtls_src"/man/*.3 | sort | while IFS= read -r i; do
 		NAME=`basename "$i"`
-		$CP $i .
+		$CP "$i" .
 		echo "dist_man3_MANS += $NAME" >> Makefile.am
 	done
 
-	for i in `ls -1 $libcrypto_src/man/*.5 | sort`; do
+	ls -1 "$libcrypto_src"/man/*.5 | sort | while IFS= read -r i; do
 		NAME=`basename "$i"`
-		$CP $i .
+		$CP "$i" .
 		echo "dist_man5_MANS += $NAME" >> Makefile.am
 	done
 )

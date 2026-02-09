@@ -364,7 +364,7 @@ $CP "$libssl_regress"/certs/*.pem tests
 $CP "$libssl_regress"/certs/*.crl tests
 
 # copy libtls tests
-find "$libtls_regress" -name '*.c'| while q= read -r i; do
+find "$libtls_regress" -name '*.c'| while IFS= read -r i; do
 	 $CP "$i" tests
 done
 

@@ -6,7 +6,9 @@
 #ifndef LIBCRYPTOCOMPAT_PTHREAD_H
 #define LIBCRYPTOCOMPAT_PTHREAD_H
 
-#ifdef _WIN32
+#if defined(FREERTOS)
+#include <freertosthreadcompat.h>
+#elif defined(_WIN32)
 
 #include <malloc.h>
 #include <stdlib.h>

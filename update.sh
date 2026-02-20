@@ -33,7 +33,7 @@ is_tag=$?
 # adjust for 9 hour time delta between trees
 release_ts=$((`git show -s --format=%ct $tag|tail -1` + 32400))
 commit=`git -C openbsd rev-list -n 1 --before=$release_ts $openbsd_branch`
-git -C openbsd fetch
+git -C openbsd fetch --unshallow
 if [ $is_tag -eq 0 ]; then
   echo "This is tag $tag, trying OpenBSD tag libressl-$tag"
   if ! git -C openbsd checkout "libressl-$tag"; then

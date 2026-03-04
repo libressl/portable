@@ -1,0 +1,16 @@
+--- include/openssl/cms.h.orig	2026-02-20 16:35:58
++++ include/openssl/cms.h	2026-02-20 16:36:09
+@@ -67,6 +67,13 @@
+ extern "C" {
+ #endif
+
++#ifdef _MSC_VER
++#ifndef LIBRESSL_INTERNAL
++#include <basetsd.h>
++typedef SSIZE_T ssize_t;
++#endif
++#endif
++
+ typedef struct CMS_ContentInfo_st CMS_ContentInfo;
+ typedef struct CMS_SignerInfo_st CMS_SignerInfo;
+ typedef struct CMS_CertificateChoices CMS_CertificateChoices;

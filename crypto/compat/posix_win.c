@@ -89,7 +89,7 @@ posix_open(const char *path, ...)
 	flags &= ~O_NONBLOCK;
 
 	const int fh = open(path, flags, mode);
-	if (fh < 0) {
+	if (fh == -1) {
 		return fh;
 	}
 

@@ -89,6 +89,9 @@ posix_open(const char *path, ...)
 	flags &= ~O_NONBLOCK;
 
 	const int fh = open(path, flags, mode);
+	if (fh == -1) {
+		return fh;
+	}
 
 	// Set high bit to mark file descriptor as a file handle
 	return fh + 0x80000000;

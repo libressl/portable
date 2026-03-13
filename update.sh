@@ -21,7 +21,7 @@ openbsd_branch=`cat OPENBSD_BRANCH`
 # pull in latest upstream code
 echo "pulling upstream openbsd source"
 if [ ! -d openbsd ]; then
-	LIBRESSL_GIT_OPTIONS="${LIBRESSL_GIT_OPTIONS:- --depth=8}"
+	LIBRESSL_GIT_OPTIONS="${LIBRESSL_GIT_OPTIONS:- --depth=8 --no-single-branch}"
 	LIBRESSL_GIT="${LIBRESSL_GIT:- https://github.com/libressl}"
 	git clone $LIBRESSL_GIT_OPTIONS $LIBRESSL_GIT/openbsd
 fi
@@ -32,7 +32,7 @@ tag=`git describe --exact-match --tags HEAD 2>/dev/null`
 is_tag=$?
 # adjust for 9 hour time delta between trees
 release_ts=$((`git show -s --format=%ct $tag|tail -1` + 32400))
-commit=`git -C openbsd rev-list -n 1 --before=$release_ts $openbsd_branch`
+commit=`git -C openbsd rev-list -n 1 --before=$release_ts origin/$openbsd_branch`
 git -C openbsd fetch
 if [ $is_tag -eq 0 ]; then
   echo "This is tag $tag, trying OpenBSD tag libressl-$tag"

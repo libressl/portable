@@ -1,5 +1,5 @@
---- apps/nc/netcat.c.orig	Fri Oct 24 07:06:13 2025
-+++ apps/nc/netcat.c	Fri Oct 24 07:06:22 2025
+--- apps/nc/netcat.c.orig	Fri Mar 13 09:08:38 2026
++++ apps/nc/netcat.c	Fri Mar 13 09:08:46 2026
 @@ -93,9 +93,13 @@ int	zflag;					/* Port Scan Flag */
  int	Dflag;					/* sodebug */
  int	Iflag;					/* TCP receive buffer size */
@@ -53,7 +53,7 @@
  
  	/* Cruft to make sure options are clean, and used properly. */
  	if (argc == 1 && family == AF_UNIX) {
-@@ -928,7 +938,10 @@ remote_connect(const char *host, const char *port, str
+@@ -930,7 +940,10 @@ remote_connect(const char *host, const char *port, str
      char *ipaddr)
  {
  	struct addrinfo *res, *res0;
@@ -65,7 +65,7 @@
  
  	if ((error = getaddrinfo(host, port, &hints, &res0)))
  		errx(1, "getaddrinfo for host \"%s\" port %s: %s", host,
-@@ -943,8 +956,10 @@ remote_connect(const char *host, const char *port, str
+@@ -945,8 +958,10 @@ remote_connect(const char *host, const char *port, str
  		if (sflag || pflag) {
  			struct addrinfo ahints, *ares;
  
@@ -76,7 +76,7 @@
  			memset(&ahints, 0, sizeof(struct addrinfo));
  			ahints.ai_family = res->ai_family;
  			ahints.ai_socktype = uflag ? SOCK_DGRAM : SOCK_STREAM;
-@@ -1036,7 +1051,10 @@ int
+@@ -1038,7 +1053,10 @@ int
  local_listen(const char *host, const char *port, struct addrinfo hints)
  {
  	struct addrinfo *res, *res0;
@@ -88,7 +88,7 @@
  	int error;
  
  	/* Allow nodename to be null. */
-@@ -1057,9 +1075,11 @@ local_listen(const char *host, const char *port, struc
+@@ -1059,9 +1077,11 @@ local_listen(const char *host, const char *port, struc
  		    res->ai_protocol)) == -1)
  			continue;
  
@@ -100,7 +100,7 @@
  
  		set_common_sockopts(s, res->ai_family);
  
-@@ -1569,11 +1589,13 @@ set_common_sockopts(int s, int af)
+@@ -1571,11 +1591,13 @@ set_common_sockopts(int s, int af)
  {
  	int x = 1;
  
@@ -114,7 +114,7 @@
  	if (Dflag) {
  		if (setsockopt(s, SOL_SOCKET, SO_DEBUG,
  		    &x, sizeof(x)) == -1)
-@@ -1584,9 +1606,16 @@ set_common_sockopts(int s, int af)
+@@ -1586,9 +1608,16 @@ set_common_sockopts(int s, int af)
  		    IP_TOS, &Tflag, sizeof(Tflag)) == -1)
  			err(1, "set IP ToS");
  
@@ -131,7 +131,7 @@
  	}
  	if (Iflag) {
  		if (setsockopt(s, SOL_SOCKET, SO_RCVBUF,
-@@ -1610,13 +1639,17 @@ set_common_sockopts(int s, int af)
+@@ -1612,13 +1641,17 @@ set_common_sockopts(int s, int af)
  	}
  
  	if (minttl != -1) {
@@ -150,7 +150,7 @@
  	}
  }
  
-@@ -1846,15 +1879,19 @@ help(void)
+@@ -1849,15 +1882,19 @@ help(void)
  	\t-P proxyuser\tUsername for proxy authentication\n\
  	\t-p port\t	Specify local port for remote connects\n\
  	\t-R CAfile	CA bundle\n\

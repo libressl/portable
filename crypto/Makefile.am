@@ -209,6 +209,7 @@ include Makefile.am.elf-aarch64
 include Makefile.am.elf-mips
 include Makefile.am.elf-mips64
 include Makefile.am.elf-x86_64
+include Makefile.am.macosx-aarch64
 include Makefile.am.macosx-x86_64
 include Makefile.am.masm-x86_64
 include Makefile.am.mingw64-x86_64
@@ -217,6 +218,7 @@ if !HOST_ASM_ELF_AARCH64
 if !HOST_ASM_ELF_MIPS
 if !HOST_ASM_ELF_MIPS64
 if !HOST_ASM_ELF_X86_64
+if !HOST_ASM_MACOSX_AARCH64
 if !HOST_ASM_MACOSX_X86_64
 if !HOST_ASM_MASM_X86_64
 if !HOST_ASM_MINGW64_X86_64
@@ -267,6 +269,7 @@ libcrypto_la_SOURCES += compat/crypto_lock_win.c
 endif
 libcrypto_la_SOURCES += crypto_memory.c
 noinst_HEADERS += constant_time.h
+noinst_HEADERS += crypto_assembly.h
 noinst_HEADERS += crypto_internal.h
 noinst_HEADERS += crypto_local.h
 noinst_HEADERS += x86_arch.h

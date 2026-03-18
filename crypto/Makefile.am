@@ -609,7 +609,6 @@ libcrypto_la_SOURCES += ecdh/ecdh.c
 
 # ecdsa
 libcrypto_la_SOURCES += ecdsa/ecdsa.c
-noinst_HEADERS += ecdsa/ecdsa_local.h
 
 # engine
 libcrypto_la_SOURCES += engine/engine_stubs.c

@@ -34,15 +34,43 @@ LibreSSL Portable Release Notes:
 	  - Remove the unused sequence number from X509_REVOKED.
 	  - Replace a call to atoi() with strtonum() in nc(1) and replace a
 	    misleading use of ntohs() with htons().
+	  - openssl(1) speed now uses HMAC-SHA256 for its hmac benchmark.
+	  - Reimplemented only use of ASN1_PRINTABLE_type() in openssl(1) ca.
+	    The API will be removed in an upcoming release.
+	  - Add curve NID to EC_POINT objects so the library has a clue on which
+	    curve a given EC_POINT is supposed to live.
+	  - Use curve NID to check for compatibility between group and points
+	    in various EC API. This isn't 100% failsafe but good enough for sane
+	    uses.
+	  - Require SSE in order to use gcm_{gmult,ghash}_4bit_mmx().
+	    On rare i386 machines suporting MMX but not SSE this could result
+	    in an illegal instruction.
 	* Compatibility changes
 	  - Expose X509_VERIFY_PARAM_set_hostflags() as a public symbol.
 	  - Provide SSL_SESSION_dup().
-	* New features: support for MLKEM768_X25519 keyshare in TLS.
-	  https://datatracker.ietf.org/doc/draft-ietf-tls-ecdhe-mlkem/
+	  - BIGNUMs now use the C99 types uint64_t/uint32_t for the word width.
+	    Fixes long-standing issues with 32-bit longs on 64-bit Windows.
+	  - Many unused BN_* macros with incomprehensible names were removed:
+	    BN_LONG, BN_BITS{,4}, BN_MASK2{,l,h,h1}, BN_TBIT, BN_DEC_CONV,
+	    BN_{DEC,HEX}_FMT{1,2}, ...
+	  - openssl(1) cms no longer accepts the unsupported -compress and
+	    -uncompress switches.
+	  - Added PKCS7_NO_DUAL_CONTENT flag/behavior. This is incorrect legacy
+	    behavior but some language bindings decided to rely on it in 2025.
+	  - Remove STABLE_FLAGS_MALLOC but keep STABLE_NO_MASK because there is
+	    still one user...
+	* New features
+	  - Support for MLKEM768_X25519 keyshare in TLS.
+	    https://datatracker.ietf.org/doc/draft-ietf-tls-ecdhe-mlkem/
+	  - Added ML-KEM benchmarks to openssl(1) speed.
 	* Bug fixes
 	  - Ensure the group selected by a TLSv1.3 server for a
 	    HelloRetryRequest is not one for which the client has
 	    already sent a key share.
+	  - Plug memory leak in CMS_EncryptedData_encrypt().
+	  - Plug possible memory leak and double free in nref_nos().
+	  - Removed always zero test results for some no longer available
+	    legacy primitives in openssl(1) speed.
 
 4.2.0 - Stable release
 

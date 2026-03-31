@@ -98,48 +98,48 @@ if [ -x /opt/csw/bin/ggrep ]; then
 	GREP='/opt/csw/bin/ggrep'
 fi
 
-$CP $libcrypto_src/opensslconf.h include/openssl
-$CP $libcrypto_src/opensslfeatures.h include/openssl
-$CP $libssl_src/pqueue.h include
+$CP "$libcrypto_src/opensslconf.h" include/openssl
+$CP "$libcrypto_src/opensslfeatures.h" include/openssl
+$CP "$libssl_src/pqueue.h" include
 
-$CP $libtls_src/tls.h include
+$CP "$libtls_src/tls.h" include
 
 for i in crypto/compat; do
-	for j in $libc_src/crypt/arc4random.c \
-	    $libc_src/crypt/arc4random_uniform.c \
-	    $libc_src/crypt/chacha_private.h \
-	    $libc_src/stdlib/reallocarray.c \
-	    $libc_src/stdlib/recallocarray.c \
-	    $libc_src/stdlib/strtonum.c \
-	    $libc_src/string/explicit_bzero.c \
-	    $libc_src/string/strcasecmp.c \
-	    $libc_src/string/strlcpy.c \
-	    $libc_src/string/strlcat.c \
-	    $libc_src/string/strndup.c \
-	    $libc_src/string/strnlen.c \
-	    $libc_src/string/strsep.c \
-	    $libc_src/string/timingsafe_bcmp.c \
-	    $libc_src/string/timingsafe_memcmp.c \
-	    $libcrypto_src/arc4random/getentropy_*.c \
-	    $libcrypto_src/arc4random/arc4random_*.h; do
-		$CP_LIBC $j $i
+	for j in "$libc_src/crypt/arc4random.c" \
+	    "$libc_src/crypt/arc4random_uniform.c" \
+	    "$libc_src/crypt/chacha_private.h" \
+	    "$libc_src/stdlib/reallocarray.c" \
+	    "$libc_src/stdlib/recallocarray.c" \
+	    "$libc_src/stdlib/strtonum.c" \
+	    "$libc_src/string/explicit_bzero.c" \
+	    "$libc_src/string/strcasecmp.c" \
+	    "$libc_src/string/strlcpy.c" \
+	    "$libc_src/string/strlcat.c" \
+	    "$libc_src/string/strndup.c" \
+	    "$libc_src/string/strnlen.c" \
+	    "$libc_src/string/strsep.c" \
+	    "$libc_src/string/timingsafe_bcmp.c" \
+	    "$libc_src/string/timingsafe_memcmp.c" \
+	    "$libcrypto_src"/arc4random/getentropy_*.c \
+	    "$libcrypto_src"/arc4random/arc4random_*.h; do
+		$CP_LIBC "$j" $i
 	done
 done
 
-(cd $libcrypto_src/objects/;
+(cd "$libcrypto_src"/objects/;
 	perl objects.pl objects.txt obj_mac.num obj_mac.h;
 	perl obj_dat.pl obj_mac.h obj_dat.h )
 mkdir -p include/openssl crypto/objects
-$MV $libcrypto_src/objects/obj_mac.h ./include/openssl/obj_mac.h
-$MV $libcrypto_src/objects/obj_dat.h ./crypto/objects/obj_dat.h
+$MV "$libcrypto_src"/objects/obj_mac.h ./include/openssl/obj_mac.h
+$MV "$libcrypto_src"/objects/obj_dat.h ./crypto/objects/obj_dat.h
 
 copy_hdrs() {
 	for file in $2; do
-		$CP $1/$file include/openssl
+		$CP "$1/$file" include/openssl
 	done
 }
 
-copy_hdrs $libcrypto_src "stack/stack.h lhash/lhash.h stack/safestack.h
+copy_hdrs "$libcrypto_src" "stack/stack.h lhash/lhash.h stack/safestack.h
 	ossl_typ.h err/err.h crypto.h comp/comp.h x509/x509.h buffer/buffer.h
 	objects/objects.h asn1/asn1.h asn1/posix_time.h bn/bn.h ec/ec.h ecdsa/ecdsa.h
 	ecdh/ecdh.h rsa/rsa.h sha/sha.h x509/x509_vfy.h pkcs7/pkcs7.h pem/pem.h
@@ -154,13 +154,13 @@ copy_hdrs $libcrypto_src "stack/stack.h lhash/lhash.h stack/safestack.h
 	camellia/camellia.h curve25519/curve25519.h
 	ct/ct.h kdf/kdf.h"
 
-copy_hdrs $libssl_src "srtp.h ssl.h ssl3.h tls1.h dtls1.h"
+copy_hdrs "$libssl_src" "srtp.h ssl.h ssl3.h tls1.h dtls1.h"
 
 # override upstream opensslv.h if a local version exists
 if [ -f patches/opensslv.h ]; then
 	$CP patches/opensslv.h include/openssl
 else
-	$CP $libcrypto_src/opensslv.h include/openssl
+	$CP "$libcrypto_src"/opensslv.h include/openssl
 fi
 
 awk '/LIBRESSL_VERSION_TEXT/ {print $4}' < include/openssl/opensslv.h | cut -d\" -f1 | head -n1 > VERSION
@@ -175,8 +175,8 @@ for i in $crypto_files; do
 	dir=`dirname $i`
 	mkdir -p crypto/$dir
 	if [ $dir != "compat" ]; then
-		if [ -f $libcrypto_src/$i ]; then
-			$CP $libcrypto_src/$i crypto/$i
+		if [ -f "$libcrypto_src"/$i ]; then
+			$CP "$libcrypto_src"/$i crypto/$i
 		fi
 	fi
 done
@@ -184,7 +184,7 @@ done
 $CP crypto/compat/b_win.c crypto/bio
 $CP crypto/compat/ui_openssl_win.c crypto/ui
 # add the libcrypto symbol export list
-$GREP '^[A-Za-z0-9_]' $libcrypto_src/Symbols.list > crypto/crypto.sym
+$GREP '^[A-Za-z0-9_]' "$libcrypto_src"/Symbols.list > crypto/crypto.sym
 
 fixup_masm() {
 	cpp -I./crypto -I./include/compat -D_MSC_VER -U__CET__ $1 \
@@ -199,7 +199,7 @@ fixup_masm() {
 asm_src=$libcrypto_src
 
 gen_asm_stdout() {
-	CC=true perl $asm_src/$2 $1 > crypto/$3.tmp
+	CC=true perl "$asm_src"/$2 $1 > crypto/$3.tmp
 	[ $1 = "elf" ] && cat <<-EOF >> crypto/$3.tmp
 	#if defined(HAVE_GNU_STACK)
 	.section .note.GNU-stack,"",%progbits
@@ -218,7 +218,7 @@ gen_asm_mips() {
 	dir=$2
 	src=$3
 	dst=$4
-	CC=true perl $asm_src/$dir/asm/$src.pl $abi $dst.S
+	CC=true perl "$asm_src"/$dir/asm/$src.pl $abi $dst.S
 	cat <<-EOF >> $dst.S
 	#if defined(HAVE_GNU_STACK)
 	.section .note.GNU-stack,"",%progbits
@@ -228,7 +228,7 @@ gen_asm_mips() {
 }
 
 gen_asm() {
-	CC=true perl $asm_src/$2 $1 crypto/$3.tmp
+	CC=true perl "$asm_src"/$2 $1 crypto/$3.tmp
 	[ $1 = "elf" ] && cat <<-EOF >> crypto/$3.tmp
 	#if defined(HAVE_GNU_STACK)
 	.section .note.GNU-stack,"",%progbits
@@ -261,13 +261,13 @@ gen_asm_mips 64 sha sha512-mips sha512-mips64
 for abi in elf macosx masm mingw64; do
 	echo generating x86_64 ASM source for $abi
 
-	gen_asm_stdout $abi aes/asm/aes-x86_64.pl        aes/aes-$abi-x86_64.S
-	gen_asm_stdout $abi aes/asm/aesni-x86_64.pl      aes/aesni-$abi-x86_64.S
-	gen_asm_stdout $abi bn/asm/modexp512-x86_64.pl   bn/modexp512-$abi-x86_64.S
-	gen_asm_stdout $abi bn/asm/x86_64-mont.pl        bn/mont-$abi-x86_64.S
-	gen_asm_stdout $abi bn/asm/x86_64-mont5.pl       bn/mont5-$abi-x86_64.S
-	gen_asm_stdout $abi modes/asm/ghash-x86_64.pl    modes/ghash-$abi-x86_64.S
-	gen_asm_stdout $abi rc4/asm/rc4-x86_64.pl        rc4/rc4-$abi-x86_64.S
+	gen_asm_stdout "$abi" aes/asm/aes-x86_64.pl        aes/aes-$abi-x86_64.S
+	gen_asm_stdout "$abi" aes/asm/aesni-x86_64.pl      aes/aesni-$abi-x86_64.S
+	gen_asm_stdout "$abi" bn/asm/modexp512-x86_64.pl   bn/modexp512-$abi-x86_64.S
+	gen_asm_stdout "$abi" bn/asm/x86_64-mont.pl        bn/mont-$abi-x86_64.S
+	gen_asm_stdout "$abi" bn/asm/x86_64-mont5.pl       bn/mont5-$abi-x86_64.S
+	gen_asm_stdout "$abi" modes/asm/ghash-x86_64.pl    modes/ghash-$abi-x86_64.S
+	gen_asm_stdout "$abi" rc4/asm/rc4-x86_64.pl        rc4/rc4-$abi-x86_64.S
 done
 
 # copy libtls source
@@ -275,44 +275,44 @@ echo copying libtls source
 rm -f tls/*.c tls/*.h libtls/src/*.c libtls/src/*.h
 touch tls/empty.c
 for i in `awk '/SOURCES|HEADERS/ { print $3 }' tls/Makefile.am` ; do
-	if [ -e $libtls_src/$i ]; then
-		$CP $libtls_src/$i tls
+	if [ -e "$libtls_src"/$i ]; then
+		$CP "$libtls_src"/$i tls
 	fi
 done
 # add the libtls symbol export list
-$GREP '^[A-Za-z0-9_]' < $libtls_src/Symbols.list > tls/tls.sym
+$GREP '^[A-Za-z0-9_]' < "$libtls_src"/Symbols.list > tls/tls.sym
 
 # copy nc(1) source
 echo "copying nc(1) source"
-$CP $bin_src/nc/nc.1 apps/nc
+$CP "$bin_src"/nc/nc.1 apps/nc
 rm -f apps/nc/*.c apps/nc/*.h
-$CP_LIBC $libc_src/net/base64.c apps/nc/compat
+$CP_LIBC "$libc_src"/net/base64.c apps/nc/compat
 for i in `awk '/SOURCES|HEADERS|MANS/ { print $3 }' apps/nc/Makefile.am` ; do
-	if [ -e $bin_src/nc/$i ]; then
-		$CP $bin_src/nc/$i apps/nc
+	if [ -e "$bin_src"/nc/$i ]; then
+		$CP "$bin_src"/nc/$i apps/nc
 	fi
 done
 
 # copy ocspcheck(1) source
 echo "copying ocspcheck(1) source"
-$CP $sbin_src/ocspcheck/ocspcheck.8 apps/ocspcheck
+$CP "$sbin_src"/ocspcheck/ocspcheck.8 apps/ocspcheck
 rm -f apps/ocspcheck/*.c apps/ocspcheck/*.h
-$CP_LIBC $libc_src/string/memmem.c apps/ocspcheck/compat
+$CP_LIBC "$libc_src"/string/memmem.c apps/ocspcheck/compat
 for i in `awk '/SOURCES|HEADERS|MANS/ { print $3 }' apps/ocspcheck/Makefile.am` ; do
-	if [ -e $sbin_src/ocspcheck/$i ]; then
-		$CP $sbin_src/ocspcheck/$i apps/ocspcheck
+	if [ -e "$sbin_src"/ocspcheck/$i ]; then
+		$CP "$sbin_src"/ocspcheck/$i apps/ocspcheck
 	fi
 done
 
 # copy openssl(1) source
 echo "copying openssl(1) source"
-$CP $bin_src/openssl/openssl.1 apps/openssl
-$CP $libcrypto_src/cert.pem .
-$CP $libcrypto_src/openssl.cnf .
-$CP $libcrypto_src/x509v3.cnf .
+$CP "$bin_src"/openssl/openssl.1 apps/openssl
+$CP "$libcrypto_src"/cert.pem .
+$CP "$libcrypto_src"/openssl.cnf .
+$CP "$libcrypto_src"/x509v3.cnf .
 for i in `awk '/SOURCES|HEADERS|MANS/ { print $3 }' apps/openssl/Makefile.am` ; do
-	if [ -e $bin_src/openssl/$i ]; then
-		$CP $bin_src/openssl/$i apps/openssl
+	if [ -e "$bin_src"/openssl/$i ]; then
+		$CP "$bin_src"/openssl/$i apps/openssl
 	fi
 done
 
@@ -322,49 +322,49 @@ rm -f ssl/*.c ssl/*.h
 touch ssl/empty.c
 for i in `awk '/SOURCES|HEADERS/ { if ($3 !~ /.*crypto_arch.*/) print $3 }' ssl/Makefile.am` ; do
 	dir=`dirname $i`
-	mkdir -p ssl/$dir
-	$CP $libssl_src/$i ssl/$i
+	mkdir -p ssl/"$dir"
+	$CP "$libssl_src"/$i ssl/$i
 done
 # add the libssl symbol export list
-$GREP '^[A-Za-z0-9_]' < $libssl_src/Symbols.list > ssl/ssl.sym
+$GREP '^[A-Za-z0-9_]' < "$libssl_src"/Symbols.list > ssl/ssl.sym
 
 # copy libcrypto tests
 echo "copying tests"
 touch tests/empty.c
-for i in `find $libcrypto_regress -name '*.[ch]'`; do
+find "$libcrypto_regress" -name '*.[ch]'| while IFS= read -r i; do
 	 $CP "$i" tests
 done
-$CP $libcrypto_regress/evp/evptests.txt tests
-$CP $libcrypto_regress/aead/*.txt tests
-$CP $libcrypto_regress/ct/ctlog.conf tests
-$CP $libcrypto_regress/ct/*.crt tests
-$CP $libcrypto_regress/x509/policy/*.pem tests
-$CP $libcrypto_regress/mlkem/*.txt tests
+$CP "$libcrypto_regress"/evp/evptests.txt tests
+$CP "$libcrypto_regress"/aead/*.txt tests
+$CP "$libcrypto_regress"/ct/ctlog.conf tests
+$CP "$libcrypto_regress"/ct/*.crt tests
+$CP "$libcrypto_regress"/x509/policy/*.pem tests
+$CP "$libcrypto_regress"/mlkem/*.txt tests
 
 # generate libcrypto freenull.c
-awk -f $libcrypto_regress/free/freenull.awk \
-	< $libcrypto_src/Symbols.list > tests/freenull.c.body
-cat $libcrypto_regress/free/freenull.c.head tests/freenull.c.body \
-	$libcrypto_regress/free/freenull.c.tail > tests/freenull.c.tmp
+awk -f "$libcrypto_regress"/free/freenull.awk \
+	< "$libcrypto_src"/Symbols.list > tests/freenull.c.body
+cat "$libcrypto_regress"/free/freenull.c.head tests/freenull.c.body \
+	"$libcrypto_regress"/free/freenull.c.tail > tests/freenull.c.tmp
 $MV tests/freenull.c.tmp tests/freenull.c
 
 # copy libc tests
-$CP $libc_regress/arc4random-fork/arc4random-fork.c tests/arc4randomforktest.c
-$CP $libc_regress/explicit_bzero/explicit_bzero.c tests
-$CP_LIBC $libc_src/string/memmem.c tests/compat
-$CP $libc_regress/timingsafe/timingsafe.c tests
+$CP "$libc_regress"/arc4random-fork/arc4random-fork.c tests/arc4randomforktest.c
+$CP "$libc_regress"/explicit_bzero/explicit_bzero.c tests
+$CP_LIBC "$libc_src"/string/memmem.c tests/compat
+$CP "$libc_regress"/timingsafe/timingsafe.c tests
 
 # copy libssl tests
-$CP $libssl_regress/ssl/testssl tests
-for i in `find $libssl_regress -name '*.c'`; do
+$CP "$libssl_regress"/ssl/testssl tests
+find "$libssl_regress" -name '*.c'| while IFS= read -r i; do
 	 $CP "$i" tests
 done
-$CP $libssl_regress/unit/tests.h tests
-$CP $libssl_regress/certs/*.pem tests
-$CP $libssl_regress/certs/*.crl tests
+$CP "$libssl_regress"/unit/tests.h tests
+$CP "$libssl_regress"/certs/*.pem tests
+$CP "$libssl_regress"/certs/*.crl tests
 
 # copy libtls tests
-for i in `find $libtls_regress -name '*.c'`; do
+find "$libtls_regress" -name '*.c'| while IFS= read -r i; do
 	 $CP "$i" tests
 done
 
@@ -416,27 +416,27 @@ echo "if !ENABLE_LIBTLS_ONLY" >> man/Makefile.am
 echo dist_man3_MANS = >> man/Makefile.am
 echo dist_man5_MANS = >> man/Makefile.am
 (cd man
-	for i in `ls -1 $libssl_src/man/*.3 | sort`; do
+	ls -1 "$libssl_src"/man/*.3 | sort | while IFS= read -r i; do
 		NAME=`basename "$i"`
-		$CP $i .
+		$CP "$i" .
 		echo "dist_man3_MANS += $NAME" >> Makefile.am
 	done
 
-	for i in `ls -1 $libcrypto_src/man/*.3 | sort`; do
+	ls -1 "$libcrypto_src"/man/*.3 | sort | while IFS= read -r i; do
 		NAME=`basename "$i"`
-		$CP $i .
+		$CP "$i" .
 		echo "dist_man3_MANS += $NAME" >> Makefile.am
 	done
 
-	for i in `ls -1 $libtls_src/man/*.3 | sort`; do
+	ls -1 "$libtls_src"/man/*.3 | sort | while IFS= read -r i; do
 		NAME=`basename "$i"`
-		$CP $i .
+		$CP "$i" .
 		echo "dist_man3_MANS += $NAME" >> Makefile.am
 	done
 
-	for i in `ls -1 $libcrypto_src/man/*.5 | sort`; do
+	ls -1 "$libcrypto_src"/man/*.5 | sort | while IFS= read -r i; do
 		NAME=`basename "$i"`
-		$CP $i .
+		$CP "$i" .
 		echo "dist_man5_MANS += $NAME" >> Makefile.am
 	done
 )

@@ -9,4 +9,4 @@ if [ -z $srcdir ]; then
 	srcdir=.
 fi
 
-$TEST $srcdir/ca.pem $srcdir/server.pem $srcdir/server.pem
+$TEST $srcdir/ca-root-rsa.pem $srcdir/server1-rsa.pem $srcdir/server1-rsa.pem

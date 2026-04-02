@@ -10,4 +10,4 @@ if [ -z $srcdir ]; then
 	srcdir=.
 fi
 
-$tlstest_bin $srcdir/ca.pem $srcdir/server.pem $srcdir/server.pem
+$tlstest_bin $srcdir/ca-root-rsa.pem $srcdir/server1-rsa-chain.pem $srcdir/server1-rsa.pem

@@ -452,9 +452,9 @@ add_executable(keypairtest keypairtest.c)
 target_link_libraries(keypairtest ${LIBTLS_TEST_LIBS})
 target_include_directories(keypairtest BEFORE PUBLIC ../tls)
 add_test(keypairtest keypairtest
-	${CMAKE_CURRENT_SOURCE_DIR}/ca.pem
-	${CMAKE_CURRENT_SOURCE_DIR}/server.pem
-	${CMAKE_CURRENT_SOURCE_DIR}/server.pem)
+	${CMAKE_CURRENT_SOURCE_DIR}/ca-root-rsa.pem
+	${CMAKE_CURRENT_SOURCE_DIR}/server1-rsa.pem
+	${CMAKE_CURRENT_SOURCE_DIR}/server1-rsa.pem)
 
 # md_test
 add_executable(md_test md_test.c)

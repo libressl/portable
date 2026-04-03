@@ -85,7 +85,6 @@ libssl_la_SOURCES += ssl_init.c
 libssl_la_SOURCES += ssl_kex.c
 libssl_la_SOURCES += ssl_lib.c
 libssl_la_SOURCES += ssl_methods.c
-libssl_la_SOURCES += ssl_packet.c
 libssl_la_SOURCES += ssl_pkt.c
 libssl_la_SOURCES += ssl_rsa.c
 libssl_la_SOURCES += ssl_seclevel.c

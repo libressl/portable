@@ -45,6 +45,10 @@ LibreSSL Portable Release Notes:
 	  - Require SSE in order to use gcm_{gmult,ghash}_4bit_mmx().
 	    On rare i386 machines suporting MMX but not SSE this could result
 	    in an illegal instruction.
+	  - Cleaned up asn1t.h to make it somewhat readable.
+	  - Further assembly macro improvements for -portable.
+	  - Add fast path for well-known DH primes in DH_check() since some
+	    projects still fiddle with this in 2025.
 	* Compatibility changes
 	  - Expose X509_VERIFY_PARAM_set_hostflags() as a public symbol.
 	  - Provide SSL_SESSION_dup().
@@ -59,6 +63,8 @@ LibreSSL Portable Release Notes:
 	    behavior but some language bindings decided to rely on it in 2025.
 	  - Remove STABLE_FLAGS_MALLOC but keep STABLE_NO_MASK because there is
 	    still one user...
+	  - Fix ASN1_ADB_END macro to have compatible signature with OpenSSL.
+	    The adb_cb() argument is currently ignored.
 	* New features
 	  - Support for MLKEM768_X25519 keyshare in TLS.
 	    https://datatracker.ietf.org/doc/draft-ietf-tls-ecdhe-mlkem/

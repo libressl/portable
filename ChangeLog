@@ -45,10 +45,27 @@ LibreSSL Portable Release Notes:
 	  - Require SSE in order to use gcm_{gmult,ghash}_4bit_mmx().
 	    On rare i386 machines suporting MMX but not SSE this could result
 	    in an illegal instruction.
-	  - Cleaned up asn1t.h to make it somewhat readable.
+	  - Cleaned up asn1t.h to make it somewhat readable and more robust by
+	    using C99 initializers in particular.
 	  - Further assembly macro improvements for -portable.
-	  - Add fast path for well-known DH primes in DH_check() since some
-	    projects still fiddle with this in 2025.
+	  - Add fast path for well-known DH primes in DH_check() (including
+	    those from RFC 7919). Some projects still fiddle with this in 2025.
+	  - Rewrite ec_point_cmp() for readability and robustness.
+	  - Improve EVP_{Open,Seal}Init() internals. This is legacy API that
+	    cannot be removed since one scripting language still exposes it.
+	  - ASN1_BIT_STRING_set_bit() now trims trailing zero bits itself rather
+	    than relying on i2c_ASN1_BIT_STRING() doing that when encoding.
+	  - Fix and add workarounds to libtls to improve const correctness and
+	    to avoid warnings when compiling with OpenSSL 4.
+	  - Prefix EC_KEY methods with ec_key_ to avoid problems in some static
+	    links.
+	  - Remove mac_packet, a leftover from accepting SSLv2 ClientHellos.
+	  - Remove ssl_server_legacy_first_packet().
+	  - In addition to what was done in LibreSSL 4.0 for the version
+	    handling, disable TLSv1.1 and lower also on the method level.
+	  - Remove workaround for SSL 3.0/TLS 1.0 CBC vulnerability.
+	  - Refactor ocsp_find_signer_sk() to avoid neglecting the ASN.1's
+	    semantics by direct reaching into deeply nested OCSP structures.
 	* Compatibility changes
 	  - Expose X509_VERIFY_PARAM_set_hostflags() as a public symbol.
 	  - Provide SSL_SESSION_dup().
@@ -65,10 +82,13 @@ LibreSSL Portable Release Notes:
 	    still one user...
 	  - Fix ASN1_ADB_END macro to have compatible signature with OpenSSL.
 	    The adb_cb() argument is currently ignored.
+	  - Unexport ASN1_LONG_UNDEF.
 	* New features
 	  - Support for MLKEM768_X25519 keyshare in TLS.
 	    https://datatracker.ietf.org/doc/draft-ietf-tls-ecdhe-mlkem/
 	  - Added ML-KEM benchmarks to openssl(1) speed.
+	  - Added support for starttls protocol sieve.
+	  - Add support for RSASSA-PSS with pubkey OID RSASSA-PSS to libssl.
 	* Bug fixes
 	  - Ensure the group selected by a TLSv1.3 server for a
 	    HelloRetryRequest is not one for which the client has
@@ -77,6 +97,36 @@ LibreSSL Portable Release Notes:
 	  - Plug possible memory leak and double free in nref_nos().
 	  - Removed always zero test results for some no longer available
 	    legacy primitives in openssl(1) speed.
+	  - List SHA-3 digests in openssl(1) help output.
+	  - Fix encoding of bit strings with trailing zeroes on which
+	    ASN1_STRING_FLAG_BITS_LEFT is not set.
+	  - Add missing NULL pointer check to PKCS12_item_decrypt_d2i().
+	  - Avoid type confusion leading to 1-byte read at address 0x00-0xff
+	    in PKCS#12 parsing.
+	  - Fix type confusion in timestamp response parsing for v2 signing
+	    cert.
+	  - Fix EVP_SealInit() to return 0 on error, not -1.
+	  - Replace incorrect strncmp() with strcmp() in CRL distribution point
+	    config parsing.
+	  - openssl x509 -text writes its output to the file specified by -out
+	    like all other openssl(1) subcommands.
+	  - Stop Delta CRL processing in the verifier if the cRLNumber is
+	    missing. This is flagged on deserialization, but nothing checks
+	    that flag. This can lead to a NULL dereference if the verification
+	    has enabled Delta CRL checking by setting X509_V_FLAG_USE_DELTAS. 
+	  - Fix NULL derefreence that can be triggered with malformed OAEP
+	    parameter encoding for CMS decryption.
+	* Reliability fix
+	  - Fix off-by-one error in the X.509 verifier depth checking. This can
+	    lead to a 4-byte overwrite on heap allocated memory for clients
+	    talking to a malicious server or for servers that have client
+	    certificate verification enabled. In addition, the maximum depth
+	    must be set to the maximum allowed value of 32.
+	    Thanks to Calif.io in collaboration with Claude and Anthropic
+	    Research, for reporting the issue.
+	* Testing and proactive security
+	  - Port Wycheproof tests to testvectors_v1 and improve coverage
+	    and correctness. Add tests for ML-KEM in particular.
 
 4.2.0 - Stable release
 

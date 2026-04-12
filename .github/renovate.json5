@@ -1,0 +1,32 @@
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'config:best-practices',
+    ':configMigration',
+    ':pinVersions',
+    ':rebaseStalePrs',
+    'schedule:weekends',
+    'customManagers:githubActionsVersions',
+    'helpers:pinGitHubActionDigests',
+  ],
+  commitMessagePrefix: 'ci:',
+  commitMessageAction: 'update',
+  commitMessageTopic: '{{depName}}',
+  labels: [
+    'dependencies',
+  ],
+  minimumReleaseAge: '3 days',
+  packageRules: [
+    {
+      matchUpdateTypes: ['pin', 'pinDigest'],
+      commitMessageAction: 'pin',
+    },
+  ],
+  osvVulnerabilityAlerts: true,
+  vulnerabilityAlerts: {
+    enabled: true,
+    addLabels: [
+      'security',
+    ],
+  },
+}

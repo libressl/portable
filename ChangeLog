@@ -54,7 +54,7 @@ LibreSSL Portable Release Notes:
 	  - Improve EVP_{Open,Seal}Init() internals. This is legacy API that
 	    cannot be removed since one scripting language still exposes it.
 	  - ASN1_BIT_STRING_set_bit() now trims trailing zero bits itself rather
-	    than relying on i2c_ASN1_BIT_STRING() doing that when encoding.
+	    than relying on i2c_ASN1_BIT_STRING() to do that when encoding.
 	  - Fix and add workarounds to libtls to improve const correctness and
 	    to avoid warnings when compiling with OpenSSL 4.
 	  - Prefix EC_KEY methods with ec_key_ to avoid problems in some static
@@ -104,7 +104,7 @@ LibreSSL Portable Release Notes:
 	  - Avoid type confusion leading to 1-byte read at address 0x00-0xff
 	    in PKCS#12 parsing.
 	  - Fix type confusion in timestamp response parsing for v2 signing
-	    cert.
+	    certs.
 	  - Fix EVP_SealInit() to return 0 on error, not -1.
 	  - Replace incorrect strncmp() with strcmp() in CRL distribution point
 	    config parsing.
@@ -114,7 +114,7 @@ LibreSSL Portable Release Notes:
 	    missing. This is flagged on deserialization, but nothing checks
 	    that flag. This can lead to a NULL dereference if the verification
 	    has enabled Delta CRL checking by setting X509_V_FLAG_USE_DELTAS. 
-	  - Fix NULL derefreence that can be triggered with malformed OAEP
+	  - Fix NULL dereference that can be triggered with malformed OAEP
 	    parameter encoding for CMS decryption.
 	* Reliability fix
 	  - Fix off-by-one error in the X.509 verifier depth checking. This can

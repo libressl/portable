@@ -1,4 +1,4 @@
-name: CIFuzz
+name: "CIFuzz"
 
 on:
   workflow_dispatch:
@@ -8,26 +8,39 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  Fuzzing:
-    runs-on: ubuntu-24.04
+  fuzz:
+    name: "Fuzz"
+    runs-on: "ubuntu-24.04"
+    permissions:
+      security-events: write
     steps:
-    - name: Build Fuzzers
-      id: build
-      uses: google/oss-fuzz/infra/cifuzz/actions/build_fuzzers@master
-      with:
-        oss-fuzz-project-name: 'libressl'
-        dry-run: false
-        language: c++
-    - name: Run Fuzzers
-      uses: google/oss-fuzz/infra/cifuzz/actions/run_fuzzers@master
-      with:
-        oss-fuzz-project-name: 'libressl'
-        fuzz-seconds: 300
-        dry-run: false
-        language: c++
-    - name: Upload Crash
-      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
-      if: failure() && steps.build.outcome == 'success'
-      with:
-        name: artifacts
-        path: ./out/artifacts
+      - name: "Build Fuzzers"
+        id: build
+        uses: google/oss-fuzz/infra/cifuzz/actions/build_fuzzers@1b73904cfccf3addafb6d599b8e0f32e710790cc
+        with:
+          oss-fuzz-project-name: 'libressl'
+          dry-run: false
+          language: c++
+
+      - name: "Run Fuzzers"
+        uses: google/oss-fuzz/infra/cifuzz/actions/run_fuzzers@1b73904cfccf3addafb6d599b8e0f32e710790cc
+        with:
+          oss-fuzz-project-name: 'libressl'
+          fuzz-seconds: 300
+          dry-run: false
+          language: c++
+          output-sarif: true
+
+      - name: "Upload Crash"
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        if: failure() && steps.build.outcome == 'success'
+        with:
+          name: "artifacts"
+          path: "./out/artifacts"
+
+      - name: "Upload SARIF"
+        uses: github/codeql-action/upload-sarif@c10b8064de6f491fea524254123dbe5e09572f13 # v4.35.1
+        if: always() && steps.build.outcome == 'success'
+        with:
+          sarif_file: "cifuzz-sarif/results.sarif"
+          category: "cifuzz-sarif"

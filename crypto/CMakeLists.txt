@@ -82,7 +82,7 @@ if(HOST_ASM_ELF_X86_64)
 endif()
 
 if(HOST_ASM_MACOSX_AARCH64)
-	set(CRYPTO_SRC ${CRYPTO_SRC} sha/sha1_amd64.c sha/sha256_amd64.c sha/sha512_amd64.c)
+	set(CRYPTO_SRC ${CRYPTO_SRC} sha/sha1_aarch64.c sha/sha256_aarch64.c sha/sha512_aarch64.c)
 
 	set(
 		ASM_AARCH64_MACOSX_SRC

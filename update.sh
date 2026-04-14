@@ -168,15 +168,18 @@ echo "LibreSSL version `cat VERSION`"
 
 # copy libcrypto source
 echo copying libcrypto source
-rm -f crypto/*.c crypto/*.h
+# Remove OpenBSD-sourced files; git clean only removes untracked files,
+# leaving git-tracked files (e.g. crypto_assembly.h) untouched.
+git clean -f -- crypto/*.c crypto/*.h
 touch crypto/empty.c
-git checkout crypto/crypto_assembly.h
 crypto_files=`awk '/^ASM|SOURCES|HEADERS/ { print $3 }' crypto/Makefile.am* | grep -v '^\$(' | sort | uniq`
 for i in $crypto_files; do
 	dir=`dirname $i`
 	mkdir -p crypto/$dir
 	if [ $dir != "compat" ]; then
-		if [ -f $libcrypto_src/$i ]; then
+		if git ls-files --error-unmatch "crypto/$i" >/dev/null 2>&1; then
+			echo "  preserving git-tracked crypto/$i"
+		elif [ -f $libcrypto_src/$i ]; then
 			$CP $libcrypto_src/$i crypto/$i
 		fi
 	fi

@@ -119,6 +119,9 @@ LibreSSL Portable Release Notes:
 	  - Add missing length checks before BIO_new_mem_buf() in libtls.
 	  - Improve libtls error reporting consistency, avoid reporting
 	    unrelated errnos.
+	  - Fix SAN dNSName constraints: instead of substring matching,
+	    match exactly and allow zero or more components in front of
+	    the candidate.
 	* Reliability fix
 	  - Fix off-by-one error in the X.509 verifier depth checking. This can
 	    lead to a 4-byte overwrite on heap allocated memory for clients

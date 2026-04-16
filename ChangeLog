@@ -116,6 +116,9 @@ LibreSSL Portable Release Notes:
 	    has enabled Delta CRL checking by setting X509_V_FLAG_USE_DELTAS. 
 	  - Fix NULL dereference that can be triggered with malformed OAEP
 	    parameter encoding for CMS decryption.
+	  - Add missing length checks before BIO_new_mem_buf() in libtls.
+	  - Improve libtls error reporting consistency, avoid reporting
+	    unrelated errnos.
 	* Reliability fix
 	  - Fix off-by-one error in the X.509 verifier depth checking. This can
 	    lead to a 4-byte overwrite on heap allocated memory for clients

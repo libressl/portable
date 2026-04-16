@@ -1,0 +1,46 @@
+--- openbsd/src/lib/libcrypto/crypto_assembly.h	2026-04-12 14:47:54
++++ crypto/crypto_assembly.h	2026-04-14 06:13:10
+@@ -1,4 +1,4 @@
+-/*	$OpenBSD: crypto_assembly.h,v 1.1 2026/03/28 13:09:55 jsing Exp $ */
++/*	$OpenBSD$ */
+ /*
+  * Copyright (c) 2026 Joel Sing <jsing@openbsd.org>
+  *
+@@ -18,6 +18,37 @@
+ #ifndef HEADER_CRYPTO_ASSEMBLY_H
+ #define HEADER_CRYPTO_ASSEMBLY_H
+ 
++#if defined(__APPLE__)
++#define	CRYPTO_ASSEMBLY_SECTION_TEXT		__TEXT,__text
++#define CRYPTO_ASSEMBLY_SECTION_RODATA		__DATA,__const
++
++#define	CRYPTO_ASSEMBLY_SYMBOL_NAME(name)	_##name
++#define CRYPTO_ASSEMBLY_TYPE_FUNCTION(name)
++#define CRYPTO_ASSEMBLY_TYPE_OBJECT(name)
++#define CRYPTO_ASSEMBLY_OBJECT_SIZE(name)
++
++#define CRYPTO_ASSEMBLY_AARCH64_SYM_HI(name)	name##@PAGE
++#define CRYPTO_ASSEMBLY_AARCH64_SYM_LO(name)	name##@PAGEOFF
++
++#else
++#define	CRYPTO_ASSEMBLY_SECTION_TEXT		.text
++#define	CRYPTO_ASSEMBLY_SECTION_RODATA		.rodata
++
++#define CRYPTO_ASSEMBLY_SYMBOL_NAME(name)	name
++#define CRYPTO_ASSEMBLY_TYPE_FUNCTION(name)	.type	name##,@function
++#define CRYPTO_ASSEMBLY_TYPE_OBJECT(name)	.type   name##,@object
++#define CRYPTO_ASSEMBLY_OBJECT_SIZE(name)	.size   name##,.-##name
++
++#define CRYPTO_ASSEMBLY_AARCH64_SYM_HI(name)	name
++#define CRYPTO_ASSEMBLY_AARCH64_SYM_LO(name)	:lo12:##name
++#endif
++
++#if defined(__APPLE__) && defined(__aarch64__)
++#define CRYPTO_ASSEMBLY_NEWLINE			%%
++#else
++#define CRYPTO_ASSEMBLY_NEWLINE			;
++#endif
++
+ /* Ensure _CET_ENDBR is always defined on amd64. */
+ #ifdef __amd64__
+ #ifdef __CET__

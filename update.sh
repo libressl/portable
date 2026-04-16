@@ -177,9 +177,7 @@ for i in $crypto_files; do
 	dir=`dirname $i`
 	mkdir -p crypto/$dir
 	if [ $dir != "compat" ]; then
-		if git ls-files --error-unmatch "crypto/$i" >/dev/null 2>&1; then
-			echo "  preserving git-tracked crypto/$i"
-		elif [ -f $libcrypto_src/$i ]; then
+		if [ -f $libcrypto_src/$i ]; then
 			$CP $libcrypto_src/$i crypto/$i
 		fi
 	fi

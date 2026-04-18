@@ -123,12 +123,26 @@ AM_CONDITIONAL([HOST_ASM_ELF_MIPS64],
     [test "x$HOST_ABI" = "xelf" -a "$host_cpu" = "mips64" -a "x$enable_asm" != "xno"])
 AM_CONDITIONAL([HOST_ASM_ELF_X86_64],
     [test "x$HOST_ABI" = "xelf" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
+AM_CONDITIONAL([HOST_ASM_MACOSX_AARCH64],
+    [test "x$HOST_ABI" = "xmacosx" -a "$host_cpu" = "aarch64" -a "x$enable_asm" != "xno"])
 AM_CONDITIONAL([HOST_ASM_MACOSX_X86_64],
     [test "x$HOST_ABI" = "xmacosx" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
 AM_CONDITIONAL([HOST_ASM_MASM_X86_64],
     [test "x$HOST_ABI" = "xmasm" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
 AM_CONDITIONAL([HOST_ASM_MINGW64_X86_64],
     [test "x$HOST_ABI" = "xmingw64" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
+
+# HOST_ASM_ANY is true when any of the above targets matched.
+host_asm_any=no
+if test "x$enable_asm" != "xno"; then
+    case "$HOST_ABI/$host_cpu" in
+        elf/aarch64|macosx/aarch64|\
+        elf/mips|elf/mips64|\
+        elf/x86_64|macosx/x86_64|masm/x86_64|mingw64/x86_64)
+            host_asm_any=yes ;;
+    esac
+fi
+AM_CONDITIONAL([HOST_ASM_ANY], [test "x$host_asm_any" = "xyes"])
 
 AC_CONFIG_FILES([
 	Makefile

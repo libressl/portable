@@ -170,6 +170,7 @@ echo "LibreSSL version `cat VERSION`"
 echo copying libcrypto source
 rm -f crypto/*.c crypto/*.h
 touch crypto/empty.c
+git checkout crypto/crypto_assembly.h
 crypto_files=`awk '/^ASM|SOURCES|HEADERS/ { print $3 }' crypto/Makefile.am* | grep -v '^\$(' | sort | uniq`
 for i in $crypto_files; do
 	dir=`dirname $i`

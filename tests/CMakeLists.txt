@@ -61,7 +61,7 @@ elseif(HOST_X86_64)
 	include_directories(../crypto/arch/amd64)
 endif()
 
-add_definitions(-D_PATH_SSL_CA_FILE=\"${CMAKE_CURRENT_SOURCE_DIR}/../cert.pem\")
+add_definitions(-D_PATH_SSL_CA_FILE="${CMAKE_CURRENT_SOURCE_DIR}/../cert.pem")
 
 file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR} TEST_SOURCE_DIR)
 
@@ -111,7 +111,7 @@ add_platform_test(aes_wrap aes_wrap)
 add_executable(apitest apitest.c)
 target_link_libraries(apitest ${OPENSSL_TEST_LIBS})
 set_source_files_properties(apitest.c PROPERTIES COMPILE_FLAGS
-	-DCERTSDIR=\\"${CMAKE_CURRENT_SOURCE_DIR}\\")
+	-DCERTSDIR='\"${CMAKE_CURRENT_SOURCE_DIR}\"')
 prepare_emscripten_test_target(apitest)
 add_platform_test(apitest apitest)
 
@@ -387,7 +387,7 @@ add_platform_test(crypto_test crypto_test)
 add_executable(cttest cttest.c)
 target_link_libraries(cttest ${OPENSSL_TEST_LIBS})
 set_source_files_properties(cttest.c PROPERTIES COMPILE_FLAGS
-	-DCTPATH=\\"${CMAKE_CURRENT_SOURCE_DIR}\\")
+	-DCTPATH='\"${CMAKE_CURRENT_SOURCE_DIR}\"')
 prepare_emscripten_test_target(cttest)
 add_platform_test(cttest cttest)
 
@@ -642,7 +642,7 @@ add_platform_test(poly1305test poly1305test)
 # policy
 add_executable(policy policy.c)
 set_source_files_properties(policy.c PROPERTIES COMPILE_FLAGS
-	-DCERTSDIR=\\"${CMAKE_CURRENT_SOURCE_DIR}\\")
+	-DCERTSDIR='\"${CMAKE_CURRENT_SOURCE_DIR}\"')
 target_link_libraries(policy ${OPENSSL_TEST_LIBS})
 prepare_emscripten_test_target(policy)
 add_platform_test(policy policy)
@@ -776,7 +776,7 @@ if(NOT (CMAKE_SYSTEM_NAME MATCHES "WindowsStore" OR EMSCRIPTEN))
 	endif()
 
 	set_source_files_properties(signertest.c PROPERTIES COMPILE_FLAGS
-		  -DCERTSDIR=\\"${CMAKE_CURRENT_SOURCE_DIR}\\")
+		  -DCERTSDIR='\"${CMAKE_CURRENT_SOURCE_DIR}\"')
 	add_executable(signertest ${SIGNERTEST_SRC})
 	target_link_libraries(signertest ${LIBTLS_TEST_LIBS})
 	target_include_directories(signertest BEFORE PUBLIC ../tls)
@@ -800,7 +800,7 @@ add_platform_test(sm4test sm4test)
 # ssl_get_shared_ciphers
 add_executable(ssl_get_shared_ciphers ssl_get_shared_ciphers.c)
 set_source_files_properties(ssl_get_shared_ciphers.c PROPERTIES COMPILE_FLAGS
-	-DCERTSDIR=\\"${CMAKE_CURRENT_SOURCE_DIR}\\")
+	-DCERTSDIR='\"${CMAKE_CURRENT_SOURCE_DIR}\"')
 target_link_libraries(ssl_get_shared_ciphers ${OPENSSL_TEST_LIBS})
 prepare_emscripten_test_target(ssl_get_shared_ciphers)
 add_platform_test(ssl_get_shared_ciphers ssl_get_shared_ciphers)

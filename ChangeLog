@@ -28,7 +28,14 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
-4.3.0 - In development
+4.4.0 - In Development
+
+4.3.1 - Development Release
+
+	* Portable Changes
+	  - Add missing <limits.h> to fix build on some OS.
+
+4.3.0 - Development Release
 
 	* Internal improvements
 	  - Remove the unused sequence number from X509_REVOKED.

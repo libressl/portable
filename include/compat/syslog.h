@@ -36,3 +36,23 @@ void vsyslog_r(int, struct syslog_data *, const char *, va_list);
 #endif
 
 #endif
+
+#ifdef _AIX
+#ifdef HAVE_SYSLOG
+#include <stdlib.h>
+void vsyslog(int facility_priority, const char *format, va_list arglist) {
+	char *msg = NULL;
+	vasprintf(&msg, format, arglist);
+
+	if (!msg)
+		return;
+
+	syslog(facility_priority, "%s", msg);
+	free(msg);
+}
+#endif /* HAVE_SYSLOG */
+
+void vsyslog_r(int pri, struct syslog_data *data, const char *fmt, va_list ap) {
+	vsyslog(pri, fmt, ap);
+}
+#endif /* AIX */

@@ -158,4 +158,71 @@
 #define htobe64(x) BE_64(x)
 #endif
 
+#ifdef _AIX /* AIX is always big endian */
+#include <stdint.h>
+#include <sys/types.h>
+
+static inline uint64_t htole64(uint64_t x) {
+#ifdef __BYTE_ORDER__
+#if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+	return x;
+#else
+	return ((uint64_t)x << 56) |
+	(((uint64_t)x & 0xFF00ULL) << 40) |
+	(((uint64_t)x & 0xFF0000ULL) << 24) |
+	(((uint64_t)x & 0xFF000000ULL) << 8) |
+	(((uint64_t)x & 0xFF00000000ULL) >> 8) |
+	(((uint64_t)x & 0xFF0000000000ULL) >> 24) |
+	(((uint64_t)x & 0xFF000000000000ULL) >> 40) |
+	((uint64_t)x >> 56);
+#endif
+#else
+	/* Fallback for systems without __BYTE_ORDER__ */
+	union {
+		uint64_t u64;
+		unsigned char bytes[8];
+	} val;
+	val.u64 = x;
+	return ((uint64_t)val.bytes[0] << 56) |
+	((uint64_t)val.bytes[1] << 48) |
+	((uint64_t)val.bytes[2] << 40) |
+	((uint64_t)val.bytes[3] << 32) |
+	((uint64_t)val.bytes[4] << 24) |
+	((uint64_t)val.bytes[5] << 16) |
+	((uint64_t)val.bytes[6] << 8) |
+	(uint64_t)val.bytes[7];
+#endif
+}
+
+#define be64toh(x) (x)
+#define be32toh(x) (x)
+#define be16toh(x) (x)
+#define le32toh(x)             \
+	((((x) & 0xff) << 24) |    \
+	(((x) & 0xff00) << 8) |    \
+	(((x) & 0xff0000) >> 8) |  \
+	(((x) & 0xff000000) >> 24))
+#define le64toh(x)                          \
+	((((x) & 0x00000000000000ffL) << 56) |  \
+	(((x) & 0x000000000000ff00L) << 40) |   \
+	(((x) & 0x0000000000ff0000L) << 24) |   \
+	(((x) & 0x00000000ff000000L) << 8)  |   \
+	(((x) & 0x000000ff00000000L) >> 8)  |   \
+	(((x) & 0x0000ff0000000000L) >> 24) |   \
+	(((x) & 0x00ff000000000000L) >> 40) |   \
+	(((x) & 0xff00000000000000L) >> 56))
+#ifndef htobe64
+#define htobe64(x) be64toh(x)
+#endif
+#ifndef htobe32
+#define htobe32(x) be32toh(x)
+#endif
+#ifndef htobe16
+#define htobe16(x) be16toh(x)
+#endif
+#ifndef htole32
+#define htole32(x) le32toh(x)
+#endif
+#endif
+
 #endif

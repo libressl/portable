@@ -29,7 +29,7 @@ jobs:
 
       - name: "Create GitHub release"
         id: create_release
-        uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2.5.0
+        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda # v3
         with:
           body_path: "${{ github.workspace }}/release-changelog.txt"
 
@@ -75,7 +75,7 @@ jobs:
         run: Compress-Archive -Path local\* "libressl_${{ github.ref_name }}_windows_${{ matrix.arch }}.zip"
 
       - name: "Upload release artifact"
-        uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2.5.0
+        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda # v3
         with:
           files: |
             libressl_${{ github.ref_name }}_windows_${{ matrix.arch }}.zip

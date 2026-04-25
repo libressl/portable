@@ -29,7 +29,7 @@ jobs:
 
       - name: "Create GitHub release"
         id: create_release
-        uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2.5.0
+        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda # v3
         with:
           body_path: "${{ github.workspace }}/release-changelog.txt"
 
@@ -46,7 +46,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: "Setup MSYS2"
-        uses: msys2/setup-msys2@cafece8e6baf9247cf9b1bf95097b0b983cc558d # v2.31.0
+        uses: msys2/setup-msys2@e9898307ac31d1a803454791be09ab9973336e1c # v2.31.1
         with:
           update: true
           install: >-
@@ -75,7 +75,7 @@ jobs:
         run: Compress-Archive -Path local\* "libressl_${{ github.ref_name }}_windows_${{ matrix.arch }}.zip"
 
       - name: "Upload release artifact"
-        uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2.5.0
+        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda # v3
         with:
           files: |
             libressl_${{ github.ref_name }}_windows_${{ matrix.arch }}.zip

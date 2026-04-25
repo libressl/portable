@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-24.04
     if: ${{ github.repository_owner == 'libressl' || github.event_name != 'schedule' }}
     container:
-      image: fedora:rawhide
+      image: fedora:rawhide@sha256:af8cdc432037f5e8e288bbc26c2b55b96000a911ec5b37959cd464d830f6cc5b
     steps:
     - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
     - name: Install dependencies

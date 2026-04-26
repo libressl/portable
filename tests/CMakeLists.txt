@@ -415,6 +415,11 @@ add_platform_test(dsatest dsatest)
 # 	set_tests_properties(dtlstest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 # endif()
 
+# dtls_wire_test
+add_executable(dtls_wire_test dtls_wire_test.c)
+target_link_libraries(dtls_wire_test ${OPENSSL_TEST_LIBS})
+add_platform_test(dtls_wire_test dtls_wire_test)
+
 # ecc_cdh
 add_executable(ecc_cdh ecc_cdh.c)
 target_link_libraries(ecc_cdh ${OPENSSL_TEST_LIBS})

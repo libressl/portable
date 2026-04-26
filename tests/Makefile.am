@@ -431,6 +431,11 @@ dsatest_SOURCES = dsatest.c
 #endif
 #EXTRA_DIST += dtlstest.sh
 
+# dtls_wire_test
+TESTS += dtls_wire_test
+check_PROGRAMS += dtls_wire_test
+dtls_wire_test_SOURCES = dtls_wire_test.c
+
 # ecc_cdh
 TESTS += ecc_cdh
 check_PROGRAMS += ecc_cdh

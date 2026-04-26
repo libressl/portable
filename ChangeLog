@@ -30,6 +30,16 @@ LibreSSL Portable Release Notes:
 
 4.4.0 - In Development
 
+	* Internal improvements
+	  - Minor code cleanup for PKCS#7.
+	* Compatibility changes
+	* New features
+	* Bug fixes
+	  - Fix PKCS7_set_{un,}signed_attributes() to allow caller to free
+	    on failure rather than risking a double free.
+	* Testing and proactive security
+	  - Improved test coverage for DTLS.
+
 4.3.1 - Development Release
 
 	* Portable Changes

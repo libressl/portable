@@ -3,7 +3,7 @@ AC_DEFUN([CHECK_CFLAG], [
 	 AC_LANG_ASSERT(C)
 	 AC_MSG_CHECKING([if $saved_CC supports "$1"])
 	 old_cflags="$CFLAGS"
-	 CFLAGS="$1 -Wall -Werror"
+	 CFLAGS="$USER_CFLAGS $1 -Wall -Werror"
 	 AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <stdio.h>]], [[printf("Hello")]])],
 		     [AC_MSG_RESULT([yes])
 		     CFLAGS=$old_cflags
@@ -17,7 +17,7 @@ AC_DEFUN([CHECK_LDFLAG], [
 	 AC_LANG_ASSERT(C)
 	 AC_MSG_CHECKING([if $saved_LD supports "$1"])
 	 old_ldflags="$LDFLAGS"
-	 LDFLAGS="$1 -Wall -Werror"
+	 LDFLAGS="$USER_LDFLAGS $1 -Wall -Werror"
 	 AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <stdio.h>]], [[printf("Hello")]])],
 		     [AC_MSG_RESULT([yes])
 		     LDFLAGS=$old_ldflags

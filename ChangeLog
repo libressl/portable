@@ -32,6 +32,8 @@ LibreSSL Portable Release Notes:
 
 	* Internal improvements
 	  - Minor code cleanup for PKCS#7.
+	  - Clear unused bits for the maximum of RFC 3779 IP address ranges.
+	  - Cleanup passes over the DTLS code, avoiding many contortions.
 	* Compatibility changes
 	* New features
 	* Bug fixes

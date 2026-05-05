@@ -1,8 +1,8 @@
---- apps/openssl/speed.c.orig	2026-05-05 10:27:21
-+++ apps/openssl/speed.c	2026-05-05 10:34:44
+--- apps/openssl/speed.c.orig	2026-05-05 10:50:46
++++ apps/openssl/speed.c	2026-05-05 10:51:24
 @@ -158,7 +158,16 @@ static double speed_timer_stop(int s);
  static void print_result(int alg, int run_no, int count, double time_used);
- static void speed_timer_start(int seconds);
+ static void speed_timer_start(int s);
  static double speed_timer_stop(int s);
 +#ifndef _WIN32
  static int do_multi(int multi);

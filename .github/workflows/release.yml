@@ -6,37 +6,45 @@ on:
     tags: [ "v*" ]
 
 concurrency:
-  group: "${{ github.workflow }}-${{ github.event.number || github.ref }}"
-  cancel-in-progress: true
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: false
 
-permissions:
-  contents: write
+permissions: {}
 
 jobs:
   release:
     name: "Release"
     runs-on: "ubuntu-24.04"
-    outputs:
-      upload_url: "${{ steps.create_release.outputs.upload_url }}"
+    permissions:
+      contents: write # Required to create release.
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
 
       - name: "Generate version changelog"
         run: .github/scripts/changelog.sh "$VERSION" > release-changelog.txt
         env:
           VERSION: "${{ github.ref_name }}"
 
-      - name: "Create GitHub release"
-        id: create_release
-        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda # v3
-        with:
-          body_path: "${{ github.workspace }}/release-changelog.txt"
+      - name: "Create draft GitHub release"
+        env:
+          GH_TOKEN: "${{ github.token }}"
+          VERSION: "${{ github.ref_name }}"
+        run: |
+          gh release create "$VERSION" \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "$VERSION" \
+            --notes-file release-changelog.txt \
+            --draft
 
   build-windows:
     name: "${{ matrix.os }}/${{ matrix.arch }}"
     runs-on: "${{ matrix.os }}"
     needs: ["release"]
+    permissions:
+      contents: write # Required to upload release assets.
     strategy:
       matrix:
         os: [ "windows-2022" ]
@@ -44,6 +52,8 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
 
       - name: "Setup MSYS2"
         uses: msys2/setup-msys2@e9898307ac31d1a803454791be09ab9973336e1c # v2.31.1
@@ -59,23 +69,38 @@ jobs:
             patch
             perl
 
-      - shell: msys2 {0}
+      - name: "Run autogen"
+        shell: msys2 {0}
         run: ./autogen.sh
 
-      - shell: cmd
-        run: cmake -Bbuild -G "Visual Studio 17 2022" -A ${{ matrix.arch }} -DCMAKE_INSTALL_PREFIX=local
+      - name: "Configure"
+        shell: pwsh
+        env:
+          ARCH: "${{ matrix.arch }}"
+        run: cmake -Bbuild -G "Visual Studio 17 2022" -A "${env:ARCH}" -DCMAKE_INSTALL_PREFIX=local
 
-      - shell: cmd
+      - name: "Build"
+        shell: pwsh
         run: cmake --build build --config Release
 
-      - shell: cmd
+      - name: "Install"
+        shell: pwsh
         run: cmake --install build --config Release
 
-      - shell: pwsh
-        run: Compress-Archive -Path local\* "libressl_${{ github.ref_name }}_windows_${{ matrix.arch }}.zip"
+      - name: "Package release artifact"
+        shell: pwsh
+        env:
+          VERSION: "${{ github.ref_name }}"
+          ARCH: "${{ matrix.arch }}"
+        run: Compress-Archive -Path local\* "libressl_${env:VERSION}_windows_${env:ARCH}.zip"
 
       - name: "Upload release artifact"
-        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda # v3
-        with:
-          files: |
-            libressl_${{ github.ref_name }}_windows_${{ matrix.arch }}.zip
+        shell: bash
+        env:
+          GH_TOKEN: "${{ github.token }}"
+          VERSION: "${{ github.ref_name }}"
+          ARCH: "${{ matrix.arch }}"
+        run: |
+          gh release upload "$VERSION" \
+            --repo "$GITHUB_REPOSITORY" \
+            "libressl_${VERSION}_windows_${ARCH}.zip"

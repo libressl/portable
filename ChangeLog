@@ -30,6 +30,19 @@ LibreSSL Portable Release Notes:
 
 4.4.0 - In Development
 
+4.3.2 - Stable Release
+
+	* Portable Changes
+	  - Reworked portable assembly handling using LIBRESSL_USE_ASSEMBLY
+	  - Added SHA assembly on elf-aarch64
+	  - Added definition of ssize_t for cms.h on Windows
+	  - Fixed posix_open() implementation to allow failure.
+	  - Fixed SIGALRM handler for openssl speed on Windows
+
+	* Bug fixes
+	  - Allow the verify callback to override the error for overlong
+	    cert chains again.
+
 4.3.1 - Development Release
 
 	* Portable Changes

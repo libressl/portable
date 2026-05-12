@@ -1,0 +1,95 @@
+Backport from 7.9-current (omitting md5):
+
+commit 6cbcbbbfb32b8105bcecc2b6440956e972004d10
+Author: jsing <>
+Date:   Tue May 12 15:07:30 2026 +0000
+
+    Add a guarded .note.GNU-stack section to crypto assembly files.
+    
+    Add a .note.GNU-stack section to avoid ending up with an executable stack
+    on toolchains that believe we should have an executable stack by default.
+    
+    Reported by ruuda on Github.
+    
+    Discussed with tb@
+
+--- crypto/sha/sha1_aarch64_ce.S.orig	Tue May 12 10:35:15 2026
++++ crypto/sha/sha1_aarch64_ce.S	Tue May 12 10:35:23 2026
+@@ -213,3 +213,7 @@
+ 	str	hc1s, [ctx, #(4*4)]
+ 
+ 	ret
++
++#if defined(__linux__) && defined(__ELF__)
++.section .note.GNU-stack,"",%progbits
++#endif
+--- crypto/sha/sha1_amd64_generic.S.orig	Tue May 12 10:35:15 2026
++++ crypto/sha/sha1_amd64_generic.S	Tue May 12 10:35:23 2026
+@@ -308,3 +308,7 @@
+ 	popq	%rbx
+ 
+ 	ret
++
++#if defined(__linux__) && defined(__ELF__)
++.section .note.GNU-stack,"",%progbits
++#endif
+--- crypto/sha/sha1_amd64_shani.S.orig	Tue May 12 10:35:15 2026
++++ crypto/sha/sha1_amd64_shani.S	Tue May 12 10:35:23 2026
+@@ -164,3 +164,7 @@
+ shufmask:
+ .octa	0x000102030405060708090a0b0c0d0e0f
+ .size	shufmask,.-shufmask
++
++#if defined(__linux__) && defined(__ELF__)
++.section .note.GNU-stack,"",%progbits
++#endif
+--- crypto/sha/sha256_aarch64_ce.S.orig	Tue May 12 10:35:15 2026
++++ crypto/sha/sha256_aarch64_ce.S	Tue May 12 10:35:23 2026
+@@ -195,3 +195,7 @@
+ .long	0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208
+ .long	0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+ .size	K256,.-K256
++
++#if defined(__linux__) && defined(__ELF__)
++.section .note.GNU-stack,"",%progbits
++#endif
+--- crypto/sha/sha256_amd64_generic.S.orig	Tue May 12 10:35:15 2026
++++ crypto/sha/sha256_amd64_generic.S	Tue May 12 10:35:23 2026
+@@ -297,3 +297,7 @@
+ .long	0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208
+ .long	0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+ .size	K256,.-K256
++
++#if defined(__linux__) && defined(__ELF__)
++.section .note.GNU-stack,"",%progbits
++#endif
+--- crypto/sha/sha256_amd64_shani.S.orig	Tue May 12 10:35:15 2026
++++ crypto/sha/sha256_amd64_shani.S	Tue May 12 10:35:23 2026
+@@ -203,3 +203,7 @@
+ .long	0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208
+ .long	0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+ .size	K256,.-K256
++
++#if defined(__linux__) && defined(__ELF__)
++.section .note.GNU-stack,"",%progbits
++#endif
+--- crypto/sha/sha512_aarch64_ce.S.orig	Tue May 12 10:35:15 2026
++++ crypto/sha/sha512_aarch64_ce.S	Tue May 12 10:35:23 2026
+@@ -320,3 +320,7 @@
+ .quad	0x28db77f523047d84, 0x32caab7b40c72493, 0x3c9ebe0a15c9bebc, 0x431d67c49c100d4c
+ .quad	0x4cc5d4becb3e42b6, 0x597f299cfc657e2a, 0x5fcb6fab3ad6faec, 0x6c44198c4a475817
+ .size	K512,.-K512
++
++#if defined(__linux__) && defined(__ELF__)
++.section .note.GNU-stack,"",%progbits
++#endif
+--- crypto/sha/sha512_amd64_generic.S.orig	Tue May 12 10:35:15 2026
++++ crypto/sha/sha512_amd64_generic.S	Tue May 12 10:35:23 2026
+@@ -302,3 +302,7 @@
+ .quad	0x28db77f523047d84, 0x32caab7b40c72493, 0x3c9ebe0a15c9bebc, 0x431d67c49c100d4c
+ .quad	0x4cc5d4becb3e42b6, 0x597f299cfc657e2a, 0x5fcb6fab3ad6faec, 0x6c44198c4a475817
+ .size	K512,.-K512
++
++#if defined(__linux__) && defined(__ELF__)
++.section .note.GNU-stack,"",%progbits
++#endif

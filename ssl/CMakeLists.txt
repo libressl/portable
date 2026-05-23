@@ -20,6 +20,7 @@ set(
 	d1_lib.c
 	d1_pkt.c
 	d1_srtp.c
+	dtls12_handshake_msg.c
 	pqueue.c
 	s3_cbc.c
 	s3_lib.c

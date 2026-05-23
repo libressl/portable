@@ -71,6 +71,7 @@ libssl_la_SOURCES += d1_both.c
 libssl_la_SOURCES += d1_lib.c
 libssl_la_SOURCES += d1_pkt.c
 libssl_la_SOURCES += d1_srtp.c
+libssl_la_SOURCES += dtls12_handshake_msg.c
 libssl_la_SOURCES += pqueue.c
 libssl_la_SOURCES += s3_cbc.c
 libssl_la_SOURCES += s3_lib.c
@@ -118,6 +119,7 @@ libssl_la_SOURCES += tls13_record_layer.c
 libssl_la_SOURCES += tls13_server.c
 
 noinst_HEADERS += srtp.h
+noinst_HEADERS += dtls12_internal.h
 noinst_HEADERS += dtls_local.h
 noinst_HEADERS += ssl_local.h
 noinst_HEADERS += ssl_sigalgs.h

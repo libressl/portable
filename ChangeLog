@@ -28,19 +28,134 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
-4.4.0 - In Development
+4.4.0rc1 - First release candidate of LibreSSL 4.4.0
 
+	* The versioning scheme has changed slightly
+	  - See https://github.com/libressl/portable#versioning for details
+	  - The actual release of 4.4.0 will be in the second half of October.
+	    API and ABI won't change.
 	* Internal improvements
 	  - Minor code cleanup for PKCS#7.
 	  - Clear unused bits for the maximum of RFC 3779 IP address ranges.
 	  - Cleanup passes over the DTLS code, avoiding many contortions.
+	  - Zero out the failure_key in ML-KEM code.
+	  - Improve portability in preprocessor based SHA assembly.
+	  - Removed a few vestigial #ifdefs from public and internal headers.
+	  - Introduce and use dtls12_handshake_msg framework.
+	  - Rename union from _ to u in the ui code to avoid Windows CE #ifdef.
+	  - Clean up and simplify signature algorithm handling after removal
+	    of TLSv1.0 and TLSv1.1.
+	  - Add a point at infinity check to ecdh_compute_key().
+	  - Fix incorrect purpose check in unreachable non-legacy path of the
+	    modern X.509 verifier.
+	  - Improve TLSv1.3 server handling of no shared groups.
+	  - Correct secondary key share handling for HelloRetryRequests.
+	  - Fix EXFLAG_CRITICAL mishandling in the crl_cb().
+	  - Among CRLs with the same score prefer the one with the most recent
+	    thisUpdate to match BoringSSL and OpenSSL behavior.
+	  - Clean up sequence number and message header handling in DTLS.
+	  - Remove redundant BIO_write() length assertions in b64_write().
+	  - Report invalid base64 BIO state as an internal error rather than
+	    asserting.
+	  - Improve SHA-3 performance by using an unrolled and interleaved
+	    algorithm.
+	  - Allocate TLSv1.3 receive buffers lazily.
+	  - Simplify handling of remaining record content on switch to the
+	    legacy stack.
+	  - Avoid harmless narrowing of the return value in dtls1_ctrl().
+	  - Remove NID_md5_sha1 support from tls1_PRF().
+	  - Remove DTLS unprocessed records queue.
+	  - Remove DTLS application data queue.
+	  - Remove SSL3_FLAGS_NO_RENEGOTIATE_CIPHERS which was never set.
 	* Compatibility changes
-	* New features
+	  - The misnamed tls_peer_cert_chain_pem() has been deprecated and may
+	    be removed in a future release. tls_peer_cert_chain_verified_pem()
+	    and tls_peer_cert_bundle_unverified_pem() should be used instead.
+	  - Use X25519MLKEM768 as the preferred group for TLSv1.3 connections
+	    in libtls.
+	  - Ensure libtls keeps working with future OpenSSL releases that will
+	    stop NUL-terminating ASN.1 strings. This is an old bug in libtls
+	    that will bite, probably starting with OpenSSL 4.2.
+	  - CRYPTO_cleanup_all_ex_data() is now a no-op. It was not thread safe
+	    and the actual cleanup is now done by OPENSSL_cleanup().
+	  - Align X509_check_ca() with modern OpenSSL. While it has long been
+	    documented that this only works after an X509_check_purpose() call,
+	    it still makes sense to "fail closed", i.e. indicate a non-CA cert.
+	  - Added OIDs for CCR, ErikIndex, ErikPartition, ErikSeegmentIndex,
+	    and communityDefinition.
 	* Bug fixes
 	  - Fix PKCS7_set_{un,}signed_attributes() to allow caller to free
 	    on failure rather than risking a double free.
+	  - Initialize decode_error and invalid_key variables in TLS key share
+	    code to avoid branching on uninitialized memory.
+	  - Record extension length between type and data in the ClientHello
+	    hash to ensure identical framing in first and second CH.
+	  - Fix out of bound writes in the s_client XMSS mode.
+	  - Ensure EC_GROUP_check and X509_CRL_verify failures result in "app"
+	    failures in openssl ecparam and openssl crl.
+	  - Do not fail accept on reverse DNS lookup failures in s_socket "app".
+	  - Ensure X509V3_EXT_print() only returns 0 and 1.
+	  - Avoid calling memcmp() on NULL in IPAddressFamily_cmp().
+	  - In libtls disallow wildcard matching of a TLD specified as a FQDN.
+	  - Unbreak some aspects of TLSv1.2 with custom curve lists.
+	  - Ensure a peer-provided EC public key uses uncompressed encoding.
+	  - Send decode_error alert on failure to decode an EC peer public key.
+	  - Avoid a NULL dereference and an out-of-bounds read in password-based
+	    CMS decryption.
+	  - Add some missing bounds check to ASN1_mbstrinc_copy().
+	  - Avoid freeing a caller-owned buffer in PKCS7_verify().
+	  - Remove SSL_OP_LEGACY_SERVER_CONNECT from default options.
+	  - Send illegal parameter alerts for various HelloRetryRequest
+	    violations.
+	  - Check that the server selected ciphersuite is valid for use with
+	    TLSv1.2.
+	  - Unlock CRYPTO_LOCK_UI on ui_open_session() failure to avoid
+	    a deadlock.
+	  - Check HMAC() return value to avoid later use of uninitialized
+	    in openssl(1).
+	  - Use correct alert for key_share without supported_groups.
+	  - Don't drop X509_V_ERR_HOSTNAME_MISMACH when verify callback
+	    returns 1. It has long been documented that this is ill advised
+	    but some applications still do it.
+	  - Ensure the server selects an ALPN protocol that we advertised or
+	    abort the handshake with illegal_parameter.
+	  - Fix streaming of PKCS#7 objects with omitted content.
+	  - Avoid OOB access due to type confusion in PKCS7_stream()
+	  - Plug leak and various other bugs in asn1_multi(), a helper to
+	    handle sequences and sets in config parsing.
+	  - Fix RFC 3779 inheritance checks for leaves as far as possible
+	    without breaking the RPKI. Still allow the immediate issuer to
+	    omit one of the extensions because otherwise about one third of
+	    RFC 9286 Manifests would become invalid.
+	  - Correct a botched size check in dtls1_process_fragment()
+	  - Avoid confusing delta CRLs as full CRLs.
+	  - When copying an RSA-PSS EVP_PKEY_CTX, ensure saltlen and minimal
+	    saltlen restrictions are also copied rather than using the defaults.
+	  - Allow DTLS clients to receive unexpected Finished messages.
+	  - Cache the leaf's extensions before adding it to a validated
+	    chain to make name constraints check work more reliably.
+	  - Ensure the whole subject is searched for email addresses and common
+	    names.
+	  - Check for embedded NULs in emails and subjectAltname the essentially
+	    unused legacy NAME_CONSTRAINTS_*() API.
+	  - Removed support for nameRelativeToCRLIssuer in the CRL Distribution
+	    Point extension. Per RFC 5280 it SHOULD not be used by conforming
+	    CAs and it was eating memory for breakfast pre-signature.
+	* Security and reliability fixes
+	  - Fix parsing issues in X.509 name constraints URI host parsing.
+	    Handle IPv6 literals correctly and don't allow specially crafted
+	    userinfo to bypass host checks.
+	  - Limit size of buffered DTLS handshake messages to avoid overly large
+	    memory consumption on small handshake message fragments.
+	  - Fix an OCSP responder authorization bypass for clients using
+	    tls_config_ocsp_require_stapling(), of which only OpenBSD nc(1)
+	    and ftp(1) are known wen they're used with the "muststaple" key
+	    word.
 	* Testing and proactive security
-	  - Improved test coverage for DTLS.
+	  - Improved test coverage for DTLS and TLS renegotiation.
+	  - Add X.509 CRL regress from pre-Apache2-licensed BoringSSL.
+	  - Rework the testing framework to be memory based rather than
+	    file based. Match Go's output format more closely.
 
 4.3.1 - Development Release
 

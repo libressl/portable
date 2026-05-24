@@ -38,6 +38,7 @@ LibreSSL Portable Release Notes:
 	  - Add definition of ssize_t to cms.h for Windows
 	  - Fix posix_open() implementation so it properly signals failure
 	  - Fix SIGALRM handler for openssl speed on Windows
+	  - Fix overwrite of user CFLAGS/LDFLAGS in hardening flag detection
 
 	* Bug fixes
 	  - Allow the verify callback to override the error for overlong

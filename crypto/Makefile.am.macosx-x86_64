@@ -29,17 +29,27 @@ ASM_X86_64_MACOSX += bn/arch/amd64/bignum_sqr_8_16_alt.S
 ASM_X86_64_MACOSX += bn/arch/amd64/bignum_sub.S
 ASM_X86_64_MACOSX += bn/arch/amd64/word_clz.S
 
+ASM_X86_64_MACOSX += sha/sha1_amd64_generic.S
+ASM_X86_64_MACOSX += sha/sha1_amd64_shani.S
+ASM_X86_64_MACOSX += sha/sha256_amd64_generic.S
+ASM_X86_64_MACOSX += sha/sha256_amd64_shani.S
+ASM_X86_64_MACOSX += sha/sha512_amd64_generic.S
+
 EXTRA_DIST += $(ASM_X86_64_MACOSX)
 
 if HOST_ASM_MACOSX_X86_64
 libcrypto_la_SOURCES += aes/aes_amd64.c
 libcrypto_la_SOURCES += bn/arch/amd64/bn_arch.c
 libcrypto_la_SOURCES += modes/gcm128_amd64.c
+libcrypto_la_SOURCES += sha/sha1_amd64.c
+libcrypto_la_SOURCES += sha/sha256_amd64.c
+libcrypto_la_SOURCES += sha/sha512_amd64.c
 
 libcrypto_la_CPPFLAGS += -DLIBRESSL_USE_AES_ASSEMBLY
 libcrypto_la_CPPFLAGS += -DLIBRESSL_USE_BN_ASSEMBLY
 libcrypto_la_CPPFLAGS += -DLIBRESSL_USE_GCM_ASSEMBLY
 libcrypto_la_CPPFLAGS += -DLIBRESSL_USE_RC4_ASSEMBLY
+libcrypto_la_CPPFLAGS += -DLIBRESSL_USE_SHA_ASSEMBLY
 
 libcrypto_la_CPPFLAGS += -DOPENSSL_BN_ASM_MONT
 libcrypto_la_CPPFLAGS += -DOPENSSL_BN_ASM_MONT5

@@ -28,7 +28,7 @@ jobs:
           ./autogen.sh
 
       - name: "Build on VM"
-        uses: vmactions/solaris-vm@3702ccf20b84c7f7c0a9bb68894aba7623f8301d # v1.3.6
+        uses: vmactions/solaris-vm@d30dd6c228c8661ade859e36ead7660b9a62efcc # v1.3.7
         with:
           prepare: |
             pkg install gcc make

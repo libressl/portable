@@ -55,7 +55,7 @@ option(ENABLE_ASM "Enable assembly" ON)
 option(ENABLE_EXTRATESTS "Enable extra tests that may be unreliable on some platforms" OFF)
 option(ENABLE_NC "Enable installing TLS-enabled nc(1)" OFF)
 set(OPENSSLDIR ${OPENSSLDIR} CACHE PATH "Set the default openssl directory" FORCE)
-set(TLS_DEFAULT_CA_FILE ${TLS_DEFAULT_CA_FILE} CACHE PATH "Set the default CA file" FORCE)
+set(TLS_DEFAULT_CA_FILE ${TLS_DEFAULT_CA_FILE} CACHE PATH "Set the default CA file for libtls" FORCE)
 set(LIBRESSL_INSTALL_CMAKEDIR "${CMAKE_INSTALL_LIBDIR}/cmake/LibreSSL" CACHE STRING "Installation directory for the CMake targets")
 
 option(USE_STATIC_MSVC_RUNTIMES "Use /MT instead of /MD in MSVC" OFF)

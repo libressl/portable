@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   test:
-    name: "${{ matrix.os }}/${{ matrix.arch }} (${{ matrix.generator }}${{ matrix.shared == 'ON' && ', shared' || '' }})"
+    name: "${{ matrix.os }}/${{ matrix.arch }} (${{ matrix.shared == 'ON' && 'shared' || 'static' }})"
     runs-on: "${{ matrix.os }}"
     if: ${{ github.repository_owner == 'libressl' || github.event_name != 'schedule' }}
     permissions:
@@ -24,12 +24,6 @@ jobs:
         os: ["windows-2022", "windows-2025"]
         arch: ["ARM64", "x64", "Win32"]
         shared: ["ON", "OFF"]
-        include:
-          - os: "windows-2022"
-            generator: "Visual Studio 17 2022"
-          - os: "windows-2025"
-            # XXX - use appropriate value
-            generator: "Visual Studio 17 2022"
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
@@ -50,8 +44,17 @@ jobs:
         run: ./update.sh
 
       - name: "Configure CMake"
-        shell: cmd
-        run: cmake -Bbuild -G "${{ matrix.generator }}" -A ${{ matrix.arch }} -D BUILD_SHARED_LIBS=${{ matrix.shared }} -D CMAKE_INSTALL_PREFIX=../local
+        shell: pwsh
+        run: |
+          $generator = cmake --help |
+            Select-String '^\s*\*?\s*(Visual Studio \d+ \d+)' |
+            Select-Object -First 1 |
+            ForEach-Object { $_.Matches[0].Groups[1].Value }
+          if (-not $generator) {
+            throw "No Visual Studio CMake generator found"
+          }
+          Write-Host "Using generator: $generator"
+          cmake -Bbuild -G "$generator" -A ${{ matrix.arch }} -D BUILD_SHARED_LIBS=${{ matrix.shared }} -D CMAKE_INSTALL_PREFIX=../local
 
       - name: "Build"
         shell: cmd

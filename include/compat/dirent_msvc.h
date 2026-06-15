@@ -165,7 +165,8 @@ _wopendir(const wchar_t *dirname)
 		n = GetFullPathNameW(dirname, 0, NULL, NULL);
 
 		/* Allocate room for absolute directory name and search pattern */
-		dirp->patt =(wchar_t*) malloc(sizeof(wchar_t) * n + 16);
+		if (n <= (SIZE_MAX - 16) / sizeof(wchar_t))
+			dirp->patt =(wchar_t*) malloc(sizeof(wchar_t) * n + 16);
 		if (dirp->patt) {
 
 			/*

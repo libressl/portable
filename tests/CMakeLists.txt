@@ -810,6 +810,11 @@ target_link_libraries(ssl_get_shared_ciphers ${OPENSSL_TEST_LIBS})
 prepare_emscripten_test_target(ssl_get_shared_ciphers)
 add_platform_test(ssl_get_shared_ciphers ssl_get_shared_ciphers)
 
+# ssl_kex
+add_executable(ssl_kex ssl_kex.c)
+target_link_libraries(ssl_kex ${OPENSSL_TEST_LIBS})
+add_platform_test(ssl_kex ssl_kex)
+
 # ssl_methods
 add_executable(ssl_methods ssl_methods.c)
 target_link_libraries(ssl_methods ${OPENSSL_TEST_LIBS})

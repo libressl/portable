@@ -815,6 +815,11 @@ ssl_get_shared_ciphers_CPPFLAGS = $(AM_CPPFLAGS) -DCERTSDIR=\"$(srcdir)\"
 check_PROGRAMS += ssl_get_shared_ciphers
 ssl_get_shared_ciphers_SOURCES = ssl_get_shared_ciphers.c
 
+# ssl_kex
+TESTS += ssl_kex
+check_PROGRAMS += ssl_kex
+ssl_kex_SOURCES = ssl_kex.c
+
 # ssl_methods
 TESTS += ssl_methods
 check_PROGRAMS += ssl_methods

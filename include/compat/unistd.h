@@ -17,6 +17,10 @@ ssize_t pread(int d, void *buf, size_t nbytes, off_t offset);
 ssize_t pwrite(int d, const void *buf, size_t nbytes, off_t offset);
 #endif
 
+#elif defined(FREERTOS)
+static inline uid_t getuid(void) {
+       return 0;
+}
 #else
 
 #include <stdlib.h>

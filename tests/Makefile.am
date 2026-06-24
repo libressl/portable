@@ -940,6 +940,11 @@ TESTS += x509_asn1
 check_PROGRAMS += x509_asn1
 x509_asn1_SOURCES = x509_asn1.c
 
+# x509_crl
+TESTS += x509_crl
+check_PROGRAMS += x509_crl
+x509_crl_SOURCES = x509_crl.c
+
 # x509_extensions_test
 TESTS += x509_extensions_test
 check_PROGRAMS += x509_extensions_test

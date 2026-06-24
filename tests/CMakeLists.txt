@@ -957,6 +957,11 @@ target_link_libraries(x509_asn1 ${OPENSSL_TEST_LIBS})
 prepare_emscripten_test_target(x509_asn1)
 add_platform_test(x509_asn1 x509_asn1)
 
+# x509_crl
+add_executable(x509_crl x509_crl.c)
+target_link_libraries(x509_crl ${OPENSSL_TEST_LIBS})
+add_platform_test(x509_crl x509_crl)
+
 # x509_extensions_test
 add_executable(x509_extensions_test x509_extensions_test.c)
 target_link_libraries(x509_extensions_test ${OPENSSL_TEST_LIBS})

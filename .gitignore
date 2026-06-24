@@ -146,6 +146,7 @@ tests/compat/*.c
 tests/verify*
 tests/x509_algor*
 tests/x509_asn1*
+tests/x509_crl*
 tests/x509_extensions_test*
 tests/x509_info*
 tests/x509_name_test*

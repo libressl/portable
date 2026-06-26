@@ -35,17 +35,12 @@
 ssize_t
 getdelim(char **buf, size_t *bufsiz, int delimiter, FILE *fp)
 {
-	char *ptr, *eptr;
+	char *ptr, *eptr, *nbuf;
+	size_t nbufsiz;
 
 
-	/*
-	 * Ensure the buffer can hold at least one byte plus the NUL
-	 * terminator before the loop writes to it.  A caller-supplied
-	 * buffer smaller than that is grown rather than overrun.
-	 */
 	if (*buf == NULL || *bufsiz < 2) {
-		char *nbuf;
-		size_t nbufsiz = BUFSIZ;
+		nbufsiz = BUFSIZ;
 		if ((nbuf = realloc(*buf, nbufsiz)) == NULL)
 			return -1;
 		*buf = nbuf;
@@ -70,9 +65,8 @@ getdelim(char **buf, size_t *bufsiz, int delimiter, FILE *fp)
 			return ptr - *buf;
 		}
 		if (ptr + 2 >= eptr) {
-			char *nbuf;
-			size_t nbufsiz = *bufsiz * 2;
 			ssize_t d = ptr - *buf;
+			nbufsiz = *bufsiz * 2;
 			if ((nbuf = realloc(*buf, nbufsiz)) == NULL)
 				return -1;
 			*buf = nbuf;

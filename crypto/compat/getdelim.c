@@ -35,13 +35,16 @@
 ssize_t
 getdelim(char **buf, size_t *bufsiz, int delimiter, FILE *fp)
 {
-	char *ptr, *eptr;
+	char *ptr, *eptr, *nbuf;
+	size_t nbufsiz;
 
 
-	if (*buf == NULL || *bufsiz == 0) {
-		*bufsiz = BUFSIZ;
-		if ((*buf = malloc(*bufsiz)) == NULL)
+	if (*buf == NULL || *bufsiz < 2) {
+		nbufsiz = BUFSIZ;
+		if ((nbuf = realloc(*buf, nbufsiz)) == NULL)
 			return -1;
+		*buf = nbuf;
+		*bufsiz = nbufsiz;
 	}
 
 	for (ptr = *buf, eptr = *buf + *bufsiz;;) {
@@ -62,9 +65,8 @@ getdelim(char **buf, size_t *bufsiz, int delimiter, FILE *fp)
 			return ptr - *buf;
 		}
 		if (ptr + 2 >= eptr) {
-			char *nbuf;
-			size_t nbufsiz = *bufsiz * 2;
 			ssize_t d = ptr - *buf;
+			nbufsiz = *bufsiz * 2;
 			if ((nbuf = realloc(*buf, nbufsiz)) == NULL)
 				return -1;
 			*buf = nbuf;

@@ -155,7 +155,7 @@ _wopendir(const wchar_t *dirname)
 	/* Allocate new _WDIR structure */
 	dirp =(_WDIR*) malloc(sizeof(struct _WDIR));
 	if (dirp != NULL) {
-		DWORD n;
+		DWORD n, len;
 
 		/* Reset _WDIR structure */
 		dirp->handle = INVALID_HANDLE_VALUE;
@@ -175,12 +175,12 @@ _wopendir(const wchar_t *dirname)
 			 * allows rewinddir() to function correctly even when current
 			 * working directory is changed between opendir() and rewinddir().
 			 */
-			n = GetFullPathNameW(dirname, n, dirp->patt, NULL);
-			if (n > 0) {
+			len = GetFullPathNameW(dirname, n, dirp->patt, NULL);
+			if (len > 0 && len < n) {
 				wchar_t *p;
 
 				/* Append search pattern \* to the directory name */
-				p = dirp->patt + n;
+				p = dirp->patt + len;
 				if (dirp->patt < p) {
 					switch(p[-1]) {
 					case '\\':

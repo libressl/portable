@@ -7,7 +7,8 @@ getprogname(void)
 {
 	static char progname[MAX_PATH + 1];
 	DWORD length = GetModuleFileName(NULL, progname, sizeof (progname) - 1);
-	if (length < 0)
+	if (length == 0)
 		return "?";
+	progname[length] = '\0';
 	return progname;
 }

@@ -81,6 +81,20 @@ if(HOST_ASM_ELF_X86_64)
 	set(CRYPTO_SRC ${CRYPTO_SRC} ${ASM_X86_64_ELF_SRC})
 endif()
 
+if(HOST_ASM_MACOSX_AARCH64)
+	set(CRYPTO_SRC ${CRYPTO_SRC} sha/sha1_amd64.c sha/sha256_amd64.c sha/sha512_amd64.c)
+
+	set(
+		ASM_AARCH64_MACOSX_SRC
+
+		sha/sha1_aarch64_ce.S
+		sha/sha256_aarch64_ce.S
+		sha/sha512_aarch64_ce.S
+	)
+	set(CRYPTO_SRC ${CRYPTO_SRC} ${ASM_AARCH64_MACOSX_SRC})
+	add_definitions(-DLIBRESSL_USE_SHA_ASSEMBLY)
+endif()
+
 if(HOST_ASM_MACOSX_X86_64)
 	set(CRYPTO_SRC ${CRYPTO_SRC} aes/aes_amd64.c)
 	set(CRYPTO_SRC ${CRYPTO_SRC} bn/arch/amd64/bn_arch.c)

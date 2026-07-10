@@ -102,6 +102,9 @@ check_PROGRAMS =
 EXTRA_DIST = CMakeLists.txt
 DISTCLEANFILES = pidwraptest.txt
 
+distclean-local:
+	rm -rf x509_verify-certs
+
 # XXX - should probably be in their own static lib
 TEST_HELPER_SRC = test.c test_util.c
 noinst_HEADERS = test.h
@@ -914,6 +917,19 @@ utf8test_SOURCES = utf8test.c
 TESTS += valid_handshakes_terminate
 check_PROGRAMS += valid_handshakes_terminate
 valid_handshakes_terminate_SOURCES = valid_handshakes_terminate.c
+
+# x509_verify
+# This test depends on certificate times that can exceed 32-bit time_t
+# range, so match the existing time tests and expect failure there.
+if SMALL_TIME_T
+XFAIL_TESTS += x509_verify.sh
+endif
+TESTS += x509_verify.sh
+check_PROGRAMS += x509_verify
+x509_verify_SOURCES = x509_verify.c
+EXTRA_DIST += x509_verify.sh
+EXTRA_DIST += make-dir-roots.pl
+EXTRA_DIST += certs
 
 # verifytest
 TESTS += verifytest

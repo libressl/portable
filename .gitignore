@@ -140,10 +140,14 @@ tests/test.h
 tests/*test.c
 tests/pbkdf2*
 tests/*.pem
+tests/certs/
+tests/make-dir-roots.pl
 tests/testssl
 tests/*.txt
 tests/compat/*.c
 tests/verify*
+tests/x509_verify*
+!tests/x509_verify.sh
 tests/x509_algor*
 tests/x509_asn1*
 tests/x509_crl*

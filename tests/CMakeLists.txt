@@ -931,6 +931,23 @@ add_executable(valid_handshakes_terminate valid_handshakes_terminate.c)
 target_link_libraries(valid_handshakes_terminate ${OPENSSL_TEST_LIBS})
 add_platform_test(valid_handshakes_terminate valid_handshakes_terminate)
 
+# x509_verify
+add_executable(x509_verify x509_verify.c)
+target_link_libraries(x509_verify ${OPENSSL_TEST_LIBS})
+add_dependencies(x509_verify openssl)
+if(NOT WIN32 AND NOT EMSCRIPTEN)
+	add_test(NAME x509_verify COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/x509_verify.sh
+	    $<TARGET_FILE:x509_verify> $<TARGET_FILE:openssl>)
+	set_tests_properties(x509_verify PROPERTIES
+	    ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}"
+	    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+	# This test depends on certificate times that can exceed 32-bit time_t
+	# range, so match the existing time tests and expect failure there.
+	if(SMALL_TIME_T)
+		set_property(TEST x509_verify PROPERTY WILL_FAIL TRUE)
+	endif()
+endif()
+
 # verifytest
 add_executable(verifytest verifytest.c)
 target_link_libraries(verifytest ${LIBTLS_TEST_LIBS})

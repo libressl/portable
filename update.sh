@@ -334,10 +334,20 @@ touch tests/empty.c
 for i in `find $libcrypto_regress -name '*.[ch]'`; do
 	 $CP "$i" tests
 done
+# x509/verify.c collides with x509/bettertls/verify.c when flattened.
+$CP $libcrypto_regress/x509/verify.c tests/x509_verify.c
 $CP $libcrypto_regress/evp/evptests.txt tests
 $CP $libcrypto_regress/aead/*.txt tests
 $CP $libcrypto_regress/ct/ctlog.conf tests
 $CP $libcrypto_regress/ct/*.crt tests
+$CP $libcrypto_regress/x509/make-dir-roots.pl tests
+rm -rf tests/certs
+mkdir -p tests/certs
+for i in $libcrypto_regress/certs/[0-9]*; do
+	if [ -d "$i" ]; then
+		$CP -R "$i" tests/certs
+	fi
+done
 $CP $libcrypto_regress/x509/policy/*.pem tests
 $CP $libcrypto_regress/mlkem/*.txt tests
 

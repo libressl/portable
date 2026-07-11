@@ -57,7 +57,25 @@ int posix_rename(const char *oldpath, const char *newpath);
 #endif
 
 #if defined(_MSC_VER) && _MSC_VER < 1900
-#define snprintf _snprintf
+#include <stdarg.h>
+
+static inline int
+libressl_snprintf(char *str, size_t size, const char *format, ...)
+{
+	va_list ap;
+	int ret;
+
+	va_start(ap, format);
+	ret = _vsnprintf(str, size, format, ap);
+	va_end(ap);
+
+	/* _vsnprintf does not NUL-terminate when the output is truncated. */
+	if (size != 0)
+		str[size - 1] = '\0';
+
+	return ret;
+}
+#define snprintf libressl_snprintf
 #endif
 
 #endif

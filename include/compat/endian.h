@@ -182,15 +182,15 @@ static inline uint64_t htole64(uint64_t x) {
 		uint64_t u64;
 		unsigned char bytes[8];
 	} val;
-	val.u64 = x;
-	return ((uint64_t)val.bytes[0] << 56) |
-	((uint64_t)val.bytes[1] << 48) |
-	((uint64_t)val.bytes[2] << 40) |
-	((uint64_t)val.bytes[3] << 32) |
-	((uint64_t)val.bytes[4] << 24) |
-	((uint64_t)val.bytes[5] << 16) |
-	((uint64_t)val.bytes[6] << 8) |
-	(uint64_t)val.bytes[7];
+	val.bytes[0] = (unsigned char)x;
+	val.bytes[1] = (unsigned char)(x >> 8);
+	val.bytes[2] = (unsigned char)(x >> 16);
+	val.bytes[3] = (unsigned char)(x >> 24);
+	val.bytes[4] = (unsigned char)(x >> 32);
+	val.bytes[5] = (unsigned char)(x >> 40);
+	val.bytes[6] = (unsigned char)(x >> 48);
+	val.bytes[7] = (unsigned char)(x >> 56);
+	return val.u64;
 #endif
 }
 

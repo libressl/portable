@@ -249,8 +249,6 @@ poll(struct pollfd *pfds, nfds_t nfds, int timeout_ms)
 	wait_rc = WAIT_FAILED;
 
 	looptime_ms = (timeout_ms > 100 || timeout_ms == -1) ? 100 : timeout_ms;
-	if (timeout_ms == -1)
-		timeout_ms = INFINITE;
 
 	do {
 		TIMEVAL tv;
@@ -280,7 +278,7 @@ poll(struct pollfd *pfds, nfds_t nfds, int timeout_ms)
 		/*
 		 * If we signaled on a file handle, don't wait on the sockets.
 		 */
-		if (wait_rc >= WAIT_OBJECT_0 &&
+		if (num_handles && wait_rc >= WAIT_OBJECT_0 &&
 		    (wait_rc <= WAIT_OBJECT_0 + num_handles - 1)) {
 			tv.tv_usec = 0;
 			handle_signaled = 1;
@@ -298,7 +296,7 @@ poll(struct pollfd *pfds, nfds_t nfds, int timeout_ms)
 
 		timespent_ms += looptime_ms;
 
-	} while (timespent_ms < timeout_ms);
+	} while (timeout_ms == -1 || timespent_ms < timeout_ms);
 
 	rc = 0;
 	num_handles = 0;

@@ -166,6 +166,7 @@ poll(struct pollfd *pfds, nfds_t nfds, int timeout_ms)
 	 * select machinery
 	 */
 	fd_set rfds, wfds, efds;
+	fd_set rfds_in, wfds_in, efds_in;
 	int rc;
 	int num_sockets;
 
@@ -250,11 +251,26 @@ poll(struct pollfd *pfds, nfds_t nfds, int timeout_ms)
 
 	looptime_ms = (timeout_ms > 100 || timeout_ms == -1) ? 100 : timeout_ms;
 
+	/*
+	 * select() clears every descriptor that is not ready from the
+	 * fd_sets, so a pass that times out leaves them empty. Keep a
+	 * pristine copy and restore it before each select(), otherwise the
+	 * next pass hands select() three empty sets and Windows fails it with
+	 * WSAEINVAL instead of waiting out the remaining timeout.
+	 */
+	rfds_in = rfds;
+	wfds_in = wfds;
+	efds_in = efds;
+
 	do {
 		TIMEVAL tv;
 		tv.tv_sec = 0;
 		tv.tv_usec = looptime_ms * 1000;
 		int handle_signaled = 0;
+
+		rfds = rfds_in;
+		wfds = wfds_in;
+		efds = efds_in;
 
 		/*
 		 * Check if any file handles have signaled

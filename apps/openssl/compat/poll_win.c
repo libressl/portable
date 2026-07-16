@@ -264,6 +264,14 @@ poll(struct pollfd *pfds, nfds_t nfds, int timeout_ms)
 
 	do {
 		TIMEVAL tv;
+
+		/*
+		 * Cap the wait at the time remaining so the final pass
+		 * does not overshoot the requested timeout.
+		 */
+		if (timeout_ms != -1 && timeout_ms - timespent_ms < looptime_ms)
+			looptime_ms = timeout_ms - timespent_ms;
+
 		tv.tv_sec = 0;
 		tv.tv_usec = looptime_ms * 1000;
 		int handle_signaled = 0;

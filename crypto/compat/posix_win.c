@@ -178,6 +178,9 @@ wsa_errno(int err)
 	case WSAETIMEDOUT:
 		errno = EPIPE;
 		break;
+	default:
+		errno = EIO;
+		break;
 	}
 	return -1;
 }

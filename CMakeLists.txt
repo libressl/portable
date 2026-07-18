@@ -32,6 +32,7 @@ include(cmake_export_symbol)
 include(GNUInstallDirs)
 
 enable_testing()
+find_program(PERL_EXECUTABLE perl perl5)
 
 file(READ ${CMAKE_CURRENT_SOURCE_DIR}/ssl/VERSION SSL_VERSION)
 string(STRIP ${SSL_VERSION} SSL_VERSION)

@@ -20,6 +20,10 @@ if [ -z "$srcdir" ]; then
 	srcdir=.
 fi
 
+if [ -z "$PERL" ]; then
+	PERL=perl
+fi
+
 case "$srcdir" in
 /*)
 	certs_path="$srcdir/certs"
@@ -69,7 +73,7 @@ trap cleanup EXIT
 rm -rf "$workdir"
 mkdir "$workdir"
 
-perl "$make_dir_roots" "$certs_path" "$workdir"
+"$PERL" "$make_dir_roots" "$certs_path" "$workdir"
 
 (
 	cd "$workdir"

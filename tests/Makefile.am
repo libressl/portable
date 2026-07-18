@@ -94,6 +94,7 @@ libtest_la_SOURCES = empty.c
 
 LDADD = libtest.la $(PLATFORM_LDADD) $(PROG_LDADD)
 
+TESTS_ENVIRONMENT = PERL='$(PERL)'
 TEST_LOG_DRIVER = env AM_TAP_AWK='$(AWK)' $(SHELL) $(top_srcdir)/tap-driver.sh
 
 TESTS =
@@ -919,6 +920,7 @@ check_PROGRAMS += valid_handshakes_terminate
 valid_handshakes_terminate_SOURCES = valid_handshakes_terminate.c
 
 # x509_verify
+if HAVE_PERL
 # This test depends on certificate times that can exceed 32-bit time_t
 # range, so match the existing time tests and expect failure there.
 if SMALL_TIME_T
@@ -926,6 +928,7 @@ XFAIL_TESTS += x509_verify.sh
 endif
 TESTS += x509_verify.sh
 check_PROGRAMS += x509_verify
+endif
 x509_verify_SOURCES = x509_verify.c
 EXTRA_DIST += x509_verify.sh
 EXTRA_DIST += make-dir-roots.pl

@@ -63,7 +63,7 @@ jobs:
           release: "${{ env.FREEBSD_VERSION }}"
           copyback: false
           prepare: |
-            pkg install -y cmake ninja
+            pkg install -y cmake ninja perl5
           run: |
             export CTEST_OUTPUT_ON_FAILURE=1
             cmake -G Ninja -B build

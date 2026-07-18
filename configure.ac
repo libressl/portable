@@ -32,6 +32,9 @@ AC_PROG_CC([cc gcc])
 AM_PROG_CC_C_O
 LT_INIT([pic-only])
 
+AC_CHECK_PROGS([PERL], [perl perl5])
+AM_CONDITIONAL([HAVE_PERL], [test "x$PERL" != x])
+
 CHECK_OS_OPTIONS
 
 CHECK_C_HARDENING_OPTIONS

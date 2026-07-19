@@ -38,16 +38,20 @@ static int setfl(int fd, int flag)
 /*
  * Have open() temporarily use up file descriptors until reaching beyond the
  * allocated sockets, then leak the ones conflicting with any of the latter.
+ *
+ * open()/close() are redefined to posix_open()/posix_close() in this file,
+ * which tag descriptors with the 0x80000000 bit. Use the raw CRT _open/_close
+ * so the values compare against the socket handles in the same namespace.
  */
 static void create_issue_1069_sentinels(int socket_vector[2])
 {
-	int fd = open("CONIN$", O_RDONLY);
+	int fd = _open("CONIN$", O_RDONLY);
 	if (fd == -1 || (fd > socket_vector[0] && fd > socket_vector[1])) {
 		return;
 	}
 	create_issue_1069_sentinels(socket_vector);
 	if (fd != socket_vector[0] && fd != socket_vector[1]) {
-		close(fd);
+		_close(fd);
 	}
 }
 

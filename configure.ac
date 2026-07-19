@@ -34,6 +34,17 @@ LT_INIT([pic-only])
 
 AC_CHECK_PROGS([PERL], [perl perl5])
 AM_CONDITIONAL([HAVE_PERL], [test "x$PERL" != x])
+AC_CACHE_CHECK([for IO::Socket::SSL::Utils],
+	[ac_cv_perl_io_socket_ssl_utils],
+	[if test "x$PERL" = x; then
+		ac_cv_perl_io_socket_ssl_utils=no
+	elif "$PERL" -MIO::Socket::SSL::Utils -e 1 >/dev/null 2>&1; then
+		ac_cv_perl_io_socket_ssl_utils=yes
+	else
+		ac_cv_perl_io_socket_ssl_utils=no
+	fi])
+AM_CONDITIONAL([HAVE_PERL_IO_SOCKET_SSL_UTILS],
+	[test "x$ac_cv_perl_io_socket_ssl_utils" = xyes])
 
 CHECK_OS_OPTIONS
 

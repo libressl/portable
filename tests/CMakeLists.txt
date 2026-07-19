@@ -844,6 +844,17 @@ add_executable(ssl_verify_param ssl_verify_param.c)
 target_link_libraries(ssl_verify_param ${OPENSSL_TEST_LIBS})
 add_platform_test(ssl_verify_param ssl_verify_param)
 
+# ssl_verify
+add_executable(ssl_verify ssl_verify.c)
+target_link_libraries(ssl_verify ${OPENSSL_TEST_LIBS})
+if(NOT WIN32 AND NOT EMSCRIPTEN AND HAVE_PERL_IO_SOCKET_SSL_UTILS)
+	add_test(NAME ssl_verify COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/ssl_verify.sh
+	    $<TARGET_FILE:ssl_verify>)
+	set_tests_properties(ssl_verify PROPERTIES
+	    ENVIRONMENT "srcdir=${TEST_SOURCE_DIR};PERL=${PERL_EXECUTABLE}"
+	    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+endif()
+
 # ssl_versions
 add_executable(ssl_versions ssl_versions.c)
 target_link_libraries(ssl_versions ${OPENSSL_TEST_LIBS})

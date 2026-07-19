@@ -141,10 +141,12 @@ tests/*test.c
 tests/pbkdf2*
 tests/*.pem
 tests/certs/
+tests/create-libressl-test-certs.pl
 tests/make-dir-roots.pl
 tests/testssl
 tests/*.txt
 tests/compat/*.c
+tests/ssl_verify.c
 tests/verify*
 tests/x509_verify*
 !tests/x509_verify.sh

@@ -283,6 +283,13 @@ add_executable(bn_mont bn_mont.c)
 target_link_libraries(bn_mont ${OPENSSL_TEST_LIBS})
 add_platform_test(bn_mont bn_mont)
 
+# bn_mul_div
+if(NOT (WIN32 OR EMSCRIPTEN))
+	add_executable(bn_mul_div bn_mul_div.c)
+	target_link_libraries(bn_mul_div ${OPENSSL_TEST_LIBS})
+	add_platform_test(bn_mul_div bn_mul_div)
+endif()
+
 # bn_primes
 add_executable(bn_primes bn_primes.c)
 target_link_libraries(bn_primes ${OPENSSL_TEST_LIBS})

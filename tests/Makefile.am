@@ -856,6 +856,12 @@ TESTS += ssl_versions
 check_PROGRAMS += ssl_versions
 ssl_versions_SOURCES = ssl_versions.c
 
+# ssl_tlstest
+TESTS += ssl_tlstest.sh
+check_PROGRAMS += ssl_tlstest
+ssl_tlstest_SOURCES = ssl_tlstest.c
+EXTRA_DIST += ssl_tlstest.sh
+
 # ssltest
 TESTS += ssltest.sh
 check_PROGRAMS += ssltest

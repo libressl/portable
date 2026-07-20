@@ -369,6 +369,8 @@ $CP $libssl_regress/ssl/testssl tests
 for i in `find $libssl_regress -name '*.c'`; do
 	 $CP "$i" tests
 done
+# tls/tlstest.c collides with libtls/tls/tlstest.c when flattened.
+$CP $libssl_regress/tls/tlstest.c tests/ssl_tlstest.c
 $CP $libssl_regress/unit/tests.h tests
 $CP $libssl_regress/certs/*.pem tests
 $CP $libssl_regress/certs/*.crl tests

@@ -847,6 +847,15 @@ add_executable(ssl_versions ssl_versions.c)
 target_link_libraries(ssl_versions ${OPENSSL_TEST_LIBS})
 add_platform_test(ssl_versions ssl_versions)
 
+# ssl_tlstest
+add_executable(ssl_tlstest ssl_tlstest.c)
+target_link_libraries(ssl_tlstest ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(ssl_tlstest)
+add_platform_test(ssl_tlstest $<TARGET_FILE:ssl_tlstest>
+    ${CMAKE_CURRENT_SOURCE_DIR}/server1-rsa.pem
+    ${CMAKE_CURRENT_SOURCE_DIR}/server1-rsa-chain.pem
+    ${CMAKE_CURRENT_SOURCE_DIR}/ca-root-rsa.pem)
+
 # ssltest
 add_executable(ssltest ssltest.c)
 target_link_libraries(ssltest ${OPENSSL_TEST_LIBS})

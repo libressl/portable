@@ -152,6 +152,9 @@ wsa_select_errno(int err)
 	case WSAENETDOWN:
 		errno = ENOMEM;
 		break;
+	default:
+		errno = EIO;
+		break;
 	}
 	return -1;
 }

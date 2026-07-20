@@ -435,6 +435,11 @@ dsatest_SOURCES = dsatest.c
 #endif
 #EXTRA_DIST += dtlstest.sh
 
+# dtls_handshake_msg_test
+TESTS += dtls_handshake_msg_test
+check_PROGRAMS += dtls_handshake_msg_test
+dtls_handshake_msg_test_SOURCES = dtls_handshake_msg_test.c
+
 # dtls_wire_test
 TESTS += dtls_wire_test
 check_PROGRAMS += dtls_wire_test

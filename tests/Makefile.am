@@ -307,6 +307,13 @@ TESTS += bn_mont
 check_PROGRAMS += bn_mont
 bn_mont_SOURCES = bn_mont.c
 
+# bn_mul_div
+if !HOST_WIN
+TESTS += bn_mul_div
+check_PROGRAMS += bn_mul_div
+bn_mul_div_SOURCES = bn_mul_div.c
+endif
+
 # bn_primes
 TESTS += bn_primes
 check_PROGRAMS += bn_primes

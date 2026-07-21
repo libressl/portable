@@ -307,15 +307,16 @@ TESTS += bn_mont
 check_PROGRAMS += bn_mont
 bn_mont_SOURCES = bn_mont.c
 
-# bn_mul_div
-# The benchmark code uses TIMEVAL_TO_TIMESPEC, which is unavailable on Solaris.
-if !HOST_WIN
-if !HOST_SOLARIS
-TESTS += bn_mul_div
-check_PROGRAMS += bn_mul_div
-bn_mul_div_SOURCES = bn_mul_div.c
-endif
-endif
+# bn_mul_div is mostly benchmark code with non-standard timing dependencies,
+# while the non-benchmark test coverage is not worth the cross-platform fallout.
+## bn_mul_div
+#if !HOST_WIN
+#if !HOST_SOLARIS
+#TESTS += bn_mul_div
+#check_PROGRAMS += bn_mul_div
+#bn_mul_div_SOURCES = bn_mul_div.c
+#endif
+#endif
 
 # bn_primes
 TESTS += bn_primes

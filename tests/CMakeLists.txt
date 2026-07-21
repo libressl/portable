@@ -284,7 +284,8 @@ target_link_libraries(bn_mont ${OPENSSL_TEST_LIBS})
 add_platform_test(bn_mont bn_mont)
 
 # bn_mul_div
-if(NOT (WIN32 OR EMSCRIPTEN))
+# The benchmark code uses TIMEVAL_TO_TIMESPEC, which is unavailable on Solaris.
+if(NOT (WIN32 OR EMSCRIPTEN OR SOLARIS))
 	add_executable(bn_mul_div bn_mul_div.c)
 	target_link_libraries(bn_mul_div ${OPENSSL_TEST_LIBS})
 	add_platform_test(bn_mul_div bn_mul_div)

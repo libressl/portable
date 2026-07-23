@@ -287,11 +287,15 @@ open_console(UI *ui)
 
 	HANDLE handle = GetStdHandle(STD_INPUT_HANDLE);
 	if (handle != NULL && handle != INVALID_HANDLE_VALUE) {
-		if (GetFileType(handle) == FILE_TYPE_CHAR)
-			return GetConsoleMode(handle, &console_mode);
-		else
+		if (GetFileType(handle) == FILE_TYPE_CHAR) {
+			if (GetConsoleMode(handle, &console_mode))
+				return 1;
+		} else
 			return 1;
 	}
+
+	/* UI_process() skips the close callback when open fails; unlock here. */
+	CRYPTO_w_unlock(CRYPTO_LOCK_UI);
 	return 0;
 }
 

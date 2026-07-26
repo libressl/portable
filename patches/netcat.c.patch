@@ -131,7 +131,7 @@
  	}
  	if (Iflag) {
  		if (setsockopt(s, SOL_SOCKET, SO_RCVBUF,
-@@ -1612,13 +1641,17 @@ set_common_sockopts(int s, int af)
+@@ -1612,13 +1641,27 @@ set_common_sockopts(int s, int af)
  	}
  
  	if (minttl != -1) {
@@ -139,6 +139,11 @@
  		if (af == AF_INET && setsockopt(s, IPPROTO_IP,
  		    IP_MINTTL, &minttl, sizeof(minttl)))
  			err(1, "set IP min TTL");
++#else
++		if (af == AF_INET) {
++			errno = ENOPROTOOPT;
++			err(1, "set IP min TTL not supported");
++		}
 +#endif
  
 -		else if (af == AF_INET6 && setsockopt(s, IPPROTO_IPV6,
@@ -146,11 +151,16 @@
 +		if (af == AF_INET6 && setsockopt(s, IPPROTO_IPV6,
  		    IPV6_MINHOPCOUNT, &minttl, sizeof(minttl)))
  			err(1, "set IPv6 min hop count");
++#else
++		if (af == AF_INET6) {
++			errno = ENOPROTOOPT;
++			err(1, "set IPv6 min hop count not supported");
++		}
 +#endif
  	}
  }
  
-@@ -1849,15 +1882,19 @@ help(void)
+@@ -1849,15 +1892,19 @@ help(void)
  	\t-P proxyuser\tUsername for proxy authentication\n\
  	\t-p port\t	Specify local port for remote connects\n\
  	\t-R CAfile	CA bundle\n\

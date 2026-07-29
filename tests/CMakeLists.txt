@@ -847,7 +847,10 @@ add_platform_test(ssl_verify_param ssl_verify_param)
 # ssl_verify
 add_executable(ssl_verify ssl_verify.c)
 target_link_libraries(ssl_verify ${OPENSSL_TEST_LIBS})
-if(NOT EMSCRIPTEN AND HAVE_PERL_IO_SOCKET_SSL_UTILS)
+if(EMSCRIPTEN)
+	set_target_properties(ssl_verify PROPERTIES LINK_FLAGS "-sNODERAWFS=1")
+endif()
+if(HAVE_PERL_IO_SOCKET_SSL_UTILS)
 	if(WIN32)
 		add_test(NAME ssl_verify COMMAND
 		    ${CMAKE_CURRENT_SOURCE_DIR}/ssl_verify.bat

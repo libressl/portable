@@ -56,5 +56,12 @@ mkdir "$workdir"
 (
 	cd "$workdir"
 	"$PERL" "$create_certs"
-	"$verify_bin"
+	case "$verify_bin" in
+	*.js)
+		node "$verify_bin"
+		;;
+	*)
+		"$verify_bin"
+		;;
+	esac
 )

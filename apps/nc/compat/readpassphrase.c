@@ -94,6 +94,8 @@ restart:
 		}
 		input = STDIN_FILENO;
 		output = STDERR_FILENO;
+	} else {
+		(void)fcntl(input, F_SETFD, FD_CLOEXEC);
 	}
 
 	/*

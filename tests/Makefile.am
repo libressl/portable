@@ -863,6 +863,7 @@ check_PROGRAMS += ssl_verify
 endif
 ssl_verify_SOURCES = ssl_verify.c
 EXTRA_DIST += ssl_verify.sh
+EXTRA_DIST += ssl_verify.bat
 EXTRA_DIST += create-libressl-test-certs.pl
 
 # ssl_versions

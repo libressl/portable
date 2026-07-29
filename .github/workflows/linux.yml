@@ -46,6 +46,12 @@ jobs:
       - name: "Checkout repository"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
+      - name: "Install test dependencies"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libio-socket-ssl-perl
+          perl -MIO::Socket::SSL::Utils -e 1
+
       - name: "Run tests"
         run: ./scripts/test || (status=$?; cat tests/test-suite.log; exit $status)
         env:
@@ -67,6 +73,12 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: "Install test dependencies"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libio-socket-ssl-perl
+          perl -MIO::Socket::SSL::Utils -e 1
 
       - name: "Run tests"
         run: ./scripts/test

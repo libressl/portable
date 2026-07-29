@@ -25,7 +25,12 @@ jobs:
         arch: ["arm64", "x86_64"]
     steps:
     - name: "Install required packages"
-      run: brew install automake libtool
+      run: |
+        brew install automake libtool perl cpanminus
+        PERL="$(brew --prefix perl)/bin/perl"
+        "$PERL" "$(command -v cpanm)" --notest IO::Socket::SSL
+        echo "$(brew --prefix perl)/bin" >> "$GITHUB_PATH"
+        "$PERL" -MIO::Socket::SSL::Utils -e 1
 
     - name: "Checkout repository"
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1

@@ -32,6 +32,8 @@ jobs:
         with:
           prepare: |
             pkg install gcc make
+            PERL_MM_USE_DEFAULT=1 cpan -T IO::Socket::SSL
           run: |
+            perl -MIO::Socket::SSL::Utils -e 1
             MAKE=gmake ./configure
             gmake -j2 check || (cat tests/test-suite.log && exit 1)

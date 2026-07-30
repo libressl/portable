@@ -104,6 +104,7 @@ EXTRA_DIST = CMakeLists.txt
 DISTCLEANFILES = pidwraptest.txt
 
 distclean-local:
+	rm -rf ssl_verify-certs
 	rm -rf x509_verify-certs
 
 # XXX - should probably be in their own static lib
@@ -854,6 +855,16 @@ ssl_set_alpn_protos_SOURCES = ssl_set_alpn_protos.c
 TESTS += ssl_verify_param
 check_PROGRAMS += ssl_verify_param
 ssl_verify_param_SOURCES = ssl_verify_param.c
+
+# ssl_verify
+if HAVE_PERL_IO_SOCKET_SSL_UTILS
+TESTS += ssl_verify.sh
+check_PROGRAMS += ssl_verify
+endif
+ssl_verify_SOURCES = ssl_verify.c
+EXTRA_DIST += ssl_verify.sh
+EXTRA_DIST += ssl_verify.bat
+EXTRA_DIST += create-libressl-test-certs.pl
 
 # ssl_versions
 TESTS += ssl_versions

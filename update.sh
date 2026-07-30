@@ -336,6 +336,8 @@ for i in `find $libcrypto_regress -name '*.[ch]'`; do
 done
 # x509/verify.c collides with x509/bettertls/verify.c when flattened.
 $CP $libcrypto_regress/x509/verify.c tests/x509_verify.c
+# Do not copy x509/bettertls/verify.c: it requires the large bettertls
+# certificate corpus, which is not worth bundling in release tarballs.
 $CP $libcrypto_regress/evp/evptests.txt tests
 $CP $libcrypto_regress/aead/*.txt tests
 $CP $libcrypto_regress/ct/ctlog.conf tests
@@ -371,6 +373,10 @@ for i in `find $libssl_regress -name '*.c'`; do
 done
 # tls/tlstest.c collides with libtls/tls/tlstest.c when flattened.
 $CP $libssl_regress/tls/tlstest.c tests/ssl_tlstest.c
+# verify/verify.c collides with other verify tests when flattened.
+rm -f tests/verify.c
+$CP $libssl_regress/verify/verify.c tests/ssl_verify.c
+$CP $libssl_regress/verify/create-libressl-test-certs.pl tests
 $CP $libssl_regress/unit/tests.h tests
 $CP $libssl_regress/certs/*.pem tests
 $CP $libssl_regress/certs/*.crl tests

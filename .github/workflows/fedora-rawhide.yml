@@ -26,7 +26,8 @@ jobs:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
     - name: Install dependencies
       run: |
-        dnf -y install git make clang cmake ninja-build autoconf automake libtool diffutils patch gawk
+        dnf -y install git make clang cmake ninja-build autoconf automake libtool diffutils patch gawk perl-IO-Socket-SSL
+        perl -MIO::Socket::SSL::Utils -e 1
     - name: Pull upstream source
       run: |
         ./update.sh

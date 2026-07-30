@@ -36,8 +36,9 @@ jobs:
           release: "${{ env.FREEBSD_VERSION }}"
           copyback: false
           prepare: |
-            pkg install -y autoconf automake libtool
+            pkg install -y autoconf automake libtool p5-IO-Socket-SSL
           run: |
+            perl -MIO::Socket::SSL::Utils -e 1
             ./configure
             make -j2 check || (cat tests/test-suite.log && exit 1)
 
@@ -63,8 +64,9 @@ jobs:
           release: "${{ env.FREEBSD_VERSION }}"
           copyback: false
           prepare: |
-            pkg install -y cmake ninja perl5
+            pkg install -y cmake ninja p5-IO-Socket-SSL
           run: |
+            perl -MIO::Socket::SSL::Utils -e 1
             export CTEST_OUTPUT_ON_FAILURE=1
             cmake -G Ninja -B build
             ninja -C build

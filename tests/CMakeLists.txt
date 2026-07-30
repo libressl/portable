@@ -847,10 +847,7 @@ add_platform_test(ssl_verify_param ssl_verify_param)
 # ssl_verify
 add_executable(ssl_verify ssl_verify.c)
 target_link_libraries(ssl_verify ${OPENSSL_TEST_LIBS})
-if(EMSCRIPTEN)
-	set_target_properties(ssl_verify PROPERTIES LINK_FLAGS
-	    "-sALLOW_MEMORY_GROWTH -sNODERAWFS=1")
-endif()
+prepare_emscripten_test_target(ssl_verify)
 if(HAVE_PERL_IO_SOCKET_SSL_UTILS)
 	if(WIN32)
 		add_test(NAME ssl_verify COMMAND

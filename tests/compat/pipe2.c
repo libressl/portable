@@ -74,8 +74,15 @@ int socketpair(int domain, int type, int protocol, int socket_vector[2])
 		.sin_port = 0,
 	};
 
+	struct sockaddr_in self, peer;
 	int yes = 1, e;
-	if (setsockopt(listener, SOL_SOCKET, SO_REUSEADDR,
+
+	/*
+	 * SO_REUSEADDR does not mean here what it means on unix: it lets any
+	 * other process bind the same address and port and take over the
+	 * rendezvous. SO_EXCLUSIVEADDRUSE is the flag that keeps the port ours.
+	 */
+	if (setsockopt(listener, SOL_SOCKET, SO_EXCLUSIVEADDRUSE,
 			(void *)&yes, sizeof yes) == -1)
 		goto err;
 
@@ -103,6 +110,28 @@ int socketpair(int domain, int type, int protocol, int socket_vector[2])
 	socket_vector[1] = accept(listener, NULL, NULL);
 	if (socket_vector[1] == -1)
 		goto err;
+
+	/*
+	 * The listening port is enumerable by anything running as the user, so
+	 * the connection we just accepted is not necessarily the one we made.
+	 * Pair the two halves only if they are each other's peer.
+	 */
+	memset(&self, 0, sizeof self);
+	addrlen = sizeof self;
+	if (getsockname(socket_vector[0], (struct sockaddr *)&self, &addrlen) != 0)
+		goto err;
+
+	memset(&peer, 0, sizeof peer);
+	addrlen = sizeof peer;
+	if (getpeername(socket_vector[1], (struct sockaddr *)&peer, &addrlen) != 0)
+		goto err;
+
+	if (self.sin_family != peer.sin_family ||
+	    self.sin_addr.s_addr != peer.sin_addr.s_addr ||
+	    self.sin_port != peer.sin_port) {
+		WSASetLastError(WSAECONNREFUSED);
+		goto err;
+	}
 
 	closesocket(listener);
 

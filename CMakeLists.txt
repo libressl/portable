@@ -343,6 +343,16 @@ if(HAVE_GETPROGNAME)
 	add_definitions(-DHAVE_GETPROGNAME)
 endif()
 
+check_symbol_exists(pledge "unistd.h" HAVE_PLEDGE)
+if(HAVE_PLEDGE)
+	add_definitions(-DHAVE_PLEDGE)
+endif()
+
+check_symbol_exists(unveil "unistd.h" HAVE_UNVEIL)
+if(HAVE_UNVEIL)
+	add_definitions(-DHAVE_UNVEIL)
+endif()
+
 check_symbol_exists(syslog_r "syslog.h;stdarg.h" HAVE_SYSLOG_R)
 if(HAVE_SYSLOG_R)
 	add_definitions(-DHAVE_SYSLOG_R)

@@ -520,7 +520,7 @@ if(OPENSSLDIR STREQUAL "")
 	if(WIN32)
 		set(OPENSSLDIR "C:/Windows/libressl/ssl")
 	else()
-		set(OPENSSLDIR "${CMAKE_INSTALL_SYSCONFDIR}/ssl")
+		set(OPENSSLDIR "${CMAKE_INSTALL_FULL_SYSCONFDIR}/ssl")
 	endif()
 
 	set(CONF_DIR "${CMAKE_INSTALL_SYSCONFDIR}/ssl")

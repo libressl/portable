@@ -27,12 +27,14 @@ fi
 case "$srcdir" in
 /*)
 	certs_path="$srcdir/certs"
+	ca_file="$srcdir/../cert.pem"
 	callback_check="$srcdir/callback.pl"
 	make_dir_roots="$srcdir/make-dir-roots.pl"
 	openssl_conf="$srcdir/openssl.cnf"
 	;;
 *)
 	certs_path="`pwd`/$srcdir/certs"
+	ca_file="`pwd`/$srcdir/../cert.pem"
 	callback_check="`pwd`/$srcdir/callback.pl"
 	make_dir_roots="`pwd`/$srcdir/make-dir-roots.pl"
 	openssl_conf="`pwd`/$srcdir/openssl.cnf"
@@ -87,6 +89,6 @@ mkdir "$workdir"
 	cd "$workdir"
 	"$callback_bin" "$certs_path"
 	"$PERL" "$callback_check" callback.out
-	"$callbackfailures_bin" "$certs_path"
+	"$callbackfailures_bin" "$certs_path" "$ca_file"
 	"$expirecallback_bin" "$certs_path"
 )

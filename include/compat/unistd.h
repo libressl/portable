@@ -75,8 +75,13 @@ int getentropy(void *buf, size_t buflen);
 int getpagesize(void);
 #endif
 
+#ifndef HAVE_PLEDGE
 #define pledge(request, paths) 0
+#endif
+
+#ifndef HAVE_UNVEIL
 #define unveil(path, permissions) 0
+#endif
 
 #ifndef HAVE_PIPE2
 int pipe2(int fildes[2], int flags);

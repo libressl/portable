@@ -105,6 +105,7 @@ DISTCLEANFILES = pidwraptest.txt
 
 distclean-local:
 	rm -rf ssl_verify-certs
+	rm -rf x509_callback-certs
 	rm -rf x509_verify-certs
 
 # XXX - should probably be in their own static lib
@@ -365,8 +366,21 @@ TESTS += bytestringtest
 check_PROGRAMS += bytestringtest
 bytestringtest_SOURCES = bytestringtest.c
 
-# callback
-# callbackfailures
+# x509_callbacks
+if HAVE_PERL
+# These tests use the same certificate corpus as x509_verify and can exceed
+# the range of a 32-bit time_t.
+if SMALL_TIME_T
+XFAIL_TESTS += x509_callbacks.sh
+endif
+TESTS += x509_callbacks.sh
+check_PROGRAMS += callback callbackfailures expirecallback
+endif
+callback_SOURCES = callback.c
+callbackfailures_SOURCES = callbackfailures.c
+expirecallback_SOURCES = expirecallback.c
+EXTRA_DIST += x509_callbacks.sh
+EXTRA_DIST += callback.pl
 
 # casttest
 TESTS += casttest
@@ -523,8 +537,6 @@ evp_test_SOURCES = evp_test.c
 TESTS += exdata_test
 check_PROGRAMS += exdata_test
 exdata_test_SOURCES = exdata_test.c
-
-# expirecallback.c
 
 # explicit_bzero
 # explicit_bzero relies on SA_ONSTACK, which is unavailable on Windows

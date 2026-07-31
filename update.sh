@@ -342,6 +342,7 @@ $CP $libcrypto_regress/evp/evptests.txt tests
 $CP $libcrypto_regress/aead/*.txt tests
 $CP $libcrypto_regress/ct/ctlog.conf tests
 $CP $libcrypto_regress/ct/*.crt tests
+$CP $libcrypto_regress/x509/callback.pl tests
 $CP $libcrypto_regress/x509/make-dir-roots.pl tests
 rm -rf tests/certs
 mkdir -p tests/certs

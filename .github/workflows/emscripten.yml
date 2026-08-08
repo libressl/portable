@@ -40,7 +40,7 @@ jobs:
         run: emcmake cmake -Bbuild
 
       - name: "Build"
-        run: cmake --build build --config Release
+        run: cmake --build build --config Release --parallel 4
 
       - name: "Test"
         run: ctest --test-dir build -C Release --output-on-failure
@@ -77,7 +77,7 @@ jobs:
           LDFLAGS: "-fsanitize=address"
 
       - name: "Build"
-        run: cmake --build build --config Release
+        run: cmake --build build --config Release --parallel 4
 
       - name: "Test"
         run: ctest --test-dir build -C Release --output-on-failure

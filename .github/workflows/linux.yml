@@ -48,8 +48,29 @@ jobs:
 
       - name: "Install test dependencies"
         run: |
+          packages=(cmake ninja-build libio-socket-ssl-perl)
+          case "${{ matrix.arch }}" in
+            mingw32|mingw64)
+              packages+=(mingw-w64)
+              ;;
+            arm32)
+              packages+=(qemu-user-static binfmt-support g++-arm-linux-gnueabihf)
+              ;;
+            arm64)
+              packages+=(qemu-user-static binfmt-support g++-aarch64-linux-gnu)
+              ;;
+            loong64)
+              packages+=(qemu-user-static binfmt-support g++-14-loongarch64-linux-gnu)
+              ;;
+            mips32)
+              packages+=(qemu-user-static binfmt-support g++-mips-linux-gnu)
+              ;;
+            mips64)
+              packages+=(qemu-user-static binfmt-support g++-mips64el-linux-gnuabi64)
+              ;;
+          esac
           sudo apt-get update
-          sudo apt-get install -y libio-socket-ssl-perl
+          sudo apt-get install -y "${packages[@]}"
           perl -MIO::Socket::SSL::Utils -e 1
 
       - name: "Run tests"
@@ -77,7 +98,7 @@ jobs:
       - name: "Install test dependencies"
         run: |
           sudo apt-get update
-          sudo apt-get install -y libio-socket-ssl-perl
+          sudo apt-get install -y cmake ninja-build libio-socket-ssl-perl
           perl -MIO::Socket::SSL::Utils -e 1
 
       - name: "Run tests"

@@ -41,11 +41,6 @@ setup_cross_compiler() {
 	echo "##### Using $($CC --version | head -n 1)"
 }
 
-if type apt-get >/dev/null 2>&1; then
-	sudo apt-get update
-	sudo apt-get install -y cmake ninja-build
-fi
-
 # generate source tree
 ./autogen.sh
 
@@ -122,10 +117,6 @@ elif [ "$ARCH" = "mingw32" ] || [ "$ARCH" = "mingw64" ]; then
 		CPU=x86_64
 	fi
 
-	if ! type i686-w64-mingw32-gcc > /dev/null; then
-		sudo apt-get install -y mingw-w64
-	fi
-
 	./configure --host=$CPU-w64-mingw32
 	make -j 4
 
@@ -145,17 +136,13 @@ elif [ "$ARCH" = "mingw32" ] || [ "$ARCH" = "mingw64" ]; then
 	)
 
 elif [ "$ARCH" = "arm32" ] || [ "$ARCH" = "arm64" ]; then
-	sudo apt-get install -y qemu-user-static binfmt-support
-
 	if [ "$ARCH" = "arm32" ]; then
-		sudo apt-get install -y g++-arm-linux-gnueabihf
 		sudo ln -sf /usr/arm-linux-gnueabihf/lib/ld-linux-armhf.so.3 /lib/
 		setup_cross_compiler arm-linux-gnueabihf
 
 		./configure --host=arm-linux-gnueabihf
 		LD_LIBRARY_PATH=/usr/arm-linux-gnueabihf/lib make -j 4 check
 	else
-		sudo apt-get install -y g++-aarch64-linux-gnu
 		sudo ln -sf /usr/aarch64-linux-gnu/lib/ld-linux-aarch64.so.1 /lib/
 		setup_cross_compiler aarch64-linux-gnu
 
@@ -166,7 +153,6 @@ elif [ "$ARCH" = "arm32" ] || [ "$ARCH" = "arm64" ]; then
 	file apps/openssl/openssl
 
 elif [ "$ARCH" = "loong64" ]; then
-	sudo apt install -y qemu-user-static binfmt-support g++-14-loongarch64-linux-gnu
 	sudo ln -sf /usr/loongarch64-linux-gnu/lib64/ld-linux-loongarch-lp64d.so.1 /lib64
 	setup_cross_compiler loongarch64-linux-gnu
 
@@ -176,17 +162,13 @@ elif [ "$ARCH" = "loong64" ]; then
 	file apps/openssl/openssl
 
 elif [ "$ARCH" = "mips32" ] || [ "$ARCH" = "mips64" ]; then
-	sudo apt-get install -y qemu-user-static binfmt-support
-
 	if [ "$ARCH" = "mips32" ]; then
-		sudo apt-get install -y g++-mips-linux-gnu
 		sudo ln -sf /usr/mips-linux-gnu/lib/ld.so.1 /lib/
 		setup_cross_compiler mips-linux-gnu
 
 		./configure --host=mips-linux-gnu
 		LD_LIBRARY_PATH=/usr/mips-linux-gnu/lib make -j 4 check
 	else
-		sudo apt-get install -y g++-mips64el-linux-gnuabi64
 		sudo ln -sf /usr/mips64el-linux-gnuabi64/lib64/ld.so.1 /lib64
 		setup_cross_compiler mips64el-linux-gnuabi64
 

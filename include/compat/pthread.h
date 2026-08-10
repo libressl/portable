@@ -110,8 +110,11 @@ pthread_mutex_unlock(pthread_mutex_t *mutex)
 static inline int
 pthread_mutex_destroy(pthread_mutex_t *mutex)
 {
-	DeleteCriticalSection(mutex->lock);
-	free(mutex->lock);
+	if (mutex->lock != NULL) {
+		DeleteCriticalSection(mutex->lock);
+		free(mutex->lock);
+		mutex->lock = NULL;
+	}
 	return 0;
 }
 

@@ -21,6 +21,7 @@ endif()
 
 project(LibreSSL LANGUAGES C ASM)
 
+include(CheckCSourceCompiles)
 include(CheckFunctionExists)
 include(CheckSymbolExists)
 include(CheckLibraryExists)
@@ -307,7 +308,60 @@ if(HAVE_STRTONUM)
 	add_definitions(-DHAVE_STRTONUM)
 endif()
 
+#
+# arc4random on these platform versions falls back to a weak seed when it
+# cannot open /dev/random, so the builtin one is used there instead. Same
+# versions as the USE_BUILTIN_ARC4RANDOM checks in m4/check-os-options.m4.
+#
+set(USE_BUILTIN_ARC4RANDOM FALSE)
+if(APPLE)
+	# getentropy(2) arrived in 10.12 but is not tagged as introduced
+	# there, so the deployment target has to be tested directly.
+	check_c_source_compiles("
+		#include <AvailabilityMacros.h>
+		#include <unistd.h>
+		#include <sys/random.h>
+		#ifndef MAC_OS_X_VERSION_10_12
+		#define MAC_OS_X_VERSION_10_12 101200
+		#endif
+		#if defined(MAC_OS_X_VERSION_MIN_REQUIRED)
+		#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_12
+		#error \"Targeting Mac OS X 10.11 or earlier\"
+		#endif
+		#endif
+		int main(void) { char buf[1]; return getentropy(buf, 1); }"
+		HAVE_MACOS_GETENTROPY)
+	if(NOT HAVE_MACOS_GETENTROPY)
+		set(USE_BUILTIN_ARC4RANDOM TRUE)
+	endif()
+elseif(CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
+	check_c_source_compiles("
+		#include <sys/param.h>
+		#if __FreeBSD_version < 1200000
+		#error \"FreeBSD 11 or earlier\"
+		#endif
+		int main(void) { return 0; }"
+		HAVE_FREEBSD_ARC4RANDOM)
+	if(NOT HAVE_FREEBSD_ARC4RANDOM)
+		set(USE_BUILTIN_ARC4RANDOM TRUE)
+	endif()
+elseif(CMAKE_SYSTEM_NAME MATCHES "NetBSD")
+	check_c_source_compiles("
+		#include <sys/param.h>
+		#if __NetBSD_Version__ < 700000001
+		#error \"NetBSD 6 or earlier\"
+		#endif
+		int main(void) { return 0; }"
+		HAVE_NETBSD_ARC4RANDOM)
+	if(NOT HAVE_NETBSD_ARC4RANDOM)
+		set(USE_BUILTIN_ARC4RANDOM TRUE)
+	endif()
+endif()
+
 check_symbol_exists(arc4random_buf "stdlib.h" HAVE_ARC4RANDOM_BUF)
+if(USE_BUILTIN_ARC4RANDOM)
+	set(HAVE_ARC4RANDOM_BUF FALSE)
+endif()
 if(HAVE_ARC4RANDOM_BUF)
 	add_definitions(-DHAVE_ARC4RANDOM_BUF)
 endif()
@@ -329,6 +383,10 @@ endif()
 
 # XXX macos fails to find getentropy with check_symbol_exists()
 check_function_exists(getentropy HAVE_GETENTROPY)
+if(APPLE AND NOT HAVE_MACOS_GETENTROPY)
+	# Weakly linked against the SDK, but absent at runtime before 10.12.
+	set(HAVE_GETENTROPY FALSE)
+endif()
 if(HAVE_GETENTROPY)
 	add_definitions(-DHAVE_GETENTROPY)
 endif()

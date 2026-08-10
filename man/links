@@ -1174,7 +1174,6 @@ MD5.3,MD5_Update.3
 NAME_CONSTRAINTS_new.3,GENERAL_SUBTREE_free.3
 NAME_CONSTRAINTS_new.3,GENERAL_SUBTREE_new.3
 NAME_CONSTRAINTS_new.3,NAME_CONSTRAINTS_free.3
-OBJ_create.3,OBJ_add_object.3
 OBJ_create.3,OBJ_cleanup.3
 OBJ_create.3,OBJ_create_objects.3
 OBJ_create.3,OBJ_new_nid.3

@@ -22,8 +22,9 @@ if(HOST_ASM_ELF_AARCH64)
 		ASM_AARCH64_ELF_SRC
 		sha/sha1_aarch64_ce.S
 		sha/sha256_aarch64_ce.S
-		sha/sha256_aarch64_ce.S
+		sha/sha512_aarch64_ce.S
 	)
+	add_definitions(-DLIBRESSL_USE_SHA_ASSEMBLY)
 	set(CRYPTO_SRC ${CRYPTO_SRC} ${ASM_AARCH64_ELF_SRC})
 endif()
 

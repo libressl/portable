@@ -1,0 +1,299 @@
+Index: crypto/sha/sha1_aarch64_ce.S
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/sha/sha1_aarch64_ce.S,v
+diff -u -p -r1.3 sha1_aarch64_ce.S
+--- crypto/sha/sha1_aarch64_ce.S	17 Jan 2026 06:31:45 -0000	1.3
++++ crypto/sha/sha1_aarch64_ce.S	20 Jan 2026 15:07:42 -0000
+@@ -15,6 +15,10 @@
+  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+  */
+ 
++#include "crypto_assembly.h"
++
++#define	_NL	CRYPTO_ASSEMBLY_NEWLINE
++
+ /*
+  * SHA-1 implementation using the ARM Cryptographic Extension (CE).
+  *
+@@ -64,8 +68,8 @@
+  * W0 = W8 ^ W2 ^ W0, while sha1su1 computes rol(W0 ^ W13, 1).
+  */
+ #define sha1_message_schedule_update(m0, m1, m2, m3) \
+-	sha1su0 m0.4s, m1.4s, m2.4s;					\
+-	sha1su1 m0.4s, m3.4s;
++	sha1su0 m0.4s, m1.4s, m2.4s					_NL \
++	sha1su1 m0.4s, m3.4s
+ 
+ /*
+  * Compute four SHA-1 rounds by adding W0:W1:W2:W3 + K0:K1:K2:K3, then
+@@ -74,41 +78,50 @@
+  */
+ 
+ #define sha1_round1(h0, h1, w, k) \
+-	add	tmp0.4s, w.4s, k.4s;		/* Tt = Wt + Kt */	\
+-	mov	tmp1, h0.s[0];						\
+-	sha1c	h0, h1, tmp0.4s;					\
+-	sha1h	h1, tmp1;
++	add	tmp0.4s, w.4s, k.4s		/* Tt = Wt + Kt */	_NL \
++	mov	tmp1, h0.s[0]						_NL \
++	sha1c	h0, h1, tmp0.4s						_NL \
++	sha1h	h1, tmp1
+ 
+ #define sha1_round2(h0, h1, w, k) \
+-	add	tmp0.4s, w.4s, k.4s;		/* Tt = Wt + Kt */	\
+-	mov	tmp1, h0.s[0];						\
+-	sha1p	h0, h1, tmp0.4s;					\
+-	sha1h	h1, tmp1;
++	add	tmp0.4s, w.4s, k.4s		/* Tt = Wt + Kt */	_NL \
++	mov	tmp1, h0.s[0]						_NL \
++	sha1p	h0, h1, tmp0.4s						_NL \
++	sha1h	h1, tmp1
+ 
+ #define sha1_round3(h0, h1, w, k) \
+-	add	tmp0.4s, w.4s, k.4s;		/* Tt = Wt + Kt */	\
+-	mov	tmp1, h0.s[0];						\
+-	sha1m	h0, h1, tmp0.4s;					\
+-	sha1h	h1, tmp1;
++	add	tmp0.4s, w.4s, k.4s		/* Tt = Wt + Kt */	_NL \
++	mov	tmp1, h0.s[0]						_NL \
++	sha1m	h0, h1, tmp0.4s						_NL \
++	sha1h	h1, tmp1
+ 
+ #define sha1_round4(h0, h1, w, k) \
+-	add	tmp0.4s, w.4s, k.4s;		/* Tt = Wt + Kt */	\
+-	mov	tmp1, h0.s[0];						\
+-	sha1p	h0, h1, tmp0.4s;					\
+-	sha1h	h1, tmp1;
++	add	tmp0.4s, w.4s, k.4s		/* Tt = Wt + Kt */	_NL \
++	mov	tmp1, h0.s[0]						_NL \
++	sha1p	h0, h1, tmp0.4s						_NL \
++	sha1h	h1, tmp1
+ 
+ .arch	armv8-a+sha2
+ 
++#ifdef __APPLE__
++.section __TEXT,__text
++#else
+ .section .text
++#endif
+ 
+ /*
+  * void sha1_block_ce(SHA256_CTX *ctx, const void *in, size_t num);
+  *
+  * Standard ARM ABI: x0 = ctx, x1 = in, x2 = num
+  */
++#ifdef __APPLE__
++.global _sha1_block_ce
++_sha1_block_ce:
++#else
+ .globl	sha1_block_ce
+ .type   sha1_block_ce,@function
+ sha1_block_ce:
++#endif
+ 
+ 	/*
+ 	 * Load SHA-1 round constants.
+Index: crypto/sha/sha256_aarch64_ce.S
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/sha/sha256_aarch64_ce.S,v
+diff -u -p -r1.4 sha256_aarch64_ce.S
+--- crypto/sha/sha256_aarch64_ce.S	17 Jan 2026 06:31:45 -0000	1.4
++++ crypto/sha/sha256_aarch64_ce.S	20 Jan 2026 15:07:42 -0000
+@@ -15,6 +15,10 @@
+  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+  */
+ 
++#include "crypto_assembly.h"
++
++#define	_NL	CRYPTO_ASSEMBLY_NEWLINE
++
+ /*
+  * SHA-256 implementation using the ARM Cryptographic Extension (CE).
+  *
+@@ -64,8 +68,8 @@
+  *   W0:W1:W2:W3 = sigma1(W14:W15:W0:W1) + W9:W10:W12:W13 + W0:W1:W2:W3
+  */
+ #define sha256_message_schedule_update(m0, m1, m2, m3) \
+-	sha256su0 m0.4s, m1.4s;						\
+-	sha256su1 m0.4s, m2.4s, m3.4s;
++	sha256su0 m0.4s, m1.4s						_NL \
++	sha256su1 m0.4s, m2.4s, m3.4s
+ 
+ /*
+  * Compute four SHA-256 rounds by adding W0:W1:W2:W3 + K0:K1:K2:K3, then
+@@ -73,31 +77,31 @@
+  * sha256h/sha256h2.
+  */
+ #define sha256_round(h0, h1, w, k) \
+-	add	tmp0.4s, w.4s, k.4s;		/* Tt = Wt + Kt */	\
+-	mov	tmp1.4s, h0.4s;						\
+-	sha256h	h0, h1, tmp0.4s;					\
+-	sha256h2 h1, tmp1, tmp0.4s;
++	add	tmp0.4s, w.4s, k.4s		/* Tt = Wt + Kt */	_NL \
++	mov	tmp1.4s, h0.4s						_NL \
++	sha256h	h0, h1, tmp0.4s						_NL \
++	sha256h2 h1, tmp1, tmp0.4s
+ 
+ #define sha256_round_update(h0, h1, m0, m1, m2, m3, k) \
+-	sha256_message_schedule_update(m0, m1, m2, m3)			\
++	sha256_message_schedule_update(m0, m1, m2, m3)			_NL \
+ 	sha256_round(h0, h1, m0, k)
+ 
+ .arch	armv8-a+sha2
+ 
+-.section .text
++.section CRYPTO_ASSEMBLY_SECTION_TEXT
+ 
+ /*
+  * void sha256_block_ce(SHA256_CTX *ctx, const void *in, size_t num);
+  *
+  * Standard ARM ABI: x0 = ctx, x1 = in, x2 = num
+  */
+-.globl	sha256_block_ce
+-.type   sha256_block_ce,@function
+-sha256_block_ce:
++.global CRYPTO_ASSEMBLY_SYMBOL_NAME(sha256_block_ce)
++CRYPTO_ASSEMBLY_TYPE_FUNCTION(sha256_block_ce)
++CRYPTO_ASSEMBLY_SYMBOL_NAME(sha256_block_ce):
+ 
+ 	/* Address of SHA-256 constants. */
+-	adrp	k256_base, K256
+-	add	k256_base, k256_base, :lo12:K256
++	adrp	k256_base, CRYPTO_ASSEMBLY_AARCH64_SYM_HI(_K256)
++	add	k256_base, k256_base, CRYPTO_ASSEMBLY_AARCH64_SYM_LO(_K256)
+ 
+ 	/*
+ 	 * Load current hash state from context.
+@@ -163,14 +167,14 @@ sha256_block_ce:
+ 
+ 	ret
+ 
+-.section .rodata
++.section CRYPTO_ASSEMBLY_SECTION_RODATA
+ 
+ /*
+  * SHA-256 constants - see FIPS 180-4 section 4.2.3.
+  */
+ .align	4
+-.type	K256,@object
+-K256:
++CRYPTO_ASSEMBLY_TYPE_OBJECT(_K256)
++_K256:
+ .long	0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5
+ .long	0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5
+ .long	0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3
+@@ -187,4 +191,4 @@ K256:
+ .long	0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3
+ .long	0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208
+ .long	0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+-.size	K256,.-K256
++CRYPTO_ASSEMBLY_OBJECT_SIZE(_K256)
+Index: crypto/sha/sha512_aarch64_ce.S
+===================================================================
+RCS file: /cvs/src/lib/libcrypto/sha/sha512_aarch64_ce.S,v
+diff -u -p -r1.3 sha512_aarch64_ce.S
+--- crypto/sha/sha512_aarch64_ce.S	17 Jan 2026 06:31:45 -0000	1.3
++++ crypto/sha/sha512_aarch64_ce.S	20 Jan 2026 15:07:42 -0000
+@@ -15,6 +15,10 @@
+  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+  */
+ 
++#include "crypto_assembly.h"
++
++#define	_NL	CRYPTO_ASSEMBLY_NEWLINE
++
+ /*
+  * SHA-512 implementation using the ARM Cryptographic Extension (CE).
+  *
+@@ -97,9 +101,9 @@
+  *   W0 = sigma1(W14) + W9 + sigma0(W1) + W0
+  */
+ #define sha512_message_schedule_update(m0, m1, m4, m5, m7) \
+-	sha512su0 m0.2d, m1.2d;			/* W0 += sigma0(W1) */	\
+-	ext	tmp2.16b, m4.16b, m5.16b, #8;	/* W9:W10 */		\
+-	sha512su1 m0.2d, m7.2d, tmp2.2d;	/* W0 += sigma1(W14) + W9 */
++	sha512su0 m0.2d, m1.2d			/* W0 += sigma0(W1) */	_NL \
++	ext	tmp2.16b, m4.16b, m5.16b, #8	/* W9:W10 */		_NL \
++	sha512su1 m0.2d, m7.2d, tmp2.2d		/* W0 += sigma1(W14) + W9 */
+ 
+ /*
+  * Compute two SHA-512 rounds by adding W0:W1 + K0:K1, then computing T1 for two
+@@ -136,30 +140,31 @@
+  * These values are then rotated by the caller to perform the next two rounds.
+  */
+ #define sha512_round(h0, h1, h2, h3, h4, h5, w, k) \
+-	add	h4.2d, w.2d, k.2d;			/* W0:W1 += K0:K1 */	\
+-	ext	h4.16b, h4.16b, h4.16b, #8;		/* W1:W0 (swap) */	\
+-	add	h4.2d, h4.2d, h3.2d;			/* W1:W0 += g:h */	\
+-	ext	tmp0.16b, h2.16b, h3.16b, #8;		/* f:g */		\
+-	ext	tmp1.16b, h1.16b, h2.16b, #8;		/* d:e */		\
+-	sha512h	h4, tmp0, tmp1.2d;			/* T1 */		\
+-	add	h5.2d, h1.2d, h4.2d;			/* c:d + T1 */		\
+-	sha512h2 h4, h1, h0.2d;				/* T1 + T2 */
++	add	h4.2d, w.2d, k.2d			/* W0:W1 += K0:K1 */	_NL \
++	ext	h4.16b, h4.16b, h4.16b, #8		/* W1:W0 (swap) */	_NL \
++	add	h4.2d, h4.2d, h3.2d			/* W1:W0 += g:h */	_NL \
++	ext	tmp0.16b, h2.16b, h3.16b, #8		/* f:g */		_NL \
++	ext	tmp1.16b, h1.16b, h2.16b, #8		/* d:e */		_NL \
++	sha512h	h4, tmp0, tmp1.2d			/* T1 */		_NL \
++	add	h5.2d, h1.2d, h4.2d			/* c:d + T1 */		_NL \
++	sha512h2 h4, h1, h0.2d				/* T1 + T2 */
+ 
+ #define sha512_round_update(h0, h1, h2, h3, h4, h5, m0, m1, m2, m3, m4, k) \
+-	sha512_message_schedule_update(m0, m1, m2, m3, m4) \
++	sha512_message_schedule_update(m0, m1, m2, m3, m4)			_NL \
+ 	sha512_round(h0, h1, h2, h3, h4, h5, m0, k)
+ 
+ .arch	armv8-a+sha3
+ 
+-.section .text
++.section CRYPTO_ASSEMBLY_SECTION_TEXT
+ 
+ /*
+  * void sha512_block_ce(SHA512_CTX *ctx, const void *in, size_t num);
+  *
+  * Standard ARM ABI: x0 = ctx, x1 = in, x2 = num
+  */
+-.globl	sha512_block_ce
+-sha512_block_ce:
++.global CRYPTO_ASSEMBLY_SYMBOL_NAME(sha512_block_ce)
++CRYPTO_ASSEMBLY_TYPE_FUNCTION(sha512_block_ce)
++CRYPTO_ASSEMBLY_SYMBOL_NAME(sha512_block_ce):
+ 
+ 	/* Save low 64 bits of v8 through v15 to the stack. */
+ 	sub	sp, sp, #32
+@@ -168,8 +173,8 @@ sha512_block_ce:
+ 	st4	{v12.d, v13.d, v14.d, v15.d}[0], [sp]
+ 
+ 	/* Address of SHA-512 constants. */
+-	adrp	k512_base, K512
+-	add	k512_base, k512_base, :lo12:K512
++	adrp	k512_base, CRYPTO_ASSEMBLY_AARCH64_SYM_HI(_K512)
++	add	k512_base, k512_base, CRYPTO_ASSEMBLY_AARCH64_SYM_LO(_K512)
+ 
+ 	/*
+ 	 * Load current hash state from context.
+@@ -282,14 +287,14 @@ sha512_block_ce:
+ 
+ 	ret
+ 
+-.section .rodata
++.section CRYPTO_ASSEMBLY_SECTION_RODATA
+ 
+ /*
+  * SHA-512 constants - see FIPS 180-4 section 4.2.3.
+  */
+ .align	4
+-.type	K512,@object
+-K512:
++CRYPTO_ASSEMBLY_TYPE_OBJECT(_K512)
++_K512:
+ .quad	0x428a2f98d728ae22, 0x7137449123ef65cd, 0xb5c0fbcfec4d3b2f, 0xe9b5dba58189dbbc
+ .quad	0x3956c25bf348b538, 0x59f111f1b605d019, 0x923f82a4af194f9b, 0xab1c5ed5da6d8118
+ .quad	0xd807aa98a3030242, 0x12835b0145706fbe, 0x243185be4ee4b28c, 0x550c7dc3d5ffb4e2
+@@ -310,4 +315,4 @@ K512:
+ .quad	0x06f067aa72176fba, 0x0a637dc5a2c898a6, 0x113f9804bef90dae, 0x1b710b35131c471b
+ .quad	0x28db77f523047d84, 0x32caab7b40c72493, 0x3c9ebe0a15c9bebc, 0x431d67c49c100d4c
+ .quad	0x4cc5d4becb3e42b6, 0x597f299cfc657e2a, 0x5fcb6fab3ad6faec, 0x6c44198c4a475817
+-.size	K512,.-K512
++CRYPTO_ASSEMBLY_OBJECT_SIZE(_K512)

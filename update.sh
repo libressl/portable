@@ -30,6 +30,7 @@ fi
 set +e
 tag=`git describe --exact-match --tags HEAD 2>/dev/null`
 is_tag=$?
+set -e
 # adjust for 9 hour time delta between trees
 release_ts=$((`git show -s --format=%ct $tag|tail -1` + 32400))
 commit=`git -C openbsd rev-list -n 1 --before=$release_ts origin/$openbsd_branch`
@@ -45,7 +46,6 @@ else
   git -C openbsd checkout $openbsd_branch
   git -C openbsd pull
 fi
-set -e
 
 # setup source paths
 CWD=`pwd`

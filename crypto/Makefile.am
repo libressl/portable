@@ -148,10 +148,6 @@ if !HAVE_FREEZERO
 libcompat_la_SOURCES += compat/freezero.c
 endif
 
-if !HAVE_FTRUNCATE
-libcompat_la_SOURCES += compat/ftruncate.c
-endif
-
 if !HAVE_GETDELIM
 libcompat_la_SOURCES += compat/getdelim.c
 endif

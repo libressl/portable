@@ -68,6 +68,14 @@ libressl_fstat(int fd, struct stat *statbuf)
 	return fstat(get_real_fd(fd), statbuf);
 }
 
+#ifndef HAVE_FTRUNCATE
+int
+ftruncate(int fd, off_t length)
+{
+	return _chsize(get_real_fd(fd), length);
+}
+#endif
+
 int
 posix_open(const char *path, ...)
 {

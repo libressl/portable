@@ -25,10 +25,10 @@ jobs:
         arch: ["x64", "Win32"]
         shared: ["ON", "OFF"]
         include:
-          - os: "windows-11-arm"
+          - os: "windows-11-vs2026-arm"
             arch: "ARM64"
             shared: "ON"
-          - os: "windows-11-arm"
+          - os: "windows-11-vs2026-arm"
             arch: "ARM64"
             shared: "OFF"
     steps:

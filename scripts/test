@@ -161,6 +161,15 @@ elif [ "$ARCH" = "loong64" ]; then
 
 	file apps/openssl/openssl
 
+elif [ "$ARCH" = "riscv64" ]; then
+	sudo ln -sf /usr/riscv64-linux-gnu/lib/ld-linux-riscv64-lp64d.so.1 /lib/
+	setup_cross_compiler riscv64-linux-gnu
+
+	./configure --host=riscv64-linux-gnu
+	LD_LIBRARY_PATH=/usr/riscv64-linux-gnu/lib make -j 4 check
+
+	file apps/openssl/openssl
+
 elif [ "$ARCH" = "mips32" ] || [ "$ARCH" = "mips64" ]; then
 	if [ "$ARCH" = "mips32" ]; then
 		sudo ln -sf /usr/mips-linux-gnu/lib/ld.so.1 /lib/

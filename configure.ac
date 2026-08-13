@@ -136,6 +136,8 @@ AM_CONDITIONAL([HOST_ASM_ELF_MIPS],
     [test "x$HOST_ABI" = "xelf" -a "$host_cpu" = "mips" -a "x$enable_asm" != "xno"])
 AM_CONDITIONAL([HOST_ASM_ELF_MIPS64],
     [test "x$HOST_ABI" = "xelf" -a "$host_cpu" = "mips64" -a "x$enable_asm" != "xno"])
+AM_CONDITIONAL([HOST_ASM_ELF_RISCV64],
+    [test "x$HOST_ABI" = "xelf" -a "$host_cpu" = "riscv64" -a "x$enable_asm" != "xno"])
 AM_CONDITIONAL([HOST_ASM_ELF_X86_64],
     [test "x$HOST_ABI" = "xelf" -a "$host_cpu" = "x86_64" -a "x$enable_asm" != "xno"])
 AM_CONDITIONAL([HOST_ASM_MACOSX_X86_64],

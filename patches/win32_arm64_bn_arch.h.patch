@@ -1,10 +1,12 @@
 --- crypto/bn/arch/aarch64/bn_arch.h.orig
 +++ crypto/bn/arch/aarch64/bn_arch.h
-@@ -20,4 +20,17 @@
+@@ -20,4 +20,19 @@
  #ifndef HEADER_BN_ARCH_H
  #define HEADER_BN_ARCH_H
 -
-+#if defined(_MSC_VER) && defined(_M_ARM64)
++/* See pull/1355. */
++#if defined(_MSC_VER) && defined(_M_ARM64) && \
++    !defined(MSVC_ARM64_BN_CT_NE_ZERO_WORKS)
 +
 +#include <intrin.h>
 +

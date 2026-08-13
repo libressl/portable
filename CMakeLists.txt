@@ -522,6 +522,97 @@ else()
 	set(ENABLE_ASM false)
 endif()
 
+if(MSVC AND HOST_AARCH64 AND NOT CMAKE_CROSSCOMPILING AND
+    CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "(aarch64|arm64|ARM64)")
+	set(BN_CT_TEST_SOURCE "${CMAKE_CURRENT_BINARY_DIR}/bn_ct_test.c")
+	file(WRITE "${BN_CT_TEST_SOURCE}" [=[
+#include <inttypes.h>
+#include <stdint.h>
+#include <stdio.h>
+
+typedef uint64_t BN_ULONG;
+
+#define BN_BITS2 64
+
+static __inline int
+bn_ct_ne_zero(BN_ULONG w)
+{
+	return (w | ~(w - 1)) >> (BN_BITS2 - 1);
+}
+
+static __inline void
+bn_addw(BN_ULONG a, BN_ULONG b, BN_ULONG *out_r1, BN_ULONG *out_r0)
+{
+	BN_ULONG c1, c2, r1, r0;
+
+	c1 = a | b;
+	c2 = a & b;
+	r0 = a + b;
+	r1 = ((c1 & ~r0) | c2) >> (BN_BITS2 - 1);
+
+	*out_r1 = r1;
+	*out_r0 = r0;
+}
+
+static __inline void
+bn_addw_addw(BN_ULONG a, BN_ULONG b, BN_ULONG c, BN_ULONG *out_r1,
+    BN_ULONG *out_r0)
+{
+	BN_ULONG carry, r1, r0;
+
+	bn_addw(a, b, &r1, &r0);
+	bn_addw(r0, c, &carry, &r0);
+	r1 += carry;
+
+	*out_r1 = r1;
+	*out_r0 = r0;
+}
+
+static BN_ULONG
+make_mask(BN_ULONG a, BN_ULONG b, BN_ULONG c, BN_ULONG borrow)
+{
+	BN_ULONG carry, ignored;
+
+	bn_addw_addw(a, b, c, &carry, &ignored);
+
+	return bn_ct_ne_zero(carry) - borrow;
+}
+
+static volatile BN_ULONG input_a = UINT64_MAX;
+static volatile BN_ULONG input_b = 1;
+static volatile BN_ULONG input_c = 0;
+static volatile BN_ULONG input_borrow = 0;
+
+int
+main(void)
+{
+	BN_ULONG actual, expected = 1;
+
+	actual = make_mask(input_a, input_b, input_c, input_borrow);
+	if (actual != expected) {
+		printf("FAIL: expected 0x%016" PRIx64 ", got 0x%016" PRIx64 "\n",
+		    expected, actual);
+		return 1;
+	}
+
+	return 0;
+}
+]=])
+	set(BN_CT_SAVED_CONFIGURATION "${CMAKE_TRY_COMPILE_CONFIGURATION}")
+	set(CMAKE_TRY_COMPILE_CONFIGURATION Release)
+	try_run(BN_CT_RUN_RESULT BN_CT_COMPILED
+	    "${CMAKE_CURRENT_BINARY_DIR}"
+	    "${BN_CT_TEST_SOURCE}")
+	set(CMAKE_TRY_COMPILE_CONFIGURATION "${BN_CT_SAVED_CONFIGURATION}")
+	if(BN_CT_COMPILED AND BN_CT_RUN_RESULT EQUAL 0)
+		message(STATUS "MSVC ARM64 optimizer check passed; workaround disabled")
+		add_definitions(-DMSVC_ARM64_BN_CT_NE_ZERO_WORKS)
+	else()
+		message(STATUS "MSVC ARM64 optimizer check failed; workaround enabled "
+		    "(compiled=${BN_CT_COMPILED}, result=${BN_CT_RUN_RESULT})")
+	endif()
+endif()
+
 if(ENABLE_ASM)
 	if(CMAKE_C_COMPILER_ABI STREQUAL "ELF")
 		if(HOST_AARCH64)

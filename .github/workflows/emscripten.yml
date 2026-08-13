@@ -43,7 +43,7 @@ jobs:
         run: cmake --build build --config Release --parallel 4
 
       - name: "Test"
-        run: ctest --test-dir build -C Release --output-on-failure
+        run: ctest --test-dir build -C Release --parallel --output-on-failure
 
   # Test ASAN with and without ASM enabled.
   test-asan:
@@ -80,4 +80,4 @@ jobs:
         run: cmake --build build --config Release --parallel 4
 
       - name: "Test"
-        run: ctest --test-dir build -C Release --output-on-failure
+        run: ctest --test-dir build -C Release --parallel --output-on-failure

@@ -11,6 +11,7 @@ if [ "$ARCH" = "mingw32" -o "$ARCH" = "mingw64" -o "$ARCH" = "arm32" ]; then
 fi
 
 ENABLE_ASM="${ENABLE_ASM:=ON}"
+export CTEST_PARALLEL_LEVEL="${CTEST_PARALLEL_LEVEL-}"
 
 # setup_cross_compiler sets up environment variables for cross-compilation with the given prefix.
 setup_cross_compiler() {

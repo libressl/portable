@@ -88,7 +88,7 @@ jobs:
 
       - name: "Test"
         shell: cmd
-        run: ctest --test-dir build -C Release --output-on-failure
+        run: ctest --test-dir build -C Release --parallel --output-on-failure
 
       - name: "Upload build artifacts"
         if: always()

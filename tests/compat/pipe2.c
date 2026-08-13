@@ -18,9 +18,10 @@ static int setfd(int fd, int flag)
 {
 	int rc = -1;
 	if (flag & FD_CLOEXEC) {
-		HANDLE h = (HANDLE)_get_osfhandle(fd);
-		if (h != NULL)
-			rc = SetHandleInformation(h, HANDLE_FLAG_INHERIT, 0) == 0 ? -1 : 0;
+		/* fd is a Winsock SOCKET, not a CRT descriptor: use it as a
+		 * handle directly rather than translating with _get_osfhandle. */
+		HANDLE h = (HANDLE)(LONG_PTR)fd;
+		rc = SetHandleInformation(h, HANDLE_FLAG_INHERIT, 0) == 0 ? -1 : 0;
 	}
 	return rc;
 }

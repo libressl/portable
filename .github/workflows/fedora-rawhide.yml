@@ -24,6 +24,8 @@ jobs:
       image: fedora:rawhide@sha256:0c1f63ed8fb818fad16cf6ae091598c410a21d2e1a9adf183beb93189299bfba
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
     - name: Install dependencies
       run: |
         dnf -y install git make clang cmake ninja-build autoconf automake libtool diffutils patch gawk perl-IO-Socket-SSL

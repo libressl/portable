@@ -35,6 +35,9 @@ jobs:
           - os: "ubuntu-24.04" # loong64
             arch: "loong64"
             compiler: "gcc"
+          - os: "ubuntu-24.04"
+            arch: "riscv64"
+            compiler: "gcc"
           - os: "ubuntu-24.04-arm"
             arch: "native"
             compiler: "gcc"
@@ -67,6 +70,9 @@ jobs:
               ;;
             mips64)
               packages+=(qemu-user-static binfmt-support g++-mips64el-linux-gnuabi64)
+              ;;
+            riscv64)
+              packages+=(qemu-user-static binfmt-support g++-riscv64-linux-gnu)
               ;;
           esac
           sudo apt-get update

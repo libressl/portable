@@ -159,6 +159,92 @@ if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID MATCHES "Clang")
 	add_compile_options($<$<COMPILE_LANGUAGE:C>:-Wno-pointer-sign>)
 endif()
 
+# Exploit-mitigation flags, matching the default-on hardening the autotools
+# build applies (m4/check-hardening-options.m4). The CMake build shipped none
+# of these, so a cmake-built libcrypto/libssl/libtls and openssl(1) had no
+# stack protector, no _FORTIFY_SOURCE, no RELRO/BIND_NOW and no CET, and the
+# mingw DLLs missed the DEP/ASLR opt-ins. MSVC is left to its own toolchain
+# defaults, exactly as that m4 (which only drives gcc/clang/mingw flags) does.
+# Every flag is probed before use so unsupported targets simply skip it.
+option(ENABLE_HARDENING
+	"Enable options to frustrate memory corruption exploits" ON)
+option(ENABLE_WINDOWS_SSP
+	"Build stack smashing protection on Windows (requires libssp)" OFF)
+
+if(ENABLE_HARDENING AND NOT MSVC AND
+    (CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID MATCHES "Clang"))
+	include(CheckCCompilerFlag)
+
+	macro(add_harden_cflag _flag _var)
+		check_c_compiler_flag("${_flag}" ${_var})
+		if(${_var})
+			add_compile_options($<$<COMPILE_LANGUAGE:C>:${_flag}>)
+		endif()
+	endmacro()
+
+	# CMake 3.16 predates check_linker_flag, so probe link flags by linking.
+	macro(add_harden_ldflag _flag _var)
+		set(_saved_link_options "${CMAKE_REQUIRED_LINK_OPTIONS}")
+		set(CMAKE_REQUIRED_LINK_OPTIONS "${_flag}")
+		check_c_source_compiles("int main(void){return 0;}" ${_var})
+		set(CMAKE_REQUIRED_LINK_OPTIONS "${_saved_link_options}")
+		if(${_var})
+			add_link_options("${_flag}")
+		endif()
+	endmacro()
+
+	# Do not optimize based on signed arithmetic overflow.
+	add_harden_cflag(-fno-strict-overflow HAVE_CFLAG_FNO_STRICT_OVERFLOW)
+
+	if(NOT WIN32)
+		# _FORTIFY_SOURCE needs an optimizing build and warns without one,
+		# so probe it at -O2 and only apply it to non-Debug C compiles.
+		set(_saved_req_flags "${CMAKE_REQUIRED_FLAGS}")
+		set(CMAKE_REQUIRED_FLAGS
+			"-O2 -Werror -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2")
+		check_c_source_compiles("#include <string.h>
+int main(void){char b[8];const char *s=\"x\";strcpy(b,s);return b[0];}"
+			HAVE_CFLAG_FORTIFY_SOURCE)
+		set(CMAKE_REQUIRED_FLAGS "${_saved_req_flags}")
+		if(HAVE_CFLAG_FORTIFY_SOURCE)
+			add_compile_options(
+			    "$<$<AND:$<COMPILE_LANGUAGE:C>,$<NOT:$<CONFIG:Debug>>>:-U_FORTIFY_SOURCE>"
+			    "$<$<AND:$<COMPILE_LANGUAGE:C>,$<NOT:$<CONFIG:Debug>>>:-D_FORTIFY_SOURCE=2>")
+		endif()
+
+		# Read-only relocations, resolved at load time.
+		add_harden_ldflag(-Wl,-z,relro HAVE_LDFLAG_Z_RELRO)
+		add_harden_ldflag(-Wl,-z,now HAVE_LDFLAG_Z_NOW)
+	else()
+		# Windows (mingw) DEP, ASLR and high-entropy ASLR opt-ins.
+		add_harden_ldflag(-Wl,--nxcompat HAVE_LDFLAG_NXCOMPAT)
+		add_harden_ldflag(-Wl,--dynamicbase HAVE_LDFLAG_DYNAMICBASE)
+		add_harden_ldflag(-Wl,--high-entropy-va HAVE_LDFLAG_HIGH_ENTROPY_VA)
+	endif()
+
+	# Stack smashing protection. On Windows this pulls in libssp, so it is
+	# opt-in there, mirroring --enable-windows-ssp.
+	if(NOT WIN32 OR ENABLE_WINDOWS_SSP)
+		check_c_compiler_flag(-fstack-protector-strong
+			HAVE_CFLAG_STACK_PROTECTOR_STRONG)
+		if(HAVE_CFLAG_STACK_PROTECTOR_STRONG)
+			add_compile_options(
+				$<$<COMPILE_LANGUAGE:C>:-fstack-protector-strong>)
+		else()
+			add_harden_cflag(-fstack-protector-all
+				HAVE_CFLAG_STACK_PROTECTOR_ALL)
+		endif()
+		if(WIN32)
+			set(PLATFORM_LIBS ${PLATFORM_LIBS} ssp)
+		endif()
+	endif()
+
+	# Control-flow integrity (Intel CET); unsupported on Darwin.
+	if(NOT APPLE)
+		add_harden_cflag(-fcf-protection=full HAVE_CFLAG_CF_PROTECTION)
+	endif()
+endif()
+
 if(WIN32)
 	add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 	add_definitions(-D_CRT_DEPRECATED_NO_WARNINGS)

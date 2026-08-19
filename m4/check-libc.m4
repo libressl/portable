@@ -26,7 +26,7 @@ AC_CHECK_FUNCS([asprintf freezero ftruncate getdelim getline memmem])
 AC_CHECK_FUNCS([readpassphrase reallocarray recallocarray])
 AC_CHECK_FUNCS([strcasecmp strlcat strlcpy strndup strnlen strsep strtonum])
 AC_CHECK_FUNCS([timegm _mkgmtime timespecsub])
-AC_CHECK_FUNCS([getopt getprogname syslog syslog_r])
+AC_CHECK_FUNCS([getopt getprogname syslog syslog_r vsyslog])
 AC_CACHE_CHECK([for getpagesize], ac_cv_func_getpagesize, [
 	AC_LINK_IFELSE([AC_LANG_PROGRAM([[
 #include <unistd.h>

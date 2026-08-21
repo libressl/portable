@@ -7,15 +7,14 @@
 #define LIBCRYPTOCOMPAT_SYS_TIME_H
 
 #ifdef _MSC_VER
+/*
+ * Use the winsock struct timeval: it is what <openssl/dtls1.h> gives
+ * callers of DTLSv1_get_timeout() and the dgram BIO ctrls, so libssl
+ * must be built against the same layout.
+ */
 #include <winsock2.h>
 
-#define timeval libressl_timeval
 #define gettimeofday libressl_gettimeofday
-
-struct timeval {
-	long long	tv_sec;
-	long		tv_usec;
-};
 
 int gettimeofday(struct timeval *tp, void *tzp);
 #else

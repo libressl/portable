@@ -248,7 +248,6 @@ gen_asm_mips o32 bn  mips        bn-mips
 gen_asm_mips o32 bn  mips-mont   mont-mips
 gen_asm_mips o32 sha sha1-mips   sha1-mips
 gen_asm_mips o32 sha sha512-mips sha256-mips
-gen_asm_mips o32 sha sha512-mips sha512-mips
 
 echo generating mips64 ASM source for elf
 gen_asm_mips 64 aes aes-mips    aes-mips64

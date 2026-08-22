@@ -20,5 +20,24 @@
 
 #ifndef OPENSSL_NO_ASM
 
+#ifdef LIBRESSL_USE_BN_ASSEMBLY
+
+#define HAVE_BN_ADD_WORDS
+
+#define HAVE_BN_DIV_WORDS
+#define HAVE_BN_DIV_3_WORDS
+
+#define HAVE_BN_MUL_COMBA4
+#define HAVE_BN_MUL_COMBA8
+#define HAVE_BN_MULW_ADD_WORDS
+#define HAVE_BN_MULW_WORDS
+
+#define HAVE_BN_SQR_COMBA4
+#define HAVE_BN_SQR_COMBA8
+
+#define HAVE_BN_SUB_WORDS
+
+#endif
+
 #endif
 #endif

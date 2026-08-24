@@ -212,9 +212,13 @@ int main(void){char b[8];const char *s=\"x\";strcpy(b,s);return b[0];}"
 			    "$<$<AND:$<COMPILE_LANGUAGE:C>,$<NOT:$<CONFIG:Debug>>>:-D_FORTIFY_SOURCE=2>")
 		endif()
 
-		# Read-only relocations, resolved at load time.
-		add_harden_ldflag(-Wl,-z,relro HAVE_LDFLAG_Z_RELRO)
-		add_harden_ldflag(-Wl,-z,now HAVE_LDFLAG_Z_NOW)
+		# Read-only relocations, resolved at load time. wasm has no
+		# ELF loader and wasm-ld only warns about unknown -z values,
+		# so the probe false-positives on Emscripten; skip it there.
+		if(NOT EMSCRIPTEN)
+			add_harden_ldflag(-Wl,-z,relro HAVE_LDFLAG_Z_RELRO)
+			add_harden_ldflag(-Wl,-z,now HAVE_LDFLAG_Z_NOW)
+		endif()
 	else()
 		# Windows (mingw) DEP, ASLR and high-entropy ASLR opt-ins.
 		add_harden_ldflag(-Wl,--nxcompat HAVE_LDFLAG_NXCOMPAT)
@@ -223,8 +227,11 @@ int main(void){char b[8];const char *s=\"x\";strcpy(b,s);return b[0];}"
 	endif()
 
 	# Stack smashing protection. On Windows this pulls in libssp, so it is
-	# opt-in there, mirroring --enable-windows-ssp.
-	if(NOT WIN32 OR ENABLE_WINDOWS_SSP)
+	# opt-in there, mirroring --enable-windows-ssp. Emscripten accepts the
+	# flag (and the frameless probe links), but its libc has no
+	# __stack_chk_guard/__stack_chk_fail, so any protected frame fails to
+	# link; it provides its own stack checks (-sSTACK_OVERFLOW_CHECK).
+	if(NOT EMSCRIPTEN AND (NOT WIN32 OR ENABLE_WINDOWS_SSP))
 		check_c_compiler_flag(-fstack-protector-strong
 			HAVE_CFLAG_STACK_PROTECTOR_STRONG)
 		if(HAVE_CFLAG_STACK_PROTECTOR_STRONG)

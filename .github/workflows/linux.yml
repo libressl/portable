@@ -68,7 +68,7 @@ jobs:
               packages+=(qemu-user-static binfmt-support g++-14-loongarch64-linux-gnu)
               ;;
             mips32)
-              packages+=(qemu-user-static binfmt-support g++-mips-linux-gnu)
+              packages+=(qemu-user-static binfmt-support g++-mipsel-linux-gnu)
               ;;
             mips64)
               packages+=(qemu-user-static binfmt-support g++-mips64el-linux-gnuabi64)

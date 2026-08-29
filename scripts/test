@@ -173,11 +173,12 @@ elif [ "$ARCH" = "riscv64" ]; then
 
 elif [ "$ARCH" = "mips32" ] || [ "$ARCH" = "mips64" ]; then
 	if [ "$ARCH" = "mips32" ]; then
-		sudo ln -sf /usr/mips-linux-gnu/lib/ld.so.1 /lib/
-		setup_cross_compiler mips-linux-gnu
+		sudo ln -sf /usr/mipsel-linux-gnu/lib/ld.so.1 /lib/
+		setup_cross_compiler mipsel-linux-gnu
 
-		./configure --host=mips-linux-gnu
-		LD_LIBRARY_PATH=/usr/mips-linux-gnu/lib make -j 4 check
+		# MIPS32 assembly is disabled by default, so enable it for CI coverage.
+		./configure --host=mipsel-linux-gnu --enable-asm
+		LD_LIBRARY_PATH=/usr/mipsel-linux-gnu/lib make -j 4 check
 	else
 		sudo ln -sf /usr/mips64el-linux-gnuabi64/lib64/ld.so.1 /lib64
 		setup_cross_compiler mips64el-linux-gnuabi64

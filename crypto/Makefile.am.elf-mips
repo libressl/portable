@@ -2,7 +2,6 @@ ASM_MIPS_ELF = aes/aes-mips.S
 ASM_MIPS_ELF += bn/bn-mips.S
 ASM_MIPS_ELF += bn/mont-mips.S
 ASM_MIPS_ELF += sha/sha1-mips.S
-ASM_MIPS_ELF += sha/sha512-mips.S
 ASM_MIPS_ELF += sha/sha256-mips.S
 
 EXTRA_DIST += $(ASM_MIPS_ELF)

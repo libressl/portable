@@ -1,9 +1,9 @@
-ASM_MIPS64_ELF = aes/aes-mips.S
-ASM_MIPS64_ELF += bn/bn-mips.S
-ASM_MIPS64_ELF += bn/mont-mips.S
-ASM_MIPS64_ELF += sha/sha1-mips.S
-ASM_MIPS64_ELF += sha/sha512-mips.S
-ASM_MIPS64_ELF += sha/sha256-mips.S
+ASM_MIPS64_ELF = aes/aes-mips64.S
+ASM_MIPS64_ELF += bn/bn-mips64.S
+ASM_MIPS64_ELF += bn/mont-mips64.S
+ASM_MIPS64_ELF += sha/sha1-mips64.S
+ASM_MIPS64_ELF += sha/sha512-mips64.S
+ASM_MIPS64_ELF += sha/sha256-mips64.S
 
 EXTRA_DIST += $(ASM_MIPS64_ELF)
 

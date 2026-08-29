@@ -515,6 +515,11 @@ if(HAVE_SYSLOG)
 	add_definitions(-DHAVE_SYSLOG)
 endif()
 
+check_function_exists(vsyslog HAVE_VSYSLOG)
+if(HAVE_VSYSLOG)
+	add_definitions(-DHAVE_VSYSLOG)
+endif()
+
 check_symbol_exists(timespecsub sys/time.h HAVE_TIMESPECSUB)
 if(HAVE_TIMESPECSUB)
 	add_definitions(-DHAVE_TIMESPECSUB)

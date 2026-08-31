@@ -16,6 +16,7 @@
 
 #include <errno.h>
 #include <fcntl.h>
+#include <limits.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -221,6 +222,8 @@ ssize_t
 posix_read(int fd, void *buf, size_t count)
 {
 	ssize_t rc;
+	if (count > INT_MAX)
+		count = INT_MAX;
 	if (is_socket(fd)) {
 		if ((rc = recv(fd, buf, count, 0)) == SOCKET_ERROR) {
 			int err = WSAGetLastError();
@@ -236,6 +239,8 @@ ssize_t
 posix_write(int fd, const void *buf, size_t count)
 {
 	ssize_t rc;
+	if (count > INT_MAX)
+		count = INT_MAX;
 	if (is_socket(fd)) {
 		if ((rc = send(fd, buf, count, 0)) == SOCKET_ERROR) {
 			rc = wsa_errno(WSAGetLastError());

@@ -73,6 +73,8 @@ compute_select_revents(int fd, short events,
 			rc |= POLLHUP;
 		else if (conn_has_oob_data(fd))
 			rc |= POLLRDBAND | POLLPRI;
+		else
+			rc |= POLLERR;
 	}
 
 	return rc;

@@ -40,7 +40,7 @@ install-exec-hook:
 	fi; \
 	mkdir -p "$$OPENSSLDIR/certs"; \
 	for i in cert.pem openssl.cnf x509v3.cnf; do \
-		if [ ! -f "$$OPENSSLDIR/$i" ]; then \
+		if [ ! -f "$$OPENSSLDIR/$$i" ]; then \
 			$(INSTALL) -m 644 "$(srcdir)/$$i" "$$OPENSSLDIR/$$i"; \
 		else \
 			echo " $$OPENSSLDIR/$$i already exists, install will not overwrite"; \

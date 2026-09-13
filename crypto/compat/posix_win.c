@@ -198,8 +198,21 @@ int
 posix_connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen)
 {
 	int rc = connect(sockfd, addr, addrlen);
-	if (rc == SOCKET_ERROR)
-		return wsa_errno(WSAGetLastError());
+	if (rc == SOCKET_ERROR) {
+		int err = WSAGetLastError();
+		/*
+		 * Winsock reports an in-progress non-blocking connect as
+		 * WSAEWOULDBLOCK. POSIX callers expect EINPROGRESS here; the
+		 * generic mapping returns EAGAIN, which on Windows is a
+		 * distinct value from both EINPROGRESS and EWOULDBLOCK, so the
+		 * connect looks like a hard failure instead.
+		 */
+		if (err == WSAEWOULDBLOCK) {
+			errno = EINPROGRESS;
+			return -1;
+		}
+		return wsa_errno(err);
+	}
 	return rc;
 }
 

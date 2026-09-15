@@ -5,9 +5,11 @@
     ':configMigration',
     ':pinVersions',
     ':rebaseStalePrs',
-    'schedule:weekends',
     'customManagers:githubActionsVersions',
     'helpers:pinGitHubActionDigests',
+  ],
+  schedule: [
+    "* 0-3 * * 2",
   ],
   commitMessagePrefix: 'ci:',
   commitMessageAction: 'update',

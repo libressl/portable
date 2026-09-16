@@ -12,6 +12,8 @@ concurrency:
   group: "${{ github.workflow }}-${{ github.event.number || github.ref }}"
   cancel-in-progress: true
 
+permissions: {}
+
 jobs:
   test:
     name: "${{ matrix.os }}/${{ matrix.arch }} (${{ matrix.shared == 'ON' && 'shared' || 'static' }})"
@@ -57,15 +59,19 @@ jobs:
 
       - name: "Configure CMake"
         shell: pwsh
+        env:
+          MSYS2_LOCATION: "${{ steps.msys2.outputs.msys2-location }}"
+          ARCH: "${{ matrix.arch }}"
+          BUILD_SHARED_LIBS: "${{ matrix.shared }}"
         run: |
-          $perl = Join-Path '${{ steps.msys2.outputs.msys2-location }}' 'usr\bin\perl.exe'
+          $perl = Join-Path "$env:MSYS2_LOCATION" 'usr\bin\perl.exe'
           & $perl -MIO::Socket::SSL::Utils -e 1
           if ($LASTEXITCODE -ne 0) {
             throw "IO::Socket::SSL::Utils is unavailable"
           }
 
           $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vswhere.exe'
-          $component = if ('${{ matrix.arch }}' -eq 'ARM64') {
+          $component = if ("$env:ARCH" -eq 'ARM64') {
             'Microsoft.VisualStudio.Component.VC.Tools.ARM64'
           } else {
             'Microsoft.VisualStudio.Component.VC.Tools.x86.x64'
@@ -83,14 +89,14 @@ jobs:
             throw "No CMake generator found for Visual Studio $major"
           }
           Write-Host "Using generator: $generator"
-          cmake -Bbuild -G "$generator" -A ${{ matrix.arch }} -D BUILD_SHARED_LIBS=${{ matrix.shared }} -D CMAKE_INSTALL_PREFIX=../local "-DPERL_EXECUTABLE=$perl"
+          cmake -Bbuild -G "$generator" -A "$env:ARCH" -D BUILD_SHARED_LIBS="$env:BUILD_SHARED_LIBS" -D CMAKE_INSTALL_PREFIX=../local -D PERL_EXECUTABLE="$perl"
 
       - name: "Build"
-        shell: cmd
+        shell: pwsh
         run: cmake --build build --config Release
 
       - name: "Test"
-        shell: cmd
+        shell: pwsh
         run: ctest --test-dir build -C Release --parallel --output-on-failure
 
       - name: "Upload build artifacts"

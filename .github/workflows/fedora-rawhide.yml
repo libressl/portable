@@ -9,11 +9,12 @@ concurrency:
   group: "${{ github.workflow }}-${{ github.event.number || github.ref }}"
   cancel-in-progress: true
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   build_and_test:
+    permissions:
+      contents: read
     strategy:
       matrix:
         cc: [ gcc, clang ]
@@ -34,9 +35,11 @@ jobs:
       run: |
         ./update.sh
     - name: Build
+      env:
+        CC: "${{ matrix.cc }}"
       run: |
-         CC=${{ matrix.cc }} cmake -GNinja -DBUILD_SHARED_LIBS=ON .
-         ninja
+        cmake -GNinja -DBUILD_SHARED_LIBS=ON .
+        ninja
     - name: Test
       run: |
          CTEST_PARALLEL_LEVEL="" ninja test

@@ -55,9 +55,11 @@ jobs:
           persist-credentials: false
 
       - name: "Install test dependencies"
+        env:
+          ARCH: "${{ matrix.arch }}"
         run: |
           packages=(cmake ninja-build libio-socket-ssl-perl)
-          case "${{ matrix.arch }}" in
+          case "$ARCH" in
             mingw32|mingw64)
               packages+=(mingw-w64)
               ;;

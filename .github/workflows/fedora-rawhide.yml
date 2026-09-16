@@ -35,9 +35,11 @@ jobs:
       run: |
         ./update.sh
     - name: Build
+      env:
+        CC: "${{ matrix.cc }}"
       run: |
-         CC=${{ matrix.cc }} cmake -GNinja -DBUILD_SHARED_LIBS=ON .
-         ninja
+        cmake -GNinja -DBUILD_SHARED_LIBS=ON .
+        ninja
     - name: Test
       run: |
          CTEST_PARALLEL_LEVEL="" ninja test

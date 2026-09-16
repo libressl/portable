@@ -2,7 +2,8 @@
 name: "macOS"
 
 on:
-  push: {}
+  push:
+    branches: ["master", "OPENBSD_8_0", "OPENBSD_7_9", "OPENBSD_7_8"]
   pull_request: {}
   schedule:
     - cron: "0 0 * * 0" # At 00:00 weekly on Sunday.

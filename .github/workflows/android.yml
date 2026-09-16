@@ -1,7 +1,10 @@
 # GitHub Actions workflow to run tests on Android.
 name: "Android"
 
-on: [push, pull_request]
+on:
+  push:
+    branches: ["master", "OPENBSD_8_0", "OPENBSD_7_9", "OPENBSD_7_8"]
+  pull_request: {}
 
 concurrency:
   group: "${{ github.workflow }}-${{ github.event.number || github.ref }}"

@@ -9,11 +9,12 @@ concurrency:
   group: "${{ github.workflow }}-${{ github.event.number || github.ref }}"
   cancel-in-progress: true
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   build_and_test:
+    permissions:
+      contents: read
     strategy:
       matrix:
         cc: [ gcc, clang ]

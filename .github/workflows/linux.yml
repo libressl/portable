@@ -12,6 +12,8 @@ concurrency:
   group: "${{ github.workflow }}-${{ github.event.number || github.ref }}"
   cancel-in-progress: true
 
+permissions: {}
+
 jobs:
   # Test against all supported architectures.
   test:

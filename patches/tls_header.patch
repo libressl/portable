@@ -1,0 +1,213 @@
+diff --git tls/tls.c b/lib/libtls/tls.c
+index 4a01c6c9b2a..7ba42deb790 100644
+--- tls/tls.c
++++ tls/tls.c
+@@ -16,18 +16,24 @@
+  */
+ 
+ #include <sys/socket.h>
++#include <sys/types.h>
+ 
+ #include <errno.h>
+ #include <limits.h>
+ #include <pthread.h>
++#include <stdarg.h>
++#include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+ #include <unistd.h>
+ 
+ #include <openssl/bio.h>
++#include <openssl/crypto.h>
++#include <openssl/ec.h>
+ #include <openssl/err.h>
+ #include <openssl/evp.h>
+ #include <openssl/pem.h>
++#include <openssl/rsa.h>
+ #include <openssl/safestack.h>
+ #include <openssl/ssl.h>
+ #include <openssl/x509.h>
+diff --git tls/tls_bio_cb.c b/lib/libtls/tls_bio_cb.c
+index 56b9e12a715..27c20b03d0d 100644
+--- tls/tls_bio_cb.c
++++ tls/tls_bio_cb.c
+@@ -15,12 +15,12 @@
+  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+  */
+ 
+-#include <fcntl.h>
++#include <pthread.h>
+ #include <stdlib.h>
+ #include <string.h>
+-#include <unistd.h>
+ 
+ #include <openssl/bio.h>
++#include <openssl/ssl.h>
+ 
+ #include <tls.h>
+ #include "tls_internal.h"
+diff --git tls/tls_client.c b/lib/libtls/tls_client.c
+index 7de9927b94a..b1125f7c431 100644
+--- tls/tls_client.c
++++ tls/tls_client.c
+@@ -24,11 +24,14 @@
+ 
+ #include <limits.h>
+ #include <netdb.h>
++#include <stdint.h>
+ #include <stdlib.h>
+ #include <string.h>
+ #include <unistd.h>
+ 
++#include <openssl/bio.h>
+ #include <openssl/err.h>
++#include <openssl/ssl.h>
+ #include <openssl/x509.h>
+ 
+ #include <tls.h>
+diff --git tls/tls_config.c b/lib/libtls/tls_config.c
+index d35c5065c53..2c50a06f83b 100644
+--- tls/tls_config.c
++++ tls/tls_config.c
+@@ -16,17 +16,22 @@
+  */
+ 
+ #include <sys/stat.h>
++#include <sys/types.h>
++
++#include <arpa/inet.h>
+ 
+-#include <ctype.h>
+-#include <errno.h>
+ #include <fcntl.h>
+ #include <pthread.h>
++#include <stdint.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <time.h>
+ #include <unistd.h>
+ 
+-#include <tls.h>
++#include <openssl/ec.h>
++#include <openssl/objects.h>
+ 
++#include <tls.h>
+ #include "tls_internal.h"
+ 
+ static const char default_ca_file[] = TLS_DEFAULT_CA_FILE;
+diff --git tls/tls_conninfo.c b/lib/libtls/tls_conninfo.c
+index 3de1fdcc001..b5033af41fe 100644
+--- tls/tls_conninfo.c
++++ tls/tls_conninfo.c
+@@ -16,10 +16,18 @@
+  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+  */
+ 
+-#include <stdio.h>
++#include <stdint.h>
++#include <stdlib.h>
+ #include <string.h>
++#include <time.h>
+ 
++#include <openssl/asn1.h>
++#include <openssl/bio.h>
++#include <openssl/buffer.h>
++#include <openssl/pem.h>
+ #include <openssl/posix_time.h>
++#include <openssl/safestack.h>
++#include <openssl/ssl.h>
+ #include <openssl/x509.h>
+ 
+ #include <tls.h>
+diff --git tls/tls_keypair.c b/lib/libtls/tls_keypair.c
+index b485a21ea18..bb65ce54e03 100644
+--- tls/tls_keypair.c
++++ tls/tls_keypair.c
+@@ -16,13 +16,15 @@
+  */
+ 
+ #include <limits.h>
++#include <stdint.h>
++#include <stdlib.h>
+ 
+ #include <openssl/bio.h>
+ #include <openssl/err.h>
+ #include <openssl/pem.h>
++#include <openssl/x509.h>
+ 
+ #include <tls.h>
+-
+ #include "tls_internal.h"
+ 
+ struct tls_keypair *
+diff --git tls/tls_peer.c b/lib/libtls/tls_peer.c
+index 6d63a529f26..9e45cc057e7 100644
+--- tls/tls_peer.c
++++ tls/tls_peer.c
+@@ -16,9 +16,9 @@
+  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+  */
+ 
+-#include <stdio.h>
+-
+-#include <openssl/x509.h>
++#include <stddef.h>
++#include <stdint.h>
++#include <time.h>
+ 
+ #include <tls.h>
+ #include "tls_internal.h"
+diff --git tls/tls_server.c b/lib/libtls/tls_server.c
+index 570020d6a2c..086801fd0a7 100644
+--- tls/tls_server.c
++++ tls/tls_server.c
+@@ -19,10 +19,14 @@
+ 
+ #include <arpa/inet.h>
+ 
++#include <stdlib.h>
+ #include <string.h>
++#include <pthread.h>
++#include <time.h>
+ 
+-#include <openssl/ec.h>
+ #include <openssl/err.h>
++#include <openssl/evp.h>
++#include <openssl/hmac.h>
+ #include <openssl/ssl.h>
+ 
+ #include <tls.h>
+diff --git tls/tls_signer.c b/lib/libtls/tls_signer.c
+index 2d6635460ec..c2481fe8c1c 100644
+--- tls/tls_signer.c
++++ tls/tls_signer.c
+@@ -18,7 +18,6 @@
+ #include <limits.h>
+ #include <pthread.h>
+ #include <stdint.h>
+-#include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+ 
+@@ -30,7 +29,7 @@
+ #include <openssl/rsa.h>
+ #include <openssl/x509.h>
+ 
+-#include "tls.h"
++#include <tls.h>
+ #include "tls_internal.h"
+ 
+ struct tls_signer_key {
+diff --git tls/tls_util.c b/lib/libtls/tls_util.c
+index d93efb830db..7b6dc62d44d 100644
+--- tls/tls_util.c
++++ tls/tls_util.c
+@@ -24,7 +24,7 @@
+ #include <unistd.h>
+ #include <fcntl.h>
+ 
+-#include "tls.h"
++#include <tls.h>
+ #include "tls_internal.h"
+ 
+ static void *

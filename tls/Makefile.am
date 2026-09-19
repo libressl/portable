@@ -52,7 +52,12 @@ libtls_la_CPPFLAGS = $(AM_CPPFLAGS)
 if OPENSSLDIR_DEFINED
 libtls_la_CPPFLAGS += -DTLS_DEFAULT_CA_FILE=\"@OPENSSLDIR@/cert.pem\"
 else
+if HOST_WIN
+# See crypto/Makefile.am: keep the default CA file out of a drive-relative path.
+libtls_la_CPPFLAGS += -DTLS_DEFAULT_CA_FILE=\"C:/Windows/libressl/ssl/cert.pem\"
+else
 libtls_la_CPPFLAGS += -DTLS_DEFAULT_CA_FILE=\"$(sysconfdir)/ssl/cert.pem\"
+endif
 endif
 
 libtls_la_SOURCES = tls.c

@@ -164,6 +164,9 @@ else
 fi
 
 awk '/LIBRESSL_VERSION_TEXT/ {print $4}' < include/openssl/opensslv.h | cut -d\" -f1 | head -n1 > VERSION
+if [ -n "$LIBRESSL_RC" ]; then
+	printf '%s-rc%s\n' "`cat VERSION`" "$LIBRESSL_RC" > VERSION
+fi
 echo "LibreSSL version `cat VERSION`"
 
 # copy libcrypto source

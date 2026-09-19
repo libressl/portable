@@ -95,7 +95,13 @@ libcrypto_la_CPPFLAGS += -DOPENSSL_NO_HW_PADLOCK
 if OPENSSLDIR_DEFINED
 libcrypto_la_CPPFLAGS += -DOPENSSLDIR=\"@OPENSSLDIR@\"
 else
+if HOST_WIN
+# A Unix-style $(sysconfdir) is drive-relative on Windows, where any local
+# user can create it. Use the same default as the CMake build.
+libcrypto_la_CPPFLAGS += -DOPENSSLDIR=\"C:/Windows/libressl/ssl\"
+else
 libcrypto_la_CPPFLAGS += -DOPENSSLDIR=\"$(sysconfdir)/ssl\"
+endif
 endif
 
 # compatibility functions that need to be built without optimizations

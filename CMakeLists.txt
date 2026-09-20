@@ -21,6 +21,8 @@ endif()
 
 project(LibreSSL LANGUAGES C ASM)
 
+include(CheckCSourceCompiles)
+include(CheckCSourceRuns)
 include(CheckFunctionExists)
 include(CheckSymbolExists)
 include(CheckLibraryExists)

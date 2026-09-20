@@ -84,7 +84,13 @@ int getpagesize(void);
 #endif
 
 #ifndef HAVE_PIPE2
-int pipe2(int fildes[2], int flags);
+/*
+ * SDK headers can declare pipe2() as available even if the underlying libc
+ * only has a stub, e.g. macOS 27 SDK running on macOS 26.
+ * This avoids the collision.
+ */
+int bsd_pipe2(int fildes[2], int flags);
+#define pipe2(fildes, flags) bsd_pipe2(fildes, flags)
 #endif
 
 #endif

@@ -867,7 +867,22 @@ if(ENABLE_LIBRESSL_INSTALL)
 			DESTINATION ${CMAKE_INSTALL_LIBDIR})
 	endif()
 
-	install(FILES cert.pem openssl.cnf x509v3.cnf DESTINATION ${CONF_DIR})
+	# Like the autotools install hook, leave configuration files and trust
+	# anchors that already exist alone, so local changes survive a reinstall.
+	if(IS_ABSOLUTE "${CONF_DIR}")
+		set(CONF_INSTALL_DIR "${CONF_DIR}")
+	else()
+		set(CONF_INSTALL_DIR "\${CMAKE_INSTALL_PREFIX}/${CONF_DIR}")
+	endif()
+	foreach(CONF_FILE cert.pem openssl.cnf x509v3.cnf)
+		install(CODE "
+			if(EXISTS \"\$ENV{DESTDIR}${CONF_INSTALL_DIR}/${CONF_FILE}\")
+				message(STATUS \"\$ENV{DESTDIR}${CONF_INSTALL_DIR}/${CONF_FILE} already exists, install will not overwrite\")
+			else()
+				file(INSTALL \"${CMAKE_CURRENT_SOURCE_DIR}/${CONF_FILE}\"
+					DESTINATION \"${CONF_INSTALL_DIR}\")
+			endif()")
+	endforeach()
 	install(DIRECTORY DESTINATION ${CONF_DIR}/certs)
 
  	if(NOT TARGET uninstall)

@@ -67,6 +67,34 @@ or to the GitHub
 Severe vulnerabilities or bugs requiring coordination with OpenSSL can be
 sent to the core team at libressl-security@openbsd.org.
 
+## Versioning
+
+LibreSSL portable follows a versioning scheme similar to the OpenBSD project,
+with the addition of a third number indicating patches/bug fixes: `N.N.P`.
+
+- `N.N` is incremented for each major release by `0.1` with carry.
+  For example, `4.8`, `4.9`, `5.0`, `5.1`, and so on.
+- `P` is incremented for each patch release, and is used for bug fix and
+  security patch releases that are backwards-compatible with the major version.
+  It is reset to `0` when the major version is incremented.
+
+For example, `4.4.2` indicates the second patch on major version `4.4`,
+and `4.5.0rc1` indicates the first release candidate for stable version
+`4.5.0`.
+
+Similar to OpenBSD, the next stable version after `4.9.0` would be `5.0.0`.
+
+### Release candidates (pre-releases)
+
+Before a stable version is officially released, it undergoes a release
+candidate phase denoted by the `rc` suffix: `N.N.Prc[n]`
+- `N.N.P` represents the target version being tested.
+- `rc1`, `rc2`, etc. indicate the release candidate iteration.
+
+For example, `4.4.0rc1` is the first release candidate for the upcoming `4.4.0`
+stable release. These builds are intended for testing and validation. They
+should not be used in production environments.
+
 # Building LibreSSL
 
 ## Building from a Git checkout

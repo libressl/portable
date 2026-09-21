@@ -67,6 +67,24 @@ or to the GitHub
 Severe vulnerabilities or bugs requiring coordination with OpenSSL can be
 sent to the core team at libressl-security@openbsd.org.
 
+## Versioning
+
+Major releases are usually made around the end of April and October,
+sometimes preceded by release candidates.
+
+As of September 2026, LibreSSL portable follows the versioning scheme
+`N.N.P[rcR]`, where:
+
+- `N.N` is incremented for each major release by `0.1` with carry.
+  For example, `4.8`, `4.9`, `5.0`, `5.1`, and so on.
+- `P` starts at `0` and is incremented for each patch release.
+  Patch releases are ABI/API compatible and used for bug and security fixes.
+- Release candidates are marked with `rcR` where `R` is the iteration.
+
+For example, `4.4.2` indicates the second patch on major version `4.4`,
+and `4.5.0rc1` indicates the first release candidate for stable version
+`4.5.0`.
+
 # Building LibreSSL
 
 ## Building from a Git checkout

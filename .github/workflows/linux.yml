@@ -25,28 +25,43 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-22.04", "ubuntu-24.04"]
-        arch: ["native", "arm32", "arm64", "mingw32", "mingw64", "mips32", "mips64"]
+        os: ["ubuntu-24.04", "ubuntu-26.04"]
+        arch: ["native", "arm32", "arm64", "mingw32", "mingw64"]
         compiler: ["gcc"]
         include:
-          - os: "ubuntu-22.04"
-            arch: "native"
-            compiler: "clang"
           - os: "ubuntu-24.04"
             arch: "native"
             compiler: "clang"
-          - os: "ubuntu-24.04" # loong64
+          - os: "ubuntu-26.04"
+            arch: "native"
+            compiler: "clang"
+          - os: "ubuntu-26.04" # loong64
             arch: "loong64"
             compiler: "gcc"
-          - os: "ubuntu-24.04"
+          - os: "ubuntu-26.04"
             arch: "riscv64"
             compiler: "gcc"
-          - os: "ubuntu-24.04-arm"
+          - os: "ubuntu-26.04-arm"
             arch: "native"
             compiler: "gcc"
-          - os: "ubuntu-24.04-arm"
+          - os: "ubuntu-26.04-arm"
             arch: "native"
             compiler: "clang"
+
+            # Run mips32/mips64 on ubuntu-22.04 and ubuntu-24.04.
+            # Ubuntu 26.04 drops packages needed for mips32/mips64 tests.
+          - os: "ubuntu-22.04"
+            arch: "mips32"
+            compiler: "gcc"
+          - os: "ubuntu-22.04"
+            arch: "mips64"
+            compiler: "gcc"
+          - os: "ubuntu-24.04"
+            arch: "mips32"
+            compiler: "gcc"
+          - os: "ubuntu-24.04"
+            arch: "mips64"
+            compiler: "gcc"
 
     steps:
       - name: "Checkout repository"
@@ -64,22 +79,22 @@ jobs:
               packages+=(mingw-w64)
               ;;
             arm32)
-              packages+=(qemu-user-static binfmt-support g++-arm-linux-gnueabihf)
+              packages+=(qemu-user qemu-user-binfmt binfmt-support g++-arm-linux-gnueabihf)
               ;;
             arm64)
-              packages+=(qemu-user-static binfmt-support g++-aarch64-linux-gnu)
+              packages+=(qemu-user qemu-user-binfmt binfmt-support g++-aarch64-linux-gnu)
               ;;
             loong64)
-              packages+=(qemu-user-static binfmt-support g++-14-loongarch64-linux-gnu)
+              packages+=(qemu-user qemu-user-binfmt binfmt-support g++-14-loongarch64-linux-gnu)
               ;;
             mips32)
-              packages+=(qemu-user-static binfmt-support g++-mipsel-linux-gnu)
+              packages+=(qemu-user qemu-user-binfmt binfmt-support g++-mipsel-linux-gnu)
               ;;
             mips64)
-              packages+=(qemu-user-static binfmt-support g++-mips64el-linux-gnuabi64)
+              packages+=(qemu-user qemu-user-binfmt binfmt-support g++-mips64el-linux-gnuabi64)
               ;;
             riscv64)
-              packages+=(qemu-user-static binfmt-support g++-riscv64-linux-gnu)
+              packages+=(qemu-user qemu-user-binfmt binfmt-support g++-riscv64-linux-gnu)
               ;;
           esac
           sudo apt-get update

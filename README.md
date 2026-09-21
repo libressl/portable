@@ -69,8 +69,11 @@ sent to the core team at libressl-security@openbsd.org.
 
 ## Versioning
 
-LibreSSL portable follows a versioning scheme similar to the OpenBSD project,
-with the addition of a third number indicating patches/bug fixes: `N.N.P`.
+Major releases are usually made around the end of April and October.
+
+As of September 2026, LibreSSL portable follows a versioning scheme similar
+to the OpenBSD project, with the addition of a third number indicating
+patches/bug fixes: `N.N.P`.
 
 - `N.N` is incremented for each major release by `0.1` with carry.
   For example, `4.8`, `4.9`, `5.0`, `5.1`, and so on.

@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2023 Joshua Sing <joshua@hypera.dev>
+# Copyright (c) 2023, 2026 Joshua Sing <joshua@joshuasing.dev>
 #
 # Permission to use, copy, modify, and distribute this software for any
 # purpose with or without fee is hereby granted, provided that the above
@@ -30,10 +30,15 @@ if [ "$#" -ne 1 ]; then
     exit 1
 fi
 
-version="${1#v}"
+tag="$1"
+version="${tag#v}"
 changelog_file="${CHANGELOG_FILE:-ChangeLog}"
 found_version=false
 changelog=""
+
+if rc=$(echo "$version" | grep -Eo 'rc[0-9]+$'); then
+	version="${version%%rc*}"
+fi
 
 # Check if the specified changelog file exists
 if [ ! -f "$changelog_file" ]; then
@@ -68,7 +73,13 @@ fi
 changelog=$(echo "$changelog" | sed -e 's/^\t\*/###/' -e 's/^\t//')
 
 # Print the changelog for the specified version
+if [ "$rc" != "" ]; then
+	echo "> [!WARNING]"
+	echo "> This is a release candidate ($rc) version intended for testing and validation." \
+		"Use in production is not recommended."
+	echo
+fi
 echo "$changelog"
 echo
-echo "Full changelog: https://github.com/libressl/portable/blob/master/ChangeLog"
+echo "Full changelog: https://github.com/libressl/portable/blob/$tag/ChangeLog"
 exit 0

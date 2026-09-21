@@ -64,22 +64,22 @@ jobs:
               packages+=(mingw-w64)
               ;;
             arm32)
-              packages+=(qemu-user-static binfmt-support g++-arm-linux-gnueabihf)
+              packages+=(qemu-user qemu-user-binfmt binfmt-support g++-arm-linux-gnueabihf)
               ;;
             arm64)
-              packages+=(qemu-user-static binfmt-support g++-aarch64-linux-gnu)
+              packages+=(qemu-user qemu-user-binfmt binfmt-support g++-aarch64-linux-gnu)
               ;;
             loong64)
-              packages+=(qemu-user-static binfmt-support g++-14-loongarch64-linux-gnu)
+              packages+=(qemu-user qemu-user-binfmt binfmt-support g++-14-loongarch64-linux-gnu)
               ;;
             mips32)
-              packages+=(qemu-user-static binfmt-support g++-mipsel-linux-gnu)
+              packages+=(qemu-user qemu-user-binfmt binfmt-support g++-mipsel-linux-gnu)
               ;;
             mips64)
-              packages+=(qemu-user-static binfmt-support g++-mips64el-linux-gnuabi64)
+              packages+=(qemu-user qemu-user-binfmt binfmt-support g++-mips64el-linux-gnuabi64)
               ;;
             riscv64)
-              packages+=(qemu-user-static binfmt-support g++-riscv64-linux-gnu)
+              packages+=(qemu-user qemu-user-binfmt binfmt-support g++-riscv64-linux-gnu)
               ;;
           esac
           sudo apt-get update

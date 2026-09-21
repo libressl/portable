@@ -26,7 +26,7 @@ jobs:
       fail-fast: false
       matrix:
         os: ["ubuntu-24.04", "ubuntu-26.04"]
-        arch: ["native", "arm32", "arm64", "mingw32", "mingw64", "mips32", "mips64"]
+        arch: ["native", "arm32", "arm64", "mingw32", "mingw64"]
         compiler: ["gcc"]
         include:
           - os: "ubuntu-24.04"
@@ -47,6 +47,21 @@ jobs:
           - os: "ubuntu-26.04-arm"
             arch: "native"
             compiler: "clang"
+
+            # Run mips32/mips64 on ubuntu-22.04 and ubuntu-24.04.
+            # Ubuntu 26.04 drops packages needed for mips32/mips64 tests.
+          - os: "ubuntu-22.04"
+            arch: "mips32"
+            compiler: "gcc"
+          - os: "ubuntu-22.04"
+            arch: "mips64"
+            compiler: "gcc"
+          - os: "ubuntu-24.04"
+            arch: "mips32"
+            compiler: "gcc"
+          - os: "ubuntu-24.04"
+            arch: "mips64"
+            compiler: "gcc"
 
     steps:
       - name: "Checkout repository"

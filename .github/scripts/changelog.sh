@@ -75,8 +75,7 @@ changelog=$(echo "$changelog" | sed -e 's/^\t\*/###/' -e 's/^\t//')
 # Print the changelog for the specified version
 if [ "$rc" != "" ]; then
 	echo "> [!WARNING]"
-	echo "> This is a release candidate ($rc) version intended for testing and validation." \
-		"Use in production is not recommended."
+	echo "> This is a release candidate ($rc) version intended for testing and validation."
 	echo
 fi
 echo "$changelog"

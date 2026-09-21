@@ -29,15 +29,28 @@ jobs:
         env:
           VERSION: "${{ github.ref_name }}"
 
+      - name: "Prepare"
+        id: prepare
+        env:
+          VERSION: "${{ github.ref_name }}"
+        run: |
+          prerelease=false
+          if echo "$VERSION" | grep -Eq 'rc[0-9]+$'; then
+            prerelease=true
+          fi
+          echo "prerelease=$prerelease" >> "$GITHUB_OUTPUT"
+
       - name: "Create draft GitHub release"
         env:
           GH_TOKEN: "${{ github.token }}"
           VERSION: "${{ github.ref_name }}"
+          PRERELEASE: "${{ steps.prepare.outputs.prerelease }}"
         run: |
           gh release create "$VERSION" \
             --repo "$GITHUB_REPOSITORY" \
             --title "$VERSION" \
             --notes-file release-changelog.txt \
+            --prerelease $PRERELEASE \
             --draft
 
   build-windows:

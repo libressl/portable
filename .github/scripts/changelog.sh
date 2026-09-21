@@ -32,13 +32,11 @@ fi
 
 tag="$1"
 version="${tag#v}"
+stable_version="${version%rc*}"
+
+changelog=""
 changelog_file="${CHANGELOG_FILE:-ChangeLog}"
 found_version=false
-changelog=""
-
-if rc=$(echo "$version" | grep -Eo 'rc[0-9]+$'); then
-	version="${version%%rc*}"
-fi
 
 # Check if the specified changelog file exists
 if [ ! -f "$changelog_file" ]; then
@@ -49,7 +47,7 @@ fi
 # Read the changelog file line by line
 while IFS= read -r line; do
     # Check for the version line
-    if echo "$line" | grep -Eq "^${version} - "; then
+    if echo "$line" | grep -Eq "^${stable_version} - "; then
       found_version=true
       continue
     fi
@@ -65,7 +63,7 @@ done < "$changelog_file"
 
 # If the specified version was not found, print an error
 if ! $found_version; then
-    echo "Error: Version $version was not found in changelog" 1>&2
+    echo "Error: Version $stable_version was not found in changelog" 1>&2
     exit 1
 fi
 
@@ -73,9 +71,9 @@ fi
 changelog=$(echo "$changelog" | sed -e 's/^\t\*/###/' -e 's/^\t//')
 
 # Print the changelog for the specified version
-if [ "$rc" != "" ]; then
+if [ "$version" != "$stable_version" ]; then
 	echo "> [!WARNING]"
-	echo "> This is a release candidate ($rc) version intended for testing and validation."
+	echo "> This is a release candidate ($tag) intended for testing and validation."
 	echo
 fi
 echo "$changelog"

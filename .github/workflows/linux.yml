@@ -25,26 +25,26 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-22.04", "ubuntu-24.04"]
+        os: ["ubuntu-24.04", "ubuntu-26.04"]
         arch: ["native", "arm32", "arm64", "mingw32", "mingw64", "mips32", "mips64"]
         compiler: ["gcc"]
         include:
-          - os: "ubuntu-22.04"
-            arch: "native"
-            compiler: "clang"
           - os: "ubuntu-24.04"
             arch: "native"
             compiler: "clang"
-          - os: "ubuntu-24.04" # loong64
+          - os: "ubuntu-26.04"
+            arch: "native"
+            compiler: "clang"
+          - os: "ubuntu-26.04" # loong64
             arch: "loong64"
             compiler: "gcc"
-          - os: "ubuntu-24.04"
+          - os: "ubuntu-26.04"
             arch: "riscv64"
             compiler: "gcc"
-          - os: "ubuntu-24.04-arm"
+          - os: "ubuntu-26.04-arm"
             arch: "native"
             compiler: "gcc"
-          - os: "ubuntu-24.04-arm"
+          - os: "ubuntu-26.04-arm"
             arch: "native"
             compiler: "clang"
 

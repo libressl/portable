@@ -129,7 +129,7 @@ tests/ssl_get_shared_ciphers*
 tests/ssl_kex*
 tests/ssl_methods*
 tests/ssl_set_alpn_protos*
-tests/ssl_verify_param*
+tests/ssl_verify*
 tests/ssl_versions*
 tests/timingsafe*
 tests/tls_ext_alpn*

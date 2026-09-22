@@ -300,7 +300,7 @@ poll(struct pollfd *pfds, nfds_t nfds, int timeout_ms)
 				 * general errno value.
 				 */
 				errno = ENOMEM;
-				return 0;
+				return -1;
 			}
 		}
 

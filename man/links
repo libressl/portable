@@ -2705,6 +2705,8 @@ tls_conn_version.3,tls_peer_cert_notafter.3
 tls_conn_version.3,tls_peer_cert_notbefore.3
 tls_conn_version.3,tls_peer_cert_provided.3
 tls_conn_version.3,tls_peer_cert_subject.3
+tls_conn_version.3,tls_peer_cert_unverified_bundle_pem.3
+tls_conn_version.3,tls_peer_cert_verified_chain_pem.3
 tls_connect.3,tls_connect_cbs.3
 tls_connect.3,tls_connect_fds.3
 tls_connect.3,tls_connect_servername.3

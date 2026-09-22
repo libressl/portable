@@ -645,6 +645,11 @@ TESTS += mlkem_unittest
 check_PROGRAMS += mlkem_unittest
 mlkem_unittest_SOURCES = mlkem_unittest.c mlkem_tests_util.c
 
+# name_constraints_test
+TESTS += name_constraints_test
+check_PROGRAMS += name_constraints_test
+name_constraints_test_SOURCES = name_constraints_test.c ${TEST_HELPER_SRC}
+
 # objectstest
 TESTS += objectstest
 check_PROGRAMS += objectstest

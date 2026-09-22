@@ -631,6 +631,11 @@ target_link_libraries(mlkem_unittest ${OPENSSL_TEST_LIBS})
 prepare_emscripten_test_target(mlkem_unittest)
 add_platform_test(mlkem_unittest mlkem_unittest)
 
+# name_constraints_test
+add_executable(name_constraints_test name_constraints_test.c ${TEST_HELPER_SRC})
+target_link_libraries(name_constraints_test ${OPENSSL_TEST_LIBS})
+add_platform_test(name_constraints_test name_constraints_test)
+
 # objectstest
 add_executable(objectstest objectstest.c)
 target_link_libraries(objectstest ${OPENSSL_TEST_LIBS})

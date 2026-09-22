@@ -120,6 +120,7 @@ tests/key_schedule*
 tests/lhash_test*
 tests/mlkem*
 tests/mont*
+tests/name_constraints*
 tests/parse*
 tests/policy*
 tests/renegotiation_test*

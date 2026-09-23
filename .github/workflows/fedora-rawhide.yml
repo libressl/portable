@@ -19,7 +19,7 @@ jobs:
       matrix:
         cc: [ gcc, clang ]
     name: ${{ matrix.cc }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     if: ${{ github.repository_owner == 'libressl' || github.event_name != 'schedule' }}
     container:
       image: fedora:rawhide@sha256:0c1f63ed8fb818fad16cf6ae091598c410a21d2e1a9adf183beb93189299bfba

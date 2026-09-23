@@ -60,7 +60,39 @@ AM_CONDITIONAL([HAVE_SYSLOG_R], [test "x$ac_cv_func_syslog_r" = xyes])
 ])
 
 AC_DEFUN([CHECK_SYSCALL_COMPAT], [
-AC_CHECK_FUNCS([accept4 pipe2 pledge poll socketpair unveil])
+AC_CHECK_FUNCS([accept4 pledge poll socketpair unveil])
+dnl Apple platforms declare and stub-export pipe2 ahead of the running OS
+dnl actually implementing it, which links fine but traps at runtime.
+AC_CACHE_CHECK([for working pipe2], ac_cv_func_pipe2, [
+	AC_RUN_IFELSE([AC_LANG_PROGRAM([[
+#include <unistd.h>
+#include <fcntl.h>
+	]], [[
+	int fildes[2];
+	return pipe2(fildes, O_CLOEXEC) != 0;
+]])],
+	[ ac_cv_func_pipe2="yes" ],
+	[ ac_cv_func_pipe2="no" ],
+	[ ac_cv_func_pipe2="no" ])
+])
+if test "x$ac_cv_func_pipe2" = xyes; then
+	AC_DEFINE([HAVE_PIPE2], [1], [Define if there is a working pipe2 function.])
+fi
+
+dnl Build bsd_socketpair() whenever the platform's <sys/socket.h> is missing
+dnl SOCK_NONBLOCK or SOCK_CLOEXEC
+AC_CACHE_CHECK([whether sys/socket.h defines SOCK_NONBLOCK and SOCK_CLOEXEC],
+	ac_cv_have_sock_flags, [
+	AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+#include <sys/socket.h>
+#if !defined(SOCK_NONBLOCK) || !defined(SOCK_CLOEXEC)
+#error missing socket flags
+#endif
+	]], [[]])],
+	[ ac_cv_have_sock_flags="yes" ],
+	[ ac_cv_have_sock_flags="no" ])
+])
+AM_CONDITIONAL([NEED_SOCKET_FLAGS], [test "x$ac_cv_have_sock_flags" = xno])
 AM_CONDITIONAL([HAVE_ACCEPT4], [test "x$ac_cv_func_accept4" = xyes])
 AM_CONDITIONAL([HAVE_PIPE2], [test "x$ac_cv_func_pipe2" = xyes])
 AM_CONDITIONAL([HAVE_PLEDGE], [test "x$ac_cv_func_pledge" = xyes])

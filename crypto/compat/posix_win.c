@@ -63,6 +63,12 @@ posix_fopen(const char *path, const char *mode)
 	return fopen(path, mode);
 }
 
+FILE *
+posix_fdopen(int fd, const char *mode)
+{
+	return fdopen(get_real_fd(fd), mode);
+}
+
 int
 libressl_fstat(int fd, struct stat *statbuf)
 {

@@ -42,7 +42,7 @@ LibreSSL Portable Release Notes:
 	  - Improve portability in preprocessor based SHA assembly.
 	  - Removed a few vestigial #ifdefs from public and internal headers.
 	  - Introduce and use dtls12_handshake_msg framework.
-	  - Rename union from _ to u in the ui code to avoid Windows CE #ifdef.
+	  - Rename union from _ to u in the ui code. Avoids Windows CE #ifdef.
 	  - Clean up and simplify signature algorithm handling after removal
 	    of TLSv1.0 and TLSv1.1.
 	  - Add a point at infinity check to ecdh_compute_key().
@@ -76,11 +76,11 @@ LibreSSL Portable Release Notes:
 	  - Ensure libtls keeps working with future OpenSSL releases that will
 	    stop NUL-terminating ASN.1 strings. This is an old bug in libtls
 	    that will bite, probably starting with OpenSSL 4.2.
-	  - CRYPTO_cleanup_all_ex_data() is now a no-op. It was not thread safe
-	    and the actual cleanup is now done by OPENSSL_cleanup().
+	  - CRYPTO_cleanup_all_ex_data() is now a no-op. It was not thread
+	    safe and the actual cleanup is now done by OPENSSL_cleanup().
 	  - Align X509_check_ca() with modern OpenSSL. While it has long been
-	    documented that this only works after an X509_check_purpose() call,
-	    it still makes sense to "fail closed", i.e. indicate a non-CA cert.
+	    documented that it only works after calling X509_check_purpose(),
+	    it still makes sense to "fail closed", i.e., indicate a non-CA.
 	  - Added OIDs for CCR, ErikIndex, ErikPartition, ErikSegmentIndex,
 	    and communityDefinition.
 	* Bug fixes
@@ -93,14 +93,14 @@ LibreSSL Portable Release Notes:
 	  - Fix out of bound writes in the s_client XMSS mode.
 	  - Ensure EC_GROUP_check and X509_CRL_verify failures result in "app"
 	    failures in openssl ecparam and openssl crl.
-	  - Do not fail accept on reverse DNS lookup failures in s_socket "app".
+	  - Do not fail accept on reverse DNS lookup failures in s_socket.
 	  - Ensure X509V3_EXT_print() only returns 0 and 1.
 	  - Avoid calling memcmp() on NULL in IPAddressFamily_cmp().
 	  - In libtls disallow wildcard matching of a TLD specified as a FQDN.
 	  - Unbreak some aspects of TLSv1.2 with custom curve lists.
 	  - Ensure a peer-provided EC public key uses uncompressed encoding.
-	  - Send decode_error alert on failure to decode an EC peer public key.
-	  - Avoid a NULL dereference and an out-of-bounds read in password-based
+	  - Send decode_error alert on failure to decode an EC peer pubkey.
+	  - Avoid NULL dereference and out-of-bounds read in password-based
 	    CMS decryption.
 	  - Add some missing bounds check to ASN1_mbstrinc_copy().
 	  - Avoid freeing a caller-owned buffer in PKCS7_verify().
@@ -130,23 +130,23 @@ LibreSSL Portable Release Notes:
 	  - Correct a botched size check in dtls1_process_fragment()
 	  - Avoid confusing delta CRLs as full CRLs.
 	  - When copying an RSA-PSS EVP_PKEY_CTX, ensure saltlen and minimal
-	    saltlen restrictions are also copied rather than using the defaults.
+	    saltlen restrictions are copied rather than using the defaults.
 	  - Allow DTLS clients to receive unexpected Finished messages.
 	  - Cache the leaf's extensions before adding it to a validated
 	    chain to make name constraints check work more reliably.
-	  - Ensure the whole subject is searched for email addresses and common
-	    names.
-	  - Check for embedded NULs in emails and subjectAltname in the essentially
-	    unused legacy NAME_CONSTRAINTS_*() API.
-	  - Removed support for nameRelativeToCRLIssuer in the CRL Distribution
+	  - Ensure the whole subject is searched for email addresses and
+	    common names.
+	  - Check for embedded NULs in emails and subjectAltname in the
+	    essentially unused legacy NAME_CONSTRAINTS_*() API.
+	  - Remove support for nameRelativeToCRLIssuer in the CRL Distribution
 	    Point extension. Per RFC 5280 it SHOULD not be used by conforming
 	    CAs and it was eating memory for breakfast pre-signature.
 	* Security and reliability fixes
 	  - Fix parsing issues in X.509 name constraints URI host parsing.
 	    Handle IPv6 literals correctly and don't allow specially crafted
 	    userinfo to bypass host checks.
-	  - Limit size of buffered DTLS handshake messages to avoid overly large
-	    memory consumption on small handshake message fragments.
+	  - Limit size of buffered DTLS handshake messages to avoid overly
+	    large memory consumption on small handshake message fragments.
 	  - Fix an OCSP responder authorization bypass for clients using
 	    tls_config_ocsp_require_stapling(), of which only OpenBSD nc(1)
 	    and ftp(1) are known when they're used with the "muststaple" key

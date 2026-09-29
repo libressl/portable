@@ -81,7 +81,7 @@ LibreSSL Portable Release Notes:
 	  - Align X509_check_ca() with modern OpenSSL. While it has long been
 	    documented that this only works after an X509_check_purpose() call,
 	    it still makes sense to "fail closed", i.e. indicate a non-CA cert.
-	  - Added OIDs for CCR, ErikIndex, ErikPartition, ErikSeegmentIndex,
+	  - Added OIDs for CCR, ErikIndex, ErikPartition, ErikSegmentIndex,
 	    and communityDefinition.
 	* Bug fixes
 	  - Fix PKCS7_set_{un,}signed_attributes() to allow caller to free
@@ -114,7 +114,7 @@ LibreSSL Portable Release Notes:
 	  - Check HMAC() return value to avoid later use of uninitialized
 	    in openssl(1).
 	  - Use correct alert for key_share without supported_groups.
-	  - Don't drop X509_V_ERR_HOSTNAME_MISMACH when verify callback
+	  - Don't drop X509_V_ERR_HOSTNAME_MISMATCH when verify callback
 	    returns 1. It has long been documented that this is ill advised
 	    but some applications still do it.
 	  - Ensure the server selects an ALPN protocol that we advertised or
@@ -136,7 +136,7 @@ LibreSSL Portable Release Notes:
 	    chain to make name constraints check work more reliably.
 	  - Ensure the whole subject is searched for email addresses and common
 	    names.
-	  - Check for embedded NULs in emails and subjectAltname the essentially
+	  - Check for embedded NULs in emails and subjectAltname in the essentially
 	    unused legacy NAME_CONSTRAINTS_*() API.
 	  - Removed support for nameRelativeToCRLIssuer in the CRL Distribution
 	    Point extension. Per RFC 5280 it SHOULD not be used by conforming
@@ -149,7 +149,7 @@ LibreSSL Portable Release Notes:
 	    memory consumption on small handshake message fragments.
 	  - Fix an OCSP responder authorization bypass for clients using
 	    tls_config_ocsp_require_stapling(), of which only OpenBSD nc(1)
-	    and ftp(1) are known wen they're used with the "muststaple" key
+	    and ftp(1) are known when they're used with the "muststaple" key
 	    word.
 	* Testing and proactive security
 	  - Improved test coverage for DTLS and TLS renegotiation.

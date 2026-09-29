@@ -28,7 +28,19 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
-4.2.1 -  Bug and reliability fixes
+4.2.2 - Security and reliability fixes
+
+	* Security and reliability fixes
+	  - Remove RelativeDistinguishedName support for CRL distribution points
+	  - Fix off-by-one in the X.509 verifier depth checking
+	  - Ensure verify callbacks always returning 1 can see a hostname
+	    mismatch
+	  - Correct botched size check in dtls1_preprocess_fragment()
+	  - Limit size of buffered DTLS handshake messages
+	  - Avoid potential overread on interrupted retransmission in DTLS
+	  - Fix OCSP responder authorization bypass in libtls and ocspcheck(8)
+
+4.2.1 - Bug and reliability fixes
 
 	* Reliability fix
 	  - Ensure the group selected by a TLSv1.3 server for a

@@ -1,7 +1,7 @@
 /*
  * Public domain
  *
- * pipe2/pipe/socketpair emulation
+ * pipe2/pipe emulation
  * Brent Cook <bcook@openbsd.org>
  */
 
@@ -10,7 +10,12 @@
 #include <unistd.h>
 #include <sys/socket.h>
 
+/* call the real socketpair(), not the bsd_socketpair() it may be #define'd to */
 #undef socketpair
+/* define bsd_pipe2() directly, not through the pipe2() -> bsd_pipe2() macro */
+#undef pipe2
+
+#ifndef HAVE_PIPE2
 
 #ifdef _WIN32
 
@@ -18,9 +23,10 @@ static int setfd(int fd, int flag)
 {
 	int rc = -1;
 	if (flag & FD_CLOEXEC) {
-		HANDLE h = (HANDLE)_get_osfhandle(fd);
-		if (h != NULL)
-			rc = SetHandleInformation(h, HANDLE_FLAG_INHERIT, 0) == 0 ? -1 : 0;
+		/* fd is a Winsock SOCKET, not a CRT descriptor: use it as a
+		 * handle directly rather than translating with _get_osfhandle. */
+		HANDLE h = (HANDLE)(LONG_PTR)fd;
+		rc = SetHandleInformation(h, HANDLE_FLAG_INHERIT, 0) == 0 ? -1 : 0;
 	}
 	return rc;
 }
@@ -35,87 +41,8 @@ static int setfl(int fd, int flag)
 	return rc;
 }
 
-/*
- * Have open() temporarily use up file descriptors until reaching beyond the
- * allocated sockets, then leak the ones conflicting with any of the latter.
- */
-static void create_issue_1069_sentinels(int socket_vector[2])
-{
-	int fd = open("CONIN$", O_RDONLY);
-	if (fd == -1 || (fd > socket_vector[0] && fd > socket_vector[1])) {
-		return;
-	}
-	create_issue_1069_sentinels(socket_vector);
-	if (fd != socket_vector[0] && fd != socket_vector[1]) {
-		close(fd);
-	}
-}
-
-int socketpair(int domain, int type, int protocol, int socket_vector[2])
-{
-	if (domain != AF_UNIX || !(type & SOCK_STREAM) || protocol != PF_UNSPEC)
-		return -1;
-
-	socket_vector[0] = -1;
-	socket_vector[1] = -1;
-
-	int listener = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-	if (listener == -1) {
-		return -1;
-	}
-
-	struct sockaddr_in addr = {
-		.sin_family = AF_INET,
-		.sin_addr.s_addr = htonl(INADDR_LOOPBACK),
-		.sin_port = 0,
-	};
-
-	int yes = 1, e;
-	if (setsockopt(listener, SOL_SOCKET, SO_REUSEADDR,
-			(void *)&yes, sizeof yes) == -1)
-		goto err;
-
-	if (bind(listener, (struct sockaddr *)&addr, sizeof addr) != 0)
-		goto err;
-
-	memset(&addr, 0, sizeof addr);
-	socklen_t addrlen = sizeof addr;
-	if (getsockname(listener, (struct sockaddr *)&addr, &addrlen) != 0)
-		goto err;
-
-	addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
-	addr.sin_family = AF_INET;
-
-	if (listen(listener, 1) != 0)
-		goto err;
-
-	socket_vector[0] = WSASocket(AF_INET, SOCK_STREAM, 0, NULL, 0, 0);
-	if (socket_vector[0] == -1)
-		goto err;
-
-	if (connect(socket_vector[0], (struct sockaddr *)&addr, sizeof addr) != 0)
-		goto err;
-
-	socket_vector[1] = accept(listener, NULL, NULL);
-	if (socket_vector[1] == -1)
-		goto err;
-
-	closesocket(listener);
-
-	create_issue_1069_sentinels(socket_vector);
-
-	return 0;
-
-err:
-	e = WSAGetLastError();
-	closesocket(listener);
-	closesocket(socket_vector[0]);
-	closesocket(socket_vector[1]);
-	WSASetLastError(e);
-	socket_vector[0] = -1;
-	socket_vector[1] = -1;
-	return -1;
-}
+/* defined in compat/socketpair.c */
+int socketpair(int domain, int type, int protocol, int socket_vector[2]);
 
 int pipe(int fildes[2])
 {
@@ -139,7 +66,7 @@ static int setfl(int fd, int flag)
 }
 #endif
 
-int pipe2(int fildes[2], int flags)
+int bsd_pipe2(int fildes[2], int flags)
 {
 	int rc = pipe(fildes);
 	if (rc == 0) {
@@ -161,26 +88,4 @@ int pipe2(int fildes[2], int flags)
 	return rc;
 }
 
-int bsd_socketpair(int domain, int type, int protocol, int socket_vector[2])
-{
-	int flags = type & ~0xf;
-	type &= 0xf;
-	int rc = socketpair(domain, type, protocol, socket_vector);
-	if (rc == 0) {
-		if (flags & SOCK_NONBLOCK) {
-			rc |= setfl(socket_vector[0], O_NONBLOCK);
-			rc |= setfl(socket_vector[1], O_NONBLOCK);
-		}
-		if (flags & SOCK_CLOEXEC) {
-			rc |= setfd(socket_vector[0], FD_CLOEXEC);
-			rc |= setfd(socket_vector[1], FD_CLOEXEC);
-		}
-		if (rc != 0) {
-			int e = errno;
-			close(socket_vector[0]);
-			close(socket_vector[1]);
-			errno = e;
-		}
-	}
-	return rc;
-}
+#endif /* !HAVE_PIPE2 */

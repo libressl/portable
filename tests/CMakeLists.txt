@@ -758,15 +758,46 @@ else()
 endif()
 set_tests_properties(shutdowntest PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
 
-# signertest
-# Emscripten does not support socketpair syscall.
+# signertest and tlstest are the only consumers of compat/pipe2.c and
+# compat/socketpair.c; check for both here since they're needed by both
+# targets below.
+# Emscripten does not support the socketpair syscall.
 if(NOT (CMAKE_SYSTEM_NAME MATCHES "WindowsStore" OR EMSCRIPTEN))
-	set(SIGNERTEST_SRC signertest.c)
-	check_symbol_exists(pipe2 "fcntl.h;unistd.h" HAVE_PIPE2)
+	# Apple platforms declare and export pipe2 even if the build OS doesn't
+	# implement it, which links fine but traps at runtime.
+	if(CMAKE_CROSSCOMPILING)
+		set(HAVE_PIPE2 FALSE)
+	else()
+		check_c_source_runs("
+			#include <unistd.h>
+			#include <fcntl.h>
+			int main(void) {
+				int fildes[2];
+				return pipe2(fildes, O_CLOEXEC) != 0;
+			}"
+			HAVE_PIPE2)
+	endif()
 	if(HAVE_PIPE2)
 		add_definitions(-DHAVE_PIPE2)
-	else()
+	endif()
+
+	check_c_source_compiles("
+		#include <sys/socket.h>
+		#if !defined(SOCK_NONBLOCK) || !defined(SOCK_CLOEXEC)
+		#error missing socket flags
+		#endif
+		int main(void) { return 0; }"
+		HAVE_SOCK_FLAGS)
+endif()
+
+# signertest
+if(NOT (CMAKE_SYSTEM_NAME MATCHES "WindowsStore" OR EMSCRIPTEN))
+	set(SIGNERTEST_SRC signertest.c)
+	if(NOT HAVE_PIPE2)
 		set(SIGNERTEST_SRC ${SIGNERTEST_SRC} compat/pipe2.c)
+	endif()
+	if(NOT HAVE_SOCK_FLAGS)
+		set(SIGNERTEST_SRC ${SIGNERTEST_SRC} compat/socketpair.c)
 	endif()
 
 	set_source_files_properties(signertest.c PROPERTIES COMPILE_FLAGS
@@ -878,11 +909,11 @@ add_platform_test(tlslegacytest tlslegacytest)
 # Emscripten does not support socketpair syscall.
 if(NOT (CMAKE_SYSTEM_NAME MATCHES "WindowsStore" OR EMSCRIPTEN))
 	set(TLSTEST_SRC tlstest.c)
-	check_symbol_exists(pipe2 "fcntl.h;unistd.h" HAVE_PIPE2)
-	if(HAVE_PIPE2)
-		add_definitions(-DHAVE_PIPE2)
-	else()
+	if(NOT HAVE_PIPE2)
 		set(TLSTEST_SRC ${TLSTEST_SRC} compat/pipe2.c)
+	endif()
+	if(NOT HAVE_SOCK_FLAGS)
+		set(TLSTEST_SRC ${TLSTEST_SRC} compat/socketpair.c)
 	endif()
 
 	add_executable(tlstest ${TLSTEST_SRC})

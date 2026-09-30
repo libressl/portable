@@ -84,7 +84,8 @@ int getpagesize(void);
 #endif
 
 #ifndef HAVE_PIPE2
-int pipe2(int fildes[2], int flags);
+int bsd_pipe2(int fildes[2], int flags);
+#define pipe2(fildes, flags) bsd_pipe2(fildes, flags)
 #endif
 
 #endif

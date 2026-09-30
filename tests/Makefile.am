@@ -832,6 +832,9 @@ signertest_SOURCES = signertest.c
 if !HAVE_PIPE2
 signertest_SOURCES += compat/pipe2.c
 endif
+if NEED_SOCKET_FLAGS
+signertest_SOURCES += compat/socketpair.c
+endif
 
 # sm2crypttest
 # sm2evptest
@@ -946,6 +949,9 @@ check_PROGRAMS += tlstest
 tlstest_SOURCES = tlstest.c
 if !HAVE_PIPE2
 tlstest_SOURCES += compat/pipe2.c
+endif
+if NEED_SOCKET_FLAGS
+tlstest_SOURCES += compat/socketpair.c
 endif
 EXTRA_DIST += tlstest.sh tlstest.bat
 

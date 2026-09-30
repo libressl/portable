@@ -41,7 +41,7 @@ if(WIN32)
 	set(TLS_COMPAT_SRC ${TLS_COMPAT_SRC} compat/pwrite.c)
 endif()
 
-add_definitions(-DTLS_DEFAULT_CA_FILE=\"${OPENSSLDIR}/cert.pem\")
+add_definitions(-DTLS_DEFAULT_CA_FILE=\"${TLS_DEFAULT_CA_FILE}\")
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/tls.sym DESTINATION
 	${CMAKE_CURRENT_BINARY_DIR})

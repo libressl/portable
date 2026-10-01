@@ -39,19 +39,16 @@ LibreSSL Portable Release Notes:
 	  - Fixed incorrect SHA-3 and SHAKE output on AIX with compilers
 	    that do not define __BYTE_ORDER__.
 	  - Fixed building with newer llvm-mingw, which now ships endian.h.
-	  - Fixed pipe2() detection on macOS when building with a newer SDK
-	    than the running OS, where pipe2() links but does not work.
+	  - Added support for building on macOS Golden Gate, 27.0
 	  - Fixed incorrect code generation by the MSVC ARM64 optimizer in
-	    constant-time bignum code. The workaround is now applied based on
-	    a configure-time check rather than the compiler version.
+	    constant-time bignum code.
 	  - Enabled assembly on MSVC x64 with CMake generators that were not
 	    detected as 64-bit, such as "NMake Makefiles".
-	  - Enabled SHA assembly on ELF AArch64 with CMake, as in autotools.
+	  - Enabled SHA assembly on ELF AArch64 with CMake.
 	  - Enabled bignum assembly on RISC-V with autotools.
 	  - MIPS32 and MIPS64 assembly can be explicitly enabled.
 	  - The CMake build now applies the same exploit-mitigation compiler
-	    and linker flags as the autotools build, and can be disabled
-	    with ENABLE_HARDENING=OFF.
+	    and linker flags as the autotools build.
 	  - Autotools hardening flag detection now honors user-supplied
 	    CFLAGS/LDFLAGS.
 	  - Fixed default OPENSSLDIR on MinGW autotools builds to use a valid
@@ -59,10 +56,9 @@ LibreSSL Portable Release Notes:
 	  - Fixed CMake setting TLS_DEFAULT_CA_FILE to a relative path, and
 	    allow overriding TLS_DEFAULT_CA_FILE in CMake builds.
 	  - Reinstalling no longer overwrites an existing cert.pem,
-	    openssl.cnf and x509v3.cnf with CMake or autotools.
+	    openssl.cnf and x509v3.cnf.
 	  - CMake builds now use the builtin arc4random on older macOS,
-	    FreeBSD and NetBSD releases with weakly seeded arc4random,
-	    matching autotools.
+	    FreeBSD and NetBSD releases with weakly seeded arc4random.
 	  - Fixed openssl(1), nc(1) and ocspcheck(1) silently running without
 	    pledge and unveil on hosts that provide them.
 	  - nc(1) now reports an error when -m minttl is not supported,

@@ -304,7 +304,7 @@ LibreSSL Portable Release Notes:
 	  - Stop Delta CRL processing in the verifier if the cRLNumber is
 	    missing. This is flagged on deserialization, but nothing checks
 	    that flag. This can lead to a NULL dereference if the verification
-	    has enabled Delta CRL checking by setting X509_V_FLAG_USE_DELTAS. 
+	    has enabled Delta CRL checking by setting X509_V_FLAG_USE_DELTAS.
 	  - Fix NULL dereference that can be triggered with malformed OAEP
 	    parameter encoding for CMS decryption.
 	  - Add missing length checks before BIO_new_mem_buf() in libtls.
@@ -362,7 +362,7 @@ LibreSSL Portable Release Notes:
 	  - Removed the -msie_hack option from the openssl(1) ca subcommand.
 	  - Removed parameters of the 239-bit prime curves from X9.62, H.5.2:
 	    prime239v1, prime239v2, prime239v3.
-	  - Increased default MAC salt length used by PKCS12_set_mac(3) to 16 
+	  - Increased default MAC salt length used by PKCS12_set_mac(3) to 16
 	    per recommendation of NIST SP 800-132.
 	  - Encrypted PKCS#8 key files now use a default password-based key
 	    derivation function that is acceptable in the present millenium.
@@ -642,7 +642,7 @@ LibreSSL Portable Release Notes:
 	  - Rewrote BIO_dump*(3) internals to be less bad.
 	* Documentation improvements
 	  - ENGINE documentation was updated to reflect reality.
-	  - Made EVP API documentation more accurate and less incoherent. 
+	  - Made EVP API documentation more accurate and less incoherent.
 	  - Call out some shortcomings of the EC_KEY_set_* API explicitly.
 	* Testing and proactive security
 	  - Bug fixes and simplifications in the Wycheproof tests.
@@ -2345,7 +2345,7 @@ LibreSSL Portable Release Notes:
 
 	* Fixed a padding oracle in PKCS7_dataDecode and CMS_decrypt_set1_pkey.
 	  (Note that the CMS code is currently disabled)
-	  Port of Edlinger's Fix for CVE-2019-1563 from OpenSSL 1.1.1 (old license) 
+	  Port of Edlinger's Fix for CVE-2019-1563 from OpenSSL 1.1.1 (old license)
 
 	* Avoid a path traversal bug in s_server on Windows when run with the -WWW
 	  or -HTTP options, due to incomplete path check logic.

@@ -34,6 +34,63 @@ LibreSSL Portable Release Notes:
 	  - See https://github.com/libressl/portable#versioning for details
 	  - The actual release of 4.4.0 will be in the second half of October.
 	    API and ABI won't change.
+	* Portable changes
+	  - Fixed building on AIX, which lacks vsyslog().
+	  - Fixed incorrect SHA-3 and SHAKE output on AIX with compilers
+	    that do not define __BYTE_ORDER__.
+	  - Fixed building with newer llvm-mingw, which now ships endian.h.
+	  - Fixed pipe2() detection on macOS when building with a newer SDK
+	    than the running OS, where pipe2() links but does not work.
+	  - Fixed incorrect code generation by the MSVC ARM64 optimizer in
+	    constant-time bignum code. The workaround is now applied based on
+	    a configure-time check rather than the compiler version.
+	  - Enabled assembly on MSVC x64 with CMake generators that were not
+	    detected as 64-bit, such as "NMake Makefiles".
+	  - Enabled SHA assembly on ELF AArch64 with CMake, as in autotools.
+	  - Enabled bignum assembly on RISC-V with autotools.
+	  - MIPS32 and MIPS64 assembly can be explicitly enabled.
+	  - The CMake build now applies the same exploit-mitigation compiler
+	    and linker flags as the autotools build, and can be disabled
+	    with ENABLE_HARDENING=OFF.
+	  - Autotools hardening flag detection now honors user-supplied
+	    CFLAGS/LDFLAGS.
+	  - Fixed default OPENSSLDIR on MinGW autotools builds to use a valid
+	    absolute path.
+	  - Fixed CMake setting TLS_DEFAULT_CA_FILE to a relative path, and
+	    allow overriding TLS_DEFAULT_CA_FILE in CMake builds.
+	  - Reinstalling no longer overwrites an existing cert.pem,
+	    openssl.cnf and x509v3.cnf with CMake or autotools.
+	  - CMake builds now use the builtin arc4random on older macOS,
+	    FreeBSD and NetBSD releases with weakly seeded arc4random,
+	    matching autotools.
+	  - Fixed openssl(1), nc(1) and ocspcheck(1) silently running without
+	    pledge and unveil on hosts that provide them.
+	  - nc(1) now reports an error when -m minttl is not supported,
+	    rather than silently ignoring it.
+	  - readpassphrase() now sets close-on-exec on the tty descriptor.
+	  - Fixed buffer overflows in the getdelim() compatibility function.
+	  - Windows compatibility layer fixes:
+	    - Changed struct timeval on MSVC to match winsock, fixing memory
+	      corruption in DTLSv1_get_timeout() and the datagram BIO
+	      timeout controls.
+	    - poll() now waits for the requested timeout instead of
+	      returning early, reports failed connects as POLLERR and
+	      returns errors instead of timeouts. This fixes openssl(1)
+	      s_client, s_server and ocsp spinning or missing errors.
+	    - connect() reports EINPROGRESS for non-blocking connections.
+	    - accept4() honors SOCK_NONBLOCK.
+	    - read() and write() no longer truncate lengths of 2 GiB or more.
+	    - pread() and pwrite() restore the file offset on error.
+	    - ftruncate() and fdopen() work on descriptors from open(),
+	      fixing tls_load_file() with a password.
+	    - socketpair() emulation now verifies its peer, and sets
+	      close-on-exec on the right handle.
+	    - Socket errors without an explicit mapping now set errno.
+	    - Fixed a double free in pthread_mutex_destroy().
+	    - Fixed a resource leak in openssl(1) speed.
+	    - snprintf() is always NUL-terminated on pre-2015 MSVC.
+	    - Fixed an out-of-bounds write in opendir() and error handling
+	      in getprogname().
 	* Internal improvements
 	  - Minor code cleanup for PKCS#7.
 	  - Clear unused bits for the maximum of RFC 3779 IP address ranges.

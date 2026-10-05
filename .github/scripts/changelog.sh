@@ -47,7 +47,7 @@ fi
 # Read the changelog file line by line
 while IFS= read -r line; do
     # Check for the version line
-    if echo "$line" | grep -Eq "^${stable_version} - "; then
+    if echo "$line" | grep -Eq "^${version} - "; then
       found_version=true
       continue
     fi

@@ -29,9 +29,9 @@ jobs:
     steps:
     - name: "Install required packages"
       run: |
-        brew install automake libtool perl cpanminus
+        brew install automake libtool perl cpanminus openssl@3
         PERL="$(brew --prefix perl)/bin/perl"
-        "$PERL" "$(command -v cpanm)" --notest IO::Socket::SSL
+        OPENSSL_PREFIX="$(brew --prefix openssl@3)" "$PERL" "$(command -v cpanm)" --notest IO::Socket::SSL
         echo "$(brew --prefix perl)/bin" >> "$GITHUB_PATH"
         "$PERL" -MIO::Socket::SSL::Utils -e 1
 

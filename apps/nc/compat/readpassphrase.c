@@ -172,7 +172,7 @@ restart:
 	}
 	*p = '\0';
 	save_errno = errno;
-	if (!(term.c_lflag & ECHO))
+	if (!(term.c_lflag & ECHO) && !(nr == -1 && errno == EINTR))
 		bytes_written = write(output, "\n", 1);
 
 	(void) bytes_written;

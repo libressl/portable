@@ -1,4 +1,4 @@
-/*	$OpenBSD: readpassphrase.c,v 1.30 2026/09/16 01:24:59 djm Exp $	*/
+/*	$OpenBSD: readpassphrase.c,v 1.32 2026/10/15 16:40:50 millert Exp $	*/
 
 /*
  * Copyright (c) 2000-2002, 2007, 2010
@@ -21,16 +21,13 @@
  * Materiel Command, USAF, under agreement number F39502-99-1-0512.
  */
 
-/* OPENBSD ORIGINAL: lib/libc/gen/readpassphrase.c */
-
-#include <termios.h>
-#include <signal.h>
 #include <ctype.h>
-#include <fcntl.h>
 #include <errno.h>
+#include <fcntl.h>
+#include <signal.h>
 #include <string.h>
+#include <termios.h>
 #include <unistd.h>
-
 #include <readpassphrase.h>
 
 #ifndef _PATH_TTY
@@ -221,8 +218,20 @@ restart:
 		errno = save_errno;
 	return(nr == -1 ? NULL : buf);
 }
+#if 0
+DEF_WEAK(readpassphrase);
+
+char *
+getpass(const char *prompt)
+{
+	static char buf[_PASSWORD_LEN + 1];
+
+	return(readpassphrase(prompt, buf, sizeof(buf), RPP_ECHO_OFF));
+}
+#endif
 
 static void handler(int s)
 {
+
 	signo[s] = 1;
 }

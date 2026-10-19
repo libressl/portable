@@ -247,9 +247,17 @@ int main(void){char b[8];const char *s=\"x\";strcpy(b,s);return b[0];}"
 		endif()
 	endif()
 
-	# Control-flow integrity (Intel CET); unsupported on Darwin.
+	# Control-flow integrity (Intel CET); unsupported on Darwin. The amd64
+	# assembly only includes <cet.h> (the IBT/SHSTK property note and the
+	# endbr64 landing pads) when the compiler defines __CET__, so the flag
+	# has to reach the assembler too, as it does through CCASFLAGS in the
+	# autotools build.
 	if(NOT APPLE)
-		add_harden_cflag(-fcf-protection=full HAVE_CFLAG_CF_PROTECTION)
+		check_c_compiler_flag(-fcf-protection=full HAVE_CFLAG_CF_PROTECTION)
+		if(HAVE_CFLAG_CF_PROTECTION)
+			add_compile_options(
+			    $<$<COMPILE_LANGUAGE:C,ASM>:-fcf-protection=full>)
+		endif()
 	endif()
 endif()
 

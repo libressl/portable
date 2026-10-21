@@ -39,7 +39,7 @@ nc_LDADD += $(libtls_la_objects)
 
 nc_LDADD += $(PLATFORM_LDADD) $(PROG_LDADD)
 
-AM_CPPFLAGS += -I$(top_srcdir)/apps/nc/compat
+nc_CPPFLAGS = -I$(top_srcdir)/apps/nc/compat $(AM_CPPFLAGS)
 
 nc_SOURCES = atomicio.c
 nc_SOURCES += netcat.c

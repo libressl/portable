@@ -24,14 +24,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["xcode-27", "macos-26", "macos-15", "macos-14"]
+        os: ["xcode-27", "macos-26", "macos-15"]
         arch: ["arm64", "x86_64"]
     steps:
     - name: "Install required packages"
       run: |
-        brew install automake libtool perl cpanminus
+        brew install automake libtool perl cpanminus libressl
         PERL="$(brew --prefix perl)/bin/perl"
-        "$PERL" "$(command -v cpanm)" --notest IO::Socket::SSL
+        OPENSSL_PREFIX="$(brew --prefix libressl)" "$PERL" "$(command -v cpanm)" --notest IO::Socket::SSL
         echo "$(brew --prefix perl)/bin" >> "$GITHUB_PATH"
         "$PERL" -MIO::Socket::SSL::Utils -e 1
 

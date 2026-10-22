@@ -28,7 +28,15 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
-4.4.0rc1 - First release candidate of LibreSSL 4.4.0
+4.4.0 - Stable release
+
+	* Security fix: Removed eMudhra emSign ECC Root CA - G3 from cert.pem
+	  because of weak keys of some subordinate CAs. For purposes of
+	  interoperability, uncompromised intermediates were added.
+
+	  Upgrade note: Reinstalls no longer overwrite cert.pem, so this may
+	  need a manual merge if your package manager does not take care of
+	  this. 'CN=emSign ECC Root CA - G3' should not appear in cert.pem.
 
 	* The versioning scheme has changed slightly
 	  - See https://github.com/libressl/portable#versioning for details

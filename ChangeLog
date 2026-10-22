@@ -35,6 +35,8 @@ LibreSSL Portable Release Notes:
 	  - The actual release of 4.4.0 will be in the second half of October.
 	    API and ABI won't change.
 	* Portable changes
+	  - Enabled -fcf-protection with assembly sources on CMake.
+	  - Fixed nc(1) build on macOS to correctly open sockets.
 	  - Fixed building on AIX, which lacks vsyslog().
 	  - Fixed incorrect SHA-3 and SHAKE output on AIX with compilers
 	    that do not define __BYTE_ORDER__.

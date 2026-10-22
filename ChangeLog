@@ -28,6 +28,12 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+4.2.3 - Security fix
+
+	* Removed eMudhra emSign ECC Root CA - G3 from cert.pem
+	  because of weak keys of some subordinate CAs. For purposes of
+	  interoperability, uncompromised intermediates were added.
+
 4.2.2 - Security and reliability fixes
 
 	* Portable changes

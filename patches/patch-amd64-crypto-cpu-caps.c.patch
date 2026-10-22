@@ -1,20 +1,46 @@
---- crypto/arch/amd64/crypto_cpu_caps.c.orig	Sat Dec 14 13:45:16 2024
-+++ crypto/arch/amd64/crypto_cpu_caps.c	Sat Dec 14 13:54:06 2024
-@@ -37,7 +37,7 @@ cpuid(uint32_t eax, uint32_t *out_eax, uint32_t *out_e
+--- crypto/arch/amd64/crypto_cpu_caps.c.orig	Thu Oct 22 10:12:41 2026
++++ crypto/arch/amd64/crypto_cpu_caps.c	Thu Oct 22 10:31:07 2026
+@@ -17,6 +17,10 @@
+ 
+ #include <stdio.h>
+ 
++#if defined(_MSC_VER) && !defined(__GNUC__)
++#include <intrin.h>
++#endif
++
+ #include <openssl/crypto.h>
+ 
+ #include "crypto_arch.h"
+@@ -37,8 +41,16 @@ cpuid(uint32_t eax, uint32_t *out_eax, uint32_t *out_e
  {
  	uint32_t ebx = 0, ecx = 0, edx = 0;
  
 -#ifndef OPENSSL_NO_ASM
 +#if defined(__GNUC__) && !defined(OPENSSL_NO_ASM)
  	__asm__ ("cpuid": "+a"(eax), "+b"(ebx), "+c"(ecx), "+d"(edx));
++#elif defined(_MSC_VER) && !defined(OPENSSL_NO_ASM)
++	int regs[4];
++
++	__cpuidex(regs, (int)eax, (int)ecx);
++	eax = regs[0];
++	ebx = regs[1];
++	ecx = regs[2];
++	edx = regs[3];
  #else
  	eax = 0;
-@@ -58,7 +58,7 @@ xgetbv(uint32_t ecx, uint32_t *out_eax, uint32_t *out_
+ #endif
+@@ -58,8 +70,13 @@ xgetbv(uint32_t ecx, uint32_t *out_eax, uint32_t *out_
  {
  	uint32_t eax = 0, edx = 0;
  
 -#ifndef OPENSSL_NO_ASM
 +#if defined(__GNUC__) && !defined(OPENSSL_NO_ASM)
  	__asm__ ("xgetbv": "+a"(eax), "+c"(ecx), "+d"(edx));
++#elif defined(_MSC_VER) && !defined(OPENSSL_NO_ASM)
++	uint64_t xcr = _xgetbv(ecx);
++
++	eax = (uint32_t)xcr;
++	edx = (uint32_t)(xcr >> 32);
  #endif
  
+ 	if (out_eax != NULL)

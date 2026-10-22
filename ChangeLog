@@ -43,6 +43,8 @@ LibreSSL Portable Release Notes:
 	  - The actual release of 4.4.0 will be in the second half of October.
 	    API and ABI won't change.
 	* Portable changes
+	  - Fixed nc(1) network functionality on macOS.
+	  - Enabled flow control protection for assembly with CMake.
 	  - Fixed building on AIX, which lacks vsyslog().
 	  - Fixed incorrect SHA-3 and SHAKE output on AIX with compilers
 	    that do not define __BYTE_ORDER__.

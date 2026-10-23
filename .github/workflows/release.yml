@@ -50,7 +50,7 @@ jobs:
             --repo "$GITHUB_REPOSITORY" \
             --title "$VERSION" \
             --notes-file release-changelog.txt \
-            --prerelease $PRERELEASE \
+            --prerelease="$PRERELEASE" \
             --draft
 
   build-windows:

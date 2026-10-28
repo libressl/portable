@@ -126,10 +126,54 @@ posix_fgets(char *s, int size, FILE *stream)
 	return ret;
 }
 
+/*
+ * Map a Win32 error to the errno the CRT's own file functions set for it,
+ * so callers can test errno after a failed rename() as they do on POSIX.
+ */
+static int
+win32_errno(DWORD err)
+{
+	switch (err) {
+	case ERROR_FILE_NOT_FOUND:
+	case ERROR_PATH_NOT_FOUND:
+	case ERROR_BAD_PATHNAME:
+	case ERROR_FILENAME_EXCED_RANGE:
+		errno = ENOENT;
+		break;
+	case ERROR_ACCESS_DENIED:
+	case ERROR_SHARING_VIOLATION:
+	case ERROR_LOCK_VIOLATION:
+		errno = EACCES;
+		break;
+	case ERROR_FILE_EXISTS:
+	case ERROR_ALREADY_EXISTS:
+		errno = EEXIST;
+		break;
+	case ERROR_NOT_SAME_DEVICE:
+		errno = EXDEV;
+		break;
+	case ERROR_DIR_NOT_EMPTY:
+		errno = ENOTEMPTY;
+		break;
+	case ERROR_NOT_ENOUGH_MEMORY:
+		errno = ENOMEM;
+		break;
+	case ERROR_INVALID_PARAMETER:
+		errno = EINVAL;
+		break;
+	default:
+		errno = EIO;
+		break;
+	}
+	return -1;
+}
+
 int
 posix_rename(const char *oldpath, const char *newpath)
 {
-	return MoveFileEx(oldpath, newpath, MOVEFILE_REPLACE_EXISTING) ? 0 : -1;
+	if (!MoveFileEx(oldpath, newpath, MOVEFILE_REPLACE_EXISTING))
+		return win32_errno(GetLastError());
+	return 0;
 }
 
 static int

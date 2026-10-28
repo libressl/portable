@@ -28,7 +28,7 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
-4.5.0 - In delelopment
+4.5.0 - In development
 
 	* Portable changes
 	  - Sync readpassphrase compat with OpenBSD.

@@ -28,7 +28,34 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
-4.4.0rc1 - First release candidate of LibreSSL 4.4.0
+4.5.0 - In delelopment
+
+	* Portable changes
+	  - Sync readpassphrase compat with OpenBSD.
+	  - Fix connect for nc(1) on macOS autotools build.
+	  - Set errno on MoveFileEx failure in win32 rename shim.
+	  - Do not rely on LINUX variable for aarch64 cpu caps in cmake.
+	* Internal improvements
+	  - Support ASN.1 NULL, PrintableString, UTCTime, and GeneralizedTime
+	    in bytestring API.
+	  - Cache X.509 extension before allocating the cain in the modern
+	    chain verifier.
+	* Bug fixes
+	  - Avoid assert in dtls_do_write() on retransmit with custom BIO not
+	    supporting the QUERY_MTU operation.
+	  - Select TLS based on the OCSP URL scheme, not the port in ocspcheck.
+	  - Fix exit status on option parsing errors in the smime and cms apps.
+	* Documentation
+	  - Warn against use of the openssl debugging tool in production.
+	* Reliability and security fixes
+	  - Handle the eMudhra intermediate certificate compromise.
+	  - Limit HTTP response header and body sizes in ocspcheck.
+	  - Reject control characters in OCSP URL to avoid HTTP request
+	    injection via a certificate's AIA URI in ocspcheck(8).
+	  - Reject control characters in OCSP_send_req_new() and
+	    OCSP_parse_url() to avoid http header injection via CRLF.
+
+4.4.0 - Stable release
 
 	* The versioning scheme has changed slightly
 	  - See https://github.com/libressl/portable#versioning for details

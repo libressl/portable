@@ -95,9 +95,15 @@ AC_DEFUN([CHECK_C_HARDENING_OPTIONS], [
 			])
 		])
 
+		# Touch every page of a large stack frame or alloca in order so
+		# it cannot skip the guard page
+		CHECK_CFLAG([[-fstack-clash-protection]])
+
 		# Check for control-flow integrity support
 		AS_IF([test "x$HOST_OS" != "xdarwin"], [
 			CHECK_CFLAG([[-fcf-protection=full]])
+			# arm64: return address signing and BTI landing pads
+			CHECK_CFLAG([[-mbranch-protection=standard]])
 		])
 	])
 

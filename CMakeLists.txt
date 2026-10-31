@@ -247,6 +247,16 @@ int main(void){char b[8];const char *s=\"x\";strcpy(b,s);return b[0];}"
 		endif()
 	endif()
 
+	# Stack clash protection: touch every page of a large frame or alloca
+	# in order so it cannot skip the guard page. gcc only warns on targets
+	# it cannot probe and clang only warns where it has no support
+	# (Darwin, mingw), so probe with -Werror to keep the flag off there.
+	set(_saved_req_flags "${CMAKE_REQUIRED_FLAGS}")
+	set(CMAKE_REQUIRED_FLAGS "-Werror")
+	add_harden_cflag(-fstack-clash-protection
+		HAVE_CFLAG_STACK_CLASH_PROTECTION)
+	set(CMAKE_REQUIRED_FLAGS "${_saved_req_flags}")
+
 	# Control-flow integrity (Intel CET); unsupported on Darwin. The amd64
 	# assembly only includes <cet.h> (the IBT/SHSTK property note and the
 	# endbr64 landing pads) when the compiler defines __CET__, so the flag
@@ -258,6 +268,12 @@ int main(void){char b[8];const char *s=\"x\";strcpy(b,s);return b[0];}"
 			add_compile_options(
 			    $<$<COMPILE_LANGUAGE:C,ASM>:-fcf-protection=full>)
 		endif()
+
+		# The arm64 counterpart: return address signing (PAC) and BTI
+		# landing pads. Darwin keeps the PAC keys off for arm64 (only
+		# arm64e uses them), so it shares the gate above.
+		add_harden_cflag(-mbranch-protection=standard
+			HAVE_CFLAG_BRANCH_PROTECTION)
 	endif()
 endif()
 

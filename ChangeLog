@@ -36,8 +36,8 @@ LibreSSL Portable Release Notes:
 	  - Set errno on MoveFileEx failure in win32 rename shim.
 	  - Do not rely on LINUX variable for aarch64 cpu caps in cmake.
 	* Internal improvements
-	  - Support ASN.1 NULL, PrintableString, UTCTime, and GeneralizedTime
-	    in bytestring API.
+	  - Support ASN.1 NULL, PrintableString, IA5String, UTCTime, and
+	    GeneralizedTime in bytestring API.
 	  - Cache X.509 extension before allocating the chain in the modern
 	    verifier.
 	* Bug fixes
@@ -45,10 +45,16 @@ LibreSSL Portable Release Notes:
 	    supporting the QUERY_MTU operation.
 	  - Select TLS based on the OCSP URL scheme, not the port in ocspcheck.
 	  - Fix exit status on option parsing errors in the smime and cms apps.
+	  - In netcat's tls_setup_server() do not leak tls_ctx on handshake
+	    failure.
+	  - Do not treat tls_read() failures as fatal in nc -k, so a malformed
+	    record does not result in an end of persistent listening.
 	* Documentation
 	  - Warn against use of the openssl debugging tool in production.
 	* Reliability and security fixes
 	  - Handle the eMudhra intermediate certificate compromise.
+	  - Increase limit of signature algorithms to 256 for interop with PQ
+	    heavy stacks.
 	  - Limit HTTP response header and body sizes in ocspcheck.
 	  - Reject control characters in OCSP URL to avoid HTTP request
 	    injection via a certificate's AIA URI in ocspcheck(8).

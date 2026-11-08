@@ -467,6 +467,12 @@ target_link_libraries(ec_asn1_test ${OPENSSL_TEST_LIBS})
 prepare_emscripten_test_target(ec_asn1_test)
 add_platform_test(ec_asn1_test ec_asn1_test)
 
+# ec_builtin_test
+add_executable(ec_builtin_test ec_builtin_test.c ${TEST_HELPER_SRC})
+target_link_libraries(ec_builtin_test ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(ec_builtin_test)
+add_platform_test(ec_builtin_test ec_builtin_test)
+
 # ec_point_conversion
 add_executable(ec_point_conversion ec_point_conversion.c)
 target_link_libraries(ec_point_conversion ${OPENSSL_TEST_LIBS})

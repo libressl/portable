@@ -481,6 +481,11 @@ TESTS += ec_asn1_test
 check_PROGRAMS += ec_asn1_test
 ec_asn1_test_SOURCES = ec_asn1_test.c
 
+# ec_builtin_test
+TESTS += ec_builtin_test
+check_PROGRAMS += ec_builtin_test
+ec_builtin_test_SOURCES = ec_builtin_test.c ${TEST_HELPER_SRC}
+
 # ec_point_conversion
 TESTS += ec_point_conversion
 check_PROGRAMS += ec_point_conversion

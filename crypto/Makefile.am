@@ -606,6 +606,7 @@ libcrypto_la_SOURCES += ec/eck_prn.c
 libcrypto_la_SOURCES += ec/ecp_hp_methods.c
 libcrypto_la_SOURCES += ec/ecp_methods.c
 libcrypto_la_SOURCES += ec/ecx_methods.c
+noinst_HEADERS += ec/ec_curve_tables.h
 noinst_HEADERS += ec/ec_internal.h
 noinst_HEADERS += ec/ec_local.h
 

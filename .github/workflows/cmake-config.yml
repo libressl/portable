@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ "windows-2022", "macos-14", "ubuntu-24.04" ]
+        os: [ "windows-2022", "macos-26", "ubuntu-24.04" ]
     defaults:
       run:
         shell: "bash"

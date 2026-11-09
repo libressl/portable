@@ -270,10 +270,13 @@ else
 libcrypto_la_SOURCES += compat/crypto_lock_win.c
 endif
 libcrypto_la_SOURCES += crypto_memory.c
+libcrypto_la_SOURCES += crypto_rwlock.c
 noinst_HEADERS += constant_time.h
 noinst_HEADERS += crypto_assembly.h
 noinst_HEADERS += crypto_internal.h
 noinst_HEADERS += crypto_local.h
+noinst_HEADERS += crypto_refcount.h
+noinst_HEADERS += crypto_rwlock.h
 noinst_HEADERS += x86_arch.h
 
 # aes

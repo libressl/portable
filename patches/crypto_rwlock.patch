@@ -1,0 +1,705 @@
+--- /dev/null	Mon Nov  9 15:50:53 2026
++++ crypto/crypto_rwlock.c	Mon Nov  9 15:46:10 2026
+@@ -0,0 +1,99 @@
++/*	$OpenBSD$ */
++/*
++ * Copyright (c) 2026, Bob Beck <beck@obtuse.com>
++ *
++ * Permission to use, copy, modify, and/or distribute this software for any
++ * purpose with or without fee is hereby granted, provided that the above
++ * copyright notice and this permission notice appear in all copies.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
++ * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
++ * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
++ * SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
++ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
++ * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
++ * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
++ */
++
++#include <pthread.h>
++
++#include "crypto_rwlock.h"
++
++int
++crypto_rwlock_init(struct crypto_rwlock *lock)
++{
++	if (pthread_mutex_init(&lock->mutex, NULL) != 0)
++		return 0;
++	if (pthread_cond_init(&lock->readers_cond, NULL) != 0) {
++		pthread_mutex_destroy(&lock->mutex);
++		return 0;
++	}
++	if (pthread_cond_init(&lock->writers_cond, NULL) != 0) {
++		pthread_cond_destroy(&lock->readers_cond);
++		pthread_mutex_destroy(&lock->mutex);
++		return 0;
++	}
++	lock->readers = 0;
++	lock->writers_waiting = 0;
++	lock->writer = 0;
++
++	return 1;
++}
++
++void
++crypto_rwlock_destroy(struct crypto_rwlock *lock)
++{
++	pthread_cond_destroy(&lock->writers_cond);
++	pthread_cond_destroy(&lock->readers_cond);
++	pthread_mutex_destroy(&lock->mutex);
++}
++
++int
++crypto_rwlock_rdlock(struct crypto_rwlock *lock)
++{
++	if (pthread_mutex_lock(&lock->mutex) != 0)
++		return 0;
++	while (lock->writer || lock->writers_waiting > 0)
++		pthread_cond_wait(&lock->readers_cond, &lock->mutex);
++	lock->readers++;
++	pthread_mutex_unlock(&lock->mutex);
++
++	return 1;
++}
++
++void
++crypto_rwlock_rdunlock(struct crypto_rwlock *lock)
++{
++	pthread_mutex_lock(&lock->mutex);
++	lock->readers--;
++	if (lock->readers == 0 && lock->writers_waiting > 0)
++		pthread_cond_signal(&lock->writers_cond);
++	pthread_mutex_unlock(&lock->mutex);
++}
++
++int
++crypto_rwlock_wrlock(struct crypto_rwlock *lock)
++{
++	if (pthread_mutex_lock(&lock->mutex) != 0)
++		return 0;
++	lock->writers_waiting++;
++	while (lock->writer || lock->readers > 0)
++		pthread_cond_wait(&lock->writers_cond, &lock->mutex);
++	lock->writers_waiting--;
++	lock->writer = 1;
++	pthread_mutex_unlock(&lock->mutex);
++
++	return 1;
++}
++
++void
++crypto_rwlock_wrunlock(struct crypto_rwlock *lock)
++{
++	pthread_mutex_lock(&lock->mutex);
++	lock->writer = 0;
++	if (lock->writers_waiting > 0)
++		pthread_cond_signal(&lock->writers_cond);
++	else
++		pthread_cond_broadcast(&lock->readers_cond);
++	pthread_mutex_unlock(&lock->mutex);
++}
+--- /dev/null	Mon Nov  9 15:51:01 2026
++++ crypto/crypto_rwlock.h	Mon Nov  9 15:46:10 2026
+@@ -0,0 +1,59 @@
++/*	$OpenBSD$ */
++/*
++ * Copyright (c) 2026, Bob Beck <beck@obtuse.com>
++ *
++ * Permission to use, copy, modify, and/or distribute this software for any
++ * purpose with or without fee is hereby granted, provided that the above
++ * copyright notice and this permission notice appear in all copies.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
++ * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
++ * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
++ * SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
++ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
++ * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
++ * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
++ */
++
++#ifndef HEADER_CRYPTO_RWLOCK_H
++#define HEADER_CRYPTO_RWLOCK_H
++
++#include <pthread.h>
++
++__BEGIN_HIDDEN_DECLS
++
++/*
++ * A reader/writer lock built on the pthread mutex and condition variable
++ * that libc provides.  libcrypto links only against libc, and libc has no
++ * pthread_rwlock: that lives in librthread.
++ *
++ * Any number of readers may hold the lock at once; a writer holds it alone.
++ * A waiting writer blocks new readers, so readers cannot starve it.
++ */
++struct crypto_rwlock {
++	pthread_mutex_t mutex;
++	pthread_cond_t readers_cond;
++	pthread_cond_t writers_cond;
++	int readers;
++	int writers_waiting;
++	int writer;
++};
++
++#define CRYPTO_RWLOCK_INITIALIZER {					\
++	.mutex = PTHREAD_MUTEX_INITIALIZER,				\
++	.readers_cond = PTHREAD_COND_INITIALIZER,			\
++	.writers_cond = PTHREAD_COND_INITIALIZER,			\
++}
++
++int crypto_rwlock_init(struct crypto_rwlock *lock);
++void crypto_rwlock_destroy(struct crypto_rwlock *lock);
++
++int crypto_rwlock_rdlock(struct crypto_rwlock *lock);
++void crypto_rwlock_rdunlock(struct crypto_rwlock *lock);
++
++int crypto_rwlock_wrlock(struct crypto_rwlock *lock);
++void crypto_rwlock_wrunlock(struct crypto_rwlock *lock);
++
++__END_HIDDEN_DECLS
++
++#endif /* HEADER_CRYPTO_RWLOCK_H */
+--- /dev/null	Mon Nov  9 15:51:11 2026
++++ crypto/crypto_refcount.h	Mon Nov  9 15:46:03 2026
+@@ -0,0 +1,113 @@
++/*	$OpenBSD$ */
++/*
++ * Copyright (c) 2026, Bob Beck <beck@obtuse.com>
++ *
++ * Permission to use, copy, modify, and/or distribute this software for any
++ * purpose with or without fee is hereby granted, provided that the above
++ * copyright notice and this permission notice appear in all copies.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
++ * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
++ * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
++ * SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
++ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
++ * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
++ * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
++ */
++
++#ifndef HEADER_CRYPTO_REFCOUNT_H
++#define HEADER_CRYPTO_REFCOUNT_H
++
++#include <sys/types.h>
++
++/*
++ * Atomic support detection, in preference order.  The __atomic builtins
++ * are clang and gcc 4.7 or later; the older __sync builtins cover base
++ * gcc 4.2.1 on alpha, hppa, m88k and sh, and are what sys/atomic.h is
++ * itself built on.  MSVC has neither and uses the Interlocked intrinsics.
++ *
++ * __has_builtin arrived in gcc 10, long after the builtins it is asked
++ * about here, so we fall back to a version test to catch the older
++ * stuff.
++ *
++ * At the moment, since anything we care about that would have C11
++ * style atomics also does the gcc/clang style builtins, nothing
++ * here attempts to use them yet, as today it seems to be yet another
++ * case for no benefit. That might change in the future.
++ */
++
++#if defined(__has_builtin)
++#if __has_builtin(__atomic_add_fetch)
++#define CRYPTO_ATOMIC_GCC
++#endif
++#endif
++
++#if !defined(CRYPTO_ATOMIC_GCC) && defined(__GNUC__)
++#if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7)
++#define CRYPTO_ATOMIC_GCC
++#endif
++#endif
++
++#if !defined(CRYPTO_ATOMIC_GCC)
++#if defined(__has_builtin)
++#if __has_builtin(__sync_add_and_fetch)
++#define CRYPTO_ATOMIC_SYNC
++#endif
++#elif defined(__GNUC__)
++#if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 1)
++#define CRYPTO_ATOMIC_SYNC
++#endif
++#endif
++#endif
++
++#if !defined(CRYPTO_ATOMIC_GCC) && !defined(CRYPTO_ATOMIC_SYNC)
++#if defined(_MSC_VER)
++#include <intrin.h>
++#define CRYPTO_ATOMIC_INTERLOCKED
++#else
++#error "libressl requires atomic operations"
++#endif
++#endif
++
++__BEGIN_HIDDEN_DECLS
++
++static inline int
++crypto_refcount_up(int *refcount)
++{
++#if defined(CRYPTO_ATOMIC_GCC)
++	return __atomic_add_fetch(refcount, 1, __ATOMIC_RELAXED);
++#elif defined(CRYPTO_ATOMIC_SYNC)
++	return __sync_add_and_fetch(refcount, 1);
++#elif defined(CRYPTO_ATOMIC_INTERLOCKED)
++	return _InterlockedIncrement((volatile long *)refcount);
++#endif
++}
++
++static inline int
++crypto_refcount_down(int *refcount)
++{
++#if defined(CRYPTO_ATOMIC_GCC)
++	return __atomic_sub_fetch(refcount, 1, __ATOMIC_RELEASE);
++#elif defined(CRYPTO_ATOMIC_SYNC)
++	return __sync_sub_and_fetch(refcount, 1);
++#elif defined(CRYPTO_ATOMIC_INTERLOCKED)
++	return _InterlockedDecrement((volatile long *)refcount);
++#endif
++}
++
++/*
++ * Called by the thread that took the count to zero, before it tears the
++ * object down.  The __sync builtins and the Interlocked intrinsics are full
++ * barriers and need nothing here.
++ */
++static inline void
++crypto_refcount_fence(void)
++{
++#if defined(CRYPTO_ATOMIC_GCC)
++	__atomic_thread_fence(__ATOMIC_ACQUIRE);
++#endif
++}
++
++__END_HIDDEN_DECLS
++
++#endif /* HEADER_CRYPTO_REFCOUNT_H */
+--- /dev/null	Mon Nov  9 15:52:21 2026
++++ tests/crypto_rwlock_test.c	Mon Nov  9 15:46:10 2026
+@@ -0,0 +1,281 @@
++/*	$OpenBSD$ */
++/*
++ * Copyright (c) 2026, Bob Beck <beck@obtuse.com>
++ *
++ * Permission to use, copy, modify, and/or distribute this software for any
++ * purpose with or without fee is hereby granted, provided that the above
++ * copyright notice and this permission notice appear in all copies.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
++ * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
++ * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
++ * SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
++ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
++ * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
++ * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
++ */
++
++#include <pthread.h>
++#include <unistd.h>
++
++#include "crypto_rwlock.h"
++#include "test.h"
++
++#define NREADERS	4
++#define NWRITERS	8
++#define NWRITES		10000
++
++static struct crypto_rwlock static_lock = CRYPTO_RWLOCK_INITIALIZER;
++
++/*
++ * A lock with static storage is usable without a call to crypto_rwlock_init.
++ */
++static void
++test_static_initializer(struct test *t, const void *arg)
++{
++	if (!crypto_rwlock_rdlock(&static_lock)) {
++		test_errorf(t, "crypto_rwlock_rdlock failed");
++		return;
++	}
++	crypto_rwlock_rdunlock(&static_lock);
++
++	if (!crypto_rwlock_wrlock(&static_lock)) {
++		test_errorf(t, "crypto_rwlock_wrlock failed");
++		return;
++	}
++	crypto_rwlock_wrunlock(&static_lock);
++}
++
++struct readers_state {
++	struct crypto_rwlock lock;
++	pthread_barrier_t barrier;
++	int active;
++	int max_active;
++};
++
++static void *
++reader(void *arg)
++{
++	struct readers_state *st = arg;
++	int active;
++
++	if (!crypto_rwlock_rdlock(&st->lock))
++		return NULL;
++	active = __atomic_add_fetch(&st->active, 1, __ATOMIC_ACQ_REL);
++	for (;;) {
++		int max = __atomic_load_n(&st->max_active, __ATOMIC_ACQUIRE);
++
++		if (max >= active || __atomic_compare_exchange_n(
++		    &st->max_active, &max, active, 0, __ATOMIC_ACQ_REL,
++		    __ATOMIC_ACQUIRE))
++			break;
++	}
++	/* Every reader holds the lock here before any releases it. */
++	pthread_barrier_wait(&st->barrier);
++	__atomic_sub_fetch(&st->active, 1, __ATOMIC_ACQ_REL);
++	crypto_rwlock_rdunlock(&st->lock);
++
++	return NULL;
++}
++
++static void
++test_concurrent_readers(struct test *t, const void *arg)
++{
++	struct readers_state st = { 0 };
++	pthread_t threads[NREADERS];
++	int i;
++
++	if (!crypto_rwlock_init(&st.lock)) {
++		test_errorf(t, "crypto_rwlock_init failed");
++		return;
++	}
++	if (pthread_barrier_init(&st.barrier, NULL, NREADERS) != 0) {
++		test_errorf(t, "pthread_barrier_init failed");
++		goto done;
++	}
++	for (i = 0; i < NREADERS; i++) {
++		if (pthread_create(&threads[i], NULL, reader, &st) != 0) {
++			test_errorf(t, "pthread_create failed");
++			goto done;
++		}
++	}
++	for (i = 0; i < NREADERS; i++)
++		pthread_join(threads[i], NULL);
++
++	if (st.max_active != NREADERS)
++		test_errorf(t, "%d readers held the lock at once, want %d",
++		    st.max_active, NREADERS);
++
++	pthread_barrier_destroy(&st.barrier);
++ done:
++	crypto_rwlock_destroy(&st.lock);
++}
++
++struct writers_state {
++	struct crypto_rwlock lock;
++	int counter;
++};
++
++static void *
++writer(void *arg)
++{
++	struct writers_state *st = arg;
++	int i;
++
++	for (i = 0; i < NWRITES; i++) {
++		if (!crypto_rwlock_wrlock(&st->lock))
++			return NULL;
++		st->counter++;
++		crypto_rwlock_wrunlock(&st->lock);
++	}
++
++	return NULL;
++}
++
++static void
++test_exclusive_writers(struct test *t, const void *arg)
++{
++	struct writers_state st = { 0 };
++	pthread_t threads[NWRITERS];
++	int i;
++
++	if (!crypto_rwlock_init(&st.lock)) {
++		test_errorf(t, "crypto_rwlock_init failed");
++		return;
++	}
++	for (i = 0; i < NWRITERS; i++) {
++		if (pthread_create(&threads[i], NULL, writer, &st) != 0) {
++			test_errorf(t, "pthread_create failed");
++			goto done;
++		}
++	}
++	for (i = 0; i < NWRITERS; i++)
++		pthread_join(threads[i], NULL);
++
++	if (st.counter != NWRITERS * NWRITES)
++		test_errorf(t, "counter %d, want %d", st.counter,
++		    NWRITERS * NWRITES);
++
++ done:
++	crypto_rwlock_destroy(&st.lock);
++}
++
++struct preference_state {
++	struct crypto_rwlock lock;
++	int writer_done;
++	int reader_done;
++	int reader_saw_writer_done;
++};
++
++static void *
++waiting_writer(void *arg)
++{
++	struct preference_state *st = arg;
++
++	if (!crypto_rwlock_wrlock(&st->lock))
++		return NULL;
++	__atomic_store_n(&st->writer_done, 1, __ATOMIC_RELEASE);
++	crypto_rwlock_wrunlock(&st->lock);
++
++	return NULL;
++}
++
++static void *
++late_reader(void *arg)
++{
++	struct preference_state *st = arg;
++
++	if (!crypto_rwlock_rdlock(&st->lock))
++		return NULL;
++	st->reader_saw_writer_done =
++	    __atomic_load_n(&st->writer_done, __ATOMIC_ACQUIRE);
++	__atomic_store_n(&st->reader_done, 1, __ATOMIC_RELEASE);
++	crypto_rwlock_rdunlock(&st->lock);
++
++	return NULL;
++}
++
++static int
++writers_waiting(struct crypto_rwlock *lock)
++{
++	int n;
++
++	pthread_mutex_lock(&lock->mutex);
++	n = lock->writers_waiting;
++	pthread_mutex_unlock(&lock->mutex);
++
++	return n;
++}
++
++/*
++ * With a reader holding the lock and a writer waiting for it, a second
++ * reader must wait behind the writer rather than join the first reader.
++ */
++static void
++test_writer_preference(struct test *t, const void *arg)
++{
++	struct preference_state st = { 0 };
++	pthread_t writer_thread, reader_thread;
++	int i;
++
++	if (!crypto_rwlock_init(&st.lock)) {
++		test_errorf(t, "crypto_rwlock_init failed");
++		return;
++	}
++	if (!crypto_rwlock_rdlock(&st.lock)) {
++		test_errorf(t, "crypto_rwlock_rdlock failed");
++		goto done;
++	}
++	if (pthread_create(&writer_thread, NULL, waiting_writer, &st) != 0) {
++		test_errorf(t, "pthread_create failed");
++		crypto_rwlock_rdunlock(&st.lock);
++		goto done;
++	}
++	for (i = 0; i < 1000 && writers_waiting(&st.lock) == 0; i++)
++		usleep(1000);
++	if (writers_waiting(&st.lock) != 1) {
++		test_errorf(t, "writer is not waiting");
++		crypto_rwlock_rdunlock(&st.lock);
++		pthread_join(writer_thread, NULL);
++		goto done;
++	}
++	if (pthread_create(&reader_thread, NULL, late_reader, &st) != 0) {
++		test_errorf(t, "pthread_create failed");
++		crypto_rwlock_rdunlock(&st.lock);
++		pthread_join(writer_thread, NULL);
++		goto done;
++	}
++	usleep(50000);
++	if (__atomic_load_n(&st.reader_done, __ATOMIC_ACQUIRE))
++		test_errorf(t, "reader acquired the lock past a waiting "
++		    "writer");
++
++	crypto_rwlock_rdunlock(&st.lock);
++	pthread_join(writer_thread, NULL);
++	pthread_join(reader_thread, NULL);
++
++	if (!st.writer_done)
++		test_errorf(t, "writer did not run");
++	if (!st.reader_done)
++		test_errorf(t, "reader did not run");
++	if (!st.reader_saw_writer_done)
++		test_errorf(t, "reader ran before the waiting writer");
++
++ done:
++	crypto_rwlock_destroy(&st.lock);
++}
++
++int
++main(int argc, char **argv)
++{
++	struct test *t;
++
++	t = test_init();
++
++	test_run(t, "static initializer", test_static_initializer, NULL);
++	test_run(t, "concurrent readers", test_concurrent_readers, NULL);
++	test_run(t, "exclusive writers", test_exclusive_writers, NULL);
++	test_run(t, "writer preference", test_writer_preference, NULL);
++
++	return test_result(t);
++}
+--- /dev/null	Mon Nov  9 15:52:28 2026
++++ tests/crypto_refcount_test.c	Mon Nov  9 15:46:10 2026
+@@ -0,0 +1,138 @@
++/*	$OpenBSD$ */
++/*
++ * Copyright (c) 2026, Bob Beck <beck@obtuse.com>
++ *
++ * Permission to use, copy, modify, and/or distribute this software for any
++ * purpose with or without fee is hereby granted, provided that the above
++ * copyright notice and this permission notice appear in all copies.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
++ * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
++ * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
++ * SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
++ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
++ * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
++ * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
++ */
++
++#include <pthread.h>
++
++#include "crypto_refcount.h"
++#include "test.h"
++
++#define NTHREADS	4
++#define NITERATIONS	10000
++
++static void
++test_refcount_values(struct test *t, const void *arg)
++{
++	int refcount = 1;
++	int ret;
++
++	if ((ret = crypto_refcount_up(&refcount)) != 2)
++		test_errorf(t, "up returned %d, want 2", ret);
++	if ((ret = crypto_refcount_up(&refcount)) != 3)
++		test_errorf(t, "up returned %d, want 3", ret);
++	if ((ret = crypto_refcount_down(&refcount)) != 2)
++		test_errorf(t, "down returned %d, want 2", ret);
++	if ((ret = crypto_refcount_down(&refcount)) != 1)
++		test_errorf(t, "down returned %d, want 1", ret);
++	if ((ret = crypto_refcount_down(&refcount)) != 0)
++		test_errorf(t, "down returned %d, want 0", ret);
++	if (refcount != 0)
++		test_errorf(t, "refcount %d, want 0", refcount);
++}
++
++static void *
++counter(void *arg)
++{
++	int *refcount = arg;
++	int i;
++
++	for (i = 0; i < NITERATIONS; i++)
++		crypto_refcount_up(refcount);
++	for (i = 0; i < NITERATIONS; i++)
++		crypto_refcount_down(refcount);
++
++	return NULL;
++}
++
++/*
++ * Every increment is matched by a decrement, so a count that is not back
++ * where it started is one that lost an update.
++ */
++static void
++test_concurrent_counts(struct test *t, const void *arg)
++{
++	int refcount = 1;
++	pthread_t threads[NTHREADS];
++	int i;
++
++	for (i = 0; i < NTHREADS; i++) {
++		if (pthread_create(&threads[i], NULL, counter, &refcount) != 0) {
++			test_errorf(t, "pthread_create failed");
++			break;
++		}
++	}
++	while (--i >= 0)
++		pthread_join(threads[i], NULL);
++
++	if (refcount != 1)
++		test_errorf(t, "refcount %d, want 1", refcount);
++}
++
++struct release_state {
++	int refcount;
++	int releases;
++};
++
++static void *
++releaser(void *arg)
++{
++	struct release_state *st = arg;
++
++	if (crypto_refcount_down(&st->refcount) == 0) {
++		crypto_refcount_fence();
++		crypto_refcount_up(&st->releases);
++	}
++
++	return NULL;
++}
++
++/*
++ * A count held by each thread and dropped once by each must reach zero for
++ * exactly one of them, since that is the thread that would free the object.
++ */
++static void
++test_single_release(struct test *t, const void *arg)
++{
++	struct release_state st = { .refcount = NTHREADS, .releases = 0 };
++	pthread_t threads[NTHREADS];
++	int i;
++
++	for (i = 0; i < NTHREADS; i++) {
++		if (pthread_create(&threads[i], NULL, releaser, &st) != 0) {
++			test_errorf(t, "pthread_create failed");
++			break;
++		}
++	}
++	while (--i >= 0)
++		pthread_join(threads[i], NULL);
++
++	if (st.releases != 1)
++		test_errorf(t, "%d threads saw zero, want 1", st.releases);
++}
++
++int
++main(int argc, char **argv)
++{
++	struct test *t;
++
++	t = test_init();
++
++	test_run(t, "refcount values", test_refcount_values, NULL);
++	test_run(t, "concurrent counts", test_concurrent_counts, NULL);
++	test_run(t, "single release", test_single_release, NULL);
++
++	return test_result(t);
++}

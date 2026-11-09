@@ -204,6 +204,7 @@ set(
 	crypto_init.c
 	crypto_legacy.c
 	crypto_memory.c
+	crypto_rwlock.c
 	aes/aes.c
 	aes/aes_core.c
 	asn1/a_bitstr.c

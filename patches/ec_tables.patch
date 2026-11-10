@@ -1,0 +1,11 @@
+--- crypto/ec/ec_curve_tables.h.orig	Tue Nov 10 17:27:23 2026
++++ crypto/ec/ec_curve_tables.h	Tue Nov 10 17:28:00 2026
+@@ -664,7 +664,7 @@ static const BN_ULONG frp256v1_rr[] = {
+ 
+ #else
+ 
+-#define EC_CURVE_N0(n0) { (BN_ULONG)(n0), (BN_ULONG)((n0) >> 32) }
++#define EC_CURVE_N0(n0) { (BN_ULONG)(n0 & 0xffffffff), (BN_ULONG)((n0) >> 32) }
+ 
+ static const BN_ULONG secp224k1_p[] = {
+ 	0xffffe56d, 0xfffffffe, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,

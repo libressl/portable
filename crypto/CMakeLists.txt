@@ -462,6 +462,7 @@ set(
 	modes/gcm128.c
 	modes/ofb128.c
 	modes/xts128.c
+	mtc/mtc_tree.c
 	objects/obj_dat.c
 	objects/obj_err.c
 	objects/obj_lib.c
@@ -799,6 +800,7 @@ target_include_directories(crypto_obj
 		mldsa
 		mlkem
 		modes
+		mtc
 		ocsp
 		pkcs12
 		rsa

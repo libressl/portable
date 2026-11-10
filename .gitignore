@@ -121,6 +121,7 @@ tests/lhash_test*
 tests/mldsa*
 tests/mlkem*
 tests/mont*
+tests/mtc*
 tests/name_constraints*
 tests/parse*
 tests/policy*
@@ -315,6 +316,7 @@ include/openssl/*.h
 /crypto/mldsa/
 /crypto/mlkem/
 /crypto/modes/
+/crypto/mtc/
 /crypto/objects/
 /crypto/ocsp/
 /crypto/pem/

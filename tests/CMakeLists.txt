@@ -28,6 +28,7 @@ include_directories(
 	../crypto/mldsa
 	../crypto/mlkem
 	../crypto/modes
+	../crypto/mtc
 	../crypto/sha
 	../crypto/x509
 	../ssl
@@ -655,6 +656,12 @@ add_executable(mlkem_unittest mlkem_unittest.c mlkem_tests_util.c)
 target_link_libraries(mlkem_unittest ${OPENSSL_TEST_LIBS})
 prepare_emscripten_test_target(mlkem_unittest)
 add_platform_test(mlkem_unittest mlkem_unittest)
+
+# mtc_tree_test
+add_executable(mtc_tree_test mtc_tree_test.c mlkem_tests_util.c)
+target_link_libraries(mtc_tree_test ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(mtc_tree_test)
+add_platform_test(mtc_tree_test mtc_tree_test)
 
 # name_constraints_test
 add_executable(name_constraints_test name_constraints_test.c ${TEST_HELPER_SRC})

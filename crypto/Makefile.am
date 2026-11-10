@@ -35,6 +35,7 @@ AM_CPPFLAGS += -I$(top_srcdir)/crypto/lhash
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/mldsa
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/mlkem
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/modes
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/mtc
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/ocsp
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/pkcs12
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/rsa
@@ -776,6 +777,10 @@ libcrypto_la_SOURCES += modes/gcm128.c
 libcrypto_la_SOURCES += modes/ofb128.c
 libcrypto_la_SOURCES += modes/xts128.c
 noinst_HEADERS += modes/modes_local.h
+
+# mtc
+libcrypto_la_SOURCES += mtc/mtc_tree.c
+noinst_HEADERS += mtc/mtc_internal.h
 
 # objects
 libcrypto_la_SOURCES += objects/obj_dat.c

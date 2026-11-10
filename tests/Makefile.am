@@ -32,6 +32,7 @@ AM_CPPFLAGS += -I $(top_srcdir)/crypto/evp
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/mldsa
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/mlkem
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/modes
+AM_CPPFLAGS += -I $(top_srcdir)/crypto/mtc
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/sha
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/x509
 AM_CPPFLAGS += -I $(top_srcdir)/ssl
@@ -668,6 +669,11 @@ mlkem_iteration_tests_SOURCES = mlkem_iteration_tests.c mlkem_tests_util.c
 TESTS += mlkem_unittest
 check_PROGRAMS += mlkem_unittest
 mlkem_unittest_SOURCES = mlkem_unittest.c mlkem_tests_util.c
+
+# mtc_tree_test
+TESTS += mtc_tree_test
+check_PROGRAMS += mtc_tree_test
+mtc_tree_test_SOURCES = mtc_tree_test.c
 
 # name_constraints_test
 TESTS += name_constraints_test

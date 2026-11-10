@@ -1,9 +1,9 @@
---- crypto/bn/arch/aarch64/bn_arch.h.orig
-+++ crypto/bn/arch/aarch64/bn_arch.h
-@@ -20,4 +20,19 @@
+--- crypto/bn/arch/aarch64/bn_arch.h.orig	Tue Nov 10 21:03:51 2026
++++ crypto/bn/arch/aarch64/bn_arch.h	Tue Nov 10 21:05:04 2026
+@@ -19,6 +19,21 @@
+ 
  #ifndef HEADER_BN_ARCH_H
  #define HEADER_BN_ARCH_H
--
 +/* See pull/1355. */
 +#if defined(_MSC_VER) && defined(_M_ARM64) && \
 +    !defined(MSVC_ARM64_BN_CT_NE_ZERO_WORKS)
@@ -19,5 +19,6 @@
 +}
 +
 +#endif
-+
+ 
  #ifndef OPENSSL_NO_ASM
+ 

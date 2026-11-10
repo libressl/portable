@@ -1,8 +1,8 @@
 uid_t can be 64-bit
 
---- tls/tls_config.c.orig	2024-11-02 21:19:47.090322191 +0100
-+++ tls/tls_config.c	2024-11-02 21:38:22.527071689 +0100
-@@ -742,8 +742,8 @@
+--- tls/tls_config.c.orig	Tue Nov 10 21:03:53 2026
++++ tls/tls_config.c	Tue Nov 10 21:05:04 2026
+@@ -748,8 +748,8 @@ tls_config_set_session_fd(struct tls_config *config, i
  
  	if (sb.st_uid != getuid()) {
  		tls_config_set_errorx(config, TLS_ERROR_UNKNOWN,

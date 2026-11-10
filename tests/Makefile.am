@@ -29,6 +29,7 @@ AM_CPPFLAGS += -I $(top_srcdir)/crypto/bytestring
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/curve25519
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/ec
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/evp
+AM_CPPFLAGS += -I $(top_srcdir)/crypto/mldsa
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/mlkem
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/modes
 AM_CPPFLAGS += -I $(top_srcdir)/crypto/sha
@@ -621,8 +622,26 @@ TESTS += md_test
 check_PROGRAMS += md_test
 md_test_SOURCES = md_test.c $(TEST_HELPER_SRC)
 
+# shared by mldsa and mlkem tests
 noinst_HEADERS += mlkem_tests_util.h
 noinst_HEADERS += parse_test_file.h
+
+# mldsa_tests
+TESTS += mldsa_tests.sh
+check_PROGRAMS += mldsa_tests
+mldsa_tests_SOURCES = mldsa_tests.c parse_test_file.c
+EXTRA_DIST += mldsa_tests.sh mldsa_tests.bat
+EXTRA_DIST += mldsa44_nist_keygen_tests.txt
+EXTRA_DIST += mldsa44_nist_siggen_tests.txt
+EXTRA_DIST += mldsa65_nist_keygen_tests.txt
+EXTRA_DIST += mldsa65_nist_siggen_tests.txt
+EXTRA_DIST += mldsa87_nist_keygen_tests.txt
+EXTRA_DIST += mldsa87_nist_siggen_tests.txt
+
+# mldsa_unittest
+TESTS += mldsa_unittest
+check_PROGRAMS += mldsa_unittest
+mldsa_unittest_SOURCES = mldsa_unittest.c mlkem_tests_util.c
 
 # mlkem_tests
 TESTS += mlkem_tests.sh

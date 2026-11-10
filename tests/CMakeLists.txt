@@ -25,6 +25,7 @@ include_directories(
 	../crypto/curve25519
 	../crypto/ec
 	../crypto/evp
+	../crypto/mldsa
 	../crypto/mlkem
 	../crypto/modes
 	../crypto/sha
@@ -612,6 +613,24 @@ add_platform_test(lhash_test lhash_test)
 add_executable(md_test md_test.c ${TEST_HELPER_SRC})
 target_link_libraries(md_test ${OPENSSL_TEST_LIBS})
 add_platform_test(md_test md_test)
+
+# mldsa_tests
+add_executable(mldsa_tests mldsa_tests.c parse_test_file.c)
+target_link_libraries(mldsa_tests ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(mldsa_tests)
+if(NOT MSVC)
+	add_test(NAME mldsa_tests COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/mldsa_tests.sh)
+	set_tests_properties(mldsa_tests PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
+else()
+	add_test(NAME mldsa_tests COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/mldsa_tests.bat $<TARGET_FILE:mldsa_tests>)
+endif()
+set_tests_properties(mldsa_tests PROPERTIES ENVIRONMENT "srcdir=${TEST_SOURCE_DIR}")
+
+# mldsa_unittest
+add_executable(mldsa_unittest mldsa_unittest.c mlkem_tests_util.c)
+target_link_libraries(mldsa_unittest ${OPENSSL_TEST_LIBS})
+prepare_emscripten_test_target(mldsa_unittest)
+add_platform_test(mldsa_unittest mldsa_unittest)
 
 # mlkem_tests
 add_executable(mlkem_tests mlkem_tests.c parse_test_file.c)

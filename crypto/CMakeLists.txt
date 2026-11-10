@@ -449,6 +449,9 @@ set(
 	lhash/lhash.c
 	md4/md4.c
 	md5/md5.c
+	mldsa/mldsa.c
+	mldsa/mldsa_internal.c
+	mldsa/mldsa_key.c
 	mlkem/mlkem.c
 	mlkem/mlkem_internal.c
 	mlkem/mlkem_key.c
@@ -793,6 +796,7 @@ target_include_directories(crypto_obj
 		hidden
 		hmac
 		lhash
+		mldsa
 		mlkem
 		modes
 		ocsp

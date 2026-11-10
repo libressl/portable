@@ -32,6 +32,7 @@ AM_CPPFLAGS += -I$(top_srcdir)/crypto/err
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/evp
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/hmac
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/lhash
+AM_CPPFLAGS += -I$(top_srcdir)/crypto/mldsa
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/mlkem
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/modes
 AM_CPPFLAGS += -I$(top_srcdir)/crypto/ocsp
@@ -701,6 +702,7 @@ noinst_HEADERS += hidden/openssl/idea.h
 noinst_HEADERS += hidden/openssl/lhash.h
 noinst_HEADERS += hidden/openssl/md4.h
 noinst_HEADERS += hidden/openssl/md5.h
+noinst_HEADERS += hidden/openssl/mldsa.h
 noinst_HEADERS += hidden/openssl/mlkem.h
 noinst_HEADERS += hidden/openssl/modes.h
 noinst_HEADERS += hidden/openssl/objects.h
@@ -752,6 +754,12 @@ libcrypto_la_SOURCES += md4/md4.c
 
 # md5
 libcrypto_la_SOURCES += md5/md5.c
+
+# mldsa
+libcrypto_la_SOURCES += mldsa/mldsa.c
+libcrypto_la_SOURCES += mldsa/mldsa_internal.c
+libcrypto_la_SOURCES += mldsa/mldsa_key.c
+noinst_HEADERS += mldsa/mldsa_internal.h
 
 # mlkem
 libcrypto_la_SOURCES += mlkem/mlkem.c

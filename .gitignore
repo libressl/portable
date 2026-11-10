@@ -118,6 +118,7 @@ tests/freenull*
 tests/gost2814789t*
 tests/key_schedule*
 tests/lhash_test*
+tests/mldsa*
 tests/mlkem*
 tests/mont*
 tests/name_constraints*
@@ -311,6 +312,7 @@ include/openssl/*.h
 /crypto/lhash/
 /crypto/md4/
 /crypto/md5/
+/crypto/mldsa/
 /crypto/mlkem/
 /crypto/modes/
 /crypto/objects/

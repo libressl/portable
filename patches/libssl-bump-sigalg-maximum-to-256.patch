@@ -1,0 +1,168 @@
+From 04a941c27495aa583f2cbc02702f2109b008b2d6 Mon Sep 17 00:00:00 2001
+From: bluhm <>
+Date: Tue, 10 Nov 2026 21:32:51 +0000
+Subject: [PATCH] libssl: bump sigalg maximum to 256 With PQ algorithms getting
+ more widely deployed, the formerly generous cap of 32 sigalgs has long been
+ known to be too tight for a while. A couple of years back jmatthew ran into
+ interop issues with the oqs provider being enabled on OmniOS by default.
+ OpenSSL 4.1 now announcing 39 sigalgs, this is becoming a real-world problem
+ and is first and foremost protecting us from seamless interop with other
+ stacks. To this end, introduce a helper shared between client and server to
+ cap the list size and a macro similar to the one we have for supported
+ groups. Thanks to DabeDotCom for reporting. Fixes
+ https://github.com/libressl/portable/issues/1446 from tb@; OK jsing@
+
+Correct outgoing record checks in the legacy TLSv1.2 stack.
+Ensure an existing record is not being written prior to commencing
+renegotiation or sending an alert in the legacy TLSv1.2 stack. The way
+that TLSv1.2 records are sent was changed in r1.79 of ssl_pkt.c, however
+this failed to correctly handle outgoing record checks. This means that
+renegotiation can be commenced or an alert can be sent while an application
+data record is being written, the size of which is then returned instead of
+the size of the handshake record or alert record, resulting in a buffer
+overread. This is reachable via renegotiation being triggered in the legacy
+TLSv1.2 stack, under the right conditions.
+For now also restore the previous SSL_R_BAD_WRITE_RETRY behaviour, which
+checks that the retried write matches a given set of constraints. This will
+be revisited again in the future.
+Thanks to William T. Nelson for reporting the issue and providing a fix.
+from jsing@; OK kenjiro@
+
+this is errata/8.0/013_libressl.patch.sig
+---
+ src/lib/libssl/s3_lib.c     |  5 +++--
+ src/lib/libssl/ssl_pkt.c    | 23 ++++++++++++++++-------
+ src/lib/libssl/ssl_tlsext.c | 19 +++++++++++++++----
+ 3 files changed, 34 insertions(+), 13 deletions(-)
+
+diff --git ssl/s3_lib.c ssl/s3_lib.c
+index 1d8a0a38f..b26b8d573 100644
+--- ssl/s3_lib.c
++++ ssl/s3_lib.c
+@@ -1,4 +1,4 @@
+-/* $OpenBSD: s3_lib.c,v 1.266 2026/09/22 03:45:18 jsing Exp $ */
++/* $OpenBSD: s3_lib.c,v 1.266.2.1 2026/11/10 21:32:51 bluhm Exp $ */
+ /* Copyright (C) 1995-1998 Eric Young (eay@cryptsoft.com)
+  * All rights reserved.
+  *
+@@ -2511,7 +2511,8 @@ ssl3_renegotiate_check(SSL *s)
+ {
+ 	if (!s->s3->renegotiate)
+ 		return 0;
+-	if (SSL_in_init(s) || s->s3->rbuf.left != 0 || s->s3->wbuf.left != 0)
++	if (SSL_in_init(s) || s->s3->rbuf.left != 0 || s->s3->wbuf.left != 0 ||
++	    s->s3->tls_wrec != NULL)
+ 		return 0;
+ 
+ 	s->s3->hs.state = SSL_ST_RENEGOTIATE;
+diff --git ssl/ssl_pkt.c ssl/ssl_pkt.c
+index 4a515ece1..011461e6e 100644
+--- ssl/ssl_pkt.c
++++ ssl/ssl_pkt.c
+@@ -1,4 +1,4 @@
+-/* $OpenBSD: ssl_pkt.c,v 1.80 2026/09/22 03:45:18 jsing Exp $ */
++/* $OpenBSD: ssl_pkt.c,v 1.80.2.1 2026/11/10 21:32:51 bluhm Exp $ */
+ /* Copyright (C) 1995-1998 Eric Young (eay@cryptsoft.com)
+  * All rights reserved.
+  *
+@@ -486,8 +486,20 @@ do_ssl3_write(SSL *s, int type, const unsigned char *buf, unsigned int len)
+ 
+ 	memset(&cbb, 0, sizeof(cbb));
+ 
+-	/* Send any existing record content. */
++	/*
++	 * Send any existing record content. This must be a retry of the
++	 * write that produced the pending record, otherwise we would report
++	 * the length of the pending record as having been written from the
++	 * caller's buffer.
++	 */
+ 	if (s->s3->tls_wrec != NULL) {
++		if (s->s3->wpend_tot > (int)len ||
++		    (s->s3->wpend_buf != buf &&
++		    !(s->mode & SSL_MODE_ACCEPT_MOVING_WRITE_BUFFER)) ||
++		    s->s3->wpend_type != type) {
++			SSLerror(s, SSL_R_BAD_WRITE_RETRY);
++			return -1;
++		}
+ 		if ((ret = tls12_record_send(s->s3->tls_wrec,
+ 		    tls12_legacy_wire_write_cb, s)) <= 0)
+ 			return -1;
+@@ -528,10 +540,7 @@ do_ssl3_write(SSL *s, int type, const unsigned char *buf, unsigned int len)
+ 	s->s3->tls_wrec = wrec;
+ 	wrec = NULL;
+ 
+-	/*
+-	 * Memorize arguments so that ssl3_write_pending can detect
+-	 * bad write retries later.
+-	 */
++	/* Memorize arguments so that bad write retries can be detected. */
+ 	s->s3->wpend_tot = len;
+ 	s->s3->wpend_buf = buf;
+ 	s->s3->wpend_type = type;
+@@ -1205,7 +1214,7 @@ ssl3_send_alert(SSL *s, int level, int desc)
+ 	 * If data is still being written out, the alert will be dispatched at
+ 	 * some point in the future.
+ 	 */
+-	if (s->s3->wbuf.left != 0)
++	if (s->s3->wbuf.left != 0 || s->s3->tls_wrec != NULL)
+ 		return -1;
+ 
+ 	return ssl3_dispatch_alert(s);
+diff --git ssl/ssl_tlsext.c ssl/ssl_tlsext.c
+index bccb87ae3..c6215c4ea 100644
+--- ssl/ssl_tlsext.c
++++ ssl/ssl_tlsext.c
+@@ -1,4 +1,4 @@
+-/* $OpenBSD: ssl_tlsext.c,v 1.170 2026/09/21 23:37:20 jsing Exp $ */
++/* $OpenBSD: ssl_tlsext.c,v 1.170.2.1 2026/11/10 21:32:51 bluhm Exp $ */
+ /*
+  * Copyright (c) 2016, 2017, 2019 Joel Sing <jsing@openbsd.org>
+  * Copyright (c) 2017 Doug Hogan <doug@openbsd.org>
+@@ -33,7 +33,8 @@
+ #include "ssl_tlsext.h"
+ 
+ #define TLSEXT_TYPE_alpn TLSEXT_TYPE_application_layer_protocol_negotiation
+-#define TLSEXT_MAX_SUPPORTED_GROUPS 64
++#define TLSEXT_MAX_SUPPORTED_GROUPS	64
++#define TLSEXT_MAX_SIGALGS		256
+ 
+ /*
+  * Supported Application-Layer Protocol Negotiation - RFC 7301
+@@ -609,6 +610,16 @@ tlsext_sigalgs_client_build(SSL *s, uint16_t msg_type, CBB *cbb)
+ 	return 1;
+ }
+ 
++static int
++tlsext_sigalgs_check_length(CBS *cbs)
++{
++	if (CBS_len(cbs) % 2 != 0)
++		return 0;
++	if (CBS_len(cbs) / 2 > TLSEXT_MAX_SIGALGS)
++		return 0;
++	return 1;
++}
++
+ static int
+ tlsext_sigalgs_server_process(SSL *s, uint16_t msg_type, CBS *cbs, int *alert)
+ {
+@@ -616,7 +627,7 @@ tlsext_sigalgs_server_process(SSL *s, uint16_t msg_type, CBS *cbs, int *alert)
+ 
+ 	if (!CBS_get_u16_length_prefixed(cbs, &sigalgs))
+ 		return 0;
+-	if (CBS_len(&sigalgs) % 2 != 0 || CBS_len(&sigalgs) > 64)
++	if (!tlsext_sigalgs_check_length(&sigalgs))
+ 		return 0;
+ 	if (!CBS_stow(&sigalgs, &s->s3->hs.sigalgs, &s->s3->hs.sigalgs_len))
+ 		return 0;
+@@ -656,7 +667,7 @@ tlsext_sigalgs_client_process(SSL *s, uint16_t msg_type, CBS *cbs, int *alert)
+ 
+ 	if (!CBS_get_u16_length_prefixed(cbs, &sigalgs))
+ 		return 0;
+-	if (CBS_len(&sigalgs) % 2 != 0 || CBS_len(&sigalgs) > 64)
++	if (!tlsext_sigalgs_check_length(&sigalgs))
+ 		return 0;
+ 	if (!CBS_stow(&sigalgs, &s->s3->hs.sigalgs, &s->s3->hs.sigalgs_len))
+ 		return 0;
+-- 
+2.56.0
+

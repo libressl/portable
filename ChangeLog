@@ -28,6 +28,11 @@ history is also available from Git.
 
 LibreSSL Portable Release Notes:
 
+4.3.5 - Reliability fix
+
+	* Reliability fix
+	  - Fix TLS interoperability with peers sending more than 32 signature algorithms.
+
 4.3.4 - Security fix
 
 	* Removed eMudhra emSign ECC Root CA - G3 from cert.pem

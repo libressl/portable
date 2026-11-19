@@ -425,6 +425,16 @@ TESTS += constraints
 check_PROGRAMS += constraints
 constraints_SOURCES = constraints.c
 
+# crypto_refcount
+TESTS += crypto_refcount_test
+check_PROGRAMS += crypto_refcount_test
+crypto_refcount_test_SOURCES = crypto_refcount_test.c ${TEST_HELPER_SRC}
+
+# crypto_rwlock
+TESTS += crypto_rwlock_test
+check_PROGRAMS += crypto_rwlock_test
+crypto_rwlock_test_SOURCES = crypto_rwlock_test.c ${TEST_HELPER_SRC}
+
 # crypto_test
 TESTS += crypto_test
 check_PROGRAMS += crypto_test
